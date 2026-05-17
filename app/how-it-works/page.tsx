@@ -11,7 +11,7 @@ export default function HowItWorksPage() {
       <TopNav active="how-it-works" />
       <div className="pt-20">
         <PageHeader
-          eyebrow="The mechanism"
+          eyebrow="You asked: how does the OS run?"
           title="How we deliver — every client, every week."
           sub={<>The <span className="wordmark-gradient">StayBookt</span> OS is the playbook. The 90-day onboarding is the unit. The weekly cadence is the proof we&apos;re still running it.</>}
         />
