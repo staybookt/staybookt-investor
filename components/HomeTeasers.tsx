@@ -58,7 +58,7 @@ export function MechanismTeaser() {
                 Five stages.
               </h2>
               <p className="text-platinum-soft text-base sm:text-lg leading-relaxed mb-8 max-w-xl">
-                Find. Capture. Quote. Deliver. Retain &mdash; run by our team, every week, for every client. The StayBookt OS is how we deliver the same outcome to client #2 or client #100.
+                Find. Capture. Quote. Deliver. Retain &mdash; run by our team, every week, for every client. The <span className="wordmark-gradient">StayBookt</span> OS is how we deliver the same outcome to client #2 or client #100.
               </p>
               <Link
                 href="/how-it-works"
@@ -463,7 +463,7 @@ export function SiteFooter() {
         {/* Middle — link grid */}
         <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-8 mb-12">
           <div>
-            <p className="text-white font-display text-base mb-2">StayBookt</p>
+            <p className="font-display text-base mb-2"><span className="wordmark-gradient">StayBookt</span></p>
             <p className="text-xs text-mute leading-relaxed">
               The embedded ops team for small residential + light-commercial service businesses.
             </p>
@@ -512,7 +512,7 @@ export function SiteFooter() {
 
         {/* Bottom — legal strip */}
         <div className="flex flex-wrap items-center justify-between gap-4 text-[10px] text-mute tracking-wide">
-          <p>© 2026 StayBookt Inc. · This brief is for accredited investor review only.</p>
+          <p>© 2026 <span className="wordmark-gradient">StayBookt</span> Inc. · This brief is for accredited investor review only.</p>
           <p>Built in Toronto · Last updated May 2026</p>
         </div>
       </div>

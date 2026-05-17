@@ -478,7 +478,7 @@ export function PricingV3() {
           <div className="mt-12 p-6 bg-paper border border-divider-lt rounded-xl">
             <p className="text-[11px] tracking-[0.25em] uppercase text-mute font-semibold mb-3">The thesis</p>
             <p className="text-ink text-base sm:text-lg leading-relaxed">
-              Website is the wedge — cheap to ship, immediate value, sticky. Software is the moat — once they run their book inside StayBookt, switching cost goes vertical. Consulting funds growth without burning runway and seeds the next 10 clients.
+              Website is the wedge — cheap to ship, immediate value, sticky. Software is the moat — once they run their book inside <span className="wordmark-gradient">StayBookt</span>, switching cost goes vertical. Consulting funds growth without burning runway and seeds the next 10 clients.
             </p>
           </div>
         </Reveal>
@@ -606,7 +606,9 @@ export function CompetitiveLandscapeV2() {
                 {rows.map((r) => (
                   <tr key={r.name} className={`border-b border-divider-lt/60 ${r.us ? 'bg-elec/5' : 'hover:bg-divider-lt/30'} transition-colors`}>
                     <td className="py-5 pr-4">
-                      <span className={`font-display text-lg tracking-tight ${r.us ? 'text-elec' : 'text-ink'}`}>{r.name}</span>
+                      <span className={`font-display text-lg tracking-tight ${r.us ? 'text-elec' : 'text-ink'}`}>
+                        {r.us && r.name === 'StayBookt' ? <span className="wordmark-gradient">StayBookt</span> : r.name}
+                      </span>
                       {r.us && <span className="ml-2 px-2 py-0.5 rounded-full text-[10px] tracking-[0.2em] uppercase font-bold bg-elec text-ink">Us</span>}
                     </td>
                     <td className="py-5 pr-4 text-sm text-mute">{r.cat}</td>
@@ -950,7 +952,12 @@ function SiteFrame({ label, tag, url, isOld = false }: { label: string; tag: str
       {/* Label strip above */}
       <div className="flex items-baseline justify-between mb-3">
         <p className="text-[10px] tracking-[0.25em] uppercase font-semibold" style={{ color: isOld ? 'var(--mute)' : 'var(--elec)' }}>
-          {label}
+          {label.split('StayBookt').map((part, i, arr) => (
+            <span key={i}>
+              {part}
+              {i < arr.length - 1 && <span className="wordmark-gradient">StayBookt</span>}
+            </span>
+          ))}
         </p>
         <a
           href={url}

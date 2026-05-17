@@ -1,5 +1,5 @@
 'use client';
-import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import Wordmark from './Wordmark';
@@ -76,7 +76,7 @@ export function Hero() {
           Making the phone ring
           <br />
           so you{' '}
-          <span className="wordmark-gradient inline-block">StayBookt.</span>
+          <span className="wordmark-gradient-live inline-block">StayBookt.</span>
         </motion.h1>
 
         {/* Sub — explains what the tagline means */}
@@ -108,6 +108,9 @@ export function Hero() {
         </motion.div>
       </div>
 
+      {/* Ambient proof ticker — atmospheric signal that this is operational, not aspirational */}
+      <ProofTicker />
+
       {/* Scroll cue */}
       <motion.div
         className="absolute bottom-8 left-1/2 -translate-x-1/2 text-platinum-soft text-xs tracking-widest"
@@ -117,6 +120,42 @@ export function Hero() {
         SCROLL
       </motion.div>
     </section>
+  );
+}
+
+/* === ProofTicker — single thin line of rotating live proof points === */
+function ProofTicker() {
+  const items = [
+    '1 client live in production',
+    '5 → 40+ qualified leads in 47 days',
+    'Ranked #1 in local pack · 47 days',
+  ];
+  const [i, setI] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => setI((x) => (x + 1) % items.length), 4500);
+    return () => clearInterval(id);
+  }, [items.length]);
+
+  return (
+    <div className="pointer-events-none absolute bottom-20 sm:bottom-24 left-1/2 -translate-x-1/2 z-10 px-6">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={i}
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -6 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="flex items-center gap-2.5 text-platinum-soft/80 text-[10px] sm:text-[11px] tracking-[0.22em] uppercase whitespace-nowrap"
+        >
+          <span className="relative flex h-1.5 w-1.5">
+            <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60 animate-ping" />
+            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
+          </span>
+          <span>{items[i]}</span>
+        </motion.div>
+      </AnimatePresence>
+    </div>
   );
 }
 
@@ -148,7 +187,7 @@ export function TheWhy() {
                 An owner-operator electrician doing $1M in revenue should have a marketing lead, an ops manager, a bookkeeper, and a recruiter on payroll. They have themselves. The phone keeps ringing while they&apos;re on a panel upgrade. Quotes go cold.
               </p>
               <p className="text-ink text-lg sm:text-xl font-semibold mt-6 leading-relaxed">
-                StayBookt is the team and the tooling they can&apos;t hire.
+                <span className="wordmark-gradient">StayBookt</span> is the team and the tooling they can&apos;t hire.
               </p>
             </Reveal>
           </div>

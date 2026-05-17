@@ -147,7 +147,7 @@ export function TimCase() {
           <div className="lg:col-span-7">
             <Reveal delay={0.3}>
               <blockquote className="font-display text-2xl sm:text-3xl leading-snug tracking-tight text-ink mb-10">
-                &ldquo;I&apos;m on the tools all day. StayBookt runs everything else &mdash; the site, the leads, the follow-up. I just show up and do the work.&rdquo;
+                &ldquo;I&apos;m on the tools all day. <span className="wordmark-gradient">StayBookt</span> runs everything else &mdash; the site, the leads, the follow-up. I just show up and do the work.&rdquo;
                 <footer className="mt-4 text-sm text-mute font-sans font-normal tracking-normal">— Tim, after 60 days embedded</footer>
               </blockquote>
             </Reveal>
@@ -517,7 +517,9 @@ export function Competition() {
                     className={`rounded-full mx-auto mb-2 ${p.us ? 'w-5 h-5 ring-4 ring-elec/30' : 'w-3 h-3 bg-mute-dark/40'}`}
                     style={p.us ? { background: 'var(--elec)' } : {}}
                   />
-                  <p className={`text-xs sm:text-sm font-semibold ${p.us ? 'text-elec' : 'text-mute'}`}>{p.name}</p>
+                  <p className={`text-xs sm:text-sm font-semibold ${p.us ? 'text-elec' : 'text-mute'}`}>
+                    {p.us && p.name === 'StayBookt' ? <span className="wordmark-gradient">StayBookt</span> : p.name}
+                  </p>
                   <p className={`text-[10px] tracking-wider uppercase mt-0.5 ${p.us ? 'text-ink' : 'text-mute-dark'}`}>{p.label}</p>
                 </div>
               </Reveal>

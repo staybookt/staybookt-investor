@@ -399,7 +399,7 @@ export function StayBooktOS() {
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
-            The StayBookt OS.
+            The <span className="wordmark-gradient">StayBookt</span> OS.
           </h2>
           <h2 className="font-display text-2xl sm:text-3xl tracking-tight text-mute-dark mb-4 max-w-3xl">
             One playbook. Five stages. Run by our team, every week, for every client.
@@ -491,7 +491,12 @@ export function StayBooktOS() {
                         key={t}
                         className="text-[11px] px-2.5 py-1 rounded-full bg-ink border border-divider text-platinum-soft font-mono"
                       >
-                        {t}
+                        {t.split('StayBookt').map((part, i, arr) => (
+                          <span key={i}>
+                            {part}
+                            {i < arr.length - 1 && <span className="wordmark-gradient">StayBookt</span>}
+                          </span>
+                        ))}
                       </span>
                     ))}
                   </div>
