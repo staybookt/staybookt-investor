@@ -133,3 +133,16 @@ section[id] {
   border-radius: 4px;
 }
 
+/* Mobile: prevent horizontal overflow from extra-large display fonts */
+@media (max-width: 640px) {
+  .font-display {
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+}
+
+/* Mobile-text-balance hint */
+.mobile-text-balance {
+  text-wrap: balance;
+}
+
