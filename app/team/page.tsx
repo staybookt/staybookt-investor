@@ -1,6 +1,6 @@
 import { Team, AskV2 } from '@/components/ExtendedSections';
 import { TopNav } from '@/components/TopNav';
-import { SiteFooter } from '@/components/HomeTeasers';
+import { SiteFooter, UpNext } from '@/components/HomeTeasers';
 
 export const metadata = { title: 'Team — StayBookt' };
 
@@ -17,6 +17,7 @@ export default function TeamPage() {
         <Team />
         <AskV2 />
       </div>
+      <UpNext current="/team" />
       <SiteFooter />
     </main>
   );
