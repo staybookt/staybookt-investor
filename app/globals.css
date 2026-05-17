@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+:root {
+  /* StayBookt corporate */
+  --ink: #0A0E1A;
+  --ink-deep: #050811;
+  --ink-soft: #141826;
+  --cream: #FAFAF7;
+  --paper: #FFFFFF;
+  --platinum: #E5E5E7;
+  --platinum-soft: #C7C7CC;
+  --mute: #64748B;
+  --mute-dark: #94A3B8;
+  --divider: #1F2937;
+  --divider-lt: #E5E7EB;
+
+  /* Vertical gradients */
+  --hvac-deep: #047857;
+  --hvac: #10B981;
+  --hvac-light: #6EE7B7;
+
+  --plumb-deep: #1E40AF;
+  --plumb: #2563EB;
+  --plumb-light: #38BDF8;
+
+  --elec-deep: #B45309;
+  --elec: #F59E0B;
+  --elec-light: #FCD34D;
+  --elec-accent: #EF4444;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-deep: var(--ink-deep);
+  --color-ink-soft: var(--ink-soft);
+  --color-cream: var(--cream);
+  --color-paper: var(--paper);
+  --color-platinum: var(--platinum);
+  --color-platinum-soft: var(--platinum-soft);
+  --color-mute: var(--mute);
+  --color-mute-dark: var(--mute-dark);
+  --color-divider: var(--divider);
+  --color-divider-lt: var(--divider-lt);
+  --color-hvac: var(--hvac);
+  --color-hvac-deep: var(--hvac-deep);
+  --color-hvac-light: var(--hvac-light);
+  --color-plumb: var(--plumb);
+  --color-plumb-deep: var(--plumb-deep);
+  --color-plumb-light: var(--plumb-light);
+  --color-elec: var(--elec);
+  --color-elec-deep: var(--elec-deep);
+  --color-elec-light: var(--elec-light);
+  --color-elec-accent: var(--elec-accent);
+}
+
+html, body {
+  background: var(--ink);
+  color: white;
+  font-family: 'Helvetica Neue', Helvetica, Arial, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+/* Display typography — tight tracking, bold weight */
+.font-display {
+  font-family: 'Helvetica Neue', 'Inter', system-ui, sans-serif;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+
+/* Wordmark gradient sweep on "Bookt" */
+.wordmark-gradient {
+  background: linear-gradient(90deg, #F59E0B 0%, #7AB420 25%, #10B981 50%, #138FAD 75%, #2563EB 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 700;
+}
+
+/* Tri-vertical gradient backgrounds */
+.gradient-tri {
+  background: linear-gradient(135deg, var(--elec) 0%, var(--plumb) 50%, var(--hvac) 100%);
+}
+.gradient-elec {
+  background: linear-gradient(180deg, var(--elec-deep) 0%, var(--elec) 50%, var(--elec-light) 100%);
+}
+.gradient-plumb {
+  background: linear-gradient(180deg, var(--plumb-deep) 0%, var(--plumb) 50%, var(--plumb-light) 100%);
+}
+.gradient-hvac {
+  background: linear-gradient(180deg, var(--hvac-deep) 0%, var(--hvac) 50%, var(--hvac-light) 100%);
+}
+
+/* Decorative orbs */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* Section anchor offset */
+section[id] {
+  scroll-margin-top: 5rem;
+}
+
+/* Hide scrollbar on horizontal scrollers */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+/* Smooth scroll behavior */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
