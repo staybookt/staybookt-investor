@@ -59,8 +59,8 @@ export function Hero() {
           sizes="100vw"
         />
         {/* Dark gradient overlay — readable from left, photo bleeds right */}
-        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/80 to-ink/30" />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 via-50% to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-transparent to-ink/20" />
       </div>
 
       {/* Subtle amber accent orb (smaller, less SaaS-y) */}
