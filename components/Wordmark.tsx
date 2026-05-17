@@ -5,37 +5,41 @@ interface Props {
   size?: 'sm' | 'md' | 'lg' | 'xl';
   onDark?: boolean;
   animate?: boolean;
+  mono?: boolean;
 }
 
 const sizes = {
-  sm: 'text-xl',
-  md: 'text-3xl',
+  sm: 'text-lg',
+  md: 'text-2xl',
   lg: 'text-5xl',
   xl: 'text-7xl',
 };
 
-export default function Wordmark({ size = 'md', onDark = true, animate = false }: Props) {
+export default function Wordmark({ size = 'md', onDark = true, animate = false, mono = false }: Props) {
   const sweep = ['#F59E0B', '#7AB420', '#10B981', '#138FAD', '#2563EB'];
-  const stayColor = onDark ? 'text-white' : 'text-ink';
+  const baseColor = onDark ? 'text-white' : 'text-ink';
 
   return (
     <span className={`font-display ${sizes[size]} tracking-tight inline-flex items-baseline`}>
-      <span className={stayColor}>Stay</span>
-      {'Bookt'.split('').map((letter, i) => (
-        animate ? (
+      <span className={baseColor}>Stay</span>
+      {'Bookt'.split('').map((letter, i) => {
+        const color = mono ? undefined : sweep[i];
+        const className = mono ? baseColor : '';
+        return animate ? (
           <motion.span
             key={i}
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 + i * 0.06, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            style={{ color: sweep[i] }}
+            className={className}
+            style={color ? { color } : undefined}
           >
             {letter}
           </motion.span>
         ) : (
-          <span key={i} style={{ color: sweep[i] }}>{letter}</span>
-        )
-      ))}
+          <span key={i} className={className} style={color ? { color } : undefined}>{letter}</span>
+        );
+      })}
     </span>
   );
 }

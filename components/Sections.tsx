@@ -71,25 +71,15 @@ export function Hero() {
         transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
       />
 
-      {/* Top nav */}
+      {/* Top nav — minimal */}
       <nav className="absolute top-0 left-0 right-0 z-20 px-8 sm:px-16 py-6 flex items-center justify-between">
-        <Wordmark size="md" onDark animate />
-        <span className="text-xs tracking-[0.2em] font-semibold text-platinum-soft">INVESTOR BRIEF · 2026</span>
+        <Wordmark size="sm" onDark mono />
+        <span className="text-[10px] tracking-[0.25em] font-medium text-platinum-soft/70">INVESTOR BRIEF · 2026</span>
       </nav>
 
-      <div className="relative z-10 px-8 sm:px-16 max-w-7xl w-full grid lg:grid-cols-12 gap-10 items-center pt-24 sm:pt-28">
+      <div className="relative z-10 px-8 sm:px-16 max-w-7xl w-full grid lg:grid-cols-12 gap-10 items-center pt-32 sm:pt-36">
         {/* LEFT — copy stack */}
         <div className="lg:col-span-7">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <p className="text-elec text-xs sm:text-sm tracking-[0.3em] font-semibold uppercase mb-6">
-              The embedded ops team for trades
-            </p>
-          </motion.div>
-
           {/* HEADLINE — the tagline */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
