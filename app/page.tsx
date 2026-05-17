@@ -10,7 +10,7 @@ import {
   PipelineV2,
   UnitEconomics,
 } from '@/components/SectionsV3';
-import { StayBooktOS, NinetyDayPlaybook, WeeklyOps } from '@/components/OperatingSystem';
+import { StayBooktOS, NinetyDayPlaybook, WeeklyOps, CustomerOutcomes } from '@/components/OperatingSystem';
 
 export default function InvestorPage() {
   return (
@@ -34,6 +34,9 @@ export default function InvestorPage() {
       <Photography />
       <TimCase />
       <LiveTimEmbed />
+
+      {/* 4b. What every client gets */}
+      <CustomerOutcomes />
 
       {/* 5. Why we win */}
       <CompetitiveLandscapeV2 />
