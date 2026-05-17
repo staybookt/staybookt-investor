@@ -175,6 +175,54 @@ export function TimCase() {
             </Reveal>
           </div>
         </div>
+
+        {/* Lighthouse + see it live — folded in from old LiveTimEmbed section */}
+        <Reveal delay={0.5}>
+          <div className="mt-16 grid lg:grid-cols-12 gap-6 items-stretch">
+            {/* Lighthouse scores card */}
+            <div className="lg:col-span-7 bg-paper border border-divider-lt rounded-2xl p-6 sm:p-8">
+              <div className="flex items-baseline justify-between mb-6 flex-wrap gap-2">
+                <div>
+                  <p className="text-[10px] tracking-[0.25em] uppercase text-mute font-semibold mb-1">Google Lighthouse — production</p>
+                  <p className="font-display text-xl tracking-tight">Same stack we ship to every client.</p>
+                </div>
+                <span className="text-xs tracking-[0.2em] uppercase font-bold text-hvac">98 / 99 / 100 / 100</span>
+              </div>
+              <div className="grid grid-cols-4 gap-4">
+                {[
+                  { label: 'Performance', value: 98, color: 'var(--hvac)' },
+                  { label: 'Accessibility', value: 99, color: 'var(--plumb)' },
+                  { label: 'Best Practices', value: 100, color: 'var(--elec)' },
+                  { label: 'SEO', value: 100, color: 'var(--hvac)' },
+                ].map((s) => (
+                  <MiniRing key={s.label} {...s} />
+                ))}
+              </div>
+            </div>
+
+            {/* See it live card */}
+            <a
+              href="https://www.topchoiceelectrical.ca"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="lg:col-span-5 group bg-ink text-white rounded-2xl p-6 sm:p-8 flex flex-col justify-between hover:bg-ink-soft transition-colors"
+            >
+              <div>
+                <p className="text-[10px] tracking-[0.25em] uppercase text-elec font-semibold mb-2">See it live</p>
+                <p className="font-display text-2xl tracking-tight mb-3">topchoiceelectrical.ca</p>
+                <p className="text-platinum-soft text-sm leading-relaxed">
+                  The actual site we shipped for Tim. Fielding real calls today. Open it in a new tab and click around.
+                </p>
+              </div>
+              <div className="mt-6 inline-flex items-center gap-3 text-elec font-semibold text-sm group-hover:gap-4 transition-all">
+                Open the live site
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} className="w-4 h-4">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M14 3h7v7m0 -7L10 14M5 7h2a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8a2 2 0 012-2z" />
+                </svg>
+              </div>
+            </a>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -719,5 +767,46 @@ export function AskV2() {
         </Reveal>
       </div>
     </section>
+  );
+}
+
+
+/* Mini animated Lighthouse-style ring — used inline in TimCase */
+function MiniRing({ label, value, color }: { label: string; value: number; color: string }) {
+  const ref = useRef<SVGCircleElement>(null);
+  const [n, setN] = useState(0);
+  useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) {
+        const start = performance.now();
+        const step = (now: number) => {
+          const p = Math.min((now - start) / 1400, 1);
+          setN(value * (1 - Math.pow(1 - p, 3)));
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+        obs.disconnect();
+      }
+    }, { threshold: 0.3 });
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, [value]);
+
+  const r = 24;
+  const circ = 2 * Math.PI * r;
+  const offset = circ * (1 - n / 100);
+  return (
+    <div className="text-center">
+      <div className="relative w-16 h-16 mx-auto">
+        <svg viewBox="0 0 56 56" className="w-full h-full -rotate-90">
+          <circle cx="28" cy="28" r={r} stroke="var(--divider-lt)" strokeWidth="4" fill="none" />
+          <circle ref={ref} cx="28" cy="28" r={r} stroke={color} strokeWidth="4" fill="none" strokeLinecap="round" strokeDasharray={circ} strokeDashoffset={offset} style={{ transition: 'stroke-dashoffset 0.05s linear' }} />
+        </svg>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="font-display text-base tracking-tight" style={{ color }}>{Math.round(n)}</span>
+        </div>
+      </div>
+      <p className="text-[9px] tracking-[0.15em] uppercase text-mute font-semibold mt-2">{label}</p>
+    </div>
   );
 }
