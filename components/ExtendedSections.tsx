@@ -608,8 +608,9 @@ export function Team() {
   const team = [
     {
       name: 'Jacob Charendoff',
-      role: 'CEO · Operator',
-      bio: 'Revenue & growth leader. Built and ran multi-million dollar growth engines across SaaS, services, and direct-to-consumer. Turns leaked revenue into predictable, scalable growth.',
+      role: 'Co-Founder',
+      expertise: ['Revenue & Growth', 'Tech', 'GTM'],
+      bio: 'Revenue & growth leader. Built and ran multi-million dollar revenue engines across SaaS, services, and trades. Turns leaked revenue into predictable, scalable growth.',
       tag: 'EXECUTION',
       color: 'var(--elec)',
       initials: 'JC',
@@ -618,8 +619,9 @@ export function Team() {
     },
     {
       name: 'Richard Roos',
-      role: 'Co-Founder · Strategy',
-      bio: 'Senior operator with a deep network in Canadian trades, real estate, and field services. Brings the buyer relationships and the credibility from running inside the industry.',
+      role: 'Co-Founder',
+      expertise: ['Operations', 'Finance', 'Business Development'],
+      bio: 'Senior operator with a deep network across Canadian trades, real estate, and field services. Brings the buyer relationships and the credibility from running inside the industry.',
       tag: 'NETWORK',
       color: 'var(--plumb)',
       initials: 'RR',
@@ -629,7 +631,8 @@ export function Team() {
     {
       name: 'Embedded operators',
       role: '+ specialist bench',
-      bio: 'Designers, copywriters, SEO leads, GBP techs. Pulled in per client engagement. Built to scale without bloating fixed cost.',
+      expertise: ['Design', 'Copy', 'SEO', 'GBP'],
+      bio: 'Pulled in per client engagement. Built to scale without bloating fixed cost.',
       tag: 'CAPACITY',
       color: 'var(--hvac)',
       initials: '4+',
@@ -673,7 +676,20 @@ export function Team() {
                   </p>
                 </div>
                 <h3 className="font-display text-2xl tracking-tight mb-1">{t.name}</h3>
-                <p className="text-mute text-sm mb-5">{t.role}</p>
+                <p className="text-mute text-sm mb-4">{t.role}</p>
+                {t.expertise && t.expertise.length > 0 && (
+                  <div className="flex flex-wrap gap-1.5 mb-5">
+                    {t.expertise.map((e: string) => (
+                      <span
+                        key={e}
+                        className="text-[10px] tracking-[0.1em] uppercase font-semibold px-2.5 py-1 rounded-full"
+                        style={{ background: `${t.color}15`, color: t.color, border: `1px solid ${t.color}30` }}
+                      >
+                        {e}
+                      </span>
+                    ))}
+                  </div>
+                )}
                 <p className="text-ink/80 text-sm leading-relaxed mb-6">{t.bio}</p>
                 {/* LinkedIn / connect link */}
                 {t.linkedin && (

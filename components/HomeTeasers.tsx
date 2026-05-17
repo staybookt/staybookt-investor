@@ -161,7 +161,7 @@ export function ProofTeaser() {
           </Reveal>
           <div className="lg:col-span-7">
             <Reveal delay={0.1}>
-              <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">Receipts</p>
+              <p className="text-xs tracking-[0.3em] text-plumb font-semibold uppercase mb-6">Receipts</p>
               <h2 className="font-display text-4xl sm:text-6xl tracking-[-0.04em] leading-tight mb-6">
                 Tim is the proof.
               </h2>
@@ -188,7 +188,7 @@ export function ProofTeaser() {
             <Reveal delay={0.3}>
               <Link
                 href="/proof"
-                className="inline-flex items-center gap-3 text-elec font-semibold text-sm hover:gap-4 transition-all border-b border-elec/40 pb-1"
+                className="inline-flex items-center gap-3 text-plumb font-semibold text-sm hover:gap-4 transition-all border-b border-plumb/40 pb-1"
               >
                 Read the case study
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} className="w-4 h-4">
@@ -229,7 +229,7 @@ export function OpportunityTeaser() {
               </p>
               <Link
                 href="/opportunity"
-                className="inline-flex items-center gap-3 text-elec font-semibold text-sm hover:gap-4 transition-all border-b border-elec/40 pb-1"
+                className="inline-flex items-center gap-3 text-hvac font-semibold text-sm hover:gap-4 transition-all border-b border-hvac/40 pb-1"
               >
                 See the market
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} className="w-4 h-4">
@@ -307,8 +307,8 @@ export function EconomicsTeaser() {
 /* === Team teaser =========================================== */
 export function TeamTeaser() {
   const team = [
-    { name: 'Jacob Charendoff', tag: 'EXECUTION', initials: 'JC', color: 'var(--elec)', role: 'CEO · Operator', photo: '/photos/jacob.jpg' },
-    { name: 'Richard Roos', tag: 'NETWORK', initials: 'RR', color: 'var(--plumb)', role: 'Co-Founder · Strategy', photo: '/photos/richard.jpg' },
+    { name: 'Jacob Charendoff', tag: 'EXECUTION', initials: 'JC', color: 'var(--elec)', role: 'Co-Founder', expertise: ['Revenue & Growth', 'Tech', 'GTM'], photo: '/photos/jacob.jpg' },
+    { name: 'Richard Roos', tag: 'NETWORK', initials: 'RR', color: 'var(--plumb)', role: 'Co-Founder', expertise: ['Operations', 'Finance', 'BD'], photo: '/photos/richard.jpg' },
   ];
   return (
     <section className="relative bg-ink text-white py-24 overflow-hidden">
@@ -316,7 +316,7 @@ export function TeamTeaser() {
         <div className="grid lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-5">
             <Reveal>
-              <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">Who is building this</p>
+              <p className="text-xs tracking-[0.3em] text-plumb font-semibold uppercase mb-6">Who is building this</p>
               <h2 className="font-display text-4xl sm:text-6xl tracking-[-0.04em] leading-tight mb-6">
                 Two operators.
               </h2>
@@ -325,7 +325,7 @@ export function TeamTeaser() {
               </p>
               <Link
                 href="/team"
-                className="inline-flex items-center gap-3 text-elec font-semibold text-sm hover:gap-4 transition-all border-b border-elec/40 pb-1"
+                className="inline-flex items-center gap-3 text-plumb font-semibold text-sm hover:gap-4 transition-all border-b border-plumb/40 pb-1"
               >
                 Meet the founders
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} className="w-4 h-4">
@@ -351,12 +351,25 @@ export function TeamTeaser() {
                       {t.initials}
                     </div>
                   )}
-                  <div>
+                  <div className="min-w-0">
                     <p className="text-[10px] tracking-[0.2em] uppercase font-bold mb-1" style={{ color: t.color }}>
                       {t.tag}
                     </p>
                     <p className="font-display text-lg tracking-tight">{t.name}</p>
-                    <p className="text-mute text-xs mt-0.5">{t.role}</p>
+                    <p className="text-mute text-xs mt-0.5 mb-2">{t.role}</p>
+                    {t.expertise && (
+                      <div className="flex flex-wrap gap-1">
+                        {t.expertise.map((e) => (
+                          <span
+                            key={e}
+                            className="text-[9px] tracking-wider uppercase font-semibold px-1.5 py-0.5 rounded-full"
+                            style={{ background: `${t.color}18`, color: t.color, border: `1px solid ${t.color}40` }}
+                          >
+                            {e}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}

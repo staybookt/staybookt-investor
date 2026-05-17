@@ -30,7 +30,7 @@ export function TopNav({ active }: { active?: string }) {
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-12 py-4 flex items-center justify-between gap-6">
         <Link href="/" className="flex items-center gap-3">
-          <Wordmark size="sm" onDark mono />
+          <Wordmark size="sm" onDark />
         </Link>
 
         {/* Desktop nav */}
