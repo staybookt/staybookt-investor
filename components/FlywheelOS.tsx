@@ -1,6 +1,6 @@
 'use client';
-import { useRef, useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { useRef, useState } from 'react';
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 import Link from 'next/link';
 
 /* ============================================================
@@ -529,43 +529,22 @@ function Wheel7({ activeIdx }: { activeIdx: number }) {
 
 export function FlywheelOS() {
   const [activeIdx, setActiveIdx] = useState(0);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const scrollerRef = useRef<HTMLDivElement>(null);
 
-  /* Center-line scroll detector — whichever card's center is closest to the
-     viewport center wins. More reliable than IntersectionObserver for this
-     pattern because card heights are flexible and observers can disagree
-     on overlap. */
-  useEffect(() => {
-    let ticking = false;
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        const viewportCenter = window.innerHeight * 0.42;
-        let bestIdx = 0;
-        let bestDist = Infinity;
-        cardRefs.current.forEach((el, idx) => {
-          if (!el) return;
-          const rect = el.getBoundingClientRect();
-          const midY = rect.top + rect.height / 2;
-          const dist = Math.abs(midY - viewportCenter);
-          if (dist < bestDist) {
-            bestDist = dist;
-            bestIdx = idx;
-          }
-        });
-        setActiveIdx(bestIdx);
-        ticking = false;
-      });
-    };
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-    };
-  }, []);
+  /* Pinned-scroll pattern: outer container is tall (one viewport per stage),
+     inner is sticky. Scroll progress through the outer determines which
+     stage is shown in the single right-hand panel. This is the parallax
+     mechanic — one frame, content swaps, wheel stays put. */
+  const { scrollYProgress } = useScroll({
+    target: scrollerRef,
+    offset: ['start start', 'end end'],
+  });
+
+  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
+    const clamped = Math.max(0, Math.min(0.9999, latest));
+    const idx = Math.min(STAGES.length - 1, Math.floor(clamped * STAGES.length));
+    setActiveIdx(idx);
+  });
 
   return (
     <section id="os" className="relative bg-ink text-white overflow-hidden">
@@ -619,42 +598,86 @@ export function FlywheelOS() {
         </motion.div>
       </div>
 
-      {/* Sticky wheel + scrolling cards */}
-      <div className="px-8 sm:px-16 max-w-7xl mx-auto pb-24">
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-14">
-          {/* LEFT — sticky wheel */}
-          <div className="lg:col-span-5">
-            <div className="lg:sticky lg:top-32">
-              <Wheel7 activeIdx={activeIdx} />
-              {/* 3-act legend below wheel */}
-              <div className="mt-8 grid grid-cols-3 gap-3 text-center max-w-[480px] mx-auto">
-                {[
-                  { label: 'Demand', color: '#F59E0B', stages: '01 · 02' },
-                  { label: 'Execution', color: '#10B981', stages: '03 · 04' },
-                  { label: 'Compounding', color: '#2563EB', stages: '05 · 06 · 07' },
-                ].map((g) => (
-                  <div key={g.label} className="border-l-2 pl-3 py-1" style={{ borderColor: g.color }}>
-                    <p className="text-[10px] tracking-[0.2em] uppercase font-bold" style={{ color: g.color }}>{g.label}</p>
-                    <p className="text-[10px] text-mute-dark font-mono mt-1">{g.stages}</p>
-                  </div>
-                ))}
+      {/* ================================================================
+          DESKTOP — Pinned-scroll parallax. Outer is tall (one viewport per
+          stage); inner is sticky to the viewport. The right panel swaps
+          content as scroll progress advances through the section. The
+          wheel and the stage card share ONE frame the whole time.
+          ================================================================ */}
+      <div
+        ref={scrollerRef}
+        className="relative hidden lg:block"
+        style={{ height: `${STAGES.length * 100}vh` }}
+      >
+        <div className="sticky top-0 h-screen overflow-hidden flex items-center">
+          <div className="px-8 sm:px-16 max-w-7xl mx-auto w-full">
+            <div className="grid grid-cols-12 gap-14 items-center">
+              {/* LEFT — wheel + 3-act legend (single, stationary) */}
+              <div className="col-span-5">
+                <Wheel7 activeIdx={activeIdx} />
+                <div className="mt-8 grid grid-cols-3 gap-3 text-center max-w-[480px] mx-auto">
+                  {[
+                    { label: 'Demand', color: '#F59E0B', stages: '01 · 02' },
+                    { label: 'Execution', color: '#10B981', stages: '03 · 04' },
+                    { label: 'Compounding', color: '#2563EB', stages: '05 · 06 · 07' },
+                  ].map((g) => (
+                    <div key={g.label} className="border-l-2 pl-3 py-1" style={{ borderColor: g.color }}>
+                      <p className="text-[10px] tracking-[0.2em] uppercase font-bold" style={{ color: g.color }}>{g.label}</p>
+                      <p className="text-[10px] text-mute-dark font-mono mt-1">{g.stages}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* RIGHT — single stage panel, content cross-fades by activeIdx */}
+              <div className="col-span-7 relative min-h-[560px]">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeIdx}
+                    initial={{ opacity: 0, y: 24 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -16 }}
+                    transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    <StageCard stage={STAGES[activeIdx]} active total={STAGES.length} />
+                  </motion.div>
+                </AnimatePresence>
               </div>
             </div>
-          </div>
 
-          {/* RIGHT — scrolling cards */}
-          <div className="lg:col-span-7 space-y-6 lg:space-y-10">
-            {STAGES.map((s, i) => (
-              <div
-                key={s.id}
-                ref={(el) => { cardRefs.current[i] = el; }}
-                className="min-h-[60vh] lg:min-h-[70vh] flex items-center"
-              >
-                <StageCard stage={s} active={activeIdx === i} total={STAGES.length} />
-              </div>
-            ))}
+            {/* Bottom progress dots — slim row of 7 showing scroll position */}
+            <div className="mt-12 flex justify-center gap-2">
+              {STAGES.map((s, i) => (
+                <motion.span
+                  key={s.id}
+                  className="h-1 rounded-full transition-all"
+                  initial={false}
+                  animate={{
+                    width: i === activeIdx ? 24 : 8,
+                    backgroundColor: i === activeIdx ? s.color : i < activeIdx ? `${s.color}99` : 'rgba(255,255,255,0.12)',
+                  }}
+                  transition={{ duration: 0.4 }}
+                />
+              ))}
+            </div>
           </div>
         </div>
+      </div>
+
+      {/* ================================================================
+          MOBILE — Stacked vertical list. The pinned parallax doesn't read
+          on small screens; better to give a clean linear walkthrough.
+          ================================================================ */}
+      <div className="lg:hidden px-6 sm:px-10 max-w-2xl mx-auto pb-16 space-y-12">
+        {STAGES.map((s) => (
+          <div key={s.id} className="rounded-2xl border border-divider/40 bg-ink-soft/30 p-6">
+            <StageCard stage={s} active total={STAGES.length} />
+          </div>
+        ))}
+      </div>
+
+      {/* Exit frame — sibling of both desktop and mobile, runs at all sizes */}
+      <div className="px-8 sm:px-16 max-w-7xl mx-auto pb-24">
 
         {/* Exit frame — closes the walkthrough so the user knows it's over,
             then hands off to TimCase (the proof of what this produced). */}
