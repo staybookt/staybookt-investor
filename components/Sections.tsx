@@ -71,11 +71,7 @@ export function Hero() {
         transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
       />
 
-      {/* Top nav — minimal */}
-      <nav className="absolute top-0 left-0 right-0 z-20 px-8 sm:px-16 py-6 flex items-center justify-between">
-        <Wordmark size="sm" onDark mono />
-        <span className="text-[10px] tracking-[0.25em] font-medium text-platinum-soft/70">INVESTOR BRIEF · 2026</span>
-      </nav>
+      {/* Top nav handled by global TopNav component */}
 
       <div className="relative z-10 px-8 sm:px-16 max-w-7xl w-full grid lg:grid-cols-12 gap-10 items-center pt-32 sm:pt-36">
         {/* LEFT — copy stack */}
