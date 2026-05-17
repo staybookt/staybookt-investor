@@ -44,7 +44,7 @@ export function Counter({ value, prefix = '', suffix = '', duration = 2 }: { val
   return <span ref={ref}>{prefix}{n.toLocaleString()}{suffix}</span>;
 }
 
-/* === Section 1 — Hero (V2, story + photo led) === */
+/* === Section 1 — Hero (V3, tagline H1 + ops card visual) === */
 export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-ink">
@@ -58,12 +58,12 @@ export function Hero() {
           className="object-cover"
           sizes="100vw"
         />
-        {/* Dark gradient overlay — readable from left, photo bleeds right */}
-        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 via-50% to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-transparent to-ink/20" />
+        {/* Dark gradient — keep copy readable on left, photo visible on right */}
+        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 via-45% to-ink/55" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink/95 via-transparent to-ink/30" />
       </div>
 
-      {/* Subtle amber accent orb (smaller, less SaaS-y) */}
+      {/* Subtle amber accent orb */}
       <motion.div
         className="orb"
         style={{ width: 380, height: 380, background: 'var(--elec)', bottom: '-10%', right: '-5%', opacity: 0.18 }}
@@ -77,92 +77,102 @@ export function Hero() {
         <span className="text-xs tracking-[0.2em] font-semibold text-platinum-soft">INVESTOR BRIEF · 2026</span>
       </nav>
 
-      <div className="relative z-10 px-8 sm:px-16 max-w-7xl w-full">
-        {/* Tagline pill */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          <p className="text-elec text-xs sm:text-sm tracking-[0.3em] font-semibold uppercase mb-6">
-            The embedded ops team for trades
-          </p>
-        </motion.div>
-
-        {/* Headline — story-led */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <h1 className="font-display text-white text-[56px] sm:text-[104px] leading-[0.95] tracking-[-0.04em] max-w-5xl">
-            Tim used to answer
-          </h1>
-          <h1 className="font-display text-white text-[56px] sm:text-[104px] leading-[0.95] tracking-[-0.04em] max-w-5xl">
-            his own phone.
-          </h1>
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.0, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <h2 className="mt-4 font-display text-elec text-[56px] sm:text-[104px] leading-[0.95] tracking-[-0.04em]">
-            Now we do.
-          </h2>
-        </motion.div>
-
-        {/* Subhead */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.4 }}
-          className="mt-10 text-platinum text-base sm:text-xl leading-relaxed max-w-2xl"
-        >
-          StayBookt is the embedded ops team for small residential + light-commercial service businesses. Find. Capture. Quote. Deliver. Retain &mdash; same playbook, every client.
-        </motion.p>
-
-        {/* Proof bar — 3 small stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.7 }}
-          className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6 max-w-3xl"
-        >
-          {[
-            { label: 'Live', value: '1 client', sub: 'Tim, Newmarket ON' },
-            { label: 'Lead lift', value: '5 → 40+/mo', sub: 'in 60 days' },
-            { label: 'TAM', value: '$108M', sub: 'Canada · trades' },
-          ].map((s, i) => (
-            <div
-              key={s.label}
-              className="border-l-2 border-elec/60 pl-4 py-1"
-            >
-              <p className="text-[10px] tracking-[0.25em] uppercase text-elec font-semibold mb-1">{s.label}</p>
-              <p className="font-display text-xl sm:text-2xl tracking-tight text-white">{s.value}</p>
-              <p className="text-platinum-soft text-xs mt-0.5">{s.sub}</p>
-            </div>
-          ))}
-        </motion.div>
-
-        {/* CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 2.0 }}
-          className="mt-10 flex flex-wrap items-center gap-4"
-        >
-          <a
-            href="https://cal.com/jacobcharendoff/staybookt"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-elec hover:bg-elec-light text-ink font-bold px-7 py-3.5 rounded-xl text-sm sm:text-base transition-all hover:scale-[1.02] shadow-lg shadow-elec/30"
+      <div className="relative z-10 px-8 sm:px-16 max-w-7xl w-full grid lg:grid-cols-12 gap-10 items-center">
+        {/* LEFT — copy stack */}
+        <div className="lg:col-span-7">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Book a 30-min walkthrough →
-          </a>
-          <a href="#why" className="text-platinum-soft hover:text-white text-sm font-medium underline-offset-4 hover:underline">
-            Or scroll the brief ↓
-          </a>
+            <p className="text-elec text-xs sm:text-sm tracking-[0.3em] font-semibold uppercase mb-6">
+              The embedded ops team for trades
+            </p>
+          </motion.div>
+
+          {/* HEADLINE — the tagline */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <h1 className="font-display text-white text-[48px] sm:text-[88px] leading-[0.95] tracking-[-0.04em]">
+              Making the phone ring
+            </h1>
+            <h1 className="font-display text-white text-[48px] sm:text-[88px] leading-[0.95] tracking-[-0.04em]">
+              so you <span className="text-elec">StayBookt.</span>
+            </h1>
+          </motion.div>
+
+          {/* Story beat as supporting line */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.0 }}
+            className="mt-8 text-platinum font-display text-2xl sm:text-3xl tracking-tight"
+          >
+            Tim used to answer his own phone. <span className="text-elec">Now we do.</span>
+          </motion.p>
+
+          {/* Body */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.4 }}
+            className="mt-6 text-platinum-soft text-base sm:text-lg leading-relaxed max-w-2xl"
+          >
+            StayBookt is the embedded ops team for small residential + light-commercial service businesses. Find. Capture. Quote. Deliver. Retain &mdash; same playbook, every client.
+          </motion.p>
+
+          {/* Proof bar */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.7 }}
+            className="mt-8 grid grid-cols-3 gap-3 sm:gap-5 max-w-2xl"
+          >
+            {[
+              { label: 'Live', value: '1 client', sub: 'Tim, Newmarket ON' },
+              { label: 'Lead lift', value: '5 → 40+/mo', sub: 'in 60 days' },
+              { label: 'TAM', value: '$108M', sub: 'Canada · trades' },
+            ].map((s) => (
+              <div key={s.label} className="border-l-2 border-elec/60 pl-3 py-1">
+                <p className="text-[9px] tracking-[0.25em] uppercase text-elec font-semibold mb-0.5">{s.label}</p>
+                <p className="font-display text-base sm:text-xl tracking-tight text-white">{s.value}</p>
+                <p className="text-platinum-soft text-[10px] mt-0.5">{s.sub}</p>
+              </div>
+            ))}
+          </motion.div>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 2.0 }}
+            className="mt-8 flex flex-wrap items-center gap-4"
+          >
+            <a
+              href="https://cal.com/jacobcharendoff/staybookt"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-elec hover:bg-elec-light text-ink font-bold px-6 py-3 rounded-xl text-sm transition-all hover:scale-[1.02] shadow-lg shadow-elec/30"
+            >
+              Book a 30-min walkthrough →
+            </a>
+            <a href="#why" className="text-platinum-soft hover:text-white text-sm font-medium underline-offset-4 hover:underline">
+              Or scroll the brief ↓
+            </a>
+          </motion.div>
+        </div>
+
+        {/* RIGHT — live StayBookt Ops activity card */}
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1.0, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          className="lg:col-span-5 hidden lg:block"
+        >
+          <OpsConsoleCard />
         </motion.div>
       </div>
 
@@ -175,6 +185,93 @@ export function Hero() {
         SCROLL
       </motion.div>
     </section>
+  );
+}
+
+/* Live "StayBookt Ops" console card — back-office activity feed showing the handoff */
+function OpsConsoleCard() {
+  const events = [
+    { time: '7:42 PM', tag: 'NEW LEAD', desc: 'Newmarket · panel upgrade', color: 'var(--elec)' },
+    { time: '7:42 PM', tag: 'ROUTED', desc: "Tim's mobile · SMS sent", color: 'var(--plumb)' },
+    { time: '7:45 PM', tag: 'CONNECTED', desc: '3 min call · qualified', color: 'var(--hvac)' },
+    { time: '7:48 PM', tag: 'BOOKED', desc: 'site visit · Wed 10 AM', color: 'var(--elec)' },
+  ];
+
+  return (
+    <div className="relative">
+      {/* Decorative glow behind card */}
+      <div className="absolute -inset-4 bg-gradient-to-br from-elec/10 via-plumb/5 to-transparent rounded-3xl blur-2xl" />
+
+      <div className="relative bg-ink/90 backdrop-blur-md border border-divider rounded-2xl overflow-hidden shadow-2xl">
+        {/* Header */}
+        <div className="px-5 py-3 border-b border-divider flex items-center gap-3">
+          <span className="relative inline-flex">
+            <span className="w-2 h-2 rounded-full bg-hvac" />
+            <motion.span
+              className="absolute inset-0 rounded-full bg-hvac"
+              animate={{ scale: [1, 2.4, 1], opacity: [0.6, 0, 0.6] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+          </span>
+          <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-platinum font-semibold">
+            StayBookt Ops · live
+          </p>
+          <span className="ml-auto text-[10px] text-mute font-mono">TODAY</span>
+        </div>
+
+        {/* Activity rows */}
+        <div className="divide-y divide-divider/50">
+          {events.map((e, i) => (
+            <motion.div
+              key={e.tag + i}
+              initial={{ opacity: 0, x: 10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 1.6 + i * 0.35, ease: [0.16, 1, 0.3, 1] }}
+              className="px-5 py-3.5 flex items-start gap-3"
+            >
+              <div className="shrink-0 pt-1">
+                <span className="block w-1.5 h-1.5 rounded-full" style={{ background: e.color }} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-baseline gap-3">
+                  <span className="text-[10px] tracking-[0.2em] uppercase font-bold" style={{ color: e.color }}>
+                    {e.tag}
+                  </span>
+                  <span className="font-mono text-[10px] text-mute">{e.time}</span>
+                </div>
+                <p className="text-platinum text-sm mt-0.5">{e.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Tim handoff strip */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 3.2, duration: 0.6 }}
+          className="px-5 py-3 border-t border-divider bg-elec/5 flex items-center gap-3"
+        >
+          <div className="w-7 h-7 rounded-full bg-elec/20 border border-elec/40 flex items-center justify-center font-display text-[11px] text-elec">
+            T
+          </div>
+          <div className="flex-1">
+            <p className="text-platinum text-xs">
+              <span className="text-white font-semibold">Tim</span> takes it from here.
+            </p>
+            <p className="text-mute text-[10px]">Same day. Same playbook. Every client.</p>
+          </div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-4 h-4 text-elec">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </motion.div>
+      </div>
+
+      {/* Caption */}
+      <p className="mt-4 text-center text-mute text-[10px] tracking-[0.2em] uppercase font-semibold">
+        We run the console &nbsp;·&nbsp; Tim runs the work
+      </p>
+    </div>
   );
 }
 
