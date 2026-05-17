@@ -120,6 +120,149 @@ export function Hero() {
   );
 }
 
+/* === CategoryPosition — the "where StayBookt fits" frame ====================
+ * Sits between Hero and FlywheelOS. Forces the user to file StayBookt in the
+ * correct mental category BEFORE the playbook walkthrough — otherwise the
+ * default is "agency that does a lot." Three columns:
+ *   Software (tools) · Agencies (tactics) · StayBookt (the operating team)
+ * Closes with "The gap is the operator. StayBookt is the operator."
+ * ========================================================================== */
+export function CategoryPosition() {
+  const columns = [
+    {
+      eyebrow: 'CATEGORY · 01',
+      name: 'Software',
+      tag: 'Tools',
+      examples: 'Jobber · ServiceTitan · Housecall Pro',
+      sells: 'A toolkit. You install it. You run it.',
+      gap: 'The owner still runs the system.',
+      us: false,
+    },
+    {
+      eyebrow: 'CATEGORY · 02',
+      name: 'Agencies',
+      tag: 'Tactics',
+      examples: 'Local marketing firms · SEO shops · Web builders',
+      sells: 'A campaign. You sign off. You manage it.',
+      gap: 'The owner still manages the agency.',
+      us: false,
+    },
+    {
+      eyebrow: 'WHERE WE FIT',
+      name: 'StayBookt',
+      tag: 'The Operating Team',
+      examples: 'The team, the playbook, and the software — one engine',
+      sells: 'The team that runs the whole revenue side. Embedded. Weekly.',
+      gap: 'The owner stays on the tools.',
+      us: true,
+    },
+  ];
+
+  return (
+    <section className="relative bg-ink text-white py-32 sm:py-40 overflow-hidden">
+      {/* Subtle gradient seam from Hero */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-divider to-transparent" />
+
+      <div className="px-8 sm:px-16 max-w-7xl mx-auto">
+        <Reveal>
+          <p className="text-[11px] tracking-[0.3em] uppercase text-elec font-semibold mb-6">
+            Where StayBookt fits
+          </p>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <h2 className="font-display text-[40px] sm:text-[72px] leading-[0.98] tracking-[-0.04em] max-w-4xl mb-6">
+            Trades are stuck between
+          </h2>
+        </Reveal>
+        <Reveal delay={0.2}>
+          <h2 className="font-display text-[40px] sm:text-[72px] leading-[0.98] tracking-[-0.04em] max-w-4xl mb-16 sm:mb-20 text-mute">
+            tools and tactics.
+          </h2>
+        </Reveal>
+
+        {/* 3-column comparison */}
+        <div className="grid md:grid-cols-3 gap-4 lg:gap-6 mb-24 sm:mb-32">
+          {columns.map((col, i) => (
+            <Reveal key={col.name} delay={0.3 + i * 0.1}>
+              <div
+                className={`relative rounded-2xl p-7 sm:p-8 h-full border transition-all ${
+                  col.us
+                    ? 'border-elec/40 bg-gradient-to-b from-elec/[0.08] to-transparent'
+                    : 'border-divider/60 bg-ink-soft/30'
+                }`}
+              >
+                {/* Top accent bar — full width for us, stub for them */}
+                <div
+                  className="absolute top-0 left-0 h-[2px] rounded-full"
+                  style={{
+                    width: col.us ? '100%' : '32px',
+                    background: col.us
+                      ? 'linear-gradient(90deg, #F59E0B 0%, #7AB420 25%, #10B981 50%, #138FAD 75%, #2563EB 100%)'
+                      : 'rgba(148,163,184,0.4)',
+                  }}
+                />
+
+                <p className={`text-[10px] tracking-[0.25em] uppercase font-bold mb-5 ${col.us ? 'text-elec' : 'text-mute'}`}>
+                  {col.eyebrow}
+                </p>
+
+                <h3 className={`font-display text-3xl tracking-tight leading-tight mb-1 ${col.us ? 'text-white' : 'text-platinum'}`}>
+                  {col.us ? <span className="wordmark-gradient">{col.name}</span> : col.name}
+                </h3>
+                <p className={`text-sm font-mono tracking-tight mb-5 ${col.us ? 'text-platinum-soft' : 'text-mute-dark'}`}>
+                  {col.tag}
+                </p>
+
+                <p className={`text-[11px] leading-relaxed font-mono pb-5 mb-5 border-b ${col.us ? 'text-platinum-soft/80 border-elec/15' : 'text-mute border-divider/40'}`}>
+                  {col.examples}
+                </p>
+
+                <div className="space-y-5">
+                  <div>
+                    <p className="text-[9px] tracking-[0.25em] uppercase font-semibold mb-2 text-mute-dark">
+                      What they sell
+                    </p>
+                    <p className={`text-sm leading-snug ${col.us ? 'text-white' : 'text-platinum-soft'}`}>
+                      {col.sells}
+                    </p>
+                  </div>
+                  <div>
+                    <p className={`text-[9px] tracking-[0.25em] uppercase font-semibold mb-2 ${col.us ? 'text-elec' : 'text-mute-dark'}`}>
+                      {col.us ? 'The outcome' : 'The gap'}
+                    </p>
+                    <p className={`text-sm leading-snug font-semibold ${col.us ? 'text-elec' : 'text-platinum'}`}>
+                      {col.gap}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        {/* Punchline — the category statement */}
+        <Reveal delay={0.7}>
+          <div className="text-center max-w-4xl mx-auto">
+            <p className="text-[11px] tracking-[0.3em] uppercase text-elec font-semibold mb-8">
+              ── The gap ──
+            </p>
+            <h3 className="font-display text-[40px] sm:text-[72px] leading-[1.0] tracking-[-0.04em] mb-4">
+              The gap is the operator.
+            </h3>
+            <h3 className="font-display text-[40px] sm:text-[72px] leading-[1.0] tracking-[-0.04em] mb-10">
+              <span className="wordmark-gradient">StayBookt</span>{' '}
+              <span className="text-mute">is the operator.</span>
+            </h3>
+            <p className="text-platinum-soft text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+              Software hands them a CRM. Agencies hand them a website. Neither one picks up the phone, sends the 24-hour follow-up, runs the Monday brief, or recovers the missed call. We do all of it — embedded, every week, for every client.
+            </p>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
 /* === Section 2 — The Why (with revenue plateau chart) === */
 export function TheWhy() {
   return (
