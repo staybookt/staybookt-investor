@@ -851,3 +851,165 @@ function Row({ label, value }: { label: string; value: string }) {
     </div>
   );
 }
+
+
+/* === SIDE-BY-SIDE LIVE SCROLL COMPARISON ===================== */
+/* Both sites in iframes, CSS-translateY animation cycles them
+   from top of page to bottom and back, sync'd. B&W by default,
+   color on hover. */
+export function SideBySideTCE() {
+  return (
+    <section id="before-after" className="relative bg-ink text-white py-32 overflow-hidden">
+      <div className="px-8 sm:px-16 max-w-7xl mx-auto">
+        <Reveal>
+          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">Before · after</p>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
+            What 60 days looks like.
+          </h2>
+          <h2 className="font-display text-2xl sm:text-3xl tracking-tight text-mute-dark mb-12">
+            Same business. Same owner. New front door.
+          </h2>
+        </Reveal>
+
+        <Reveal delay={0.2}>
+          <div className="grid md:grid-cols-2 gap-5 lg:gap-8">
+            <SiteFrame
+              label="Before · the old site"
+              tag="topchoiceelectrical.com"
+              url="https://www.topchoiceelectrical.com/"
+              isOld
+            />
+            <SiteFrame
+              label="After · StayBookt"
+              tag="topchoiceelectrical.ca"
+              url="https://tce-website-three.vercel.app/"
+            />
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.4}>
+          <div className="mt-10 grid sm:grid-cols-3 gap-6">
+            {[
+              { stat: '0 → 40+', label: 'leads / month', color: 'var(--elec)' },
+              { stat: '98 / 99 / 100 / 100', label: 'Lighthouse score', color: 'var(--plumb)' },
+              { stat: '< 60 days', label: 'from contract to live', color: 'var(--hvac)' },
+            ].map((s) => (
+              <div key={s.label} className="border-l-2 pl-5 py-2" style={{ borderColor: s.color }}>
+                <p className="font-display text-3xl tracking-[-0.03em]" style={{ color: s.color }}>{s.stat}</p>
+                <p className="text-[11px] tracking-[0.2em] uppercase text-mute font-semibold mt-1">{s.label}</p>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.6}>
+          <p className="mt-8 text-center text-mute text-xs tracking-[0.2em] uppercase font-semibold">
+            Hover any frame to pause &nbsp;·&nbsp; click to open in a new tab
+          </p>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function SiteFrame({ label, tag, url, isOld = false }: { label: string; tag: string; url: string; isOld?: boolean }) {
+  const [hover, setHover] = useState(false);
+
+  // The iframe renders at 1440 width. We scale it down to fit the column.
+  // The iframe is 5000px tall — we animate translateY upward to scroll it,
+  // then back down, in a loop. CSS transform-only (works cross-origin).
+  const iframeNaturalWidth = 1440;
+  const iframeNaturalHeight = 5200;
+  const scale = 0.42; // scale to fit ~600px column at full screen
+  const visibleHeight = 540;
+  const travel = -(iframeNaturalHeight - visibleHeight / scale) * scale;
+
+  return (
+    <div
+      className="relative group"
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
+      {/* Label strip above */}
+      <div className="flex items-baseline justify-between mb-3">
+        <p className="text-[10px] tracking-[0.25em] uppercase font-semibold" style={{ color: isOld ? 'var(--mute)' : 'var(--elec)' }}>
+          {label}
+        </p>
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[10px] text-mute hover:text-white font-mono inline-flex items-center gap-1.5"
+        >
+          {tag}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-3 h-3">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M14 3h7v7M10 14L21 3M5 7h2a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8a2 2 0 012-2z" />
+          </svg>
+        </a>
+      </div>
+
+      {/* Browser-frame container */}
+      <div className="rounded-2xl overflow-hidden border border-divider bg-paper shadow-2xl">
+        {/* Browser chrome */}
+        <div className="flex items-center gap-1.5 px-3 py-2.5 bg-ink/95 border-b border-divider">
+          <span className="w-2 h-2 rounded-full bg-red-500/80" />
+          <span className="w-2 h-2 rounded-full bg-yellow-500/80" />
+          <span className="w-2 h-2 rounded-full bg-green-500/80" />
+          <span className="ml-3 text-[10px] text-mute font-mono truncate">{url}</span>
+        </div>
+
+        {/* Cropped viewport with auto-scrolling iframe */}
+        <div
+          className="relative overflow-hidden bg-paper"
+          style={{
+            height: visibleHeight,
+            filter: hover ? 'grayscale(0)' : 'grayscale(0.92) contrast(0.95)',
+            transition: 'filter 0.5s ease',
+          }}
+        >
+          <motion.div
+            animate={hover ? { y: 0 } : { y: [0, travel, travel, 0, 0] }}
+            transition={{
+              duration: 32,
+              repeat: hover ? 0 : Infinity,
+              ease: 'linear',
+              times: [0, 0.45, 0.5, 0.95, 1],
+            }}
+            style={{
+              width: iframeNaturalWidth,
+              height: iframeNaturalHeight,
+              transform: `scale(${scale})`,
+              transformOrigin: 'top left',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+            }}
+          >
+            <iframe
+              src={url}
+              title={label}
+              style={{
+                width: iframeNaturalWidth,
+                height: iframeNaturalHeight,
+                border: 'none',
+                pointerEvents: 'none',
+              }}
+              loading="lazy"
+            />
+          </motion.div>
+
+          {/* Click overlay to open in new tab */}
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute inset-0 z-10"
+            aria-label={`Open ${tag} in new tab`}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
