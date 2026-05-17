@@ -1,8 +1,7 @@
-import { Hero, TheWhy, Photography, Problems } from '@/components/Sections';
+import { Hero, TheWhy, Problems } from '@/components/Sections';
 import { SideNav, TimCase, Team, AskV2 } from '@/components/ExtendedSections';
 import {
   BeforeAfterTCE,
-  LiveTimEmbed,
   PricingV3,
   Roadmap,
   CompetitiveLandscapeV2,
@@ -31,9 +30,7 @@ export default function InvestorPage() {
 
       {/* 4. Proof it works — Tim case */}
       <BeforeAfterTCE />
-      <Photography />
       <TimCase />
-      <LiveTimEmbed />
 
       {/* 4b. What every client gets */}
       <CustomerOutcomes />
