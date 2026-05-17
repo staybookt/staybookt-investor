@@ -13,7 +13,7 @@ export default function HowItWorksPage() {
         <PageHeader
           eyebrow="The mechanism"
           title="How we deliver — every client, every week."
-          sub="The StayBookt OS is the playbook. The 90-day onboarding is the unit. The weekly cadence is the proof we're still running it."
+          sub={<>The <span className="wordmark-gradient">StayBookt</span> OS is the playbook. The 90-day onboarding is the unit. The weekly cadence is the proof we&apos;re still running it.</>}
         />
         <StayBooktOS />
         <NinetyDayPlaybook />
@@ -26,7 +26,7 @@ export default function HowItWorksPage() {
   );
 }
 
-function PageHeader({ eyebrow, title, sub }: { eyebrow: string; title: string; sub: string }) {
+function PageHeader({ eyebrow, title, sub }: { eyebrow: string; title: string; sub: React.ReactNode }) {
   return (
     <section className="bg-ink text-white py-20 sm:py-28 px-8 sm:px-16">
       <div className="max-w-7xl mx-auto">
