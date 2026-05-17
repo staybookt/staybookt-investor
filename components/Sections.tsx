@@ -44,11 +44,11 @@ export function Counter({ value, prefix = '', suffix = '', duration = 2 }: { val
   return <span ref={ref}>{prefix}{n.toLocaleString()}{suffix}</span>;
 }
 
-/* === Section 1 — Hero (V3, tagline H1 + ops card visual) === */
+/* === Section 1 — Hero (Apple-grade: one claim, one tagline, one CTA) === */
 export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-ink">
-      {/* Full-bleed Tim home photo */}
+      {/* Full-bleed Tim home photo — let it breathe */}
       <div className="absolute inset-0">
         <Image
           src="/photos/IMG_1140.jpg"
@@ -58,133 +58,54 @@ export function Hero() {
           className="object-cover"
           sizes="100vw"
         />
-        {/* Dark gradient — keep copy readable on left, photo visible on right */}
-        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 via-45% to-ink/55" />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink/95 via-transparent to-ink/30" />
+        {/* Lighter gradient — photo breathes more, copy still readable */}
+        <div className="absolute inset-0 bg-gradient-to-r from-ink/95 via-ink/55 to-ink/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-ink/10" />
       </div>
-
-      {/* Single restrained accent */}
-      <motion.div
-        className="orb"
-        style={{ width: 320, height: 320, background: 'var(--elec)', bottom: '-12%', right: '-8%', opacity: 0.10 }}
-        animate={{ scale: [1, 1.08, 1] }}
-        transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
-      />
 
       {/* Top nav handled by global TopNav component */}
 
-      <div className="relative z-10 px-8 sm:px-16 max-w-7xl w-full grid lg:grid-cols-12 gap-10 items-center pt-32 sm:pt-36">
-        {/* LEFT — copy stack */}
-        <div className="lg:col-span-7">
-          {/* Pre-headline orientation — tells the visitor what this is */}
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mb-6"
-          >
-            <span className="inline-flex items-center gap-2 text-[10px] tracking-[0.3em] uppercase font-semibold text-elec">
-              <span className="w-1.5 h-1.5 rounded-full bg-elec animate-pulse" />
-              Investor brief · raising pre-seed
-            </span>
-          </motion.div>
-
-          {/* HEADLINE — universal claim leads, Tim moves to proof section */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <h1 className="font-display text-white text-[44px] sm:text-[80px] leading-[0.98] tracking-[-0.04em]">
-              We run the revenue engine
-            </h1>
-            <h1 className="font-display text-white text-[44px] sm:text-[80px] leading-[0.98] tracking-[-0.04em]">
-              for small service businesses.
-            </h1>
-          </motion.div>
-
-          {/* Tagline as supporting beat */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.0 }}
-            className="mt-8 font-display text-2xl sm:text-3xl tracking-tight"
-          >
-            <span className="text-elec">Making the phone ring</span>
-            <span className="text-platinum"> so you StayBookt.</span>
-          </motion.p>
-
-          {/* Body */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.4 }}
-            className="mt-6 text-platinum-soft text-base sm:text-lg leading-relaxed max-w-2xl"
-          >
-            Find. Capture. Quote. Deliver. Retain &mdash; the embedded ops team for residential + light-commercial trades. Same playbook, every client.
-          </motion.p>
-
-          {/* Proof bar */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.7 }}
-            className="mt-8 grid grid-cols-3 gap-3 sm:gap-5 max-w-2xl"
-          >
-            {[
-              { label: 'Live', value: '1 client', sub: 'Tim, Newmarket ON' },
-              { label: 'Lead lift', value: '5 → 40+/mo', sub: 'in 60 days' },
-              { label: 'TAM', value: '$108M', sub: 'Canada · trades' },
-            ].map((s) => (
-              <div key={s.label} className="border-l-2 border-elec/60 pl-3 py-1">
-                <p className="text-[9px] tracking-[0.25em] uppercase text-elec font-semibold mb-0.5">{s.label}</p>
-                <p className="font-display text-base sm:text-xl tracking-tight text-white">{s.value}</p>
-                <p className="text-platinum-soft text-[10px] mt-0.5">{s.sub}</p>
-              </div>
-            ))}
-          </motion.div>
-
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 2.0 }}
-            className="mt-8 flex flex-wrap items-center gap-4"
-          >
-            <a
-              href="https://cal.com/jacobcharendoff/staybookt"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-elec hover:bg-elec-light text-ink font-bold px-6 py-3 rounded-xl text-sm transition-all hover:scale-[1.02] shadow-lg shadow-elec/30"
-            >
-              Book a 30-min walkthrough →
-            </a>
-            <a
-              href="/staybookt-brief.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-platinum hover:text-white text-sm font-semibold border border-platinum-soft/40 hover:border-platinum px-5 py-3 rounded-xl transition-all"
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-4 h-4">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V3" />
-              </svg>
-              Download the brief
-            </a>
-          </motion.div>
-        </div>
-
-        {/* RIGHT — live StayBookt Ops activity card */}
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1.0, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="lg:col-span-5 hidden lg:block"
+      <div className="relative z-10 px-8 sm:px-16 max-w-7xl w-full pt-32 sm:pt-36 pb-20">
+        {/* One claim */}
+        <motion.h1
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          className="font-display text-white text-[44px] sm:text-[72px] leading-[1.02] tracking-[-0.04em] max-w-4xl"
         >
-          <OpsConsoleCard />
+          We run the revenue engine for small service businesses.
+        </motion.h1>
+
+        {/* One tagline */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.9 }}
+          className="mt-10 font-display text-xl sm:text-2xl tracking-tight max-w-2xl"
+        >
+          <span className="text-elec">Making the phone ring</span>
+          <span className="text-platinum"> so you StayBookt.</span>
+        </motion.p>
+
+        {/* One action */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.2 }}
+          className="mt-12"
+        >
+          <a
+            href="https://cal.com/jacobcharendoff/staybookt"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-elec hover:bg-elec-light text-ink font-bold px-7 py-3.5 rounded-xl text-sm sm:text-base transition-all hover:scale-[1.02] shadow-lg shadow-elec/30"
+          >
+            Book a 30-min walkthrough →
+          </a>
         </motion.div>
       </div>
 
-      {/* Bottom scroll cue */}
+      {/* Scroll cue */}
       <motion.div
         className="absolute bottom-8 left-1/2 -translate-x-1/2 text-platinum-soft text-xs tracking-widest"
         animate={{ y: [0, 6, 0] }}
@@ -193,93 +114,6 @@ export function Hero() {
         SCROLL
       </motion.div>
     </section>
-  );
-}
-
-/* Live "StayBookt Ops" console card — back-office activity feed showing the handoff */
-function OpsConsoleCard() {
-  const events = [
-    { time: '7:42 PM', tag: 'NEW LEAD', desc: 'Newmarket · panel upgrade', color: 'var(--elec)' },
-    { time: '7:42 PM', tag: 'ROUTED', desc: "Tim's mobile · SMS sent", color: 'var(--plumb)' },
-    { time: '7:45 PM', tag: 'CONNECTED', desc: '3 min call · qualified', color: 'var(--hvac)' },
-    { time: '7:48 PM', tag: 'BOOKED', desc: 'site visit · Wed 10 AM', color: 'var(--elec)' },
-  ];
-
-  return (
-    <div className="relative">
-      {/* Decorative glow behind card */}
-      <div className="absolute -inset-4 bg-gradient-to-br from-elec/10 via-plumb/5 to-transparent rounded-3xl blur-2xl" />
-
-      <div className="relative bg-ink/90 backdrop-blur-md border border-divider rounded-2xl overflow-hidden shadow-2xl">
-        {/* Header */}
-        <div className="px-5 py-3 border-b border-divider flex items-center gap-3">
-          <span className="relative inline-flex">
-            <span className="w-2 h-2 rounded-full bg-hvac" />
-            <motion.span
-              className="absolute inset-0 rounded-full bg-hvac"
-              animate={{ scale: [1, 2.4, 1], opacity: [0.6, 0, 0.6] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
-          </span>
-          <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-platinum font-semibold">
-            StayBookt Ops · live
-          </p>
-          <span className="ml-auto text-[10px] text-mute font-mono">TODAY</span>
-        </div>
-
-        {/* Activity rows */}
-        <div className="divide-y divide-divider/50">
-          {events.map((e, i) => (
-            <motion.div
-              key={e.tag + i}
-              initial={{ opacity: 0, x: 10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 1.6 + i * 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="px-5 py-3.5 flex items-start gap-3"
-            >
-              <div className="shrink-0 pt-1">
-                <span className="block w-1.5 h-1.5 rounded-full" style={{ background: e.color }} />
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-baseline gap-3">
-                  <span className="text-[10px] tracking-[0.2em] uppercase font-bold" style={{ color: e.color }}>
-                    {e.tag}
-                  </span>
-                  <span className="font-mono text-[10px] text-mute">{e.time}</span>
-                </div>
-                <p className="text-platinum text-sm mt-0.5">{e.desc}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Tim handoff strip */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 3.2, duration: 0.6 }}
-          className="px-5 py-3 border-t border-divider bg-elec/5 flex items-center gap-3"
-        >
-          <div className="w-7 h-7 rounded-full bg-elec/20 border border-elec/40 flex items-center justify-center font-display text-[11px] text-elec">
-            T
-          </div>
-          <div className="flex-1">
-            <p className="text-platinum text-xs">
-              <span className="text-white font-semibold">Tim</span> takes it from here.
-            </p>
-            <p className="text-mute text-[10px]">Same day. Same playbook. Every client.</p>
-          </div>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-4 h-4 text-elec">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </motion.div>
-      </div>
-
-      {/* Caption */}
-      <p className="mt-4 text-center text-mute text-[10px] tracking-[0.2em] uppercase font-semibold">
-        We run the console &nbsp;·&nbsp; Tim runs the work
-      </p>
-    </div>
   );
 }
 
