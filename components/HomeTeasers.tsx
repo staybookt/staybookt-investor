@@ -427,40 +427,7 @@ export function SiteFooter() {
   return (
     <footer className="bg-ink-deep border-t border-divider text-platinum-soft py-16 px-8 sm:px-16">
       <div className="max-w-7xl mx-auto">
-        {/* Top — large CTA strip */}
-        <div className="grid lg:grid-cols-12 gap-8 pb-12 mb-12 border-b border-divider">
-          <div className="lg:col-span-7">
-            <p className="text-elec text-[10px] tracking-[0.3em] uppercase font-semibold mb-3">
-              Ready to talk?
-            </p>
-            <h3 className="font-display text-3xl sm:text-5xl tracking-[-0.02em] text-white leading-[1.05] max-w-xl">
-              Thirty minutes is all we need to walk you through the playbook.
-            </h3>
-          </div>
-          <div className="lg:col-span-5 flex flex-col gap-3 items-start lg:items-end justify-center">
-            <a
-              href="https://cal.com/jacobcharendoff/staybookt"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-elec hover:bg-elec-light text-ink font-bold px-6 py-3 rounded-xl text-sm transition-all hover:scale-[1.02] shadow-lg shadow-elec/30"
-            >
-              Book a 30-min walkthrough →
-            </a>
-            <a
-              href="/staybookt-brief.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-platinum-soft hover:text-white text-sm inline-flex items-center gap-2"
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-4 h-4">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V3" />
-              </svg>
-              Download the brief
-            </a>
-          </div>
-        </div>
-
-        {/* Middle — link grid */}
+        {/* Link grid */}
         <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-8 mb-12">
           <div>
             <p className="font-display text-base mb-2"><span className="wordmark-gradient">StayBookt</span></p>
