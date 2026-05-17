@@ -2,6 +2,7 @@ import { Hero, TheWhy, Problems } from '@/components/Sections';
 import { SideNav, TimCase, Team, AskV2 } from '@/components/ExtendedSections';
 import {
   BeforeAfterTCE,
+  SideBySideTCE,
   PricingV3,
   Roadmap,
   CompetitiveLandscapeV2,
@@ -29,7 +30,7 @@ export default function InvestorPage() {
       <WeeklyOps />
 
       {/* 4. Proof it works — Tim case */}
-      <BeforeAfterTCE />
+      <SideBySideTCE />
       <TimCase />
 
       {/* 4b. What every client gets */}
