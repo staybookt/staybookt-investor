@@ -133,6 +133,257 @@ const STAGES: Stage[] = [
   },
 ];
 
+
+/* === The interactive flywheel — circular SVG nav =========== */
+function Flywheel({
+  stages,
+  activeId,
+  onSelect,
+}: {
+  stages: Stage[];
+  activeId: string;
+  onSelect: (id: string) => void;
+}) {
+  // Geometry
+  const size = 560; // viewBox size
+  const cx = size / 2;
+  const cy = size / 2;
+  const rInner = 110; // inner hub radius
+  const rOuter = 240; // outer ring radius
+  const gap = 0.012; // gap between segments in radians
+
+  const segAngle = (Math.PI * 2) / stages.length;
+
+  // Build SVG path for a donut segment
+  const segmentPath = (startAngle: number, endAngle: number) => {
+    const s = startAngle + gap;
+    const e = endAngle - gap;
+    const x1 = cx + rOuter * Math.cos(s);
+    const y1 = cy + rOuter * Math.sin(s);
+    const x2 = cx + rOuter * Math.cos(e);
+    const y2 = cy + rOuter * Math.sin(e);
+    const x3 = cx + rInner * Math.cos(e);
+    const y3 = cy + rInner * Math.sin(e);
+    const x4 = cx + rInner * Math.cos(s);
+    const y4 = cy + rInner * Math.sin(s);
+    const largeArc = e - s > Math.PI ? 1 : 0;
+    return `M ${x1} ${y1} A ${rOuter} ${rOuter} 0 ${largeArc} 1 ${x2} ${y2} L ${x3} ${y3} A ${rInner} ${rInner} 0 ${largeArc} 0 ${x4} ${y4} Z`;
+  };
+
+  // Label position (mid-radius)
+  const labelPos = (i: number) => {
+    const midAngle = -Math.PI / 2 + segAngle * i + segAngle / 2;
+    const rMid = (rInner + rOuter) / 2;
+    return {
+      x: cx + rMid * Math.cos(midAngle),
+      y: cy + rMid * Math.sin(midAngle),
+      angle: midAngle,
+    };
+  };
+
+  return (
+    <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-10">
+      {/* Wheel — left 5 cols */}
+      <div className="lg:col-span-5">
+        <div className="relative w-full max-w-[480px] mx-auto">
+          {/* Slow rotating decorative ring (purely cosmetic) */}
+          <motion.div
+            className="absolute inset-0 pointer-events-none"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 90, repeat: Infinity, ease: 'linear' }}
+            style={{ originX: '50%', originY: '50%' }}
+          >
+            <svg viewBox={`0 0 ${size} ${size}`} className="w-full h-full">
+              <circle
+                cx={cx}
+                cy={cy}
+                r={rOuter + 14}
+                fill="none"
+                stroke="var(--divider)"
+                strokeWidth="1"
+                strokeDasharray="2 8"
+                opacity="0.5"
+              />
+            </svg>
+          </motion.div>
+
+          {/* Static interactive wheel */}
+          <svg viewBox={`0 0 ${size} ${size}`} className="w-full h-full relative">
+            {/* Outer rotation arrow hint */}
+            <defs>
+              <radialGradient id="hubGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stopColor="rgba(245, 158, 11, 0.15)" />
+                <stop offset="100%" stopColor="rgba(245, 158, 11, 0)" />
+              </radialGradient>
+            </defs>
+
+            {/* Hub glow */}
+            <circle cx={cx} cy={cy} r={rInner + 30} fill="url(#hubGlow)" />
+
+            {/* Segments */}
+            {stages.map((s, i) => {
+              const startAngle = -Math.PI / 2 + segAngle * i;
+              const endAngle = -Math.PI / 2 + segAngle * (i + 1);
+              const isActive = s.id === activeId;
+              return (
+                <g key={s.id}>
+                  <motion.path
+                    d={segmentPath(startAngle, endAngle)}
+                    fill={isActive ? s.color : 'rgba(255,255,255,0.04)'}
+                    stroke={isActive ? s.color : 'var(--divider)'}
+                    strokeWidth={isActive ? 2 : 1}
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => onSelect(s.id)}
+                    initial={false}
+                    animate={{
+                      fillOpacity: isActive ? 0.18 : 0.04,
+                      strokeOpacity: isActive ? 1 : 0.5,
+                    }}
+                    whileHover={{ fillOpacity: 0.12 }}
+                    transition={{ duration: 0.25 }}
+                  />
+                  {/* Label */}
+                  {(() => {
+                    const lp = labelPos(i);
+                    return (
+                      <g
+                        style={{ cursor: 'pointer', pointerEvents: 'none' }}
+                        transform={`translate(${lp.x}, ${lp.y})`}
+                      >
+                        <text
+                          textAnchor="middle"
+                          dominantBaseline="middle"
+                          dy="-8"
+                          fill={isActive ? s.color : 'white'}
+                          fontFamily="'Helvetica Neue', Helvetica, Arial, sans-serif"
+                          fontWeight="700"
+                          fontSize="22"
+                          letterSpacing="2"
+                        >
+                          {s.name}
+                        </text>
+                        <text
+                          textAnchor="middle"
+                          dominantBaseline="middle"
+                          dy="14"
+                          fill={isActive ? 'rgba(255,255,255,0.85)' : 'rgba(199,199,204,0.55)'}
+                          fontFamily="'Helvetica Neue', Helvetica, Arial, sans-serif"
+                          fontWeight="500"
+                          fontSize="10"
+                        >
+                          {`0${i + 1}`}
+                        </text>
+                      </g>
+                    );
+                  })()}
+                </g>
+              );
+            })}
+
+            {/* Center hub */}
+            <circle cx={cx} cy={cy} r={rInner - 4} fill="#0A0E1A" stroke="var(--divider)" strokeWidth="1" />
+            <text
+              x={cx}
+              y={cy - 14}
+              textAnchor="middle"
+              fill="rgba(245, 158, 11, 1)"
+              fontFamily="'Helvetica Neue', Helvetica, Arial, sans-serif"
+              fontSize="10"
+              fontWeight="700"
+              letterSpacing="3"
+            >
+              STAYBOOKT
+            </text>
+            <text
+              x={cx}
+              y={cy + 6}
+              textAnchor="middle"
+              fill="white"
+              fontFamily="'Helvetica Neue', Helvetica, Arial, sans-serif"
+              fontSize="22"
+              fontWeight="700"
+              letterSpacing="-0.5"
+            >
+              OS
+            </text>
+            <text
+              x={cx}
+              y={cy + 28}
+              textAnchor="middle"
+              fill="rgba(199,199,204,0.6)"
+              fontFamily="'Helvetica Neue', Helvetica, Arial, sans-serif"
+              fontSize="9"
+              letterSpacing="2"
+            >
+              THE PLAYBOOK
+            </text>
+
+            {/* Active stage indicator arc */}
+            {(() => {
+              const idx = stages.findIndex((s) => s.id === activeId);
+              const startA = -Math.PI / 2 + segAngle * idx + gap;
+              const endA = -Math.PI / 2 + segAngle * (idx + 1) - gap;
+              const rTick = rOuter + 8;
+              const x1 = cx + rTick * Math.cos(startA);
+              const y1 = cy + rTick * Math.sin(startA);
+              const x2 = cx + rTick * Math.cos(endA);
+              const y2 = cy + rTick * Math.sin(endA);
+              return (
+                <path
+                  d={`M ${x1} ${y1} A ${rTick} ${rTick} 0 0 1 ${x2} ${y2}`}
+                  stroke={stages[idx].color}
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  fill="none"
+                />
+              );
+            })()}
+          </svg>
+        </div>
+        <p className="text-center text-mute text-xs mt-4 tracking-[0.15em] uppercase font-semibold">
+          Click a stage →
+        </p>
+      </div>
+
+      {/* Stage stub buttons — right 7 cols, for keyboard / mobile */}
+      <div className="lg:col-span-7">
+        <div className="grid grid-cols-1 sm:grid-cols-5 lg:grid-cols-1 gap-2">
+          {stages.map((s, i) => {
+            const isActive = s.id === activeId;
+            return (
+              <button
+                key={s.id}
+                onClick={() => onSelect(s.id)}
+                className={`relative text-left px-4 sm:px-5 py-3 sm:py-4 rounded-xl border transition-all ${
+                  isActive ? 'bg-ink-soft border-elec/40 shadow-lg' : 'bg-ink border-divider hover:border-divider/80 hover:bg-ink-soft/50'
+                }`}
+                aria-pressed={isActive}
+              >
+                <div className="flex items-center gap-3">
+                  <span
+                    className="w-2 h-2 rounded-full shrink-0 transition-transform"
+                    style={{ background: s.color, transform: isActive ? 'scale(1.6)' : 'scale(1)' }}
+                  />
+                  <span className="font-mono text-[10px] text-mute">0{i + 1}</span>
+                  <span
+                    className="font-display text-base sm:text-xl tracking-[0.05em] font-bold"
+                    style={{ color: isActive ? s.color : 'white' }}
+                  >
+                    {s.name}
+                  </span>
+                  <span className={`text-[11px] sm:text-sm leading-tight ml-2 ${isActive ? 'text-platinum' : 'text-mute'}`}>
+                    {s.short}
+                  </span>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function StayBooktOS() {
   const [activeId, setActiveId] = useState<string>('find');
   const active = STAGES.find((s) => s.id === activeId)!;
@@ -158,40 +409,9 @@ export function StayBooktOS() {
           </p>
         </Reveal>
 
-        {/* Stage tabs */}
+        {/* The flywheel — interactive circular nav */}
         <Reveal delay={0.2}>
-          <div className="grid grid-cols-5 gap-2 mb-10">
-            {STAGES.map((s, i) => {
-              const isActive = s.id === activeId;
-              return (
-                <button
-                  key={s.id}
-                  onClick={() => setActiveId(s.id)}
-                  className={`relative text-left p-4 sm:p-6 rounded-xl border transition-all ${
-                    isActive ? 'bg-ink-soft border-elec/40 shadow-lg' : 'bg-ink border-divider hover:border-divider/80 hover:bg-ink-soft/50'
-                  }`}
-                  aria-pressed={isActive}
-                >
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="font-mono text-[10px] text-mute">0{i + 1}</span>
-                    <span
-                      className={`w-1.5 h-1.5 rounded-full transition-all ${isActive ? 'scale-150' : ''}`}
-                      style={{ background: s.color }}
-                    />
-                  </div>
-                  <p
-                    className="font-display text-base sm:text-2xl tracking-[0.05em] font-bold mb-1"
-                    style={{ color: isActive ? s.color : 'white' }}
-                  >
-                    {s.name}
-                  </p>
-                  <p className={`text-[11px] sm:text-xs leading-tight ${isActive ? 'text-platinum' : 'text-mute'}`}>
-                    {s.short}
-                  </p>
-                </button>
-              );
-            })}
-          </div>
+          <Flywheel stages={STAGES} activeId={activeId} onSelect={setActiveId} />
         </Reveal>
 
         {/* Detail panel */}
