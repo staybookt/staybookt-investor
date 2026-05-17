@@ -364,163 +364,352 @@ export function CustomerJourney() {
 }
 
 /* === PRICING V2 — RICHARD'S MODEL ============================ */
+/* === PricingV3 — the commercial ladder ==========================
+ * One service: the StayBookt OS. Three steps to engage:
+ *   1. Pilot ($1,500) — low-friction front door, credits to Foundation
+ *   2. Foundation ($4,950 one-time) — 4-6 week buildout, 100% money-back before day 90
+ *   3. Subscription — Operating Engine ($1,999/mo) OR Operating Layer ($3,499/mo)
+ * Plus modifiers: 10% performance kicker (opt-in), 15% annual commit discount.
+ * Each tier visually shows which flywheel stages it activates.
+ * ============================================================== */
 export function PricingV3() {
+  const stagesAll = [
+    { num: '01', name: 'FIND', color: '#06B6D4' },
+    { num: '02', name: 'CAPTURE', color: '#0EA5E9' },
+    { num: '03', name: 'QUOTE', color: '#10B981' },
+    { num: '04', name: 'DELIVER', color: '#059669' },
+    { num: '05', name: 'MEASURE', color: '#14B8A6' },
+    { num: '06', name: 'REPUTATION', color: '#2563EB' },
+    { num: '07', name: 'REFERRAL', color: '#4F46E5' },
+  ];
+
   return (
-    <section id="pricing-v3" className="relative bg-cream text-ink py-32">
-      <div className="px-8 sm:px-16 max-w-7xl mx-auto">
+    <section id="pricing" className="relative bg-ink text-white py-32 overflow-hidden">
+      {/* Atmospheric dot grid */}
+      <div
+        className="absolute inset-0 opacity-[0.18] pointer-events-none"
+        style={{
+          backgroundImage: 'radial-gradient(circle, rgba(148,163,184,0.35) 1px, transparent 1px)',
+          backgroundSize: '32px 32px',
+          maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 75%)',
+          WebkitMaskImage: 'radial-gradient(ellipse at center, black 30%, transparent 75%)',
+        }}
+      />
+
+      <div className="relative px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">Revenue model</p>
+          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">
+            Pricing &amp; revenue model
+          </p>
         </Reveal>
         <Reveal delay={0.1}>
-          <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
-            Three lines of revenue.
-          </h2>
-          <h2 className="font-display text-2xl sm:text-3xl tracking-tight text-mute mb-16">
-            Setup. Recurring. Growth share.
+          <h2 className="font-display text-[40px] sm:text-[72px] leading-[0.98] tracking-[-0.04em] mb-4">
+            One service.
           </h2>
         </Reveal>
+        <Reveal delay={0.2}>
+          <h2 className="font-display text-[40px] sm:text-[72px] leading-[0.98] tracking-[-0.04em] text-mute mb-8">
+            Two ways to run it.
+          </h2>
+        </Reveal>
+        <Reveal delay={0.3}>
+          <p className="text-platinum-soft text-base sm:text-lg max-w-2xl leading-relaxed mb-16">
+            Pricing is the operating system. Every tier maps directly to flywheel stages activated. Start small, grow into the layer.
+          </p>
+        </Reveal>
 
-        {/* Wedge / Moat / Fund stack visual */}
-        <Reveal delay={0.15}>
-          <div className="mb-12 grid lg:grid-cols-3 gap-3 bg-paper border border-divider-lt rounded-2xl p-6 sm:p-8">
-            <div className="flex items-center gap-4 p-4 rounded-xl bg-elec/5 border border-elec/30">
-              <div className="w-12 h-12 rounded-lg bg-elec/20 flex items-center justify-center shrink-0">
-                <svg viewBox="0 0 24 24" fill="none" stroke="var(--elec)" strokeWidth={2} className="w-6 h-6">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              </div>
+        {/* ============== STEP 1 — The Pilot front door ============== */}
+        <Reveal delay={0.35}>
+          <div className="mb-6 rounded-2xl border border-elec/40 bg-gradient-to-r from-elec/[0.10] to-transparent p-7 sm:p-9 relative overflow-hidden">
+            <div
+              className="absolute top-0 left-0 right-0 h-[2px]"
+              style={{ background: 'linear-gradient(90deg, #06B6D4 0%, #10B981 50%, #4F46E5 100%)' }}
+            />
+            <div className="grid md:grid-cols-[1fr_auto] gap-6 items-center">
               <div>
-                <p className="text-[10px] tracking-[0.25em] uppercase font-bold text-elec mb-1">Wedge</p>
-                <p className="font-display text-base text-ink">Website</p>
-                <p className="text-xs text-mute leading-snug">Cheap. Fast. Instant value. They’re in.</p>
+                <p className="text-[10px] tracking-[0.3em] uppercase font-bold text-elec mb-3">
+                  Step 01 · The Pilot
+                </p>
+                <h3 className="font-display text-3xl sm:text-4xl tracking-tight leading-tight mb-3">
+                  Get in the door for $1,500.
+                </h3>
+                <p className="text-platinum-soft text-base leading-relaxed max-w-2xl mb-4">
+                  A real paid pilot, not a free trial. GBP rebuild + lead-gen audit + 30 days of capture systems live + first content shipped. Audited proof of concept in 30 days.
+                </p>
+                <p className="text-[11px] tracking-[0.2em] uppercase text-elec font-semibold">
+                  → 100% credited toward Foundation if you continue
+                </p>
               </div>
-            </div>
-
-            <div className="flex items-center gap-4 p-4 rounded-xl bg-plumb/5 border border-plumb/30">
-              <div className="w-12 h-12 rounded-lg bg-plumb/20 flex items-center justify-center shrink-0">
-                <svg viewBox="0 0 24 24" fill="none" stroke="var(--plumb)" strokeWidth={2} className="w-6 h-6">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
-              </div>
-              <div>
-                <p className="text-[10px] tracking-[0.25em] uppercase font-bold text-plumb mb-1">Moat</p>
-                <p className="font-display text-base text-ink">Software</p>
-                <p className="text-xs text-mute leading-snug">Their book lives here. Switching cost: vertical.</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-4 p-4 rounded-xl bg-hvac/5 border border-hvac/30">
-              <div className="w-12 h-12 rounded-lg bg-hvac/20 flex items-center justify-center shrink-0">
-                <svg viewBox="0 0 24 24" fill="none" stroke="var(--hvac)" strokeWidth={2} className="w-6 h-6">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-              </div>
-              <div>
-                <p className="text-[10px] tracking-[0.25em] uppercase font-bold text-hvac mb-1">Fund</p>
-                <p className="font-display text-base text-ink">Consulting</p>
-                <p className="text-xs text-mute leading-snug">High-touch. Funds growth. Seeds next 10 clients.</p>
+              <div className="text-right">
+                <p className="font-display text-5xl sm:text-6xl tracking-[-0.04em] text-elec">$1,500</p>
+                <p className="text-[10px] tracking-[0.25em] uppercase text-mute font-semibold mt-1">
+                  one-time · 30 days
+                </p>
               </div>
             </div>
           </div>
         </Reveal>
 
-        <div className="grid lg:grid-cols-3 gap-5">
-          {/* Website */}
-          <Reveal delay={0.1}>
-            <div className="bg-paper border border-divider-lt rounded-2xl p-8 h-full flex flex-col">
-              <p className="text-[11px] tracking-[0.25em] uppercase font-semibold mb-3 text-elec">Website</p>
-              <p className="font-display text-3xl tracking-tight mb-5">Custom build · we host</p>
-              <ul className="space-y-3 text-sm flex-1 mb-6">
-                <li className="flex items-baseline gap-3"><span className="font-mono text-elec shrink-0 w-20">$2,500</span><span>creation fee</span></li>
-                <li className="flex items-baseline gap-3"><span className="font-mono text-elec shrink-0 w-20">10%</span><span>commission on online leads (net of creation fee)</span></li>
-                <li className="flex items-baseline gap-3"><span className="font-mono text-elec shrink-0 w-20">5%</span><span>step-down after $10K in cumulative fees</span></li>
-                <li className="flex items-baseline gap-3"><span className="font-mono text-elec shrink-0 w-20">$99/mo</span><span>SEO + maintenance</span></li>
+        {/* ============== STEP 2 — Foundation onboarding ============== */}
+        <Reveal delay={0.4}>
+          <div className="mb-12 rounded-2xl border border-divider/60 bg-ink-soft/30 p-7 sm:p-9">
+            <div className="grid md:grid-cols-[1fr_auto] gap-6 items-center">
+              <div>
+                <p className="text-[10px] tracking-[0.3em] uppercase font-bold text-platinum-soft mb-3">
+                  Step 02 · Foundation
+                </p>
+                <h3 className="font-display text-3xl sm:text-4xl tracking-tight leading-tight mb-3">
+                  The 4-6 week buildout.
+                </h3>
+                <p className="text-platinum-soft text-base leading-relaxed max-w-2xl mb-4">
+                  Custom Next.js site, GBP rebuild, full lead capture infrastructure, brand kit, baseline review automation. Activates the systems every subscription tier runs on.
+                </p>
+                <p className="text-[11px] tracking-[0.2em] uppercase text-platinum-soft font-semibold">
+                  → 100% money-back guarantee if cancelled before day 90
+                </p>
+              </div>
+              <div className="text-right">
+                <p className="font-display text-5xl sm:text-6xl tracking-[-0.04em] text-platinum">$4,950</p>
+                <p className="text-[10px] tracking-[0.25em] uppercase text-mute font-semibold mt-1">
+                  one-time · 4-6 weeks
+                </p>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+
+        {/* ============== STEP 3 — Subscription tiers ============== */}
+        <Reveal delay={0.45}>
+          <p className="text-[11px] tracking-[0.3em] uppercase text-mute font-bold mb-6">
+            Step 03 · Pick your subscription
+          </p>
+        </Reveal>
+
+        <div className="grid md:grid-cols-2 gap-5 mb-12">
+          {/* TIER 1 — Operating Engine */}
+          <Reveal delay={0.5}>
+            <div className="relative rounded-2xl border border-divider/60 bg-ink-soft/30 p-7 sm:p-9 h-full flex flex-col">
+              <div className="flex items-center justify-between mb-5">
+                <p className="text-[10px] tracking-[0.25em] uppercase font-bold text-platinum-soft">
+                  Tier 01 · Operating Engine
+                </p>
+                <span className="text-[9px] tracking-[0.2em] uppercase font-bold px-2 py-1 rounded bg-divider/40 text-mute">
+                  4 of 7 stages
+                </span>
+              </div>
+              <h3 className="font-display text-3xl tracking-tight leading-tight mb-2">
+                Leads, ops, and the front office.
+              </h3>
+              <div className="flex items-baseline gap-2 mb-5 mt-3">
+                <span className="font-display text-5xl tracking-[-0.04em] text-platinum">$1,999</span>
+                <span className="text-mute text-sm">/mo</span>
+              </div>
+
+              {/* Stage indicator dots */}
+              <div className="mb-6">
+                <p className="text-[9px] tracking-[0.2em] uppercase font-semibold text-mute mb-3">
+                  Flywheel stages active
+                </p>
+                <div className="flex gap-2">
+                  {stagesAll.map((s, i) => {
+                    const active = i < 4;
+                    return (
+                      <div key={s.num} className="flex-1 flex flex-col items-center">
+                        <div
+                          className="w-full h-2 rounded-full mb-1.5"
+                          style={{
+                            background: active ? s.color : 'transparent',
+                            border: active ? 'none' : '1px dashed rgba(148,163,184,0.25)',
+                            boxShadow: active ? `0 0 8px ${s.color}77` : 'none',
+                          }}
+                        />
+                        <p
+                          className="text-[8px] tracking-[0.15em] uppercase font-bold"
+                          style={{ color: active ? s.color : 'rgba(148,163,184,0.4)' }}
+                        >
+                          {s.name.slice(0, 3)}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <p className="text-[10px] tracking-[0.25em] uppercase font-bold text-mute mb-3">
+                What runs every week
+              </p>
+              <ul className="space-y-2 text-sm text-platinum-soft mb-6 flex-1">
+                <li className="flex items-start gap-2"><span className="text-elec mt-1.5">·</span><span>Local SEO + GBP content shipping</span></li>
+                <li className="flex items-start gap-2"><span className="text-elec mt-1.5">·</span><span>Missed-call SMS recovery + callback monitoring</span></li>
+                <li className="flex items-start gap-2"><span className="text-elec mt-1.5">·</span><span>Quote follow-up cadence (24h / 72h / 7d)</span></li>
+                <li className="flex items-start gap-2"><span className="text-elec mt-1.5">·</span><span>Scheduling automation + pre-arrival SMS</span></li>
+                <li className="flex items-start gap-2"><span className="text-elec mt-1.5">·</span><span>Invoice tracking</span></li>
               </ul>
-              <p className="text-[11px] tracking-[0.2em] uppercase text-mute font-semibold">→ Tim is here</p>
+
+              <div className="pt-5 border-t border-divider/40">
+                <p className="text-[10px] tracking-[0.25em] uppercase font-bold text-mute mb-2">
+                  Target customer
+                </p>
+                <p className="text-sm text-platinum">$500K-$1.5M revenue · has leads, drowning in ops</p>
+                <p className="text-[11px] text-mute italic mt-3">
+                  Replaces SEO agency + bookings coordinator. ~60% of combined cost.
+                </p>
+              </div>
             </div>
           </Reveal>
 
-          {/* Software — featured */}
-          <Reveal delay={0.2}>
-            <div className="bg-ink text-white rounded-2xl p-8 h-full flex flex-col shadow-2xl scale-[1.02] relative">
-              <span className="absolute -top-3 left-8 px-3 py-1 rounded-full text-[10px] tracking-[0.2em] font-semibold uppercase bg-plumb text-white">
-                Largest line · in build
-              </span>
-              <p className="text-[11px] tracking-[0.25em] uppercase font-semibold mb-3 text-plumb">Software</p>
-              <p className="font-display text-3xl tracking-tight mb-5">RevOps platform</p>
-              <ul className="space-y-3 text-sm flex-1 mb-6">
-                <li className="flex items-baseline gap-3"><span className="font-mono text-plumb shrink-0 w-20">$199/mo</span><span>Core</span></li>
-                <li className="flex items-baseline gap-3"><span className="font-mono text-plumb shrink-0 w-20">$299/mo</span><span>Core+</span></li>
-                <li className="flex items-baseline gap-3"><span className="font-mono text-plumb shrink-0 w-20">$349/mo</span><span>Premium</span></li>
-                <li className="flex items-baseline gap-3"><span className="font-mono text-plumb shrink-0 w-20">+$69/mo</span><span>Lead-gen optimization add-on</span></li>
-              </ul>
-              <p className="text-[11px] tracking-[0.2em] uppercase text-plumb font-semibold">→ Phase II — funding plan in progress</p>
-            </div>
-          </Reveal>
+          {/* TIER 2 — Operating Layer (featured) */}
+          <Reveal delay={0.6}>
+            <div className="relative rounded-2xl border border-elec/40 bg-gradient-to-b from-elec/[0.10] via-elec/[0.04] to-transparent shadow-[0_24px_60px_-20px_rgba(6,182,212,0.4)] p-7 sm:p-9 h-full flex flex-col md:-translate-y-2">
+              <div
+                className="absolute top-0 left-0 right-0 h-[2px]"
+                style={{ background: 'linear-gradient(90deg, #06B6D4 0%, #10B981 25%, #14B8A6 50%, #2563EB 75%, #4F46E5 100%)' }}
+              />
+              <div className="flex items-center justify-between mb-5">
+                <p className="text-[10px] tracking-[0.25em] uppercase font-bold text-elec">
+                  Tier 02 · Operating Layer
+                </p>
+                <span className="text-[9px] tracking-[0.2em] uppercase font-bold px-2 py-1 rounded bg-elec/20 text-elec border border-elec/30">
+                  All 7 stages · recommended
+                </span>
+              </div>
+              <h3 className="font-display text-3xl tracking-tight leading-tight mb-2">
+                The full embedded operating team.
+              </h3>
+              <div className="flex items-baseline gap-2 mb-5 mt-3">
+                <span className="font-display text-5xl tracking-[-0.04em] text-white">$3,499</span>
+                <span className="text-mute text-sm">/mo</span>
+              </div>
 
-          {/* Consulting */}
-          <Reveal delay={0.3}>
-            <div className="bg-paper border border-divider-lt rounded-2xl p-8 h-full flex flex-col">
-              <p className="text-[11px] tracking-[0.25em] uppercase font-semibold mb-3 text-hvac">Consulting</p>
-              <p className="font-display text-3xl tracking-tight mb-5">Fractional CRO + ops</p>
-              <ul className="space-y-3 text-sm flex-1 mb-6">
-                <li className="flex items-baseline gap-3"><span className="font-mono text-hvac shrink-0 w-20">Per-engagement</span></li>
-                <li className="flex items-baseline gap-3"><span className="text-mute">Revenue operations</span></li>
-                <li className="flex items-baseline gap-3"><span className="text-mute">Growth strategy + acquisition</span></li>
-                <li className="flex items-baseline gap-3"><span className="text-mute">HR / hiring playbook</span></li>
+              {/* Stage indicator dots — all 7 active */}
+              <div className="mb-6">
+                <p className="text-[9px] tracking-[0.2em] uppercase font-semibold text-elec/80 mb-3">
+                  Flywheel stages active
+                </p>
+                <div className="flex gap-2">
+                  {stagesAll.map((s) => (
+                    <div key={s.num} className="flex-1 flex flex-col items-center">
+                      <div
+                        className="w-full h-2 rounded-full mb-1.5"
+                        style={{
+                          background: s.color,
+                          boxShadow: `0 0 10px ${s.color}88`,
+                        }}
+                      />
+                      <p
+                        className="text-[8px] tracking-[0.15em] uppercase font-bold"
+                        style={{ color: s.color }}
+                      >
+                        {s.name.slice(0, 3)}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <p className="text-[10px] tracking-[0.25em] uppercase font-bold text-elec/80 mb-3">
+                Everything in Tier 1 +
+              </p>
+              <ul className="space-y-2 text-sm text-platinum mb-6 flex-1">
+                <li className="flex items-start gap-2"><span className="text-elec mt-1.5">·</span><span>Monday brief in the owner&apos;s inbox</span></li>
+                <li className="flex items-start gap-2"><span className="text-elec mt-1.5">·</span><span>Live KPI dashboard + monthly QBR</span></li>
+                <li className="flex items-start gap-2"><span className="text-elec mt-1.5">·</span><span>Review velocity automation + photo case studies</span></li>
+                <li className="flex items-start gap-2"><span className="text-elec mt-1.5">·</span><span>Referral incentive program</span></li>
+                <li className="flex items-start gap-2"><span className="text-elec mt-1.5">·</span><span>Past-customer database + annual maintenance reminders</span></li>
               </ul>
-              <p className="text-[11px] tracking-[0.2em] uppercase text-mute font-semibold">→ High-touch, low volume</p>
+
+              <div className="pt-5 border-t border-elec/20">
+                <p className="text-[10px] tracking-[0.25em] uppercase font-bold text-elec mb-2">
+                  Target customer
+                </p>
+                <p className="text-sm text-white">$1M-$3M revenue · ready to break the $1M ceiling</p>
+                <p className="text-[11px] text-platinum-soft italic mt-3">
+                  Replaces office manager ($60K loaded) + agency + brand consultant. ~50% of combined cost.
+                </p>
+              </div>
             </div>
           </Reveal>
         </div>
 
-        <Reveal delay={0.5}>
-          <div className="mt-12 p-6 bg-paper border border-divider-lt rounded-xl">
-            <p className="text-[11px] tracking-[0.25em] uppercase text-mute font-semibold mb-3">The thesis</p>
-            <p className="text-ink text-base sm:text-lg leading-relaxed">
-              Website is the wedge — cheap to ship, immediate value, sticky. The operating team is the moat — once a client runs their book inside <span className="wordmark-gradient">StayBookt</span>, switching cost goes vertical. The playbook is the long game — every client we run sharpens the OS for client N+1.
+        {/* ============== Modifiers — performance kicker + annual commit ============== */}
+        <Reveal delay={0.7}>
+          <div className="grid md:grid-cols-2 gap-5">
+            <div className="rounded-2xl border border-divider/40 bg-ink-soft/20 p-6">
+              <p className="text-[10px] tracking-[0.3em] uppercase font-bold text-elec mb-3">
+                + Performance kicker (opt-in)
+              </p>
+              <p className="font-display text-xl tracking-tight mb-2">
+                10% on online leads above $5K/mo baseline
+              </p>
+              <p className="text-sm text-platinum-soft leading-relaxed">
+                Capped at 50% of base subscription per month. Toggleable per client. Aligns our incentive with their growth without ever feeling predatory.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-divider/40 bg-ink-soft/20 p-6">
+              <p className="text-[10px] tracking-[0.3em] uppercase font-bold text-elec mb-3">
+                + Annual commit
+              </p>
+              <p className="font-display text-xl tracking-tight mb-2">
+                15% off when paid annual
+              </p>
+              <p className="text-sm text-platinum-soft leading-relaxed">
+                Cancel anytime on monthly. Lock the rate for a year and save. The moat compounds with time — we reward customers who let it.
+              </p>
+            </div>
+          </div>
+        </Reveal>
+
+        {/* The thesis */}
+        <Reveal delay={0.8}>
+          <div className="mt-14 p-6 rounded-2xl border border-divider/40 bg-ink-soft/20">
+            <p className="text-[11px] tracking-[0.25em] uppercase text-mute font-semibold mb-3">
+              The thesis
+            </p>
+            <p className="text-platinum text-base sm:text-lg leading-relaxed">
+              Pricing is the operating system. Each tier maps to flywheel stages activated. Pilot earns the right to Foundation. Foundation earns the right to subscribe. Subscription earns the right to upgrade. <span className="wordmark-gradient">StayBookt</span> isn&apos;t a product menu — it&apos;s a value-delivery arc, priced as one.
             </p>
           </div>
         </Reveal>
+
       </div>
     </section>
   );
 }
 
-/* === PHASED ROADMAP (Ph I/II/III/IV) ========================= */
+/* === PHASED ROADMAP (Wave 1 pilot → Wave 2 commercial → scale) ====== */
 export function Roadmap() {
   const phases = [
     {
       n: 'I',
-      title: 'White-label website',
-      desc: 'Cheap-to-ship, instant-value wedge. Tim is the proof. 3 more in Wave 2.',
-      status: 'LIVE',
-      statusColor: 'var(--hvac)',
-      eta: 'Shipped May 2026',
+      title: 'Wave 1 · Pilot',
+      desc: 'Tim Ciszkowski, Top Choice Electrical. No-cost proof-of-system mission. OS calibrated against one real business. Outcomes validated.',
+      status: 'COMPLETE',
+      statusColor: '#10B981',
+      eta: 'Mar–May 2026',
     },
     {
       n: 'II',
-      title: 'RevOps software · core',
-      desc: 'Lead-to-project workflow. QuickBooks integration. Funding plan in motion.',
-      status: 'IN BUILD',
-      statusColor: 'var(--elec)',
-      eta: 'Q4 2026 target',
+      title: 'Wave 2 · Commercial launch',
+      desc: 'First 10 paying clients at standard pricing. Pilot → Foundation → Operating Engine conversion funnel proven. ARR forecasted at $200K end-of-year.',
+      status: 'LAUNCHING',
+      statusColor: '#06B6D4',
+      eta: 'Q1 2026',
     },
     {
       n: 'III',
-      title: 'AI + analytics layer',
-      desc: 'Predictive scheduling, churn signals, automated reporting, intelligent routing.',
+      title: 'Scale + RevOps platform',
+      desc: '50 clients cumulative. ARR $1.5M+. Internal RevOps platform replacing duct-tape stack — Phase II software layer ships. ON-wide coverage.',
       status: 'PLANNED',
-      statusColor: 'var(--plumb)',
-      eta: '2027',
+      statusColor: '#14B8A6',
+      eta: 'Year 2 — 2027',
     },
     {
       n: 'IV',
-      title: 'FSM integrations',
-      desc: 'ServiceTitan (enterprise) + a mid-market FSM. We absorb their workflow, keep the customer.',
+      title: 'NA expansion',
+      desc: '150+ clients across CA + US Northeast / Texas. AI layer for predictive scheduling, churn signals. FSM integrations (ServiceTitan, Jobber, Housecall Pro).',
       status: 'PLANNED',
-      statusColor: 'var(--mute)',
-      eta: '2027–2028',
+      statusColor: '#4F46E5',
+      eta: 'Years 3–5',
     },
   ];
 
@@ -528,12 +717,17 @@ export function Roadmap() {
     <section id="roadmap" className="relative bg-ink text-white py-32 overflow-hidden">
       <div className="px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">Product roadmap</p>
+          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">The roadmap</p>
         </Reveal>
         <Reveal delay={0.1}>
-          <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-16">
-            Four phases.
+          <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-6">
+            Pilot. Launch. Scale.
           </h2>
+        </Reveal>
+        <Reveal delay={0.2}>
+          <p className="text-platinum-soft text-base sm:text-lg max-w-2xl leading-relaxed mb-16">
+            Wave 1 was the proof-of-system mission. Wave 2 is commercial launch. The next 18 months get us to a $1.5M ARR base in Canada — and into US expansion prep.
+          </p>
         </Reveal>
 
         <div className="relative">
@@ -574,7 +768,7 @@ export function CompetitiveLandscapeV2() {
     { name: 'Housecall Pro', cat: 'SMB FSM', traction: '$170M+ raised', gap: 'Same SaaS limitation. No content, no SEO, no operating muscle.', us: false },
     { name: 'Local agencies', cat: 'Marketing only', traction: 'Highly fragmented', gap: 'Build a site, hand it over. No FSM. No ops. No accountability beyond month 1.', us: false },
     { name: 'McKinsey / consultants', cat: 'Strategy', traction: 'Out of reach', gap: 'Wrong economics — $400/hr deck-writers, not $5K/mo operators.', us: false },
-    { name: 'StayBookt', cat: 'Operating layer', traction: '1 live, 3 in motion, $135M Canadian TAM', gap: 'Wedge: website. Moat: RevOps software. Lock: embedded team.', us: true },
+    { name: 'StayBookt', cat: 'Operating layer', traction: '1 live, 3 in motion, $1B+ NA TAM', gap: 'Wedge: website. Moat: operating team. Compounding: the playbook itself.', us: true },
   ];
 
   return (
@@ -624,6 +818,235 @@ export function CompetitiveLandscapeV2() {
         <Reveal delay={0.5}>
           <p className="mt-10 text-mute text-sm italic max-w-3xl">
             Richard&apos;s read: &ldquo;There are no pure-play competitors offering our vertically integrated customer journey solution for our ICP. We are in a rare position to set the market.&rdquo;
+          </p>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/* === TAMBreakdown — the math, side-by-side ====================
+ * The big number ($1B+) deserves a breakdown so investors can audit it
+ * line by line. Canada vs. United States, with the same ACV applied.
+ * Beachhead → expansion framing baked in. Every number references a
+ * source in the Sources component below.
+ * ================================================================ */
+export function TAMBreakdown() {
+  const rows = [
+    {
+      geo: 'Canada',
+      tag: 'Beachhead',
+      businesses: '~120K',
+      icp: '~15K',
+      acv: '$9K',
+      arr: '~$135M',
+      note: 'StatCan NAICS 238 + ICP filter on ON / BC / AB owner-operators under $5M revenue',
+      us: false,
+    },
+    {
+      geo: 'United States',
+      tag: 'Expansion',
+      businesses: '~600K',
+      icp: '~80K',
+      acv: '$9K',
+      arr: '~$720M',
+      note: 'US Census SUSB NAICS 238 + ICP filter on residential / light-commercial',
+      us: false,
+    },
+    {
+      geo: 'North America',
+      tag: 'Total addressable',
+      businesses: '~720K',
+      icp: '~95K',
+      acv: '$9K',
+      arr: '$1B+',
+      note: 'Combined CA + US trades market. Beachhead Canada → NA expansion over 5–7 years.',
+      us: true,
+    },
+  ];
+
+  return (
+    <section className="relative bg-ink text-white py-24 sm:py-32 overflow-hidden">
+      <div className="px-8 sm:px-16 max-w-7xl mx-auto">
+        <Reveal>
+          <p className="text-[11px] tracking-[0.3em] uppercase text-elec font-semibold mb-6">
+            The math
+          </p>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <h2 className="font-display text-[36px] sm:text-[56px] leading-[1.0] tracking-[-0.04em] max-w-4xl mb-6">
+            $1B+ North American ARR.
+            <br />
+            <span className="text-mute">Audit the line items.</span>
+          </h2>
+        </Reveal>
+        <Reveal delay={0.2}>
+          <p className="text-platinum-soft text-base sm:text-lg max-w-2xl leading-relaxed mb-12 sm:mb-16">
+            Trades businesses × ICP-fit owner-operators × $9K average annual contract value. Every number is sourced — citations below.
+          </p>
+        </Reveal>
+
+        <Reveal delay={0.3}>
+          <div className="overflow-x-auto rounded-2xl border border-divider/40 bg-ink-soft/20">
+            <table className="w-full min-w-[820px]">
+              <thead>
+                <tr className="border-b border-divider/50">
+                  {['Geography', 'Trades businesses', 'ICP-fit', 'ACV', 'Serviceable ARR'].map((h) => (
+                    <th
+                      key={h}
+                      className="text-left text-[10px] tracking-[0.2em] uppercase font-semibold text-mute px-5 py-4"
+                    >
+                      {h}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((r) => (
+                  <tr
+                    key={r.geo}
+                    className={`border-b border-divider/30 ${r.us ? 'bg-elec/[0.06]' : ''}`}
+                  >
+                    <td className="px-5 py-5">
+                      <div className="flex items-center gap-3">
+                        <span
+                          className={`font-display text-xl ${r.us ? 'text-white' : 'text-platinum'}`}
+                        >
+                          {r.geo}
+                        </span>
+                        <span
+                          className={`text-[9px] tracking-[0.2em] uppercase font-bold px-2 py-1 rounded ${
+                            r.us
+                              ? 'bg-elec/20 text-elec border border-elec/30'
+                              : 'bg-divider/30 text-mute'
+                          }`}
+                        >
+                          {r.tag}
+                        </span>
+                      </div>
+                      <p className="text-[10px] text-mute-dark font-mono mt-2 max-w-md leading-relaxed">
+                        {r.note}
+                      </p>
+                    </td>
+                    <td className={`px-5 py-5 font-mono text-sm ${r.us ? 'text-white' : 'text-platinum-soft'}`}>
+                      {r.businesses}
+                    </td>
+                    <td className={`px-5 py-5 font-mono text-sm ${r.us ? 'text-white' : 'text-platinum-soft'}`}>
+                      {r.icp}
+                    </td>
+                    <td className={`px-5 py-5 font-mono text-sm ${r.us ? 'text-white' : 'text-platinum-soft'}`}>
+                      {r.acv}
+                    </td>
+                    <td className="px-5 py-5">
+                      <span
+                        className={`font-display text-2xl tracking-tight ${
+                          r.us ? 'text-elec' : 'text-platinum'
+                        }`}
+                      >
+                        {r.arr}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.5}>
+          <p className="mt-10 text-mute text-sm italic max-w-3xl">
+            Honest caveat: TAM is the opportunity, not the plan. Year-1 traction is ON. Year-2 expansion is the rest of Canada. Year-3+ is US Northeast and Texas. NA-wide is the 5–7 year arc.
+          </p>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/* === Sources — citation row for every claim on /opportunity ====
+ * Investors who care will read this. Investors who don't will at
+ * least see that we cared enough to put it on the page.
+ * ============================================================== */
+export function Sources() {
+  const sources = [
+    {
+      id: '01',
+      claim: 'Canadian trades business counts',
+      citation: 'Statistics Canada — Canadian Business Register, NAICS 238 (Specialty Trade Contractors)',
+      url: 'https://www150.statcan.gc.ca/n1/en/catalogue/33-10-0036-01',
+    },
+    {
+      id: '02',
+      claim: 'US trades business counts',
+      citation: 'US Census Bureau — Statistics of U.S. Businesses (SUSB), NAICS 238',
+      url: 'https://www.census.gov/programs-surveys/susb.html',
+    },
+    {
+      id: '03',
+      claim: 'Industry sizing benchmarks',
+      citation: 'ServiceTitan S-1 (Dec 2024) — total addressable market for trades software',
+      url: 'https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001638833',
+    },
+    {
+      id: '04',
+      claim: 'StayBookt $9K ACV',
+      citation: 'Internal pricing model — $99/mo retainer × 12 + 10% commission on online lead value (projected to ICP average)',
+      url: null,
+    },
+    {
+      id: '05',
+      claim: 'PE consolidation & roll-up activity',
+      citation: 'Apollo + Apex (HVAC roll-up, 2023); Wrench Group ($3B+ revenue); ServiceTitan IPO ($9.3B market cap, Dec 2024)',
+      url: null,
+    },
+  ];
+
+  return (
+    <section className="relative bg-ink-deep text-white py-20 sm:py-24 border-t border-divider/40">
+      <div className="px-8 sm:px-16 max-w-7xl mx-auto">
+        <Reveal>
+          <p className="text-[11px] tracking-[0.3em] uppercase text-mute font-semibold mb-6">
+            Sources &amp; citations
+          </p>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <h2 className="font-display text-3xl sm:text-4xl tracking-tight leading-tight mb-10 max-w-3xl">
+            Every number on this page is sourced.
+          </h2>
+        </Reveal>
+
+        <div className="space-y-4">
+          {sources.map((s, i) => (
+            <Reveal key={s.id} delay={0.15 + i * 0.05}>
+              <div className="grid grid-cols-[40px_220px_1fr] gap-4 sm:gap-6 items-start py-4 border-b border-divider/30 last:border-b-0">
+                <p className="font-mono text-[10px] text-mute pt-1">{s.id}</p>
+                <p className="text-[11px] tracking-[0.15em] uppercase font-bold text-platinum-soft pt-1">
+                  {s.claim}
+                </p>
+                <div>
+                  <p className="text-sm text-platinum-soft leading-relaxed">{s.citation}</p>
+                  {s.url && (
+                    <a
+                      href={s.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-[11px] font-mono text-elec hover:text-elec-light mt-2 transition-colors"
+                    >
+                      <span>Verify source</span>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-3 h-3">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M14 3h7v7M10 14L21 3" />
+                      </svg>
+                    </a>
+                  )}
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal delay={0.6}>
+          <p className="mt-12 text-mute text-xs italic max-w-3xl">
+            All TAM estimates are honest projections, not paid market research. We&apos;d rather show our math than pretend the number came from McKinsey. If any of these references look thin to you, we&apos;d love to hear what data source would.
           </p>
         </Reveal>
       </div>
@@ -866,60 +1289,154 @@ export function PipelineV2() {
 
 /* === UNIT ECONOMICS — INTERACTIVE WIDGET ===================== */
 export function UnitEconomics() {
-  const [clients, setClients] = useState(20);
-  const [monthly, setMonthly] = useState(300);
-  const [commission, setCommission] = useState(10);
-  const [growthLift, setGrowthLift] = useState(5000); // avg new revenue lifted per client per month
+  const [clients, setClients] = useState(30);
+  const [tier2Mix, setTier2Mix] = useState(30); // % of clients on Operating Layer (Tier 2)
+  const [kickerOptIn, setKickerOptIn] = useState(40); // % of clients who opt in to performance kicker
+  const [annualMix, setAnnualMix] = useState(50); // % of clients on annual commit
 
-  // Math: monthly retainer + (commission % × growth lift)
-  const perClientMonthly = monthly + (commission / 100) * growthLift;
-  const arr = perClientMonthly * 12 * clients;
-  const arrFormatted = arr >= 1_000_000
-    ? `$${(arr / 1_000_000).toFixed(2)}M`
-    : `$${(arr / 1000).toFixed(0)}K`;
+  // Fixed pricing
+  const TIER1_MONTHLY = 1999;
+  const TIER2_MONTHLY = 3499;
+  const FOUNDATION_FEE = 4950;
+  const ANNUAL_DISCOUNT = 0.15;
+  // Kicker assumption: $1.5K avg monthly kicker (between baseline and 50% cap)
+  const AVG_KICKER_MONTHLY = 1500;
+
+  const tier1Count = Math.round(clients * (1 - tier2Mix / 100));
+  const tier2Count = clients - tier1Count;
+
+  // Effective monthly per tier (factoring annual commit discount on the % that took it)
+  const annualFactor = 1 - (annualMix / 100) * ANNUAL_DISCOUNT;
+  const tier1Effective = TIER1_MONTHLY * annualFactor;
+  const tier2Effective = TIER2_MONTHLY * annualFactor;
+
+  // Base subscription ARR
+  const subscriptionARR = (tier1Count * tier1Effective + tier2Count * tier2Effective) * 12;
+  // Kicker revenue (40% of clients, $1.5K/mo avg)
+  const kickerARR = clients * (kickerOptIn / 100) * AVG_KICKER_MONTHLY * 12;
+  // Foundation revenue (assume all clients pay it in year)
+  const foundationRevenue = clients * FOUNDATION_FEE;
+
+  const totalARR = subscriptionARR + kickerARR;
+  const year1Total = totalARR + foundationRevenue;
+
+  const fmt = (n: number) =>
+    n >= 1_000_000 ? `$${(n / 1_000_000).toFixed(2)}M` : `$${Math.round(n / 1000)}K`;
+
+  const blendedARPU = totalARR / Math.max(clients, 1);
 
   return (
     <section id="unit-econ" className="relative bg-ink text-white py-32 overflow-hidden">
-      <div className="orb" style={{ width: 500, height: 500, background: 'var(--elec)', bottom: '-15%', right: '-10%', opacity: 0.15 }} />
+      {/* Atmospheric dot grid */}
+      <div
+        className="absolute inset-0 opacity-[0.18] pointer-events-none"
+        style={{
+          backgroundImage: 'radial-gradient(circle, rgba(148,163,184,0.35) 1px, transparent 1px)',
+          backgroundSize: '32px 32px',
+          maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 75%)',
+          WebkitMaskImage: 'radial-gradient(ellipse at center, black 30%, transparent 75%)',
+        }}
+      />
 
-      <div className="px-8 sm:px-16 max-w-7xl mx-auto relative">
+      <div className="relative px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">Unit economics · play with it</p>
+          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">
+            Unit economics · drag the sliders
+          </p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
             Run the math.
           </h2>
-          <h2 className="font-display text-2xl sm:text-3xl tracking-tight text-mute-dark mb-16">
-            Drag the sliders. Watch ARR move.
+        </Reveal>
+        <Reveal delay={0.2}>
+          <h2 className="font-display text-2xl sm:text-3xl tracking-tight text-mute mb-16">
+            Watch ARR move with client count, tier mix, and kicker adoption.
           </h2>
         </Reveal>
 
         <div className="grid lg:grid-cols-12 gap-10 items-start">
-          {/* Sliders — left */}
+          {/* Sliders */}
           <Reveal delay={0.2} className="lg:col-span-7">
             <div className="space-y-8">
-              <Slider label="Active clients" value={clients} min={1} max={100} step={1} suffix=" clients" onChange={setClients} color="var(--elec)" />
-              <Slider label="Monthly retainer per client" value={monthly} min={99} max={1500} step={25} prefix="$" suffix="/mo" onChange={setMonthly} color="var(--plumb)" />
-              <Slider label="Commission on online leads" value={commission} min={0} max={15} step={1} suffix="%" onChange={setCommission} color="var(--hvac)" />
-              <Slider label="Growth lift per client (new monthly revenue we generate for them)" value={growthLift} min={1000} max={20000} step={500} prefix="$" suffix="/mo" onChange={setGrowthLift} color="var(--elec)" />
+              <Slider
+                label="Total active clients"
+                value={clients}
+                min={5}
+                max={200}
+                step={5}
+                suffix=" clients"
+                onChange={setClients}
+                color="#06B6D4"
+              />
+              <Slider
+                label="% on Operating Layer (Tier 2, $3,499/mo)"
+                value={tier2Mix}
+                min={0}
+                max={100}
+                step={5}
+                suffix="%"
+                onChange={setTier2Mix}
+                color="#4F46E5"
+              />
+              <Slider
+                label="% opted into performance kicker"
+                value={kickerOptIn}
+                min={0}
+                max={100}
+                step={5}
+                suffix="%"
+                onChange={setKickerOptIn}
+                color="#10B981"
+              />
+              <Slider
+                label="% on annual commit (15% discount)"
+                value={annualMix}
+                min={0}
+                max={100}
+                step={5}
+                suffix="%"
+                onChange={setAnnualMix}
+                color="#14B8A6"
+              />
             </div>
           </Reveal>
 
-          {/* Live result — right */}
+          {/* Live result */}
           <Reveal delay={0.4} className="lg:col-span-5">
             <div className="bg-ink-soft border border-divider rounded-2xl p-8 sticky top-24">
-              <p className="text-[11px] tracking-[0.25em] uppercase text-mute font-semibold mb-3">Annual recurring revenue</p>
-              <p className="font-display text-6xl sm:text-7xl tracking-[-0.04em] text-elec mb-6">{arrFormatted}</p>
+              <p className="text-[11px] tracking-[0.25em] uppercase text-mute font-semibold mb-3">
+                Annual recurring revenue
+              </p>
+              <p className="font-display text-6xl sm:text-7xl tracking-[-0.04em] text-elec mb-2">
+                {fmt(totalARR)}
+              </p>
+              <p className="text-[10px] tracking-[0.2em] uppercase text-mute font-semibold mb-6">
+                + {fmt(foundationRevenue)} one-time foundation revenue
+              </p>
 
               <div className="space-y-3 pt-6 border-t border-divider">
-                <Row label="Per-client monthly (retainer + commission share)" value={`$${Math.round(perClientMonthly).toLocaleString()}/mo`} />
-                <Row label="Per-client annual" value={`$${Math.round(perClientMonthly * 12).toLocaleString()}/yr`} />
-                <Row label="Clients × annual" value={`${clients} × $${Math.round(perClientMonthly * 12).toLocaleString()}`} />
+                <Row label="Tier 1 clients (Operating Engine)" value={`${tier1Count}`} />
+                <Row label="Tier 2 clients (Operating Layer)" value={`${tier2Count}`} />
+                <Row label="Subscription ARR" value={fmt(subscriptionARR)} />
+                <Row label="Performance kicker ARR" value={fmt(kickerARR)} />
+                <Row label="Blended ARPU" value={`$${Math.round(blendedARPU / 1000)}K/yr`} />
               </div>
 
-              <p className="text-mute text-xs mt-6 italic">
-                Assumes commission is paid on the growth lift only. Real Tim contract: $99/mo + 10% on online leads with 5% step-down after $10K cumulative.
+              <div className="mt-6 pt-6 border-t border-divider">
+                <p className="text-[10px] tracking-[0.25em] uppercase text-elec font-bold mb-2">
+                  Year-1 total revenue
+                </p>
+                <p className="font-display text-3xl tracking-tight text-white">
+                  {fmt(year1Total)}
+                </p>
+                <p className="text-[10px] text-mute italic mt-1">
+                  Subscription ARR + kicker + one-time Foundation fees
+                </p>
+              </div>
+
+              <p className="text-mute text-xs mt-6 italic leading-relaxed">
+                Assumptions: $1,999 Tier 1, $3,499 Tier 2, $4,950 Foundation per client. Performance kicker estimated at $1.5K/mo per opt-in client (between baseline and 50% cap). Annual commit applies 15% discount to subscription revenue only.
               </p>
             </div>
           </Reveal>

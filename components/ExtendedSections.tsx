@@ -113,15 +113,20 @@ export function TimCase() {
     <section id="case" ref={ref} className="relative bg-cream text-ink py-32 overflow-hidden">
       <div className="px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">Proof — Wave 1 client</p>
+          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">Wave 1 · Pilot · No-cost proof mission</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
             We didn&apos;t pitch this.
           </h2>
-          <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] text-mute mb-16">
+          <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] text-mute mb-8">
             We&apos;re running it.
           </h2>
+        </Reveal>
+        <Reveal delay={0.2}>
+          <p className="text-mute text-base sm:text-lg leading-relaxed max-w-2xl mb-16">
+            Tim Ciszkowski was Wave 1 — a 90-day pilot at no cost so we could prove the OS against a real business before charging anyone. The outcomes below are what the playbook produced under pilot conditions. <span className="text-ink font-semibold">Wave 2 launches Q1 2026 at standard pricing.</span>
+          </p>
         </Reveal>
 
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
