@@ -676,47 +676,120 @@ export function FlywheelOS() {
         ))}
       </div>
 
-      {/* Exit frame — sibling of both desktop and mobile, runs at all sizes */}
-      <div className="px-8 sm:px-16 max-w-7xl mx-auto pb-24">
-
-        {/* Exit frame — closes the walkthrough so the user knows it's over,
-            then hands off to TimCase (the proof of what this produced). */}
+      {/* Exit frame — pivots from "you've seen the playbook" to a nav hub
+          covering the four investor questions. Each card is a sub-page. */}
+      <div className="px-8 sm:px-16 max-w-7xl mx-auto pb-24 pt-12 sm:pt-20">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.7 }}
-          className="mt-24 sm:mt-32 text-center max-w-3xl mx-auto"
+          className="text-center max-w-3xl mx-auto mb-14"
         >
           <div className="inline-flex items-center gap-3 text-[11px] tracking-[0.3em] uppercase text-mute font-semibold mb-6">
             <span className="w-8 h-px bg-elec/60" />
-            <span>End of walkthrough · 07 / 07</span>
+            <span>You&apos;ve seen the playbook · 07 / 07</span>
             <span className="w-8 h-px bg-elec/60" />
           </div>
           <h3 className="font-display text-[36px] sm:text-[56px] leading-[1.02] tracking-[-0.03em] mb-6">
-            That&apos;s the OS.
+            Four questions left.
             <br />
-            <span className="text-mute">Here&apos;s what it produced.</span>
+            <span className="text-mute">Pick your path.</span>
           </h3>
-          <p className="text-platinum-soft text-base sm:text-lg max-w-xl mx-auto mb-10 leading-relaxed">
-            One playbook, one live client, 60 days in. Tim Brennan, Newmarket electrician — keep scrolling.
+          <p className="text-platinum-soft text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
+            You know what we do and how the OS runs. The rest of the brief answers whether it&apos;s real, whether the market&apos;s big, whether the math works, and who&apos;s executing.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href="/proof"
-              className="inline-flex items-center gap-3 text-sm font-semibold hero-cta text-white border border-white/30 px-7 py-3.5 rounded-xl transition-all"
+        </motion.div>
+
+        {/* 4-card nav hub — one card per sub-page, mapped to the investor question */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-14">
+          {[
+            {
+              href: '/proof',
+              question: 'Is it real?',
+              eyebrow: 'PROOF',
+              title: 'Top Choice Electrical',
+              desc: '60 days live. 0 → 40+ leads/mo. –87% owner admin. The receipts.',
+              color: '#F59E0B',
+            },
+            {
+              href: '/opportunity',
+              question: 'Is the market big?',
+              eyebrow: 'OPPORTUNITY',
+              title: '$135M Canadian ARR',
+              desc: 'Smart money is rolling up the trades. Owner-operators still answer their own phones.',
+              color: '#7AB420',
+            },
+            {
+              href: '/economics',
+              question: 'Does the math work?',
+              eyebrow: 'ECONOMICS',
+              title: 'Pricing + unit math',
+              desc: '$99/mo retainer + 10% commission. Drag the slider, watch ARR move.',
+              color: '#10B981',
+            },
+            {
+              href: '/team',
+              question: 'Who is executing?',
+              eyebrow: 'TEAM',
+              title: 'Two operators',
+              desc: 'Jacob (Revenue, Tech, GTM) + Richard (Ops, Finance, BD). On the tools.',
+              color: '#2563EB',
+            },
+          ].map((card, i) => (
+            <motion.div
+              key={card.href}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
             >
-              <span className="relative z-10">See the receipts</span>
-              <span className="relative z-10">↓</span>
-            </Link>
-            <Link
-              href="/how-it-works"
-              className="inline-flex items-center gap-3 text-sm font-semibold text-platinum-soft hover:text-white px-3 py-3.5 transition-colors"
-            >
-              <span>Or read the full playbook</span>
-              <span>→</span>
-            </Link>
-          </div>
+              <Link
+                href={card.href}
+                className="group relative block h-full rounded-2xl border border-divider/60 bg-ink-soft/40 hover:bg-ink-soft/70 hover:border-white/20 p-6 sm:p-7 transition-all overflow-hidden"
+              >
+                {/* Top accent bar — colored by act, sweeps full width on hover */}
+                <div
+                  className="absolute top-0 left-0 h-[2px] w-12 group-hover:w-full transition-all duration-500 ease-out"
+                  style={{ background: card.color }}
+                />
+                <p className="text-[10px] tracking-[0.25em] uppercase font-bold mb-3" style={{ color: card.color }}>
+                  {card.eyebrow}
+                </p>
+                <p className="text-mute text-xs italic mb-4">{card.question}</p>
+                <h4 className="font-display text-2xl tracking-tight leading-tight mb-3 text-white">
+                  {card.title}
+                </h4>
+                <p className="text-platinum-soft text-sm leading-relaxed mb-6">
+                  {card.desc}
+                </p>
+                <div className="flex items-center gap-2 text-sm font-semibold text-white/80 group-hover:text-white">
+                  <span>Go</span>
+                  <span className="transition-transform group-hover:translate-x-1">→</span>
+                </div>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Catch-all CTA — for the impatient who want to skip straight to a call */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="text-center"
+        >
+          <p className="text-mute text-[11px] tracking-[0.25em] uppercase font-semibold mb-4">Or skip the brief</p>
+          <a
+            href="https://cal.com/jacobcharendoff/staybookt"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hero-cta inline-flex items-center gap-3 text-sm font-semibold border border-white/30 hover:border-white/0 text-white px-7 py-3.5 rounded-xl transition-all"
+          >
+            <span className="relative z-10">Book a 30-min walkthrough</span>
+            <span className="relative z-10">→</span>
+          </a>
         </motion.div>
       </div>
     </section>
