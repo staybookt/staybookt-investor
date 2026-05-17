@@ -1,34 +1,35 @@
-import { Hero, TheWhy, Photography, Problems, Flywheel, TAM } from '@/components/Sections';
+import { Hero, TheWhy, Photography, Problems } from '@/components/Sections';
+import { SideNav, TimCase, Team, AskV2 } from '@/components/ExtendedSections';
 import {
-  SideNav,
-  VerticalMarquee,
-  TimCase,
-  HowItWorks,
-  Pricing,
-  Moat,
-  Competition,
-  Pipeline,
-  Team,
-  AskV2,
-} from '@/components/ExtendedSections';
+  BeforeAfterTCE,
+  LiveTimEmbed,
+  CustomerJourney,
+  PricingV3,
+  Roadmap,
+  CompetitiveLandscapeV2,
+  WhyNow,
+  PipelineV2,
+  UnitEconomics,
+} from '@/components/SectionsV3';
 
 export default function InvestorPage() {
   return (
     <main id="top" className="relative">
       <SideNav />
       <Hero />
-      <VerticalMarquee />
       <TheWhy />
+      <BeforeAfterTCE />
       <Photography />
       <TimCase />
+      <LiveTimEmbed />
       <Problems />
-      <Flywheel />
-      <HowItWorks />
-      <Pricing />
-      <Moat />
-      <Competition />
-      <TAM />
-      <Pipeline />
+      <CustomerJourney />
+      <PricingV3 />
+      <Roadmap />
+      <CompetitiveLandscapeV2 />
+      <WhyNow />
+      <PipelineV2 />
+      <UnitEconomics />
       <Team />
       <AskV2 />
     </main>
