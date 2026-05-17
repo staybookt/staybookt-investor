@@ -133,33 +133,34 @@ const STAGE_COLORS = [
   '#4F46E5', // 07 REFERRAL
 ];
 
-function CoverageDot({ covered, us, stageColor }: { covered: boolean; us: boolean; stageColor: string }) {
+function CoverageSegment({ covered, us, stageColor, index }: { covered: boolean; us: boolean; stageColor: string; index: number }) {
   return (
-    <div className="flex flex-col items-center">
-      <motion.div
-        initial={{ scale: 0, opacity: 0 }}
-        whileInView={{ scale: 1, opacity: 1 }}
-        viewport={{ once: true, margin: '-100px' }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="relative"
-      >
-        {covered ? (
-          <div
-            className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full ${us ? 'shadow-[0_0_12px_rgba(6,182,212,0.6)]' : ''}`}
-            style={{ background: us ? stageColor : 'rgba(148,163,184,0.55)' }}
-          />
-        ) : (
-          <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full border border-mute/50 bg-ink" />
-        )}
-      </motion.div>
-      {/* "YOU" annotation under empty dots — owner burden made literal */}
-      <p
-        className={`text-[8px] tracking-[0.2em] uppercase font-bold mt-2 h-3 ${covered ? 'opacity-0' : 'text-mute-dark'}`}
-        aria-hidden="true"
-      >
-        {covered ? '·' : 'YOU'}
-      </p>
-    </div>
+    <motion.div
+      initial={{ opacity: 0, scaleX: 0.6 }}
+      whileInView={{ opacity: 1, scaleX: 1 }}
+      viewport={{ once: true, margin: '-80px' }}
+      transition={{ duration: 0.5, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
+      className="h-9 sm:h-11 rounded-md relative overflow-hidden origin-left"
+      style={{
+        background: covered
+          ? us
+            ? stageColor
+            : 'rgba(148,163,184,0.55)'
+          : 'transparent',
+        border: covered ? 'none' : '1px dashed rgba(148,163,184,0.25)',
+        boxShadow: covered && us ? `0 0 14px ${stageColor}55` : 'none',
+      }}
+    >
+      {/* Subtle inner highlight on covered segments */}
+      {covered && (
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(180deg, rgba(255,255,255,0.18) 0%, transparent 50%)',
+          }}
+        />
+      )}
+    </motion.div>
   );
 }
 
@@ -261,107 +262,138 @@ export function CategoryPosition() {
           </p>
         </Reveal>
 
-        {/* ============== Coverage Map ============== */}
+        {/* ============== Coverage Map — segmented bars + count ============== */}
         <div className="relative rounded-2xl border border-divider/40 bg-ink-soft/20 p-6 sm:p-10 mb-24 sm:mb-32 overflow-x-auto">
           <div className="min-w-[820px]">
-            {/* Stage header row — 7 stages across */}
-            <div className="grid grid-cols-[200px_1fr] sm:grid-cols-[240px_1fr] gap-6 sm:gap-8 mb-8 pb-6 border-b border-divider/40">
+            {/* Stage header row — 7 stages across, aligned to bars below */}
+            <div className="grid grid-cols-[240px_1fr_90px] gap-6 sm:gap-8 mb-8 pb-6 border-b border-divider/40 items-end">
               <div>
                 <p className="text-[10px] tracking-[0.25em] uppercase text-mute font-semibold">
-                  The revenue journey
+                  Stages of the revenue journey
                 </p>
               </div>
-              <div className="grid grid-cols-7 gap-1">
+              <div className="grid grid-cols-7 gap-2">
                 {stages.map((s) => (
                   <div key={s.num} className="text-center">
                     <p className="font-mono text-[9px] text-mute mb-1">{s.num}</p>
-                    <p className="text-[9px] sm:text-[10px] tracking-[0.15em] uppercase font-bold text-platinum-soft leading-tight">
+                    <p className="text-[9px] sm:text-[10px] tracking-[0.12em] uppercase font-bold text-platinum-soft leading-tight">
                       {s.name}
                     </p>
                   </div>
                 ))}
               </div>
+              <div className="text-right">
+                <p className="text-[10px] tracking-[0.25em] uppercase text-mute font-semibold">
+                  Coverage
+                </p>
+              </div>
             </div>
 
             {/* Three lanes — Software / Agencies / StayBookt */}
             <div className="space-y-3 sm:space-y-4">
-              {lanes.map((lane, laneIdx) => (
-                <Reveal key={lane.name} delay={0.4 + laneIdx * 0.12}>
-                  <div
-                    className={`grid grid-cols-[200px_1fr] sm:grid-cols-[240px_1fr] gap-6 sm:gap-8 items-center rounded-xl px-4 sm:px-5 py-5 sm:py-6 border transition-all ${
-                      lane.us
-                        ? 'border-elec/40 bg-gradient-to-r from-elec/[0.08] via-elec/[0.03] to-transparent'
-                        : 'border-divider/40 bg-ink-soft/30'
-                    }`}
-                  >
-                    {/* Left — category label */}
-                    <div>
-                      <h3 className={`font-display text-xl sm:text-2xl tracking-tight leading-tight ${lane.us ? 'text-white' : 'text-platinum'}`}>
-                        {lane.us ? <span className="wordmark-gradient">{lane.name}</span> : lane.name}
-                      </h3>
-                      <p className={`text-[11px] font-mono mt-1 ${lane.us ? 'text-platinum-soft' : 'text-mute-dark'}`}>
-                        {lane.tag}
-                      </p>
-                      <p className="text-[10px] font-mono text-mute mt-2 leading-relaxed">
-                        {lane.examples}
-                      </p>
-                    </div>
-
-                    {/* Right — coverage track with 7 dots */}
-                    <div className="relative">
-                      {/* Background track — continuous gradient for us, dashed for them */}
-                      <div className="absolute top-1/2 left-0 right-0 h-px -translate-y-1/2">
-                        {lane.us ? (
-                          <div
-                            className="h-full w-full"
-                            style={{
-                              background: 'linear-gradient(90deg, #06B6D4 0%, #10B981 25%, #14B8A6 50%, #2563EB 75%, #4F46E5 100%)',
-                              boxShadow: '0 0 20px rgba(6,182,212,0.4)',
-                            }}
-                          />
-                        ) : (
-                          <div
-                            className="h-full w-full"
-                            style={{
-                              backgroundImage: 'linear-gradient(90deg, rgba(148,163,184,0.3) 50%, transparent 0)',
-                              backgroundSize: '8px 1px',
-                              backgroundRepeat: 'repeat-x',
-                            }}
-                          />
-                        )}
+              {lanes.map((lane, laneIdx) => {
+                const coveredCount = lane.coverage.filter(Boolean).length;
+                return (
+                  <Reveal key={lane.name} delay={0.4 + laneIdx * 0.12}>
+                    <div
+                      className={`grid grid-cols-[240px_1fr_90px] gap-6 sm:gap-8 items-center rounded-xl px-4 sm:px-5 py-5 sm:py-6 border transition-all ${
+                        lane.us
+                          ? 'border-elec/40 bg-gradient-to-r from-elec/[0.10] via-elec/[0.04] to-transparent shadow-[0_18px_44px_-16px_rgba(6,182,212,0.4)]'
+                          : 'border-divider/40 bg-ink-soft/30'
+                      }`}
+                    >
+                      {/* Left — category label */}
+                      <div>
+                        <h3 className={`font-display text-xl sm:text-2xl tracking-tight leading-tight ${lane.us ? 'text-white' : 'text-platinum'}`}>
+                          {lane.us ? <span className="wordmark-gradient">{lane.name}</span> : lane.name}
+                        </h3>
+                        <p className={`text-[11px] font-mono mt-1 ${lane.us ? 'text-platinum-soft' : 'text-mute-dark'}`}>
+                          {lane.tag}
+                        </p>
+                        <p className="text-[10px] font-mono text-mute mt-2 leading-relaxed">
+                          {lane.examples}
+                        </p>
                       </div>
 
-                      {/* 7 dots */}
-                      <div className="relative grid grid-cols-7 gap-1">
-                        {lane.coverage.map((covered, i) => (
-                          <CoverageDot
-                            key={i}
-                            covered={covered}
-                            us={lane.us}
-                            stageColor={STAGE_COLORS[i]}
+                      {/* Middle — 7 segments. StayBookt = continuous gradient bar */}
+                      {lane.us ? (
+                        <motion.div
+                          initial={{ opacity: 0, scaleX: 0.7 }}
+                          whileInView={{ opacity: 1, scaleX: 1 }}
+                          viewport={{ once: true, margin: '-80px' }}
+                          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+                          className="relative h-9 sm:h-11 rounded-md overflow-hidden origin-left"
+                          style={{
+                            background:
+                              'linear-gradient(90deg, #06B6D4 0%, #0EA5E9 16.6%, #10B981 33.3%, #059669 50%, #14B8A6 66.6%, #2563EB 83.3%, #4F46E5 100%)',
+                            boxShadow: '0 0 32px rgba(6,182,212,0.45)',
+                          }}
+                        >
+                          <div
+                            className="absolute inset-0"
+                            style={{
+                              background: 'linear-gradient(180deg, rgba(255,255,255,0.22) 0%, transparent 50%)',
+                            }}
                           />
-                        ))}
+                          <p className="absolute inset-0 flex items-center justify-center text-[10px] sm:text-[11px] tracking-[0.3em] uppercase font-bold text-white/95">
+                            One continuous operating layer
+                          </p>
+                        </motion.div>
+                      ) : (
+                        <div className="grid grid-cols-7 gap-2">
+                          {lane.coverage.map((covered, i) => (
+                            <CoverageSegment
+                              key={i}
+                              covered={covered}
+                              us={false}
+                              stageColor={STAGE_COLORS[i]}
+                              index={i}
+                            />
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Right — coverage count badge */}
+                      <div className="text-right">
+                        <p
+                          className={`font-display text-3xl sm:text-4xl tracking-tight leading-none ${lane.us ? 'text-elec' : 'text-platinum'}`}
+                        >
+                          {coveredCount}
+                          <span className={lane.us ? 'text-platinum-soft' : 'text-mute-dark'}>{' / '}7</span>
+                        </p>
+                        <p className={`text-[9px] tracking-[0.2em] uppercase font-semibold mt-1 ${lane.us ? 'text-elec/80' : 'text-mute-dark'}`}>
+                          stages
+                        </p>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Lane summary line — outside the bordered row */}
-                  <p className={`text-[11px] tracking-[0.15em] uppercase font-semibold mt-2 ml-4 sm:ml-5 ${lane.us ? 'text-elec' : 'text-mute'}`}>
-                    {lane.gap}
-                  </p>
-                </Reveal>
-              ))}
+                    {/* Lane summary line — outside the bordered row */}
+                    <p className={`text-[11px] tracking-[0.15em] uppercase font-semibold mt-2 ml-4 sm:ml-5 ${lane.us ? 'text-elec' : 'text-mute'}`}>
+                      {lane.gap}
+                    </p>
+                  </Reveal>
+                );
+              })}
             </div>
 
             {/* Legend */}
-            <div className="mt-8 pt-6 border-t border-divider/40 flex flex-wrap items-center gap-x-6 gap-y-2 text-[10px] tracking-[0.15em] uppercase font-semibold text-mute">
-              <div className="flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-elec" />
-                <span>Covered by category</span>
+            <div className="mt-8 pt-6 border-t border-divider/40 flex flex-wrap items-center gap-x-8 gap-y-2 text-[10px] tracking-[0.15em] uppercase font-semibold">
+              <div className="flex items-center gap-2 text-platinum-soft">
+                <span className="w-6 h-3 rounded-sm" style={{ background: 'rgba(148,163,184,0.55)' }} />
+                <span>Covered</span>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full border border-mute/60 bg-transparent" />
-                <span className="text-mute-dark">Left to the owner</span>
+              <div className="flex items-center gap-2 text-mute">
+                <span className="w-6 h-3 rounded-sm border border-dashed border-mute/40" />
+                <span>Gap — left to the owner</span>
+              </div>
+              <div className="flex items-center gap-2 text-elec">
+                <span
+                  className="w-6 h-3 rounded-sm"
+                  style={{
+                    background: 'linear-gradient(90deg, #06B6D4 0%, #10B981 50%, #4F46E5 100%)',
+                  }}
+                />
+                <span>StayBookt — the continuous operating layer</span>
               </div>
             </div>
           </div>
