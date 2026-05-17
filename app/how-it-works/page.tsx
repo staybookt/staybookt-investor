@@ -1,7 +1,7 @@
 import { StayBooktOS, NinetyDayPlaybook, WeeklyOps } from '@/components/OperatingSystem';
 import { AskV2 } from '@/components/ExtendedSections';
 import { TopNav } from '@/components/TopNav';
-import { SiteFooter } from '@/components/HomeTeasers';
+import { SiteFooter, UpNext } from '@/components/HomeTeasers';
 
 export const metadata = { title: 'How it works — StayBookt' };
 
@@ -20,6 +20,7 @@ export default function HowItWorksPage() {
         <WeeklyOps />
         <AskV2 />
       </div>
+      <UpNext current="/how-it-works" />
       <SiteFooter />
     </main>
   );
