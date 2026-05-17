@@ -32,7 +32,7 @@ function PageHeader({ eyebrow, title, sub }: { eyebrow: string; title: string; s
   return (
     <section className="bg-ink text-white py-20 sm:py-28 px-8 sm:px-16">
       <div className="max-w-7xl mx-auto">
-        <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">{eyebrow}</p>
+        <p className="text-xs tracking-[0.3em] text-plumb font-semibold uppercase mb-6">{eyebrow}</p>
         <h1 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] leading-[0.95] mb-6 max-w-4xl">{title}</h1>
         <p className="text-platinum-soft text-base sm:text-lg leading-relaxed max-w-3xl">{sub}</p>
       </div>
