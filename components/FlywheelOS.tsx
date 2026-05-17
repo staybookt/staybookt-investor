@@ -547,7 +547,7 @@ export function FlywheelOS() {
   });
 
   return (
-    <section id="os" className="relative bg-ink text-white overflow-hidden">
+    <section id="os" className="relative bg-ink text-white">
       {/* Section header */}
       <div className="px-8 sm:px-16 max-w-7xl mx-auto pt-24 pb-12">
         <motion.p
