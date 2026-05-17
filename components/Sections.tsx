@@ -93,9 +93,9 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 1.0 }}
           className="mt-12 text-platinum-soft text-lg sm:text-2xl font-display tracking-tight max-w-3xl"
         >
-          The embedded ops team for regulated trades.
+          Making the phone ring so you StayBookt.
           <br />
-          <span className="text-mute-dark text-base sm:text-lg">Electrical. HVAC. Plumbing. Canada, starting with Ontario.</span>
+          <span className="text-mute-dark text-base sm:text-lg">The operating layer for residential + light-commercial service businesses. Electrical · HVAC · Plumbing.</span>
         </motion.p>
       </div>
 
