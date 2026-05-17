@@ -446,51 +446,184 @@ export function Photography() {
   );
 }
 
-/* === Section 4 — Five problems (numbered editorial layout) === */
+/* === Section 4 — Five problems (with animated leaky funnel) === */
 export function Problems() {
   const items = [
-    { n: '01', name: 'The phone', desc: 'Leads bleed to whoever picks up first.', stat: '38%', sub: 'after-hours calls to voicemail', color: 'var(--plumb)' },
-    { n: '02', name: 'The quote', desc: 'Quotes sent. No follow-up. Pipeline rots.', stat: '$8K', sub: 'avg ticket lost per stale quote', color: 'var(--elec)' },
-    { n: '03', name: 'The website', desc: "Visitor lands, can't tell what they do, leaves.", stat: '< 2%', sub: 'conversion on template sites', color: 'var(--hvac)' },
-    { n: '04', name: 'The back office', desc: 'Invoicing slips. Books drift. Margins shrink.', stat: '15h', sub: '/wk owner spends on books', color: 'var(--mute)' },
-    { n: '05', name: 'The ceiling', desc: "Owner is the bottleneck. Can't scale past themselves.", stat: '$2M', sub: 'where solo trades stall', color: 'white' },
+    { n: '01', name: 'The phone', desc: 'Leads bleed to whoever picks up first.', stat: '38%', sub: 'after-hours calls to voicemail', color: 'var(--plumb)', loss: 38 },
+    { n: '02', name: 'The quote', desc: 'Quotes sent. No follow-up. Pipeline rots.', stat: '$8K', sub: 'avg ticket lost per stale quote', color: 'var(--elec)', loss: 22 },
+    { n: '03', name: 'The website', desc: "Visitor lands, can't tell what they do, leaves.", stat: '< 2%', sub: 'conversion on template sites', color: 'var(--hvac)', loss: 15 },
+    { n: '04', name: 'The back office', desc: 'Invoicing slips. Books drift. Margins shrink.', stat: '15h', sub: '/wk owner spends on books', color: 'var(--mute)', loss: 12 },
+    { n: '05', name: 'The ceiling', desc: "Owner is the bottleneck. Can't scale past themselves.", stat: '$2M', sub: 'where solo trades stall', color: 'white', loss: 8 },
   ];
   return (
-    <section id="problems" className="relative bg-ink text-white py-32">
+    <section id="problems" className="relative bg-ink text-white py-32 overflow-hidden">
       <div className="px-8 sm:px-16 max-w-7xl mx-auto w-full">
         <Reveal>
           <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-8">Five problems</p>
         </Reveal>
         <Reveal delay={0.1}>
-          <h2 className="font-display text-5xl sm:text-7xl tracking-tight mb-20">
+          <h2 className="font-display text-5xl sm:text-7xl tracking-tight mb-16">
             Where their revenue leaks.
           </h2>
         </Reveal>
-        <div className="space-y-px bg-divider">
-          {items.map((p, i) => (
-            <Reveal key={p.n} delay={i * 0.08}>
-              <div className="bg-ink grid grid-cols-12 gap-4 sm:gap-8 py-8 sm:py-12 items-center hover:bg-ink-soft transition-colors">
-                <div className="col-span-2 sm:col-span-1 font-display text-2xl sm:text-3xl" style={{ color: p.color }}>
-                  {p.n}
+
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+          {/* LEFT — the 5 rows */}
+          <div className="lg:col-span-7 space-y-px bg-divider">
+            {items.map((p, i) => (
+              <Reveal key={p.n} delay={i * 0.08}>
+                <div className="bg-ink grid grid-cols-12 gap-3 sm:gap-5 py-6 sm:py-7 items-center hover:bg-ink-soft transition-colors">
+                  <div className="col-span-2 sm:col-span-1 font-display text-xl sm:text-2xl" style={{ color: p.color }}>
+                    {p.n}
+                  </div>
+                  <div className="col-span-10 sm:col-span-3 font-display text-base sm:text-xl tracking-tight">
+                    {p.name}
+                  </div>
+                  <div className="col-span-12 sm:col-span-5 text-mute-dark text-sm sm:text-base">
+                    {p.desc}
+                  </div>
+                  <div className="col-span-6 sm:col-span-2 font-display text-xl sm:text-2xl text-right" style={{ color: p.color }}>
+                    {p.stat}
+                  </div>
+                  <div className="col-span-6 sm:col-span-1 text-mute text-[10px] sm:text-xs">
+                    {p.sub}
+                  </div>
                 </div>
-                <div className="col-span-10 sm:col-span-3 font-display text-xl sm:text-3xl tracking-tight">
-                  {p.name}
-                </div>
-                <div className="col-span-12 sm:col-span-5 text-mute-dark text-base sm:text-lg">
-                  {p.desc}
-                </div>
-                <div className="col-span-6 sm:col-span-2 font-display text-3xl sm:text-4xl text-right" style={{ color: p.color }}>
-                  {p.stat}
-                </div>
-                <div className="col-span-6 sm:col-span-1 text-mute text-xs sm:text-sm">
-                  {p.sub}
-                </div>
-              </div>
+              </Reveal>
+            ))}
+          </div>
+
+          {/* RIGHT — the leaky funnel visual */}
+          <div className="lg:col-span-5">
+            <Reveal delay={0.3}>
+              <LeakyFunnel items={items} />
             </Reveal>
-          ))}
+          </div>
         </div>
       </div>
     </section>
+  );
+}
+
+/* Animated leaky-funnel visual — drops shrinking as leads leak out */
+function LeakyFunnel({ items }: { items: { color: string; loss: number; name: string; stat: string }[] }) {
+  const ref = useRef<SVGSVGElement>(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setInView(true); }, { threshold: 0.3 });
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
+
+  const W = 360;
+  const H = 460;
+  const top = 30;
+  const stepH = 70;
+  const startW = 280; // top width of funnel
+  const endW = 60;   // bottom width
+
+  // Cumulative width at each step (loss subtracted)
+  const widthAt = (i: number) => {
+    let pct = 1;
+    for (let j = 0; j <= i - 1; j++) pct *= (1 - items[j].loss / 100);
+    return startW * pct;
+  };
+
+  return (
+    <div className="bg-ink-soft border border-divider rounded-2xl p-6">
+      <p className="text-[10px] tracking-[0.25em] uppercase text-elec font-semibold mb-2">Lead leakage funnel</p>
+      <p className="text-platinum-soft text-sm mb-6">100 inbound signals at the top &mdash; how few survive to a booking.</p>
+
+      <svg ref={ref} viewBox={`0 0 ${W} ${H}`} className="w-full h-auto">
+        {/* Funnel segments */}
+        {items.map((p, i) => {
+          const wTop = widthAt(i);
+          const wBot = widthAt(i + 1);
+          const yTop = top + i * stepH;
+          const yBot = yTop + stepH - 8;
+          const xCenter = W / 2;
+          const points = `
+            ${xCenter - wTop / 2},${yTop}
+            ${xCenter + wTop / 2},${yTop}
+            ${xCenter + wBot / 2},${yBot}
+            ${xCenter - wBot / 2},${yBot}
+          `;
+          return (
+            <g key={p.name}>
+              <motion.polygon
+                points={points}
+                fill={p.color}
+                fillOpacity="0.15"
+                stroke={p.color}
+                strokeWidth="1.5"
+                initial={{ opacity: 0, scale: 0.92 }}
+                animate={{ opacity: inView ? 1 : 0, scale: inView ? 1 : 0.92 }}
+                transition={{ delay: i * 0.18, duration: 0.5 }}
+                style={{ transformOrigin: `${xCenter}px ${(yTop + yBot) / 2}px` }}
+              />
+              <motion.text
+                x={xCenter}
+                y={yTop + (stepH - 8) / 2 - 4}
+                textAnchor="middle"
+                fontSize="11"
+                fontWeight="700"
+                fill="white"
+                fontFamily="'Helvetica Neue', Helvetica, sans-serif"
+                letterSpacing="1.5"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: inView ? 1 : 0 }}
+                transition={{ delay: i * 0.18 + 0.2, duration: 0.3 }}
+              >
+                {p.name.replace('The ', '').toUpperCase()}
+              </motion.text>
+              <motion.text
+                x={xCenter}
+                y={yTop + (stepH - 8) / 2 + 12}
+                textAnchor="middle"
+                fontSize="10"
+                fill={p.color}
+                fontFamily="ui-monospace, monospace"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: inView ? 1 : 0 }}
+                transition={{ delay: i * 0.18 + 0.3, duration: 0.3 }}
+              >
+                {`-${p.loss}%`}
+              </motion.text>
+              {/* Leaking drip on the right side */}
+              <motion.circle
+                cx={xCenter + wTop / 2 + 12}
+                cy={yTop + stepH / 2}
+                r="3"
+                fill={p.color}
+                initial={{ opacity: 0, x: 0 }}
+                animate={{
+                  opacity: inView ? [0, 1, 0] : 0,
+                  y: inView ? [0, 20] : 0,
+                }}
+                transition={{
+                  delay: i * 0.2 + 1,
+                  duration: 2,
+                  repeat: Infinity,
+                  repeatDelay: 1.5,
+                }}
+              />
+            </g>
+          );
+        })}
+      </svg>
+
+      {/* Result */}
+      <div className="mt-2 pt-5 border-t border-divider grid grid-cols-2 gap-4">
+        <div>
+          <p className="text-[10px] tracking-[0.2em] uppercase text-mute font-semibold mb-1">Started with</p>
+          <p className="font-display text-2xl text-white">100 signals</p>
+        </div>
+        <div>
+          <p className="text-[10px] tracking-[0.2em] uppercase text-mute font-semibold mb-1">Survive to booking</p>
+          <p className="font-display text-2xl text-elec">~28</p>
+        </div>
+      </div>
+    </div>
   );
 }
 

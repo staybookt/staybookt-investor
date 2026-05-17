@@ -380,6 +380,50 @@ export function PricingV3() {
           </h2>
         </Reveal>
 
+        {/* Wedge / Moat / Fund stack visual */}
+        <Reveal delay={0.15}>
+          <div className="mb-12 grid lg:grid-cols-3 gap-3 bg-paper border border-divider-lt rounded-2xl p-6 sm:p-8">
+            <div className="flex items-center gap-4 p-4 rounded-xl bg-elec/5 border border-elec/30">
+              <div className="w-12 h-12 rounded-lg bg-elec/20 flex items-center justify-center shrink-0">
+                <svg viewBox="0 0 24 24" fill="none" stroke="var(--elec)" strokeWidth={2} className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <div>
+                <p className="text-[10px] tracking-[0.25em] uppercase font-bold text-elec mb-1">Wedge</p>
+                <p className="font-display text-base text-ink">Website</p>
+                <p className="text-xs text-mute leading-snug">Cheap. Fast. Instant value. They’re in.</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4 p-4 rounded-xl bg-plumb/5 border border-plumb/30">
+              <div className="w-12 h-12 rounded-lg bg-plumb/20 flex items-center justify-center shrink-0">
+                <svg viewBox="0 0 24 24" fill="none" stroke="var(--plumb)" strokeWidth={2} className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              </div>
+              <div>
+                <p className="text-[10px] tracking-[0.25em] uppercase font-bold text-plumb mb-1">Moat</p>
+                <p className="font-display text-base text-ink">Software</p>
+                <p className="text-xs text-mute leading-snug">Their book lives here. Switching cost: vertical.</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4 p-4 rounded-xl bg-hvac/5 border border-hvac/30">
+              <div className="w-12 h-12 rounded-lg bg-hvac/20 flex items-center justify-center shrink-0">
+                <svg viewBox="0 0 24 24" fill="none" stroke="var(--hvac)" strokeWidth={2} className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <div>
+                <p className="text-[10px] tracking-[0.25em] uppercase font-bold text-hvac mb-1">Fund</p>
+                <p className="font-display text-base text-ink">Consulting</p>
+                <p className="text-xs text-mute leading-snug">High-touch. Funds growth. Seeds next 10 clients.</p>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+
         <div className="grid lg:grid-cols-3 gap-5">
           {/* Website */}
           <Reveal delay={0.1}>

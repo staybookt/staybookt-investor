@@ -1,6 +1,6 @@
 'use client';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Reveal } from './Sections';
 
 /* ============================================================
@@ -714,6 +714,9 @@ export function CustomerOutcomes() {
       tim: { metric: 'Tim, today', value: '5 → 40+ leads / mo · 0 voicemails after hours' },
       thesis: 'Long-term: 25–40% top-line lift in year one for owner-operators who were leaving leads on the table.',
       color: 'var(--elec)',
+      dial: 33,
+      dialLabel: 'top-line lift, yr 1',
+      iconPath: 'M3 10l9-7 9 7v11a2 2 0 01-2 2h-4v-7H9v7H5a2 2 0 01-2-2V10z',
     },
     {
       n: '02',
@@ -723,6 +726,9 @@ export function CustomerOutcomes() {
       tim: { metric: 'Tim, today', value: '15 hr/wk on admin → < 2 hr/wk' },
       thesis: 'Long-term: owner moves from operator-stuck to operator-by-choice. The business can survive a vacation. Then a second crew. Then a second location.',
       color: 'var(--plumb)',
+      dial: 87,
+      dialLabel: 'admin hours reclaimed',
+      iconPath: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z',
     },
     {
       n: '03',
@@ -732,15 +738,21 @@ export function CustomerOutcomes() {
       tim: { metric: 'Tim, today', value: '3 reviews → 50+ in 90 days · #1 local pack' },
       thesis: 'Long-term: customer acquisition cost trends toward zero. Reputation becomes the moat. Paid spend becomes optional, not required.',
       color: 'var(--hvac)',
+      dial: 92,
+      dialLabel: 'review velocity gain',
+      iconPath: 'M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.783-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z',
     },
     {
       n: '04',
       tag: 'ENTERPRISE VALUE',
       title: 'The business goes from "a job" to "an asset."',
-      benefit: 'Documented processes. Predictable revenue. Clean books. Quarterly board-style reviews. A buyer or lender can see exactly what they’re looking at.',
+      benefit: 'Documented processes. Predictable revenue. Clean books. Quarterly board-style reviews. A buyer or lender can see exactly what they\u2019re looking at.',
       tim: { metric: 'Tim, today', value: 'Monday brief · monthly QBR · documented playbook' },
       thesis: 'Long-term: when the owner decides to sell, retire, or pass it on, the business commands a higher multiple because someone else can step in and run it.',
       color: 'var(--elec)',
+      dial: 75,
+      dialLabel: 'transferability score',
+      iconPath: 'M3 7l9-4 9 4M3 7l9 4 9-4M3 7v10l9 4 9-4V7',
     },
   ];
 
@@ -766,11 +778,24 @@ export function CustomerOutcomes() {
           {outcomes.map((o, i) => (
             <Reveal key={o.n} delay={i * 0.1}>
               <div className="bg-paper border border-divider-lt rounded-2xl p-8 sm:p-10 h-full flex flex-col">
-                <div className="flex items-baseline gap-3 mb-5">
-                  <span className="font-mono text-xs text-mute">{o.n}</span>
-                  <span className="text-[10px] tracking-[0.25em] uppercase font-bold" style={{ color: o.color }}>
-                    {o.tag}
-                  </span>
+                <div className="flex items-start justify-between mb-5">
+                  <div>
+                    <div className="flex items-baseline gap-3 mb-1">
+                      <span className="font-mono text-xs text-mute">{o.n}</span>
+                      <span className="text-[10px] tracking-[0.25em] uppercase font-bold" style={{ color: o.color }}>
+                        {o.tag}
+                      </span>
+                    </div>
+                  </div>
+                  {/* Icon + dial */}
+                  <div className="flex items-center gap-4">
+                    <div className="w-11 h-11 rounded-xl flex items-center justify-center" style={{ background: `${o.color}15`, border: `1px solid ${o.color}40`, color: o.color }}>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="w-5 h-5">
+                        <path strokeLinecap="round" strokeLinejoin="round" d={o.iconPath} />
+                      </svg>
+                    </div>
+                    <OutcomeDial value={o.dial} color={o.color} />
+                  </div>
                 </div>
                 <h3 className="font-display text-2xl sm:text-3xl tracking-[-0.02em] leading-snug mb-5">
                   {o.title}
@@ -808,3 +833,43 @@ export function CustomerOutcomes() {
     </section>
   );
 }
+
+/* Small radial dial used in Customer Outcomes cards */
+function OutcomeDial({ value, color }: { value: number; color: string }) {
+  const ref = useRef<SVGCircleElement>(null);
+  const [n, setN] = useState(0);
+  useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) {
+        const start = performance.now();
+        const step = (now: number) => {
+          const p = Math.min((now - start) / 1200, 1);
+          setN(value * (1 - Math.pow(1 - p, 3)));
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+        obs.disconnect();
+      }
+    }, { threshold: 0.3 });
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, [value]);
+
+  const r = 22;
+  const circ = 2 * Math.PI * r;
+  const offset = circ * (1 - n / 100);
+  return (
+    <div className="flex items-center gap-3">
+      <div className="relative w-14 h-14">
+        <svg viewBox="0 0 56 56" className="w-full h-full -rotate-90">
+          <circle cx="28" cy="28" r={r} stroke="var(--divider-lt)" strokeWidth="4" fill="none" />
+          <circle ref={ref} cx="28" cy="28" r={r} stroke={color} strokeWidth="4" fill="none" strokeLinecap="round" strokeDasharray={circ} strokeDashoffset={offset} style={{ transition: 'stroke-dashoffset 0.05s linear' }} />
+        </svg>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="font-display text-sm tracking-tight" style={{ color }}>{Math.round(n)}%</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
