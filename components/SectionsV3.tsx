@@ -478,7 +478,7 @@ export function PricingV3() {
           <div className="mt-12 p-6 bg-paper border border-divider-lt rounded-xl">
             <p className="text-[11px] tracking-[0.25em] uppercase text-mute font-semibold mb-3">The thesis</p>
             <p className="text-ink text-base sm:text-lg leading-relaxed">
-              Website is the wedge — cheap to ship, immediate value, sticky. Software is the moat — once they run their book inside <span className="wordmark-gradient">StayBookt</span>, switching cost goes vertical. Consulting funds growth without burning runway and seeds the next 10 clients.
+              Website is the wedge — cheap to ship, immediate value, sticky. The operating team is the moat — once a client runs their book inside <span className="wordmark-gradient">StayBookt</span>, switching cost goes vertical. The playbook is the long game — every client we run sharpens the OS for client N+1.
             </p>
           </div>
         </Reveal>
@@ -624,6 +624,118 @@ export function CompetitiveLandscapeV2() {
         <Reveal delay={0.5}>
           <p className="mt-10 text-mute text-sm italic max-w-3xl">
             Richard&apos;s read: &ldquo;There are no pure-play competitors offering our vertically integrated customer journey solution for our ICP. We are in a rare position to set the market.&rdquo;
+          </p>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/* === MOAT — three theses for why we compound ====================
+ * Closes /opportunity. Frames defensibility as a forward-looking thesis
+ * (compounding moats), not a defensive backward-looking claim. At pre-seed
+ * the strongest moat story is "here's how the moat builds with every client."
+ * ================================================================ */
+export function Moat() {
+  const theses = [
+    {
+      num: '01',
+      title: 'Switching cost compounds with embedment',
+      lede: 'Every week a client runs inside StayBookt, more of their revenue engine lives in our hands.',
+      detail:
+        'Their site, CRM, review pipeline, Monday brief, and Friday cadence are all ours. Replacing us means rebuilding all of it — and rebuilding the team that runs it. The longer they stay, the higher the cost of leaving.',
+      color: '#06B6D4',
+    },
+    {
+      num: '02',
+      title: 'The hybrid is structurally hard to copy',
+      lede: 'Software companies can\'t operate. Agencies can\'t ship software. We do both.',
+      detail:
+        'Jobber will not pivot to embedded services — their margin model can\'t support it. Agencies can\'t hold a 7-stage software product roadmap. The hybrid requires patience, operating discipline, and a willingness to ship slower than pure SaaS. Most competitors structurally can\'t.',
+      color: '#10B981',
+    },
+    {
+      num: '03',
+      title: 'The playbook gets sharper with every client',
+      lede: 'By client 30, our 7-stage OS is calibrated against 30 real businesses. New entrants start at zero.',
+      detail:
+        'Every Monday brief, every missed-call recovery, every quote-to-booking ratio refines the playbook for client N+1. A competitor starting today faces the same learning curve we already paid for — and we keep extending it. Operating data compounds in ways pure software can\'t.',
+      color: '#4F46E5',
+    },
+  ];
+
+  return (
+    <section className="relative bg-ink text-white py-32 sm:py-40 overflow-hidden">
+      {/* Atmospheric dot grid */}
+      <div
+        className="absolute inset-0 opacity-[0.18] pointer-events-none"
+        style={{
+          backgroundImage: 'radial-gradient(circle, rgba(148,163,184,0.35) 1px, transparent 1px)',
+          backgroundSize: '32px 32px',
+          maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 75%)',
+          WebkitMaskImage: 'radial-gradient(ellipse at center, black 30%, transparent 75%)',
+        }}
+      />
+      <div className="relative px-8 sm:px-16 max-w-7xl mx-auto">
+        <Reveal>
+          <p className="text-[11px] tracking-[0.3em] uppercase text-elec font-semibold mb-6">
+            Defensibility
+          </p>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <h2 className="font-display text-[40px] sm:text-[72px] leading-[0.98] tracking-[-0.04em] max-w-4xl mb-6">
+            Why we compound.
+          </h2>
+        </Reveal>
+        <Reveal delay={0.2}>
+          <p className="text-platinum-soft text-base sm:text-lg max-w-2xl leading-relaxed mb-16 sm:mb-20">
+            At pre-seed, a moat is a thesis about how defensibility builds — not a wall we&apos;ve already built. Three theses, each compounding with every client we run.
+          </p>
+        </Reveal>
+
+        <div className="grid md:grid-cols-3 gap-4 lg:gap-6">
+          {theses.map((t, i) => (
+            <Reveal key={t.num} delay={0.3 + i * 0.1}>
+              <div className="relative rounded-2xl border border-divider/60 bg-ink-soft/30 p-7 sm:p-8 h-full overflow-hidden">
+                {/* Top accent bar */}
+                <div
+                  className="absolute top-0 left-0 right-0 h-[2px]"
+                  style={{ background: t.color, opacity: 0.7 }}
+                />
+                {/* Giant editorial numeral */}
+                <div
+                  className="absolute -top-4 -right-2 font-display text-[160px] sm:text-[200px] leading-none tracking-[-0.06em] pointer-events-none select-none"
+                  style={{ color: `${t.color}11` }}
+                  aria-hidden="true"
+                >
+                  {t.num}
+                </div>
+
+                <div className="relative">
+                  <p
+                    className="text-[10px] tracking-[0.25em] uppercase font-bold mb-5"
+                    style={{ color: t.color }}
+                  >
+                    Thesis · {t.num}
+                  </p>
+                  <h3 className="font-display text-2xl sm:text-3xl tracking-tight leading-tight mb-4">
+                    {t.title}
+                  </h3>
+                  <p className="text-platinum text-base leading-snug mb-5 font-semibold">
+                    {t.lede}
+                  </p>
+                  <p className="text-platinum-soft text-sm leading-relaxed">
+                    {t.detail}
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal delay={0.7}>
+          <p className="mt-14 text-center text-mute text-sm italic max-w-3xl mx-auto">
+            None of these moats exist at one client. All three compound from client two onward. The raise buys us the runway to reach client thirty — where the moat becomes visible.
           </p>
         </Reveal>
       </div>

@@ -5,7 +5,7 @@ import { Reveal } from './Sections';
 
 /* ============================================================
  * StayBookt OS — the centerpiece
- * Five stages of the playbook. Click any stage. Detail panel
+ * Seven stages of the playbook. Click any stage. Detail panel
  * shows: deliverables, tools, KPIs, owner, Tim's live number.
  *
  * This is the product. Tech is the toolkit. Team runs the
@@ -111,25 +111,67 @@ const STAGES: Stage[] = [
     tim: { metric: 'Owner admin hours / week', value: '15h → < 2h' },
   },
   {
-    id: 'retain',
-    name: 'RETAIN',
-    short: 'Turn one job into three',
+    id: 'measure',
+    name: 'MEASURE',
+    short: 'Make the business legible',
     color: 'var(--hvac)',
-    oneLiner: 'Review velocity, referral loops, repeat-customer outreach. Compounding visibility, not paid spikes.',
+    oneLiner: 'Monday brief in the owner\'s inbox. Live KPI dashboard. Monthly board-style review. Lead source attribution.',
+    owner: 'Ops Lead',
+    deliverables: [
+      'Monday morning brief (last week + this week)',
+      'Live KPI dashboard (leads, bookings, MRR, reviews)',
+      'Monthly board-style operating review with the owner',
+      'Lead source attribution (which channel drove what)',
+    ],
+    tools: ['Notion dashboards', 'GA4 + funnel events', 'Google Sheets / Supabase', 'Custom briefs (Ph II)'],
+    kpis: [
+      { metric: 'Brief delivery rate', target: '100% Monday 7am' },
+      { metric: 'Attribution coverage', target: '> 90% of new leads' },
+      { metric: 'Owner reads per month', target: '4+ briefs viewed' },
+    ],
+    tim: { metric: 'Weekly briefs + monthly QBR', value: '8 weeks running' },
+  },
+  {
+    id: 'reputation',
+    name: 'REPUTATION',
+    short: 'Build the brand',
+    color: 'var(--hvac)',
+    oneLiner: 'Review velocity. Photo-led case studies. Press + directory listings. Compounding visibility, not paid spikes.',
     owner: 'Growth Lead',
     deliverables: [
       'Post-job review request automation (SMS + email)',
-      'Quarterly check-in emails to past customers',
-      'Referral incentive program',
-      'Annual maintenance reminder cadence',
+      'Review-of-the-week feature on the site',
+      'Photo-led case studies (1 / mo)',
+      'Press + directory listings (HomeStars, BBB, etc.)',
     ],
-    tools: ['SMS automation (Twilio)', 'Gmail API', 'GBP review API (Ph II)', 'Customer DB'],
+    tools: ['SMS automation (Twilio)', 'GBP review API (Ph II)', 'Photo workflow', 'Directory submissions'],
     kpis: [
       { metric: 'Reviews / month', target: '> 5' },
-      { metric: 'Repeat customer rate', target: '> 25%' },
-      { metric: 'Referral attribution', target: '> 15% of new leads' },
+      { metric: 'Average rating', target: '4.9+' },
+      { metric: 'Case studies shipped', target: '1 / month' },
     ],
     tim: { metric: 'Google reviews in 90 days', value: '3 → 50+' },
+  },
+  {
+    id: 'referral',
+    name: 'REFERRAL',
+    short: 'Turn one job into three',
+    color: 'var(--hvac)',
+    oneLiner: 'Referral incentive program. Annual maintenance reminders. Quarterly past-customer outreach. CAC trends to zero.',
+    owner: 'Growth Lead',
+    deliverables: [
+      'Referral incentive program (give $50 / get $50)',
+      'Annual maintenance reminder cadence',
+      'Quarterly past-customer check-in emails',
+      'Past-customer database with tags + next-touch dates',
+    ],
+    tools: ['Gmail API', 'Customer DB (Notion → Supabase)', 'Reminder automation', 'Referral tracking'],
+    kpis: [
+      { metric: 'Repeat customer rate', target: '> 25%' },
+      { metric: 'Referral attribution', target: '> 15% of new leads' },
+      { metric: 'CAC trajectory', target: 'declining quarter over quarter' },
+    ],
+    tim: { metric: 'Referrals booked to date', value: '3 · CAC trending toward zero' },
   },
 ];
 
@@ -402,7 +444,7 @@ export function StayBooktOS() {
             The <span className="wordmark-gradient">StayBookt</span> OS.
           </h2>
           <h2 className="font-display text-2xl sm:text-3xl tracking-tight text-mute-dark mb-4 max-w-3xl">
-            One playbook. Five stages. Run by our team, every week, for every client.
+            One playbook. Seven stages. Run by our team, every week, for every client.
           </h2>
           <p className="text-mute text-base sm:text-lg max-w-3xl leading-relaxed mb-16">
             We are not a software company. We are an operating team. The software, the website, the GBP — those are tools. The product is the playbook and the people who run it. <span className="text-platinum">Click any stage to see how we deliver it.</span>
@@ -521,7 +563,7 @@ export function StayBooktOS() {
           <div className="mt-12 grid sm:grid-cols-3 gap-6 text-center">
             <div className="border-l-2 border-elec pl-5 py-2 text-left">
               <p className="font-display text-3xl text-elec tracking-tight">1 playbook</p>
-              <p className="text-mute text-sm mt-1">Same five stages, every client.</p>
+              <p className="text-mute text-sm mt-1">Same seven stages, every client.</p>
             </div>
             <div className="border-l-2 border-plumb pl-5 py-2 text-left">
               <p className="font-display text-3xl text-plumb tracking-tight">3 named owners</p>

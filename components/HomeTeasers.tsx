@@ -55,10 +55,10 @@ export function MechanismTeaser() {
               <h2 className="font-display text-4xl sm:text-6xl tracking-[-0.04em] leading-tight mb-6">
                 One playbook.
                 <br />
-                Five stages.
+                Seven stages.
               </h2>
               <p className="text-platinum-soft text-base sm:text-lg leading-relaxed mb-8 max-w-xl">
-                Find. Capture. Quote. Deliver. Retain &mdash; run by our team, every week, for every client. The <span className="wordmark-gradient">StayBookt</span> OS is how we deliver the same outcome to client #2 or client #100.
+                Find · Capture · Quote · Deliver · Measure · Reputation · Referral &mdash; run by our team, every week, for every client. The <span className="wordmark-gradient">StayBookt</span> OS is how we deliver the same outcome to client #2 or client #100.
               </p>
               <Link
                 href="/how-it-works"
@@ -82,11 +82,13 @@ export function MechanismTeaser() {
 
 function MiniFlywheel() {
   const stages = [
-    { name: 'FIND', color: 'var(--elec)' },
-    { name: 'CAPTURE', color: 'var(--elec)' },
-    { name: 'QUOTE', color: 'var(--plumb)' },
-    { name: 'DELIVER', color: 'var(--plumb)' },
-    { name: 'RETAIN', color: 'var(--hvac)' },
+    { name: 'FIND', color: '#06B6D4' },
+    { name: 'CAPTURE', color: '#0EA5E9' },
+    { name: 'QUOTE', color: '#10B981' },
+    { name: 'DELIVER', color: '#059669' },
+    { name: 'MEASURE', color: '#14B8A6' },
+    { name: 'REPUTATION', color: '#2563EB' },
+    { name: 'REFERRAL', color: '#4F46E5' },
   ];
   const size = 380;
   const cx = size / 2;

@@ -891,7 +891,7 @@ export function Flywheel() {
             Every trade leaks
           </h2>
           <h2 className="font-display text-5xl sm:text-7xl tracking-tight text-mute mb-20">
-            at one of five stages.
+            at one of seven stages.
           </h2>
         </Reveal>
 

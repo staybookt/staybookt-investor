@@ -8,10 +8,10 @@ import Link from 'next/link';
  * 7-stage StayBookt Operating System with sticky flywheel + scrolling
  * detail cards, each with its own custom data viz.
  *
- * Stages grouped into 3 acts:
- *   Demand  (amber)  : FIND, CAPTURE
- *   Conversion+Exec (yellow-green → emerald): QUOTE, DELIVER
- *   Compounding (teal → blue): MEASURE, REPUTATION, REFERRAL
+ * Stages grouped into 3 acts (cool-only palette):
+ *   Demand     (cyan → sky)        : FIND, CAPTURE
+ *   Execution  (emerald → teal)    : QUOTE, DELIVER
+ *   Compounding (teal → blue → indigo): MEASURE, REPUTATION, REFERRAL
  * ============================================================ */
 
 type Stage = {
@@ -58,7 +58,7 @@ const VizCapture = ({ active }: { active: boolean }) => {
     <svg viewBox="0 0 240 140" className="w-full max-w-[280px]">
       {/* Before bar */}
       <text x="20" y="20" fontSize="10" fill="rgba(255,255,255,0.5)" letterSpacing="1.5">BEFORE</text>
-      <rect x="20" y="28" width="160" height="22" rx="3" fill="rgba(245,158,11,0.15)" />
+      <rect x="20" y="28" width="160" height="22" rx="3" fill="rgba(6,182,212,0.15)" />
       <motion.rect
         x="20" y="28" rx="3"
         height="22"
@@ -397,8 +397,8 @@ function Wheel7({ activeIdx }: { activeIdx: number }) {
       <svg viewBox={`0 0 ${size} ${size}`} className="w-full h-full">
         <defs>
           <radialGradient id="hubGlow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="rgba(245,158,11,0.18)" />
-            <stop offset="100%" stopColor="rgba(245,158,11,0)" />
+            <stop offset="0%" stopColor="rgba(6,182,212,0.18)" />
+            <stop offset="100%" stopColor="rgba(6,182,212,0)" />
           </radialGradient>
         </defs>
 
