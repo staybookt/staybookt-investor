@@ -2,7 +2,6 @@ import { Hero } from '@/components/Sections';
 import { AskV2 } from '@/components/ExtendedSections';
 import { TopNav } from '@/components/TopNav';
 import {
-  Manifesto,
   MechanismTeaser,
   ProofTeaser,
   OpportunityTeaser,
@@ -16,7 +15,6 @@ export default function HomePage() {
     <main id="top" className="relative">
       <TopNav />
       <Hero />
-      <Manifesto />
       <MechanismTeaser />
       <ProofTeaser />
       <OpportunityTeaser />

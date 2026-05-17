@@ -37,15 +37,10 @@ export const metadata: Metadata = {
   },
 };
 
-import { CursorFollower } from '@/components/PageFX';
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="antialiased">
-        <CursorFollower />
-        {children}
-      </body>
+      <body className="antialiased">{children}</body>
     </html>
   );
 }
