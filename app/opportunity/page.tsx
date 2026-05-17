@@ -1,7 +1,7 @@
 import { WhyNow, CompetitiveLandscapeV2 } from '@/components/SectionsV3';
 import { AskV2 } from '@/components/ExtendedSections';
 import { TopNav } from '@/components/TopNav';
-import { SiteFooter } from '@/components/HomeTeasers';
+import { SiteFooter, UpNext } from '@/components/HomeTeasers';
 
 export const metadata = { title: 'Opportunity — StayBookt' };
 
@@ -19,6 +19,7 @@ export default function OpportunityPage() {
         <CompetitiveLandscapeV2 />
         <AskV2 />
       </div>
+      <UpNext current="/opportunity" />
       <SiteFooter />
     </main>
   );
