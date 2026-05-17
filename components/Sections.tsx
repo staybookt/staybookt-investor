@@ -44,28 +44,31 @@ export function Counter({ value, prefix = '', suffix = '', duration = 2 }: { val
   return <span ref={ref}>{prefix}{n.toLocaleString()}{suffix}</span>;
 }
 
-/* === Section 1 — Hero === */
+/* === Section 1 — Hero (V2, story + photo led) === */
 export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-ink">
-      {/* Decorative gradient orbs */}
+      {/* Full-bleed Tim home photo */}
+      <div className="absolute inset-0">
+        <Image
+          src="/photos/IMG_1140.jpg"
+          alt="Top Choice Electrical work — Newmarket home at dusk"
+          fill
+          priority
+          className="object-cover"
+          sizes="100vw"
+        />
+        {/* Dark gradient overlay — readable from left, photo bleeds right */}
+        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/80 to-ink/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/40" />
+      </div>
+
+      {/* Subtle amber accent orb (smaller, less SaaS-y) */}
       <motion.div
         className="orb"
-        style={{ width: 600, height: 600, background: 'var(--elec)', top: '-10%', right: '-10%' }}
-        animate={{ scale: [1, 1.1, 1], x: [0, 30, 0] }}
-        transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      <motion.div
-        className="orb"
-        style={{ width: 500, height: 500, background: 'var(--plumb)', bottom: '-15%', right: '15%' }}
-        animate={{ scale: [1.1, 1, 1.1], x: [0, -20, 0] }}
-        transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      <motion.div
-        className="orb"
-        style={{ width: 450, height: 450, background: 'var(--hvac)', bottom: '0%', right: '-5%' }}
-        animate={{ scale: [1, 1.15, 1] }}
-        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+        style={{ width: 380, height: 380, background: 'var(--elec)', bottom: '-10%', right: '-5%', opacity: 0.18 }}
+        animate={{ scale: [1, 1.1, 1] }}
+        transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
       />
 
       {/* Top nav */}
@@ -74,29 +77,93 @@ export function Hero() {
         <span className="text-xs tracking-[0.2em] font-semibold text-platinum-soft">INVESTOR BRIEF · 2026</span>
       </nav>
 
-      <div className="relative z-10 px-8 sm:px-16 max-w-7xl">
+      <div className="relative z-10 px-8 sm:px-16 max-w-7xl w-full">
+        {/* Tagline pill */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <p className="text-elec text-xs sm:text-sm tracking-[0.3em] font-semibold uppercase mb-6">
+            The embedded ops team for trades
+          </p>
+        </motion.div>
+
+        {/* Headline — story-led */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
-          <h1 className="font-display text-white text-[88px] sm:text-[140px] leading-[0.9] tracking-[-0.05em]">
-            Operating
+          <h1 className="font-display text-white text-[56px] sm:text-[104px] leading-[0.95] tracking-[-0.04em] max-w-5xl">
+            Tim used to answer
           </h1>
-          <h1 className="font-display text-platinum text-[88px] sm:text-[140px] leading-[0.9] tracking-[-0.05em]">
-            layer.
+          <h1 className="font-display text-white text-[56px] sm:text-[104px] leading-[0.95] tracking-[-0.04em] max-w-5xl">
+            his own phone.
           </h1>
         </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.0, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <h2 className="mt-4 font-display text-elec text-[56px] sm:text-[104px] leading-[0.95] tracking-[-0.04em]">
+            Now we do.
+          </h2>
+        </motion.div>
+
+        {/* Subhead */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.0 }}
-          className="mt-12 text-platinum-soft text-lg sm:text-2xl font-display tracking-tight max-w-3xl"
+          transition={{ duration: 0.8, delay: 1.4 }}
+          className="mt-10 text-platinum text-base sm:text-xl leading-relaxed max-w-2xl"
         >
-          Making the phone ring so you StayBookt.
-          <br />
-          <span className="text-mute-dark text-base sm:text-lg">The operating layer for residential + light-commercial service businesses. Electrical · HVAC · Plumbing.</span>
+          StayBookt is the embedded ops team for small residential + light-commercial service businesses. Find. Capture. Quote. Deliver. Retain &mdash; same playbook, every client.
         </motion.p>
+
+        {/* Proof bar — 3 small stats */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.7 }}
+          className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6 max-w-3xl"
+        >
+          {[
+            { label: 'Live', value: '1 client', sub: 'Tim, Newmarket ON' },
+            { label: 'Lead lift', value: '5 → 40+/mo', sub: 'in 60 days' },
+            { label: 'TAM', value: '$108M', sub: 'Canada · trades' },
+          ].map((s, i) => (
+            <div
+              key={s.label}
+              className="border-l-2 border-elec/60 pl-4 py-1"
+            >
+              <p className="text-[10px] tracking-[0.25em] uppercase text-elec font-semibold mb-1">{s.label}</p>
+              <p className="font-display text-xl sm:text-2xl tracking-tight text-white">{s.value}</p>
+              <p className="text-platinum-soft text-xs mt-0.5">{s.sub}</p>
+            </div>
+          ))}
+        </motion.div>
+
+        {/* CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 2.0 }}
+          className="mt-10 flex flex-wrap items-center gap-4"
+        >
+          <a
+            href="https://cal.com/jacobcharendoff/staybookt"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-elec hover:bg-elec-light text-ink font-bold px-7 py-3.5 rounded-xl text-sm sm:text-base transition-all hover:scale-[1.02] shadow-lg shadow-elec/30"
+          >
+            Book a 30-min walkthrough →
+          </a>
+          <a href="#why" className="text-platinum-soft hover:text-white text-sm font-medium underline-offset-4 hover:underline">
+            Or scroll the brief ↓
+          </a>
+        </motion.div>
       </div>
 
       {/* Bottom scroll cue */}
@@ -111,36 +178,237 @@ export function Hero() {
   );
 }
 
-/* === Section 2 — The Why === */
+/* === Section 2 — The Why (with revenue plateau chart) === */
 export function TheWhy() {
   return (
-    <section id="why" className="relative min-h-screen flex items-center bg-cream text-ink py-32">
+    <section id="why" className="relative min-h-screen flex items-center bg-cream text-ink py-32 overflow-hidden">
       <div className="px-8 sm:px-16 max-w-7xl mx-auto w-full">
-        <Reveal>
-          <p className="text-xs sm:text-sm font-semibold tracking-[0.3em] text-elec uppercase mb-12">
-            Why we exist
-          </p>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <h2 className="font-display text-[64px] sm:text-[110px] leading-[0.95] tracking-[-0.04em]">
-            Trades stall
-          </h2>
-        </Reveal>
-        <Reveal delay={0.25}>
-          <h2 className="font-display text-elec text-[64px] sm:text-[110px] leading-[0.95] tracking-[-0.04em]">
-            at $1M.
-          </h2>
-        </Reveal>
-        <Reveal delay={0.5} className="mt-20 max-w-3xl">
-          <p className="text-mute text-lg sm:text-xl leading-relaxed">
-            An owner-operator electrician doing $1M in revenue should have a marketing lead, an ops manager, a bookkeeper, and a recruiter on payroll. They have themselves. The phone keeps ringing while they're on a panel upgrade. Quotes go cold.
-          </p>
-          <p className="text-ink text-xl sm:text-2xl font-semibold mt-8 leading-relaxed">
-            StayBookt is the team and the tooling they can't hire.
-          </p>
-        </Reveal>
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+          {/* LEFT — copy */}
+          <div className="lg:col-span-6">
+            <Reveal>
+              <p className="text-xs sm:text-sm font-semibold tracking-[0.3em] text-elec uppercase mb-8">
+                Why we exist
+              </p>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <h2 className="font-display text-[56px] sm:text-[88px] leading-[0.95] tracking-[-0.04em]">
+                Trades stall
+              </h2>
+            </Reveal>
+            <Reveal delay={0.25}>
+              <h2 className="font-display text-elec text-[56px] sm:text-[88px] leading-[0.95] tracking-[-0.04em]">
+                at $1M.
+              </h2>
+            </Reveal>
+            <Reveal delay={0.5} className="mt-10">
+              <p className="text-mute text-base sm:text-lg leading-relaxed">
+                An owner-operator electrician doing $1M in revenue should have a marketing lead, an ops manager, a bookkeeper, and a recruiter on payroll. They have themselves. The phone keeps ringing while they&apos;re on a panel upgrade. Quotes go cold.
+              </p>
+              <p className="text-ink text-lg sm:text-xl font-semibold mt-6 leading-relaxed">
+                StayBookt is the team and the tooling they can&apos;t hire.
+              </p>
+            </Reveal>
+          </div>
+
+          {/* RIGHT — animated plateau chart */}
+          <div className="lg:col-span-6">
+            <Reveal delay={0.3}>
+              <PlateauChart />
+            </Reveal>
+          </div>
+        </div>
       </div>
     </section>
+  );
+}
+
+/* Animated revenue plateau chart — shows trades stalling at $1M */
+function PlateauChart() {
+  const ref = useRef<SVGPathElement>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) setInView(true);
+    }, { threshold: 0.3 });
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
+
+  // Chart geometry
+  const W = 560;
+  const H = 380;
+  const padL = 60;
+  const padR = 20;
+  const padT = 30;
+  const padB = 50;
+
+  // Revenue trajectory: rises fast 0→$1M, then plateaus
+  // Data points: (year, revenue $K)
+  const data = [
+    [0, 0], [1, 120], [2, 320], [3, 580], [4, 820], [5, 1000],
+    [6, 1020], [7, 1040], [8, 1030], [9, 1050], [10, 1040],
+  ];
+  const xMax = 10;
+  const yMax = 1500;
+  const xScale = (x: number) => padL + (x / xMax) * (W - padL - padR);
+  const yScale = (y: number) => H - padB - (y / yMax) * (H - padT - padB);
+
+  // Build path
+  const path = data.map((d, i) => `${i === 0 ? 'M' : 'L'} ${xScale(d[0])} ${yScale(d[1])}`).join(' ');
+
+  // Plateau line (the $1M ceiling)
+  const ceilingY = yScale(1000);
+
+  // Friction labels — placed along the rising curve
+  const friction = [
+    { x: 2, y: 320, label: 'Marketing lead — missing' },
+    { x: 3, y: 580, label: 'Ops manager — missing' },
+    { x: 4, y: 820, label: 'Bookkeeper — missing' },
+    { x: 5, y: 1000, label: 'Recruiter — missing' },
+  ];
+
+  return (
+    <div className="bg-paper border border-divider-lt rounded-2xl p-6 sm:p-8 shadow-sm">
+      <p className="text-[10px] tracking-[0.25em] uppercase text-mute font-semibold mb-2">
+        Revenue trajectory · owner-operator trade
+      </p>
+      <p className="text-ink/70 text-sm mb-4">
+        Why $1M is the wall — and what costs them to scale past it.
+      </p>
+
+      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto">
+        {/* Y-axis grid lines */}
+        {[0, 500, 1000, 1500].map((v) => (
+          <g key={v}>
+            <line x1={padL} y1={yScale(v)} x2={W - padR} y2={yScale(v)} stroke="var(--divider-lt)" strokeWidth="1" strokeDasharray={v === 1000 ? '0' : '2 4'} />
+            <text x={padL - 8} y={yScale(v) + 4} textAnchor="end" fontSize="10" fill="var(--mute)" fontFamily="ui-monospace, monospace">
+              ${v === 1500 ? '1.5M' : v === 1000 ? '1M' : v === 500 ? '500K' : '0'}
+            </text>
+          </g>
+        ))}
+
+        {/* X-axis */}
+        <line x1={padL} y1={H - padB} x2={W - padR} y2={H - padB} stroke="var(--divider-lt)" strokeWidth="1" />
+        {[0, 2, 4, 6, 8, 10].map((x) => (
+          <text key={x} x={xScale(x)} y={H - padB + 16} textAnchor="middle" fontSize="10" fill="var(--mute)" fontFamily="ui-monospace, monospace">
+            Yr {x}
+          </text>
+        ))}
+
+        {/* The $1M ceiling glow */}
+        <line x1={padL} y1={ceilingY} x2={W - padR} y2={ceilingY} stroke="var(--elec)" strokeWidth="2" strokeDasharray="6 4" opacity="0.9" />
+        <text x={W - padR - 6} y={ceilingY - 8} textAnchor="end" fontSize="11" fontWeight="700" fill="var(--elec)" fontFamily="'Helvetica Neue', Helvetica, sans-serif">
+          THE CEILING — $1M
+        </text>
+
+        {/* Trajectory path — animated draw */}
+        <motion.path
+          ref={ref}
+          d={path}
+          fill="none"
+          stroke="#0A0E1A"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: inView ? 1 : 0 }}
+          transition={{ duration: 2.2, ease: [0.16, 1, 0.3, 1] }}
+        />
+
+        {/* Data points */}
+        {data.map((d, i) => (
+          <motion.circle
+            key={i}
+            cx={xScale(d[0])}
+            cy={yScale(d[1])}
+            r="3"
+            fill={d[1] >= 1000 ? 'var(--elec)' : '#0A0E1A'}
+            initial={{ scale: 0 }}
+            animate={{ scale: inView ? 1 : 0 }}
+            transition={{ delay: 0.2 + i * 0.18, duration: 0.3 }}
+          />
+        ))}
+
+        {/* Friction labels — small annotations on the rise */}
+        {friction.map((f, i) => (
+          <motion.g
+            key={f.label}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: inView ? 1 : 0 }}
+            transition={{ delay: 1.5 + i * 0.15, duration: 0.4 }}
+          >
+            <line
+              x1={xScale(f.x)}
+              y1={yScale(f.y)}
+              x2={xScale(f.x) + 14}
+              y2={yScale(f.y) - 16}
+              stroke="var(--mute)"
+              strokeWidth="1"
+              opacity="0.5"
+            />
+            <circle cx={xScale(f.x)} cy={yScale(f.y)} r="5" fill="none" stroke="var(--elec)" strokeWidth="1.5" opacity="0.7" />
+            <text
+              x={xScale(f.x) + 16}
+              y={yScale(f.y) - 18}
+              fontSize="9"
+              fill="var(--ink)"
+              fontFamily="'Helvetica Neue', Helvetica, sans-serif"
+              fontWeight="600"
+            >
+              {f.label}
+            </text>
+          </motion.g>
+        ))}
+
+        {/* The plateau zone shaded */}
+        <motion.rect
+          x={xScale(5)}
+          y={padT}
+          width={xScale(10) - xScale(5)}
+          height={ceilingY - padT}
+          fill="var(--elec)"
+          opacity="0"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: inView ? 0.04 : 0 }}
+          transition={{ delay: 1.8, duration: 0.6 }}
+        />
+
+        {/* "Bottleneck" label in plateau zone */}
+        <motion.text
+          x={xScale(7.5)}
+          y={yScale(1280)}
+          textAnchor="middle"
+          fontSize="11"
+          fontWeight="700"
+          fill="var(--mute)"
+          fontFamily="'Helvetica Neue', Helvetica, sans-serif"
+          letterSpacing="2"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: inView ? 1 : 0 }}
+          transition={{ delay: 2.2, duration: 0.4 }}
+        >
+          BOTTLENECK
+        </motion.text>
+      </svg>
+
+      {/* Bottom stat row */}
+      <div className="grid grid-cols-3 gap-4 mt-6 pt-6 border-t border-divider-lt">
+        <div>
+          <p className="font-display text-2xl text-elec tracking-tight">~70%</p>
+          <p className="text-[10px] tracking-[0.15em] uppercase text-mute font-semibold mt-1">of trades plateau here</p>
+        </div>
+        <div>
+          <p className="font-display text-2xl text-plumb tracking-tight">$250K+</p>
+          <p className="text-[10px] tracking-[0.15em] uppercase text-mute font-semibold mt-1">/ yr to hire 4 roles</p>
+        </div>
+        <div>
+          <p className="font-display text-2xl text-hvac tracking-tight">$5K/mo</p>
+          <p className="text-[10px] tracking-[0.15em] uppercase text-mute font-semibold mt-1">to hire us instead</p>
+        </div>
+      </div>
+    </div>
   );
 }
 
