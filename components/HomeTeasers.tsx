@@ -362,39 +362,139 @@ export function TeamTeaser() {
   );
 }
 
+/* === UpNext — cross-page navigation =========================== */
+const PAGE_ORDER = [
+  { href: '/how-it-works', label: 'How it works', tagline: 'See the playbook we run, every client, every week.' },
+  { href: '/proof', label: 'Proof', tagline: 'Tim Ciszkowski. 60 days in. The numbers, the transformation.' },
+  { href: '/opportunity', label: 'Opportunity', tagline: '$108M Canadian TAM. The PE rollup wave that\'s already happening.' },
+  { href: '/economics', label: 'Economics', tagline: 'Three lines of revenue. Play with the unit econ slider.' },
+  { href: '/team', label: 'Team', tagline: 'Two operators. The people running it.' },
+];
+
+export function UpNext({ current }: { current: string }) {
+  const currentIdx = PAGE_ORDER.findIndex((p) => p.href === current);
+  const next = PAGE_ORDER[(currentIdx + 1) % PAGE_ORDER.length];
+  const prev = currentIdx === 0 ? PAGE_ORDER[PAGE_ORDER.length - 1] : PAGE_ORDER[currentIdx - 1];
+
+  return (
+    <section className="relative bg-ink text-white py-20 border-t border-divider">
+      <div className="px-8 sm:px-16 max-w-7xl mx-auto">
+        <p className="text-[10px] tracking-[0.3em] uppercase text-mute font-semibold mb-6">Keep reading</p>
+        <div className="grid md:grid-cols-2 gap-5">
+          <Link
+            href={prev.href}
+            className="group bg-ink-soft border border-divider hover:border-elec/40 rounded-2xl p-7 transition-all"
+          >
+            <p className="text-[10px] tracking-[0.25em] uppercase text-mute font-semibold mb-3">← Previously</p>
+            <h3 className="font-display text-2xl tracking-tight mb-2 group-hover:text-elec transition-colors">{prev.label}</h3>
+            <p className="text-platinum-soft text-sm leading-relaxed">{prev.tagline}</p>
+          </Link>
+          <Link
+            href={next.href}
+            className="group bg-ink-soft border border-divider hover:border-elec/40 rounded-2xl p-7 transition-all"
+          >
+            <p className="text-[10px] tracking-[0.25em] uppercase text-elec font-semibold mb-3">Up next →</p>
+            <h3 className="font-display text-2xl tracking-tight mb-2 group-hover:text-elec transition-colors">{next.label}</h3>
+            <p className="text-platinum-soft text-sm leading-relaxed">{next.tagline}</p>
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* === Footer ================================================ */
 export function SiteFooter() {
   return (
-    <footer className="bg-ink-deep border-t border-divider text-platinum-soft py-12 px-8 sm:px-16">
-      <div className="max-w-7xl mx-auto grid sm:grid-cols-3 gap-8 items-start">
-        <div>
-          <p className="text-white font-display text-base mb-2">StayBookt</p>
-          <p className="text-xs text-mute leading-relaxed max-w-xs">
-            The embedded ops team for small residential + light-commercial service businesses.
-          </p>
+    <footer className="bg-ink-deep border-t border-divider text-platinum-soft py-16 px-8 sm:px-16">
+      <div className="max-w-7xl mx-auto">
+        {/* Top — large CTA strip */}
+        <div className="grid lg:grid-cols-12 gap-8 pb-12 mb-12 border-b border-divider">
+          <div className="lg:col-span-7">
+            <p className="text-elec text-[10px] tracking-[0.3em] uppercase font-semibold mb-3">
+              Ready to talk?
+            </p>
+            <h3 className="font-display text-3xl sm:text-5xl tracking-[-0.02em] text-white leading-[1.05] max-w-xl">
+              Thirty minutes is all we need to walk you through the playbook.
+            </h3>
+          </div>
+          <div className="lg:col-span-5 flex flex-col gap-3 items-start lg:items-end justify-center">
+            <a
+              href="https://cal.com/jacobcharendoff/staybookt"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-elec hover:bg-elec-light text-ink font-bold px-6 py-3 rounded-xl text-sm transition-all hover:scale-[1.02] shadow-lg shadow-elec/30"
+            >
+              Book a 30-min walkthrough →
+            </a>
+            <a
+              href="/staybookt-brief.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-platinum-soft hover:text-white text-sm inline-flex items-center gap-2"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-4 h-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V3" />
+              </svg>
+              Download the brief
+            </a>
+          </div>
         </div>
-        <div>
-          <p className="text-[10px] tracking-[0.25em] uppercase text-mute font-semibold mb-3">Pages</p>
-          <ul className="space-y-1.5 text-xs">
-            {[
-              { href: '/how-it-works', label: 'How it works' },
-              { href: '/proof', label: 'Proof' },
-              { href: '/opportunity', label: 'Opportunity' },
-              { href: '/economics', label: 'Economics' },
-              { href: '/team', label: 'Team' },
-            ].map((p) => (
-              <li key={p.href}>
-                <Link href={p.href} className="hover:text-white">{p.label}</Link>
-              </li>
-            ))}
-          </ul>
+
+        {/* Middle — link grid */}
+        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+          <div>
+            <p className="text-white font-display text-base mb-2">StayBookt</p>
+            <p className="text-xs text-mute leading-relaxed">
+              The embedded ops team for small residential + light-commercial service businesses.
+            </p>
+          </div>
+          <div>
+            <p className="text-[10px] tracking-[0.25em] uppercase text-mute font-semibold mb-3">The brief</p>
+            <ul className="space-y-1.5 text-xs">
+              {[
+                { href: '/how-it-works', label: 'How it works' },
+                { href: '/proof', label: 'Proof' },
+                { href: '/opportunity', label: 'Opportunity' },
+                { href: '/economics', label: 'Economics' },
+                { href: '/team', label: 'Team' },
+              ].map((p) => (
+                <li key={p.href}>
+                  <Link href={p.href} className="hover:text-white">{p.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <p className="text-[10px] tracking-[0.25em] uppercase text-mute font-semibold mb-3">Live client</p>
+            <a
+              href="https://tce-website-three.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs hover:text-white inline-flex items-center gap-1.5"
+            >
+              Top Choice Electrical
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-3 h-3">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M14 3h7v7M10 14L21 3" />
+              </svg>
+            </a>
+            <p className="text-[10px] text-mute mt-2 leading-relaxed">
+              Newmarket, ON · ESA licensed · Wave 1 client since March 2026
+            </p>
+          </div>
+          <div>
+            <p className="text-[10px] tracking-[0.25em] uppercase text-mute font-semibold mb-3">Contact</p>
+            <p className="text-xs">
+              <a href="mailto:jacob@staybookt.com" className="hover:text-white">jacob@staybookt.com</a>
+            </p>
+            <p className="text-xs mt-1 text-mute">Toronto · Ontario · Canada</p>
+          </div>
         </div>
-        <div>
-          <p className="text-[10px] tracking-[0.25em] uppercase text-mute font-semibold mb-3">Contact</p>
-          <p className="text-xs">
-            <a href="mailto:jacob@staybookt.com" className="hover:text-white">jacob@staybookt.com</a>
-          </p>
-          <p className="text-xs mt-1">Toronto · 2026</p>
+
+        {/* Bottom — legal strip */}
+        <div className="flex flex-wrap items-center justify-between gap-4 text-[10px] text-mute tracking-wide">
+          <p>© 2026 StayBookt Inc. · This brief is for accredited investor review only.</p>
+          <p>Built in Toronto · Last updated May 2026</p>
         </div>
       </div>
     </footer>

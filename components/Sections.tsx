@@ -76,6 +76,19 @@ export function Hero() {
       <div className="relative z-10 px-8 sm:px-16 max-w-7xl w-full grid lg:grid-cols-12 gap-10 items-center pt-32 sm:pt-36">
         {/* LEFT — copy stack */}
         <div className="lg:col-span-7">
+          {/* Pre-headline orientation — tells the visitor what this is */}
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mb-6"
+          >
+            <span className="inline-flex items-center gap-2 text-[10px] tracking-[0.3em] uppercase font-semibold text-elec">
+              <span className="w-1.5 h-1.5 rounded-full bg-elec animate-pulse" />
+              Investor brief · raising pre-seed
+            </span>
+          </motion.div>
+
           {/* HEADLINE — the tagline */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -145,8 +158,16 @@ export function Hero() {
             >
               Book a 30-min walkthrough →
             </a>
-            <a href="#why" className="text-platinum-soft hover:text-white text-sm font-medium underline-offset-4 hover:underline">
-              Or scroll the brief ↓
+            <a
+              href="/staybookt-brief.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-platinum hover:text-white text-sm font-semibold border border-platinum-soft/40 hover:border-platinum px-5 py-3 rounded-xl transition-all"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-4 h-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V3" />
+              </svg>
+              Download the brief
             </a>
           </motion.div>
         </div>
