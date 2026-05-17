@@ -44,50 +44,52 @@ export function Counter({ value, prefix = '', suffix = '', duration = 2 }: { val
   return <span ref={ref}>{prefix}{n.toLocaleString()}{suffix}</span>;
 }
 
-/* === Section 1 — Hero (Apple-grade: one claim, one tagline, one CTA) === */
+/* === Section 1 — Hero (V8: tagline H1, gradient polish, abstract bg) === */
 export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-ink">
-      {/* Full-bleed Tim home photo — let it breathe */}
+      {/* Abstract gradient-mesh background — no literal photo, pure mood */}
       <div className="absolute inset-0">
         <Image
-          src="/photos/IMG_1140.jpg"
-          alt="Top Choice Electrical work — Newmarket home at dusk"
+          src="/photos/hero-bg.jpg"
+          alt=""
           fill
           priority
           className="object-cover"
           sizes="100vw"
         />
-        {/* Lighter gradient — photo breathes more, copy still readable */}
-        <div className="absolute inset-0 bg-gradient-to-r from-ink/95 via-ink/55 to-ink/30" />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-ink/10" />
+        {/* Subtle ink wash for copy contrast — don't kill the mood */}
+        <div className="absolute inset-0 bg-gradient-to-r from-ink/70 via-ink/30 to-ink/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent" />
       </div>
 
       {/* Top nav handled by global TopNav component */}
 
-      <div className="relative z-10 px-8 sm:px-16 max-w-7xl w-full pt-32 sm:pt-36 pb-20">
-        {/* One claim */}
+      <div className="relative z-10 px-8 sm:px-16 max-w-7xl w-full pt-32 sm:pt-40 pb-20">
+        {/* H1 — the tagline, with gradient on StayBookt */}
         <motion.h1
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display text-white text-[44px] sm:text-[72px] leading-[1.02] tracking-[-0.04em] max-w-4xl"
+          className="font-display text-white text-[52px] sm:text-[88px] leading-[1.02] tracking-[-0.04em] max-w-5xl"
         >
-          We run the revenue engine for small service businesses.
+          Making the phone ring
+          <br />
+          so you{' '}
+          <span className="wordmark-gradient inline-block">StayBookt.</span>
         </motion.h1>
 
-        {/* One tagline */}
+        {/* Sub — explains what the tagline means */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.9 }}
-          className="mt-10 font-display text-xl sm:text-2xl tracking-tight max-w-2xl"
+          className="mt-10 text-platinum text-lg sm:text-2xl tracking-tight max-w-2xl leading-snug"
         >
-          <span className="text-elec">Making the phone ring</span>
-          <span className="text-platinum"> so you StayBookt.</span>
+          We run the revenue engine for small residential + light-commercial service businesses.
         </motion.p>
 
-        {/* One action */}
+        {/* CTA — ghost button with gradient sweep on hover */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -98,9 +100,10 @@ export function Hero() {
             href="https://cal.com/jacobcharendoff/staybookt"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-elec hover:bg-elec-light text-ink font-bold px-7 py-3.5 rounded-xl text-sm sm:text-base transition-all hover:scale-[1.02] shadow-lg shadow-elec/30"
+            className="hero-cta inline-flex items-center gap-3 text-white font-semibold px-7 py-3.5 rounded-xl text-sm sm:text-base border border-white/30 hover:border-white/0 transition-all"
           >
-            Book a 30-min walkthrough →
+            <span className="relative z-10">Book a 30-min walkthrough</span>
+            <span className="relative z-10" aria-hidden="true">→</span>
           </a>
         </motion.div>
       </div>
