@@ -406,6 +406,7 @@ function Wheel7({ activeIdx }: { activeIdx: number }) {
 
         {STAGES.map((s, i) => {
           const isActive = i === activeIdx;
+          const isPast = i < activeIdx;
           return (
             <motion.path
               key={s.id}
@@ -415,10 +416,10 @@ function Wheel7({ activeIdx }: { activeIdx: number }) {
               strokeWidth={isActive ? 2 : 1}
               initial={false}
               animate={{
-                fillOpacity: isActive ? 0.22 : 0.05,
-                strokeOpacity: isActive ? 1 : 0.4,
+                fillOpacity: isActive ? 0.34 : isPast ? 0.18 : 0.05,
+                strokeOpacity: isActive ? 1 : isPast ? 0.7 : 0.25,
               }}
-              transition={{ duration: 0.35 }}
+              transition={{ duration: 0.4 }}
             />
           );
         })}
@@ -450,11 +451,53 @@ function Wheel7({ activeIdx }: { activeIdx: number }) {
           );
         })}
 
-        {/* Center hub */}
-        <circle cx={cx} cy={cy} r={rInner - 6} fill="#0A0E1A" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
-        <text x={cx} y={cy - 12} textAnchor="middle" fontSize="9" fontWeight="700" letterSpacing="3" fill="rgba(245,158,11,0.9)">STAYBOOKT</text>
-        <text x={cx} y={cy + 8} textAnchor="middle" fontSize="22" fontWeight="700" fill="white">OS</text>
-        <text x={cx} y={cy + 26} textAnchor="middle" fontSize="8" letterSpacing="2" fill="rgba(255,255,255,0.45)">THE PLAYBOOK</text>
+        {/* Center hub — stage counter (the wheel IS the progress bar) */}
+        <motion.circle
+          cx={cx} cy={cy} r={rInner - 6}
+          fill="#0A0E1A"
+          initial={false}
+          animate={{ stroke: STAGES[activeIdx].color }}
+          transition={{ duration: 0.4 }}
+          strokeWidth="1.5"
+          strokeOpacity="0.55"
+        />
+        <text
+          x={cx} y={cy - 32}
+          textAnchor="middle"
+          fontSize="9"
+          fontWeight="700"
+          letterSpacing="3"
+          fill="rgba(255,255,255,0.5)"
+        >STAGE</text>
+        <motion.text
+          x={cx} y={cy + 14}
+          textAnchor="middle"
+          fontSize="56"
+          fontWeight="700"
+          fill="white"
+          fontFamily="'Helvetica Neue', sans-serif"
+          initial={false}
+          key={`num-${activeIdx}`}
+          animate={{ opacity: 1 }}
+        >{(activeIdx + 1).toString().padStart(2, '0')}</motion.text>
+        <text
+          x={cx} y={cy + 38}
+          textAnchor="middle"
+          fontSize="10"
+          letterSpacing="3"
+          fill="rgba(255,255,255,0.4)"
+          fontWeight="600"
+        >/ {STAGES.length.toString().padStart(2, '0')}</text>
+        <motion.text
+          x={cx} y={cy + 60}
+          textAnchor="middle"
+          fontSize="8"
+          letterSpacing="3"
+          fontWeight="700"
+          initial={false}
+          animate={{ fill: STAGES[activeIdx].color }}
+          transition={{ duration: 0.4 }}
+        >{STAGES[activeIdx].group}</motion.text>
 
         {/* Active outer tick */}
         {(() => {
@@ -488,20 +531,40 @@ export function FlywheelOS() {
   const [activeIdx, setActiveIdx] = useState(0);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+  /* Center-line scroll detector — whichever card's center is closest to the
+     viewport center wins. More reliable than IntersectionObserver for this
+     pattern because card heights are flexible and observers can disagree
+     on overlap. */
   useEffect(() => {
-    const observers: IntersectionObserver[] = [];
-    cardRefs.current.forEach((el, idx) => {
-      if (!el) return;
-      const obs = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) setActiveIdx(idx);
-        },
-        { threshold: 0.55, rootMargin: '-20% 0px -20% 0px' }
-      );
-      obs.observe(el);
-      observers.push(obs);
-    });
-    return () => observers.forEach((o) => o.disconnect());
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const viewportCenter = window.innerHeight * 0.42;
+        let bestIdx = 0;
+        let bestDist = Infinity;
+        cardRefs.current.forEach((el, idx) => {
+          if (!el) return;
+          const rect = el.getBoundingClientRect();
+          const midY = rect.top + rect.height / 2;
+          const dist = Math.abs(midY - viewportCenter);
+          if (dist < bestDist) {
+            bestDist = dist;
+            bestIdx = idx;
+          }
+        });
+        setActiveIdx(bestIdx);
+        ticking = false;
+      });
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
   }, []);
 
   return (
@@ -535,8 +598,25 @@ export function FlywheelOS() {
           transition={{ duration: 0.7, delay: 0.3 }}
           className="mt-8 text-platinum-soft text-base sm:text-lg leading-relaxed max-w-2xl"
         >
-          Find, capture, quote, deliver, measure, reputation, referral — run by our team, every week, for every client. Scroll to see each stage.
+          Find, capture, quote, deliver, measure, reputation, referral — run by our team, every week, for every client.
         </motion.p>
+
+        {/* Entry cue — sets expectation that this is a scroll-driven walkthrough */}
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.5 }}
+          className="mt-10 flex items-center gap-3 text-[11px] tracking-[0.3em] uppercase text-mute font-semibold"
+        >
+          <span className="w-8 h-px bg-elec/60" />
+          <span>Scroll · 7 stages · 3 acts</span>
+          <motion.span
+            animate={{ y: [0, 4, 0] }}
+            transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+            aria-hidden
+          >↓</motion.span>
+        </motion.div>
       </div>
 
       {/* Sticky wheel + scrolling cards */}
@@ -570,27 +650,50 @@ export function FlywheelOS() {
                 ref={(el) => { cardRefs.current[i] = el; }}
                 className="min-h-[60vh] lg:min-h-[70vh] flex items-center"
               >
-                <StageCard stage={s} active={activeIdx === i} />
+                <StageCard stage={s} active={activeIdx === i} total={STAGES.length} />
               </div>
             ))}
           </div>
         </div>
 
-        {/* CTA at end */}
+        {/* Exit frame — closes the walkthrough so the user knows it's over,
+            then hands off to TimCase (the proof of what this produced). */}
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mt-16 text-center"
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.7 }}
+          className="mt-24 sm:mt-32 text-center max-w-3xl mx-auto"
         >
-          <Link
-            href="/how-it-works"
-            className="inline-flex items-center gap-3 text-sm font-semibold border border-white/30 hover:border-white/0 hero-cta text-white px-7 py-3.5 rounded-xl transition-all"
-          >
-            <span className="relative z-10">See the full playbook</span>
-            <span className="relative z-10">→</span>
-          </Link>
+          <div className="inline-flex items-center gap-3 text-[11px] tracking-[0.3em] uppercase text-mute font-semibold mb-6">
+            <span className="w-8 h-px bg-elec/60" />
+            <span>End of walkthrough · 07 / 07</span>
+            <span className="w-8 h-px bg-elec/60" />
+          </div>
+          <h3 className="font-display text-[36px] sm:text-[56px] leading-[1.02] tracking-[-0.03em] mb-6">
+            That&apos;s the OS.
+            <br />
+            <span className="text-mute">Here&apos;s what it produced.</span>
+          </h3>
+          <p className="text-platinum-soft text-base sm:text-lg max-w-xl mx-auto mb-10 leading-relaxed">
+            One playbook, one live client, 60 days in. Tim Brennan, Newmarket electrician — keep scrolling.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <Link
+              href="/proof"
+              className="inline-flex items-center gap-3 text-sm font-semibold hero-cta text-white border border-white/30 px-7 py-3.5 rounded-xl transition-all"
+            >
+              <span className="relative z-10">See the receipts</span>
+              <span className="relative z-10">↓</span>
+            </Link>
+            <Link
+              href="/how-it-works"
+              className="inline-flex items-center gap-3 text-sm font-semibold text-platinum-soft hover:text-white px-3 py-3.5 transition-colors"
+            >
+              <span>Or read the full playbook</span>
+              <span>→</span>
+            </Link>
+          </div>
         </motion.div>
       </div>
     </section>
@@ -599,7 +702,7 @@ export function FlywheelOS() {
 
 /* ---------- One stage card ---------- */
 
-function StageCard({ stage, active }: { stage: Stage; active: boolean }) {
+function StageCard({ stage, active, total }: { stage: Stage; active: boolean; total: number }) {
   return (
     <motion.div
       initial={false}
@@ -607,8 +710,12 @@ function StageCard({ stage, active }: { stage: Stage; active: boolean }) {
       transition={{ duration: 0.5 }}
       className="w-full"
     >
-      <div className="flex items-baseline gap-3 mb-3">
-        <span className="font-mono text-xs text-mute">{stage.num}</span>
+      {/* Pagination eyebrow — "STAGE 01 / 07 · DEMAND" */}
+      <div className="flex items-center gap-3 mb-4">
+        <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-mute font-semibold">
+          STAGE {stage.num} / {total.toString().padStart(2, '0')}
+        </span>
+        <span className="w-1 h-1 rounded-full" style={{ background: stage.color, opacity: 0.6 }} />
         <span className="text-[10px] tracking-[0.25em] uppercase font-bold" style={{ color: stage.color }}>
           {stage.group}
         </span>
