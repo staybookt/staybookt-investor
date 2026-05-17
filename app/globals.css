@@ -174,3 +174,27 @@ section[id] {
   }
 }
 
+/* Hero CTA — ghost button with gradient sweep on hover */
+.hero-cta {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: transparent;
+}
+.hero-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #F59E0B 0%, #7AB420 25%, #10B981 50%, #138FAD 75%, #2563EB 100%);
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+}
+.hero-cta:hover::before {
+  opacity: 1;
+}
+.hero-cta:hover {
+  color: #0A0E1A;
+  transform: translateY(-1px);
+}
+
