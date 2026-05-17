@@ -702,3 +702,109 @@ export function WeeklyOps() {
     </section>
   );
 }
+
+/* === CUSTOMER OUTCOMES — what every client gets =============== */
+export function CustomerOutcomes() {
+  const outcomes = [
+    {
+      n: '01',
+      tag: 'TOP LINE',
+      title: 'Revenue grows because the front door is open 24/7.',
+      benefit: 'More inbound, faster response, higher quote-to-book conversion. The phone rings — and it gets answered every single time.',
+      tim: { metric: 'Tim, today', value: '5 → 40+ leads / mo · 0 voicemails after hours' },
+      thesis: 'Long-term: 25–40% top-line lift in year one for owner-operators who were leaving leads on the table.',
+      color: 'var(--elec)',
+    },
+    {
+      n: '02',
+      tag: 'OPERATIONAL SANITY',
+      title: 'The owner gets their nights and weekends back.',
+      benefit: 'Quoting, scheduling, follow-up, invoicing — automated or owned by our team. Owner stays on the tools and stops being the bottleneck.',
+      tim: { metric: 'Tim, today', value: '15 hr/wk on admin → < 2 hr/wk' },
+      thesis: 'Long-term: owner moves from operator-stuck to operator-by-choice. The business can survive a vacation. Then a second crew. Then a second location.',
+      color: 'var(--plumb)',
+    },
+    {
+      n: '03',
+      tag: 'COMPOUNDING REPUTATION',
+      title: 'Reviews, referrals, repeat customers — on autopilot.',
+      benefit: 'Every job triggers a review request. Every past customer gets remembered. Every happy customer becomes a referral source. Demand stops being something you buy.',
+      tim: { metric: 'Tim, today', value: '3 reviews → 50+ in 90 days · #1 local pack' },
+      thesis: 'Long-term: customer acquisition cost trends toward zero. Reputation becomes the moat. Paid spend becomes optional, not required.',
+      color: 'var(--hvac)',
+    },
+    {
+      n: '04',
+      tag: 'ENTERPRISE VALUE',
+      title: 'The business goes from "a job" to "an asset."',
+      benefit: 'Documented processes. Predictable revenue. Clean books. Quarterly board-style reviews. A buyer or lender can see exactly what they’re looking at.',
+      tim: { metric: 'Tim, today', value: 'Monday brief · monthly QBR · documented playbook' },
+      thesis: 'Long-term: when the owner decides to sell, retire, or pass it on, the business commands a higher multiple because someone else can step in and run it.',
+      color: 'var(--elec)',
+    },
+  ];
+
+  return (
+    <section id="outcomes" className="relative bg-cream text-ink py-32">
+      <div className="px-8 sm:px-16 max-w-7xl mx-auto">
+        <Reveal>
+          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">What the owner walks away with</p>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
+            Four outcomes.
+          </h2>
+          <h2 className="font-display text-2xl sm:text-3xl tracking-tight text-mute mb-4 max-w-3xl">
+            One for every leak we just plugged.
+          </h2>
+          <p className="text-mute text-base sm:text-lg max-w-3xl leading-relaxed mb-16">
+            Tim is the early proof. The pattern repeats every time we run the playbook end-to-end — because the playbook does not care which vertical the business is in. It cares whether the front door, the back office, the reputation engine, and the books are all running.
+          </p>
+        </Reveal>
+
+        <div className="grid md:grid-cols-2 gap-5 lg:gap-6">
+          {outcomes.map((o, i) => (
+            <Reveal key={o.n} delay={i * 0.1}>
+              <div className="bg-paper border border-divider-lt rounded-2xl p-8 sm:p-10 h-full flex flex-col">
+                <div className="flex items-baseline gap-3 mb-5">
+                  <span className="font-mono text-xs text-mute">{o.n}</span>
+                  <span className="text-[10px] tracking-[0.25em] uppercase font-bold" style={{ color: o.color }}>
+                    {o.tag}
+                  </span>
+                </div>
+                <h3 className="font-display text-2xl sm:text-3xl tracking-[-0.02em] leading-snug mb-5">
+                  {o.title}
+                </h3>
+                <p className="text-ink/75 text-base leading-relaxed mb-6">
+                  {o.benefit}
+                </p>
+
+                <div className="mt-auto pt-6 border-t border-divider-lt">
+                  <p className="text-[10px] tracking-[0.2em] uppercase font-bold mb-2" style={{ color: o.color }}>
+                    {o.tim.metric}
+                  </p>
+                  <p className="font-display text-lg sm:text-xl tracking-tight mb-5" style={{ color: o.color }}>
+                    {o.tim.value}
+                  </p>
+                  <p className="text-mute text-xs sm:text-sm leading-relaxed italic">
+                    {o.thesis}
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        {/* Closing line — ties to enterprise value */}
+        <Reveal delay={0.6}>
+          <div className="mt-14 p-8 bg-ink text-white rounded-2xl">
+            <p className="text-elec text-[11px] tracking-[0.25em] uppercase font-semibold mb-3">The bigger picture</p>
+            <p className="font-display text-2xl sm:text-3xl tracking-[-0.02em] leading-snug max-w-4xl">
+              We don’t sell software. We don’t sell websites. We sell the difference between owning a job and owning an asset.
+            </p>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}

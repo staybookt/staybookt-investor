@@ -14,6 +14,7 @@ const NAV_SECTIONS = [
   { id: 'weekly', label: 'Cadence' },
   { id: 'before-after', label: 'Proof' },
   { id: 'case', label: 'Tim' },
+  { id: 'outcomes', label: 'Outcomes' },
   { id: 'competitive', label: 'Field' },
   { id: 'why-now', label: 'Market' },
   { id: 'pipeline-v2', label: 'Pipeline' },
