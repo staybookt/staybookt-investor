@@ -916,15 +916,30 @@ export function SideBySideTCE() {
 
 function SiteFrame({ label, tag, url, isOld = false }: { label: string; tag: string; url: string; isOld?: boolean }) {
   const [hover, setHover] = useState(false);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(0.48);
 
   // The iframe renders at 1440 width. We scale it down to fit the column.
-  // The iframe is 5000px tall — we animate translateY upward to scroll it,
-  // then back down, in a loop. CSS transform-only (works cross-origin).
+  // Responsive scale: measure container width, scale iframe to fit.
   const iframeNaturalWidth = 1440;
   const iframeNaturalHeight = 5200;
-  const scale = 0.48; // scale to fit ~600px column at full screen
   const visibleHeight = 580;
   const travel = -(iframeNaturalHeight - visibleHeight / scale) * scale;
+
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const measure = () => {
+      const w = el.clientWidth;
+      // Scale iframe natural width to fit container, capped at 0.48
+      const s = Math.min(0.48, w / iframeNaturalWidth);
+      setScale(s);
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
   return (
     <div
@@ -951,7 +966,7 @@ function SiteFrame({ label, tag, url, isOld = false }: { label: string; tag: str
       </div>
 
       {/* Browser-frame container */}
-      <div className="rounded-2xl overflow-hidden border border-divider bg-paper shadow-2xl">
+      <div ref={wrapRef} className="rounded-2xl overflow-hidden border border-divider bg-paper shadow-2xl">
         {/* Browser chrome */}
         <div className="flex items-center gap-1.5 px-3 py-2.5 bg-ink/95 border-b border-divider">
           <span className="w-2 h-2 rounded-full bg-red-500/80" />
