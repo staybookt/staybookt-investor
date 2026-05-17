@@ -70,13 +70,35 @@ html, body {
   font-weight: 700;
 }
 
-/* Wordmark gradient sweep on "Bookt" */
+/* Wordmark gradient — applied wherever "StayBookt" appears as prose */
 .wordmark-gradient {
   background: linear-gradient(90deg, #F59E0B 0%, #7AB420 25%, #10B981 50%, #138FAD 75%, #2563EB 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   font-weight: 700;
+}
+
+/* Hero variant — same gradient, slow heartbeat sweep. Used only on the H1
+   wordmark so the rest of the site stays calm. */
+.wordmark-gradient-live {
+  background: linear-gradient(90deg, #F59E0B 0%, #7AB420 25%, #10B981 50%, #138FAD 75%, #2563EB 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 700;
+  animation: wordmark-pulse 7s ease-in-out infinite;
+}
+
+@keyframes wordmark-pulse {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wordmark-gradient-live { animation: none; }
 }
 
 /* Tri-vertical gradient backgrounds */
