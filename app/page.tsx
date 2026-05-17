@@ -1,8 +1,8 @@
 import { Hero } from '@/components/Sections';
 import { AskV2 } from '@/components/ExtendedSections';
 import { TopNav } from '@/components/TopNav';
+import { FlywheelOS } from '@/components/FlywheelOS';
 import {
-  MechanismTeaser,
   ProofTeaser,
   OpportunityTeaser,
   EconomicsTeaser,
@@ -15,7 +15,7 @@ export default function HomePage() {
     <main id="top" className="relative">
       <TopNav />
       <Hero />
-      <MechanismTeaser />
+      <FlywheelOS />
       <ProofTeaser />
       <OpportunityTeaser />
       <EconomicsTeaser />
