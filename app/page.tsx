@@ -1,56 +1,29 @@
-import { Hero, TheWhy, Problems } from '@/components/Sections';
-import { SideNav, TimCase, Team, AskV2 } from '@/components/ExtendedSections';
+import { Hero } from '@/components/Sections';
+import { AskV2 } from '@/components/ExtendedSections';
+import { TopNav } from '@/components/TopNav';
 import {
-  BeforeAfterTCE,
-  SideBySideTCE,
-  PricingV3,
-  Roadmap,
-  CompetitiveLandscapeV2,
-  WhyNow,
-  PipelineV2,
-  UnitEconomics,
-} from '@/components/SectionsV3';
-import { StayBooktOS, NinetyDayPlaybook, WeeklyOps, CustomerOutcomes } from '@/components/OperatingSystem';
+  Manifesto,
+  MechanismTeaser,
+  ProofTeaser,
+  OpportunityTeaser,
+  EconomicsTeaser,
+  TeamTeaser,
+  SiteFooter,
+} from '@/components/HomeTeasers';
 
-export default function InvestorPage() {
+export default function HomePage() {
   return (
     <main id="top" className="relative">
-      <SideNav />
-
-      {/* 1. Hook */}
+      <TopNav />
       <Hero />
-
-      {/* 2. The problem — universal pain */}
-      <TheWhy />
-      <Problems />
-
-      {/* 3. THE MECHANISM — the spine of the company */}
-      <StayBooktOS />
-      <NinetyDayPlaybook />
-      <WeeklyOps />
-
-      {/* 4. Proof it works — Tim case */}
-      <SideBySideTCE />
-      <TimCase />
-
-      {/* 4b. What every client gets */}
-      <CustomerOutcomes />
-
-      {/* 5. Why we win */}
-      <CompetitiveLandscapeV2 />
-
-      {/* 6. Market opportunity + why now */}
-      <WhyNow />
-
-      {/* 7. Pipeline + unit economics + pricing */}
-      <PipelineV2 />
-      <UnitEconomics />
-      <PricingV3 />
-      <Roadmap />
-
-      {/* 8. Team + ask */}
-      <Team />
+      <Manifesto />
+      <MechanismTeaser />
+      <ProofTeaser />
+      <OpportunityTeaser />
+      <EconomicsTeaser />
+      <TeamTeaser />
       <AskV2 />
+      <SiteFooter />
     </main>
   );
 }
