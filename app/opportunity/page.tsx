@@ -1,4 +1,4 @@
-import { WhyNow, CompetitiveLandscapeV2, Moat } from '@/components/SectionsV3';
+import { WhyNow, CompetitiveLandscapeV2, Moat, TAMBreakdown, Sources } from '@/components/SectionsV3';
 import { AskV2 } from '@/components/ExtendedSections';
 import { TopNav } from '@/components/TopNav';
 import { SiteFooter, UpNext } from '@/components/HomeTeasers';
@@ -12,12 +12,14 @@ export default function OpportunityPage() {
       <div className="pt-20">
         <PageHeader
           eyebrow="You asked: is the market big?"
-          title="$135M Canadian ARR opportunity. Smart money is consolidating the trades."
-          sub={<>~115K Canadian residential + light-commercial trades businesses. Beachhead: ~15K in ON / BC / AB that fit our ICP, × $9K average annual contract value = <span className="text-white font-semibold">$135M addressable ARR</span> before US expansion. The tools layer is funded. The roll-up layer is funded. The owner-operator is still answering the phone himself.</>}
+          title="$1B+ North American ARR opportunity. Smart money is consolidating the trades."
+          sub={<>Canada is the beachhead. North America is the expansion. The tools layer is funded. The roll-up layer is funded. The owner-operator is still answering the phone himself.</>}
         />
+        <TAMBreakdown />
         <WhyNow />
         <CompetitiveLandscapeV2 />
         <Moat />
+        <Sources />
         <AskV2 />
       </div>
       <UpNext current="/opportunity" />
