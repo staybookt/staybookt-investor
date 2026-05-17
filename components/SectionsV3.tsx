@@ -922,8 +922,8 @@ function SiteFrame({ label, tag, url, isOld = false }: { label: string; tag: str
   // then back down, in a loop. CSS transform-only (works cross-origin).
   const iframeNaturalWidth = 1440;
   const iframeNaturalHeight = 5200;
-  const scale = 0.42; // scale to fit ~600px column at full screen
-  const visibleHeight = 540;
+  const scale = 0.48; // scale to fit ~600px column at full screen
+  const visibleHeight = 580;
   const travel = -(iframeNaturalHeight - visibleHeight / scale) * scale;
 
   return (
@@ -965,7 +965,7 @@ function SiteFrame({ label, tag, url, isOld = false }: { label: string; tag: str
           className="relative overflow-hidden bg-paper"
           style={{
             height: visibleHeight,
-            filter: hover ? 'grayscale(0)' : 'grayscale(0.92) contrast(0.95)',
+            filter: hover ? 'grayscale(0)' : 'grayscale(0.55) contrast(0.95)',
             transition: 'filter 0.5s ease',
           }}
         >
