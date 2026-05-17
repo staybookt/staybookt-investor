@@ -98,7 +98,7 @@ const VizQuote = ({ active }: { active: boolean }) => {
           key={ring.r}
           cx="100" cy="100" r={ring.r}
           fill="none"
-          stroke="#7AB420"
+          stroke="#10B981"
           strokeWidth="1.5"
           strokeDasharray="4 4"
           initial={{ pathLength: 0, opacity: 0 }}
@@ -106,10 +106,10 @@ const VizQuote = ({ active }: { active: boolean }) => {
           transition={{ duration: 1.2, delay: ring.delay }}
         />
       ))}
-      <text x="100" y="32" textAnchor="middle" fontSize="11" fill="#7AB420" letterSpacing="1.5" fontWeight="700">7D</text>
-      <text x="100" y="60" textAnchor="middle" fontSize="11" fill="#7AB420" letterSpacing="1.5" fontWeight="700">72H</text>
-      <text x="100" y="90" textAnchor="middle" fontSize="11" fill="#7AB420" letterSpacing="1.5" fontWeight="700">24H</text>
-      <circle cx="100" cy="120" r="4" fill="#7AB420" />
+      <text x="100" y="32" textAnchor="middle" fontSize="11" fill="#10B981" letterSpacing="1.5" fontWeight="700">7D</text>
+      <text x="100" y="60" textAnchor="middle" fontSize="11" fill="#10B981" letterSpacing="1.5" fontWeight="700">72H</text>
+      <text x="100" y="90" textAnchor="middle" fontSize="11" fill="#10B981" letterSpacing="1.5" fontWeight="700">24H</text>
+      <circle cx="100" cy="120" r="4" fill="#10B981" />
       <text x="100" y="148" textAnchor="middle" fontSize="9" fill="rgba(255,255,255,0.4)" letterSpacing="1">FOLLOW-UP CADENCE</text>
     </svg>
   );
@@ -287,7 +287,7 @@ const STAGES: Stage[] = [
     num: '01',
     name: 'FIND',
     oneLiner: 'Get the right phone ringing.',
-    color: '#F59E0B',
+    color: '#06B6D4',
     group: 'DEMAND',
     ships: ['Custom-built site', 'Google Business Profile rebuild', 'Local SEO + 25 citations', 'Monthly content cadence'],
     proof: { label: 'Tim, today', value: '#1 local pack rank · "Newmarket electrician" · 47 days' },
@@ -298,7 +298,7 @@ const STAGES: Stage[] = [
     num: '02',
     name: 'CAPTURE',
     oneLiner: 'Never miss a lead.',
-    color: '#F59E0B',
+    color: '#0EA5E9',
     group: 'DEMAND',
     ships: ['Tap-to-call sticky bar', 'Callback form on every page', 'Missed-call SMS recovery', 'After-hours alert system'],
     proof: { label: 'Tim, today', value: 'After-hours voicemail rate: 38% → 0%' },
@@ -309,7 +309,7 @@ const STAGES: Stage[] = [
     num: '03',
     name: 'QUOTE',
     oneLiner: 'Turn calls into bookings.',
-    color: '#7AB420',
+    color: '#10B981',
     group: 'CONVERSION',
     ships: ['On-site quote workflow', '24h / 72h / 7d follow-up cadence', 'Quote-to-booking dashboard', 'Lost-quote reason capture'],
     proof: { label: 'Tim, today', value: '0 stale quotes in 60 days · same-day avg follow-up' },
@@ -320,7 +320,7 @@ const STAGES: Stage[] = [
     num: '04',
     name: 'DELIVER',
     oneLiner: 'Run the work and the back office.',
-    color: '#10B981',
+    color: '#059669',
     group: 'EXECUTION',
     ships: ['Scheduling + permit pulls', 'Invoicing + QuickBooks sync', 'Customer pre-arrival SMS', 'ESA / municipal compliance'],
     proof: { label: 'Tim, today', value: 'Owner admin / week: 15hr → < 2hr' },
@@ -331,7 +331,7 @@ const STAGES: Stage[] = [
     num: '05',
     name: 'MEASURE',
     oneLiner: 'Understand the business.',
-    color: '#138FAD',
+    color: '#14B8A6',
     group: 'COMPOUNDING',
     ships: ['Monday brief in the owner\'s inbox', 'Live KPI dashboard', 'Monthly board-style review', 'Lead source attribution'],
     proof: { label: 'Tim, today', value: 'Weekly brief + monthly QBR · 8 weeks running' },
@@ -353,7 +353,7 @@ const STAGES: Stage[] = [
     num: '07',
     name: 'REFERRAL',
     oneLiner: 'Turn 1 into 3.',
-    color: '#2563EB',
+    color: '#4F46E5',
     group: 'COMPOUNDING',
     ships: ['Referral incentive program', 'Annual maintenance reminders', 'Quarterly check-in cadence', 'Past-customer DB activation'],
     proof: { label: 'Tim, today', value: '3 referrals to date · CAC trending toward zero' },
@@ -617,7 +617,7 @@ export function FlywheelOS() {
                 <Wheel7 activeIdx={activeIdx} />
                 <div className="mt-8 grid grid-cols-3 gap-3 text-center max-w-[480px] mx-auto">
                   {[
-                    { label: 'Demand', color: '#F59E0B', stages: '01 · 02' },
+                    { label: 'Demand', color: '#06B6D4', stages: '01 · 02' },
                     { label: 'Execution', color: '#10B981', stages: '03 · 04' },
                     { label: 'Compounding', color: '#2563EB', stages: '05 · 06 · 07' },
                   ].map((g) => (
@@ -710,7 +710,7 @@ export function FlywheelOS() {
               eyebrow: 'PROOF',
               title: 'Top Choice Electrical',
               desc: '60 days live. 0 → 40+ leads/mo. –87% owner admin. The receipts.',
-              color: '#F59E0B',
+              color: '#06B6D4',
             },
             {
               href: '/opportunity',
@@ -718,7 +718,7 @@ export function FlywheelOS() {
               eyebrow: 'OPPORTUNITY',
               title: '$135M Canadian ARR',
               desc: 'Smart money is rolling up the trades. Owner-operators still answer their own phones.',
-              color: '#7AB420',
+              color: '#10B981',
             },
             {
               href: '/economics',
@@ -726,7 +726,7 @@ export function FlywheelOS() {
               eyebrow: 'ECONOMICS',
               title: 'Pricing + unit math',
               desc: '$99/mo retainer + 10% commission. Drag the slider, watch ARR move.',
-              color: '#10B981',
+              color: '#14B8A6',
             },
             {
               href: '/team',
@@ -734,7 +734,7 @@ export function FlywheelOS() {
               eyebrow: 'TEAM',
               title: 'Two operators',
               desc: 'Jacob (Revenue, Tech, GTM) + Richard (Ops, Finance, BD). On the tools.',
-              color: '#2563EB',
+              color: '#4F46E5',
             },
           ].map((card, i) => (
             <motion.div

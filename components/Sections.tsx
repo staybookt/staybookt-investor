@@ -163,7 +163,27 @@ export function CategoryPosition() {
       {/* Subtle gradient seam from Hero */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-divider to-transparent" />
 
-      <div className="px-8 sm:px-16 max-w-7xl mx-auto">
+      {/* Atmospheric dot grid — adds depth without competing for attention */}
+      <div
+        className="absolute inset-0 opacity-[0.18] pointer-events-none"
+        style={{
+          backgroundImage: 'radial-gradient(circle, rgba(148,163,184,0.35) 1px, transparent 1px)',
+          backgroundSize: '32px 32px',
+          maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 75%)',
+          WebkitMaskImage: 'radial-gradient(ellipse at center, black 30%, transparent 75%)',
+        }}
+      />
+
+      {/* Soft cyan glow positioned behind the StayBookt card */}
+      <div
+        className="absolute right-[8%] top-[50%] w-[420px] h-[420px] rounded-full pointer-events-none opacity-30"
+        style={{
+          background: 'radial-gradient(circle, var(--elec) 0%, transparent 70%)',
+          filter: 'blur(80px)',
+        }}
+      />
+
+      <div className="relative px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
           <p className="text-[11px] tracking-[0.3em] uppercase text-elec font-semibold mb-6">
             Where StayBookt fits
@@ -181,58 +201,71 @@ export function CategoryPosition() {
         </Reveal>
 
         {/* 3-column comparison */}
-        <div className="grid md:grid-cols-3 gap-4 lg:gap-6 mb-24 sm:mb-32">
+        <div className="grid md:grid-cols-3 gap-4 lg:gap-6 mb-24 sm:mb-32 items-stretch">
           {columns.map((col, i) => (
             <Reveal key={col.name} delay={0.3 + i * 0.1}>
               <div
-                className={`relative rounded-2xl p-7 sm:p-8 h-full border transition-all ${
+                className={`relative rounded-2xl p-7 sm:p-8 h-full border transition-all overflow-hidden ${
                   col.us
-                    ? 'border-elec/40 bg-gradient-to-b from-elec/[0.08] to-transparent'
+                    ? 'border-elec/40 bg-gradient-to-b from-elec/[0.10] via-elec/[0.04] to-transparent shadow-[0_24px_60px_-20px_rgba(6,182,212,0.35)] md:-translate-y-3'
                     : 'border-divider/60 bg-ink-soft/30'
                 }`}
               >
+                {/* Giant editorial numeral — decorative, lives behind copy */}
+                <div
+                  className="absolute -top-4 -right-2 font-display text-[160px] sm:text-[200px] leading-none tracking-[-0.06em] pointer-events-none select-none"
+                  style={{
+                    color: col.us ? 'rgba(6,182,212,0.10)' : 'rgba(148,163,184,0.05)',
+                  }}
+                  aria-hidden="true"
+                >
+                  0{i + 1}
+                </div>
+
                 {/* Top accent bar — full width for us, stub for them */}
                 <div
                   className="absolute top-0 left-0 h-[2px] rounded-full"
                   style={{
                     width: col.us ? '100%' : '32px',
                     background: col.us
-                      ? 'linear-gradient(90deg, #F59E0B 0%, #7AB420 25%, #10B981 50%, #138FAD 75%, #2563EB 100%)'
+                      ? 'linear-gradient(90deg, #06B6D4 0%, #10B981 25%, #14B8A6 50%, #2563EB 75%, #4F46E5 100%)'
                       : 'rgba(148,163,184,0.4)',
                   }}
                 />
 
-                <p className={`text-[10px] tracking-[0.25em] uppercase font-bold mb-5 ${col.us ? 'text-elec' : 'text-mute'}`}>
-                  {col.eyebrow}
-                </p>
+                <div className="relative">
+                  <p className={`text-[10px] tracking-[0.25em] uppercase font-bold mb-5 ${col.us ? 'text-elec' : 'text-mute'}`}>
+                    {col.eyebrow}
+                  </p>
 
-                <h3 className={`font-display text-3xl tracking-tight leading-tight mb-1 ${col.us ? 'text-white' : 'text-platinum'}`}>
-                  {col.us ? <span className="wordmark-gradient">{col.name}</span> : col.name}
-                </h3>
-                <p className={`text-sm font-mono tracking-tight mb-5 ${col.us ? 'text-platinum-soft' : 'text-mute-dark'}`}>
-                  {col.tag}
-                </p>
+                  <h3 className={`font-display text-3xl sm:text-4xl tracking-tight leading-tight mb-1 ${col.us ? 'text-white' : 'text-platinum'}`}>
+                    {col.us ? <span className="wordmark-gradient">{col.name}</span> : col.name}
+                  </h3>
+                  <p className={`text-sm font-mono tracking-tight mb-5 ${col.us ? 'text-platinum-soft' : 'text-mute-dark'}`}>
+                    {col.tag}
+                  </p>
 
-                <p className={`text-[11px] leading-relaxed font-mono pb-5 mb-5 border-b ${col.us ? 'text-platinum-soft/80 border-elec/15' : 'text-mute border-divider/40'}`}>
-                  {col.examples}
-                </p>
+                  <p className={`text-[11px] leading-relaxed font-mono pb-5 mb-5 border-b ${col.us ? 'text-platinum-soft/80 border-elec/20' : 'text-mute border-divider/40'}`}>
+                    {col.examples}
+                  </p>
 
-                <div className="space-y-5">
-                  <div>
-                    <p className="text-[9px] tracking-[0.25em] uppercase font-semibold mb-2 text-mute-dark">
-                      What they sell
-                    </p>
-                    <p className={`text-sm leading-snug ${col.us ? 'text-white' : 'text-platinum-soft'}`}>
-                      {col.sells}
-                    </p>
-                  </div>
-                  <div>
-                    <p className={`text-[9px] tracking-[0.25em] uppercase font-semibold mb-2 ${col.us ? 'text-elec' : 'text-mute-dark'}`}>
-                      {col.us ? 'The outcome' : 'The gap'}
-                    </p>
-                    <p className={`text-sm leading-snug font-semibold ${col.us ? 'text-elec' : 'text-platinum'}`}>
-                      {col.gap}
-                    </p>
+                  <div className="space-y-5">
+                    <div>
+                      <p className="text-[9px] tracking-[0.25em] uppercase font-semibold mb-2 text-mute-dark">
+                        What they sell
+                      </p>
+                      <p className={`text-sm leading-snug ${col.us ? 'text-white' : 'text-platinum-soft'}`}>
+                        {col.sells}
+                      </p>
+                    </div>
+                    <div>
+                      <p className={`text-[9px] tracking-[0.25em] uppercase font-semibold mb-2 ${col.us ? 'text-elec' : 'text-mute-dark'}`}>
+                        {col.us ? 'The outcome' : 'The gap'}
+                      </p>
+                      <p className={`text-sm leading-snug font-semibold ${col.us ? 'text-elec' : 'text-platinum'}`}>
+                        {col.gap}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>

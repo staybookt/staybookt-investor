@@ -16,7 +16,7 @@ const sizes = {
 };
 
 export default function Wordmark({ size = 'md', onDark = true, animate = false, mono = false }: Props) {
-  const sweep = ['#F59E0B', '#7AB420', '#10B981', '#138FAD', '#2563EB'];
+  const sweep = ['#06B6D4', '#10B981', '#10B981', '#14B8A6', '#2563EB'];
   const baseColor = onDark ? 'text-white' : 'text-ink';
 
   return (
