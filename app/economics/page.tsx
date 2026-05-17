@@ -11,9 +11,9 @@ export default function EconomicsPage() {
       <TopNav active="economics" />
       <div className="pt-20">
         <PageHeader
-          eyebrow="The model"
+          eyebrow="You asked: does the math work?"
           title="Three lines of revenue. One sticky operating layer."
-          sub="Website is the wedge. Software is the moat. Consulting funds growth."
+          sub="Website is the wedge — cheap to ship, immediate value. Operating team is the moat — high switching cost, embedded weekly. Compounding playbook is the long game — every client makes the next one easier."
         />
         <UnitEconomics />
         <PricingV3 />
