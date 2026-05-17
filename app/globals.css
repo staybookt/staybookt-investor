@@ -60,7 +60,10 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  /* Use overflow-x: clip instead of hidden — clip prevents horizontal scroll
+     without creating a scroll container, which would break position: sticky
+     for descendants (e.g. FlywheelOS pinned-scroll mechanic). */
+  overflow-x: clip;
 }
 
 /* Display typography — tight tracking, bold weight */
