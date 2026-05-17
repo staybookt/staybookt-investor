@@ -12,7 +12,7 @@ export default function TeamPage() {
         <PageHeader
           eyebrow="Who is building this"
           title="Two operators. One playbook."
-          sub="We've done this work before — inside operating teams, on the tools, shipping product and revenue at the same time. StayBookt is what we wished existed every time we sat in a service-business kitchen."
+          sub={<>We&apos;ve done this work before — inside operating teams, on the tools, shipping product and revenue at the same time. <span className="wordmark-gradient">StayBookt</span> is what we wished existed every time we sat in a service-business kitchen.</>}
         />
         <Team />
         <AskV2 />
@@ -23,7 +23,7 @@ export default function TeamPage() {
   );
 }
 
-function PageHeader({ eyebrow, title, sub }: { eyebrow: string; title: string; sub: string }) {
+function PageHeader({ eyebrow, title, sub }: { eyebrow: string; title: string; sub: React.ReactNode }) {
   return (
     <section className="bg-ink text-white py-20 sm:py-28 px-8 sm:px-16">
       <div className="max-w-7xl mx-auto">
