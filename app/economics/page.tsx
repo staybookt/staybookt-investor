@@ -1,7 +1,7 @@
 import { UnitEconomics, PricingV3, Roadmap } from '@/components/SectionsV3';
 import { AskV2 } from '@/components/ExtendedSections';
 import { TopNav } from '@/components/TopNav';
-import { SiteFooter } from '@/components/HomeTeasers';
+import { SiteFooter, UpNext } from '@/components/HomeTeasers';
 
 export const metadata = { title: 'Economics — StayBookt' };
 
@@ -20,6 +20,7 @@ export default function EconomicsPage() {
         <Roadmap />
         <AskV2 />
       </div>
+      <UpNext current="/economics" />
       <SiteFooter />
     </main>
   );
