@@ -14,7 +14,8 @@
   --divider: #1F2937;
   --divider-lt: #E5E7EB;
 
-  /* Vertical gradients */
+  /* Vertical gradients — cool palette, drop amber. The `--elec` name is kept
+     for backward compat but the value is now cyan (the brand primary). */
   --hvac-deep: #047857;
   --hvac: #10B981;
   --hvac-light: #6EE7B7;
@@ -23,10 +24,10 @@
   --plumb: #2563EB;
   --plumb-light: #38BDF8;
 
-  --elec-deep: #B45309;
-  --elec: #F59E0B;
-  --elec-light: #FCD34D;
-  --elec-accent: #EF4444;
+  --elec-deep: #0891B2;   /* cyan-600 — was warm amber */
+  --elec: #06B6D4;        /* cyan-500 — brand primary */
+  --elec-light: #67E8F9;  /* cyan-300 — highlights */
+  --elec-accent: #4F46E5; /* indigo-600 — secondary accent (was red) */
 }
 
 @theme inline {
@@ -73,19 +74,19 @@ html, body {
   font-weight: 700;
 }
 
-/* Wordmark gradient — applied wherever "StayBookt" appears as prose */
+/* Wordmark gradient — cool-only sweep. Cyan → emerald → teal → blue → indigo.
+   No warm tones. Applied wherever "StayBookt" appears as prose. */
 .wordmark-gradient {
-  background: linear-gradient(90deg, #F59E0B 0%, #7AB420 25%, #10B981 50%, #138FAD 75%, #2563EB 100%);
+  background: linear-gradient(90deg, #06B6D4 0%, #10B981 25%, #14B8A6 50%, #2563EB 75%, #4F46E5 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   font-weight: 700;
 }
 
-/* Hero variant — same gradient, slow heartbeat sweep. Used only on the H1
-   wordmark so the rest of the site stays calm. */
+/* Hero variant — same cool gradient, slow heartbeat sweep. */
 .wordmark-gradient-live {
-  background: linear-gradient(90deg, #F59E0B 0%, #7AB420 25%, #10B981 50%, #138FAD 75%, #2563EB 100%);
+  background: linear-gradient(90deg, #06B6D4 0%, #10B981 25%, #14B8A6 50%, #2563EB 75%, #4F46E5 100%);
   background-size: 220% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -210,7 +211,7 @@ section[id] {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, #F59E0B 0%, #7AB420 25%, #10B981 50%, #138FAD 75%, #2563EB 100%);
+  background: linear-gradient(90deg, #06B6D4 0%, #10B981 25%, #14B8A6 50%, #2563EB 75%, #4F46E5 100%);
   opacity: 0;
   transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: -1;
