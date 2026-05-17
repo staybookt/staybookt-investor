@@ -2,7 +2,7 @@ import { SideBySideTCE, PipelineV2 } from '@/components/SectionsV3';
 import { TimCase, AskV2 } from '@/components/ExtendedSections';
 import { CustomerOutcomes } from '@/components/OperatingSystem';
 import { TopNav } from '@/components/TopNav';
-import { SiteFooter } from '@/components/HomeTeasers';
+import { SiteFooter, UpNext } from '@/components/HomeTeasers';
 
 export const metadata = { title: 'Proof — StayBookt' };
 
@@ -22,6 +22,7 @@ export default function ProofPage() {
         <PipelineV2 />
         <AskV2 />
       </div>
+      <UpNext current="/proof" />
       <SiteFooter />
     </main>
   );
