@@ -51,10 +51,7 @@ export function TopNav({ active }: { active?: string }) {
           })}
         </nav>
 
-        <div className="hidden md:flex items-center gap-3">
-          <span className="text-[9px] tracking-[0.25em] uppercase text-platinum-soft/60 font-medium hidden lg:inline">
-            Investor Brief · 2026
-          </span>
+        <div className="hidden md:flex items-center">
           <a
             href="https://cal.com/jacobcharendoff/staybookt"
             target="_blank"

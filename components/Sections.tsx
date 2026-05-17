@@ -63,12 +63,12 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-t from-ink/95 via-transparent to-ink/30" />
       </div>
 
-      {/* Subtle amber accent orb */}
+      {/* Single restrained accent */}
       <motion.div
         className="orb"
-        style={{ width: 380, height: 380, background: 'var(--elec)', bottom: '-10%', right: '-5%', opacity: 0.18 }}
-        animate={{ scale: [1, 1.1, 1] }}
-        transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
+        style={{ width: 320, height: 320, background: 'var(--elec)', bottom: '-12%', right: '-8%', opacity: 0.10 }}
+        animate={{ scale: [1, 1.08, 1] }}
+        transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
       />
 
       {/* Top nav handled by global TopNav component */}
@@ -89,28 +89,29 @@ export function Hero() {
             </span>
           </motion.div>
 
-          {/* HEADLINE — the tagline */}
+          {/* HEADLINE — universal claim leads, Tim moves to proof section */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
           >
-            <h1 className="font-display text-white text-[48px] sm:text-[88px] leading-[0.95] tracking-[-0.04em]">
-              Making the phone ring
+            <h1 className="font-display text-white text-[44px] sm:text-[80px] leading-[0.98] tracking-[-0.04em]">
+              We run the revenue engine
             </h1>
-            <h1 className="font-display text-white text-[48px] sm:text-[88px] leading-[0.95] tracking-[-0.04em]">
-              so you <span className="text-elec">StayBookt.</span>
+            <h1 className="font-display text-white text-[44px] sm:text-[80px] leading-[0.98] tracking-[-0.04em]">
+              for small service businesses.
             </h1>
           </motion.div>
 
-          {/* Story beat as supporting line */}
+          {/* Tagline as supporting beat */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.0 }}
-            className="mt-8 text-platinum font-display text-2xl sm:text-3xl tracking-tight"
+            className="mt-8 font-display text-2xl sm:text-3xl tracking-tight"
           >
-            Tim used to answer his own phone. <span className="text-elec">Now we do.</span>
+            <span className="text-elec">Making the phone ring</span>
+            <span className="text-platinum"> so you StayBookt.</span>
           </motion.p>
 
           {/* Body */}
@@ -120,7 +121,7 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 1.4 }}
             className="mt-6 text-platinum-soft text-base sm:text-lg leading-relaxed max-w-2xl"
           >
-            StayBookt is the embedded ops team for small residential + light-commercial service businesses. Find. Capture. Quote. Deliver. Retain &mdash; same playbook, every client.
+            Find. Capture. Quote. Deliver. Retain &mdash; the embedded ops team for residential + light-commercial trades. Same playbook, every client.
           </motion.p>
 
           {/* Proof bar */}
