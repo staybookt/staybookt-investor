@@ -77,7 +77,7 @@ export function Hero() {
         <span className="text-xs tracking-[0.2em] font-semibold text-platinum-soft">INVESTOR BRIEF · 2026</span>
       </nav>
 
-      <div className="relative z-10 px-8 sm:px-16 max-w-7xl w-full grid lg:grid-cols-12 gap-10 items-center">
+      <div className="relative z-10 px-8 sm:px-16 max-w-7xl w-full grid lg:grid-cols-12 gap-10 items-center pt-24 sm:pt-28">
         {/* LEFT — copy stack */}
         <div className="lg:col-span-7">
           <motion.div
