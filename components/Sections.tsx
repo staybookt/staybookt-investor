@@ -120,40 +120,96 @@ export function Hero() {
   );
 }
 
+/* Stage colors for the Coverage Map dots — matches the FlywheelOS act
+   story (cyan → emerald → indigo) so the brand language is consistent
+   between this section and the flywheel below. */
+const STAGE_COLORS = [
+  '#06B6D4', // 01 FIND
+  '#0EA5E9', // 02 CAPTURE
+  '#10B981', // 03 QUOTE
+  '#059669', // 04 DELIVER
+  '#14B8A6', // 05 MEASURE
+  '#2563EB', // 06 REPUTATION
+  '#4F46E5', // 07 REFERRAL
+];
+
+function CoverageDot({ covered, us, stageColor }: { covered: boolean; us: boolean; stageColor: string }) {
+  return (
+    <div className="flex flex-col items-center">
+      <motion.div
+        initial={{ scale: 0, opacity: 0 }}
+        whileInView={{ scale: 1, opacity: 1 }}
+        viewport={{ once: true, margin: '-100px' }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        className="relative"
+      >
+        {covered ? (
+          <div
+            className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full ${us ? 'shadow-[0_0_12px_rgba(6,182,212,0.6)]' : ''}`}
+            style={{ background: us ? stageColor : 'rgba(148,163,184,0.55)' }}
+          />
+        ) : (
+          <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full border border-mute/50 bg-ink" />
+        )}
+      </motion.div>
+      {/* "YOU" annotation under empty dots — owner burden made literal */}
+      <p
+        className={`text-[8px] tracking-[0.2em] uppercase font-bold mt-2 h-3 ${covered ? 'opacity-0' : 'text-mute-dark'}`}
+        aria-hidden="true"
+      >
+        {covered ? '·' : 'YOU'}
+      </p>
+    </div>
+  );
+}
+
 /* === CategoryPosition — the "where StayBookt fits" frame ====================
  * Sits between Hero and FlywheelOS. Forces the user to file StayBookt in the
  * correct mental category BEFORE the playbook walkthrough — otherwise the
- * default is "agency that does a lot." Three columns:
- *   Software (tools) · Agencies (tactics) · StayBookt (the operating team)
+ * default is "agency that does a lot." Coverage Map shows the 7-stage revenue
+ * journey across three category lanes. Empty dots are labeled "YOU" — the
+ * owner burden made literal. StayBookt is the only lane that covers all 7.
  * Closes with "The gap is the operator. StayBookt is the operator."
  * ========================================================================== */
 export function CategoryPosition() {
-  const columns = [
+  /* Coverage Map — the 7-stage revenue journey across columns, three category
+     rows below. Filled dot = the category does it. Empty dot = owner does it
+     (annotated "YOU"). StayBookt row is the only one continuous across all 7
+     stages, drawn as a glowing gradient track. */
+  const stages = [
+    { num: '01', name: 'FIND' },
+    { num: '02', name: 'CAPTURE' },
+    { num: '03', name: 'QUOTE' },
+    { num: '04', name: 'DELIVER' },
+    { num: '05', name: 'MEASURE' },
+    { num: '06', name: 'REPUTATION' },
+    { num: '07', name: 'REFERRAL' },
+  ];
+
+  // true = category covers that stage; false = owner still has to operate it
+  const lanes = [
     {
-      eyebrow: 'CATEGORY · 01',
       name: 'Software',
       tag: 'Tools',
       examples: 'Jobber · ServiceTitan · Housecall Pro',
-      sells: 'A toolkit. You install it. You run it.',
-      gap: 'The owner still runs the system.',
+      coverage: [false, false, true, true, true, false, false],
+      gap: 'Covers 3 of 7. The owner runs the rest.',
       us: false,
     },
     {
-      eyebrow: 'CATEGORY · 02',
       name: 'Agencies',
       tag: 'Tactics',
       examples: 'Local marketing firms · SEO shops · Web builders',
-      sells: 'A campaign. You sign off. You manage it.',
-      gap: 'The owner still manages the agency.',
+      coverage: [true, false, false, false, false, false, false],
+      gap: 'Covers 1 of 7. The owner runs the rest.',
       us: false,
     },
     {
-      eyebrow: 'WHERE WE FIT',
       name: 'StayBookt',
       tag: 'The Operating Team',
       examples: 'The team, the playbook, and the software — one engine',
-      sells: 'The team that runs the whole revenue side. Embedded. Weekly.',
-      gap: 'The owner stays on the tools.',
+      coverage: [true, true, true, true, true, true, true],
+      gap: 'Covers all 7. Embedded. Weekly.',
       us: true,
     },
   ];
@@ -163,7 +219,7 @@ export function CategoryPosition() {
       {/* Subtle gradient seam from Hero */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-divider to-transparent" />
 
-      {/* Atmospheric dot grid — adds depth without competing for attention */}
+      {/* Atmospheric dot grid */}
       <div
         className="absolute inset-0 opacity-[0.18] pointer-events-none"
         style={{
@@ -174,12 +230,12 @@ export function CategoryPosition() {
         }}
       />
 
-      {/* Soft cyan glow positioned behind the StayBookt card */}
+      {/* Cyan glow behind the StayBookt lane */}
       <div
-        className="absolute right-[8%] top-[50%] w-[420px] h-[420px] rounded-full pointer-events-none opacity-30"
+        className="absolute right-[8%] top-[58%] w-[480px] h-[480px] rounded-full pointer-events-none opacity-25"
         style={{
           background: 'radial-gradient(circle, var(--elec) 0%, transparent 70%)',
-          filter: 'blur(80px)',
+          filter: 'blur(100px)',
         }}
       />
 
@@ -195,82 +251,120 @@ export function CategoryPosition() {
           </h2>
         </Reveal>
         <Reveal delay={0.2}>
-          <h2 className="font-display text-[40px] sm:text-[72px] leading-[0.98] tracking-[-0.04em] max-w-4xl mb-16 sm:mb-20 text-mute">
+          <h2 className="font-display text-[40px] sm:text-[72px] leading-[0.98] tracking-[-0.04em] max-w-4xl mb-10 text-mute">
             tools and tactics.
           </h2>
         </Reveal>
+        <Reveal delay={0.3}>
+          <p className="text-platinum-soft text-base sm:text-lg max-w-2xl leading-relaxed mb-16 sm:mb-20">
+            The revenue journey has seven stages. Look at who actually covers each — and who leaves the owner with the rest.
+          </p>
+        </Reveal>
 
-        {/* 3-column comparison */}
-        <div className="grid md:grid-cols-3 gap-4 lg:gap-6 mb-24 sm:mb-32 items-stretch">
-          {columns.map((col, i) => (
-            <Reveal key={col.name} delay={0.3 + i * 0.1}>
-              <div
-                className={`relative rounded-2xl p-7 sm:p-8 h-full border transition-all overflow-hidden ${
-                  col.us
-                    ? 'border-elec/40 bg-gradient-to-b from-elec/[0.10] via-elec/[0.04] to-transparent shadow-[0_24px_60px_-20px_rgba(6,182,212,0.35)] md:-translate-y-3'
-                    : 'border-divider/60 bg-ink-soft/30'
-                }`}
-              >
-                {/* Giant editorial numeral — decorative, lives behind copy */}
-                <div
-                  className="absolute -top-4 -right-2 font-display text-[160px] sm:text-[200px] leading-none tracking-[-0.06em] pointer-events-none select-none"
-                  style={{
-                    color: col.us ? 'rgba(6,182,212,0.10)' : 'rgba(148,163,184,0.05)',
-                  }}
-                  aria-hidden="true"
-                >
-                  0{i + 1}
-                </div>
+        {/* ============== Coverage Map ============== */}
+        <div className="relative rounded-2xl border border-divider/40 bg-ink-soft/20 p-6 sm:p-10 mb-24 sm:mb-32 overflow-x-auto">
+          <div className="min-w-[820px]">
+            {/* Stage header row — 7 stages across */}
+            <div className="grid grid-cols-[200px_1fr] sm:grid-cols-[240px_1fr] gap-6 sm:gap-8 mb-8 pb-6 border-b border-divider/40">
+              <div>
+                <p className="text-[10px] tracking-[0.25em] uppercase text-mute font-semibold">
+                  The revenue journey
+                </p>
+              </div>
+              <div className="grid grid-cols-7 gap-1">
+                {stages.map((s) => (
+                  <div key={s.num} className="text-center">
+                    <p className="font-mono text-[9px] text-mute mb-1">{s.num}</p>
+                    <p className="text-[9px] sm:text-[10px] tracking-[0.15em] uppercase font-bold text-platinum-soft leading-tight">
+                      {s.name}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-                {/* Top accent bar — full width for us, stub for them */}
-                <div
-                  className="absolute top-0 left-0 h-[2px] rounded-full"
-                  style={{
-                    width: col.us ? '100%' : '32px',
-                    background: col.us
-                      ? 'linear-gradient(90deg, #06B6D4 0%, #10B981 25%, #14B8A6 50%, #2563EB 75%, #4F46E5 100%)'
-                      : 'rgba(148,163,184,0.4)',
-                  }}
-                />
-
-                <div className="relative">
-                  <p className={`text-[10px] tracking-[0.25em] uppercase font-bold mb-5 ${col.us ? 'text-elec' : 'text-mute'}`}>
-                    {col.eyebrow}
-                  </p>
-
-                  <h3 className={`font-display text-3xl sm:text-4xl tracking-tight leading-tight mb-1 ${col.us ? 'text-white' : 'text-platinum'}`}>
-                    {col.us ? <span className="wordmark-gradient">{col.name}</span> : col.name}
-                  </h3>
-                  <p className={`text-sm font-mono tracking-tight mb-5 ${col.us ? 'text-platinum-soft' : 'text-mute-dark'}`}>
-                    {col.tag}
-                  </p>
-
-                  <p className={`text-[11px] leading-relaxed font-mono pb-5 mb-5 border-b ${col.us ? 'text-platinum-soft/80 border-elec/20' : 'text-mute border-divider/40'}`}>
-                    {col.examples}
-                  </p>
-
-                  <div className="space-y-5">
+            {/* Three lanes — Software / Agencies / StayBookt */}
+            <div className="space-y-3 sm:space-y-4">
+              {lanes.map((lane, laneIdx) => (
+                <Reveal key={lane.name} delay={0.4 + laneIdx * 0.12}>
+                  <div
+                    className={`grid grid-cols-[200px_1fr] sm:grid-cols-[240px_1fr] gap-6 sm:gap-8 items-center rounded-xl px-4 sm:px-5 py-5 sm:py-6 border transition-all ${
+                      lane.us
+                        ? 'border-elec/40 bg-gradient-to-r from-elec/[0.08] via-elec/[0.03] to-transparent'
+                        : 'border-divider/40 bg-ink-soft/30'
+                    }`}
+                  >
+                    {/* Left — category label */}
                     <div>
-                      <p className="text-[9px] tracking-[0.25em] uppercase font-semibold mb-2 text-mute-dark">
-                        What they sell
+                      <h3 className={`font-display text-xl sm:text-2xl tracking-tight leading-tight ${lane.us ? 'text-white' : 'text-platinum'}`}>
+                        {lane.us ? <span className="wordmark-gradient">{lane.name}</span> : lane.name}
+                      </h3>
+                      <p className={`text-[11px] font-mono mt-1 ${lane.us ? 'text-platinum-soft' : 'text-mute-dark'}`}>
+                        {lane.tag}
                       </p>
-                      <p className={`text-sm leading-snug ${col.us ? 'text-white' : 'text-platinum-soft'}`}>
-                        {col.sells}
+                      <p className="text-[10px] font-mono text-mute mt-2 leading-relaxed">
+                        {lane.examples}
                       </p>
                     </div>
-                    <div>
-                      <p className={`text-[9px] tracking-[0.25em] uppercase font-semibold mb-2 ${col.us ? 'text-elec' : 'text-mute-dark'}`}>
-                        {col.us ? 'The outcome' : 'The gap'}
-                      </p>
-                      <p className={`text-sm leading-snug font-semibold ${col.us ? 'text-elec' : 'text-platinum'}`}>
-                        {col.gap}
-                      </p>
+
+                    {/* Right — coverage track with 7 dots */}
+                    <div className="relative">
+                      {/* Background track — continuous gradient for us, dashed for them */}
+                      <div className="absolute top-1/2 left-0 right-0 h-px -translate-y-1/2">
+                        {lane.us ? (
+                          <div
+                            className="h-full w-full"
+                            style={{
+                              background: 'linear-gradient(90deg, #06B6D4 0%, #10B981 25%, #14B8A6 50%, #2563EB 75%, #4F46E5 100%)',
+                              boxShadow: '0 0 20px rgba(6,182,212,0.4)',
+                            }}
+                          />
+                        ) : (
+                          <div
+                            className="h-full w-full"
+                            style={{
+                              backgroundImage: 'linear-gradient(90deg, rgba(148,163,184,0.3) 50%, transparent 0)',
+                              backgroundSize: '8px 1px',
+                              backgroundRepeat: 'repeat-x',
+                            }}
+                          />
+                        )}
+                      </div>
+
+                      {/* 7 dots */}
+                      <div className="relative grid grid-cols-7 gap-1">
+                        {lane.coverage.map((covered, i) => (
+                          <CoverageDot
+                            key={i}
+                            covered={covered}
+                            us={lane.us}
+                            stageColor={STAGE_COLORS[i]}
+                          />
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
+
+                  {/* Lane summary line — outside the bordered row */}
+                  <p className={`text-[11px] tracking-[0.15em] uppercase font-semibold mt-2 ml-4 sm:ml-5 ${lane.us ? 'text-elec' : 'text-mute'}`}>
+                    {lane.gap}
+                  </p>
+                </Reveal>
+              ))}
+            </div>
+
+            {/* Legend */}
+            <div className="mt-8 pt-6 border-t border-divider/40 flex flex-wrap items-center gap-x-6 gap-y-2 text-[10px] tracking-[0.15em] uppercase font-semibold text-mute">
+              <div className="flex items-center gap-2">
+                <span className="w-3 h-3 rounded-full bg-elec" />
+                <span>Covered by category</span>
               </div>
-            </Reveal>
-          ))}
+              <div className="flex items-center gap-2">
+                <span className="w-3 h-3 rounded-full border border-mute/60 bg-transparent" />
+                <span className="text-mute-dark">Left to the owner</span>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Punchline — the category statement */}
