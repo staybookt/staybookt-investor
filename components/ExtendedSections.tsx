@@ -609,20 +609,22 @@ export function Team() {
     {
       name: 'Jacob Charendoff',
       role: 'CEO · Operator',
-      bio: 'Built and ran multi-million dollar growth engines across SaaS, services, and direct-to-consumer. 10+ years inside operating teams shipping product and revenue.',
+      bio: 'Revenue & growth leader. Built and ran multi-million dollar growth engines across SaaS, services, and direct-to-consumer. Turns leaked revenue into predictable, scalable growth.',
       tag: 'EXECUTION',
       color: 'var(--elec)',
       initials: 'JC',
-      linkedin: 'https://linkedin.com/in/jacobcharendoff',
+      photo: '/photos/jacob.jpg',
+      linkedin: 'https://www.linkedin.com/in/jacob-charendoff/',
     },
     {
-      name: 'Richard',
+      name: 'Richard Roos',
       role: 'Co-Founder · Strategy',
-      bio: 'Senior operator with a deep network in Canadian trades, real estate, and field services. Brings the buyer relationships and credibility from running inside the industry.',
+      bio: 'Senior operator with a deep network in Canadian trades, real estate, and field services. Brings the buyer relationships and the credibility from running inside the industry.',
       tag: 'NETWORK',
       color: 'var(--plumb)',
-      initials: 'R',
-      linkedin: '#',
+      initials: 'RR',
+      photo: '/photos/richard.jpg',
+      linkedin: 'https://www.linkedin.com/in/richardroos/',
     },
     {
       name: 'Embedded operators',
@@ -631,6 +633,7 @@ export function Team() {
       tag: 'CAPACITY',
       color: 'var(--hvac)',
       initials: '4+',
+      photo: null,
       linkedin: null,
     },
   ];
@@ -653,12 +656,18 @@ export function Team() {
               <div className="bg-paper border border-divider-lt rounded-2xl p-8 h-full flex flex-col">
                 {/* Avatar + tag */}
                 <div className="flex items-center justify-between mb-6">
-                  <div
-                    className="w-16 h-16 rounded-full flex items-center justify-center font-display text-xl tracking-tight"
-                    style={{ background: `${t.color}15`, border: `2px solid ${t.color}40`, color: t.color }}
-                  >
-                    {t.initials}
-                  </div>
+                  {t.photo ? (
+                    <div className="relative w-20 h-20 rounded-full overflow-hidden shrink-0" style={{ border: `2px solid ${t.color}60` }}>
+                      <Image src={t.photo} alt={t.name} fill className="object-cover" sizes="80px" />
+                    </div>
+                  ) : (
+                    <div
+                      className="w-20 h-20 rounded-full flex items-center justify-center font-display text-2xl tracking-tight"
+                      style={{ background: `${t.color}15`, border: `2px solid ${t.color}40`, color: t.color }}
+                    >
+                      {t.initials}
+                    </div>
+                  )}
                   <p className="text-[10px] tracking-[0.25em] uppercase font-bold" style={{ color: t.color }}>
                     {t.tag}
                   </p>

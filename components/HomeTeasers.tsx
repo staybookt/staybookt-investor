@@ -307,8 +307,8 @@ export function EconomicsTeaser() {
 /* === Team teaser =========================================== */
 export function TeamTeaser() {
   const team = [
-    { name: 'Jacob Charendoff', tag: 'EXECUTION', initials: 'JC', color: 'var(--elec)', role: 'CEO · Operator' },
-    { name: 'Richard', tag: 'NETWORK', initials: 'R', color: 'var(--plumb)', role: 'Co-Founder · Strategy' },
+    { name: 'Jacob Charendoff', tag: 'EXECUTION', initials: 'JC', color: 'var(--elec)', role: 'CEO · Operator', photo: '/photos/jacob.jpg' },
+    { name: 'Richard Roos', tag: 'NETWORK', initials: 'RR', color: 'var(--plumb)', role: 'Co-Founder · Strategy', photo: '/photos/richard.jpg' },
   ];
   return (
     <section className="relative bg-ink text-white py-24 overflow-hidden">
@@ -339,12 +339,18 @@ export function TeamTeaser() {
             <div className="grid sm:grid-cols-2 gap-5">
               {team.map((t) => (
                 <div key={t.name} className="bg-ink-soft border border-divider rounded-2xl p-6 flex items-center gap-5">
-                  <div
-                    className="w-16 h-16 shrink-0 rounded-full flex items-center justify-center font-display text-lg"
-                    style={{ background: `${t.color}15`, border: `2px solid ${t.color}40`, color: t.color }}
-                  >
-                    {t.initials}
-                  </div>
+                  {t.photo ? (
+                    <div className="relative w-16 h-16 shrink-0 rounded-full overflow-hidden" style={{ border: `2px solid ${t.color}60` }}>
+                      <Image src={t.photo} alt={t.name} fill className="object-cover" sizes="64px" />
+                    </div>
+                  ) : (
+                    <div
+                      className="w-16 h-16 shrink-0 rounded-full flex items-center justify-center font-display text-lg"
+                      style={{ background: `${t.color}15`, border: `2px solid ${t.color}40`, color: t.color }}
+                    >
+                      {t.initials}
+                    </div>
+                  )}
                   <div>
                     <p className="text-[10px] tracking-[0.2em] uppercase font-bold mb-1" style={{ color: t.color }}>
                       {t.tag}
