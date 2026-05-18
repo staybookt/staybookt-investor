@@ -367,7 +367,7 @@ export function CustomerJourney() {
 /* === PricingV3 — the commercial ladder ==========================
  * One service: the StayBookt OS. Three steps to engage:
  *   1. Pilot ($1,500) — low-friction front door, credits to Foundation
- *   2. Foundation ($4,950 one-time) — 4-6 week buildout, 100% money-back before day 90
+ *   2. Foundation ($4,000 one-time) — 4-6 week buildout, 100% money-back before day 90
  *   3. Subscription — Operating Engine ($1,999/mo) OR Operating Layer ($3,499/mo)
  * Plus modifiers: 10% performance kicker (opt-in), 15% annual commit discount.
  * Each tier visually shows which flywheel stages it activates.
@@ -469,7 +469,7 @@ export function PricingV3() {
                 </p>
               </div>
               <div className="text-right">
-                <p className="font-display text-5xl sm:text-6xl tracking-[-0.04em] text-platinum">$4,950</p>
+                <p className="font-display text-5xl sm:text-6xl tracking-[-0.04em] text-platinum">$4,000</p>
                 <p className="text-[10px] tracking-[0.25em] uppercase text-mute font-semibold mt-1">
                   one-time · 4-6 weeks
                 </p>
@@ -681,35 +681,35 @@ export function Roadmap() {
   const phases = [
     {
       n: 'I',
-      title: 'Wave 1 · Pilot',
-      desc: 'Tim Ciszkowski, Top Choice Electrical. No-cost proof-of-system mission. OS calibrated against one real business. Outcomes validated.',
-      status: 'COMPLETE',
+      title: 'Wave 1 · Live',
+      desc: 'Tim Ciszkowski, Top Choice Electrical. First paying client — $4,000 for the Foundation buildout. Site, GBP, capture systems, brand. Operating against the full 7-stage OS.',
+      status: 'LIVE',
       statusColor: '#10B981',
       eta: 'Mar–May 2026',
     },
     {
       n: 'II',
-      title: 'Wave 2 · Commercial launch',
-      desc: 'First 10 paying clients at standard pricing. Pilot → Foundation → Operating Engine conversion funnel proven. ARR forecasted at $200K end-of-year.',
-      status: 'LAUNCHING',
+      title: 'Wave 2 · Active now',
+      desc: 'Closing the next paying clients at standard pricing. Tim conversion to ongoing subscription in motion. Pipeline focused on residential electrical, plumbing, HVAC across ON.',
+      status: 'IN MOTION',
       statusColor: '#06B6D4',
-      eta: 'Q1 2026',
+      eta: 'May 2026 →',
     },
     {
       n: 'III',
-      title: 'Scale + RevOps platform',
-      desc: '50 clients cumulative. ARR $1.5M+. Internal RevOps platform replacing duct-tape stack — Phase II software layer ships. ON-wide coverage.',
+      title: 'Scale',
+      desc: '50 clients cumulative across CA. Operating playbook refined against 50 real businesses. ARR base of $1.5M+. Internal RevOps tooling consolidates the stack.',
       status: 'PLANNED',
       statusColor: '#14B8A6',
-      eta: 'Year 2 — 2027',
+      eta: '2027',
     },
     {
       n: 'IV',
       title: 'NA expansion',
-      desc: '150+ clients across CA + US Northeast / Texas. AI layer for predictive scheduling, churn signals. FSM integrations (ServiceTitan, Jobber, Housecall Pro).',
+      desc: '150+ clients across CA + US Northeast / Texas. AI layer for predictive scheduling. FSM integrations (ServiceTitan, Jobber, Housecall Pro) — we absorb their workflow, keep the customer.',
       status: 'PLANNED',
       statusColor: '#4F46E5',
-      eta: 'Years 3–5',
+      eta: '2028+',
     },
   ];
 
@@ -1297,7 +1297,7 @@ export function UnitEconomics() {
   // Fixed pricing
   const TIER1_MONTHLY = 1999;
   const TIER2_MONTHLY = 3499;
-  const FOUNDATION_FEE = 4950;
+  const FOUNDATION_FEE = 4000;
   const ANNUAL_DISCOUNT = 0.15;
   // Kicker assumption: $1.5K avg monthly kicker (between baseline and 50% cap)
   const AVG_KICKER_MONTHLY = 1500;
@@ -1436,7 +1436,7 @@ export function UnitEconomics() {
               </div>
 
               <p className="text-mute text-xs mt-6 italic leading-relaxed">
-                Assumptions: $1,999 Tier 1, $3,499 Tier 2, $4,950 Foundation per client. Performance kicker estimated at $1.5K/mo per opt-in client (between baseline and 50% cap). Annual commit applies 15% discount to subscription revenue only.
+                Assumptions: $1,999 Tier 1, $3,499 Tier 2, $4,000 Foundation per client. Performance kicker estimated at $1.5K/mo per opt-in client (between baseline and 50% cap). Annual commit applies 15% discount to subscription revenue only.
               </p>
             </div>
           </Reveal>
@@ -1515,7 +1515,7 @@ export function SideBySideTCE() {
             <SiteFrame
               label="After · StayBookt"
               tag="topchoiceelectrical.ca"
-              url="https://tce-website-three.vercel.app/"
+              url="https://www.topchoiceelectrical.ca/"
             />
           </div>
         </Reveal>

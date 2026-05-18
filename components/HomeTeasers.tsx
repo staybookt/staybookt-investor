@@ -387,7 +387,7 @@ export function TeamTeaser() {
 const PAGE_ORDER = [
   { href: '/how-it-works', label: 'How it works', tagline: 'See the playbook we run, every client, every week.' },
   { href: '/proof', label: 'Proof', tagline: 'Tim Ciszkowski. 60 days in. The numbers, the transformation.' },
-  { href: '/opportunity', label: 'Opportunity', tagline: '$108M Canadian TAM. The PE rollup wave that\'s already happening.' },
+  { href: '/opportunity', label: 'Opportunity', tagline: '$1B+ NA TAM. The PE rollup wave that\'s already happening.' },
   { href: '/economics', label: 'Economics', tagline: 'Three lines of revenue. Play with the unit econ slider.' },
   { href: '/team', label: 'Team', tagline: 'Two operators. The people running it.' },
 ];
@@ -456,7 +456,7 @@ export function SiteFooter() {
           <div>
             <p className="text-[10px] tracking-[0.25em] uppercase text-mute font-semibold mb-3">Live client</p>
             <a
-              href="https://tce-website-three.vercel.app/"
+              href="https://www.topchoiceelectrical.ca/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-xs hover:text-white inline-flex items-center gap-1.5"

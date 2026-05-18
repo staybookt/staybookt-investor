@@ -254,8 +254,8 @@ function Flywheel({
             {/* Outer rotation arrow hint */}
             <defs>
               <radialGradient id="hubGlow" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stopColor="rgba(245, 158, 11, 0.15)" />
-                <stop offset="100%" stopColor="rgba(245, 158, 11, 0)" />
+                <stop offset="0%" stopColor="rgba(6, 182, 212, 0.15)" />
+                <stop offset="100%" stopColor="rgba(6, 182, 212, 0)" />
               </radialGradient>
             </defs>
 
@@ -328,7 +328,7 @@ function Flywheel({
               x={cx}
               y={cy - 14}
               textAnchor="middle"
-              fill="rgba(245, 158, 11, 1)"
+              fill="var(--elec)"
               fontFamily="'Helvetica Neue', Helvetica, Arial, sans-serif"
               fontSize="10"
               fontWeight="700"

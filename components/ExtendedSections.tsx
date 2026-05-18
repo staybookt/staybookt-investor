@@ -113,7 +113,7 @@ export function TimCase() {
     <section id="case" ref={ref} className="relative bg-cream text-ink py-32 overflow-hidden">
       <div className="px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">Wave 1 · Pilot · No-cost proof mission</p>
+          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">Wave 1 · Founding client · Live and paying</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
@@ -125,7 +125,7 @@ export function TimCase() {
         </Reveal>
         <Reveal delay={0.2}>
           <p className="text-mute text-base sm:text-lg leading-relaxed max-w-2xl mb-16">
-            Tim Ciszkowski was Wave 1 — a 90-day pilot at no cost so we could prove the OS against a real business before charging anyone. The outcomes below are what the playbook produced under pilot conditions. <span className="text-ink font-semibold">Wave 2 launches Q1 2026 at standard pricing.</span>
+            Tim Ciszkowski is Wave 1 — our first paying client. Paid <span className="text-ink font-semibold">$4,000 for the Foundation buildout</span> (custom site + GBP rebuild + capture systems + brand) in March 2026. Outcomes below are 60 days in. <span className="text-ink font-semibold">Wave 2 is active now</span> — next paying clients onboarding through summer 2026.
           </p>
         </Reveal>
 
@@ -602,7 +602,7 @@ export function Pipeline() {
 
         <Reveal delay={0.5}>
           <p className="mt-8 text-mute text-sm italic">
-            Wave 2 closes by Q3 2026. Wave 3 (10 clients) targeted by Q1 2027 once playbook is repeated on HVAC + plumbing verticals.
+            Wave 2 is active now (May 2026 →) — next paying clients onboarding through summer. 10 cumulative clients targeted by Q1 2027 once the playbook is repeated on HVAC + plumbing verticals.
           </p>
         </Reveal>
       </div>
