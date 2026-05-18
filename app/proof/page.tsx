@@ -16,8 +16,8 @@ export default function ProofPage() {
           title="The transformation, the numbers, the names."
           sub="One client live. Four in motion. Same playbook, every time. Tim, Newmarket electrician, 60 days into Wave 1 — here's what moved."
         />
-        <SideBySideTCE />
         <TimCase />
+        <SideBySideTCE />
         <CustomerOutcomes />
         <PipelineV2 />
         <AskV2 />
