@@ -438,9 +438,12 @@ function CallFunnelWaterfall() {
   ];
 
   return (
-    <div className="bg-ink-soft/40 border border-divider rounded-2xl p-6 sm:p-10 overflow-x-auto">
-      <p className="text-[11px] tracking-[0.25em] uppercase text-mute font-semibold mb-6">Where 100 inbound calls go in a typical week</p>
-
+    <div className="bg-ink-soft/40 border border-divider rounded-2xl p-6 sm:p-10">
+      <div className="flex items-baseline justify-between mb-6 flex-wrap gap-2">
+        <p className="text-[11px] tracking-[0.25em] uppercase text-mute font-semibold">Where 100 inbound calls go in a typical week</p>
+        <p className="text-[10px] tracking-[0.2em] uppercase text-elec font-semibold sm:hidden">Swipe to follow →</p>
+      </div>
+      <div className="overflow-x-auto -mx-6 sm:mx-0 px-6 sm:px-0">
       <svg ref={ref} viewBox={`0 0 ${W} ${H}`} className="w-full h-auto min-w-[640px]">
         {stages.map((s, i) => {
           const height = (s.count / totalCalls) * 140;
@@ -521,6 +524,7 @@ function CallFunnelWaterfall() {
           </marker>
         </defs>
       </svg>
+      </div>
 
       <div className="mt-8 pt-6 border-t border-divider/60">
         <p className="text-platinum text-base sm:text-lg leading-relaxed">

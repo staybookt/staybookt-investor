@@ -207,9 +207,12 @@ function PositioningChart() {
   const yScale = (y: number) => padT + y * (H - padT - padB);
 
   return (
-    <div className="bg-paper border border-divider-lt rounded-2xl p-6 sm:p-10 overflow-x-auto">
-      <p className="text-[11px] tracking-[0.25em] uppercase text-mute font-semibold mb-6">Trades capital, plotted by business size and depth of service</p>
-
+    <div className="bg-paper border border-divider-lt rounded-2xl p-6 sm:p-10">
+      <div className="flex items-baseline justify-between mb-6 flex-wrap gap-2">
+        <p className="text-[11px] tracking-[0.25em] uppercase text-mute font-semibold">Trades capital, plotted by business size and depth of service</p>
+        <p className="text-[10px] tracking-[0.2em] uppercase text-elec font-semibold lg:hidden">Swipe to explore →</p>
+      </div>
+      <div className="overflow-x-auto -mx-6 sm:mx-0 px-6 sm:px-0">
       <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto min-w-[820px]">
         {/* Quadrant background tints */}
         <rect x={padL} y={padT} width={(W - padL - padR) * 0.5} height={(H - padT - padB) * 0.55} fill="#06B6D4" fillOpacity="0.05" />
@@ -323,6 +326,7 @@ function PositioningChart() {
           );
         })}
       </svg>
+      </div>
     </div>
   );
 }

@@ -338,8 +338,12 @@ function ProfitChart({ points }: { points: { n: number; revenue: number; cost: n
   const breakEven = points.find((p) => p.profit >= 0);
 
   return (
-    <div className="bg-paper border border-divider-lt rounded-2xl p-6 sm:p-10 overflow-x-auto">
-      <p className="text-[11px] tracking-[0.25em] uppercase text-mute font-semibold mb-6">Revenue and cost, plotted by client count</p>
+    <div className="bg-paper border border-divider-lt rounded-2xl p-6 sm:p-10">
+      <div className="flex items-baseline justify-between mb-6 flex-wrap gap-2">
+        <p className="text-[11px] tracking-[0.25em] uppercase text-mute font-semibold">Revenue and cost, plotted by client count</p>
+        <p className="text-[10px] tracking-[0.2em] uppercase text-elec font-semibold sm:hidden">Swipe to read →</p>
+      </div>
+      <div className="overflow-x-auto -mx-6 sm:mx-0 px-6 sm:px-0">
       <svg ref={ref} viewBox={`0 0 ${W} ${H}`} className="w-full h-auto min-w-[640px]">
         {/* Y-axis grid */}
         {[0, 0.25, 0.5, 0.75, 1].map((p) => {
@@ -438,6 +442,7 @@ function ProfitChart({ points }: { points: { n: number; revenue: number; cost: n
           <text x="20" y="19" fontSize="10" fill="var(--ink)" fontWeight="700">Total cost</text>
         </g>
       </svg>
+      </div>
     </div>
   );
 }
