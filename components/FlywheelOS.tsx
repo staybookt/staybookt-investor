@@ -688,16 +688,16 @@ export function FlywheelOS() {
         >
           <div className="inline-flex items-center gap-3 text-[11px] tracking-[0.3em] uppercase text-mute font-semibold mb-6">
             <span className="w-8 h-px bg-elec/60" />
-            <span>You&apos;ve seen the playbook · 07 / 07</span>
+            <span>The rest of the brief</span>
             <span className="w-8 h-px bg-elec/60" />
           </div>
           <h3 className="font-display text-[36px] sm:text-[56px] leading-[1.02] tracking-[-0.03em] mb-6">
-            Four questions left.
+            Proof. Market.
             <br />
-            <span className="text-mute">Pick your path.</span>
+            <span className="text-mute">Math. Team.</span>
           </h3>
           <p className="text-platinum-soft text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
-            You know what we do and how the OS runs. The rest of the brief answers whether it&apos;s real, whether the market&apos;s big, whether the math works, and who&apos;s executing.
+            Read in any order. Every section answers the same thesis from a different angle.
           </p>
         </motion.div>
 
@@ -716,8 +716,8 @@ export function FlywheelOS() {
               href: '/opportunity',
               question: 'Is the market big?',
               eyebrow: 'OPPORTUNITY',
-              title: '$135M Canadian ARR',
-              desc: 'Smart money is rolling up the trades. Owner-operators still answer their own phones.',
+              title: '$1B+ North American ARR',
+              desc: 'Canada beachhead, NA expansion. Smart money is rolling up the trades. Owner-operators still answer their own phones.',
               color: '#10B981',
             },
             {
