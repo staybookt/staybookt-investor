@@ -1,9 +1,16 @@
-import { WhyNow, CompetitiveLandscapeV2, Moat, TAMBreakdown, Sources } from '@/components/SectionsV3';
+import {
+  CapitalFlow,
+  TwoLayers,
+  SilverTsunami,
+  NamedComp,
+  MoatFour,
+} from '@/components/MarketProfile';
+import { TAMBreakdown, Sources } from '@/components/SectionsV3';
 import { AskV2 } from '@/components/ExtendedSections';
 import { TopNav } from '@/components/TopNav';
 import { SiteFooter, UpNext } from '@/components/HomeTeasers';
 
-export const metadata = { title: 'Opportunity — StayBookt' };
+export const metadata = { title: 'Market' };
 
 export default function OpportunityPage() {
   return (
@@ -11,14 +18,16 @@ export default function OpportunityPage() {
       <TopNav active="opportunity" />
       <div className="pt-20">
         <PageHeader
-          eyebrow="You asked: is the market big?"
-          title="$1B+ North American ARR opportunity. Smart money is consolidating the trades."
-          sub={<>Canada is the beachhead. North America is the expansion. The tools layer is funded. The roll-up layer is funded. The owner-operator is still answering the phone himself.</>}
+          eyebrow="Market"
+          title="$1B+ ARR sitting in plain sight."
+          sub={<>The trades are no longer a sleepy sector. ServiceTitan IPO&apos;d at a $9.6B opening market cap in December 2024. Apex Service Partners closed a $3.4B continuation fund in 2023 and added 60 acquisitions in 2025 alone. The software layer is well funded. The consolidation layer is well funded. Neither one builds for the $250K to $2M owner-operator. That is the operating layer. That is us.</>}
         />
+        <CapitalFlow />
+        <TwoLayers />
+        <SilverTsunami />
         <TAMBreakdown />
-        <WhyNow />
-        <CompetitiveLandscapeV2 />
-        <Moat />
+        <NamedComp />
+        <MoatFour />
         <Sources />
         <AskV2 />
       </div>
