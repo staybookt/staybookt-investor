@@ -4,7 +4,7 @@ import { CustomerOutcomes } from '@/components/OperatingSystem';
 import { TopNav } from '@/components/TopNav';
 import { SiteFooter, UpNext } from '@/components/HomeTeasers';
 
-export const metadata = { title: 'Proof — StayBookt' };
+export const metadata = { title: 'Customer' };
 
 export default function ProofPage() {
   return (
@@ -12,9 +12,9 @@ export default function ProofPage() {
       <TopNav active="proof" />
       <div className="pt-20">
         <PageHeader
-          eyebrow="You asked: is it real?"
-          title="The transformation, the numbers, the names."
-          sub="One client live. Four in motion. Same playbook, every time. Tim, Newmarket electrician, 60 days into Wave 1 — here's what moved."
+          eyebrow="Customer"
+          title="Tim Ciszkowski. 60 days live. Real numbers."
+          sub="Tim runs Top Choice Electrical out of Newmarket, Ontario. He hired us in March 2026 and paid $4,000 for the initial buildout. Sixty days in, the lead engine is producing, the back office is quiet, and the reviews are compounding. The pipeline below shows the next four clients onboarding through summer."
         />
         <TimCase />
         <SideBySideTCE />
