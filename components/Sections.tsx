@@ -96,9 +96,9 @@ export function Hero() {
           transition={{ duration: 0.7, delay: 1.05 }}
           className="mt-6 text-platinum-soft/90 text-xs sm:text-sm tracking-[0.18em] uppercase font-semibold"
         >
-          <span className="text-elec">Wave 1 live</span>
+          <span className="text-elec">Pilot 1 paid · May 2026</span>
           <span className="mx-3 text-mute">·</span>
-          <span>Wave 2 onboarding now</span>
+          <span>3 more in conversation</span>
         </motion.p>
 
         {/* CTA, ghost button with gradient sweep on hover */}
@@ -260,17 +260,20 @@ export function CategoryPosition() {
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-[40px] sm:text-[72px] leading-[0.98] tracking-[-0.04em] max-w-4xl mb-6">
-            Software covers part of the work.
+            The gap is the operator.
           </h2>
         </Reveal>
         <Reveal delay={0.2}>
           <h2 className="font-display text-[40px] sm:text-[72px] leading-[0.98] tracking-[-0.04em] max-w-4xl mb-10 text-mute">
-            We cover the rest.
+            We are the operator.
           </h2>
         </Reveal>
         <Reveal delay={0.3}>
-          <p className="text-platinum-soft text-base sm:text-lg max-w-2xl leading-relaxed mb-16 sm:mb-20">
-            A service business runs through the same seven operational stages every week. The table below shows which categories of provider actually cover each stage, and what every owner-operator is still doing themselves.
+          <p className="text-platinum-soft text-base sm:text-lg max-w-2xl leading-relaxed mb-4">
+            Jobber gives them a CRM. A local agency gives them a website. Neither one picks up the phone after hours, neither one sends the 72-hour quote follow-up, and neither one writes the Monday brief that tells the owner where the business actually is. We do that work on a defined weekly cadence, the same way for every client.
+          </p>
+          <p className="text-mute text-sm sm:text-base max-w-2xl leading-relaxed mb-16 sm:mb-20">
+            The map below makes it concrete. Seven operational stages, layered against the categories that already pitch the trades.
           </p>
         </Reveal>
 
@@ -411,21 +414,8 @@ export function CategoryPosition() {
           </div>
         </div>
 
-        {/* Punchline, the category statement */}
-        <Reveal delay={0.7}>
-          <div className="max-w-4xl mx-auto">
-            <p className="text-[11px] tracking-[0.3em] uppercase text-elec font-semibold mb-8">
-              The gap
-            </p>
-            <h3 className="font-display text-[40px] sm:text-[72px] leading-[1.0] tracking-[-0.04em] mb-10">
-              The gap is the operator.{' '}
-              <span className="text-mute">We are the operator.</span>
-            </h3>
-            <p className="text-platinum-soft text-base sm:text-lg max-w-2xl leading-relaxed">
-              Jobber gives them a CRM. A local agency gives them a website. Neither one picks up the phone after hours, neither one sends the 72-hour quote follow-up, and neither one writes the Monday brief that tells the owner where the business actually is. We do that work on a defined weekly cadence, the same way for every client.
-            </p>
-          </div>
-        </Reveal>
+        {/* Punchline moved up to serve as the section headline. The map IS
+            the visual proof of the claim. No redundant closing block. */}
       </div>
     </section>
   );
