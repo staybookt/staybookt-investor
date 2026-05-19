@@ -1,0 +1,136 @@
+import { ImageResponse } from 'next/og';
+
+/* StayBookt share card. 1200x630 PNG. Used by every social platform
+ * (LinkedIn, Twitter, Slack, iMessage, WhatsApp) when the URL is shared.
+ *
+ * Layout: dark ink background, gradient wordmark top-left, big tagline
+ * centered, domain bottom-right. Reads from 100px away. */
+export const size = { width: 1200, height: 630 };
+export const contentType = 'image/png';
+export const alt = 'StayBookt: The operating layer for the trades';
+export const dynamic = 'force-static';
+
+export default function OpenGraphImage() {
+  return new ImageResponse(
+    (
+      <div
+        style={{
+          width: '100%',
+          height: '100%',
+          background: '#0A0E1A',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          padding: 80,
+          fontFamily: 'Helvetica, Arial, sans-serif',
+          position: 'relative',
+        }}
+      >
+        {/* Gradient orb top-right */}
+        <div
+          style={{
+            position: 'absolute',
+            top: -200,
+            right: -200,
+            width: 700,
+            height: 700,
+            borderRadius: 9999,
+            background: 'radial-gradient(circle, rgba(6,182,212,0.40) 0%, rgba(6,182,212,0) 70%)',
+            display: 'flex',
+          }}
+        />
+        {/* Gradient orb bottom-left */}
+        <div
+          style={{
+            position: 'absolute',
+            bottom: -250,
+            left: -150,
+            width: 700,
+            height: 700,
+            borderRadius: 9999,
+            background: 'radial-gradient(circle, rgba(79,70,229,0.32) 0%, rgba(79,70,229,0) 70%)',
+            display: 'flex',
+          }}
+        />
+
+        {/* Top: wordmark */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'baseline',
+            fontSize: 56,
+            fontWeight: 800,
+            letterSpacing: '-0.04em',
+            color: 'white',
+            position: 'relative',
+          }}
+        >
+          <span>Stay</span>
+          <span
+            style={{
+              background: 'linear-gradient(90deg, #06B6D4 0%, #10B981 50%, #4F46E5 100%)',
+              backgroundClip: 'text',
+              color: 'transparent',
+              marginLeft: '0',
+            }}
+          >
+            Bookt
+          </span>
+        </div>
+
+        {/* Center: tagline */}
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            position: 'relative',
+          }}
+        >
+          <div
+            style={{
+              fontSize: 100,
+              fontWeight: 800,
+              color: 'white',
+              letterSpacing: '-0.04em',
+              lineHeight: 1.02,
+              display: 'flex',
+            }}
+          >
+            The operating layer
+          </div>
+          <div
+            style={{
+              fontSize: 100,
+              fontWeight: 800,
+              color: '#94a3b8',
+              letterSpacing: '-0.04em',
+              lineHeight: 1.02,
+              display: 'flex',
+            }}
+          >
+            for the trades.
+          </div>
+        </div>
+
+        {/* Bottom: meta strip */}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            fontSize: 22,
+            color: '#64748b',
+            letterSpacing: '0.25em',
+            fontWeight: 700,
+            textTransform: 'uppercase',
+            position: 'relative',
+          }}
+        >
+          <div style={{ display: 'flex' }}>Investor brief</div>
+          <div style={{ display: 'flex' }}>invest.staybookt.com</div>
+        </div>
+      </div>
+    ),
+    { ...size }
+  );
+}
