@@ -66,11 +66,13 @@ export function Hero() {
       {/* Top nav handled by global TopNav component */}
 
       <div className="relative z-10 px-8 sm:px-16 max-w-7xl w-full pt-32 sm:pt-40 pb-20">
-        {/* H1, category claim with gradient on "operating layer" */}
+        {/* H1, category claim with gradient on "operating layer".
+            v14.2 polish: tightened animation timing so the hero is fully visible
+            inside ~1 second of landing, not 2 seconds. */}
         <motion.h1
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.5, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
           className="font-display text-white text-[52px] sm:text-[88px] leading-[1.02] tracking-[-0.04em] max-w-5xl"
         >
           The{' '}
@@ -81,19 +83,19 @@ export function Hero() {
 
         {/* Sub, category contrast + traction signal */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.9 }}
+          transition={{ duration: 0.5, delay: 0.25 }}
           className="mt-10 text-platinum text-lg sm:text-2xl tracking-tight max-w-3xl leading-snug"
         >
           We replace the marketing manager, ops manager, and bookkeeper that a $250K to $2M service business cannot afford to hire. One retainer. One team. One weekly operating cadence.
         </motion.p>
 
-        {/* Traction stamp, Wave 1 / Wave 2 status */}
+        {/* Traction stamp, Pilot 1 status */}
         <motion.p
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 1.05 }}
+          transition={{ duration: 0.4, delay: 0.45 }}
           className="mt-6 text-platinum-soft/90 text-xs sm:text-sm tracking-[0.18em] uppercase font-semibold"
         >
           <span className="text-elec">Pilot 1 paid · May 2026</span>
@@ -103,9 +105,9 @@ export function Hero() {
 
         {/* CTA, ghost button with gradient sweep on hover */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
+          transition={{ duration: 0.4, delay: 0.6 }}
           className="mt-12"
         >
           <a
