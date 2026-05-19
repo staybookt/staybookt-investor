@@ -290,7 +290,7 @@ const STAGES: Stage[] = [
     color: '#06B6D4',
     group: 'DEMAND',
     ships: ['Custom-built site', 'Google Business Profile rebuild', 'Local SEO + 25 citations', 'Monthly content cadence'],
-    proof: { label: 'Tim, today', value: '#1 local pack rank · "Newmarket electrician" · 47 days' },
+    proof: { label: 'Pilot 1 target · day 90', value: 'Top 3 local pack rank for "Newmarket electrician"' },
     viz: (a) => <VizFind active={a} />,
   },
   {
@@ -301,7 +301,7 @@ const STAGES: Stage[] = [
     color: '#0EA5E9',
     group: 'DEMAND',
     ships: ['Tap-to-call sticky bar', 'Callback form on every page', 'Missed-call SMS recovery', 'After-hours alert system'],
-    proof: { label: 'Tim, today', value: 'After-hours voicemail rate: 38% → 0%' },
+    proof: { label: 'Pilot 1 target · day 90', value: 'After-hours voicemail rate to zero' },
     viz: (a) => <VizCapture active={a} />,
   },
   {
@@ -312,7 +312,7 @@ const STAGES: Stage[] = [
     color: '#10B981',
     group: 'CONVERSION',
     ships: ['On-site quote workflow', '24h / 72h / 7d follow-up cadence', 'Quote-to-booking dashboard', 'Lost-quote reason capture'],
-    proof: { label: 'Tim, today', value: '0 stale quotes in 60 days · same-day avg follow-up' },
+    proof: { label: 'Pilot 1 target · day 90', value: 'Zero stale quotes. Same-day average first follow-up.' },
     viz: (a) => <VizQuote active={a} />,
   },
   {
@@ -323,7 +323,7 @@ const STAGES: Stage[] = [
     color: '#059669',
     group: 'EXECUTION',
     ships: ['Scheduling + permit pulls', 'Invoicing + QuickBooks sync', 'Customer pre-arrival SMS', 'ESA / municipal compliance'],
-    proof: { label: 'Tim, today', value: 'Owner admin / week: 15hr → < 2hr' },
+    proof: { label: 'Pilot 1 target · day 90', value: 'Owner admin: 15hr / wk down to under 2hr / wk' },
     viz: (a) => <VizDeliver active={a} />,
   },
   {
@@ -334,7 +334,7 @@ const STAGES: Stage[] = [
     color: '#14B8A6',
     group: 'COMPOUNDING',
     ships: ['Monday brief in the owner\'s inbox', 'Live KPI dashboard', 'Monthly board-style review', 'Lead source attribution'],
-    proof: { label: 'Tim, today', value: 'Weekly brief + monthly QBR · 8 weeks running' },
+    proof: { label: 'Pilot 1 cadence', value: 'First Monday brief lands the week the engine activates' },
     viz: (a) => <VizMeasure active={a} />,
   },
   {
@@ -345,7 +345,7 @@ const STAGES: Stage[] = [
     color: '#2563EB',
     group: 'COMPOUNDING',
     ships: ['Post-job review request automation', 'Review-of-the-week feature', 'Photo-led case studies', 'Press / directory listings'],
-    proof: { label: 'Tim, today', value: 'Google reviews: 3 → 50+ in 90 days' },
+    proof: { label: 'Pilot 1 target · day 90', value: 'Google reviews from 3 to 50+ within 90 days of campaign launch' },
     viz: (a) => <VizReputation active={a} />,
   },
   {
@@ -356,7 +356,7 @@ const STAGES: Stage[] = [
     color: '#4F46E5',
     group: 'COMPOUNDING',
     ships: ['Referral incentive program', 'Annual maintenance reminders', 'Quarterly check-in cadence', 'Past-customer DB activation'],
-    proof: { label: 'Tim, today', value: '3 referrals to date · CAC trending toward zero' },
+    proof: { label: 'Pilot 1 target · year 1', value: 'Referrals as the dominant lead source by quarter four' },
     viz: (a) => <VizReferral active={a} />,
   },
 ];
@@ -707,29 +707,29 @@ export function FlywheelOS() {
             {
               href: '/proof',
               eyebrow: 'CUSTOMER',
-              title: 'Top Choice Electrical',
-              desc: 'Sixty days live. Zero to 40+ inbound leads a month. Owner admin down 87%. The reviews and the receipts.',
+              title: 'HVAC, plumbing, electrical.',
+              desc: 'Residential and light-commercial trades, $250K to $2M revenue, mostly under five trucks. Owner-operators running their own phone, books, and quotes. Pilot 1 is live, three more in conversation. Inside: the segment, the foundation we shipped for Tim, and the day-90 targets we are running against.',
               color: '#06B6D4',
             },
             {
               href: '/opportunity',
               eyebrow: 'MARKET',
-              title: '$1B+ ARR in North America',
-              desc: 'Canada is our entry market. Smart money is consolidating the trades. Owner-operators are still answering the phone themselves.',
+              title: 'A category nobody owns yet.',
+              desc: '$1B+ ARR sits between the software layer (Jobber, ServiceTitan, Housecall Pro) and the consolidation layer (PE rollups buying HVAC and plumbing). Both are well funded. Neither serves the owner-operator. Inside: the TAM math, the timing, and the comp set.',
               color: '#10B981',
             },
             {
               href: '/economics',
               eyebrow: 'MODEL',
-              title: 'Retainer plus performance',
-              desc: '$4,000 setup. $1,999 to $3,499 monthly. Optional 10% performance fee. The math gets better with every client on the same playbook.',
+              title: 'Retainer plus performance. Built to compound.',
+              desc: '$4K foundation up front. $1,999 to $3,499 monthly retainer. Optional 10% performance fee on attributable revenue. Same playbook every client means cost-to-deliver drops with scale. Inside: pricing tiers, unit econ slider, and the pilot 1 math.',
               color: '#14B8A6',
             },
             {
               href: '/team',
               eyebrow: 'TEAM',
-              title: 'Two founders, on the floor',
-              desc: 'Jacob runs revenue, technology, go-to-market. Richard runs operations, finance, business development.',
+              title: 'Two founders, on the floor.',
+              desc: 'Jacob runs revenue, technology, go-to-market. Richard runs operations, finance, business development. Both have built and run revenue inside operating teams. Inside: backgrounds, what each of us owns, and the specialist bench we pull in per engagement.',
               color: '#4F46E5',
             },
           ].map((card, i) => (
