@@ -1,6 +1,15 @@
-import { SideBySideTCE, PipelineV2 } from '@/components/SectionsV3';
-import { TimCase, AskV2 } from '@/components/ExtendedSections';
-import { CustomerOutcomes } from '@/components/OperatingSystem';
+import {
+  ICPSegment,
+  OwnerWeek,
+  VendorSpend,
+  MissedCallWound,
+  BuyingTriggers,
+  SegmentTAM,
+  PilotOneCompact,
+  MeasurementPlan,
+} from '@/components/CustomerProfile';
+import { PipelineV2 } from '@/components/SectionsV3';
+import { AskV2 } from '@/components/ExtendedSections';
 import { TopNav } from '@/components/TopNav';
 import { SiteFooter, UpNext } from '@/components/HomeTeasers';
 
@@ -12,14 +21,19 @@ export default function ProofPage() {
       <TopNav active="proof" />
       <div className="pt-20">
         <PageHeader
-          eyebrow="Customer · Pilot in motion"
-          title="Tim Ciszkowski. Foundation built. Engine starting."
-          sub="Tim runs Top Choice Electrical out of Newmarket, Ontario. He hired StayBookt in May 2026 and paid $4,000 for the Foundation buildout. The new website is built and staged for launch. Google Business Profile and the review campaign go live this month pending Tim's owner-side activation. The operating cadence starts the day the engine is on. Below: what we shipped, what we are running against, and the three additional pilots in conversation."
+          eyebrow="Customer"
+          title="Who actually pays us."
+          sub="HVAC, plumbing, and electrical owner-operators doing $250K to $2M in revenue. The kind of business that is too small to hire a marketing manager, an operations manager, and a bookkeeper, but too big to run on the owner's phone alone. Below: the segment, the week, the spend, the leak, and the four patterns that turn into signed contracts. Pilot 1 is one of them. There are 10,000 more in Ontario alone."
         />
-        <TimCase />
-        <SideBySideTCE />
-        <CustomerOutcomes />
+        <ICPSegment />
+        <OwnerWeek />
+        <VendorSpend />
+        <MissedCallWound />
+        <BuyingTriggers />
+        <SegmentTAM />
+        <PilotOneCompact />
         <PipelineV2 />
+        <MeasurementPlan />
         <AskV2 />
       </div>
       <UpNext current="/proof" />
