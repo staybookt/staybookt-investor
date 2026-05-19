@@ -1,9 +1,10 @@
 import { UnitEconomics, PricingV3, Roadmap } from '@/components/SectionsV3';
+import { UnitMath, CostToDeliver, PathToProfit, BenchmarkComp } from '@/components/ModelProfile';
 import { AskV2 } from '@/components/ExtendedSections';
 import { TopNav } from '@/components/TopNav';
 import { SiteFooter, UpNext } from '@/components/HomeTeasers';
 
-export const metadata = { title: 'Economics — StayBookt' };
+export const metadata = { title: 'Model' };
 
 export default function EconomicsPage() {
   return (
@@ -11,11 +12,15 @@ export default function EconomicsPage() {
       <TopNav active="economics" />
       <div className="pt-20">
         <PageHeader
-          eyebrow="You asked: does the math work?"
-          title="Three lines of revenue. One sticky operating layer."
-          sub="Website is the wedge — cheap to ship, immediate value. Operating team is the moat — high switching cost, embedded weekly. Compounding playbook is the long game — every client makes the next one easier."
+          eyebrow="Model"
+          title="Retainer plus performance. Built to compound."
+          sub="$4,000 Foundation buildout, sold up front. $1,999 to $3,499 monthly retainer, sold by tier. Optional 10% performance fee on attributable revenue. Below: the unit math per client, what one client costs us, the curve to cash-positive at roughly 30 clients, and how the model compares to the public comps. Math is transparent, assumptions are labeled."
         />
+        <UnitMath />
+        <CostToDeliver />
         <UnitEconomics />
+        <PathToProfit />
+        <BenchmarkComp />
         <PricingV3 />
         <Roadmap />
         <AskV2 />
