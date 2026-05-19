@@ -156,28 +156,29 @@ export function ProofTeaser() {
                 sizes="(max-width: 1024px) 100vw, 40vw"
               />
               <div className="absolute inset-x-0 bottom-0 p-5 bg-gradient-to-t from-ink/95 via-ink/50 to-transparent text-white">
-                <p className="text-xs tracking-[0.25em] text-elec font-semibold uppercase mb-1">Wave 1 · LIVE</p>
+                <p className="text-xs tracking-[0.25em] text-elec font-semibold uppercase mb-1">Pilot 1 · Engaged May 2026</p>
                 <p className="font-display text-xl">Top Choice Electrical</p>
               </div>
             </div>
           </Reveal>
           <div className="lg:col-span-7">
             <Reveal delay={0.1}>
-              <p className="text-xs tracking-[0.3em] text-plumb font-semibold uppercase mb-6">Receipts</p>
+              <p className="text-xs tracking-[0.3em] text-plumb font-semibold uppercase mb-6">Pilot in motion</p>
               <h2 className="font-display text-4xl sm:text-6xl tracking-[-0.04em] leading-tight mb-6">
-                Tim is the proof.
+                Tim is pilot one.
               </h2>
               <p className="text-ink/75 text-base sm:text-lg leading-relaxed mb-8 max-w-xl">
-                60 days into the engagement. Owner-operator electrician in Newmarket. The playbook ran. The numbers moved. Here&apos;s what happened.
+                Owner-operator electrician in Newmarket. Engaged May 2026. $4,000 paid for the Foundation buildout. Site staged. Engine activating this month. Day-90 targets published below.
               </p>
             </Reveal>
 
             <Reveal delay={0.2}>
+              <p className="text-[10px] tracking-[0.25em] uppercase font-semibold text-elec mb-3">Pilot 1 targets · day 90</p>
               <div className="grid grid-cols-3 gap-4 mb-8">
                 {[
-                  { stat: '0 → 40+', label: 'leads / month', color: 'var(--elec)' },
-                  { stat: '–87%', label: 'admin hours', color: 'var(--plumb)' },
-                  { stat: '3 → 50+', label: 'reviews / 90d', color: 'var(--hvac)' },
+                  { stat: '40+ / mo', label: 'inbound leads', color: 'var(--elec)' },
+                  { stat: '< 2 hr / wk', label: 'owner admin', color: 'var(--plumb)' },
+                  { stat: '50+', label: 'reviews · 90d', color: 'var(--hvac)' },
                 ].map((s) => (
                   <div key={s.label} className="border-l-2 pl-3" style={{ borderColor: s.color }}>
                     <p className="font-display text-xl tracking-tight" style={{ color: s.color }}>{s.stat}</p>
@@ -192,7 +193,7 @@ export function ProofTeaser() {
                 href="/proof"
                 className="inline-flex items-center gap-3 text-plumb font-semibold text-sm hover:gap-4 transition-all border-b border-plumb/40 pb-1"
               >
-                Read the case study
+                See the pilot brief
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} className="w-4 h-4">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
@@ -385,8 +386,7 @@ export function TeamTeaser() {
 
 /* === UpNext, cross-page navigation =========================== */
 const PAGE_ORDER = [
-  { href: '/how-it-works', label: 'Operations', tagline: 'The operating cycle and how a client week actually runs.' },
-  { href: '/proof', label: 'Customer', tagline: 'Tim Ciszkowski, 60 days in. The contract, the metrics, the receipts.' },
+  { href: '/proof', label: 'Customer', tagline: 'HVAC, plumbing, electrical owner-operators. The segment, the spend, the leak, the pilot.' },
   { href: '/opportunity', label: 'Market', tagline: 'A $1B+ ARR opportunity sitting between the software layer and the consolidation layer.' },
   { href: '/economics', label: 'Model', tagline: 'Retainer plus performance. Where the unit economics work and where they break.' },
   { href: '/team', label: 'Team', tagline: 'Two founders, the operating bench, and the work history that got us here.' },
@@ -441,7 +441,6 @@ export function SiteFooter() {
             <p className="text-[10px] tracking-[0.25em] uppercase text-mute font-semibold mb-3">The brief</p>
             <ul className="space-y-1.5 text-xs">
               {[
-                { href: '/how-it-works', label: 'Operations' },
                 { href: '/proof', label: 'Customer' },
                 { href: '/opportunity', label: 'Market' },
                 { href: '/economics', label: 'Model' },
@@ -467,7 +466,7 @@ export function SiteFooter() {
               </svg>
             </a>
             <p className="text-[10px] text-mute mt-2 leading-relaxed">
-              Newmarket, ON · ESA licensed · Wave 1 client since March 2026
+              Newmarket, ON · ESA licensed · Pilot 1 since May 2026
             </p>
           </div>
           <div>
