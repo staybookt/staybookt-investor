@@ -12,9 +12,9 @@ export default function ProofPage() {
       <TopNav active="proof" />
       <div className="pt-20">
         <PageHeader
-          eyebrow="Customer"
-          title="Tim Ciszkowski. 60 days live. Real numbers."
-          sub="Tim runs Top Choice Electrical out of Newmarket, Ontario. He hired us in March 2026 and paid $4,000 for the initial buildout. Sixty days in, the lead engine is producing, the back office is quiet, and the reviews are compounding. The pipeline below shows the next four clients onboarding through summer."
+          eyebrow="Customer · Pilot in motion"
+          title="Tim Ciszkowski. Foundation built. Engine starting."
+          sub="Tim runs Top Choice Electrical out of Newmarket, Ontario. He hired StayBookt in May 2026 and paid $4,000 for the Foundation buildout. The new website is built and staged for launch. Google Business Profile and the review campaign go live this month pending Tim's owner-side activation. The operating cadence starts the day the engine is on. Below: what we shipped, what we are running against, and the three additional pilots in conversation."
         />
         <TimCase />
         <SideBySideTCE />
