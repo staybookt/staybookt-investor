@@ -180,9 +180,9 @@ export function TwoLayers() {
 }
 
 function PositioningChart() {
-  const W = 800;
+  const W = 960;
   const H = 480;
-  const padL = 80;
+  const padL = 160;
   const padR = 60;
   const padT = 50;
   const padB = 80;
@@ -210,7 +210,7 @@ function PositioningChart() {
     <div className="bg-paper border border-divider-lt rounded-2xl p-6 sm:p-10 overflow-x-auto">
       <p className="text-[11px] tracking-[0.25em] uppercase text-mute font-semibold mb-6">Trades capital, plotted by business size and depth of service</p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto min-w-[700px]">
+      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto min-w-[820px]">
         {/* Quadrant background tints */}
         <rect x={padL} y={padT} width={(W - padL - padR) * 0.5} height={(H - padT - padB) * 0.55} fill="#06B6D4" fillOpacity="0.05" />
         <rect x={padL + (W - padL - padR) * 0.55} y={padT} width={(W - padL - padR) * 0.45} height={(H - padT - padB) * 0.55} fill="#10B981" fillOpacity="0.05" />
@@ -220,28 +220,45 @@ function PositioningChart() {
         <line x1={padL} y1={padT} x2={padL} y2={H - padB} stroke="var(--divider-lt)" strokeWidth="1.5" />
         <line x1={padL} y1={H - padB} x2={W - padR} y2={H - padB} stroke="var(--divider-lt)" strokeWidth="1.5" />
 
-        {/* Axis labels */}
-        <text x={padL - 12} y={padT + 12} textAnchor="end" fontSize="10" fontWeight="700" fill="var(--mute)" letterSpacing="1.5">
-          ENTERPRISE
-        </text>
-        <text x={padL - 12} y={(padT + H - padB) / 2} textAnchor="end" fontSize="10" fontWeight="700" fill="var(--mute)" letterSpacing="1.5">
-          $5M+ EBITDA
-        </text>
-        <text x={padL - 12} y={H - padB - 6} textAnchor="end" fontSize="10" fontWeight="700" fill="var(--mute)" letterSpacing="1.5">
-          OWNER-OPERATOR
-        </text>
-        <text x={padL - 12} y={H - padB + 18} textAnchor="end" fontSize="9" fill="var(--mute-dark)" letterSpacing="1">
-          $250K-$2M
+        {/* Y-axis title */}
+        <text x={20} y={padT - 8} fontSize="10" fontWeight="700" fill="var(--ink)" letterSpacing="2">
+          BUSINESS SIZE
         </text>
 
-        <text x={padL + 4} y={H - padB + 28} fontSize="10" fontWeight="700" fill="var(--mute)" letterSpacing="1.5">
+        {/* Y-axis labels */}
+        <text x={padL - 14} y={padT + 12} textAnchor="end" fontSize="10" fontWeight="700" fill="var(--mute)" letterSpacing="1.5">
+          ENTERPRISE
+        </text>
+        <text x={padL - 14} y={padT + 26} textAnchor="end" fontSize="9" fill="var(--mute-dark)" letterSpacing="1">
+          $50M+ revenue
+        </text>
+
+        <text x={padL - 14} y={(padT + H - padB) / 2 - 6} textAnchor="end" fontSize="10" fontWeight="700" fill="var(--mute)" letterSpacing="1.5">
+          MID-MARKET
+        </text>
+        <text x={padL - 14} y={(padT + H - padB) / 2 + 8} textAnchor="end" fontSize="9" fill="var(--mute-dark)" letterSpacing="1">
+          $5M+ EBITDA
+        </text>
+
+        <text x={padL - 14} y={H - padB - 18} textAnchor="end" fontSize="10" fontWeight="700" fill="var(--mute)" letterSpacing="1.5">
+          OWNER-OPERATOR
+        </text>
+        <text x={padL - 14} y={H - padB - 4} textAnchor="end" fontSize="9" fill="var(--mute-dark)" letterSpacing="1">
+          $250K–$2M revenue
+        </text>
+
+        {/* X-axis title and labels */}
+        <text x={padL} y={H - padB + 30} fontSize="10" fontWeight="700" fill="var(--mute)" letterSpacing="1.5">
           TOOL ONLY
         </text>
-        <text x={(padL + W - padR) / 2} y={H - padB + 28} textAnchor="middle" fontSize="10" fontWeight="700" fill="var(--mute)" letterSpacing="1.5">
+        <text x={(padL + W - padR) / 2} y={H - padB + 30} textAnchor="middle" fontSize="10" fontWeight="700" fill="var(--mute)" letterSpacing="1.5">
           OPERATING WORK
         </text>
-        <text x={W - padR} y={H - padB + 28} textAnchor="end" fontSize="10" fontWeight="700" fill="var(--mute)" letterSpacing="1.5">
+        <text x={W - padR} y={H - padB + 30} textAnchor="end" fontSize="10" fontWeight="700" fill="var(--mute)" letterSpacing="1.5">
           FULL BUYOUT
+        </text>
+        <text x={(padL + W - padR) / 2} y={H - padB + 56} textAnchor="middle" fontSize="9" fill="var(--mute-dark)" letterSpacing="1">
+          Depth of service →
         </text>
 
         {/* Quadrant labels */}
