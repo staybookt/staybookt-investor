@@ -66,27 +66,39 @@ export function Hero() {
       {/* Top nav handled by global TopNav component */}
 
       <div className="relative z-10 px-8 sm:px-16 max-w-7xl w-full pt-32 sm:pt-40 pb-20">
-        {/* H1 — the tagline, with gradient on StayBookt */}
+        {/* H1 — category claim with gradient on "operating layer" */}
         <motion.h1
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className="font-display text-white text-[52px] sm:text-[88px] leading-[1.02] tracking-[-0.04em] max-w-5xl"
         >
-          Making the phone ring
+          The{' '}
+          <span className="wordmark-gradient-live inline-block">operating layer</span>
           <br />
-          so you{' '}
-          <span className="wordmark-gradient-live inline-block">StayBookt.</span>
+          for the trades.
         </motion.h1>
 
-        {/* Sub — explains what the tagline means */}
+        {/* Sub — category contrast + traction signal */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.9 }}
-          className="mt-10 text-platinum text-lg sm:text-2xl tracking-tight max-w-2xl leading-snug"
+          className="mt-10 text-platinum text-lg sm:text-2xl tracking-tight max-w-3xl leading-snug"
         >
-          We run the revenue engine for small residential + light-commercial service businesses.
+          We run the entire revenue engine for small residential + light-commercial service businesses. Not software. Not an agency. The team, the playbook, and the systems in one engine.
+        </motion.p>
+
+        {/* Traction stamp — Wave 1 / Wave 2 status */}
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 1.05 }}
+          className="mt-6 text-platinum-soft/90 text-xs sm:text-sm tracking-[0.18em] uppercase font-semibold"
+        >
+          <span className="text-elec">Wave 1 live</span>
+          <span className="mx-3 text-mute">·</span>
+          <span>Wave 2 onboarding now</span>
         </motion.p>
 
         {/* CTA — ghost button with gradient sweep on hover */}
