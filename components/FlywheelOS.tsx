@@ -4,7 +4,7 @@ import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-
 import Link from 'next/link';
 
 /* ============================================================
- * FlywheelOS — the homepage centerpiece.
+ * FlywheelOS, the homepage centerpiece.
  * 7-stage StayBookt Operating System with sticky flywheel + scrolling
  * detail cards, each with its own custom data viz.
  *
@@ -198,7 +198,7 @@ const VizMeasure = ({ active }: { active: boolean }) => {
 };
 
 const VizReputation = ({ active }: { active: boolean }) => {
-  // Star rating climb — animated line from 3 to 50
+  // Star rating climb, animated line from 3 to 50
   const points = [
     [0, 92], [25, 88], [50, 78], [75, 60], [100, 35], [125, 18], [150, 8],
   ];
@@ -451,7 +451,7 @@ function Wheel7({ activeIdx }: { activeIdx: number }) {
           );
         })}
 
-        {/* Center hub — stage counter (the wheel IS the progress bar) */}
+        {/* Center hub, stage counter (the wheel IS the progress bar) */}
         <motion.circle
           cx={cx} cy={cy} r={rInner - 6}
           fill="#0A0E1A"
@@ -534,7 +534,7 @@ export function FlywheelOS() {
   /* Pinned-scroll pattern: outer container is tall (one viewport per stage),
      inner is sticky. Scroll progress through the outer determines which
      stage is shown in the single right-hand panel. This is the parallax
-     mechanic — one frame, content swaps, wheel stays put. */
+     mechanic, one frame, content swaps, wheel stays put. */
   const { scrollYProgress } = useScroll({
     target: scrollerRef,
     offset: ['start start', 'end end'],
@@ -557,7 +557,7 @@ export function FlywheelOS() {
           transition={{ duration: 0.6 }}
           className="text-xs tracking-[0.3em] uppercase text-elec font-semibold mb-6"
         >
-          The mechanism
+          Operating cycle
         </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 16 }}
@@ -566,9 +566,9 @@ export function FlywheelOS() {
           transition={{ duration: 0.8, delay: 0.1 }}
           className="font-display text-[40px] sm:text-[72px] leading-[0.98] tracking-[-0.04em] max-w-4xl"
         >
-          One playbook.
+          Seven stages.
           <br />
-          <span className="text-mute">Seven stages.</span>
+          <span className="text-mute">One weekly rhythm.</span>
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 12 }}
@@ -577,10 +577,10 @@ export function FlywheelOS() {
           transition={{ duration: 0.7, delay: 0.3 }}
           className="mt-8 text-platinum-soft text-base sm:text-lg leading-relaxed max-w-2xl"
         >
-          Find, capture, quote, deliver, measure, reputation, referral — run by our team, every week, for every client.
+          Find, capture, quote, deliver, measure, reputation, referral. The same operating cycle runs every week for every client we sign, starting day one of the engagement.
         </motion.p>
 
-        {/* Entry cue — sets expectation that this is a scroll-driven walkthrough */}
+        {/* Entry cue, sets expectation that this is a scroll-driven walkthrough */}
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -599,7 +599,7 @@ export function FlywheelOS() {
       </div>
 
       {/* ================================================================
-          DESKTOP — Pinned-scroll parallax. Outer is tall (one viewport per
+          DESKTOP, Pinned-scroll parallax. Outer is tall (one viewport per
           stage); inner is sticky to the viewport. The right panel swaps
           content as scroll progress advances through the section. The
           wheel and the stage card share ONE frame the whole time.
@@ -612,7 +612,7 @@ export function FlywheelOS() {
         <div className="sticky top-0 h-screen overflow-hidden flex items-center">
           <div className="px-8 sm:px-16 max-w-7xl mx-auto w-full">
             <div className="grid grid-cols-12 gap-14 items-center">
-              {/* LEFT — wheel + 3-act legend (single, stationary) */}
+              {/* LEFT, wheel + 3-act legend (single, stationary) */}
               <div className="col-span-5">
                 <Wheel7 activeIdx={activeIdx} />
                 <div className="mt-8 grid grid-cols-3 gap-3 text-center max-w-[480px] mx-auto">
@@ -629,7 +629,7 @@ export function FlywheelOS() {
                 </div>
               </div>
 
-              {/* RIGHT — single stage panel, content cross-fades by activeIdx */}
+              {/* RIGHT, single stage panel, content cross-fades by activeIdx */}
               <div className="col-span-7 relative min-h-[560px]">
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -645,7 +645,7 @@ export function FlywheelOS() {
               </div>
             </div>
 
-            {/* Bottom progress dots — slim row of 7 showing scroll position */}
+            {/* Bottom progress dots, slim row of 7 showing scroll position */}
             <div className="mt-12 flex justify-center gap-2">
               {STAGES.map((s, i) => (
                 <motion.span
@@ -665,7 +665,7 @@ export function FlywheelOS() {
       </div>
 
       {/* ================================================================
-          MOBILE — Stacked vertical list. The pinned parallax doesn't read
+          MOBILE, Stacked vertical list. The pinned parallax doesn't read
           on small screens; better to give a clean linear walkthrough.
           ================================================================ */}
       <div className="lg:hidden px-6 sm:px-10 max-w-2xl mx-auto pb-16 space-y-12">
@@ -676,7 +676,7 @@ export function FlywheelOS() {
         ))}
       </div>
 
-      {/* Exit frame — pivots from "you've seen the playbook" to a nav hub
+      {/* Exit frame, pivots from "you've seen the playbook" to a nav hub
           covering the four investor questions. Each card is a sub-page. */}
       <div className="px-8 sm:px-16 max-w-7xl mx-auto pb-24 pt-12 sm:pt-20">
         <motion.div
@@ -688,52 +688,48 @@ export function FlywheelOS() {
         >
           <div className="inline-flex items-center gap-3 text-[11px] tracking-[0.3em] uppercase text-mute font-semibold mb-6">
             <span className="w-8 h-px bg-elec/60" />
-            <span>The rest of the brief</span>
+            <span>Keep reading</span>
             <span className="w-8 h-px bg-elec/60" />
           </div>
           <h3 className="font-display text-[36px] sm:text-[56px] leading-[1.02] tracking-[-0.03em] mb-6">
-            Proof. Market.
+            Customer, market,
             <br />
-            <span className="text-mute">Math. Team.</span>
+            <span className="text-mute">model, team.</span>
           </h3>
           <p className="text-platinum-soft text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
-            Read in any order. Every section answers the same thesis from a different angle.
+            The rest of the brief, in four sections. Read them in any order.
           </p>
         </motion.div>
 
-        {/* 4-card nav hub — one card per sub-page, mapped to the investor question */}
+        {/* 4-card nav hub, one card per sub-page, mapped to the investor question */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-14">
           {[
             {
               href: '/proof',
-              question: 'Is it real?',
-              eyebrow: 'PROOF',
+              eyebrow: 'CUSTOMER',
               title: 'Top Choice Electrical',
-              desc: '60 days live. 0 → 40+ leads/mo. –87% owner admin. The receipts.',
+              desc: 'Sixty days live. Zero to 40+ inbound leads a month. Owner admin down 87%. The reviews and the receipts.',
               color: '#06B6D4',
             },
             {
               href: '/opportunity',
-              question: 'Is the market big?',
-              eyebrow: 'OPPORTUNITY',
-              title: '$1B+ North American ARR',
-              desc: 'Canada beachhead, NA expansion. Smart money is rolling up the trades. Owner-operators still answer their own phones.',
+              eyebrow: 'MARKET',
+              title: '$1B+ ARR in North America',
+              desc: 'Canada is our entry market. Smart money is consolidating the trades. Owner-operators are still answering the phone themselves.',
               color: '#10B981',
             },
             {
               href: '/economics',
-              question: 'Does the math work?',
-              eyebrow: 'ECONOMICS',
-              title: 'Pricing + unit math',
-              desc: '$99/mo retainer + 10% commission. Drag the slider, watch ARR move.',
+              eyebrow: 'MODEL',
+              title: 'Retainer plus performance',
+              desc: '$4,000 setup. $1,999 to $3,499 monthly. Optional 10% performance fee. The math gets better with every client on the same playbook.',
               color: '#14B8A6',
             },
             {
               href: '/team',
-              question: 'Who is executing?',
               eyebrow: 'TEAM',
-              title: 'Two operators',
-              desc: 'Jacob (Revenue, Tech, GTM) + Richard (Ops, Finance, BD). On the tools.',
+              title: 'Two founders, on the floor',
+              desc: 'Jacob runs revenue, technology, go-to-market. Richard runs operations, finance, business development.',
               color: '#4F46E5',
             },
           ].map((card, i) => (
@@ -748,15 +744,14 @@ export function FlywheelOS() {
                 href={card.href}
                 className="group relative block h-full rounded-2xl border border-divider/60 bg-ink-soft/40 hover:bg-ink-soft/70 hover:border-white/20 p-6 sm:p-7 transition-all overflow-hidden"
               >
-                {/* Top accent bar — colored by act, sweeps full width on hover */}
+                {/* Top accent bar, colored by act, sweeps full width on hover */}
                 <div
                   className="absolute top-0 left-0 h-[2px] w-12 group-hover:w-full transition-all duration-500 ease-out"
                   style={{ background: card.color }}
                 />
-                <p className="text-[10px] tracking-[0.25em] uppercase font-bold mb-3" style={{ color: card.color }}>
+                <p className="text-[10px] tracking-[0.25em] uppercase font-bold mb-5" style={{ color: card.color }}>
                   {card.eyebrow}
                 </p>
-                <p className="text-mute text-xs italic mb-4">{card.question}</p>
                 <h4 className="font-display text-2xl tracking-tight leading-tight mb-3 text-white">
                   {card.title}
                 </h4>
@@ -772,7 +767,7 @@ export function FlywheelOS() {
           ))}
         </div>
 
-        {/* Catch-all CTA — for the impatient who want to skip straight to a call */}
+        {/* Catch-all CTA, for the impatient who want to skip straight to a call */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -806,7 +801,7 @@ function StageCard({ stage, active, total }: { stage: Stage; active: boolean; to
       transition={{ duration: 0.5 }}
       className="w-full"
     >
-      {/* Pagination eyebrow — "STAGE 01 / 07 · DEMAND" */}
+      {/* Pagination eyebrow, "STAGE 01 / 07 · DEMAND" */}
       <div className="flex items-center gap-3 mb-4">
         <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-mute font-semibold">
           STAGE {stage.num} / {total.toString().padStart(2, '0')}

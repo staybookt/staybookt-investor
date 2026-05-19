@@ -8,10 +8,10 @@ import { Reveal, Counter } from './Sections';
 /* ============================================================
  * Homepage teaser components
  * Each one summarizes a sub-page and links to it.
- * Built for skimmers — investor gets the whole pitch in 90 sec.
+ * Built for skimmers, investor gets the whole pitch in 90 sec.
  * ============================================================ */
 
-/* === Manifesto — the Apple moment =========================== */
+/* === Manifesto, the Apple moment =========================== */
 export function Manifesto() {
   return (
     <section className="relative bg-cream text-ink py-32 sm:py-48 overflow-hidden">
@@ -32,7 +32,7 @@ export function Manifesto() {
         </Reveal>
         <Reveal delay={0.5}>
           <p className="mt-12 text-mute text-base sm:text-lg max-w-2xl leading-relaxed">
-            Tools are commodities. Teams are not. Software is the toolkit we use to run the playbook &mdash; it is not the product. The product is the people running it, the cadence they hold, and the system they execute on every client. Every client. Every week.
+            Tools are commodities. Teams are not. Software is the toolkit we use to run the playbook , it is not the product. The product is the people running it, the cadence they hold, and the system they execute on every client. Every client. Every week.
           </p>
         </Reveal>
       </div>
@@ -58,7 +58,7 @@ export function MechanismTeaser() {
                 Seven stages.
               </h2>
               <p className="text-platinum-soft text-base sm:text-lg leading-relaxed mb-8 max-w-xl">
-                Find · Capture · Quote · Deliver · Measure · Reputation · Referral &mdash; run by our team, every week, for every client. The <span className="wordmark-gradient">StayBookt</span> OS is how we deliver the same outcome to client #2 or client #100.
+                Find · Capture · Quote · Deliver · Measure · Reputation · Referral , run by our team, every week, for every client. The <span className="wordmark-gradient">StayBookt</span> OS is how we deliver the same outcome to client #2 or client #100.
               </p>
               <Link
                 href="/how-it-works"
@@ -150,7 +150,7 @@ export function ProofTeaser() {
             <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-ink">
               <Image
                 src="/photos/IMG_5375.jpg"
-                alt="Tim Ciszkowski — Top Choice Electrical"
+                alt="Tim Ciszkowski, Top Choice Electrical"
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 40vw"
@@ -383,13 +383,13 @@ export function TeamTeaser() {
   );
 }
 
-/* === UpNext — cross-page navigation =========================== */
+/* === UpNext, cross-page navigation =========================== */
 const PAGE_ORDER = [
-  { href: '/how-it-works', label: 'How it works', tagline: 'See the playbook we run, every client, every week.' },
-  { href: '/proof', label: 'Proof', tagline: 'Tim Ciszkowski. 60 days in. The numbers, the transformation.' },
-  { href: '/opportunity', label: 'Opportunity', tagline: '$1B+ NA TAM. The PE rollup wave that\'s already happening.' },
-  { href: '/economics', label: 'Economics', tagline: 'Three lines of revenue. Play with the unit econ slider.' },
-  { href: '/team', label: 'Team', tagline: 'Two operators. The people running it.' },
+  { href: '/how-it-works', label: 'Operations', tagline: 'The operating cycle and how a client week actually runs.' },
+  { href: '/proof', label: 'Customer', tagline: 'Tim Ciszkowski, 60 days in. The contract, the metrics, the receipts.' },
+  { href: '/opportunity', label: 'Market', tagline: 'A $1B+ ARR opportunity sitting between the software layer and the consolidation layer.' },
+  { href: '/economics', label: 'Model', tagline: 'Retainer plus performance. Where the unit economics work and where they break.' },
+  { href: '/team', label: 'Team', tagline: 'Two founders, the operating bench, and the work history that got us here.' },
 ];
 
 export function UpNext({ current }: { current: string }) {
@@ -434,17 +434,17 @@ export function SiteFooter() {
           <div>
             <p className="font-display text-base mb-2"><span className="wordmark-gradient">StayBookt</span></p>
             <p className="text-xs text-mute leading-relaxed">
-              The embedded ops team for small residential + light-commercial service businesses.
+              The operating layer for small residential and light-commercial service businesses.
             </p>
           </div>
           <div>
             <p className="text-[10px] tracking-[0.25em] uppercase text-mute font-semibold mb-3">The brief</p>
             <ul className="space-y-1.5 text-xs">
               {[
-                { href: '/how-it-works', label: 'How it works' },
-                { href: '/proof', label: 'Proof' },
-                { href: '/opportunity', label: 'Opportunity' },
-                { href: '/economics', label: 'Economics' },
+                { href: '/how-it-works', label: 'Operations' },
+                { href: '/proof', label: 'Customer' },
+                { href: '/opportunity', label: 'Market' },
+                { href: '/economics', label: 'Model' },
                 { href: '/team', label: 'Team' },
               ].map((p) => (
                 <li key={p.href}>
@@ -479,7 +479,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        {/* Bottom — legal strip */}
+        {/* Bottom, legal strip */}
         <div className="flex flex-wrap items-center justify-between gap-4 text-[10px] text-mute tracking-wide">
           <p>© 2026 <span className="wordmark-gradient">StayBookt</span> Inc. · This brief is for accredited investor review only.</p>
           <p>Built in Toronto · Last updated May 2026</p>

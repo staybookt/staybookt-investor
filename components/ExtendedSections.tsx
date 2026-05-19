@@ -67,7 +67,7 @@ export function SideNav() {
   );
 }
 
-/* === Marquee strip — vertical names + revenue scrolling === */
+/* === Marquee strip, vertical names + revenue scrolling === */
 export function VerticalMarquee() {
   const items = [
     { name: 'ELECTRICAL', color: 'var(--elec)' },
@@ -96,7 +96,7 @@ export function VerticalMarquee() {
   );
 }
 
-/* === Section — Tim Case Study (real proof) === */
+/* === Section, Tim Case Study (real proof) === */
 export function TimCase() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
@@ -113,19 +113,19 @@ export function TimCase() {
     <section id="case" ref={ref} className="relative bg-cream text-ink py-32 overflow-hidden">
       <div className="px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">Wave 1 · Founding client · Live and paying</p>
+          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">First customer · Live since March 2026</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
-            We didn&apos;t pitch this.
+            Tim hired us
           </h2>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] text-mute mb-8">
-            We&apos;re running it.
+            and paid in full.
           </h2>
         </Reveal>
         <Reveal delay={0.2}>
           <p className="text-mute text-base sm:text-lg leading-relaxed max-w-2xl mb-16">
-            Tim Ciszkowski is Wave 1 — our first paying client. Paid <span className="text-ink font-semibold">$4,000 for the Foundation buildout</span> (custom site + GBP rebuild + capture systems + brand) in March 2026. Outcomes below are 60 days in. <span className="text-ink font-semibold">Wave 2 is active now</span> — next paying clients onboarding through summer 2026.
+            Tim Ciszkowski, owner of Top Choice Electrical in Newmarket, Ontario, hired StayBookt in March 2026 and paid <span className="text-ink font-semibold">$4,000 for the initial buildout</span>: a custom website, a rebuilt Google Business Profile, lead capture stack, and a brand kit. The metrics below cover the first 60 days. <span className="text-ink font-semibold">Three additional clients</span> are scheduled to onboard through summer 2026.
           </p>
         </Reveal>
 
@@ -135,7 +135,7 @@ export function TimCase() {
               <motion.div className="absolute inset-0" style={{ y: imgY }}>
                 <Image
                   src="/photos/IMG_5375.jpg"
-                  alt="Tim Ciszkowski — Top Choice Electrical"
+                  alt="Tim Ciszkowski, Top Choice Electrical"
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 40vw"
@@ -152,8 +152,8 @@ export function TimCase() {
           <div className="lg:col-span-7">
             <Reveal delay={0.3}>
               <blockquote className="font-display text-2xl sm:text-3xl leading-snug tracking-tight text-ink mb-10">
-                &ldquo;I&apos;m on the tools all day. <span className="wordmark-gradient">StayBookt</span> runs everything else &mdash; the site, the leads, the follow-up. I just show up and do the work.&rdquo;
-                <footer className="mt-4 text-sm text-mute font-sans font-normal tracking-normal">— Tim, after 60 days embedded</footer>
+                &ldquo;I&apos;m on the tools all day. <span className="wordmark-gradient">StayBookt</span> runs the site, the leads, the follow-up. I just show up and do the work.&rdquo;
+                <footer className="mt-4 text-sm text-mute font-sans font-normal tracking-normal">Tim Ciszkowski, 60 days in</footer>
               </blockquote>
             </Reveal>
 
@@ -175,20 +175,20 @@ export function TimCase() {
 
             <Reveal delay={0.7}>
               <p className="text-mute text-sm mt-8 italic">
-                Wave 1 contract: 90-day pilot, Mar–May 2026. New site, lead-capture stack, GBP rebuild, ESA-aligned messaging, weekly ops standups. Tim now considering Wave 2 expansion to a second trade vertical.
+                Engagement signed March 2026. Scope: new website, lead capture stack, Google Business Profile rebuild, ESA-aligned messaging, weekly operating cadence. Tim is now in discussion to expand into a second service line.
               </p>
             </Reveal>
           </div>
         </div>
 
-        {/* Lighthouse + see it live — folded in from old LiveTimEmbed section */}
+        {/* Lighthouse + see it live, folded in from old LiveTimEmbed section */}
         <Reveal delay={0.5}>
           <div className="mt-16 grid lg:grid-cols-12 gap-6 items-stretch">
             {/* Lighthouse scores card */}
             <div className="lg:col-span-7 bg-paper border border-divider-lt rounded-2xl p-6 sm:p-8">
               <div className="flex items-baseline justify-between mb-6 flex-wrap gap-2">
                 <div>
-                  <p className="text-[10px] tracking-[0.25em] uppercase text-mute font-semibold mb-1">Google Lighthouse — production</p>
+                  <p className="text-[10px] tracking-[0.25em] uppercase text-mute font-semibold mb-1">Google Lighthouse, production</p>
                   <p className="font-display text-xl tracking-tight">Same stack we ship to every client.</p>
                 </div>
                 <span className="text-xs tracking-[0.2em] uppercase font-bold text-hvac">98 / 99 / 100 / 100</span>
@@ -233,7 +233,7 @@ export function TimCase() {
   );
 }
 
-/* === Section — How it works (3 pillars) === */
+/* === Section, How it works (3 pillars) === */
 export function HowItWorks() {
   const pillars = [
     {
@@ -241,7 +241,7 @@ export function HowItWorks() {
       tag: 'BRAND',
       color: 'var(--elec)',
       title: 'A storefront they would hire themselves.',
-      body: 'Custom site, real photography, ESA / HVAC / plumber-code accurate copy. Built on the same stack we use for SaaS — Next.js, Tailwind, instant Lighthouse 95+.',
+      body: 'Custom site, real photography, ESA / HVAC / plumber-code accurate copy. Built on the same stack we use for SaaS, Next.js, Tailwind, instant Lighthouse 95+.',
       proof: 'Tim Lighthouse: 98 / 99 / 100 / 100',
     },
     {
@@ -306,7 +306,7 @@ export function HowItWorks() {
   );
 }
 
-/* === Section — Pricing (3 tiers) === */
+/* === Section, Pricing (3 tiers) === */
 export function Pricing() {
   const tiers = [
     {
@@ -401,7 +401,7 @@ export function Pricing() {
             </div>
             <div>
               <p className="font-display text-4xl text-plumb tracking-tight"><Counter value={5} suffix="%" duration={2} /></p>
-              <p className="text-xs tracking-[0.2em] uppercase text-mute font-semibold mt-2">Growth share — only above baseline</p>
+              <p className="text-xs tracking-[0.2em] uppercase text-mute font-semibold mt-2">Growth share, only above baseline</p>
             </div>
             <div>
               <p className="font-display text-4xl text-hvac tracking-tight"><Counter value={90} suffix="d" duration={2} /></p>
@@ -414,7 +414,7 @@ export function Pricing() {
   );
 }
 
-/* === Section — Moat === */
+/* === Section, Moat === */
 export function Moat() {
   const moats = [
     {
@@ -478,7 +478,7 @@ export function Moat() {
   );
 }
 
-/* === Section — Competition 2x2 === */
+/* === Section, Competition 2x2 === */
 export function Competition() {
   const players = [
     { name: 'Jobber / Housecall Pro', x: '70%', y: '85%', us: false, label: 'SaaS' },
@@ -542,14 +542,14 @@ export function Competition() {
   );
 }
 
-/* === Section — Pipeline (deals in motion) === */
+/* === Section, Pipeline (deals in motion) === */
 export function Pipeline() {
   const rows = [
     { stage: 'LIVE', client: 'Top Choice Electrical', tier: 'Embed', vertical: 'Electrical', region: 'Newmarket, ON', mrr: '$4,999', color: 'var(--elec)' },
-    { stage: 'WAVE 2', client: 'Confidential — HVAC owner', tier: 'Embed', vertical: 'HVAC', region: 'York Region, ON', mrr: '$5K target', color: 'var(--hvac)' },
-    { stage: 'WAVE 2', client: 'Confidential — Plumber', tier: 'Lift', vertical: 'Plumbing', region: 'Vaughan, ON', mrr: '$2.5K target', color: 'var(--plumb)' },
+    { stage: 'WAVE 2', client: 'Confidential, HVAC owner', tier: 'Embed', vertical: 'HVAC', region: 'York Region, ON', mrr: '$5K target', color: 'var(--hvac)' },
+    { stage: 'WAVE 2', client: 'Confidential, Plumber', tier: 'Lift', vertical: 'Plumbing', region: 'Vaughan, ON', mrr: '$2.5K target', color: 'var(--plumb)' },
     { stage: 'PIPELINE', client: '3 referrals from Tim', tier: 'Lift / Embed', vertical: 'Mixed trades', region: 'GTA', mrr: '$15K combined', color: 'var(--mute)' },
-    { stage: 'PIPELINE', client: 'GBP outbound — 40 ICPs', tier: 'TBD', vertical: 'Tri-vertical', region: 'Ontario', mrr: '—', color: 'var(--mute)' },
+    { stage: 'PIPELINE', client: 'GBP outbound, 40 ICPs', tier: 'TBD', vertical: 'Tri-vertical', region: 'Ontario', mrr: '-', color: 'var(--mute)' },
   ];
 
   return (
@@ -602,7 +602,7 @@ export function Pipeline() {
 
         <Reveal delay={0.5}>
           <p className="mt-8 text-mute text-sm italic">
-            Wave 2 is active now (May 2026 →) — next paying clients onboarding through summer. 10 cumulative clients targeted by Q1 2027 once the playbook is repeated on HVAC + plumbing verticals.
+            Wave 2 is active now (May 2026 →), next paying clients onboarding through summer. 10 cumulative clients targeted by Q1 2027 once the playbook is repeated on HVAC + plumbing verticals.
           </p>
         </Reveal>
       </div>
@@ -610,7 +610,7 @@ export function Pipeline() {
   );
 }
 
-/* === Section — Team === */
+/* === Section, Team === */
 export function Team() {
   const team = [
     {
@@ -722,7 +722,7 @@ export function Team() {
   );
 }
 
-/* === Section — Enhanced Ask with raise number + CTA === */
+/* === Section, Enhanced Ask with raise number + CTA === */
 export function AskV2() {
   return (
     <section id="ask" className="relative bg-ink text-white min-h-screen flex items-center justify-center py-32 overflow-hidden">
@@ -803,7 +803,7 @@ export function AskV2() {
 }
 
 
-/* Mini animated Lighthouse-style ring — used inline in TimCase */
+/* Mini animated Lighthouse-style ring, used inline in TimCase */
 function MiniRing({ label, value, color }: { label: string; value: number; color: string }) {
   const ref = useRef<SVGCircleElement>(null);
   const [n, setN] = useState(0);

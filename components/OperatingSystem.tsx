@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Reveal } from './Sections';
 
 /* ============================================================
- * StayBookt OS — the centerpiece
+ * StayBookt OS, the centerpiece
  * Seven stages of the playbook. Click any stage. Detail panel
  * shows: deliverables, tools, KPIs, owner, Tim's live number.
  *
@@ -176,7 +176,7 @@ const STAGES: Stage[] = [
 ];
 
 
-/* === The interactive flywheel — circular SVG nav =========== */
+/* === The interactive flywheel, circular SVG nav =========== */
 function Flywheel({
   stages,
   activeId,
@@ -225,7 +225,7 @@ function Flywheel({
 
   return (
     <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-10">
-      {/* Wheel — left 5 cols */}
+      {/* Wheel, left 5 cols */}
       <div className="lg:col-span-5">
         <div className="relative w-full max-w-[480px] mx-auto">
           {/* Slow rotating decorative ring (purely cosmetic) */}
@@ -387,7 +387,7 @@ function Flywheel({
         </p>
       </div>
 
-      {/* Stage stub buttons — right 7 cols, for keyboard / mobile */}
+      {/* Stage stub buttons, right 7 cols, for keyboard / mobile */}
       <div className="lg:col-span-7">
         <div className="grid grid-cols-1 sm:grid-cols-5 lg:grid-cols-1 gap-2">
           {stages.map((s, i) => {
@@ -437,21 +437,21 @@ export function StayBooktOS() {
 
       <div className="px-8 sm:px-16 max-w-7xl mx-auto relative">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">The mechanism</p>
+          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">Operating cycle</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
-            The <span className="wordmark-gradient">StayBookt</span> OS.
+            The <span className="wordmark-gradient">StayBookt</span> operating cycle.
           </h2>
           <h2 className="font-display text-2xl sm:text-3xl tracking-tight text-mute-dark mb-4 max-w-3xl">
-            One playbook. Seven stages. Run by our team, every week, for every client.
+            Seven stages, run as a weekly rhythm by a single team accountable for the work.
           </h2>
           <p className="text-mute text-base sm:text-lg max-w-3xl leading-relaxed mb-16">
-            We are not a software company. We are an operating team. The software, the website, the GBP — those are tools. The product is the playbook and the people who run it. <span className="text-platinum">Click any stage to see how we deliver it.</span>
+            StayBookt is an operating company, not a software vendor. The website, the CRM stack, and the Google Business Profile are tools we use to do the work. The product is the playbook and the team accountable for running it. <span className="text-platinum">Click any stage to see what ships inside it.</span>
           </p>
         </Reveal>
 
-        {/* The flywheel — interactive circular nav */}
+        {/* The flywheel, interactive circular nav */}
         <Reveal delay={0.2}>
           <Flywheel stages={STAGES} activeId={activeId} onSelect={setActiveId} />
         </Reveal>
@@ -476,7 +476,7 @@ export function StayBooktOS() {
                   >
                     {active.name}
                   </span>
-                  <span className="text-platinum text-lg sm:text-xl tracking-tight">— {active.short}.</span>
+                  <span className="text-platinum text-lg sm:text-xl tracking-tight">- {active.short}.</span>
                 </div>
                 <p className="text-platinum-soft text-sm sm:text-base leading-relaxed mt-4 max-w-4xl">
                   {active.oneLiner}
@@ -558,20 +558,20 @@ export function StayBooktOS() {
           </AnimatePresence>
         </Reveal>
 
-        {/* Below — the recap */}
+        {/* Below, the recap */}
         <Reveal delay={0.6}>
           <div className="mt-12 grid sm:grid-cols-3 gap-6 text-center">
             <div className="border-l-2 border-elec pl-5 py-2 text-left">
-              <p className="font-display text-3xl text-elec tracking-tight">1 playbook</p>
-              <p className="text-mute text-sm mt-1">Same seven stages, every client.</p>
+              <p className="font-display text-3xl text-elec tracking-tight">Single playbook</p>
+              <p className="text-mute text-sm mt-1">The same seven stages run for every client we sign.</p>
             </div>
             <div className="border-l-2 border-plumb pl-5 py-2 text-left">
-              <p className="font-display text-3xl text-plumb tracking-tight">3 named owners</p>
-              <p className="text-mute text-sm mt-1">Growth, Ops, Tech bench — per engagement.</p>
+              <p className="font-display text-3xl text-plumb tracking-tight">Three named owners</p>
+              <p className="text-mute text-sm mt-1">Growth lead, ops lead, and a technical bench per engagement.</p>
             </div>
             <div className="border-l-2 border-hvac pl-5 py-2 text-left">
-              <p className="font-display text-3xl text-hvac tracking-tight">Weekly cadence</p>
-              <p className="text-mute text-sm mt-1">Monday brief. Slack. Monthly board.</p>
+              <p className="font-display text-3xl text-hvac tracking-tight">Defined cadence</p>
+              <p className="text-mute text-sm mt-1">Monday brief, mid-week execution, Friday standup, monthly operating review.</p>
             </div>
           </div>
         </Reveal>
@@ -580,7 +580,7 @@ export function StayBooktOS() {
   );
 }
 
-/* === 90-DAY PLAYBOOK — onboarding cadence ==================== */
+/* === 90-DAY PLAYBOOK, onboarding cadence ==================== */
 export function NinetyDayPlaybook() {
   const milestones = [
     {
@@ -624,14 +624,14 @@ export function NinetyDayPlaybook() {
     <section id="playbook" className="relative bg-cream text-ink py-32">
       <div className="px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">The 90-day playbook</p>
+          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">Onboarding</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
-            How a client onboards.
+            The first ninety days.
           </h2>
           <h2 className="font-display text-2xl sm:text-3xl tracking-tight text-mute mb-16 max-w-3xl">
-            Same cadence, every time. Client #1 or client #100.
+            Five milestones, fixed in scope, delivered the same way for every client we sign.
           </h2>
         </Reveal>
 
@@ -676,7 +676,7 @@ export function NinetyDayPlaybook() {
 
         <Reveal delay={0.6}>
           <p className="mt-16 text-center text-mute italic max-w-2xl mx-auto">
-            Same milestones across electrical, HVAC, plumbing. The vertical changes. The playbook does not.
+            The vertical changes between electrical, HVAC, and plumbing. The 90-day plan does not.
           </p>
         </Reveal>
       </div>
@@ -719,17 +719,17 @@ export function WeeklyOps() {
 
       <div className="px-8 sm:px-16 max-w-7xl mx-auto relative">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-hvac font-semibold uppercase mb-6">The cadence</p>
+          <p className="text-xs tracking-[0.3em] text-hvac font-semibold uppercase mb-6">Cadence</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
-            What we ship,
+            What a client week
           </h2>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] text-mute-dark mb-12">
-            every week.
+            actually looks like.
           </h2>
           <p className="text-platinum-soft text-base sm:text-lg max-w-3xl leading-relaxed mb-16">
-            Tim does not buy software from us. He buys a team that runs his revenue engine — and shows up on a predictable rhythm. Here is the week, every week.
+            What a client is paying for is not software. They are paying for a team that runs revenue and operations on a predictable rhythm so they can stay on the tools. The schedule below is what that week looks like.
           </p>
         </Reveal>
 
@@ -750,14 +750,14 @@ export function WeeklyOps() {
   );
 }
 
-/* === CUSTOMER OUTCOMES — what every client gets =============== */
+/* === CUSTOMER OUTCOMES, what every client gets =============== */
 export function CustomerOutcomes() {
   const outcomes = [
     {
       n: '01',
       tag: 'TOP LINE',
       title: 'Revenue grows because the front door is open 24/7.',
-      benefit: 'More inbound, faster response, higher quote-to-book conversion. The phone rings — and it gets answered every single time.',
+      benefit: 'More inbound, faster response, higher quote-to-book conversion. The phone rings, and it gets answered every single time.',
       tim: { metric: 'Tim, today', value: '5 → 40+ leads / mo · 0 voicemails after hours' },
       thesis: 'Long-term: 25–40% top-line lift in year one for owner-operators who were leaving leads on the table.',
       color: 'var(--elec)',
@@ -769,7 +769,7 @@ export function CustomerOutcomes() {
       n: '02',
       tag: 'OPERATIONAL SANITY',
       title: 'The owner gets their nights and weekends back.',
-      benefit: 'Quoting, scheduling, follow-up, invoicing — automated or owned by our team. Owner stays on the tools and stops being the bottleneck.',
+      benefit: 'Quoting, scheduling, follow-up, invoicing, automated or owned by our team. Owner stays on the tools and stops being the bottleneck.',
       tim: { metric: 'Tim, today', value: '15 hr/wk on admin → < 2 hr/wk' },
       thesis: 'Long-term: owner moves from operator-stuck to operator-by-choice. The business can survive a vacation. Then a second crew. Then a second location.',
       color: 'var(--plumb)',
@@ -780,7 +780,7 @@ export function CustomerOutcomes() {
     {
       n: '03',
       tag: 'COMPOUNDING REPUTATION',
-      title: 'Reviews, referrals, repeat customers — on autopilot.',
+      title: 'Reviews, referrals, repeat customers, on autopilot.',
       benefit: 'Every job triggers a review request. Every past customer gets remembered. Every happy customer becomes a referral source. Demand stops being something you buy.',
       tim: { metric: 'Tim, today', value: '3 reviews → 50+ in 90 days · #1 local pack' },
       thesis: 'Long-term: customer acquisition cost trends toward zero. Reputation becomes the moat. Paid spend becomes optional, not required.',
@@ -807,17 +807,17 @@ export function CustomerOutcomes() {
     <section id="outcomes" className="relative bg-cream text-ink py-32">
       <div className="px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">What the owner walks away with</p>
+          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">Outcomes for the owner</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
-            Four outcomes.
+            What changes for the owner.
           </h2>
           <h2 className="font-display text-2xl sm:text-3xl tracking-tight text-mute mb-4 max-w-3xl">
-            One for every leak we just plugged.
+            Four outcomes, measured quarterly against pre-engagement baseline.
           </h2>
           <p className="text-mute text-base sm:text-lg max-w-3xl leading-relaxed mb-16">
-            Tim is the early proof. The pattern repeats every time we run the playbook end-to-end — because the playbook does not care which vertical the business is in. It cares whether the front door, the back office, the reputation engine, and the books are all running.
+            Tim is the early proof point. The pattern is consistent across our playbook because the underlying work is not vertical-specific. The four outcomes below are what every owner ends up with once the front door, the back office, the reputation engine, and the books are all running on the same operating cycle.
           </p>
         </Reveal>
 
@@ -867,12 +867,12 @@ export function CustomerOutcomes() {
           ))}
         </div>
 
-        {/* Closing line — ties to enterprise value */}
+        {/* Closing line, ties to enterprise value */}
         <Reveal delay={0.6}>
           <div className="mt-14 p-8 bg-ink text-white rounded-2xl">
-            <p className="text-elec text-[11px] tracking-[0.25em] uppercase font-semibold mb-3">The bigger picture</p>
+            <p className="text-elec text-[11px] tracking-[0.25em] uppercase font-semibold mb-3">What we are actually selling</p>
             <p className="font-display text-2xl sm:text-3xl tracking-[-0.02em] leading-snug max-w-4xl">
-              We don’t sell software. We don’t sell websites. We sell the difference between owning a job and owning an asset.
+              At the bottom of the income statement, the work we do is what moves a service business from being a job the owner does to being an asset that can be hired against, financed, or sold.
             </p>
           </div>
         </Reveal>

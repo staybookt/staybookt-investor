@@ -4,10 +4,10 @@ import Link from 'next/link';
 import Wordmark from './Wordmark';
 
 const PAGES = [
-  { href: '/how-it-works', label: 'How it works' },
-  { href: '/proof', label: 'Proof' },
-  { href: '/opportunity', label: 'Opportunity' },
-  { href: '/economics', label: 'Economics' },
+  { href: '/how-it-works', label: 'Operations' },
+  { href: '/proof', label: 'Customer' },
+  { href: '/opportunity', label: 'Market' },
+  { href: '/economics', label: 'Model' },
   { href: '/team', label: 'Team' },
 ];
 

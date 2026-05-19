@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Reveal, Counter } from './Sections';
 
 /* ============================================================
- * SectionsV3 — substance pass
+ * SectionsV3, substance pass
  * Pulls from Richard's deck:
  *   - "Making the phone ring so you StayBookt" tagline
  *   - Real pipeline names (Tim, XNL, Janbar, We Fix HVAC)
@@ -81,33 +81,33 @@ export function BeforeAfterTCE() {
             ref={wrapRef}
             className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden cursor-ew-resize select-none bg-paper border border-divider-lt shadow-2xl"
           >
-            {/* AFTER — full image (our build) */}
+            {/* AFTER, full image (our build) */}
             <div className="absolute inset-0">
               <img
                 src="/photos/tce-after.png"
-                alt="Top Choice Electrical — after StayBookt"
+                alt="Top Choice Electrical, after StayBookt"
                 className="w-full h-full object-cover object-top"
                 onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
               />
               {/* fallback placeholder block if image missing */}
               <div className="absolute inset-0 -z-10 bg-gradient-to-br from-elec/30 via-ink to-plumb/30 flex items-center justify-center">
-                <span className="text-white/30 text-sm tracking-[0.3em]">AFTER — tce-after.png</span>
+                <span className="text-white/30 text-sm tracking-[0.3em]">AFTER, tce-after.png</span>
               </div>
             </div>
 
-            {/* BEFORE — clipped image (the old site) */}
+            {/* BEFORE, clipped image (the old site) */}
             <div
               className="absolute inset-0 overflow-hidden"
               style={{ clipPath: `inset(0 ${100 - pct}% 0 0)` }}
             >
               <img
                 src="/photos/tce-before.png"
-                alt="Top Choice Electrical — before StayBookt"
+                alt="Top Choice Electrical, before StayBookt"
                 className="w-full h-full object-cover object-top"
                 onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
               />
               <div className="absolute inset-0 -z-10 bg-gradient-to-br from-mute/20 via-ink/90 to-mute/30 flex items-center justify-center">
-                <span className="text-white/30 text-sm tracking-[0.3em]">BEFORE — tce-before.png</span>
+                <span className="text-white/30 text-sm tracking-[0.3em]">BEFORE, tce-before.png</span>
               </div>
             </div>
 
@@ -174,12 +174,12 @@ export function LiveTimEmbed() {
             Click around. It&apos;s real.
           </h2>
           <h2 className="font-display text-2xl sm:text-3xl tracking-tight text-mute mb-12 max-w-3xl">
-            Tim&apos;s site is in production at topchoiceelectrical.ca — fielding real calls today.
+            Tim&apos;s site is in production at topchoiceelectrical.ca, fielding real calls today.
           </h2>
         </Reveal>
 
         <div className="grid lg:grid-cols-12 gap-8 items-start">
-          {/* Live iframe — left 8 cols */}
+          {/* Live iframe, left 8 cols */}
           <Reveal delay={0.2} className="lg:col-span-8">
             <div className="rounded-2xl overflow-hidden border border-divider-lt shadow-xl bg-paper">
               <div className="flex items-center gap-2 px-4 py-3 bg-ink border-b border-divider">
@@ -198,7 +198,7 @@ export function LiveTimEmbed() {
               </div>
               <iframe
                 src="https://www.topchoiceelectrical.ca"
-                title="Top Choice Electrical — live"
+                title="Top Choice Electrical, live"
                 className="w-full bg-white"
                 style={{ height: '680px' }}
                 loading="lazy"
@@ -206,7 +206,7 @@ export function LiveTimEmbed() {
             </div>
           </Reveal>
 
-          {/* Lighthouse donuts — right 4 cols */}
+          {/* Lighthouse donuts, right 4 cols */}
           <Reveal delay={0.35} className="lg:col-span-4">
             <div className="bg-paper border border-divider-lt rounded-2xl p-6">
               <p className="text-[11px] tracking-[0.25em] uppercase text-mute font-semibold mb-1">Google Lighthouse</p>
@@ -355,7 +355,7 @@ export function CustomerJourney() {
 
         <Reveal delay={0.6}>
           <p className="mt-10 text-center text-mute text-sm sm:text-base max-w-3xl mx-auto italic">
-            Most agencies own one stage. SaaS owns one stage. We own all five — same team, same Slack channel, same weekly report.
+            Most agencies own one stage. SaaS owns one stage. We own all five, same team, same Slack channel, same weekly report.
           </p>
         </Reveal>
       </div>
@@ -363,12 +363,12 @@ export function CustomerJourney() {
   );
 }
 
-/* === PRICING V2 — RICHARD'S MODEL ============================ */
-/* === PricingV3 — the commercial ladder ==========================
+/* === PRICING V2, RICHARD'S MODEL ============================ */
+/* === PricingV3, the commercial ladder ==========================
  * One service: the StayBookt OS. Three steps to engage:
- *   1. Pilot ($1,500) — low-friction front door, credits to Foundation
- *   2. Foundation ($4,000 one-time) — 4-6 week buildout, 100% money-back before day 90
- *   3. Subscription — Operating Engine ($1,999/mo) OR Operating Layer ($3,499/mo)
+ *   1. Pilot ($1,500), low-friction front door, credits to Foundation
+ *   2. Foundation ($4,000 one-time), 4-6 week buildout, 100% money-back before day 90
+ *   3. Subscription, Operating Engine ($1,999/mo) OR Operating Layer ($3,499/mo)
  * Plus modifiers: 10% performance kicker (opt-in), 15% annual commit discount.
  * Each tier visually shows which flywheel stages it activates.
  * ============================================================== */
@@ -418,7 +418,7 @@ export function PricingV3() {
           </p>
         </Reveal>
 
-        {/* ============== STEP 1 — The Pilot front door ============== */}
+        {/* ============== STEP 1, The Pilot front door ============== */}
         <Reveal delay={0.35}>
           <div className="mb-6 rounded-2xl border border-elec/40 bg-gradient-to-r from-elec/[0.10] to-transparent p-7 sm:p-9 relative overflow-hidden">
             <div
@@ -450,7 +450,7 @@ export function PricingV3() {
           </div>
         </Reveal>
 
-        {/* ============== STEP 2 — Foundation onboarding ============== */}
+        {/* ============== STEP 2, Foundation onboarding ============== */}
         <Reveal delay={0.4}>
           <div className="mb-12 rounded-2xl border border-divider/60 bg-ink-soft/30 p-7 sm:p-9">
             <div className="grid md:grid-cols-[1fr_auto] gap-6 items-center">
@@ -478,7 +478,7 @@ export function PricingV3() {
           </div>
         </Reveal>
 
-        {/* ============== STEP 3 — Subscription tiers ============== */}
+        {/* ============== STEP 3, Subscription tiers ============== */}
         <Reveal delay={0.45}>
           <p className="text-[11px] tracking-[0.3em] uppercase text-mute font-bold mb-6">
             Step 03 · Pick your subscription
@@ -486,7 +486,7 @@ export function PricingV3() {
         </Reveal>
 
         <div className="grid md:grid-cols-2 gap-5 mb-12">
-          {/* TIER 1 — Operating Engine */}
+          {/* TIER 1, Operating Engine */}
           <Reveal delay={0.5}>
             <div className="relative rounded-2xl border border-divider/60 bg-ink-soft/30 p-7 sm:p-9 h-full flex flex-col">
               <div className="flex items-center justify-between mb-5">
@@ -558,7 +558,7 @@ export function PricingV3() {
             </div>
           </Reveal>
 
-          {/* TIER 2 — Operating Layer (featured) */}
+          {/* TIER 2, Operating Layer (featured) */}
           <Reveal delay={0.6}>
             <div className="relative rounded-2xl border border-elec/40 bg-gradient-to-b from-elec/[0.10] via-elec/[0.04] to-transparent shadow-[0_24px_60px_-20px_rgba(6,182,212,0.4)] p-7 sm:p-9 h-full flex flex-col md:-translate-y-2">
               <div
@@ -581,7 +581,7 @@ export function PricingV3() {
                 <span className="text-mute text-sm">/mo</span>
               </div>
 
-              {/* Stage indicator dots — all 7 active */}
+              {/* Stage indicator dots, all 7 active */}
               <div className="mb-6">
                 <p className="text-[9px] tracking-[0.2em] uppercase font-semibold text-elec/80 mb-3">
                   Flywheel stages active
@@ -631,7 +631,7 @@ export function PricingV3() {
           </Reveal>
         </div>
 
-        {/* ============== Modifiers — performance kicker + annual commit ============== */}
+        {/* ============== Modifiers, performance kicker + annual commit ============== */}
         <Reveal delay={0.7}>
           <div className="grid md:grid-cols-2 gap-5">
             <div className="rounded-2xl border border-divider/40 bg-ink-soft/20 p-6">
@@ -653,7 +653,7 @@ export function PricingV3() {
                 15% off when paid annual
               </p>
               <p className="text-sm text-platinum-soft leading-relaxed">
-                Cancel anytime on monthly. Lock the rate for a year and save. The moat compounds with time — we reward customers who let it.
+                Cancel anytime on monthly. Lock the rate for a year and save. The moat compounds with time, we reward customers who let it.
               </p>
             </div>
           </div>
@@ -666,7 +666,7 @@ export function PricingV3() {
               The thesis
             </p>
             <p className="text-platinum text-base sm:text-lg leading-relaxed">
-              Pricing is the operating system. Each tier maps to flywheel stages activated. Pilot earns the right to Foundation. Foundation earns the right to subscribe. Subscription earns the right to upgrade. <span className="wordmark-gradient">StayBookt</span> isn&apos;t a product menu — it&apos;s a value-delivery arc, priced as one.
+              Pricing is the operating system. Each tier maps to flywheel stages activated. Pilot earns the right to Foundation. Foundation earns the right to subscribe. Subscription earns the right to upgrade. <span className="wordmark-gradient">StayBookt</span> isn&apos;t a product menu, it&apos;s a value-delivery arc, priced as one.
             </p>
           </div>
         </Reveal>
@@ -682,7 +682,7 @@ export function Roadmap() {
     {
       n: 'I',
       title: 'Wave 1 · Live',
-      desc: 'Tim Ciszkowski, Top Choice Electrical. First paying client — $4,000 for the Foundation buildout. Site, GBP, capture systems, brand. Operating against the full 7-stage OS.',
+      desc: 'Tim Ciszkowski, Top Choice Electrical. First paying client, $4,000 for the Foundation buildout. Site, GBP, capture systems, brand. Operating against the full 7-stage OS.',
       status: 'LIVE',
       statusColor: '#10B981',
       eta: 'Mar–May 2026',
@@ -706,7 +706,7 @@ export function Roadmap() {
     {
       n: 'IV',
       title: 'NA expansion',
-      desc: '150+ clients across CA + US Northeast / Texas. AI layer for predictive scheduling. FSM integrations (ServiceTitan, Jobber, Housecall Pro) — we absorb their workflow, keep the customer.',
+      desc: '150+ clients across CA + US Northeast / Texas. AI layer for predictive scheduling. FSM integrations (ServiceTitan, Jobber, Housecall Pro), we absorb their workflow, keep the customer.',
       status: 'PLANNED',
       statusColor: '#4F46E5',
       eta: '2028+',
@@ -726,7 +726,7 @@ export function Roadmap() {
         </Reveal>
         <Reveal delay={0.2}>
           <p className="text-platinum-soft text-base sm:text-lg max-w-2xl leading-relaxed mb-16">
-            Wave 1 was the proof-of-system mission. Wave 2 is commercial launch. The next 18 months get us to a $1.5M ARR base in Canada — and into US expansion prep.
+            Wave 1 was the proof-of-system mission. Wave 2 is commercial launch. The next 18 months get us to a $1.5M ARR base in Canada, and into US expansion prep.
           </p>
         </Reveal>
 
@@ -760,14 +760,14 @@ export function Roadmap() {
   );
 }
 
-/* === COMPETITIVE LANDSCAPE — real names, real $$ ============= */
+/* === COMPETITIVE LANDSCAPE, real names, real $$ ============= */
 export function CompetitiveLandscapeV2() {
   const rows = [
     { name: 'ServiceTitan', cat: 'Enterprise FSM', traction: '$9.3B market cap (NASDAQ: TTAN)', gap: 'Software only. $400+/mo per tech. Built for $5M+ shops, not $1M owner-ops.', us: false },
     { name: 'Jobber', cat: 'Mid-market FSM', traction: '~$330M raised · 200K+ users', gap: 'Tool, not team. Owner still wears every hat. Conversion to paid loops on training & adoption.', us: false },
     { name: 'Housecall Pro', cat: 'SMB FSM', traction: '$170M+ raised', gap: 'Same SaaS limitation. No content, no SEO, no operating muscle.', us: false },
     { name: 'Local agencies', cat: 'Marketing only', traction: 'Highly fragmented', gap: 'Build a site, hand it over. No FSM. No ops. No accountability beyond month 1.', us: false },
-    { name: 'McKinsey / consultants', cat: 'Strategy', traction: 'Out of reach', gap: 'Wrong economics — $400/hr deck-writers, not $5K/mo operators.', us: false },
+    { name: 'McKinsey / consultants', cat: 'Strategy', traction: 'Out of reach', gap: 'Wrong economics, $400/hr deck-writers, not $5K/mo operators.', us: false },
     { name: 'StayBookt', cat: 'Operating layer', traction: '1 live, 3 in motion, $1B+ NA TAM', gap: 'Wedge: website. Moat: operating team. Compounding: the playbook itself.', us: true },
   ];
 
@@ -825,7 +825,7 @@ export function CompetitiveLandscapeV2() {
   );
 }
 
-/* === TAMBreakdown — the math, side-by-side ====================
+/* === TAMBreakdown, the math, side-by-side ====================
  * The big number ($1B+) deserves a breakdown so investors can audit it
  * line by line. Canada vs. United States, with the same ACV applied.
  * Beachhead → expansion framing baked in. Every number references a
@@ -882,7 +882,7 @@ export function TAMBreakdown() {
         </Reveal>
         <Reveal delay={0.2}>
           <p className="text-platinum-soft text-base sm:text-lg max-w-2xl leading-relaxed mb-12 sm:mb-16">
-            Trades businesses × ICP-fit owner-operators × $9K average annual contract value. Every number is sourced — citations below.
+            Trades businesses × ICP-fit owner-operators × $9K average annual contract value. Every number is sourced, citations below.
           </p>
         </Reveal>
 
@@ -963,7 +963,7 @@ export function TAMBreakdown() {
   );
 }
 
-/* === Sources — citation row for every claim on /opportunity ====
+/* === Sources, citation row for every claim on /opportunity ====
  * Investors who care will read this. Investors who don't will at
  * least see that we cared enough to put it on the page.
  * ============================================================== */
@@ -972,25 +972,25 @@ export function Sources() {
     {
       id: '01',
       claim: 'Canadian trades business counts',
-      citation: 'Statistics Canada — Canadian Business Register, NAICS 238 (Specialty Trade Contractors)',
+      citation: 'Statistics Canada, Canadian Business Register, NAICS 238 (Specialty Trade Contractors)',
       url: 'https://www150.statcan.gc.ca/n1/en/catalogue/33-10-0036-01',
     },
     {
       id: '02',
       claim: 'US trades business counts',
-      citation: 'US Census Bureau — Statistics of U.S. Businesses (SUSB), NAICS 238',
+      citation: 'US Census Bureau, Statistics of U.S. Businesses (SUSB), NAICS 238',
       url: 'https://www.census.gov/programs-surveys/susb.html',
     },
     {
       id: '03',
       claim: 'Industry sizing benchmarks',
-      citation: 'ServiceTitan S-1 (Dec 2024) — total addressable market for trades software',
+      citation: 'ServiceTitan S-1 (Dec 2024), total addressable market for trades software',
       url: 'https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001638833',
     },
     {
       id: '04',
       claim: 'StayBookt $9K ACV',
-      citation: 'Internal pricing model — $99/mo retainer × 12 + 10% commission on online lead value (projected to ICP average)',
+      citation: 'Internal pricing model, $99/mo retainer × 12 + 10% commission on online lead value (projected to ICP average)',
       url: null,
     },
     {
@@ -1054,7 +1054,7 @@ export function Sources() {
   );
 }
 
-/* === MOAT — three theses for why we compound ====================
+/* === MOAT, three theses for why we compound ====================
  * Closes /opportunity. Frames defensibility as a forward-looking thesis
  * (compounding moats), not a defensive backward-looking claim. At pre-seed
  * the strongest moat story is "here's how the moat builds with every client."
@@ -1066,7 +1066,7 @@ export function Moat() {
       title: 'Switching cost compounds with embedment',
       lede: 'Every week a client runs inside StayBookt, more of their revenue engine lives in our hands.',
       detail:
-        'Their site, CRM, review pipeline, Monday brief, and Friday cadence are all ours. Replacing us means rebuilding all of it — and rebuilding the team that runs it. The longer they stay, the higher the cost of leaving.',
+        'Their site, CRM, review pipeline, Monday brief, and Friday cadence are all ours. Replacing us means rebuilding all of it, and rebuilding the team that runs it. The longer they stay, the higher the cost of leaving.',
       color: '#06B6D4',
     },
     {
@@ -1074,7 +1074,7 @@ export function Moat() {
       title: 'The hybrid is structurally hard to copy',
       lede: 'Software companies can\'t operate. Agencies can\'t ship software. We do both.',
       detail:
-        'Jobber will not pivot to embedded services — their margin model can\'t support it. Agencies can\'t hold a 7-stage software product roadmap. The hybrid requires patience, operating discipline, and a willingness to ship slower than pure SaaS. Most competitors structurally can\'t.',
+        'Jobber will not pivot to embedded services, their margin model can\'t support it. Agencies can\'t hold a 7-stage software product roadmap. The hybrid requires patience, operating discipline, and a willingness to ship slower than pure SaaS. Most competitors structurally can\'t.',
       color: '#10B981',
     },
     {
@@ -1082,7 +1082,7 @@ export function Moat() {
       title: 'The playbook gets sharper with every client',
       lede: 'By client 30, our 7-stage OS is calibrated against 30 real businesses. New entrants start at zero.',
       detail:
-        'Every Monday brief, every missed-call recovery, every quote-to-booking ratio refines the playbook for client N+1. A competitor starting today faces the same learning curve we already paid for — and we keep extending it. Operating data compounds in ways pure software can\'t.',
+        'Every Monday brief, every missed-call recovery, every quote-to-booking ratio refines the playbook for client N+1. A competitor starting today faces the same learning curve we already paid for, and we keep extending it. Operating data compounds in ways pure software can\'t.',
       color: '#4F46E5',
     },
   ];
@@ -1112,7 +1112,7 @@ export function Moat() {
         </Reveal>
         <Reveal delay={0.2}>
           <p className="text-platinum-soft text-base sm:text-lg max-w-2xl leading-relaxed mb-16 sm:mb-20">
-            At pre-seed, a moat is a thesis about how defensibility builds — not a wall we&apos;ve already built. Three theses, each compounding with every client we run.
+            At pre-seed, a moat is a thesis about how defensibility builds, not a wall we&apos;ve already built. Three theses, each compounding with every client we run.
           </p>
         </Reveal>
 
@@ -1158,7 +1158,7 @@ export function Moat() {
 
         <Reveal delay={0.7}>
           <p className="mt-14 text-center text-mute text-sm italic max-w-3xl mx-auto">
-            None of these moats exist at one client. All three compound from client two onward. The raise buys us the runway to reach client thirty — where the moat becomes visible.
+            None of these moats exist at one client. All three compound from client two onward. The raise buys us the runway to reach client thirty, where the moat becomes visible.
           </p>
         </Reveal>
       </div>
@@ -1172,7 +1172,7 @@ export function WhyNow() {
     { name: 'ServiceTitan', detail: 'IPO Dec 2024 · $9.3B mkt cap', vibe: 'Enterprise FSM goes public' },
     { name: 'Wrench Group', detail: 'Leonard Green PE rollup · 50+ acquisitions', vibe: 'PE consolidating HVAC + plumbing' },
     { name: 'Apollo + Apex Service Partners', detail: 'Multi-billion HVAC/plumbing platform', vibe: 'Same playbook, bigger trades' },
-    { name: 'Jobber + Housecall Pro', detail: '$500M+ combined raised', vibe: 'Tooling layer well-funded — operating layer wide open' },
+    { name: 'Jobber + Housecall Pro', detail: '$500M+ combined raised', vibe: 'Tooling layer well-funded, operating layer wide open' },
   ];
 
   return (
@@ -1227,14 +1227,14 @@ export function WhyNow() {
   );
 }
 
-/* === PIPELINE V2 — REAL NAMES ================================ */
+/* === PIPELINE V2, REAL NAMES ================================ */
 export function PipelineV2() {
   const rows = [
     { stage: 'LIVE', client: 'Top Choice Electrical', region: 'Newmarket, ON', vertical: 'Electrical', tier: 'Website + maint.', mrr: '$99 + 10%', color: 'var(--hvac)' },
     { stage: 'IN BUILD', client: 'XNL HR & Consulting', region: 'Ontario', vertical: 'HR / professional services', tier: 'Website Ph I', mrr: 'TBD', color: 'var(--elec)' },
     { stage: 'EARLY', client: 'Janbar Electric', region: 'Ontario', vertical: 'Electrical', tier: 'Discussion', mrr: 'TBD', color: 'var(--plumb)' },
     { stage: 'EARLY', client: 'We Fix HVAC', region: 'Ontario', vertical: 'HVAC', tier: 'Discussion', mrr: 'TBD', color: 'var(--plumb)' },
-    { stage: 'OUTBOUND', client: 'LinkedIn campaign + referral mining', region: 'Canada', vertical: 'Tri-vertical', tier: 'Top-of-funnel', mrr: '—', color: 'var(--mute)' },
+    { stage: 'OUTBOUND', client: 'LinkedIn campaign + referral mining', region: 'Canada', vertical: 'Tri-vertical', tier: 'Top-of-funnel', mrr: '-', color: 'var(--mute)' },
   ];
 
   return (
@@ -1287,7 +1287,7 @@ export function PipelineV2() {
   );
 }
 
-/* === UNIT ECONOMICS — INTERACTIVE WIDGET ===================== */
+/* === UNIT ECONOMICS, INTERACTIVE WIDGET ===================== */
 export function UnitEconomics() {
   const [clients, setClients] = useState(30);
   const [tier2Mix, setTier2Mix] = useState(30); // % of clients on Operating Layer (Tier 2)

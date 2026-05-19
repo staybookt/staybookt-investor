@@ -4,7 +4,7 @@ import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import Wordmark from './Wordmark';
 
-/* === Reveal wrapper — fades + slides children up on scroll into view === */
+/* === Reveal wrapper, fades + slides children up on scroll into view === */
 export function Reveal({ children, delay = 0, className = '' }: { children: React.ReactNode; delay?: number; className?: string }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-100px' });
@@ -21,7 +21,7 @@ export function Reveal({ children, delay = 0, className = '' }: { children: Reac
   );
 }
 
-/* === Animated counter — counts up to target on view === */
+/* === Animated counter, counts up to target on view === */
 export function Counter({ value, prefix = '', suffix = '', duration = 2 }: { value: number; prefix?: string; suffix?: string; duration?: number }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true });
@@ -44,11 +44,11 @@ export function Counter({ value, prefix = '', suffix = '', duration = 2 }: { val
   return <span ref={ref}>{prefix}{n.toLocaleString()}{suffix}</span>;
 }
 
-/* === Section 1 — Hero (V8: tagline H1, gradient polish, abstract bg) === */
+/* === Section 1, Hero (V8: tagline H1, gradient polish, abstract bg) === */
 export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-ink">
-      {/* Abstract gradient-mesh background — no literal photo, pure mood */}
+      {/* Abstract gradient-mesh background, no literal photo, pure mood */}
       <div className="absolute inset-0">
         <Image
           src="/photos/hero-bg.jpg"
@@ -58,7 +58,7 @@ export function Hero() {
           className="object-cover"
           sizes="100vw"
         />
-        {/* Subtle ink wash for copy contrast — don't kill the mood */}
+        {/* Subtle ink wash for copy contrast, don't kill the mood */}
         <div className="absolute inset-0 bg-gradient-to-r from-ink/70 via-ink/30 to-ink/40" />
         <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent" />
       </div>
@@ -66,7 +66,7 @@ export function Hero() {
       {/* Top nav handled by global TopNav component */}
 
       <div className="relative z-10 px-8 sm:px-16 max-w-7xl w-full pt-32 sm:pt-40 pb-20">
-        {/* H1 — category claim with gradient on "operating layer" */}
+        {/* H1, category claim with gradient on "operating layer" */}
         <motion.h1
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -79,17 +79,17 @@ export function Hero() {
           for the trades.
         </motion.h1>
 
-        {/* Sub — category contrast + traction signal */}
+        {/* Sub, category contrast + traction signal */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.9 }}
           className="mt-10 text-platinum text-lg sm:text-2xl tracking-tight max-w-3xl leading-snug"
         >
-          We run the entire revenue engine for small residential + light-commercial service businesses. Not software. Not an agency. The team, the playbook, and the systems in one engine.
+          We replace the marketing manager, ops manager, and bookkeeper that a $250K to $2M service business cannot afford to hire. One retainer. One team. One weekly operating cadence.
         </motion.p>
 
-        {/* Traction stamp — Wave 1 / Wave 2 status */}
+        {/* Traction stamp, Wave 1 / Wave 2 status */}
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -101,7 +101,7 @@ export function Hero() {
           <span>Wave 2 onboarding now</span>
         </motion.p>
 
-        {/* CTA — ghost button with gradient sweep on hover */}
+        {/* CTA, ghost button with gradient sweep on hover */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -132,7 +132,7 @@ export function Hero() {
   );
 }
 
-/* Stage colors for the Coverage Map dots — matches the FlywheelOS act
+/* Stage colors for the Coverage Map dots, matches the FlywheelOS act
    story (cyan → emerald → indigo) so the brand language is consistent
    between this section and the flywheel below. */
 const STAGE_COLORS = [
@@ -176,16 +176,16 @@ function CoverageSegment({ covered, us, stageColor, index }: { covered: boolean;
   );
 }
 
-/* === CategoryPosition — the "where StayBookt fits" frame ====================
+/* === CategoryPosition, the "where StayBookt fits" frame ====================
  * Sits between Hero and FlywheelOS. Forces the user to file StayBookt in the
- * correct mental category BEFORE the playbook walkthrough — otherwise the
+ * correct mental category BEFORE the playbook walkthrough, otherwise the
  * default is "agency that does a lot." Coverage Map shows the 7-stage revenue
- * journey across three category lanes. Empty dots are labeled "YOU" — the
+ * journey across three category lanes. Empty dots are labeled "YOU", the
  * owner burden made literal. StayBookt is the only lane that covers all 7.
  * Closes with "The gap is the operator. StayBookt is the operator."
  * ========================================================================== */
 export function CategoryPosition() {
-  /* Coverage Map — the 7-stage revenue journey across columns, three category
+  /* Coverage Map, the 7-stage revenue journey across columns, three category
      rows below. Filled dot = the category does it. Empty dot = owner does it
      (annotated "YOU"). StayBookt row is the only one continuous across all 7
      stages, drawn as a glowing gradient track. */
@@ -206,7 +206,7 @@ export function CategoryPosition() {
       tag: 'Tools',
       examples: 'Jobber · ServiceTitan · Housecall Pro',
       coverage: [false, false, true, true, true, false, false],
-      gap: 'Covers 3 of 7. The owner runs the rest.',
+      gap: '3 of 7. Owner runs the rest.',
       us: false,
     },
     {
@@ -214,15 +214,15 @@ export function CategoryPosition() {
       tag: 'Tactics',
       examples: 'Local marketing firms · SEO shops · Web builders',
       coverage: [true, false, false, false, false, false, false],
-      gap: 'Covers 1 of 7. The owner runs the rest.',
+      gap: '1 of 7. Owner runs the rest.',
       us: false,
     },
     {
       name: 'StayBookt',
-      tag: 'The Operating Team',
-      examples: 'The team, the playbook, and the software — one engine',
+      tag: 'Operating team',
+      examples: 'Team, playbook, software stack. One retainer.',
       coverage: [true, true, true, true, true, true, true],
-      gap: 'Covers all 7. Embedded. Weekly.',
+      gap: 'All 7. Run weekly.',
       us: true,
     },
   ];
@@ -255,29 +255,29 @@ export function CategoryPosition() {
       <div className="relative px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
           <p className="text-[11px] tracking-[0.3em] uppercase text-elec font-semibold mb-6">
-            Where StayBookt fits
+            Positioning
           </p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-[40px] sm:text-[72px] leading-[0.98] tracking-[-0.04em] max-w-4xl mb-6">
-            Trades are stuck between
+            Software covers part of the work.
           </h2>
         </Reveal>
         <Reveal delay={0.2}>
           <h2 className="font-display text-[40px] sm:text-[72px] leading-[0.98] tracking-[-0.04em] max-w-4xl mb-10 text-mute">
-            tools and tactics.
+            We cover the rest.
           </h2>
         </Reveal>
         <Reveal delay={0.3}>
           <p className="text-platinum-soft text-base sm:text-lg max-w-2xl leading-relaxed mb-16 sm:mb-20">
-            The revenue journey has seven stages. Look at who actually covers each — and who leaves the owner with the rest.
+            A service business runs through the same seven operational stages every week. The table below shows which categories of provider actually cover each stage, and what every owner-operator is still doing themselves.
           </p>
         </Reveal>
 
-        {/* ============== Coverage Map — segmented bars + count ============== */}
+        {/* ============== Coverage Map, segmented bars + count ============== */}
         <div className="relative rounded-2xl border border-divider/40 bg-ink-soft/20 p-6 sm:p-10 mb-24 sm:mb-32 overflow-x-auto">
           <div className="min-w-[820px]">
-            {/* Stage header row — 7 stages across, aligned to bars below */}
+            {/* Stage header row, 7 stages across, aligned to bars below */}
             <div className="grid grid-cols-[240px_1fr_90px] gap-6 sm:gap-8 mb-8 pb-6 border-b border-divider/40 items-end">
               <div>
                 <p className="text-[10px] tracking-[0.25em] uppercase text-mute font-semibold">
@@ -301,7 +301,7 @@ export function CategoryPosition() {
               </div>
             </div>
 
-            {/* Three lanes — Software / Agencies / StayBookt */}
+            {/* Three lanes, Software / Agencies / StayBookt */}
             <div className="space-y-3 sm:space-y-4">
               {lanes.map((lane, laneIdx) => {
                 const coveredCount = lane.coverage.filter(Boolean).length;
@@ -314,7 +314,7 @@ export function CategoryPosition() {
                           : 'border-divider/40 bg-ink-soft/30'
                       }`}
                     >
-                      {/* Left — category label */}
+                      {/* Left, category label */}
                       <div>
                         <h3 className={`font-display text-xl sm:text-2xl tracking-tight leading-tight ${lane.us ? 'text-white' : 'text-platinum'}`}>
                           {lane.us ? <span className="wordmark-gradient">{lane.name}</span> : lane.name}
@@ -327,7 +327,7 @@ export function CategoryPosition() {
                         </p>
                       </div>
 
-                      {/* Middle — 7 segments. StayBookt = continuous gradient bar */}
+                      {/* Middle, 7 segments. StayBookt = continuous gradient bar */}
                       {lane.us ? (
                         <motion.div
                           initial={{ opacity: 0, scaleX: 0.7 }}
@@ -365,7 +365,7 @@ export function CategoryPosition() {
                         </div>
                       )}
 
-                      {/* Right — coverage count badge */}
+                      {/* Right, coverage count badge */}
                       <div className="text-right">
                         <p
                           className={`font-display text-3xl sm:text-4xl tracking-tight leading-none ${lane.us ? 'text-elec' : 'text-platinum'}`}
@@ -379,7 +379,7 @@ export function CategoryPosition() {
                       </div>
                     </div>
 
-                    {/* Lane summary line — outside the bordered row */}
+                    {/* Lane summary line, outside the bordered row */}
                     <p className={`text-[11px] tracking-[0.15em] uppercase font-semibold mt-2 ml-4 sm:ml-5 ${lane.us ? 'text-elec' : 'text-mute'}`}>
                       {lane.gap}
                     </p>
@@ -396,7 +396,7 @@ export function CategoryPosition() {
               </div>
               <div className="flex items-center gap-2 text-mute">
                 <span className="w-6 h-3 rounded-sm border border-dashed border-mute/40" />
-                <span>Gap — left to the owner</span>
+                <span>Owner work</span>
               </div>
               <div className="flex items-center gap-2 text-elec">
                 <span
@@ -405,27 +405,24 @@ export function CategoryPosition() {
                     background: 'linear-gradient(90deg, #06B6D4 0%, #10B981 50%, #4F46E5 100%)',
                   }}
                 />
-                <span>StayBookt — the continuous operating layer</span>
+                <span>StayBookt: full coverage</span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Punchline — the category statement */}
+        {/* Punchline, the category statement */}
         <Reveal delay={0.7}>
-          <div className="text-center max-w-4xl mx-auto">
+          <div className="max-w-4xl mx-auto">
             <p className="text-[11px] tracking-[0.3em] uppercase text-elec font-semibold mb-8">
-              ── The gap ──
+              The gap
             </p>
-            <h3 className="font-display text-[40px] sm:text-[72px] leading-[1.0] tracking-[-0.04em] mb-4">
-              The gap is the operator.
-            </h3>
             <h3 className="font-display text-[40px] sm:text-[72px] leading-[1.0] tracking-[-0.04em] mb-10">
-              <span className="wordmark-gradient">StayBookt</span>{' '}
-              <span className="text-mute">is the operator.</span>
+              The gap is the operator.{' '}
+              <span className="text-mute">We are the operator.</span>
             </h3>
-            <p className="text-platinum-soft text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-              Software hands them a CRM. Agencies hand them a website. Neither one picks up the phone, sends the 24-hour follow-up, runs the Monday brief, or recovers the missed call. We do all of it — embedded, every week, for every client.
+            <p className="text-platinum-soft text-base sm:text-lg max-w-2xl leading-relaxed">
+              Jobber gives them a CRM. A local agency gives them a website. Neither one picks up the phone after hours, neither one sends the 72-hour quote follow-up, and neither one writes the Monday brief that tells the owner where the business actually is. We do that work on a defined weekly cadence, the same way for every client.
             </p>
           </div>
         </Reveal>
@@ -434,13 +431,13 @@ export function CategoryPosition() {
   );
 }
 
-/* === Section 2 — The Why (with revenue plateau chart) === */
+/* === Section 2, The Why (with revenue plateau chart) === */
 export function TheWhy() {
   return (
     <section id="why" className="relative min-h-screen flex items-center bg-cream text-ink py-32 overflow-hidden">
       <div className="px-8 sm:px-16 max-w-7xl mx-auto w-full">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-          {/* LEFT — copy */}
+          {/* LEFT, copy */}
           <div className="lg:col-span-6">
             <Reveal>
               <p className="text-xs sm:text-sm font-semibold tracking-[0.3em] text-elec uppercase mb-8">
@@ -467,7 +464,7 @@ export function TheWhy() {
             </Reveal>
           </div>
 
-          {/* RIGHT — animated plateau chart */}
+          {/* RIGHT, animated plateau chart */}
           <div className="lg:col-span-6">
             <Reveal delay={0.3}>
               <PlateauChart />
@@ -479,7 +476,7 @@ export function TheWhy() {
   );
 }
 
-/* Animated revenue plateau chart — shows trades stalling at $1M */
+/* Animated revenue plateau chart, shows trades stalling at $1M */
 function PlateauChart() {
   const ref = useRef<SVGPathElement>(null);
   const [inView, setInView] = useState(false);
@@ -517,12 +514,12 @@ function PlateauChart() {
   // Plateau line (the $1M ceiling)
   const ceilingY = yScale(1000);
 
-  // Friction labels — placed along the rising curve
+  // Friction labels, placed along the rising curve
   const friction = [
-    { x: 2, y: 320, label: 'Marketing lead — missing' },
-    { x: 3, y: 580, label: 'Ops manager — missing' },
-    { x: 4, y: 820, label: 'Bookkeeper — missing' },
-    { x: 5, y: 1000, label: 'Recruiter — missing' },
+    { x: 2, y: 320, label: 'Marketing lead, missing' },
+    { x: 3, y: 580, label: 'Ops manager, missing' },
+    { x: 4, y: 820, label: 'Bookkeeper, missing' },
+    { x: 5, y: 1000, label: 'Recruiter, missing' },
   ];
 
   return (
@@ -531,7 +528,7 @@ function PlateauChart() {
         Revenue trajectory · owner-operator trade
       </p>
       <p className="text-ink/70 text-sm mb-4">
-        Why $1M is the wall — and what costs them to scale past it.
+        Why $1M is the wall, and what costs them to scale past it.
       </p>
 
       <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto">
@@ -556,10 +553,10 @@ function PlateauChart() {
         {/* The $1M ceiling glow */}
         <line x1={padL} y1={ceilingY} x2={W - padR} y2={ceilingY} stroke="var(--elec)" strokeWidth="2" strokeDasharray="6 4" opacity="0.9" />
         <text x={W - padR - 6} y={ceilingY - 8} textAnchor="end" fontSize="11" fontWeight="700" fill="var(--elec)" fontFamily="'Helvetica Neue', Helvetica, sans-serif">
-          THE CEILING — $1M
+          THE CEILING, $1M
         </text>
 
-        {/* Trajectory path — animated draw */}
+        {/* Trajectory path, animated draw */}
         <motion.path
           ref={ref}
           d={path}
@@ -587,7 +584,7 @@ function PlateauChart() {
           />
         ))}
 
-        {/* Friction labels — small annotations on the rise */}
+        {/* Friction labels, small annotations on the rise */}
         {friction.map((f, i) => (
           <motion.g
             key={f.label}
@@ -668,7 +665,7 @@ function PlateauChart() {
   );
 }
 
-/* === Section 3 — Photography (Tim's work, full-bleed parallax) === */
+/* === Section 3, Photography (Tim's work, full-bleed parallax) === */
 export function Photography() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
@@ -679,7 +676,7 @@ export function Photography() {
       <motion.div className="absolute inset-0" style={{ y }}>
         <Image
           src="/photos/IMG_1140.jpg"
-          alt="Top Choice Electrical work — Newmarket home"
+          alt="Top Choice Electrical work, Newmarket home"
           fill
           priority
           className="object-cover"
@@ -702,7 +699,7 @@ export function Photography() {
   );
 }
 
-/* === Section 4 — Five problems (with animated leaky funnel) === */
+/* === Section 4, Five problems (with animated leaky funnel) === */
 export function Problems() {
   const items = [
     { n: '01', name: 'The phone', desc: 'Leads bleed to whoever picks up first.', stat: '38%', sub: 'after-hours calls to voicemail', color: 'var(--plumb)', loss: 38 },
@@ -724,7 +721,7 @@ export function Problems() {
         </Reveal>
 
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-          {/* LEFT — the 5 rows */}
+          {/* LEFT, the 5 rows */}
           <div className="lg:col-span-7 space-y-px bg-divider">
             {items.map((p, i) => (
               <Reveal key={p.n} delay={i * 0.08}>
@@ -749,7 +746,7 @@ export function Problems() {
             ))}
           </div>
 
-          {/* RIGHT — the leaky funnel visual */}
+          {/* RIGHT, the leaky funnel visual */}
           <div className="lg:col-span-5">
             <Reveal delay={0.3}>
               <LeakyFunnel items={items} />
@@ -761,7 +758,7 @@ export function Problems() {
   );
 }
 
-/* Animated leaky-funnel visual — drops shrinking as leads leak out */
+/* Animated leaky-funnel visual, drops shrinking as leads leak out */
 function LeakyFunnel({ items }: { items: { color: string; loss: number; name: string; stat: string }[] }) {
   const ref = useRef<SVGSVGElement>(null);
   const [inView, setInView] = useState(false);
@@ -788,7 +785,7 @@ function LeakyFunnel({ items }: { items: { color: string; loss: number; name: st
   return (
     <div className="bg-ink-soft border border-divider rounded-2xl p-6">
       <p className="text-[10px] tracking-[0.25em] uppercase text-elec font-semibold mb-2">Lead leakage funnel</p>
-      <p className="text-platinum-soft text-sm mb-6">100 inbound signals at the top &mdash; how few survive to a booking.</p>
+      <p className="text-platinum-soft text-sm mb-6">100 inbound signals at the top , how few survive to a booking.</p>
 
       <svg ref={ref} viewBox={`0 0 ${W} ${H}`} className="w-full h-auto">
         {/* Funnel segments */}
@@ -883,7 +880,7 @@ function LeakyFunnel({ items }: { items: { color: string; loss: number; name: st
   );
 }
 
-/* === Section 5 — The Flywheel (rotating SVG) === */
+/* === Section 5, The Flywheel (rotating SVG) === */
 export function Flywheel() {
   const stages = [
     { name: 'FIND', desc: 'SEO · GBP · Ads', color: 'var(--elec)' },
@@ -964,7 +961,7 @@ export function Flywheel() {
   );
 }
 
-/* === Section 6 — TAM with animated counter === */
+/* === Section 6, TAM with animated counter === */
 export function TAM() {
   return (
     <section id="tam" className="relative bg-ink text-white min-h-screen flex items-center py-32 overflow-hidden">
@@ -995,7 +992,7 @@ export function TAM() {
   );
 }
 
-/* === Section 7 — The Ask / Closer === */
+/* === Section 7, The Ask / Closer === */
 export function Ask() {
   return (
     <section id="ask" className="relative bg-ink text-white min-h-screen flex items-center justify-center py-32 overflow-hidden">

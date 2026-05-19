@@ -24,7 +24,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
   );
 }
 
-/* === Cursor Follower — subtle accent dot ==============
+/* === Cursor Follower, subtle accent dot ==============
  * Lags the cursor by ~80ms via spring physics. Hidden on
  * touch devices. Respects prefers-reduced-motion.
  * ====================================================== */
@@ -38,7 +38,7 @@ export function CursorFollower() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    if (window.matchMedia('(pointer: coarse)').matches) return; // mobile/touch — skip
+    if (window.matchMedia('(pointer: coarse)').matches) return; // mobile/touch, skip
     setEnabled(true);
     const onMove = (e: MouseEvent) => {
       x.set(e.clientX - 8);
