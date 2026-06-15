@@ -39,7 +39,7 @@ export default function HomePage() {
       {/* HERO — dark, signal ring */}
       <HeroPulseShell />
 
-      {/* 01 / FIT — cream */}
+      {/* 01 / FIT — cream — owner's week visualized */}
       <section className={`${CREAM_BG} py-32 sm:py-40 px-6 sm:px-12 border-t border-stone-200`}>
         <ScrollReveal>
           <div className="max-w-6xl mx-auto">
@@ -47,29 +47,41 @@ export default function HomePage() {
             <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
               Honest about who we are for, and who we are not.
             </h2>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
-              <div>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-12">
+              <div className="lg:col-span-2">
                 <p className="font-mono text-[11px] tracking-[0.18em] uppercase text-stone-500 mb-6">
-                  This is for you if
+                  Your typical week
                 </p>
-                <ul className="space-y-4">
-                  <FitItemCream>You answer your own phone.</FitItemCream>
-                  <FitItemCream>Your business does somewhere between $200K and $1M in revenue.</FitItemCream>
-                  <FitItemCream>Your website was built more than three years ago, or by a relative, or by you on Wix.</FitItemCream>
-                  <FitItemCream>You do not have a marketing person and cannot justify hiring one.</FitItemCream>
-                  <FitItemCream>You spend evenings and weekends on admin work that you wish someone else was doing.</FitItemCream>
-                </ul>
+                <WeeklyGrid />
+                <p className="text-stone-800 text-base sm:text-lg leading-relaxed mt-10 max-w-2xl">
+                  <span className="font-semibold">If this is your week, you are who we built this for.</span> The amber blocks are time leaking into admin. We take them back. The green one grows.
+                </p>
               </div>
-              <div>
+              <div className="lg:col-span-1">
                 <p className="font-mono text-[11px] tracking-[0.18em] uppercase text-stone-500 mb-6">
-                  This is not for you if
+                  Not for you if
                 </p>
-                <ul className="space-y-4">
-                  <UnfitItemCream>You already have a marketing manager.</UnfitItemCream>
-                  <UnfitItemCream>You are over $5M in revenue. You should be hiring this work in-house.</UnfitItemCream>
-                  <UnfitItemCream>Your decisions go through procurement.</UnfitItemCream>
-                  <UnfitItemCream>You want someone to teach you how to do marketing yourself. We do the work, we do not tutor.</UnfitItemCream>
-                  <UnfitItemCream>You want a piece of software you log into. We use software. We are not software.</UnfitItemCream>
+                <ul className="space-y-3.5 text-sm text-stone-600 leading-snug">
+                  <li className="flex items-start gap-3">
+                    <span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={14} /></span>
+                    <span>You already have a marketing manager.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={14} /></span>
+                    <span>You are over $5M in revenue.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={14} /></span>
+                    <span>Your decisions go through procurement.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={14} /></span>
+                    <span>You want a tool you log into. We are not a tool.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={14} /></span>
+                    <span>You want to be taught. We do the work.</span>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -480,7 +492,94 @@ function Chapter({ num, label, tone }: { num: string; label: string; tone: 'crea
 }
 
 /* ============================================================
-   List items
+   WeeklyGrid — 01/FIT show-not-tell: owner's typical week
+   ============================================================ */
+function WeeklyGrid() {
+  type BlockType = 'tools' | 'admin' | 'family' | 'own';
+  const days: { label: string; am: BlockType; pm: BlockType; eve: BlockType }[] = [
+    { label: 'Mon', am: 'tools',  pm: 'tools',  eve: 'admin'  },
+    { label: 'Tue', am: 'tools',  pm: 'tools',  eve: 'admin'  },
+    { label: 'Wed', am: 'tools',  pm: 'admin',  eve: 'tools'  },
+    { label: 'Thu', am: 'tools',  pm: 'tools',  eve: 'admin'  },
+    { label: 'Fri', am: 'tools',  pm: 'tools',  eve: 'admin'  },
+    { label: 'Sat', am: 'admin',  pm: 'family', eve: 'admin'  },
+    { label: 'Sun', am: 'family', pm: 'own',    eve: 'admin'  },
+  ];
+  const classes: Record<BlockType, string> = {
+    tools:  'bg-stone-300/80 border-stone-400/40 text-stone-700',
+    admin:  'bg-amber-400 border-amber-500 text-white',
+    family: 'bg-stone-200 border-stone-300 text-stone-500',
+    own:    'bg-emerald-500 border-emerald-600 text-white',
+  };
+  const labels: Record<BlockType, string> = {
+    tools:  'Tools',
+    admin:  'Admin',
+    family: 'Family',
+    own:    'You',
+  };
+  const slots: ('am' | 'pm' | 'eve')[] = ['am', 'pm', 'eve'];
+  const slotLabels = { am: 'AM', pm: 'PM', eve: 'EVE' } as const;
+
+  const adminCount = days.reduce(
+    (acc, d) => acc + slots.filter((s) => d[s] === 'admin').length,
+    0
+  );
+
+  return (
+    <div>
+      {/* Day headers */}
+      <div className="grid grid-cols-[36px_repeat(7,1fr)] gap-1.5 sm:gap-2 items-end mb-2">
+        <div />
+        {days.map((d) => (
+          <p
+            key={d.label}
+            className="text-stone-500 font-mono text-[9px] sm:text-[10px] tracking-[0.2em] uppercase text-center"
+          >
+            {d.label}
+          </p>
+        ))}
+      </div>
+      {/* Time rows */}
+      {slots.map((slot) => (
+        <div
+          key={slot}
+          className="grid grid-cols-[36px_repeat(7,1fr)] gap-1.5 sm:gap-2 items-center mb-1.5 sm:mb-2"
+        >
+          <p className="text-stone-400 font-mono text-[8px] sm:text-[9px] tracking-[0.18em] uppercase">
+            {slotLabels[slot]}
+          </p>
+          {days.map((d) => {
+            const type = d[slot];
+            return (
+              <div
+                key={d.label + slot}
+                className={`h-10 sm:h-14 rounded-md border ${classes[type]} flex items-center justify-center`}
+              >
+                <span className="text-[8px] sm:text-[10px] font-semibold tracking-wider uppercase">
+                  {labels[type]}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      ))}
+      {/* Legend */}
+      <div className="flex flex-wrap items-center gap-x-5 gap-y-2 mt-6 text-[10px] font-mono tracking-[0.18em] uppercase text-stone-500">
+        <div className="flex items-center gap-2">
+          <span className="w-3 h-3 rounded-sm bg-amber-400 border border-amber-500" />
+          <span>{adminCount} admin blocks per week</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="w-3 h-3 rounded-sm bg-emerald-500 border border-emerald-600" />
+          <span>1 block for you</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   List items (legacy — kept for sections that still use them)
    ============================================================ */
 function FitItemCream({ children }: { children: React.ReactNode }) {
   return (
