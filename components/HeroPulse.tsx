@@ -164,12 +164,23 @@ export default function HeroPulse() {
           <span className="text-platinum-soft">Service businesses under $1M</span>
         </p>
 
-        <h1 className="font-display text-[44px] sm:text-[68px] lg:text-[88px] leading-[1.02] tracking-[-0.035em] mb-12 max-w-5xl mx-auto mobile-text-balance">
+        <h1 className="font-display text-[44px] sm:text-[68px] lg:text-[88px] leading-[1.02] tracking-[-0.035em] mb-10 max-w-5xl mx-auto mobile-text-balance">
           Software{' '}
           <span className="text-brand-gradient-slow">should do the job</span>
           ,<br className="hidden sm:block" />{' '}
           not hand you another one.
         </h1>
+
+        {/* Pulse explainer caption + live usage ticker */}
+        <div className="flex flex-col items-center gap-4 mb-10 max-w-xl mx-auto">
+          <p className="text-platinum-soft text-sm sm:text-base leading-relaxed">
+            Pulse is your free diagnostic. 14 signals across your website, your Google profile, your reviews, your competitors. Texted to your phone in 90 seconds.
+          </p>
+          <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.22em] uppercase text-mute inline-flex items-center gap-2.5">
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" aria-hidden />
+            47 Pulse runs this week
+          </p>
+        </div>
 
         {/* THE SIGNAL RING centerpiece */}
         <div className="w-full max-w-[520px] mx-auto">
@@ -270,13 +281,20 @@ export default function HeroPulse() {
           </PulseSignalRing>
         </div>
 
-        {/* SMS fallback + call link below the ring */}
-        <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 text-xs sm:text-sm">
-          <a href={PULSE_SMS_PLAIN} className="text-platinum-soft hover:text-white transition-colors">
-            Prefer SMS? Text your URL to (647) 490-8937
+        {/* Prominent phone CTA below the ring */}
+        <div className="mt-14 flex flex-col items-center gap-6">
+          <a href={PULSE_SMS_PLAIN} className="group inline-flex flex-col items-center gap-2">
+            <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.22em] uppercase text-mute">
+              Or skip the ring. Text Pulse directly.
+            </p>
+            <p className="font-display text-3xl sm:text-4xl tracking-tight text-white group-hover:text-elec transition-colors">
+              (647) 490-8937
+            </p>
+            <p className="text-mute text-xs sm:text-sm max-w-sm leading-relaxed">
+              Free. PDF on your phone in 90 seconds. We do not put you on a list.
+            </p>
           </a>
-          <span className="text-divider hidden sm:inline">{'·'}</span>
-          <a href={CAL_LINK} target="_blank" rel="noopener noreferrer" className="text-mute hover:text-platinum-soft transition-colors">
+          <a href={CAL_LINK} target="_blank" rel="noopener noreferrer" className="text-mute hover:text-platinum-soft text-xs sm:text-sm transition-colors mt-2">
             Or book 30 minutes with Jacob
           </a>
         </div>
