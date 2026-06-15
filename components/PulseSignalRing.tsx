@@ -36,27 +36,26 @@ export default function PulseSignalRing({
   children,
   className = '',
 }: PulseSignalRingProps) {
-  // Clamp progress to 14 nodes
   const filled = Math.min(Math.max(progressCount, 0), PULSE_SIGNAL_COUNT);
   const isActive = state === 'running' || state === 'submitting';
   const isDone = state === 'done';
 
-  // SVG geometry
-  const SIZE = 540;
+  // SVG geometry — viewBox includes label padding outside the ring
+  const SIZE = 660;
   const CENTER = SIZE / 2;
-  const RADIUS = 220;
-  const NODE_R = 11;
+  const RADIUS = 230;
+  const NODE_R = 9;
 
   const circumference = 2 * Math.PI * RADIUS;
   const arcLen = (filled / PULSE_SIGNAL_COUNT) * circumference;
 
   return (
     <div
-      className={`relative aspect-square w-full max-w-[540px] mx-auto ${className}`}
+      className={`relative aspect-square w-full max-w-[580px] mx-auto ${className}`}
     >
       <svg
         viewBox={`0 0 ${SIZE} ${SIZE}`}
-        className="absolute inset-0 w-full h-full"
+        className="absolute inset-0 w-full h-full overflow-visible"
         aria-hidden
       >
         <defs>
@@ -70,10 +69,14 @@ export default function PulseSignalRing({
             <stop offset="100%" stopColor="#06B6D4" stopOpacity="0" />
           </radialGradient>
           <radialGradient id="sb-center-glow">
-            <stop offset="0%" stopColor="#06B6D4" stopOpacity="0.18" />
-            <stop offset="60%" stopColor="#10B981" stopOpacity="0.08" />
+            <stop offset="0%" stopColor="#06B6D4" stopOpacity="0.22" />
+            <stop offset="60%" stopColor="#10B981" stopOpacity="0.10" />
             <stop offset="100%" stopColor="#0A0E1A" stopOpacity="0" />
           </radialGradient>
+          <style>{`
+            .sb-node-label { display: none; }
+            @media (min-width: 640px) { .sb-node-label { display: block; } }
+          `}</style>
         </defs>
 
         {/* Center ambient glow */}
@@ -89,7 +92,7 @@ export default function PulseSignalRing({
           strokeWidth="1"
         />
 
-        {/* Inner dim ring (faint guideline) */}
+        {/* Inner dim ring */}
         <circle
           cx={CENTER}
           cy={CENTER}
@@ -125,7 +128,7 @@ export default function PulseSignalRing({
           const isCurrent = i === filled - 1 && isActive;
 
           // Label position outside the node
-          const labelDist = NODE_R + 18;
+          const labelDist = NODE_R + 22;
           const lx = CENTER + (RADIUS + labelDist) * Math.cos(angle);
           const ly = CENTER + (RADIUS + labelDist) * Math.sin(angle);
           const cos = Math.cos(angle);
@@ -138,7 +141,6 @@ export default function PulseSignalRing({
 
           return (
             <g key={sig.id}>
-              {/* Glow ring around active nodes */}
               {nodeFilled && (
                 <circle cx={x} cy={y} r={NODE_R + 12} fill="url(#sb-node-glow)" />
               )}
@@ -151,31 +153,29 @@ export default function PulseSignalRing({
                 strokeWidth="1.5"
                 className={isCurrent ? 'node-active' : ''}
               />
-              {/* Inner dot for filled */}
               {nodeFilled && (
                 <circle
                   cx={x}
                   cy={y}
-                  r={3}
-                  fill="rgba(255,255,255,0.9)"
+                  r={2.5}
+                  fill="rgba(255,255,255,0.95)"
                 />
               )}
-              {/* Label */}
               <text
                 x={lx}
                 y={ly}
                 textAnchor={anchor}
                 dominantBaseline={baseline}
-                fill={nodeFilled ? 'rgba(255,255,255,0.92)' : 'rgba(255,255,255,0.45)'}
-                fontSize="10"
-                letterSpacing="0.18em"
+                fill={nodeFilled ? 'rgba(255,255,255,0.92)' : 'rgba(255,255,255,0.42)'}
+                fontSize="9"
+                letterSpacing="0.22em"
                 style={{
                   textTransform: 'uppercase',
                   fontFamily: "ui-monospace, 'SF Mono', 'Menlo', monospace",
                   fontWeight: 600,
                   transition: 'fill 0.4s ease',
                 }}
-                className="hidden sm:[display:block]"
+                className="sb-node-label"
               >
                 {sig.label}
               </text>
@@ -184,9 +184,9 @@ export default function PulseSignalRing({
         })}
       </svg>
 
-      {/* Center slot — form / state / result lives here */}
+      {/* Center slot */}
       <div className="absolute inset-0 flex items-center justify-center">
-        <div className="w-[58%] h-[58%] flex flex-col items-center justify-center text-center px-2">
+        <div className="w-[64%] h-[64%] flex flex-col items-center justify-center text-center px-2">
           {children}
         </div>
       </div>
