@@ -1,29 +1,31 @@
 'use client';
 
-import { useEffect } from 'react';
-import { motion, useMotionValue, useReducedMotion, useTransform } from 'framer-motion';
+import { useEffect, useRef } from 'react';
 
 export default function ParallaxOrbs() {
-  const reduced = useReducedMotion();
-  const scrollY = useMotionValue(0);
-  const y1 = useTransform(scrollY, [0, 1200], [0, -480]);
-  const y2 = useTransform(scrollY, [0, 1200], [0, -480]);
+  const orb1 = useRef<HTMLDivElement>(null);
+  const orb2 = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (reduced) return;
-    const update = () => scrollY.set(window.scrollY);
-    window.addEventListener('scroll', update, { passive: true });
-    return () => window.removeEventListener('scroll', update);
-  }, [reduced, scrollY]);
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  if (reduced) return null;
+    const tick = () => {
+      const drift = -(window.scrollY / 1200) * 480;
+      const t = `translateY(${drift}px)`;
+      if (orb1.current) orb1.current.style.transform = t;
+      if (orb2.current) orb2.current.style.transform = t;
+    };
+
+    window.addEventListener('scroll', tick, { passive: true });
+    return () => window.removeEventListener('scroll', tick);
+  }, []);
 
   return (
     <>
-      <motion.div
+      <div
+        ref={orb1}
         aria-hidden="true"
         style={{
-          y: y1,
           position: 'fixed',
           top: '-80px',
           left: '-80px',
@@ -34,12 +36,13 @@ export default function ParallaxOrbs() {
           filter: 'blur(48px)',
           zIndex: 0,
           pointerEvents: 'none',
+          willChange: 'transform',
         }}
       />
-      <motion.div
+      <div
+        ref={orb2}
         aria-hidden="true"
         style={{
-          y: y2,
           position: 'fixed',
           bottom: '-120px',
           right: '-120px',
@@ -50,6 +53,7 @@ export default function ParallaxOrbs() {
           filter: 'blur(56px)',
           zIndex: 0,
           pointerEvents: 'none',
+          willChange: 'transform',
         }}
       />
     </>
