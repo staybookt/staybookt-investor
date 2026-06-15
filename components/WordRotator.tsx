@@ -39,7 +39,8 @@ export default function WordRotator({
       className={`relative inline-block align-baseline ${className}`}
       style={{ minWidth: `${longest.length * 0.55}em` }}
     >
-      <span aria-hidden className="invisible whitespace-nowrap">{longest}</span>
+      {/* U+200B zero-width space: sets line height without adding extractable text */}
+      <span aria-hidden className="invisible whitespace-nowrap">{'​'}</span>
       <span
         className="absolute left-0 top-0 whitespace-nowrap text-brand-gradient"
         style={{

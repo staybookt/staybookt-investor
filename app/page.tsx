@@ -448,7 +448,7 @@ function Chapter({ num, label, tone }: { num: string; label: string; tone: 'crea
   const color = tone === 'cream' ? 'text-stone-500' : 'text-mute';
   return (
     <div className={`font-mono text-[10px] sm:text-[11px] tracking-[0.22em] uppercase font-semibold mb-7 ${color}`}>
-      {num} <span className="opacity-50 px-1">/</span> {label}
+      {num} <span className="opacity-50 px-1">/</span> {label.toUpperCase()}
     </div>
   );
 }
