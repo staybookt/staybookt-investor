@@ -89,7 +89,7 @@ export default function HomePage() {
         </ScrollReveal>
       </section>
 
-      {/* 02 / WORK — cream alt with icons */}
+      {/* 02 / WORK — cream alt — same week, after kickoff */}
       <section className={`${CREAM_ALT_BG} py-32 sm:py-40 px-6 sm:px-12 border-t border-stone-200`}>
         <ScrollReveal>
           <div className="max-w-6xl mx-auto">
@@ -97,35 +97,45 @@ export default function HomePage() {
             <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
               What we do, and what we leave alone.
             </h2>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
-              <div>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-12">
+              <div className="lg:col-span-2">
                 <p className="font-mono text-[11px] tracking-[0.18em] uppercase text-stone-500 mb-6">
-                  What we do
+                  The same week, after kickoff
                 </p>
-                <ul className="space-y-5">
-                  <IconItem icon={<IconGlobe />}>Build your website. A real one, not a template.</IconItem>
-                  <IconItem icon={<IconGlobe />}>Claim and fix your Google Business Profile.</IconItem>
-                  <IconItem icon={<IconPhoneCall />}>Set up missed-call recovery so a 7 a.m. call gets answered.</IconItem>
-                  <IconItem icon={<IconClockRotate />}>Run a 24-hour, 72-hour, and 7-day follow-up on every quote you send.</IconItem>
-                  <IconItem icon={<IconStar />}>Ask for reviews after every job, automatically.</IconItem>
-                  <IconItem icon={<IconBarChart />}>Send you a Monday brief: leads, bookings, revenue, what changed.</IconItem>
-                  <IconItem icon={<IconUsers />}>Wire up a CRM so customers do not fall out of your head.</IconItem>
-                  <IconItem icon={<IconFileInvoice />}>Make sure your invoices go out on time.</IconItem>
-                </ul>
+                <WeeklyGridAfter />
+                <p className="text-stone-800 text-base sm:text-lg leading-relaxed mt-10 max-w-2xl">
+                  <span className="font-semibold">This is what your week looks like after kickoff.</span> The amber is gone. Your tools time is still yours. The Sunday block stops shrinking.
+                </p>
               </div>
-              <div>
+              <div className="lg:col-span-1">
                 <p className="font-mono text-[11px] tracking-[0.18em] uppercase text-stone-500 mb-6">
-                  What we do not do
+                  What we leave alone
                 </p>
-                <ul className="space-y-5">
-                  <NotItem>Take over your accounting. Your accountant stays.</NotItem>
-                  <NotItem>Manage your employees. You do.</NotItem>
-                  <NotItem>Sign contracts for you. You do.</NotItem>
-                  <NotItem>Run paid Google or Facebook ads. Separate specialist. We can refer.</NotItem>
-                  <NotItem>Replace your dispatcher.</NotItem>
-                  <NotItem>Teach marketing. We do it for you.</NotItem>
-                  <NotItem>Work with businesses over $5M. Different problem, different shop.</NotItem>
-                  <NotItem>Work with anyone where the owner is not the decision-maker.</NotItem>
+                <ul className="space-y-3.5 text-sm text-stone-600 leading-snug">
+                  <li className="flex items-start gap-3">
+                    <span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={14} /></span>
+                    <span>Your accounting. Your accountant stays.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={14} /></span>
+                    <span>Your employees. You manage them.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={14} /></span>
+                    <span>Your contracts. You sign them.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={14} /></span>
+                    <span>Paid Google or Facebook ads. We refer to a specialist.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={14} /></span>
+                    <span>Dispatch. You or your existing system stays.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={14} /></span>
+                    <span>Teaching you marketing. We do it for you.</span>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -492,7 +502,7 @@ function Chapter({ num, label, tone }: { num: string; label: string; tone: 'crea
 }
 
 /* ============================================================
-   WeeklyGrid — 01/FIT show-not-tell: owner's typical week
+   WeeklyGrid — 01/FIT show-not-tell: owner's typical week BEFORE
    ============================================================ */
 function WeeklyGrid() {
   type BlockType = 'tools' | 'admin' | 'family' | 'own';
@@ -572,6 +582,89 @@ function WeeklyGrid() {
         <div className="flex items-center gap-2">
           <span className="w-3 h-3 rounded-sm bg-emerald-500 border border-emerald-600" />
           <span>1 block for you</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   WeeklyGridAfter — 02/WORK show-not-tell: same week, after kickoff
+   amber ADMIN blocks become cyan StayBookt-action blocks with action labels
+   ============================================================ */
+function WeeklyGridAfter() {
+  type BlockType = 'tools' | 'sb' | 'family' | 'own';
+  type DayBlock = { type: BlockType; label: string };
+  const days: { label: string; am: DayBlock; pm: DayBlock; eve: DayBlock }[] = [
+    { label: 'Mon', am: { type: 'tools',  label: 'Tools'      }, pm: { type: 'tools',  label: 'Tools'      }, eve: { type: 'sb',     label: 'Follow-up'   } },
+    { label: 'Tue', am: { type: 'tools',  label: 'Tools'      }, pm: { type: 'tools',  label: 'Tools'      }, eve: { type: 'sb',     label: 'Quote chase' } },
+    { label: 'Wed', am: { type: 'tools',  label: 'Tools'      }, pm: { type: 'sb',     label: 'Pulse run'  }, eve: { type: 'tools',  label: 'Tools'       } },
+    { label: 'Thu', am: { type: 'tools',  label: 'Tools'      }, pm: { type: 'tools',  label: 'Tools'      }, eve: { type: 'sb',     label: 'Review ask'  } },
+    { label: 'Fri', am: { type: 'tools',  label: 'Tools'      }, pm: { type: 'tools',  label: 'Tools'      }, eve: { type: 'sb',     label: 'Brief'       } },
+    { label: 'Sat', am: { type: 'sb',     label: 'Missed call'}, pm: { type: 'family', label: 'Family'     }, eve: { type: 'sb',     label: 'Reviews'     } },
+    { label: 'Sun', am: { type: 'family', label: 'Family'     }, pm: { type: 'own',    label: 'You'        }, eve: { type: 'sb',     label: 'GBP update'  } },
+  ];
+  const classes: Record<BlockType, string> = {
+    tools:  'bg-stone-300/80 border-stone-400/40 text-stone-700',
+    sb:     'bg-cyan-600 border-cyan-700 text-white',
+    family: 'bg-stone-200 border-stone-300 text-stone-500',
+    own:    'bg-emerald-500 border-emerald-600 text-white',
+  };
+  const slots: ('am' | 'pm' | 'eve')[] = ['am', 'pm', 'eve'];
+  const slotLabels = { am: 'AM', pm: 'PM', eve: 'EVE' } as const;
+
+  const sbCount = days.reduce(
+    (acc, d) => acc + slots.filter((s) => d[s].type === 'sb').length,
+    0
+  );
+
+  return (
+    <div>
+      {/* Day headers */}
+      <div className="grid grid-cols-[36px_repeat(7,1fr)] gap-1.5 sm:gap-2 items-end mb-2">
+        <div />
+        {days.map((d) => (
+          <p
+            key={d.label}
+            className="text-stone-500 font-mono text-[9px] sm:text-[10px] tracking-[0.2em] uppercase text-center"
+          >
+            {d.label}
+          </p>
+        ))}
+      </div>
+      {/* Time rows */}
+      {slots.map((slot) => (
+        <div
+          key={slot}
+          className="grid grid-cols-[36px_repeat(7,1fr)] gap-1.5 sm:gap-2 items-center mb-1.5 sm:mb-2"
+        >
+          <p className="text-stone-400 font-mono text-[8px] sm:text-[9px] tracking-[0.18em] uppercase">
+            {slotLabels[slot]}
+          </p>
+          {days.map((d) => {
+            const block = d[slot];
+            return (
+              <div
+                key={d.label + slot}
+                className={`h-10 sm:h-14 rounded-md border ${classes[block.type]} flex items-center justify-center px-1`}
+              >
+                <span className="text-[7px] sm:text-[9px] font-semibold tracking-wider uppercase leading-tight text-center">
+                  {block.label}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      ))}
+      {/* Legend */}
+      <div className="flex flex-wrap items-center gap-x-5 gap-y-2 mt-6 text-[10px] font-mono tracking-[0.18em] uppercase text-stone-500">
+        <div className="flex items-center gap-2">
+          <span className="w-3 h-3 rounded-sm bg-cyan-600 border border-cyan-700" />
+          <span>{sbCount} tasks now run by us</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="w-3 h-3 rounded-sm bg-emerald-500 border border-emerald-600" />
+          <span>1 evening still yours</span>
         </div>
       </div>
     </div>
