@@ -7,17 +7,31 @@ export default function ParallaxOrbs() {
   const orb2 = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    console.log('[ParallaxOrbs] mount — orb1:', !!orb1.current, 'orb2:', !!orb2.current);
 
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      console.log('[ParallaxOrbs] reduced motion, skipping');
+      return;
+    }
+
+    let ticks = 0;
     const tick = () => {
+      ticks++;
       const drift = -(window.scrollY / 1200) * 480;
       const t = `translateY(${drift}px)`;
+      if (ticks === 1 || ticks % 30 === 0) {
+        console.log(`[ParallaxOrbs] tick #${ticks}`, { scrollY: window.scrollY, transform: t, orb1: !!orb1.current, orb2: !!orb2.current });
+      }
       if (orb1.current) orb1.current.style.transform = t;
       if (orb2.current) orb2.current.style.transform = t;
     };
 
+    console.log('[ParallaxOrbs] attaching scroll listener');
     window.addEventListener('scroll', tick, { passive: true });
-    return () => window.removeEventListener('scroll', tick);
+    return () => {
+      console.log('[ParallaxOrbs] cleanup — removing scroll listener');
+      window.removeEventListener('scroll', tick);
+    };
   }, []);
 
   return (
