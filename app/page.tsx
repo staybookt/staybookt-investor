@@ -499,13 +499,7 @@ function ClientCard({
             title={`${name} live site`}
             loading="lazy"
             sandbox="allow-same-origin allow-scripts allow-popups"
-            className="border-0 pointer-events-none"
-            style={{
-              width: '1400px',
-              height: '900px',
-              transform: 'scale(0.42)',
-              transformOrigin: 'top left',
-            }}
+            className="border-0 pointer-events-none [width:1400px] [height:900px] [transform-origin:top_left] [transform:scale(0.26)] sm:[transform:scale(0.32)] md:[transform:scale(0.38)] lg:[transform:scale(0.42)]"
           />
         </div>
         {/* Bottom-corner caption that confirms the embed is live */}
