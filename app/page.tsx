@@ -328,8 +328,43 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 7. TWO DOORS */}
+      {/* 6.5 FAQ - honest gut-objection answers */}
       <section className="py-20 sm:py-28 px-6 sm:px-12 border-t border-divider/40">
+        <div className="max-w-4xl mx-auto">
+          <p className="text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-elec font-semibold mb-5">
+            The questions owners actually ask.
+          </p>
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-[-0.035em] leading-[1.04] mb-14 max-w-3xl">
+            Read this before you click.
+          </h2>
+          <div className="space-y-3">
+            <Faq question="What if I want to cancel?">
+              You cancel any month. We hand you the website code, the Google Business Profile login, the customer list, and the keys to the review pipeline. No locked-in dependencies. The only thing we keep is the Pulse diagnostic engine, because that one is ours.
+            </Faq>
+            <Faq question="What if you go out of business?">
+              Your domain is registered to you. Your website lives on Vercel under your own account. Your Google Business Profile is yours. Your customer list lives in your CRM, not ours. We are the people running the system, not the system itself. If we vanish you keep everything that matters.
+            </Faq>
+            <Faq question="Why charge a percentage on new business?">
+              Most marketing agencies charge a flat fee whether they brought you anything or not. We dropped the flat fee down to almost nothing and put the rest on the work actually moving the needle. If the site does not bring you new bookings, we do not make money on the third row.
+            </Faq>
+            <Faq question="Can I just buy the website without the monthly?">
+              Yes, but read this first. A site without ongoing care drifts. The Google profile goes stale. Review requests stop going out. Page speed degrades. After a year, an unmaintained site is roughly as effective as no site. The $99 a month is the thing that stops that from happening.
+            </Faq>
+            <Faq question="Will you take over my domain and Google account?">
+              No. You stay the registered owner of your domain. We get added as a manager on your Google Business Profile so we can update hours, photos, and posts. If you part ways with us, we are removed. You keep the account.
+            </Faq>
+            <Faq question="What if I want to switch trades or add a new service?">
+              Tell us. The website gets the new pages within a week. Pulse adapts. The Monday brief shows the new metrics. Service businesses change shape all the time. The site should never be the thing holding that back.
+            </Faq>
+          </div>
+          <p className="text-mute text-xs sm:text-sm mt-10 leading-relaxed">
+            Have one we did not answer? Text it to (647) 490-8937 or bring it to the call.
+          </p>
+        </div>
+      </section>
+
+      {/* 7. TWO DOORS */}
+      <section className="py-20 sm:py-28 px-6 sm:px-12 border-t border-divider/40 bg-ink-soft/40">
         <div className="max-w-6xl mx-auto">
           <p className="text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-elec font-semibold mb-5">
             Two ways to start.
@@ -361,7 +396,7 @@ export default function HomePage() {
       </section>
 
       {/* 8. WHO IS BEHIND THIS */}
-      <section className="py-20 sm:py-28 px-6 sm:px-12 border-t border-divider/40 bg-ink-soft/40">
+      <section className="py-20 sm:py-28 px-6 sm:px-12 border-t border-divider/40">
         <div className="max-w-6xl mx-auto">
           <p className="text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-elec font-semibold mb-5">
             The team.
@@ -430,6 +465,20 @@ function Metric({ label, value, detail, trend }: { label: string; value: string;
       <p className="font-display text-xl sm:text-2xl tracking-tight leading-none text-white">{value}</p>
       <p className={`text-[10px] mt-1.5 leading-tight ${trendColor}`}>{detail}</p>
     </div>
+  );
+}
+
+function Faq({ question, children }: { question: string; children: React.ReactNode }) {
+  return (
+    <details className="group bg-paper/[0.03] border border-divider/60 hover:border-divider rounded-2xl overflow-hidden transition-colors">
+      <summary className="cursor-pointer list-none px-6 sm:px-8 py-5 sm:py-6 flex items-center justify-between gap-5">
+        <h3 className="font-display text-lg sm:text-xl tracking-tight leading-snug">{question}</h3>
+        <span className="text-elec text-2xl font-light transition-transform group-open:rotate-45 shrink-0 leading-none" aria-hidden>+</span>
+      </summary>
+      <div className="px-6 sm:px-8 pb-6 sm:pb-7 text-platinum-soft text-base leading-relaxed">
+        {children}
+      </div>
+    </details>
   );
 }
 
