@@ -164,19 +164,15 @@ export default function HeroPulse() {
           <span className="text-platinum-soft">Service businesses under $1M</span>
         </p>
 
-        <h1 className="font-display text-[44px] sm:text-[68px] lg:text-[88px] leading-[1.02] tracking-[-0.035em] mb-9 max-w-5xl mx-auto mobile-text-balance">
+        <h1 className="font-display text-[44px] sm:text-[68px] lg:text-[88px] leading-[1.02] tracking-[-0.035em] mb-12 max-w-5xl mx-auto mobile-text-balance">
           Software{' '}
           <span className="text-brand-gradient-slow">should do the job</span>
           ,<br className="hidden sm:block" />{' '}
           not hand you another one.
         </h1>
 
-        <p className="text-platinum text-base sm:text-lg leading-relaxed max-w-2xl mx-auto mb-14">
-          StayBookt builds and runs the systems that bring customers to your business and keep them close. The website, the follow-up, the reviews, the Monday roll-up. Owner-operated. Under a million in revenue.
-        </p>
-
         {/* THE SIGNAL RING centerpiece */}
-        <div className="w-full max-w-[640px] mx-auto">
+        <div className="w-full max-w-[520px] mx-auto">
           <PulseSignalRing state={state} progressCount={progressCount}>
             {state === 'idle' && (
               <form onSubmit={onSubmit} className="flex flex-col items-center gap-4 w-full">

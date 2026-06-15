@@ -40,11 +40,11 @@ export default function HomePage() {
       <HeroPulseShell />
 
       {/* 01 / FIT — cream */}
-      <section className={`${CREAM_BG} py-24 sm:py-32 px-6 sm:px-12 border-t border-stone-200`}>
+      <section className={`${CREAM_BG} py-32 sm:py-40 px-6 sm:px-12 border-t border-stone-200`}>
         <ScrollReveal>
           <div className="max-w-6xl mx-auto">
             <Chapter num="01" label="Fit" tone="cream" />
-            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-[-0.035em] leading-[1.04] mb-14 max-w-3xl text-stone-900">
+            <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
               Honest about who we are for, and who we are not.
             </h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
@@ -78,11 +78,11 @@ export default function HomePage() {
       </section>
 
       {/* 02 / WORK — cream alt with icons */}
-      <section className={`${CREAM_ALT_BG} py-24 sm:py-32 px-6 sm:px-12 border-t border-stone-200`}>
+      <section className={`${CREAM_ALT_BG} py-32 sm:py-40 px-6 sm:px-12 border-t border-stone-200`}>
         <ScrollReveal>
           <div className="max-w-6xl mx-auto">
             <Chapter num="02" label="Work" tone="cream" />
-            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-[-0.035em] leading-[1.04] mb-14 max-w-3xl text-stone-900">
+            <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
               What we do, and what we leave alone.
             </h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
@@ -122,11 +122,11 @@ export default function HomePage() {
       </section>
 
       {/* 03 / OUTPUT — cream, Monday brief + review SMS */}
-      <section className={`${CREAM_BG} py-24 sm:py-32 px-6 sm:px-12 border-t border-stone-200`}>
+      <section className={`${CREAM_BG} py-32 sm:py-40 px-6 sm:px-12 border-t border-stone-200`}>
         <ScrollReveal>
           <div className="max-w-6xl mx-auto">
             <Chapter num="03" label="Output" tone="cream" />
-            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-[-0.035em] leading-[1.04] mb-4 max-w-3xl text-stone-900">
+            <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-4 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
               The work, in two artifacts.
             </h2>
             <p className="text-stone-600 text-sm sm:text-base mb-14 max-w-2xl leading-relaxed">
@@ -254,11 +254,11 @@ export default function HomePage() {
       </section>
 
       {/* 04 / PROOF — cream alt, live iframes in device frames */}
-      <section id="work" className={`scroll-mt-24 ${CREAM_ALT_BG} py-24 sm:py-32 px-6 sm:px-12 border-t border-stone-200`}>
+      <section id="work" className={`scroll-mt-24 ${CREAM_ALT_BG} py-32 sm:py-40 px-6 sm:px-12 border-t border-stone-200`}>
         <ScrollReveal>
           <div className="max-w-6xl mx-auto">
             <Chapter num="04" label="Proof" tone="cream" />
-            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-[-0.035em] leading-[1.04] mb-4 max-w-3xl text-stone-900">
+            <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-4 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
               Two real businesses. Two real owners.
             </h2>
             <p className="text-stone-600 text-sm mb-14 max-w-2xl">
@@ -292,11 +292,11 @@ export default function HomePage() {
       </section>
 
       {/* 05 / PRICING — cream */}
-      <section id="pricing" className={`scroll-mt-24 ${CREAM_BG} py-24 sm:py-32 px-6 sm:px-12 border-t border-stone-200`}>
+      <section id="pricing" className={`scroll-mt-24 ${CREAM_BG} py-32 sm:py-40 px-6 sm:px-12 border-t border-stone-200`}>
         <ScrollReveal>
           <div className="max-w-5xl mx-auto">
             <Chapter num="05" label="Pricing" tone="cream" />
-            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-[-0.035em] leading-[1.04] mb-14 max-w-3xl text-stone-900">
+            <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
               What it costs.
             </h2>
             <div className="space-y-px bg-stone-300/60 border border-stone-300 rounded-2xl overflow-hidden">
@@ -315,11 +315,11 @@ export default function HomePage() {
       </section>
 
       {/* 06 / TIMELINE — cream alt */}
-      <section className={`${CREAM_ALT_BG} py-24 sm:py-32 px-6 sm:px-12 border-t border-stone-200`}>
+      <section className={`${CREAM_ALT_BG} py-32 sm:py-40 px-6 sm:px-12 border-t border-stone-200`}>
         <ScrollReveal>
           <div className="max-w-6xl mx-auto">
             <Chapter num="06" label="Timeline" tone="cream" />
-            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-[-0.035em] leading-[1.04] mb-14 max-w-3xl text-stone-900">
+            <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
               Three weeks from kickoff to live.
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -332,11 +332,11 @@ export default function HomePage() {
       </section>
 
       {/* 07 / QUESTIONS — dark proof slab */}
-      <section id="faq" className={`scroll-mt-24 ${DARK_BG} py-24 sm:py-32 px-6 sm:px-12 border-t border-divider/40`}>
+      <section id="faq" className={`scroll-mt-24 ${DARK_BG} py-32 sm:py-40 px-6 sm:px-12 border-t border-divider/40`}>
         <ScrollReveal>
           <div className="max-w-4xl mx-auto">
             <Chapter num="07" label="Questions" tone="dark" />
-            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-[-0.035em] leading-[1.04] mb-14 max-w-3xl">
+            <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
               Read this before you click.
             </h2>
             <div className="space-y-3">
@@ -367,11 +367,11 @@ export default function HomePage() {
       </section>
 
       {/* 08 / START — dark */}
-      <section className={`${DARK_BG} py-24 sm:py-32 px-6 sm:px-12 border-t border-divider/40`}>
+      <section className={`${DARK_BG} py-32 sm:py-40 px-6 sm:px-12 border-t border-divider/40`}>
         <ScrollReveal>
           <div className="max-w-6xl mx-auto">
             <Chapter num="08" label="Start" tone="dark" />
-            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-[-0.035em] leading-[1.04] mb-14 max-w-3xl">
+            <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
               Pick one. We pick up from there.
             </h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
@@ -399,11 +399,11 @@ export default function HomePage() {
       </section>
 
       {/* 09 / TEAM — dark */}
-      <section className={`${DARK_BG} py-24 sm:py-32 px-6 sm:px-12 border-t border-divider/40`}>
+      <section className={`${DARK_BG} py-32 sm:py-40 px-6 sm:px-12 border-t border-divider/40`}>
         <ScrollReveal>
           <div className="max-w-6xl mx-auto">
             <Chapter num="09" label="Team" tone="dark" />
-            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-[-0.035em] leading-[1.04] mb-14 max-w-3xl">
+            <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
               Who is behind this.
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -451,7 +451,7 @@ function HeroPulseShell() {
   return (
     <>
       <HeroPulse />
-      <section className="bg-ink-deep px-6 sm:px-12 py-10 sm:py-12 border-t border-divider/30">
+      <section className="bg-ink-deep px-6 sm:px-12 py-16 sm:py-20 border-t border-divider/30">
         <ScrollReveal>
           <div className="max-w-5xl mx-auto text-center">
             <p className="text-platinum-soft text-base sm:text-lg leading-relaxed mb-6">
@@ -634,7 +634,7 @@ function ClientCard({
       <p className="text-stone-600 text-sm sm:text-base mb-1">{role}</p>
       <p className="text-stone-500 text-sm mb-7">{location}</p>
       <blockquote className="border-l-2 border-emerald-600 pl-5">
-        <p className="text-stone-800 text-base sm:text-lg italic leading-snug">{'“'}{quote}{'”'}</p>
+        <p className="text-stone-800 text-base sm:text-lg italic leading-snug">{('“')}{quote}{('”')}</p>
       </blockquote>
       <a href={href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-emerald-700 font-semibold text-sm mt-7 hover:gap-3 transition-all">
         See {name.split(' ')[0]}{'’'}s site
