@@ -135,11 +135,86 @@ export default function HomePage() {
         </ScrollReveal>
       </section>
 
-      {/* 02 / OUTPUT — cream alt, Monday brief + review SMS */}
+      {/* 02 / THE LEAK — dark proof slab — Richard's "avoid leaking revenue" thesis */}
+      <section className={`${DARK_BG} py-32 sm:py-40 px-6 sm:px-12 border-t border-divider/40 relative overflow-hidden`}>
+        <ScrollReveal>
+          <div className="max-w-6xl mx-auto relative">
+            <Chapter num="02" label="The Leak" tone="dark" />
+            <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-6 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
+              Most owners lose <span className="text-brand-gradient">$73,000</span> a year.
+            </h2>
+            <p className="text-platinum-soft text-base sm:text-lg mb-20 max-w-2xl leading-relaxed">
+              Between $50,000 and $90,000. To three things. None of them are strategy. All of them are response time. We close each one.
+            </p>
+
+            {/* Three leak cards */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-20">
+              <LeakCard
+                label="Missed calls"
+                amount="$24,000"
+                stat="Roughly half of inbound calls to small service businesses go to voicemail. Most callers do not try again."
+                stop="An AI receptionist answers, asks the questions you would ask, books the job, and texts you the summary in your voice."
+                source="AT&T small business call study, Invoca call benchmarks."
+              />
+              <LeakCard
+                label="Slow quote follow-up"
+                amount="$31,000"
+                stat="Around 70% of sent quotes never get a second touch. The job goes to whoever followed up first."
+                stop="Quotes follow up automatically at 24 hours, 72 hours, and 7 days. Live pipeline dashboard. Text the system to ask what is open over a week."
+                source="HubSpot lead-response benchmarks."
+              />
+              <LeakCard
+                label="Missing reviews"
+                amount="$18,000"
+                stat="Only 14% of happy customers leave a review unprompted. The other 86% would, if you asked at the right moment."
+                stop="A text goes out while the work is fresh. Reviews land. Maps ranking climbs. Your reputation gets bigger every month."
+                source="BrightLocal 2024 consumer review survey."
+              />
+            </div>
+
+            {/* Total + CTA row */}
+            <div className="border-t border-divider/40 pt-12 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-end">
+              <div>
+                <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.22em] uppercase text-mute mb-5">
+                  Annual leak, average $400K owner-operator
+                </p>
+                <p className="font-display text-7xl sm:text-8xl tracking-[-0.035em] leading-[0.9] text-brand-gradient mb-5">
+                  $73,000
+                </p>
+                <p className="text-platinum-soft text-sm sm:text-base max-w-md leading-relaxed">
+                  Half of what most owners think they need to grow is already on the table. They cannot reach it without help.
+                </p>
+              </div>
+              <div className="flex flex-col items-start lg:items-end">
+                <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.22em] uppercase text-mute mb-5">
+                  See your three numbers
+                </p>
+                <a href={PULSE_SMS} className="group inline-flex flex-col items-start lg:items-end gap-1">
+                  <span className="font-display text-3xl sm:text-4xl tracking-tight text-white group-hover:text-elec transition-colors">
+                    Text Pulse {'→'}
+                  </span>
+                  <span className="font-mono text-sm text-elec">
+                    (647) 490-8937
+                  </span>
+                  <span className="text-mute text-xs mt-3 max-w-xs lg:text-right">
+                    Free. PDF with your three leak numbers lands on your phone in 90 seconds.
+                  </span>
+                </a>
+              </div>
+            </div>
+
+            <p className="text-mute text-[11px] leading-relaxed mt-16 max-w-3xl">
+              Numbers above are industry estimates for an owner-operator at $400K in revenue with an average ticket of $500. Pulse calculates your three numbers from your actual traffic, your actual quotes, and your actual reviews. Your numbers can be higher or lower.
+            </p>
+          </div>
+        </ScrollReveal>
+      </section>
+
+      {/* 03 / OUTPUT — cream alt, Monday brief + review SMS */}
       <section className={`${CREAM_ALT_BG} py-32 sm:py-40 px-6 sm:px-12 border-t border-stone-200`}>
         <ScrollReveal>
           <div className="max-w-6xl mx-auto">
-            <Chapter num="02" label="Output" tone="cream" />
+            <Chapter num="03" label="Output" tone="cream" />
             <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-4 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
               The work, in two artifacts.
             </h2>
@@ -267,11 +342,11 @@ export default function HomePage() {
         </ScrollReveal>
       </section>
 
-      {/* 03 / PROOF — cream, live iframes in device frames */}
+      {/* 04 / PROOF — cream, live iframes in device frames */}
       <section id="work" className={`scroll-mt-24 ${CREAM_BG} py-32 sm:py-40 px-6 sm:px-12 border-t border-stone-200`}>
         <ScrollReveal>
           <div className="max-w-6xl mx-auto">
-            <Chapter num="03" label="Proof" tone="cream" />
+            <Chapter num="04" label="Proof" tone="cream" />
             <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-4 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
               Two real businesses. Two real owners.
             </h2>
@@ -305,11 +380,11 @@ export default function HomePage() {
         </ScrollReveal>
       </section>
 
-      {/* 04 / PRICING — cream alt */}
+      {/* 05 / PRICING — cream alt */}
       <section id="pricing" className={`scroll-mt-24 ${CREAM_ALT_BG} py-32 sm:py-40 px-6 sm:px-12 border-t border-stone-200`}>
         <ScrollReveal>
           <div className="max-w-5xl mx-auto">
-            <Chapter num="04" label="Pricing" tone="cream" />
+            <Chapter num="05" label="Pricing" tone="cream" />
             <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
               What it costs.
             </h2>
@@ -328,11 +403,11 @@ export default function HomePage() {
         </ScrollReveal>
       </section>
 
-      {/* 05 / TIMELINE — cream */}
+      {/* 06 / TIMELINE — cream */}
       <section className={`${CREAM_BG} py-32 sm:py-40 px-6 sm:px-12 border-t border-stone-200`}>
         <ScrollReveal>
           <div className="max-w-6xl mx-auto">
-            <Chapter num="05" label="Timeline" tone="cream" />
+            <Chapter num="06" label="Timeline" tone="cream" />
             <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
               Three weeks from kickoff to live.
             </h2>
@@ -345,11 +420,11 @@ export default function HomePage() {
         </ScrollReveal>
       </section>
 
-      {/* 06 / QUESTIONS — dark proof slab */}
+      {/* 07 / QUESTIONS — dark proof slab */}
       <section id="faq" className={`scroll-mt-24 ${DARK_BG} py-32 sm:py-40 px-6 sm:px-12 border-t border-divider/40`}>
         <ScrollReveal>
           <div className="max-w-4xl mx-auto">
-            <Chapter num="06" label="Questions" tone="dark" />
+            <Chapter num="07" label="Questions" tone="dark" />
             <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
               Read this before you click.
             </h2>
@@ -380,11 +455,11 @@ export default function HomePage() {
         </ScrollReveal>
       </section>
 
-      {/* 07 / START — dark */}
+      {/* 08 / START — dark */}
       <section className={`${DARK_BG} py-32 sm:py-40 px-6 sm:px-12 border-t border-divider/40`}>
         <ScrollReveal>
           <div className="max-w-6xl mx-auto">
-            <Chapter num="07" label="Start" tone="dark" />
+            <Chapter num="08" label="Start" tone="dark" />
             <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
               Pick one. We pick up from there.
             </h2>
@@ -412,11 +487,11 @@ export default function HomePage() {
         </ScrollReveal>
       </section>
 
-      {/* 08 / TEAM — dark */}
+      {/* 09 / TEAM — dark */}
       <section className={`${DARK_BG} py-32 sm:py-40 px-6 sm:px-12 border-t border-divider/40`}>
         <ScrollReveal>
           <div className="max-w-6xl mx-auto">
-            <Chapter num="08" label="Team" tone="dark" />
+            <Chapter num="09" label="Team" tone="dark" />
             <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
               Who is behind this.
             </h2>
@@ -489,6 +564,39 @@ function Chapter({ num, label, tone }: { num: string; label: string; tone: 'crea
   return (
     <div className={`font-mono text-[10px] sm:text-[11px] tracking-[0.22em] uppercase font-semibold mb-7 ${color}`}>
       {num} <span className="opacity-50 px-1">/</span> {label.toUpperCase()}
+    </div>
+  );
+}
+
+/* ============================================================
+   LeakCard — single revenue leak with stat + how-we-stop + source
+   ============================================================ */
+function LeakCard({ label, amount, stat, stop, source }: { label: string; amount: string; stat: string; stop: string; source: string }) {
+  return (
+    <div className="bg-paper/[0.03] border border-divider/60 rounded-2xl p-7 sm:p-8 flex flex-col">
+      <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-amber-400 mb-5">
+        {label}
+      </p>
+      <p className="font-display text-5xl sm:text-6xl tracking-[-0.035em] leading-[0.9] text-white mb-2">
+        {amount}
+      </p>
+      <p className="font-mono text-[10px] tracking-[0.18em] uppercase text-mute mb-6">
+        Lost per year
+      </p>
+      <p className="text-platinum text-sm sm:text-base leading-relaxed mb-7 border-t border-divider/30 pt-6">
+        {stat}
+      </p>
+      <div className="mt-auto">
+        <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-elec mb-3">
+          How we stop it
+        </p>
+        <p className="text-platinum-soft text-sm leading-relaxed mb-6">
+          {stop}
+        </p>
+        <p className="text-mute text-[10px] leading-relaxed pt-4 border-t border-divider/20">
+          Source: {source}
+        </p>
+      </div>
     </div>
   );
 }
