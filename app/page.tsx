@@ -210,7 +210,7 @@ export default function HomePage() {
         </ScrollReveal>
       </section>
 
-      {/* 03 / OUTPUT — cream alt, Monday brief + review SMS */}
+      {/* 03 / OUTPUT — cream alt, Monday brief + review SMS + text-the-system */}
       <section className={`${CREAM_ALT_BG} py-32 sm:py-40 px-6 sm:px-12 border-t border-stone-200`}>
         <ScrollReveal>
           <div className="max-w-6xl mx-auto">
@@ -338,6 +338,86 @@ export default function HomePage() {
             <p className="text-stone-500 text-xs mt-10 max-w-3xl leading-relaxed">
               The brief gets adapted to your trade and your funnel. A plumber sees emergency-call response time. A fractional consultant sees pipeline meetings booked. Same shape, different metrics.
             </p>
+
+            {/* Third artifact: text-the-system conversational interface (Richard's Conversational Data Access Agent) */}
+            <div className="mt-24 pt-16 border-t border-stone-300/60">
+              <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-elec mb-3">
+                And any time you want to ask.
+              </p>
+              <h3 className="font-display text-3xl sm:text-4xl tracking-tight leading-tight mb-4 text-stone-900 max-w-2xl">
+                Run your business by text.
+              </h3>
+              <p className="text-stone-600 text-base sm:text-lg max-w-2xl leading-relaxed mb-14">
+                Pulse remembers your data. Text a question, get a real answer in a sentence. No app to open. No dashboard to learn.
+              </p>
+
+              <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-12 items-start">
+                <div className="lg:col-span-2">
+                  <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-stone-500 mb-5">
+                    Try sending
+                  </p>
+                  <ul className="space-y-3 text-stone-800 text-sm sm:text-base">
+                    <li>{`"what's open over 7 days"`}</li>
+                    <li>{`"revenue this month"`}</li>
+                    <li>{`"who hasn't paid me yet"`}</li>
+                    <li>{`"book a callback with Maria"`}</li>
+                  </ul>
+                  <p className="text-stone-500 text-xs sm:text-sm mt-8 leading-relaxed">
+                    Pulse pulls from your CRM, your calendar, your QuickBooks, and your live pipeline. Answers come back to your phone. The memory only knows what your tools already know.
+                  </p>
+                </div>
+
+                <div className="lg:col-span-3 flex justify-center">
+                  <div className="bg-ink-deep border border-stone-800 rounded-2xl overflow-hidden shadow-2xl max-w-md w-full">
+                    <div className="bg-ink-soft/60 px-5 py-4 border-b border-divider/40 flex items-center gap-2.5">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-elec/40 to-plumb/40 flex items-center justify-center text-xs font-bold text-white">
+                        P
+                      </div>
+                      <div>
+                        <p className="text-platinum text-xs font-semibold leading-tight">Pulse</p>
+                        <p className="text-mute text-[10px] leading-tight">(647) 490-8937</p>
+                      </div>
+                    </div>
+                    <div className="p-5 sm:p-6 space-y-3">
+                      <div className="flex justify-end">
+                        <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-2xl rounded-tr-md px-4 py-3 max-w-[88%]">
+                          <p className="text-[13px] leading-relaxed">{`what's open over 7 days`}</p>
+                        </div>
+                      </div>
+                      <div className="flex justify-start">
+                        <div className="bg-divider/40 text-platinum rounded-2xl rounded-tl-md px-4 py-3 max-w-[88%]">
+                          <p className="text-[13px] leading-relaxed">3 quotes are over 7 days, totaling $8,400.</p>
+                          <ul className="text-[12px] leading-relaxed mt-2 space-y-1 text-platinum-soft">
+                            <li>Maria, kitchen reno. Day 9. $4,800.</li>
+                            <li>Bryan, HVAC service plan. Day 11. $2,400.</li>
+                            <li>Karen, basement waterproofing. Day 8. $1,200.</li>
+                          </ul>
+                          <p className="text-[12px] leading-relaxed mt-2">{`Reply "chase all" or "chase [name]".`}</p>
+                        </div>
+                      </div>
+                      <div className="flex justify-end">
+                        <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-2xl rounded-tr-md px-4 py-3 max-w-[88%]">
+                          <p className="text-[13px] leading-relaxed">chase maria</p>
+                        </div>
+                      </div>
+                      <div className="flex justify-start">
+                        <div className="bg-divider/40 text-platinum rounded-2xl rounded-tl-md px-4 py-3 max-w-[88%]">
+                          <p className="text-[13px] leading-relaxed">
+                            On it. Maria gets a friendly text in 5 min. I will text you back when she replies.
+                          </p>
+                        </div>
+                      </div>
+                      <div className="pt-3 mt-2 border-t border-divider/40 flex items-center gap-2.5">
+                        <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" aria-hidden />
+                        <p className="text-mute text-[11px] font-medium">
+                          Pulse memory · live pipeline · QuickBooks
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </ScrollReveal>
       </section>
