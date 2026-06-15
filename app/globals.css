@@ -82,6 +82,13 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
+  /* overflow-x:clip removed from body — mixing clip+visible on body suppresses
+     scroll events and IntersectionObserver in Chromium. Scoped to main#top below. */
+}
+
+/* Clip horizontal overflow on the homepage only.
+   Keeps body overflow normal (scroll events fire, IO fires, /brief sticky unaffected). */
+main#top {
   overflow-x: clip;
 }
 
