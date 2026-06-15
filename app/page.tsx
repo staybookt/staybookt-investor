@@ -16,6 +16,7 @@ import {
   IconMinusCircle,
 } from '@/components/Icons';
 import Link from 'next/link';
+import { MacBookFrame, IPhoneFrame } from '@/components/DeviceFrames';
 
 export const metadata = {
   title: 'StayBookt | Marketing and back office for service businesses under $1M',
@@ -133,7 +134,7 @@ export default function HomePage() {
             </p>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-              {/* Monday brief email mockup — stays dark inside even on cream */}
+              {/* Monday brief email mockup */}
               <div className="flex flex-col">
                 <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-stone-500 mb-3">
                   Monday at 7 a.m.
@@ -185,7 +186,7 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* SMS mockup — stays dark inside */}
+              {/* SMS mockup */}
               <div className="flex flex-col">
                 <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-emerald-600 mb-3">
                   Same day, after the job.
@@ -252,7 +253,7 @@ export default function HomePage() {
         </ScrollReveal>
       </section>
 
-      {/* 04 / PROOF — cream alt, live iframes */}
+      {/* 04 / PROOF — cream alt, live iframes in device frames */}
       <section id="work" className={`scroll-mt-24 ${CREAM_ALT_BG} py-24 sm:py-32 px-6 sm:px-12 border-t border-stone-200`}>
         <ScrollReveal>
           <div className="max-w-6xl mx-auto">
@@ -272,6 +273,7 @@ export default function HomePage() {
                 url="www.topchoiceelectrical.com"
                 href="https://www.topchoiceelectrical.com"
                 quote="My old site was three pages of stock photos. A month after launch I had homeowners calling me by name from the website. By month two I was turning down jobs that did not fit. That is the problem you want to have."
+                frameType="macbook"
               />
               <ClientCard
                 eyebrow="XNL HR & Communications"
@@ -282,6 +284,7 @@ export default function HomePage() {
                 href="https://www.xnlhr.com"
                 quote="The new site tells the XNL story the way I have been trying to tell it for ten years. The first three intake calls after we launched were better prepared than the last twenty I had taken."
                 reverse
+                frameType="iphone"
               />
             </div>
           </div>
@@ -465,7 +468,7 @@ function HeroPulseShell() {
 }
 
 /* ============================================================
-   Chapter label — mono micro-label like "01 / WEBSITE"
+   Chapter label
    ============================================================ */
 function Chapter({ num, label, tone }: { num: string; label: string; tone: 'cream' | 'dark' }) {
   const color = tone === 'cream' ? 'text-stone-500' : 'text-mute';
@@ -522,7 +525,7 @@ function NotItem({ children }: { children: React.ReactNode }) {
 }
 
 /* ============================================================
-   Monday brief metric tile — dark interior even on cream sections
+   Monday brief metric tile
    ============================================================ */
 function Metric({ label, value, detail, trend }: { label: string; value: string; detail: string; trend?: 'up' | 'down' }) {
   const trendColor = trend === 'up' ? 'text-emerald-400' : trend === 'down' ? 'text-amber-300' : 'text-mute';
@@ -536,7 +539,7 @@ function Metric({ label, value, detail, trend }: { label: string; value: string;
 }
 
 /* ============================================================
-   FAQ — dark proof slab
+   FAQ
    ============================================================ */
 function Faq({ question, children }: { question: string; children: React.ReactNode }) {
   return (
@@ -553,18 +556,55 @@ function Faq({ question, children }: { question: string; children: React.ReactNo
 }
 
 /* ============================================================
-   Client card (TCE / XNL) — iframe inside, cream-section context
+   Client card — MacBook or iPhone device frame per card
    ============================================================ */
 function ClientCard({
-  eyebrow, name, role, location, url, href, quote, reverse,
+  eyebrow, name, role, location, url, href, quote, reverse, frameType,
 }: {
   eyebrow: string; name: string; role: string; location: string; url: string;
-  href: string; quote: string; reverse?: boolean;
+  href: string; quote: string; reverse?: boolean; frameType?: 'macbook' | 'iphone';
 }) {
-  return (
-    <article className={`grid grid-cols-1 lg:grid-cols-5 gap-8 bg-white border border-stone-200 rounded-2xl overflow-hidden shadow-lg ${reverse ? 'lg:[direction:rtl]' : ''}`}>
-      <div className="lg:col-span-2 aspect-[4/3] lg:aspect-auto relative overflow-hidden bg-stone-100 group">
-        <a href={href} target="_blank" rel="noopener noreferrer" className="absolute inset-0 z-20" aria-label={`Open ${name}'s live site`} />
+  const isMac = frameType === 'macbook';
+  const isPhone = frameType === 'iphone';
+
+  const deviceCol = (
+    <div
+      className={[
+        'relative bg-stone-100 group',
+        isMac
+          ? 'lg:col-span-3 flex flex-col justify-center p-5 sm:p-6'
+          : isPhone
+            ? 'lg:col-span-2 flex items-center justify-center py-10 sm:py-14'
+            : 'lg:col-span-2 aspect-[4/3] lg:aspect-auto overflow-hidden',
+      ].join(' ')}
+    >
+      <a href={href} target="_blank" rel="noopener noreferrer" className="absolute inset-0 z-20" aria-label={`Open ${name}'s live site`} />
+      {isMac && (
+        <MacBookFrame>
+          <iframe
+            src={href}
+            title={`${name} live site`}
+            loading="lazy"
+            sandbox="allow-same-origin allow-scripts allow-popups"
+            className="border-0 pointer-events-none [width:1400px] [height:900px] [transform-origin:top_left] [transform:scale(0.18)] sm:[transform:scale(0.30)] xl:[transform:scale(0.38)]"
+          />
+        </MacBookFrame>
+      )}
+      {isPhone && (
+        <div className="w-full max-w-[220px]">
+          <IPhoneFrame>
+            <iframe
+              src={href}
+              title={`${name} live site`}
+              loading="lazy"
+              sandbox="allow-same-origin allow-scripts allow-popups"
+              className="border-0 pointer-events-none"
+              style={{ width: '390px', height: '844px', transformOrigin: 'top left', transform: 'scale(0.50)' }}
+            />
+          </IPhoneFrame>
+        </div>
+      )}
+      {!isMac && !isPhone && (
         <div className="absolute inset-0 overflow-hidden">
           <iframe
             src={href}
@@ -574,30 +614,38 @@ function ClientCard({
             className="border-0 pointer-events-none [width:1400px] [height:900px] [transform-origin:top_left] [transform:scale(0.26)] sm:[transform:scale(0.32)] md:[transform:scale(0.38)] lg:[transform:scale(0.42)]"
           />
         </div>
-        <div className="absolute bottom-3 left-3 z-30 px-2.5 py-1 rounded-md bg-stone-900/85 backdrop-blur-sm border border-stone-700 text-[10px] tracking-[0.18em] uppercase font-semibold text-emerald-300">
-          Live
-        </div>
-        <div className="absolute bottom-3 right-3 z-30 px-2.5 py-1 rounded-md bg-stone-900/85 backdrop-blur-sm border border-stone-700 text-[10px] tracking-[0.1em] uppercase font-semibold text-stone-300 opacity-0 group-hover:opacity-100 transition-opacity">
-          Click to open {'↗'}
-        </div>
+      )}
+      <div className="absolute bottom-3 left-3 z-30 px-2.5 py-1 rounded-md bg-stone-900/85 backdrop-blur-sm border border-stone-700 text-[10px] tracking-[0.18em] uppercase font-semibold text-emerald-300">
+        Live
       </div>
+      <div className="absolute bottom-3 right-3 z-30 px-2.5 py-1 rounded-md bg-stone-900/85 backdrop-blur-sm border border-stone-700 text-[10px] tracking-[0.1em] uppercase font-semibold text-stone-300 opacity-0 group-hover:opacity-100 transition-opacity">
+        Click to open {'↗'}
+      </div>
+    </div>
+  );
 
-      <div className="lg:col-span-3 p-7 sm:p-10 lg:[direction:ltr]">
-        <div className="flex items-center justify-between mb-4">
-          <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-stone-500">{eyebrow}</p>
-          <a href={href} target="_blank" rel="noopener noreferrer" className="text-xs font-semibold text-stone-500 hover:text-stone-900 transition-colors">{url} {'↗'}</a>
-        </div>
-        <h3 className="font-display text-3xl sm:text-4xl tracking-tight leading-tight mb-2 text-stone-900">{name}</h3>
-        <p className="text-stone-600 text-sm sm:text-base mb-1">{role}</p>
-        <p className="text-stone-500 text-sm mb-7">{location}</p>
-        <blockquote className="border-l-2 border-emerald-600 pl-5">
-          <p className="text-stone-800 text-base sm:text-lg italic leading-snug">{'“'}{quote}{'”'}</p>
-        </blockquote>
-        <a href={href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-emerald-700 font-semibold text-sm mt-7 hover:gap-3 transition-all">
-          See {name.split(' ')[0]}{'’'}s site
-          <span aria-hidden>{'→'}</span>
-        </a>
+  const textCol = (
+    <div className={`${isMac ? 'lg:col-span-2' : 'lg:col-span-3'} p-7 sm:p-10`}>
+      <div className="flex items-center justify-between mb-4">
+        <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-stone-500">{eyebrow}</p>
+        <a href={href} target="_blank" rel="noopener noreferrer" className="text-xs font-semibold text-stone-500 hover:text-stone-900 transition-colors">{url} {'↗'}</a>
       </div>
+      <h3 className="font-display text-3xl sm:text-4xl tracking-tight leading-tight mb-2 text-stone-900">{name}</h3>
+      <p className="text-stone-600 text-sm sm:text-base mb-1">{role}</p>
+      <p className="text-stone-500 text-sm mb-7">{location}</p>
+      <blockquote className="border-l-2 border-emerald-600 pl-5">
+        <p className="text-stone-800 text-base sm:text-lg italic leading-snug">{'“'}{quote}{'”'}</p>
+      </blockquote>
+      <a href={href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-emerald-700 font-semibold text-sm mt-7 hover:gap-3 transition-all">
+        See {name.split(' ')[0]}{'’'}s site
+        <span aria-hidden>{'→'}</span>
+      </a>
+    </div>
+  );
+
+  return (
+    <article className="grid grid-cols-1 lg:grid-cols-5 gap-8 bg-white border border-stone-200 rounded-2xl overflow-hidden shadow-lg">
+      {reverse ? <>{textCol}{deviceCol}</> : <>{deviceCol}{textCol}</>}
     </article>
   );
 }
