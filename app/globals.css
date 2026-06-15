@@ -29,6 +29,28 @@
   --elec-accent: #4F46E5;
 }
 
+/* -----------------------------------------------------------
+   Type scale
+   role            px    class hint
+   reserved-mega   200   text-[200px]        (future)
+   reserved-hero   120   text-[120px]        (future)
+   hero-h1          88   lg:text-[88px]
+   section-display  56   (via clamp)
+   section-h2       40   text-4xl
+   card-title       32   text-[32px]
+   subhead          24   text-2xl
+   body-large       19   text-[19px]
+   body             16   text-base
+   meta             13   text-[13px]
+   micro            11   text-[11px]
+   ----------------------------------------------------------- */
+:root {
+  --fs-d200: 200px; --fs-d120: 120px; --fs-d88: 88px;
+  --fs-d56: 56px;  --fs-d40: 40px;   --fs-d32: 32px;
+  --fs-d24: 24px;  --fs-d19: 19px;   --fs-d16: 16px;
+  --fs-d13: 13px;  --fs-d11: 11px;
+}
+
 @theme inline {
   --color-ink: var(--ink);
   --color-ink-deep: var(--ink-deep);
@@ -79,9 +101,10 @@ body::before {
 }
 body > * { position: relative; z-index: 1; }
 
-/* Display typography */
+/* Display typography — Inter Tight loaded via next/font, falls back to
+   Helvetica Neue. All headings (H1-H3), price rows, metric tiles use this. */
 .font-display {
-  font-family: 'Helvetica Neue', 'Inter', system-ui, sans-serif;
+  font-family: var(--font-display), 'Inter Tight', 'Helvetica Neue', system-ui, sans-serif;
   letter-spacing: -0.03em;
   font-weight: 700;
 }
