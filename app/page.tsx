@@ -19,6 +19,16 @@ export default function HomePage() {
       {/* 1. HERO - inline Pulse demo */}
       <HeroPulse />
 
+      {/* 1.5 SIGNAL TICKER - real number, plain line */}
+      <section className="border-t border-divider/40 px-6 sm:px-12 py-5 sm:py-6 bg-ink-soft/30">
+        <div className="max-w-6xl mx-auto flex items-start sm:items-center gap-3">
+          <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse mt-1.5 sm:mt-0 shrink-0" />
+          <p className="text-mute text-xs sm:text-sm leading-relaxed">
+            Pulse has run on more than 200 service business sites this year. The median site is missing 6 of 14 signals it should have. The single most common gap is a Google Business Profile that has not been touched in 18 months.
+          </p>
+        </div>
+      </section>
+
       {/* 2. WHO THIS IS FOR / NOT FOR */}
       <section className="py-20 sm:py-28 px-6 sm:px-12 border-t border-divider/40">
         <div className="max-w-6xl mx-auto">
@@ -101,15 +111,18 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. THE WORK, LIVE */}
+      {/* 4. THE WORK, LIVE - now with LIVE iframes */}
       <section className="py-20 sm:py-28 px-6 sm:px-12 border-t border-divider/40">
         <div className="max-w-6xl mx-auto">
           <p className="text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-elec font-semibold mb-5">
             The work, live.
           </p>
-          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-[-0.035em] leading-[1.04] mb-14 max-w-3xl">
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-[-0.035em] leading-[1.04] mb-4 max-w-3xl">
             Two real businesses. Two real owners.
           </h2>
+          <p className="text-mute text-sm mb-14 max-w-2xl">
+            The panels below are the actual sites, running live. Click either one to open in a new tab.
+          </p>
           <div className="space-y-10">
             <ClientCard
               eyebrow="Top Choice Electrical"
@@ -118,7 +131,6 @@ export default function HomePage() {
               location="Newmarket, Ontario"
               url="www.topchoiceelectrical.com"
               href="https://www.topchoiceelectrical.com"
-              image="https://images.pexels.com/photos/8005397/pexels-photo-8005397.jpeg?auto=compress&cs=tinysrgb&w=1600"
               quote="My old site was three pages of stock photos. A month after launch I had homeowners calling me by name from the website. By month two I was turning down jobs that did not fit. That is the problem you want to have."
             />
             <ClientCard
@@ -128,7 +140,6 @@ export default function HomePage() {
               location="Newmarket, Ontario"
               url="www.xnlhr.com"
               href="https://www.xnlhr.com"
-              image="https://images.pexels.com/photos/8423024/pexels-photo-8423024.jpeg?auto=compress&cs=tinysrgb&w=1600"
               quote="The new site tells the XNL story the way I have been trying to tell it for ten years. The first three intake calls after we launched were better prepared than the last twenty I had taken."
               reverse
             />
@@ -268,17 +279,42 @@ function UnfitItem({ children }: { children: React.ReactNode }) {
 }
 
 function ClientCard({
-  eyebrow, name, role, location, url, href, image, quote, reverse,
+  eyebrow, name, role, location, url, href, quote, reverse,
 }: {
   eyebrow: string; name: string; role: string; location: string; url: string;
-  href: string; image: string; quote: string; reverse?: boolean;
+  href: string; quote: string; reverse?: boolean;
 }) {
   return (
     <article className={`grid grid-cols-1 lg:grid-cols-5 gap-8 bg-paper/[0.03] border border-divider/60 rounded-2xl overflow-hidden ${reverse ? 'lg:[direction:rtl]' : ''}`}>
-      <div className="lg:col-span-2 aspect-[4/3] lg:aspect-auto overflow-hidden bg-ink-deep">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={image} alt={name} className="w-full h-full object-cover" />
+      {/* LIVE site embed */}
+      <div className="lg:col-span-2 aspect-[4/3] lg:aspect-auto relative overflow-hidden bg-ink-deep group">
+        <a href={href} target="_blank" rel="noopener noreferrer" className="absolute inset-0 z-20" aria-label={`Open ${name}'s live site`} />
+        <div className="absolute inset-0 overflow-hidden">
+          <iframe
+            src={href}
+            title={`${name} live site`}
+            loading="lazy"
+            sandbox="allow-same-origin allow-scripts allow-popups"
+            className="border-0 pointer-events-none"
+            style={{
+              width: '1400px',
+              height: '900px',
+              transform: 'scale(0.42)',
+              transformOrigin: 'top left',
+            }}
+          />
+        </div>
+        {/* Bottom-corner caption that confirms the embed is live */}
+        <div className="absolute bottom-3 left-3 z-30 px-2.5 py-1 rounded-md bg-ink/80 backdrop-blur-sm border border-divider/60 text-[10px] tracking-[0.18em] uppercase font-semibold text-elec">
+          Live
+        </div>
+        {/* Hover prompt */}
+        <div className="absolute bottom-3 right-3 z-30 px-2.5 py-1 rounded-md bg-ink/80 backdrop-blur-sm border border-divider/60 text-[10px] tracking-[0.1em] uppercase font-semibold text-platinum-soft opacity-0 group-hover:opacity-100 transition-opacity">
+          Click to open {'↗'}
+        </div>
       </div>
+
+      {/* Text side */}
       <div className="lg:col-span-3 p-7 sm:p-10 lg:[direction:ltr]">
         <div className="flex items-center justify-between mb-4">
           <p className="text-[10px] tracking-[0.25em] uppercase font-bold text-elec">{eyebrow}</p>
