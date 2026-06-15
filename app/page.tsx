@@ -256,7 +256,7 @@ export default function HomePage() {
       </section>
 
       {/* 4. THE WORK, LIVE - now with LIVE iframes */}
-      <section className="py-20 sm:py-28 px-6 sm:px-12 border-t border-divider/40 bg-ink-soft/40">
+      <section id="work" className="scroll-mt-24 py-20 sm:py-28 px-6 sm:px-12 border-t border-divider/40 bg-ink-soft/40">
         <div className="max-w-6xl mx-auto">
           <p className="text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-elec font-semibold mb-5">
             The work, live.
@@ -292,7 +292,7 @@ export default function HomePage() {
       </section>
 
       {/* 5. WHAT IT COSTS */}
-      <section className="py-20 sm:py-28 px-6 sm:px-12 border-t border-divider/40">
+      <section id="pricing" className="scroll-mt-24 py-20 sm:py-28 px-6 sm:px-12 border-t border-divider/40">
         <div className="max-w-5xl mx-auto">
           <p className="text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-elec font-semibold mb-5">
             Pricing.
@@ -329,7 +329,7 @@ export default function HomePage() {
       </section>
 
       {/* 6.5 FAQ - honest gut-objection answers */}
-      <section className="py-20 sm:py-28 px-6 sm:px-12 border-t border-divider/40">
+      <section id="faq" className="scroll-mt-24 py-20 sm:py-28 px-6 sm:px-12 border-t border-divider/40">
         <div className="max-w-4xl mx-auto">
           <p className="text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-elec font-semibold mb-5">
             The questions owners actually ask.
