@@ -111,8 +111,152 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. THE WORK, LIVE - now with LIVE iframes */}
+      {/* 3.5 WHAT WE SEND WHILE YOU ARE ON A JOB */}
       <section className="py-20 sm:py-28 px-6 sm:px-12 border-t border-divider/40">
+        <div className="max-w-6xl mx-auto">
+          <p className="text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-elec font-semibold mb-5">
+            What we send while you are on a job.
+          </p>
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-[-0.035em] leading-[1.04] mb-4 max-w-3xl">
+            The work, in two artifacts.
+          </h2>
+          <p className="text-mute text-sm sm:text-base mb-14 max-w-2xl leading-relaxed">
+            Two examples of what runs in the background while you are off the laptop. Numbers and names below are illustrative of a typical week, not pulled from a real owner.
+          </p>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+            {/* CARD A: Monday brief email mockup */}
+            <div className="flex flex-col">
+              <div className="flex items-baseline gap-3 mb-4">
+                <p className="text-[10px] tracking-[0.25em] uppercase font-bold text-elec">
+                  Monday at 7 a.m.
+                </p>
+              </div>
+              <h3 className="font-display text-2xl sm:text-3xl tracking-tight leading-tight mb-5">
+                Your week in one email.
+              </h3>
+              <div className="bg-paper/[0.04] border border-divider/60 rounded-2xl overflow-hidden">
+                {/* Email header */}
+                <div className="bg-ink-soft/60 px-5 py-4 border-b border-divider/40">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-elec/40 to-plumb/40 flex items-center justify-center text-xs font-bold text-white shrink-0">
+                      S
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-white text-xs font-semibold leading-tight">StayBookt</p>
+                      <p className="text-mute text-[10px] leading-tight">to tim@topchoiceelectrical.com</p>
+                    </div>
+                    <p className="text-mute text-[10px] whitespace-nowrap">Mon 7:02 a.m.</p>
+                  </div>
+                  <p className="text-platinum text-sm font-display tracking-tight">
+                    Week of June 8, your roll-up
+                  </p>
+                </div>
+                {/* Email body */}
+                <div className="p-5 sm:p-6 space-y-5">
+                  <p className="text-platinum text-sm leading-relaxed">
+                    Hey Tim, here is what last week looked like.
+                  </p>
+
+                  <div className="grid grid-cols-2 gap-2.5">
+                    <Metric label="New leads" value="7" detail="3 web, 4 Google" />
+                    <Metric label="Booked jobs" value="4" detail="avg ticket $640" />
+                    <Metric label="Revenue" value="$2,840" detail="vs $2,180 prior" trend="up" />
+                    <Metric label="New reviews" value="2" detail="5.0 stars" />
+                  </div>
+
+                  <div className="bg-elec/5 border border-elec/20 rounded-lg p-4">
+                    <p className="text-[10px] tracking-[0.2em] uppercase font-bold text-elec mb-2">
+                      What changed
+                    </p>
+                    <p className="text-platinum-soft text-xs leading-relaxed mb-2">
+                      Your Newmarket service page got 23% more views than the prior week. Two of last week&apos;s bookings came from people who landed on that page.
+                    </p>
+                    <p className="text-platinum-soft text-xs leading-relaxed">
+                      One quote from 9 days ago is still open. We are following up with the homeowner this morning.
+                    </p>
+                  </div>
+
+                  <p className="text-mute text-[11px] leading-relaxed">
+                    Reply if anything looks off. Pulse runs the full diagnostic again Wednesday at 6 a.m.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* CARD B: Review request SMS mockup */}
+            <div className="flex flex-col">
+              <div className="flex items-baseline gap-3 mb-4">
+                <p className="text-[10px] tracking-[0.25em] uppercase font-bold text-emerald-400">
+                  Same day, after the job.
+                </p>
+              </div>
+              <h3 className="font-display text-2xl sm:text-3xl tracking-tight leading-tight mb-5">
+                Reviews while the work is fresh.
+              </h3>
+              <div className="bg-paper/[0.04] border border-divider/60 rounded-2xl overflow-hidden">
+                {/* Phone header */}
+                <div className="bg-ink-soft/60 px-5 py-4 border-b border-divider/40 flex items-center justify-center gap-2.5">
+                  <div className="w-7 h-7 rounded-full bg-mute-dark/60 flex items-center justify-center text-xs font-bold text-platinum">
+                    P
+                  </div>
+                  <div>
+                    <p className="text-platinum text-xs font-semibold leading-tight">Patricia, Stonehaven Lane</p>
+                    <p className="text-mute text-[10px] leading-tight">Today, 4:18 p.m.</p>
+                  </div>
+                </div>
+                {/* Messages */}
+                <div className="p-5 sm:p-6 space-y-3">
+                  <div className="flex justify-end">
+                    <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-2xl rounded-tr-md px-4 py-3 max-w-[88%]">
+                      <p className="text-[13px] leading-relaxed">
+                        Hi Patricia, this is Tim from Top Choice Electrical. The work wrapped up just after 4. Receipt went to your email.
+                      </p>
+                      <p className="text-[13px] leading-relaxed mt-2">
+                        If you have 20 seconds, would you mind dropping a quick Google review? g.co/r/topchoice
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex justify-start">
+                    <div className="bg-divider/40 text-platinum rounded-2xl rounded-tl-md px-4 py-3 max-w-[88%]">
+                      <p className="text-[13px] leading-relaxed">
+                        All done, looks great. Will do, that was a fast turnaround.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex justify-end">
+                    <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-2xl rounded-tr-md px-4 py-3 max-w-[88%]">
+                      <p className="text-[13px] leading-relaxed">
+                        Appreciate it. Tell Bill I said hi.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="pt-4 mt-2 border-t border-divider/40 flex items-center gap-2.5">
+                    <div className="flex items-center gap-0.5 text-emerald-400 text-xs">
+                      <span aria-hidden>★</span>
+                      <span aria-hidden>★</span>
+                      <span aria-hidden>★</span>
+                      <span aria-hidden>★</span>
+                      <span aria-hidden>★</span>
+                    </div>
+                    <p className="text-emerald-400 text-xs font-medium">
+                      5 stars, posted 18 minutes later.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p className="text-mute text-xs mt-10 max-w-3xl leading-relaxed">
+            The brief gets adapted to your trade and your funnel. A plumber sees emergency-call response time. A fractional consultant sees pipeline meetings booked. Same shape, different metrics.
+          </p>
+        </div>
+      </section>
+
+      {/* 4. THE WORK, LIVE - now with LIVE iframes */}
+      <section className="py-20 sm:py-28 px-6 sm:px-12 border-t border-divider/40 bg-ink-soft/40">
         <div className="max-w-6xl mx-auto">
           <p className="text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-elec font-semibold mb-5">
             The work, live.
@@ -148,7 +292,7 @@ export default function HomePage() {
       </section>
 
       {/* 5. WHAT IT COSTS */}
-      <section className="py-20 sm:py-28 px-6 sm:px-12 border-t border-divider/40 bg-ink-soft/40">
+      <section className="py-20 sm:py-28 px-6 sm:px-12 border-t border-divider/40">
         <div className="max-w-5xl mx-auto">
           <p className="text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-elec font-semibold mb-5">
             Pricing.
@@ -168,7 +312,7 @@ export default function HomePage() {
       </section>
 
       {/* 6. HOW IT WORKS */}
-      <section className="py-20 sm:py-28 px-6 sm:px-12 border-t border-divider/40">
+      <section className="py-20 sm:py-28 px-6 sm:px-12 border-t border-divider/40 bg-ink-soft/40">
         <div className="max-w-6xl mx-auto">
           <p className="text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-elec font-semibold mb-5">
             How it works.
@@ -185,7 +329,7 @@ export default function HomePage() {
       </section>
 
       {/* 7. TWO DOORS */}
-      <section className="py-20 sm:py-28 px-6 sm:px-12 border-t border-divider/40 bg-ink-soft/40">
+      <section className="py-20 sm:py-28 px-6 sm:px-12 border-t border-divider/40">
         <div className="max-w-6xl mx-auto">
           <p className="text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-elec font-semibold mb-5">
             Two ways to start.
@@ -217,7 +361,7 @@ export default function HomePage() {
       </section>
 
       {/* 8. WHO IS BEHIND THIS */}
-      <section className="py-20 sm:py-28 px-6 sm:px-12 border-t border-divider/40">
+      <section className="py-20 sm:py-28 px-6 sm:px-12 border-t border-divider/40 bg-ink-soft/40">
         <div className="max-w-6xl mx-auto">
           <p className="text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-elec font-semibold mb-5">
             The team.
@@ -275,6 +419,17 @@ function UnfitItem({ children }: { children: React.ReactNode }) {
       <span className="text-mute-dark mt-2 text-base" aria-hidden>{'·'}</span>
       <span className="text-platinum-soft text-base sm:text-lg leading-snug">{children}</span>
     </li>
+  );
+}
+
+function Metric({ label, value, detail, trend }: { label: string; value: string; detail: string; trend?: 'up' | 'down' }) {
+  const trendColor = trend === 'up' ? 'text-emerald-400' : trend === 'down' ? 'text-amber-300' : 'text-mute';
+  return (
+    <div className="bg-ink/40 border border-divider/40 rounded-lg p-3.5">
+      <p className="text-[9px] tracking-[0.2em] uppercase font-bold text-mute mb-1.5">{label}</p>
+      <p className="font-display text-xl sm:text-2xl tracking-tight leading-none text-white">{value}</p>
+      <p className={`text-[10px] mt-1.5 leading-tight ${trendColor}`}>{detail}</p>
+    </div>
   );
 }
 
