@@ -1,20 +1,25 @@
 'use client';
 
-import { useReducedMotion, useScroll, useTransform, motion } from 'framer-motion';
+import { useEffect } from 'react';
+import { motion, useMotionValue, useReducedMotion, useTransform } from 'framer-motion';
 
 export default function ParallaxOrbs() {
-  const { scrollY } = useScroll();
   const reduced = useReducedMotion();
-
-  // Drift at 0.4x scroll speed over the first 1200px of scroll
+  const scrollY = useMotionValue(0);
   const y1 = useTransform(scrollY, [0, 1200], [0, -480]);
   const y2 = useTransform(scrollY, [0, 1200], [0, -480]);
+
+  useEffect(() => {
+    if (reduced) return;
+    const update = () => scrollY.set(window.scrollY);
+    window.addEventListener('scroll', update, { passive: true });
+    return () => window.removeEventListener('scroll', update);
+  }, [reduced, scrollY]);
 
   if (reduced) return null;
 
   return (
     <>
-      {/* Cyan orb — upper left */}
       <motion.div
         aria-hidden="true"
         style={{
@@ -31,7 +36,6 @@ export default function ParallaxOrbs() {
           pointerEvents: 'none',
         }}
       />
-      {/* Emerald orb — lower right */}
       <motion.div
         aria-hidden="true"
         style={{
