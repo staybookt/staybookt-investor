@@ -248,15 +248,23 @@ export default function HomePage() {
         </p>
       </Moment>
 
-      <Interstitial tone="cream" height="80vh">
-        <p className="font-display text-stone-800 italic leading-[1.05] tracking-tight" style={{ fontSize: 'clamp(36px, 6.5vw, 88px)' }}>
-          {('“')}A month after launch<br />
-          I had homeowners calling me<br />
-          by name from the website.{('”')}
-        </p>
-        <p className="mt-10 text-stone-500 text-xs sm:text-sm font-mono tracking-[0.22em] uppercase">
-          Tim Ciszko · Top Choice Electrical · Newmarket
-        </p>
+      <Interstitial tone="cream" height="88vh">
+        <div className="flex flex-col items-center">
+          <span aria-hidden className="font-display block text-emerald-600/30 leading-[0.65] select-none" style={{ fontSize: 'clamp(140px, 22vw, 320px)' }}>
+            {('“')}
+          </span>
+          <p className="font-display text-stone-900 leading-[1.05] tracking-[-0.035em] -mt-14 sm:-mt-24" style={{ fontSize: 'clamp(40px, 7.5vw, 104px)' }}>
+            A month after launch I had homeowners <span className="text-brand-gradient">calling me by name</span> from the website.
+          </p>
+          <div className="mt-14 flex flex-col items-center gap-2">
+            <p className="font-display text-2xl sm:text-3xl text-stone-900 tracking-tight">
+              Tim Ciszko
+            </p>
+            <p className="font-mono text-[10px] sm:text-xs tracking-[0.32em] uppercase text-stone-500">
+              Top Choice Electrical · Newmarket, Ontario
+            </p>
+          </div>
+        </div>
       </Interstitial>
 
       <Moment tone="cream">
@@ -838,19 +846,34 @@ function ClientCard({
       <a href={href} target="_blank" rel="noopener noreferrer" className="absolute inset-0 z-20" aria-label={`Open ${name}'s live site`} />
       {isMac && (
         <MacBookFrame>
-          <iframe src={href} title={`${name} live site`} loading="lazy" sandbox="allow-same-origin allow-scripts allow-popups" className="border-0 pointer-events-none [width:1400px] [height:900px] [transform-origin:top_left] [transform:scale(0.18)] sm:[transform:scale(0.30)] xl:[transform:scale(0.38)]" />
+          <img
+            src={`https://image.thum.io/get/width/1600/viewportWidth/1440/wait/2/png/${href}`}
+            alt={`${name} live site preview`}
+            loading="lazy"
+            className="block w-full h-full object-cover object-top pointer-events-none"
+          />
         </MacBookFrame>
       )}
       {isPhone && (
         <div className="w-full max-w-[220px]">
           <IPhoneFrame>
-            <iframe src={href} title={`${name} live site`} loading="lazy" sandbox="allow-same-origin allow-scripts allow-popups" className="border-0 pointer-events-none" style={{ width: '390px', height: '844px', transformOrigin: 'top left', transform: 'scale(0.50)' }} />
+            <img
+              src={`https://image.thum.io/get/width/640/viewportWidth/430/wait/2/png/${href}`}
+              alt={`${name} live site preview`}
+              loading="lazy"
+              className="block w-full h-full object-cover object-top pointer-events-none"
+            />
           </IPhoneFrame>
         </div>
       )}
       {!isMac && !isPhone && (
         <div className="absolute inset-0 overflow-hidden">
-          <iframe src={href} title={`${name} live site`} loading="lazy" sandbox="allow-same-origin allow-scripts allow-popups" className="border-0 pointer-events-none [width:1400px] [height:900px] [transform-origin:top_left] [transform:scale(0.26)] sm:[transform:scale(0.32)] md:[transform:scale(0.38)] lg:[transform:scale(0.42)]" />
+          <img
+            src={`https://image.thum.io/get/width/1600/viewportWidth/1440/wait/2/png/${href}`}
+            alt={`${name} live site preview`}
+            loading="lazy"
+            className="block w-full h-full object-cover object-top pointer-events-none"
+          />
         </div>
       )}
       <div className="absolute bottom-3 left-3 z-30 px-2.5 py-1 rounded-md bg-stone-900/85 backdrop-blur-sm border border-stone-700 text-[10px] tracking-[0.18em] uppercase font-semibold text-emerald-300">Live</div>
