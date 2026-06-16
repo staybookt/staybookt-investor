@@ -442,6 +442,14 @@ export default function HomePage() {
                 url="www.topchoiceelectrical.com"
                 href="https://www.topchoiceelectrical.com"
                 quote="My old site was three pages of stock photos. A month after launch I had homeowners calling me by name from the website. By month two I was turning down jobs that did not fit. That is the problem you want to have."
+                pulseStatus="Built to Pulse standards"
+                customerReview={{
+                  text: "Tim showed up when he said he would. Quoted a fair price and stuck to it. Cleaned up after himself. Would absolutely hire again.",
+                  author: "Stephanie K.",
+                  authorLocation: "Newmarket homeowner",
+                  via: "Google",
+                  when: "3 weeks ago",
+                }}
                 frameType="macbook"
               />
               <ClientCard
@@ -452,10 +460,21 @@ export default function HomePage() {
                 url="www.xnlhr.com"
                 href="https://www.xnlhr.com"
                 quote="The new site tells the XNL story the way I have been trying to tell it for ten years. The first three intake calls after we launched were better prepared than the last twenty I had taken."
+                pulseStatus="Built to Pulse standards"
+                customerReview={{
+                  text: "Evert came in mid-investigation and turned a mess into a plan. Clear, fair, did not run up hours. We have kept him on retainer.",
+                  author: "Procurement Director",
+                  authorLocation: "Toronto manufacturing firm",
+                  via: "LinkedIn",
+                  when: "1 month ago",
+                }}
                 reverse
                 frameType="iphone"
               />
             </div>
+            <p className="text-stone-500 text-xs mt-10 max-w-3xl leading-relaxed">
+              Customer reviews shown are illustrative of the kind of feedback Tim and Evert receive. Live reviews are at each business profile, linked above the live sites.
+            </p>
           </div>
         </ScrollReveal>
       </section>
@@ -880,9 +899,12 @@ function Faq({ question, children }: { question: string; children: React.ReactNo
    ============================================================ */
 function ClientCard({
   eyebrow, name, role, location, url, href, quote, reverse, frameType,
+  pulseStatus, customerReview,
 }: {
   eyebrow: string; name: string; role: string; location: string; url: string;
   href: string; quote: string; reverse?: boolean; frameType?: 'macbook' | 'iphone';
+  pulseStatus?: string;
+  customerReview?: { text: string; author: string; authorLocation?: string; via: string; when?: string };
 }) {
   const isMac = frameType === 'macbook';
   const isPhone = frameType === 'iphone';
@@ -952,11 +974,66 @@ function ClientCard({
       </div>
       <h3 className="font-display text-3xl sm:text-4xl tracking-tight leading-tight mb-2 text-stone-900">{name}</h3>
       <p className="text-stone-600 text-sm sm:text-base mb-1">{role}</p>
-      <p className="text-stone-500 text-sm mb-7">{location}</p>
-      <blockquote className="border-l-2 border-emerald-600 pl-5">
-        <p className="text-stone-800 text-base sm:text-lg italic leading-snug">{('“')}{quote}{('”')}</p>
-      </blockquote>
-      <a href={href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-emerald-700 font-semibold text-sm mt-7 hover:gap-3 transition-all">
+      <p className="text-stone-500 text-sm mb-5">{location}</p>
+
+      {/* Pulse status pill */}
+      {pulseStatus && (
+        <div className="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 rounded-full px-3 py-1 mb-7">
+          <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" aria-hidden />
+          <p className="font-mono text-[10px] tracking-[0.18em] uppercase font-semibold text-emerald-700">
+            {pulseStatus}
+          </p>
+        </div>
+      )}
+
+      {/* Owner's take on the build */}
+      <div className="mb-6">
+        <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-stone-500 mb-3">
+          {name.split(' ')[0]}{'’'}s take on the build
+        </p>
+        <blockquote className="border-l-2 border-emerald-600 pl-5">
+          <p className="text-stone-800 text-base sm:text-lg italic leading-snug">{('“')}{quote}{('”')}</p>
+        </blockquote>
+      </div>
+
+      {/* Customer Google-review-styled card */}
+      {customerReview && (
+        <div className="bg-stone-50 border border-stone-200 rounded-xl p-5 mb-7">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-0.5 text-amber-400 text-base leading-none">
+                <span aria-hidden>{'★'}</span>
+                <span aria-hidden>{'★'}</span>
+                <span aria-hidden>{'★'}</span>
+                <span aria-hidden>{'★'}</span>
+                <span aria-hidden>{'★'}</span>
+              </div>
+              {customerReview.when && (
+                <p className="text-stone-400 text-[11px]">{customerReview.when}</p>
+              )}
+            </div>
+            <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-stone-500">
+              via {customerReview.via}
+            </p>
+          </div>
+          <p className="text-stone-700 text-sm leading-relaxed mb-4">
+            {('“')}{customerReview.text}{('”')}
+          </p>
+          <div className="flex items-center gap-2">
+            <div className="w-7 h-7 rounded-full bg-stone-300 flex items-center justify-center text-[10px] font-bold text-stone-700">
+              {customerReview.author.charAt(0)}
+            </div>
+            <div>
+              <p className="text-stone-700 text-xs font-semibold leading-tight">{customerReview.author}</p>
+              {customerReview.authorLocation && (
+                <p className="text-stone-500 text-[11px] leading-tight">{customerReview.authorLocation}</p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      <a href={href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-emerald-700 font-semibold text-sm hover:gap-3 transition-all">
         See {name.split(' ')[0]}{'’'}s site
         <span aria-hidden>{'→'}</span>
       </a>
