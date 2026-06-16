@@ -479,23 +479,97 @@ export default function HomePage() {
         </ScrollReveal>
       </section>
 
-      {/* 05 / PRICING — cream alt */}
+      {/* 05 / PRICING — cream alt — revenue-mix bar comparison */}
       <section id="pricing" className={`scroll-mt-24 ${CREAM_ALT_BG} py-32 sm:py-40 px-6 sm:px-12 border-t border-stone-200`}>
         <ScrollReveal>
           <div className="max-w-5xl mx-auto">
             <Chapter num="05" label="Pricing" tone="cream" />
-            <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
-              What it costs.
+            <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-6 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
+              We get paid when it works.
             </h2>
-            <div className="space-y-px bg-stone-300/60 border border-stone-300 rounded-2xl overflow-hidden">
-              <PriceRowCream price="$1,500 to $2,500" detail="to build the site. One-time. Due at kickoff." />
-              <PriceRowCream price="$99 a month" detail="to keep it running. Cancel any month. No long contract." />
-              <PriceRowCream price="3% to 5%" detail="on new business that the website actually brings in. Tracked, not estimated." highlight />
-            </div>
-            <p className="mt-8 text-stone-700 text-base sm:text-lg leading-relaxed max-w-2xl">
-              We make most of our money on the third row. Which means we are on the hook for the first two doing what they are supposed to do.
+            <p className="text-stone-600 text-base sm:text-lg mb-16 max-w-2xl leading-relaxed">
+              Most agencies make their money before they do the work. We made the opposite bet. Almost nothing upfront, most of our revenue on the third row.
             </p>
-            <p className="mt-3 text-stone-500 text-xs">
+
+            {/* Two-bar revenue mix comparison */}
+            <div className="space-y-12 mb-20">
+              {/* Agency bar */}
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.22em] uppercase font-bold text-stone-500">
+                    How a typical marketing agency makes money
+                  </p>
+                  <p className="font-mono text-[10px] tracking-[0.18em] uppercase text-stone-400 hidden sm:block">
+                    Revenue mix
+                  </p>
+                </div>
+                <div className="flex h-14 sm:h-16 rounded-lg overflow-hidden border border-stone-300 shadow-sm">
+                  <div className="flex-[95] bg-stone-400 flex items-center justify-center text-white" style={{ minWidth: '70px' }}>
+                    <p className="font-mono text-[10px] sm:text-xs tracking-[0.15em] uppercase font-bold text-center px-2 leading-tight">
+                      Flat fee · 95%
+                    </p>
+                  </div>
+                  <div className="flex-[5] bg-gradient-to-r from-elec/40 to-plumb/40 flex items-center justify-center text-white" style={{ minWidth: '40px' }}>
+                    <p className="font-mono text-[9px] sm:text-[10px] tracking-[0.15em] uppercase font-bold">
+                      5%
+                    </p>
+                  </div>
+                </div>
+                <p className="text-stone-600 text-xs sm:text-sm mt-3 leading-relaxed">
+                  $5,000 to $15,000 upfront, plus a monthly retainer. You pay whether the work brings you anything or not. Most agencies do not even bother with the 5% performance kicker.
+                </p>
+              </div>
+
+              {/* StayBookt bar */}
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.22em] uppercase font-bold text-emerald-700">
+                    How StayBookt makes money
+                  </p>
+                  <p className="font-mono text-[10px] tracking-[0.18em] uppercase text-stone-400 hidden sm:block">
+                    Revenue mix
+                  </p>
+                </div>
+                <div className="flex h-14 sm:h-16 rounded-lg overflow-hidden border border-stone-300 shadow-sm">
+                  <div className="flex-[8] bg-stone-400 flex items-center justify-center text-white" style={{ minWidth: '52px' }}>
+                    <p className="font-mono text-[9px] sm:text-[10px] tracking-[0.12em] uppercase font-bold text-center px-1 leading-tight">
+                      Build
+                      <br className="sm:hidden" />
+                      <span className="sm:ml-1">8%</span>
+                    </p>
+                  </div>
+                  <div className="flex-[10] bg-stone-500 flex items-center justify-center text-white" style={{ minWidth: '56px' }}>
+                    <p className="font-mono text-[9px] sm:text-[10px] tracking-[0.12em] uppercase font-bold text-center px-1 leading-tight">
+                      Monthly
+                      <br className="sm:hidden" />
+                      <span className="sm:ml-1">10%</span>
+                    </p>
+                  </div>
+                  <div className="flex-[82] bg-gradient-to-r from-elec to-plumb flex items-center justify-center text-white">
+                    <p className="font-mono text-[10px] sm:text-xs tracking-[0.15em] uppercase font-bold text-center px-2 leading-tight">
+                      Performance · 82%
+                    </p>
+                  </div>
+                </div>
+                <p className="text-stone-700 text-xs sm:text-sm mt-3 leading-relaxed">
+                  <span className="font-semibold">If the site does not bring you new business, we do not get paid.</span> So we work like it.
+                </p>
+              </div>
+            </div>
+
+            {/* The actual price list */}
+            <div className="border-t border-stone-300/60 pt-12 mb-8">
+              <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.22em] uppercase font-bold text-stone-500 mb-6">
+                The actual numbers
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <PriceCell amount="$1,500 to $2,500" detail="One-time build fee. Due at kickoff." />
+                <PriceCell amount="$99 a month" detail="To keep the site running. Cancel any month." />
+                <PriceCell amount="3% to 5%" detail="On new business the site brings in. Tracked, not estimated." highlight />
+              </div>
+            </div>
+
+            <p className="text-stone-500 text-xs">
               All prices in CAD. Built for Ontario operators.
             </p>
           </div>
@@ -1048,13 +1122,13 @@ function ClientCard({
 }
 
 /* ============================================================
-   Pricing row — cream
+   Pricing cell — used in the "actual numbers" grid below the bars
    ============================================================ */
-function PriceRowCream({ price, detail, highlight }: { price: string; detail: string; highlight?: boolean }) {
+function PriceCell({ amount, detail, highlight }: { amount: string; detail: string; highlight?: boolean }) {
   return (
-    <div className={`flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6 px-6 sm:px-8 py-7 ${highlight ? 'bg-emerald-50' : 'bg-white'}`}>
-      <p className={`font-display text-3xl sm:text-4xl tracking-tight leading-none whitespace-nowrap ${highlight ? 'text-emerald-700' : 'text-stone-900'}`}>{price}</p>
-      <p className="text-stone-700 text-base sm:text-lg leading-snug">{detail}</p>
+    <div className={`rounded-2xl p-6 ${highlight ? 'bg-emerald-50 border-2 border-emerald-300' : 'bg-white border border-stone-200'}`}>
+      <p className={`font-display text-2xl sm:text-3xl tracking-tight leading-none mb-3 ${highlight ? 'text-emerald-700' : 'text-stone-900'}`}>{amount}</p>
+      <p className="text-stone-600 text-sm leading-snug">{detail}</p>
     </div>
   );
 }
