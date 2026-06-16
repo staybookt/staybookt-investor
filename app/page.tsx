@@ -610,7 +610,8 @@ export default function HomePage() {
               </div>
             </div>
             <div className="pt-8 border-t border-divider/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-mute">
-              <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+              <div class
+="flex flex-wrap items-center gap-x-6 gap-y-2">
                 <a href="https://www.topchoiceelectrical.com" target="_blank" rel="noopener noreferrer" className="hover:text-platinum-soft transition-colors">topchoiceelectrical.com</a>
                 <a href="https://www.xnlhr.com" target="_blank" rel="noopener noreferrer" className="hover:text-platinum-soft transition-colors">xnlhr.com</a>
                 <Link href="/brief" className="hover:text-platinum-soft transition-colors">For investors and partners, read the brief</Link>
@@ -626,12 +627,13 @@ export default function HomePage() {
 
 /* ============================================================
    Moment — content section between interstitials.
-   No background. Just padding + ScrollReveal wrapper.
+   Now owns its own bg by tone. The continuous-gradient is gone.
    ============================================================ */
 function Moment({ children, tone, id }: { children: React.ReactNode; tone: 'dark' | 'cream'; id?: string }) {
+  const bg = tone === 'cream' ? 'bg-stone-50' : 'bg-ink-deep';
   const textColor = tone === 'cream' ? 'text-stone-900' : 'text-white';
   return (
-    <section id={id} className={`relative px-6 sm:px-12 py-14 sm:py-20 ${id ? 'scroll-mt-24' : ''} ${textColor}`}>
+    <section id={id} className={`relative px-6 sm:px-12 py-14 sm:py-20 ${id ? 'scroll-mt-24' : ''} ${bg} ${textColor}`}>
       <ScrollReveal>
         <div className="max-w-6xl mx-auto">{children}</div>
       </ScrollReveal>
