@@ -576,18 +576,49 @@ export default function HomePage() {
         </ScrollReveal>
       </section>
 
-      {/* 06 / TIMELINE — cream */}
+      {/* 06 / TIMELINE — horizontal milestone bar */}
       <section className={`${CREAM_BG} py-32 sm:py-40 px-6 sm:px-12 border-t border-stone-200`}>
         <ScrollReveal>
           <div className="max-w-6xl mx-auto">
             <Chapter num="06" label="Timeline" tone="cream" />
-            <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
-              Three weeks from kickoff to live.
+            <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-6 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
+              Three weeks. Then it just runs.
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              <StepCream num="01" title="Week 1" body="We talk. You walk us through what you do, who you serve, what is broken, what is working. We come back with the list of what we need from you (photos, services, areas, reviews) and a build timeline." />
-              <StepCream num="02" title="Week 2 and 3" body="We build. You see drafts as they come together. Two rounds of changes. Then we ship." />
-              <StepCream num="03" title="Week 4 forward" body="The site is live. Google Business Profile is rebuilt. The review pipeline is running. Missed-call SMS is wired. You go back to running the business. The Monday brief lands in your inbox at 7 a.m." />
+            <p className="text-stone-600 text-base sm:text-lg mb-20 max-w-2xl leading-relaxed">
+              We do not disappear after launch. Week 4 is when the Monday brief starts landing in your inbox. Week 12 is when the Pulse score starts moving up.
+            </p>
+
+            {/* Horizontal milestone bar */}
+            <div className="relative">
+              {/* Connecting gradient line, desktop only */}
+              <div className="hidden md:block absolute top-5 left-[5%] right-[5%] h-0.5 bg-gradient-to-r from-stone-300 via-emerald-300 to-emerald-500" aria-hidden />
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-6 relative">
+                <TimelineMilestone
+                  week="Day 1"
+                  title="Kickoff call"
+                  body="60 minutes. You walk us through what you do, who you serve, what is broken. We come back the next morning with the build list."
+                  tone="stone"
+                />
+                <TimelineMilestone
+                  week="Week 1"
+                  title="Account brain"
+                  body="We catalog your services, areas, photos, real reviews, real customer voice. The site is built from this, not a template."
+                  tone="stone"
+                />
+                <TimelineMilestone
+                  week="Week 3"
+                  title="Site goes live"
+                  body="Domain points. GBP rebuilt. Review pipeline running. Missed-call SMS wired. You are off the laptop."
+                  tone="emerald-light"
+                />
+                <TimelineMilestone
+                  week="Week 4 →"
+                  title="Monday brief lands"
+                  body="7 a.m. every Monday. Numbers in your inbox. Pulse runs the diagnostic weekly. You run the business."
+                  tone="emerald"
+                  final
+                />
+              </div>
             </div>
           </div>
         </ScrollReveal>
@@ -620,6 +651,9 @@ export default function HomePage() {
               <Faq question="What if I want to switch trades or add a new service?">
                 Tell us. The website gets the new pages within a week. Pulse adapts. The Monday brief shows the new metrics. Service businesses change shape all the time. The site should never be the thing holding that back.
               </Faq>
+              <Faq question="What happens when I hire help?">
+                Tell us. We add your office manager, your apprentice, or your spouse to the Monday brief. They get their own view, their own access. The owner stays the person we talk to. The team gets what they need to do their part.
+              </Faq>
             </div>
             <p className="text-mute text-xs sm:text-sm mt-10 leading-relaxed">
               Have one we did not answer? Text it to (647) 490-8937 or bring it to the call.
@@ -636,20 +670,55 @@ export default function HomePage() {
             <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
               Pick one. We pick up from there.
             </h2>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-              <a href={PULSE_SMS} className="group block bg-paper/[0.03] border border-divider/60 hover:border-elec/40 rounded-2xl p-8 sm:p-10 transition-colors">
-                <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-elec mb-4">Option one</p>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+              {/* Pulse — 2/3 width, with inline SMS preview */}
+              <a href={PULSE_SMS} className="group lg:col-span-2 block bg-paper/[0.03] border border-divider/60 hover:border-elec/40 rounded-2xl p-8 sm:p-10 transition-colors">
+                <div className="flex items-center gap-3 mb-4">
+                  <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-elec">Option one</p>
+                  <span className="font-mono text-[9px] tracking-[0.18em] uppercase font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 rounded-full px-2 py-0.5">
+                    Recommended
+                  </span>
+                </div>
                 <h3 className="font-display text-3xl sm:text-4xl tracking-tight leading-tight mb-4">Text Pulse.</h3>
-                <p className="text-platinum-soft text-base leading-relaxed mb-6">Text your business URL to (647) 490-8937. We run a 14-signal diagnostic. PDF lands on your phone in 90 seconds. No signup. We do not put you on a list.</p>
+                <p className="text-platinum-soft text-base leading-relaxed mb-7">
+                  Text your business URL to (647) 490-8937. PDF with your 14-signal diagnostic lands on your phone in 90 seconds. No signup. We do not put you on a list.
+                </p>
+
+                {/* Mini SMS preview of what visitor will receive */}
+                <div className="bg-ink/40 border border-divider/40 rounded-xl p-4 mb-7">
+                  <p className="font-mono text-[9px] tracking-[0.22em] uppercase font-bold text-mute mb-3">What you will receive</p>
+                  <div className="space-y-2">
+                    <div className="flex justify-end">
+                      <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-2xl rounded-tr-md px-3 py-2 max-w-[80%] text-[11px] leading-relaxed">
+                        yourbusiness.com
+                      </div>
+                    </div>
+                    <div className="flex justify-start">
+                      <div className="bg-divider/40 text-platinum rounded-2xl rounded-tl-md px-3 py-2 max-w-[88%] text-[11px] leading-relaxed">
+                        On it. Pulse running on yourbusiness.com. About 90 seconds.
+                      </div>
+                    </div>
+                    <div className="flex justify-start">
+                      <div className="bg-divider/40 text-platinum rounded-2xl rounded-tl-md px-3 py-2 max-w-[88%] text-[11px] leading-relaxed">
+                        Pulse complete. 6 of 14 signals strong. PDF: pulse.staybookt.com/pdf
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <span className="inline-flex items-center gap-2 text-elec font-semibold text-sm">
                   Open Messages
                   <span aria-hidden className="group-hover:translate-x-1 transition-transform">{'→'}</span>
                 </span>
               </a>
+
+              {/* Book a call — 1/3 width */}
               <a href={CAL_LINK} target="_blank" rel="noopener noreferrer" className="group block bg-paper/[0.03] border border-divider/60 hover:border-plumb/40 rounded-2xl p-8 sm:p-10 transition-colors">
                 <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-plumb mb-4">Option two</p>
                 <h3 className="font-display text-3xl sm:text-4xl tracking-tight leading-tight mb-4">Book a call.</h3>
-                <p className="text-platinum-soft text-base leading-relaxed mb-6">30 minutes with Jacob. We walk through your business, what would actually move the needle, what it would cost. No pitch deck. No homework.</p>
+                <p className="text-platinum-soft text-base leading-relaxed mb-6">
+                  30 minutes with Jacob. We walk through your business, what would move the needle, what it would cost. No pitch deck. No homework.
+                </p>
                 <span className="inline-flex items-center gap-2 text-plumb font-semibold text-sm">
                   Pick a time
                   <span aria-hidden className="group-hover:translate-x-1 transition-transform">{'→'}</span>
@@ -669,8 +738,22 @@ export default function HomePage() {
               Who is behind this.
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <PersonCard initial="J" name="Jacob Charendoff" role="Co-founder" body="Runs the build, the platform, and the Pulse intelligence layer. Background in operations and software for owner-operated businesses. Lives in Toronto." />
-              <PersonCard initial="R" name="Richard Roos, CPA" role="Co-founder" body="20 years in finance and operations across a range of sectors. Runs intake, client work, and the parts of the business that need a senior voice. Lives in Newmarket." />
+              <PersonCard
+                initial="J"
+                name="Jacob Charendoff"
+                role="Co-founder · Builder"
+                bio="Builds the websites, runs the Pulse intelligence layer, ships the back-office systems. Background in operations and software for owner-operated businesses. Lives in Toronto."
+                voiceQuote="If the site does not bring you anything in 90 days, something is broken. Tell me and I will fix it."
+                meetWhen="On the kickoff call. In your Monday brief replies. Anytime you text the (647) number."
+              />
+              <PersonCard
+                initial="R"
+                name="Richard Roos, CPA"
+                role="Co-founder · Operator"
+                bio="20 years across finance and operations. Runs intake, client relationships, and the parts of the work that need a senior voice. Lives in Newmarket."
+                voiceQuote="I sign off the numbers before they go to a client. Always. That is what we are paid for."
+                meetWhen="On the intro call before kickoff. In the quarterly performance review. Whenever the numbers need a second pair of eyes."
+              />
             </div>
           </div>
         </ScrollReveal>
@@ -1134,32 +1217,62 @@ function PriceCell({ amount, detail, highlight }: { amount: string; detail: stri
 }
 
 /* ============================================================
-   Step (timeline) — cream
+   TimelineMilestone — single milestone with dot + week + body
    ============================================================ */
-function StepCream({ num, title, body }: { num: string; title: string; body: string }) {
+function TimelineMilestone({ week, title, body, tone, final }: { week: string; title: string; body: string; tone: 'stone' | 'emerald-light' | 'emerald'; final?: boolean }) {
+  const dotClasses = {
+    'stone': 'bg-stone-400 border-stone-500',
+    'emerald-light': 'bg-emerald-400 border-emerald-500',
+    'emerald': 'bg-emerald-600 border-emerald-700',
+  }[tone];
+
   return (
-    <div className="bg-white border border-stone-200 rounded-2xl p-7 shadow-sm">
-      <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-stone-500 mb-4">Step {num}</p>
-      <h3 className="font-display text-2xl tracking-tight mb-3 text-stone-900">{title}</h3>
-      <p className="text-stone-700 text-sm sm:text-base leading-relaxed">{body}</p>
+    <div className="relative text-center md:text-left">
+      <div className={`mx-auto md:mx-0 w-10 h-10 rounded-full ${dotClasses} border-2 mb-5 flex items-center justify-center relative z-10 ${final ? 'shadow-lg shadow-emerald-500/30' : ''}`}>
+        <span className={`w-2.5 h-2.5 rounded-full bg-white ${final ? 'animate-pulse' : ''}`} aria-hidden />
+      </div>
+      <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-stone-500 mb-2">
+        {week}
+      </p>
+      <h3 className="font-display text-xl sm:text-2xl tracking-tight leading-tight mb-3 text-stone-900">
+        {title}
+      </h3>
+      <p className="text-stone-600 text-sm leading-relaxed">
+        {body}
+      </p>
     </div>
   );
 }
 
 /* ============================================================
-   Person card — dark
+   Person card — dark — with voice quote + meet-when
    ============================================================ */
-function PersonCard({ initial, name, role, body }: { initial: string; name: string; role: string; body: string }) {
+function PersonCard({ initial, name, role, bio, voiceQuote, meetWhen }: { initial: string; name: string; role: string; bio: string; voiceQuote?: string; meetWhen?: string }) {
   return (
     <div className="bg-paper/[0.03] border border-divider/60 rounded-2xl p-7 sm:p-8">
-      <div className="flex items-center gap-5 mb-5">
-        <div className="w-16 h-16 rounded-full flex items-center justify-center font-display text-2xl font-bold bg-gradient-to-br from-elec/30 to-plumb/30 text-white border border-divider/60">{initial}</div>
-        <div>
-          <h3 className="font-display text-2xl tracking-tight leading-none">{name}</h3>
-          <p className="font-mono text-elec text-xs tracking-[0.18em] uppercase font-semibold mt-2">{role}</p>
+      <div className="flex items-start gap-5 mb-6">
+        <div className="w-16 h-16 rounded-full flex items-center justify-center font-display text-2xl font-bold bg-gradient-to-br from-elec/30 to-plumb/30 text-white border border-divider/60 shrink-0">{initial}</div>
+        <div className="flex-1 min-w-0 pt-1">
+          <h3 className="font-display text-2xl tracking-tight leading-none mb-2">{name}</h3>
+          <p className="font-mono text-elec text-[11px] tracking-[0.18em] uppercase font-semibold">{role}</p>
         </div>
       </div>
-      <p className="text-platinum-soft text-base leading-relaxed">{body}</p>
+      <p className="text-platinum-soft text-base leading-relaxed mb-6">{bio}</p>
+
+      {voiceQuote && (
+        <div className="bg-paper/[0.04] border-l-2 border-elec/60 pl-4 py-3 mb-6">
+          <p className="text-platinum text-sm italic leading-relaxed">{('“')}{voiceQuote}{('”')}</p>
+        </div>
+      )}
+
+      {meetWhen && (
+        <div>
+          <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-mute mb-2">
+            Where you meet
+          </p>
+          <p className="text-platinum-soft text-sm leading-relaxed">{meetWhen}</p>
+        </div>
+      )}
     </div>
   );
 }
