@@ -164,17 +164,27 @@ export default function HeroPulse() {
           <span className="text-platinum-soft">Service businesses under $1M</span>
         </p>
 
-        <h1 className="font-display text-[44px] sm:text-[68px] lg:text-[88px] leading-[1.02] tracking-[-0.035em] mb-10 max-w-5xl mx-auto mobile-text-balance">
-          Software{' '}
-          <span className="text-brand-gradient-slow">should do the job</span>
-          ,<br className="hidden sm:block" />{' '}
-          not hand you another one.
+        <h1 className="font-display text-[44px] sm:text-[68px] lg:text-[96px] leading-[1.02] tracking-[-0.035em] mb-6 max-w-5xl mx-auto mobile-text-balance">
+          Most owners lose{' '}
+          <span className="text-brand-gradient">$73,000</span>{' '}
+          a year.
         </h1>
 
-        {/* Pulse explainer caption + live usage ticker */}
-        <div className="flex flex-col items-center gap-4 mb-10 max-w-xl mx-auto">
+        <p className="text-platinum-soft text-base sm:text-lg lg:text-xl leading-relaxed mb-10 max-w-3xl mx-auto">
+          Between $50,000 and $90,000. To three things. None of them are strategy. All of them are response time.
+        </p>
+
+        {/* Three leak chips */}
+        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-12 max-w-3xl mx-auto">
+          <LeakChip label="Missed calls" amount="$24K" />
+          <LeakChip label="Slow quote follow-up" amount="$31K" />
+          <LeakChip label="Missing reviews" amount="$18K" />
+        </div>
+
+        {/* Pulse explainer + live usage ticker */}
+        <div className="flex flex-col items-center gap-3 mb-10 max-w-xl mx-auto">
           <p className="text-platinum-soft text-sm sm:text-base leading-relaxed">
-            Pulse is your free diagnostic. 14 signals across your website, your Google profile, your reviews, your competitors. Texted to your phone in 90 seconds.
+            Pulse shows you <span className="text-white font-semibold">your</span> three numbers. Texted to your phone in 90 seconds.
           </p>
           <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.22em] uppercase text-mute inline-flex items-center gap-2.5">
             <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" aria-hidden />
@@ -300,5 +310,18 @@ export default function HeroPulse() {
         </div>
       </div>
     </section>
+  );
+}
+
+function LeakChip({ label, amount }: { label: string; amount: string }) {
+  return (
+    <div className="inline-flex items-center gap-2.5 bg-paper/[0.04] border border-divider/60 rounded-full px-4 py-2 text-xs sm:text-sm">
+      <span className="font-mono tracking-[0.12em] uppercase text-[10px] sm:text-[11px] text-platinum-soft font-semibold">
+        {label}
+      </span>
+      <span className="font-display text-base sm:text-lg text-amber-400 font-semibold tabular-nums">
+        {amount}
+      </span>
+    </div>
   );
 }
