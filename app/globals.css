@@ -29,21 +29,6 @@
   --elec-accent: #4F46E5;
 }
 
-/* -----------------------------------------------------------
-   Type scale
-   role            px    class hint
-   reserved-mega   200   text-[200px]        (future)
-   reserved-hero   120   text-[120px]        (future)
-   hero-h1          88   lg:text-[88px]
-   section-display  56   (via clamp)
-   section-h2       40   text-4xl
-   card-title       32   text-[32px]
-   subhead          24   text-2xl
-   body-large       19   text-[19px]
-   body             16   text-base
-   meta             13   text-[13px]
-   micro            11   text-[11px]
-   ----------------------------------------------------------- */
 :root {
   --fs-d200: 200px; --fs-d120: 120px; --fs-d88: 88px;
   --fs-d56: 56px;  --fs-d40: 40px;   --fs-d32: 32px;
@@ -82,41 +67,73 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
-  /* overflow-x:clip removed from body — mixing clip+visible on body suppresses
-     scroll events and IntersectionObserver in Chromium. Scoped to main#top below. */
 }
 
-/* Clip horizontal overflow on the homepage only.
-   Keeps body overflow normal (scroll events fire, IO fires, /brief sticky unaffected). */
 main#top {
   overflow-x: clip;
 }
 
-/* Atmospheric body background — fixed gradient mesh.
-   Three soft radials at low opacity over the deep-ink base. Gives the page
-   depth without competing with content. */
-body::before {
+/* ===== SCROLL STAGE ==========================================
+   The new continuous-gradient background for the homepage.
+   One canvas that flows from dark (diagnosis) through cream
+   (evidence + mechanism) and back to dark (commitment + team).
+   ============================================================= */
+main.scroll-stage {
+  position: relative;
+  background:
+    linear-gradient(
+      to bottom,
+      #050811 0%,
+      #050811 28%,
+      #1F2937 34%,
+      #F4EFE3 42%,
+      #FAF8F2 55%,
+      #FAF8F2 70%,
+      #F4EFE3 76%,
+      #1F2937 86%,
+      #050811 92%,
+      #050811 100%
+    );
+}
+
+main.scroll-stage::before {
   content: '';
-  position: fixed;
+  position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
   background:
     radial-gradient(ellipse 70% 55% at 18% 8%, rgba(6, 182, 212, 0.16), transparent 60%),
-    radial-gradient(ellipse 55% 50% at 92% 92%, rgba(16, 185, 129, 0.13), transparent 60%),
-    radial-gradient(ellipse 40% 40% at 50% 60%, rgba(79, 70, 229, 0.08), transparent 70%);
+    radial-gradient(ellipse 55% 35% at 92% 95%, rgba(16, 185, 129, 0.13), transparent 60%),
+    radial-gradient(ellipse 40% 30% at 50% 50%, rgba(79, 70, 229, 0.08), transparent 70%);
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,1) 26%,
+    rgba(0,0,0,0) 42%,
+    rgba(0,0,0,0) 78%,
+    rgba(0,0,0,1) 92%,
+    rgba(0,0,0,1) 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,1) 26%,
+    rgba(0,0,0,0) 42%,
+    rgba(0,0,0,0) 78%,
+    rgba(0,0,0,1) 92%,
+    rgba(0,0,0,1) 100%
+  );
 }
-body > * { position: relative; z-index: 1; }
 
-/* Display typography — Inter Tight loaded via next/font, falls back to
-   Helvetica Neue. All headings (H1-H3), price rows, metric tiles use this. */
+main.scroll-stage > * { position: relative; z-index: 1; }
+
 .font-display {
   font-family: var(--font-display), 'Inter Tight', 'Helvetica Neue', system-ui, sans-serif;
   letter-spacing: -0.03em;
   font-weight: 700;
 }
 
-/* Wordmark / full gradient sweep */
 .wordmark-gradient {
   background: linear-gradient(90deg, #06B6D4 0%, #10B981 25%, #14B8A6 50%, #2563EB 75%, #4F46E5 100%);
   -webkit-background-clip: text;
@@ -134,8 +151,6 @@ body > * { position: relative; z-index: 1; }
   animation: wordmark-pulse 7s ease-in-out infinite;
 }
 
-/* Brand gradient on inline text — simpler two-stop cyan to emerald. Use this
-   to highlight specific words inside paragraphs and headlines. */
 .text-brand-gradient {
   background: linear-gradient(96deg, #06B6D4 0%, #10B981 100%);
   -webkit-background-clip: text;
@@ -154,7 +169,6 @@ body > * { position: relative; z-index: 1; }
   animation: wordmark-pulse 9s ease-in-out infinite;
 }
 
-/* Gradient border helper. Use as <div class="gradient-border"><div>...</div></div> */
 .gradient-border {
   position: relative;
   background: linear-gradient(135deg, rgba(6,182,212,0.4), rgba(16,185,129,0.4));
@@ -172,21 +186,11 @@ body > * { position: relative; z-index: 1; }
   .wordmark-gradient-live, .text-brand-gradient-slow { animation: none; }
 }
 
-/* Tri-vertical gradient backgrounds */
-.gradient-tri {
-  background: linear-gradient(135deg, var(--elec) 0%, var(--plumb) 50%, var(--hvac) 100%);
-}
-.gradient-elec {
-  background: linear-gradient(180deg, var(--elec-deep) 0%, var(--elec) 50%, var(--elec-light) 100%);
-}
-.gradient-plumb {
-  background: linear-gradient(180deg, var(--plumb-deep) 0%, var(--plumb) 50%, var(--plumb-light) 100%);
-}
-.gradient-hvac {
-  background: linear-gradient(180deg, var(--hvac-deep) 0%, var(--hvac) 50%, var(--hvac-light) 100%);
-}
+.gradient-tri { background: linear-gradient(135deg, var(--elec) 0%, var(--plumb) 50%, var(--hvac) 100%); }
+.gradient-elec { background: linear-gradient(180deg, var(--elec-deep) 0%, var(--elec) 50%, var(--elec-light) 100%); }
+.gradient-plumb { background: linear-gradient(180deg, var(--plumb-deep) 0%, var(--plumb) 50%, var(--plumb-light) 100%); }
+.gradient-hvac { background: linear-gradient(180deg, var(--hvac-deep) 0%, var(--hvac) 50%, var(--hvac-light) 100%); }
 
-/* Decorative orbs */
 .orb {
   position: absolute;
   border-radius: 50%;
@@ -195,12 +199,8 @@ body > * { position: relative; z-index: 1; }
   pointer-events: none;
 }
 
-/* Section anchor offset */
-section[id] {
-  scroll-margin-top: 5rem;
-}
+section[id] { scroll-margin-top: 5rem; }
 
-/* Hide scrollbar on horizontal scrollers */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { scrollbar-width: none; }
 
@@ -222,33 +222,20 @@ section[id] {
 }
 
 @media (max-width: 640px) {
-  .font-display {
-    word-break: keep-all;
-    overflow-wrap: break-word;
-  }
+  .font-display { word-break: keep-all; overflow-wrap: break-word; }
 }
 
 .mobile-text-balance { text-wrap: balance; }
 
-.hover-lift {
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
-}
-.hover-lift:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 18px 48px -16px rgba(0, 0, 0, 0.35);
-}
+.hover-lift { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease; }
+.hover-lift:hover { transform: translateY(-4px); box-shadow: 0 18px 48px -16px rgba(0, 0, 0, 0.35); }
 
 .zoom-on-hover { overflow: hidden; }
-.zoom-on-hover img {
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
+.zoom-on-hover img { transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
 .zoom-on-hover:hover img { transform: scale(1.04); }
 
 @media (prefers-reduced-motion: reduce) {
-  .hover-lift, .zoom-on-hover img {
-    transition: none !important;
-    transform: none !important;
-  }
+  .hover-lift, .zoom-on-hover img { transition: none !important; transform: none !important; }
 }
 
 .hero-cta {
@@ -269,7 +256,6 @@ section[id] {
 .hero-cta:hover::before { opacity: 1; }
 .hero-cta:hover { color: #0A0E1A; transform: translateY(-1px); }
 
-/* Pulse ring node pulse */
 @keyframes node-active-pulse {
   0%   { transform: scale(1); opacity: 1; }
   50%  { transform: scale(1.15); opacity: 0.85; }
