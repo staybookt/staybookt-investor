@@ -26,8 +26,13 @@ export default function HomePage() {
       <TopNav />
       <PersistentPulse />
 
+      {/* ════════════════════════════════════════
+          ZONE 1 / DIAGNOSIS
+          ════════════════════════════════════════ */}
+
       <HeroPulse />
 
+      {/* Subhead — was HeroPulseShell. Now inline as part of hero close. */}
       <section className="px-6 sm:px-12 py-12 sm:py-16">
         <ScrollReveal>
           <div className="max-w-5xl mx-auto text-center">
@@ -41,7 +46,7 @@ export default function HomePage() {
         </ScrollReveal>
       </section>
 
-      <Interstitial tone="dark" height="50vh">
+      <Interstitial tone="dark" height="55vh">
         <p className="font-mono text-[11px] sm:text-xs tracking-[0.32em] uppercase font-bold text-elec mb-12">
           The diagnosis
         </p>
@@ -97,7 +102,11 @@ export default function HomePage() {
         </p>
       </Moment>
 
-      <Interstitial tone="cream" height="55vh">
+      {/* ════════════════════════════════════════
+          ZONE 2 / EMPATHY + EVIDENCE
+          ════════════════════════════════════════ */}
+
+      <Interstitial tone="cream" height="50vh">
         <p className="font-mono text-[11px] sm:text-xs tracking-[0.32em] uppercase font-bold text-stone-500 mb-12">
           Your week
         </p>
@@ -249,6 +258,7 @@ export default function HomePage() {
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+          {/* Monday brief email mockup */}
           <div className="flex flex-col">
             <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-stone-500 mb-3">Monday at 7 a.m.</p>
             <h3 className="font-display text-2xl sm:text-3xl tracking-tight leading-tight mb-5 text-stone-900">Your week in one email.</h3>
@@ -282,6 +292,7 @@ export default function HomePage() {
             </div>
           </div>
 
+          {/* SMS mockup */}
           <div className="flex flex-col">
             <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-emerald-600 mb-3">Same day, after the job.</p>
             <h3 className="font-display text-2xl sm:text-3xl tracking-tight leading-tight mb-5 text-stone-900">Reviews while the work is fresh.</h3>
@@ -329,6 +340,7 @@ export default function HomePage() {
           The brief gets adapted to your trade and your funnel. A plumber sees emergency-call response time. A fractional consultant sees pipeline meetings booked. Same shape, different metrics.
         </p>
 
+        {/* Third artifact */}
         <div className="mt-24 pt-16 border-t border-stone-300/60">
           <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-elec mb-3">And any time you want to ask.</p>
           <h3 className="font-display text-3xl sm:text-4xl tracking-tight leading-tight mb-4 text-stone-900 max-w-2xl">Run your business by text.</h3>
@@ -384,6 +396,10 @@ export default function HomePage() {
           </div>
         </div>
       </Moment>
+
+      {/* ════════════════════════════════════════
+          ZONE 3 / MECHANISM
+          ════════════════════════════════════════ */}
 
       <Interstitial tone="cream" height="55vh">
         <p className="font-mono text-[11px] sm:text-xs tracking-[0.32em] uppercase font-bold text-stone-500 mb-12">
@@ -476,6 +492,10 @@ export default function HomePage() {
           </div>
         </div>
       </Moment>
+
+      {/* ════════════════════════════════════════
+          ZONE 4 / COMMITMENT
+          ════════════════════════════════════════ */}
 
       <Moment tone="dark" id="faq">
         <Eyebrow tone="dark">Questions</Eyebrow>
@@ -574,6 +594,7 @@ export default function HomePage() {
         </div>
       </Moment>
 
+      {/* FOOTER */}
       <footer className="px-6 sm:px-12 py-16 border-t border-divider/40">
         <ScrollReveal>
           <div className="max-w-6xl mx-auto">
@@ -603,10 +624,14 @@ export default function HomePage() {
   );
 }
 
+/* ============================================================
+   Moment — content section between interstitials.
+   No background. Just padding + ScrollReveal wrapper.
+   ============================================================ */
 function Moment({ children, tone, id }: { children: React.ReactNode; tone: 'dark' | 'cream'; id?: string }) {
   const textColor = tone === 'cream' ? 'text-stone-900' : 'text-white';
   return (
-    <section id={id} className={`relative px-6 sm:px-12 py-24 sm:py-32 ${id ? 'scroll-mt-24' : ''} ${textColor}`}>
+    <section id={id} className={`relative px-6 sm:px-12 py-14 sm:py-20 ${id ? 'scroll-mt-24' : ''} ${textColor}`}>
       <ScrollReveal>
         <div className="max-w-6xl mx-auto">{children}</div>
       </ScrollReveal>
@@ -614,6 +639,9 @@ function Moment({ children, tone, id }: { children: React.ReactNode; tone: 'dark
   );
 }
 
+/* ============================================================
+   Eyebrow — small chapter label at the top of a Moment
+   ============================================================ */
 function Eyebrow({ children, tone }: { children: React.ReactNode; tone: 'cream' | 'dark' }) {
   const color = tone === 'cream' ? 'text-stone-500' : 'text-elec';
   return (
@@ -623,6 +651,9 @@ function Eyebrow({ children, tone }: { children: React.ReactNode; tone: 'cream' 
   );
 }
 
+/* ============================================================
+   LeakCard
+   ============================================================ */
 function LeakCard({ label, amount, stat, stop, source }: { label: string; amount: string; stat: string; stop: string; source: string }) {
   return (
     <div className="bg-paper/[0.03] border border-divider/60 rounded-2xl p-7 sm:p-8 flex flex-col">
@@ -639,6 +670,9 @@ function LeakCard({ label, amount, stat, stop, source }: { label: string; amount
   );
 }
 
+/* ============================================================
+   WeeklyGrid
+   ============================================================ */
 function WeeklyGrid() {
   type BlockType = 'tools' | 'admin' | 'family' | 'own';
   const days: { label: string; am: BlockType; pm: BlockType; eve: BlockType }[] = [
@@ -690,6 +724,9 @@ function WeeklyGrid() {
   );
 }
 
+/* ============================================================
+   WeeklyGridAfter
+   ============================================================ */
 function WeeklyGridAfter() {
   type BlockType = 'tools' | 'sb' | 'family' | 'own';
   type DayBlock = { type: BlockType; label: string };
@@ -739,6 +776,9 @@ function WeeklyGridAfter() {
   );
 }
 
+/* ============================================================
+   Metric tile
+   ============================================================ */
 function Metric({ label, value, detail, trend }: { label: string; value: string; detail: string; trend?: 'up' | 'down' }) {
   const trendColor = trend === 'up' ? 'text-emerald-400' : trend === 'down' ? 'text-amber-300' : 'text-mute';
   return (
@@ -750,6 +790,9 @@ function Metric({ label, value, detail, trend }: { label: string; value: string;
   );
 }
 
+/* ============================================================
+   FAQ
+   ============================================================ */
 function Faq({ question, children }: { question: string; children: React.ReactNode }) {
   return (
     <details className="group bg-paper/[0.03] border border-divider/60 hover:border-divider rounded-2xl overflow-hidden transition-colors">
@@ -762,6 +805,9 @@ function Faq({ question, children }: { question: string; children: React.ReactNo
   );
 }
 
+/* ============================================================
+   ClientCard
+   ============================================================ */
 function ClientCard({
   eyebrow, name, role, location, url, href, quote, reverse, frameType,
   pulseStatus, customerReview, outcomeStats, outcomeTrackingNote,
@@ -894,6 +940,9 @@ function ClientCard({
   );
 }
 
+/* ============================================================
+   PriceCell
+   ============================================================ */
 function PriceCell({ amount, detail, highlight }: { amount: string; detail: string; highlight?: boolean }) {
   return (
     <div className={`rounded-2xl p-6 ${highlight ? 'bg-emerald-50 border-2 border-emerald-300' : 'bg-white border border-stone-200'}`}>
@@ -903,6 +952,9 @@ function PriceCell({ amount, detail, highlight }: { amount: string; detail: stri
   );
 }
 
+/* ============================================================
+   TimelineMilestone
+   ============================================================ */
 function TimelineMilestone({ week, title, body, tone, final }: { week: string; title: string; body: string; tone: 'stone' | 'emerald-light' | 'emerald'; final?: boolean }) {
   const dotClasses = {
     'stone': 'bg-stone-400 border-stone-500',
@@ -921,6 +973,9 @@ function TimelineMilestone({ week, title, body, tone, final }: { week: string; t
   );
 }
 
+/* ============================================================
+   PersonCard
+   ============================================================ */
 function PersonCard({ initial, name, role, bio, voiceQuote, meetWhen }: { initial: string; name: string; role: string; bio: string; voiceQuote?: string; meetWhen?: string }) {
   return (
     <div className="bg-paper/[0.03] border border-divider/60 rounded-2xl p-7 sm:p-8">
