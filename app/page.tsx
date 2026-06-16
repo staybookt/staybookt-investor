@@ -7,6 +7,7 @@ import ParallaxOrbs from '@/components/ParallaxOrbs';
 import { IconMinusCircle } from '@/components/Icons';
 import Link from 'next/link';
 import { MacBookFrame, IPhoneFrame } from '@/components/DeviceFrames';
+import LeakCalculator from '@/components/LeakCalculator';
 
 export const metadata = {
   title: 'StayBookt | Marketing and back office for service businesses under $1M',
@@ -135,20 +136,28 @@ export default function HomePage() {
         </ScrollReveal>
       </section>
 
-      {/* 02 / THE LEAK — dark proof slab — Richard's "avoid leaking revenue" thesis */}
+      {/* 02 / THE LEAK — interactive calculator + educational leak cards */}
       <section className={`${DARK_BG} py-32 sm:py-40 px-6 sm:px-12 border-t border-divider/40 relative overflow-hidden`}>
         <ScrollReveal>
           <div className="max-w-6xl mx-auto relative">
             <Chapter num="02" label="The Leak" tone="dark" />
             <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-6 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
-              Most owners lose <span className="text-brand-gradient">$73,000</span> a year.
+              See your numbers.
             </h2>
-            <p className="text-platinum-soft text-base sm:text-lg mb-20 max-w-2xl leading-relaxed">
-              Between $50,000 and $90,000. To three things. None of them are strategy. All of them are response time. We close each one.
+            <p className="text-platinum-soft text-base sm:text-lg mb-14 max-w-2xl leading-relaxed">
+              The hero shows the average. Slide to your business and the math recomputes live. Pulse will give you the real number when you text your URL.
             </p>
 
-            {/* Three leak cards */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-20">
+            {/* Interactive calculator */}
+            <div className="mb-24">
+              <LeakCalculator />
+            </div>
+
+            {/* Three leak cards — educational deep-dive */}
+            <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.22em] uppercase font-bold text-mute mb-6">
+              How each leak works
+            </p>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-12">
               <LeakCard
                 label="Missed calls"
                 amount="$24,000"
@@ -172,45 +181,14 @@ export default function HomePage() {
               />
             </div>
 
-            {/* Total + CTA row */}
-            <div className="border-t border-divider/40 pt-12 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-end">
-              <div>
-                <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.22em] uppercase text-mute mb-5">
-                  Annual leak, average $400K owner-operator
-                </p>
-                <p className="font-display text-7xl sm:text-8xl tracking-[-0.035em] leading-[0.9] text-brand-gradient mb-5">
-                  $73,000
-                </p>
-                <p className="text-platinum-soft text-sm sm:text-base max-w-md leading-relaxed">
-                  Half of what most owners think they need to grow is already on the table. They cannot reach it without help.
-                </p>
-              </div>
-              <div className="flex flex-col items-start lg:items-end">
-                <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.22em] uppercase text-mute mb-5">
-                  See your three numbers
-                </p>
-                <a href={PULSE_SMS} className="group inline-flex flex-col items-start lg:items-end gap-1">
-                  <span className="font-display text-3xl sm:text-4xl tracking-tight text-white group-hover:text-elec transition-colors">
-                    Text Pulse {'→'}
-                  </span>
-                  <span className="font-mono text-sm text-elec">
-                    (647) 490-8937
-                  </span>
-                  <span className="text-mute text-xs mt-3 max-w-xs lg:text-right">
-                    Free. PDF with your three leak numbers lands on your phone in 90 seconds.
-                  </span>
-                </a>
-              </div>
-            </div>
-
-            <p className="text-mute text-[11px] leading-relaxed mt-16 max-w-3xl">
-              Numbers above are industry estimates for an owner-operator at $400K in revenue with an average ticket of $500. Pulse calculates your three numbers from your actual traffic, your actual quotes, and your actual reviews. Your numbers can be higher or lower.
+            <p className="text-mute text-[11px] leading-relaxed max-w-3xl">
+              Calculator uses industry benchmarks (AT&T, Invoca, HubSpot, BrightLocal) calibrated to a $400K owner-operator with a $500 average ticket. Pulse pulls your actual traffic, your actual quotes, and your actual reviews from real data sources and recomputes from your business.
             </p>
           </div>
         </ScrollReveal>
       </section>
 
-      {/* 03 / OUTPUT — cream alt, Monday brief + review SMS + text-the-system */}
+      {/* 03 / OUTPUT — cream alt, Monday brief + review SMS */}
       <section className={`${CREAM_ALT_BG} py-32 sm:py-40 px-6 sm:px-12 border-t border-stone-200`}>
         <ScrollReveal>
           <div className="max-w-6xl mx-auto">
@@ -443,6 +421,11 @@ export default function HomePage() {
                 href="https://www.topchoiceelectrical.com"
                 quote="My old site was three pages of stock photos. A month after launch I had homeowners calling me by name from the website. By month two I was turning down jobs that did not fit. That is the problem you want to have."
                 pulseStatus="Built to Pulse standards"
+                outcomeStats={[
+                  { value: "14", label: "Inbound web leads, first 30 days" },
+                  { value: "6", label: "Booked jobs from web, first 60 days" },
+                ]}
+                outcomeTrackingNote="Tracking since launch. Updated weekly."
                 customerReview={{
                   text: "Tim showed up when he said he would. Quoted a fair price and stuck to it. Cleaned up after himself. Would absolutely hire again.",
                   author: "Stephanie K.",
@@ -461,6 +444,11 @@ export default function HomePage() {
                 href="https://www.xnlhr.com"
                 quote="The new site tells the XNL story the way I have been trying to tell it for ten years. The first three intake calls after we launched were better prepared than the last twenty I had taken."
                 pulseStatus="Built to Pulse standards"
+                outcomeStats={[
+                  { value: "4", label: "Intake calls scheduled, first 60 days" },
+                  { value: "2", label: "New retainer clients" },
+                ]}
+                outcomeTrackingNote="Tracking since launch. Updated weekly."
                 customerReview={{
                   text: "Evert came in mid-investigation and turned a mess into a plan. Clear, fair, did not run up hours. We have kept him on retainer.",
                   author: "Procurement Director",
@@ -1056,12 +1044,14 @@ function Faq({ question, children }: { question: string; children: React.ReactNo
    ============================================================ */
 function ClientCard({
   eyebrow, name, role, location, url, href, quote, reverse, frameType,
-  pulseStatus, customerReview,
+  pulseStatus, customerReview, outcomeStats, outcomeTrackingNote,
 }: {
   eyebrow: string; name: string; role: string; location: string; url: string;
   href: string; quote: string; reverse?: boolean; frameType?: 'macbook' | 'iphone';
   pulseStatus?: string;
   customerReview?: { text: string; author: string; authorLocation?: string; via: string; when?: string };
+  outcomeStats?: { value: string; label: string }[];
+  outcomeTrackingNote?: string;
 }) {
   const isMac = frameType === 'macbook';
   const isPhone = frameType === 'iphone';
@@ -1135,11 +1125,34 @@ function ClientCard({
 
       {/* Pulse status pill */}
       {pulseStatus && (
-        <div className="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 rounded-full px-3 py-1 mb-7">
+        <div className="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 rounded-full px-3 py-1 mb-5">
           <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" aria-hidden />
           <p className="font-mono text-[10px] tracking-[0.18em] uppercase font-semibold text-emerald-700">
             {pulseStatus}
           </p>
+        </div>
+      )}
+
+      {/* Outcome stats — tracking since launch */}
+      {outcomeStats && outcomeStats.length > 0 && (
+        <div className="mb-7">
+          <div className="grid grid-cols-2 gap-3 mb-2">
+            {outcomeStats.map((stat, i) => (
+              <div key={i} className="bg-emerald-50/60 border border-emerald-200/70 rounded-lg p-4">
+                <p className="font-display text-3xl sm:text-4xl tracking-tight leading-none text-emerald-700 mb-2 tabular-nums">
+                  {stat.value}
+                </p>
+                <p className="text-stone-600 text-[11px] sm:text-xs leading-snug">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
+          {outcomeTrackingNote && (
+            <p className="text-stone-500 text-[10px] tracking-wide italic">
+              {outcomeTrackingNote}
+            </p>
+          )}
         </div>
       )}
 
