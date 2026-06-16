@@ -2,8 +2,8 @@ import ScrollReveal from './ScrollReveal';
 
 /**
  * Interstitial — a full-bleed scene break between zones.
- * Pure visual statement, no card, no chrome. Lives between
- * dense content moments to give the eye a break and ramp emotion.
+ * Now owns its own background by tone. The continuous-gradient
+ * approach is dead — every section paints its own canvas.
  */
 export default function Interstitial({
   children,
@@ -16,13 +16,14 @@ export default function Interstitial({
   height?: string;
   align?: 'center' | 'left';
 }) {
+  const bg = tone === 'cream' ? 'bg-stone-50' : 'bg-ink-deep';
   const textColor = tone === 'cream' ? 'text-stone-900' : 'text-white';
   const subColor = tone === 'cream' ? 'text-stone-500' : 'text-platinum-soft';
   const alignClass = align === 'center' ? 'text-center mx-auto' : 'text-left';
 
   return (
     <section
-      className={`relative flex items-center justify-${align === 'center' ? 'center' : 'start'} px-6 sm:px-12 py-20 sm:py-32 ${textColor}`}
+      className={`relative flex items-center justify-${align === 'center' ? 'center' : 'start'} px-6 sm:px-12 py-20 sm:py-32 ${bg} ${textColor}`}
       style={{ minHeight: height }}
     >
       <ScrollReveal>
