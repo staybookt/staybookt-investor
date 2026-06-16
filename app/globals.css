@@ -79,6 +79,15 @@ main.scroll-stage {
 
 main.scroll-stage > * { position: relative; z-index: 1; }
 
+/* DEFENSE: any section that contains dark text (text-stone-900) gets
+   a cream background automatically. This guarantees readability even
+   if the per-section bg classes haven't been deployed yet, or if a
+   future section forgets to declare its bg. */
+section:has(.text-stone-900),
+section.text-stone-900 {
+  background-color: #FAFAF7;
+}
+
 .font-display {
   font-family: var(--font-display), 'Inter Tight', 'Helvetica Neue', system-ui, sans-serif;
   letter-spacing: -0.03em;
