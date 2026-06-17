@@ -7,11 +7,10 @@ import { IconMinusCircle } from '@/components/Icons';
 import Link from 'next/link';
 import { MacBookFrame, IPhoneFrame } from '@/components/DeviceFrames';
 import LeakCalculator from '@/components/LeakCalculator';
-import Interstitial from '@/components/Interstitial';
 
 export const metadata = {
-  title: 'StayBookt | Websites that close them. The back office, rolling out next.',
-  description: 'StayBookt builds the website that captures leads for service businesses under $1M. Pay for performance: $2,500 to launch, $149 a month, 5% on new business the site brings you. The AI back office is rolling out behind it. Built for Ontario operators.',
+  title: 'StayBookt | Websites that bring in booked work. Paid for by the results.',
+  description: 'StayBookt builds websites for Ontario service businesses under $1M. $2,500 to launch. $149 a month. 5% on new business the site brings you. The back-office layer is rolling out behind it.',
 };
 
 const CAL_LINK = 'https://cal.com/jacobcharendoff/staybookt';
@@ -24,109 +23,146 @@ export default function HomePage() {
 
       <Hero />
 
-      <Interstitial tone="dark" height="55vh">
-        <p className="font-mono text-[11px] sm:text-xs tracking-[0.32em] uppercase font-bold text-elec mb-12">The diagnosis</p>
-        <p className="font-display tracking-[-0.04em] leading-[0.92]" style={{ fontSize: 'clamp(56px, 12vw, 152px)' }}>
-          Three things.<br />Not strategy.<br /><span className="text-brand-gradient">Response time.</span>
-        </p>
-      </Interstitial>
-
       <Moment tone="dark">
         <Eyebrow tone="dark">The Leak</Eyebrow>
-        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-6 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>See your numbers.</h2>
-        <p className="text-platinum-soft text-base sm:text-lg mb-14 max-w-2xl leading-relaxed">Slide to your business and the math recomputes live. We walk through your real numbers on the call.</p>
-        <div><LeakCalculator /></div>
-        <p className="text-mute text-[11px] leading-relaxed max-w-3xl mt-10">Calculator uses industry benchmarks (AT&amp;T, Invoca, HubSpot, BrightLocal) calibrated to a $400K owner-operator with a $500 average ticket.</p>
-      </Moment>
-
-      <Interstitial tone="cream" height="50vh">
-        <p className="font-mono text-[11px] sm:text-xs tracking-[0.32em] uppercase font-bold text-stone-500 mb-12">Your week</p>
-        <p className="font-display tracking-[-0.04em] leading-[0.92] text-stone-900" style={{ fontSize: 'clamp(48px, 10vw, 128px)' }}>
-          It looks <span className="text-amber-600">like this</span><br />on a good week.
-        </p>
-        <p className="text-stone-600 text-base sm:text-lg mt-10 max-w-2xl mx-auto">We pick up the amber blocks. You keep the rest.</p>
-      </Interstitial>
-
-      <Moment tone="cream">
-        <Eyebrow tone="cream">Fit + Work</Eyebrow>
-        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-6 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>Before and after.</h2>
-        <p className="text-stone-600 text-sm sm:text-base mb-14 max-w-2xl leading-relaxed">If your before week is the amber one on the left, your after week is the cyan one on the right.</p>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 mb-12">
-          <div>
-            <div className="flex items-center justify-between mb-6">
-              <p className="font-mono text-[11px] tracking-[0.18em] uppercase text-stone-500">Before</p>
-              <p className="font-mono text-[10px] tracking-[0.15em] uppercase text-stone-400">Your typical week</p>
-            </div>
-            <WeeklyGrid />
-          </div>
-          <div className="lg:hidden flex items-center gap-4 my-2">
-            <div className="flex-1 h-px bg-stone-300" />
-            <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-stone-500">After kickoff</p>
-            <div className="flex-1 h-px bg-stone-300" />
-          </div>
-          <div>
-            <div className="hidden lg:flex items-center justify-between mb-6">
-              <p className="font-mono text-[11px] tracking-[0.18em] uppercase text-stone-500">After kickoff</p>
-              <p className="font-mono text-[10px] tracking-[0.15em] uppercase text-stone-400">Same week, we run it</p>
-            </div>
-            <WeeklyGridAfter />
-          </div>
+        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-6 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>Most owners under $1M lose $73,000 a year.</h2>
+        <p className="text-platinum-soft text-base sm:text-lg mb-14 max-w-2xl leading-relaxed">To missed calls, slow quote follow-up, and missing reviews. Slide in your business. We walk through your real number on the call.</p>
+        <div className="mb-10"><LeakCalculator /></div>
+        <div className="bg-paper/[0.03] border border-divider/60 rounded-2xl p-6 sm:p-8 max-w-3xl">
+          <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-emerald-400 mb-3">What changed for Tim</p>
+          <p className="text-platinum text-base sm:text-lg leading-relaxed">Top Choice Electrical went live 60 days ago. Tim has captured <span className="text-white font-semibold">14 web leads</span>. <span className="text-white font-semibold">Six booked</span>. His site is the next section.</p>
         </div>
-        <p className="text-stone-800 text-base sm:text-lg leading-relaxed mb-16 max-w-3xl"><span className="font-semibold">We pick up the admin. You keep your tools time, and the Sunday block stops shrinking.</span> Same hours, different shape.</p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 sm:gap-12 pt-10 border-t border-stone-300/60">
-          <div>
-            <p className="font-mono text-[11px] tracking-[0.18em] uppercase text-stone-500 mb-5">Not for you if</p>
-            <ul className="space-y-3 text-sm text-stone-600 leading-snug">
-              <li className="flex items-start gap-3"><span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={13} /></span><span>You already have a marketing manager.</span></li>
-              <li className="flex items-start gap-3"><span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={13} /></span><span>You are over $5M in revenue.</span></li>
-              <li className="flex items-start gap-3"><span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={13} /></span><span>You want a tool you log into. We are not a tool.</span></li>
-              <li className="flex items-start gap-3"><span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={13} /></span><span>You want to be taught. We do the work.</span></li>
-            </ul>
-          </div>
-          <div>
-            <p className="font-mono text-[11px] tracking-[0.18em] uppercase text-stone-500 mb-5">What we leave alone</p>
-            <ul className="space-y-3 text-sm text-stone-600 leading-snug">
-              <li className="flex items-start gap-3"><span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={13} /></span><span>Your accounting. Your accountant stays.</span></li>
-              <li className="flex items-start gap-3"><span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={13} /></span><span>Your employees. You manage them.</span></li>
-              <li className="flex items-start gap-3"><span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={13} /></span><span>Paid Google or Facebook ads. We refer.</span></li>
-              <li className="flex items-start gap-3"><span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={13} /></span><span>Your dispatcher. Stays as is.</span></li>
-            </ul>
-          </div>
-        </div>
+        <p className="text-mute text-[11px] leading-relaxed max-w-3xl mt-8">Calculator uses industry benchmarks (AT&amp;T, Invoca, HubSpot, BrightLocal) calibrated to a $400K owner-operator with a $500 average ticket.</p>
       </Moment>
-
-      <Interstitial tone="cream" height="55vh">
-        <p className="font-mono text-[11px] sm:text-xs tracking-[0.32em] uppercase font-bold text-stone-500 mb-12">The evidence</p>
-        <p className="font-display tracking-[-0.04em] leading-[0.92] text-stone-900" style={{ fontSize: 'clamp(56px, 11vw, 144px)' }}>
-          We did this<br />for <span className="text-emerald-700">real owners.</span>
-        </p>
-      </Interstitial>
 
       <Moment tone="cream" id="work">
         <Eyebrow tone="cream">Proof</Eyebrow>
-        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-4 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>Two real businesses. Two real owners.</h2>
-        <p className="text-stone-600 text-sm mb-14 max-w-2xl">The panels below are the actual sites, running live. Click either one to open in a new tab.</p>
+        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-4 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>Two real builds, in their owners&apos; words.</h2>
+        <p className="text-stone-600 text-sm sm:text-base mb-14 max-w-2xl leading-relaxed">Live sites running today. Click either to open in a new tab.</p>
         <div className="space-y-10">
-          <ClientCard eyebrow="Top Choice Electrical" name="Tim Ciszko" role="Residential electrician. 22 years on the tools, 6 on his own." location="Newmarket, Ontario" url="www.topchoiceelectrical.com" href="https://www.topchoiceelectrical.com" quote="My old site was three pages of stock photos. A month after launch I had homeowners calling me by name from the website. By month two I was turning down jobs that did not fit. That is the problem you want to have." pulseStatus="Built to StayBookt standards" outcomeStats={[{ value: '14', label: 'Inbound web leads, first 30 days' }, { value: '6', label: 'Booked jobs from web, first 60 days' }]} outcomeTrackingNote="Tracking since launch. Updated weekly." customerReview={{ text: 'Tim showed up when he said he would. Quoted a fair price and stuck to it. Cleaned up after himself. Would absolutely hire again.', author: 'Stephanie K.', authorLocation: 'Newmarket homeowner', via: 'Google', when: '3 weeks ago' }} frameType="macbook" />
-          <ClientCard eyebrow="XNL HR & Communications" name="Evert Akkerman, CHRL, LL.M." role="Fractional HR practice. Founded 2012. 25+ years and 25+ bylines in Canadian HR press." location="Newmarket, Ontario" url="www.xnlhr.com" href="https://www.xnlhr.com" quote="The new site tells the XNL story the way I have been trying to tell it for ten years. The first three intake calls after we launched were better prepared than the last twenty I had taken." pulseStatus="Built to StayBookt standards" outcomeStats={[{ value: '4', label: 'Intake calls scheduled, first 60 days' }, { value: '2', label: 'New retainer clients' }]} outcomeTrackingNote="Tracking since launch. Updated weekly." customerReview={{ text: 'Evert came in mid-investigation and turned a mess into a plan. Clear, fair, did not run up hours. We have kept him on retainer.', author: 'Procurement Director', authorLocation: 'Toronto manufacturing firm', via: 'LinkedIn', when: '1 month ago' }} reverse frameType="iphone" />
+          <ClientCard
+            eyebrow="Top Choice Electrical"
+            name="Tim Ciszko"
+            role="Residential electrician. 22 years on the tools, 6 on his own."
+            location="Newmarket, Ontario"
+            url="www.topchoiceelectrical.com"
+            href="https://www.topchoiceelectrical.com"
+            quote="My old site was three pages of stock photos. A month after launch I had homeowners calling me by name from the website. By month two I was turning down jobs that did not fit. That is the problem you want to have."
+            statusBadge="Live · Built in 3 weeks"
+            outcomeStats={[
+              { value: '14', label: 'Inbound web leads, first 30 days' },
+              { value: '6', label: 'Booked jobs from web, first 60 days' },
+            ]}
+            outcomeTrackingNote="Tracked via website forms + Google Business Profile calls."
+            customerReview={{
+              text: 'Tim showed up when he said he would. Quoted a fair price and stuck to it. Cleaned up after himself. Would absolutely hire again.',
+              author: 'Stephanie K.',
+              authorLocation: 'Newmarket homeowner',
+              via: 'Google',
+              when: '3 weeks ago',
+            }}
+            frameType="macbook"
+          />
+          <ClientCard
+            eyebrow="XNL HR & Communications"
+            name="Evert Akkerman, CHRL, LL.M."
+            role="Fractional HR practice. Founded 2012. 25+ years and 25+ bylines in Canadian HR press."
+            location="Newmarket, Ontario"
+            url="www.xnlhr.com"
+            href="https://www.xnlhr.com"
+            quote="The new site tells the XNL story the way I have been trying to tell it for ten years. The first three intake calls after we launched were better prepared than the last twenty I had taken."
+            statusBadge="Live · Built in 3 weeks"
+            outcomeStats={[
+              { value: '4', label: 'Intake calls scheduled, first 60 days' },
+              { value: '2', label: 'New retainer clients' },
+            ]}
+            outcomeTrackingNote="Tracked via website contact form + intake calendar."
+            customerReview={{
+              text: 'Evert came in mid-investigation and turned a mess into a plan. Clear, fair, did not run up hours. We have kept him on retainer.',
+              author: 'Procurement Director',
+              authorLocation: 'Toronto manufacturing firm',
+              via: 'LinkedIn',
+              when: '1 month ago',
+            }}
+            reverse
+            frameType="iphone"
+          />
         </div>
-        <p className="text-stone-500 text-xs mt-10 max-w-3xl leading-relaxed">Customer reviews shown are illustrative of the kind of feedback Tim and Evert receive. Live reviews are at each business profile, linked above the live sites.</p>
+        <p className="text-stone-500 text-xs mt-10 max-w-3xl leading-relaxed">Customer reviews shown are illustrative of the kind of feedback Tim and Evert receive. Live reviews live on each business profile, linked above each site.</p>
+      </Moment>
+
+      <Moment tone="cream" id="pricing">
+        <Eyebrow tone="cream">How we get paid</Eyebrow>
+        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-6 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>We bet on the work.</h2>
+        <p className="text-stone-600 text-base sm:text-lg mb-16 max-w-2xl leading-relaxed">Most agencies make their money before they do the work. We dropped the upfront down to almost nothing and put the rest on the results.</p>
+        <div className="space-y-12 mb-16">
+          <div>
+            <div className="flex items-center justify-between mb-4">
+              <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.22em] uppercase font-bold text-stone-500">How a typical agency makes money</p>
+              <p className="font-mono text-[10px] tracking-[0.18em] uppercase text-stone-400 hidden sm:block">Revenue mix</p>
+            </div>
+            <div className="flex h-14 sm:h-16 rounded-lg overflow-hidden border border-stone-300 shadow-sm">
+              <div className="flex-[95] bg-stone-400 flex items-center justify-center text-white" style={{ minWidth: '70px' }}><p className="font-mono text-[10px] sm:text-xs tracking-[0.15em] uppercase font-bold text-center px-2 leading-tight">Flat fee &middot; 95%</p></div>
+              <div className="flex-[5] bg-gradient-to-r from-elec/40 to-plumb/40 flex items-center justify-center text-white" style={{ minWidth: '40px' }}><p className="font-mono text-[9px] sm:text-[10px] tracking-[0.15em] uppercase font-bold">5%</p></div>
+            </div>
+            <p className="text-stone-600 text-xs sm:text-sm mt-3 leading-relaxed">$5,000 to $15,000 upfront. Monthly retainer regardless of outcomes. You pay whether the work brings you anything or not.</p>
+          </div>
+          <div>
+            <div className="flex items-center justify-between mb-4">
+              <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.22em] uppercase font-bold text-emerald-700">How StayBookt makes money</p>
+              <p className="font-mono text-[10px] tracking-[0.18em] uppercase text-stone-400 hidden sm:block">Revenue mix</p>
+            </div>
+            <div className="flex h-14 sm:h-16 rounded-lg overflow-hidden border border-stone-300 shadow-sm">
+              <div className="flex-[8] bg-stone-400 flex items-center justify-center text-white" style={{ minWidth: '52px' }}><p className="font-mono text-[9px] sm:text-[10px] tracking-[0.12em] uppercase font-bold text-center px-1 leading-tight">Build<br className="sm:hidden" /><span className="sm:ml-1">8%</span></p></div>
+              <div className="flex-[10] bg-stone-500 flex items-center justify-center text-white" style={{ minWidth: '56px' }}><p className="font-mono text-[9px] sm:text-[10px] tracking-[0.12em] uppercase font-bold text-center px-1 leading-tight">Monthly<br className="sm:hidden" /><span className="sm:ml-1">10%</span></p></div>
+              <div className="flex-[82] bg-gradient-to-r from-elec to-plumb flex items-center justify-center text-white"><p className="font-mono text-[10px] sm:text-xs tracking-[0.15em] uppercase font-bold text-center px-2 leading-tight">Performance &middot; 82%</p></div>
+            </div>
+            <p className="text-stone-700 text-xs sm:text-sm mt-3 leading-relaxed"><span className="font-semibold">If the site does not bring you new business, we do not get paid.</span> So we work like it.</p>
+          </div>
+        </div>
+        <div className="border-t border-stone-300/60 pt-12 mb-8">
+          <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.22em] uppercase font-bold text-stone-500 mb-6">The actual numbers</p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+            <PriceCell amount="$2,500" detail="One-time build fee. Due at kickoff." />
+            <PriceCell amount="$149 a month" detail="To keep the site running. Cancel any month." />
+            <PriceCell amount="5%" detail="On new business the site brings in." highlight />
+          </div>
+          <div className="bg-stone-100 border border-stone-200 rounded-xl p-5 max-w-2xl">
+            <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-stone-500 mb-2">How we track new business</p>
+            <p className="text-stone-700 text-sm leading-relaxed">Form fills tagged at submission. Calls tracked via your Google Business Profile. Bookings reconciled against your existing pipeline. You see what we count. We send the report each month.</p>
+          </div>
+        </div>
+        <p className="text-stone-500 text-xs">All prices in CAD. Built for Ontario operators.</p>
       </Moment>
 
       <Moment tone="cream">
-        <div className="inline-flex items-center gap-2 bg-amber-50 border border-amber-200 rounded-full px-3 py-1 mb-5">
-          <span className="inline-block w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" aria-hidden />
-          <p className="font-mono text-[10px] tracking-[0.18em] uppercase font-semibold text-amber-700">Rolling out for pilot clients in 2026</p>
+        <Eyebrow tone="cream">Timeline</Eyebrow>
+        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-6 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>Three weeks to launch.</h2>
+        <p className="text-stone-600 text-base sm:text-lg mb-20 max-w-2xl leading-relaxed">After launch we do not disappear. Ongoing care keeps the site converting. The back-office layer rolls in as we ship it (next section).</p>
+        <div className="relative">
+          <div className="hidden md:block absolute top-5 left-[5%] right-[5%] h-0.5 bg-gradient-to-r from-stone-300 via-emerald-300 to-emerald-500" aria-hidden />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6 relative">
+            <TimelineMilestone week="Day 1" title="Kickoff call" body="60 minutes. You walk us through what you do, who you serve, what is broken. We come back the next morning with the build list." tone="stone" />
+            <TimelineMilestone week="Week 1" title="Discovery + content" body="We catalog your services, areas, photos, real reviews, real customer voice. The site is built from this, not a template." tone="stone" />
+            <TimelineMilestone week="Week 3" title="Site goes live" body="Domain points. Google Business Profile rebuilt. Review request flow wired. Form fills routed to your phone. You are back on the tools." tone="emerald" final />
+          </div>
         </div>
-        <Eyebrow tone="cream">What is next</Eyebrow>
-        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-4 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>The website is the start. The back office is next.</h2>
-        <p className="text-stone-600 text-sm sm:text-base mb-14 max-w-2xl leading-relaxed">Two examples of what we are building behind the websites we ship. Tim and Evert will be the first to have it. Numbers and names below are illustrative of a typical week.</p>
+      </Moment>
+
+      <Moment tone="dark">
+        <div className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 rounded-full px-3 py-1 mb-6">
+          <span className="inline-block w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" aria-hidden />
+          <p className="font-mono text-[10px] tracking-[0.18em] uppercase font-semibold text-amber-300">Roadmap &middot; Rolling out 2026</p>
+        </div>
+        <Eyebrow tone="dark">What is next</Eyebrow>
+        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-4 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>The back office is the next layer.</h2>
+        <p className="text-platinum-soft text-base sm:text-lg mb-14 max-w-3xl leading-relaxed">Concepts for what we are building behind the websites we ship. Tim and Evert are first in line. Pricing for each layer gets set as it ships.</p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
           <div className="flex flex-col">
-            <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-stone-500 mb-3">Monday at 7 a.m.</p>
-            <h3 className="font-display text-2xl sm:text-3xl tracking-tight leading-tight mb-5 text-stone-900">Your week in one email.</h3>
-            <div className="bg-ink-deep border border-stone-800 rounded-2xl overflow-hidden shadow-2xl">
+            <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-amber-300 mb-3">Concept &middot; Monday brief</p>
+            <h3 className="font-display text-2xl sm:text-3xl tracking-tight leading-tight mb-5 text-white">Your week in one email.</h3>
+            <div className="bg-ink-deep/80 border border-divider/60 rounded-2xl overflow-hidden shadow-2xl">
               <div className="bg-ink-soft/60 px-5 py-4 border-b border-divider/40">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-7 h-7 rounded-full bg-gradient-to-br from-elec/40 to-plumb/40 flex items-center justify-center text-xs font-bold text-white shrink-0">S</div>
@@ -157,9 +193,9 @@ export default function HomePage() {
           </div>
 
           <div className="flex flex-col">
-            <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-emerald-600 mb-3">Same day, after the job.</p>
-            <h3 className="font-display text-2xl sm:text-3xl tracking-tight leading-tight mb-5 text-stone-900">Reviews while the work is fresh.</h3>
-            <div className="bg-ink-deep border border-stone-800 rounded-2xl overflow-hidden shadow-2xl">
+            <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-amber-300 mb-3">Concept &middot; Review request</p>
+            <h3 className="font-display text-2xl sm:text-3xl tracking-tight leading-tight mb-5 text-white">Reviews while the work is fresh.</h3>
+            <div className="bg-ink-deep/80 border border-divider/60 rounded-2xl overflow-hidden shadow-2xl">
               <div className="bg-ink-soft/60 px-5 py-4 border-b border-divider/40 flex items-center justify-center gap-2.5">
                 <div className="w-7 h-7 rounded-full bg-mute-dark/60 flex items-center justify-center text-xs font-bold text-platinum">P</div>
                 <div>
@@ -180,67 +216,30 @@ export default function HomePage() {
           </div>
         </div>
 
-        <p className="text-stone-500 text-xs mt-10 max-w-3xl leading-relaxed">The brief gets adapted to your trade and your funnel. A plumber sees emergency-call response time. A fractional consultant sees pipeline meetings booked. Same shape, different metrics.</p>
-      </Moment>
-
-      <Interstitial tone="cream" height="55vh">
-        <p className="font-mono text-[11px] sm:text-xs tracking-[0.32em] uppercase font-bold text-stone-500 mb-12">The mechanism</p>
-        <p className="font-display tracking-[-0.04em] leading-[0.92] text-stone-900" style={{ fontSize: 'clamp(56px, 12vw, 152px)' }}>
-          We get paid<br /><span className="text-brand-gradient">when it works.</span>
-        </p>
-      </Interstitial>
-
-      <Moment tone="cream" id="pricing">
-        <Eyebrow tone="cream">Pricing</Eyebrow>
-        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-6 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>Most agencies do not.</h2>
-        <p className="text-stone-600 text-base sm:text-lg mb-16 max-w-2xl leading-relaxed">They make their money before they do the work. We made the opposite bet. Almost nothing upfront. Most of our revenue on the third row.</p>
-        <div className="space-y-12 mb-20">
-          <div>
-            <div className="flex items-center justify-between mb-4">
-              <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.22em] uppercase font-bold text-stone-500">How a typical marketing agency makes money</p>
-              <p className="font-mono text-[10px] tracking-[0.18em] uppercase text-stone-400 hidden sm:block">Revenue mix</p>
-            </div>
-            <div className="flex h-14 sm:h-16 rounded-lg overflow-hidden border border-stone-300 shadow-sm">
-              <div className="flex-[95] bg-stone-400 flex items-center justify-center text-white" style={{ minWidth: '70px' }}><p className="font-mono text-[10px] sm:text-xs tracking-[0.15em] uppercase font-bold text-center px-2 leading-tight">Flat fee &middot; 95%</p></div>
-              <div className="flex-[5] bg-gradient-to-r from-elec/40 to-plumb/40 flex items-center justify-center text-white" style={{ minWidth: '40px' }}><p className="font-mono text-[9px] sm:text-[10px] tracking-[0.15em] uppercase font-bold">5%</p></div>
-            </div>
-            <p className="text-stone-600 text-xs sm:text-sm mt-3 leading-relaxed">$5,000 to $15,000 upfront, plus a monthly retainer. You pay whether the work brings you anything or not. Most agencies do not even bother with the 5% performance kicker.</p>
-          </div>
-          <div>
-            <div className="flex items-center justify-between mb-4">
-              <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.22em] uppercase font-bold text-emerald-700">How StayBookt makes money</p>
-              <p className="font-mono text-[10px] tracking-[0.18em] uppercase text-stone-400 hidden sm:block">Revenue mix</p>
-            </div>
-            <div className="flex h-14 sm:h-16 rounded-lg overflow-hidden border border-stone-300 shadow-sm">
-              <div className="flex-[8] bg-stone-400 flex items-center justify-center text-white" style={{ minWidth: '52px' }}><p className="font-mono text-[9px] sm:text-[10px] tracking-[0.12em] uppercase font-bold text-center px-1 leading-tight">Build<br className="sm:hidden" /><span className="sm:ml-1">8%</span></p></div>
-              <div className="flex-[10] bg-stone-500 flex items-center justify-center text-white" style={{ minWidth: '56px' }}><p className="font-mono text-[9px] sm:text-[10px] tracking-[0.12em] uppercase font-bold text-center px-1 leading-tight">Monthly<br className="sm:hidden" /><span className="sm:ml-1">10%</span></p></div>
-              <div className="flex-[82] bg-gradient-to-r from-elec to-plumb flex items-center justify-center text-white"><p className="font-mono text-[10px] sm:text-xs tracking-[0.15em] uppercase font-bold text-center px-2 leading-tight">Performance &middot; 82%</p></div>
-            </div>
-            <p className="text-stone-700 text-xs sm:text-sm mt-3 leading-relaxed"><span className="font-semibold">If the site does not bring you new business, we do not get paid.</span> So we work like it.</p>
-          </div>
-        </div>
-        <div className="border-t border-stone-300/60 pt-12 mb-8">
-          <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.22em] uppercase font-bold text-stone-500 mb-6">The actual numbers</p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <PriceCell amount="$2,500" detail="One-time build fee. Due at kickoff." />
-            <PriceCell amount="$149 a month" detail="To keep the site running. Cancel any month." />
-            <PriceCell amount="5%" detail="On new business the site brings in. Tracked, not estimated." highlight />
-          </div>
-        </div>
-        <p className="text-stone-500 text-xs">All prices in CAD. Built for Ontario operators.</p>
+        <p className="text-mute text-[11px] leading-relaxed max-w-3xl mt-10">Not shown: AI receptionist for missed calls, automated quote follow-up at 24h/72h/7d, integrated booking calendar. All on the roadmap. None of them ship today.</p>
       </Moment>
 
       <Moment tone="cream">
-        <Eyebrow tone="cream">Timeline</Eyebrow>
-        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-6 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>Three weeks. Then it just runs.</h2>
-        <p className="text-stone-600 text-base sm:text-lg mb-20 max-w-2xl leading-relaxed">We do not disappear after launch. Week 4 is when the Monday brief starts landing. The back office layer rolls in as we ship it.</p>
-        <div className="relative">
-          <div className="hidden md:block absolute top-5 left-[5%] right-[5%] h-0.5 bg-gradient-to-r from-stone-300 via-emerald-300 to-emerald-500" aria-hidden />
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-6 relative">
-            <TimelineMilestone week="Day 1" title="Kickoff call" body="60 minutes. You walk us through what you do, who you serve, what is broken. We come back the next morning with the build list." tone="stone" />
-            <TimelineMilestone week="Week 1" title="Discovery + content" body="We catalog your services, areas, photos, real reviews, real customer voice. The site is built from this, not a template." tone="stone" />
-            <TimelineMilestone week="Week 3" title="Site goes live" body="Domain points. Google Business Profile rebuilt. Review request flow wired. You are off the laptop." tone="emerald-light" />
-            <TimelineMilestone week="Week 4 &rarr;" title="Monday brief lands" body="7 a.m. every Monday. Numbers in your inbox. Back-office features roll in as we ship them." tone="emerald" final />
+        <Eyebrow tone="cream">Honest</Eyebrow>
+        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>What we do not do.</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 sm:gap-12">
+          <div>
+            <p className="font-mono text-[11px] tracking-[0.18em] uppercase text-stone-500 mb-5">Not for you if</p>
+            <ul className="space-y-3 text-sm sm:text-base text-stone-700 leading-snug">
+              <li className="flex items-start gap-3"><span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={13} /></span><span>You already have a marketing manager.</span></li>
+              <li className="flex items-start gap-3"><span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={13} /></span><span>You are over $5M in revenue.</span></li>
+              <li className="flex items-start gap-3"><span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={13} /></span><span>You want a tool you log into. We are not a tool.</span></li>
+              <li className="flex items-start gap-3"><span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={13} /></span><span>You want to be taught. We do the work.</span></li>
+            </ul>
+          </div>
+          <div>
+            <p className="font-mono text-[11px] tracking-[0.18em] uppercase text-stone-500 mb-5">What we leave alone</p>
+            <ul className="space-y-3 text-sm sm:text-base text-stone-700 leading-snug">
+              <li className="flex items-start gap-3"><span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={13} /></span><span>Your accounting. Your accountant stays.</span></li>
+              <li className="flex items-start gap-3"><span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={13} /></span><span>Your employees. You manage them.</span></li>
+              <li className="flex items-start gap-3"><span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={13} /></span><span>Paid Google or Facebook ads. We refer.</span></li>
+              <li className="flex items-start gap-3"><span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={13} /></span><span>Your dispatcher and your existing workflow.</span></li>
+            </ul>
           </div>
         </div>
       </Moment>
@@ -249,34 +248,27 @@ export default function HomePage() {
         <Eyebrow tone="dark">Questions</Eyebrow>
         <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>Read this before you click.</h2>
         <div className="space-y-3 max-w-4xl">
-          <Faq question="What if I want to cancel?">You cancel any month. We hand you the website code, the Google Business Profile login, the customer list, and the review pipeline keys. No locked-in dependencies.</Faq>
+          <Faq question="What if I want to cancel?">You cancel any month. We hand you the website code, the Google Business Profile login, the customer list, and the review request flow keys. No locked-in dependencies.</Faq>
           <Faq question="What if you go out of business?">Your domain is registered to you. Your website lives on Vercel under your own account. Your Google Business Profile is yours. Your customer list lives in your CRM, not ours. If we vanish you keep everything that matters.</Faq>
-          <Faq question="Why charge a percentage on new business?">Most marketing agencies charge a flat fee whether they brought you anything or not. We dropped the flat fee down to almost nothing and put the rest on the work actually moving the needle. If the site does not bring you new bookings, we do not make money on the third row.</Faq>
+          <Faq question="Why charge a percentage on new business?">Most agencies charge a flat fee whether they brought you anything or not. We dropped the flat fee down to almost nothing and put the rest on the work actually moving the needle. If the site does not bring you new bookings, we do not make money on the third row.</Faq>
           <Faq question="Can I just buy the website without the monthly?">Yes, but read this first. A site without ongoing care drifts. The Google profile goes stale. Review requests stop going out. Page speed degrades. After a year, an unmaintained site is roughly as effective as no site. The $149 a month is the thing that stops that from happening.</Faq>
           <Faq question="Will you take over my domain and Google account?">No. You stay the registered owner of your domain. We get added as a manager on your Google Business Profile so we can update hours, photos, and posts. If you part ways with us, we are removed. You keep the account.</Faq>
-          <Faq question="What about the AI back office you mentioned?">It is rolling out in 2026 for our pilot clients (Tim and Evert first). Booking, follow-up, review pipeline, CRM, Monday brief. Pricing for those layers gets set as each one ships. The website is what you pay for today.</Faq>
-          <Faq question="What happens when I hire help?">Tell us. We add your office manager, your apprentice, or your spouse to the Monday brief when it ships. The owner stays the person we talk to. The team gets what they need to do their part.</Faq>
+          <Faq question="What about the AI back office?">It is on the roadmap, rolling out in 2026 for our pilot clients (Tim and Evert first). Pricing for each layer gets set as it ships. The website is what you pay for today.</Faq>
+          <Faq question="How do you actually count new business?">Form submissions tagged at the source. Calls tracked through your Google Business Profile. New customers reconciled against your existing pipeline so we do not double-count. You get the report every month before the invoice goes out.</Faq>
         </div>
-        <p className="text-mute text-xs sm:text-sm mt-10 leading-relaxed">Have one we did not answer? Bring it to the call.</p>
+        <p className="text-mute text-xs sm:text-sm mt-10 leading-relaxed">Have more? Bring them to the call.</p>
       </Moment>
-
-      <Interstitial tone="dark" height="50vh">
-        <p className="font-mono text-[11px] sm:text-xs tracking-[0.32em] uppercase font-bold text-mute mb-12">Next step</p>
-        <p className="font-display tracking-[-0.04em] leading-[0.92]" style={{ fontSize: 'clamp(54px, 11vw, 144px)' }}>
-          Book a call.<br /><span className="text-brand-gradient">30 minutes.</span>
-        </p>
-      </Interstitial>
 
       <Moment tone="dark">
         <Eyebrow tone="dark">Start</Eyebrow>
-        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>Book the call. We pick up.</h2>
+        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-10 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>Book the call.</h2>
         <a href={CAL_LINK} target="_blank" rel="noopener noreferrer" className="group block bg-paper/[0.03] border border-divider/60 hover:border-elec/40 rounded-2xl p-8 sm:p-12 transition-colors max-w-3xl">
           <div className="flex items-center gap-3 mb-4">
             <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-elec">30 minutes with Jacob</p>
-            <span className="font-mono text-[9px] tracking-[0.18em] uppercase font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 rounded-full px-2 py-0.5">Recommended</span>
+            <span className="font-mono text-[9px] tracking-[0.18em] uppercase font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 rounded-full px-2 py-0.5">Free</span>
           </div>
           <h3 className="font-display text-3xl sm:text-4xl tracking-tight leading-tight mb-4">Tell us about your business.</h3>
-          <p className="text-platinum-soft text-base leading-relaxed mb-7">We walk through what you do, who you serve, what is broken, and what we would build for you. We talk through the calculator with real numbers from your business. No pitch deck. No homework. If it is a fit, we send a proposal the next day.</p>
+          <p className="text-platinum-soft text-base leading-relaxed mb-7">We walk through what you do, who you serve, what is broken, and what we would build for you. We pull the calculator with your real numbers. No pitch deck. No homework. If it is a fit, a proposal goes out the next day.</p>
           <span className="inline-flex items-center gap-2 text-elec font-semibold text-sm">
             Pick a time
             <span aria-hidden className="group-hover:translate-x-1 transition-transform">{'→'}</span>
@@ -289,8 +281,8 @@ export default function HomePage() {
         <Eyebrow tone="dark">Team</Eyebrow>
         <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>Two humans.</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <PersonCard initial="J" name="Jacob Charendoff" role="Co-founder · Builder" bio="Builds the websites, ships the back-office systems. Background in operations and software for owner-operated businesses. Lives in Toronto." voiceQuote="If the site does not bring you anything in 90 days, something is broken. Tell me and I will fix it." meetWhen="On the kickoff call. In your Monday brief replies. Whenever you have a question." />
-          <PersonCard initial="R" name="Richard Roos, CPA" role="Co-founder · Operator" bio="20 years across finance and operations. Runs intake, client relationships, and the parts of the work that need a senior voice. Lives in Newmarket." voiceQuote="I sign off the numbers before they go to a client. Always. That is what we are paid for." meetWhen="On the intro call before kickoff. In the quarterly performance review. Whenever the numbers need a second pair of eyes." />
+          <PersonCard initial="J" name="Jacob Charendoff" role="Co-founder · Builder" bio="Builds the websites and the back-office layer behind them. Background in operations and software for owner-operated businesses. Lives in Toronto." voiceQuote="If the site does not bring you anything in 90 days, something is broken. Tell me and I will fix it." meetWhen="On the kickoff call. In your Monday brief replies. Whenever you have a question." />
+          <PersonCard initial="R" name="Richard Roos, CPA" role="Co-founder · Operator" bio="20 years across finance and operations. Runs intake, client relationships, and the parts of the work that need a senior voice. Lives in Newmarket." voiceQuote="I sign off the numbers before they go to a client. Always. That is what we are paid for." meetWhen="On the intro call before kickoff. In the quarterly review. Whenever the numbers need a second pair of eyes." />
         </div>
       </Moment>
 
@@ -301,13 +293,13 @@ export default function HomePage() {
 
 function FooterBlock() {
   return (
-    <footer className="px-6 sm:px-12 py-16 border-t border-divider/40">
+    <footer className="px-6 sm:px-12 py-16 border-t border-divider/40 bg-ink-deep">
       <ScrollReveal>
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8 mb-12">
             <div>
               <Wordmark size="sm" onDark />
-              <p className="text-mute text-sm mt-3 max-w-md leading-relaxed">Websites that close them. The back office, rolling out next. Built for Ontario service businesses under $1M.</p>
+              <p className="text-mute text-sm mt-3 max-w-md leading-relaxed">Websites that bring in booked work. Paid for by the results. Built for Ontario service businesses under $1M.</p>
             </div>
             <div className="flex flex-col items-start sm:items-end gap-3">
               <a href={CAL_LINK} target="_blank" rel="noopener noreferrer" className="text-platinum hover:text-white text-sm font-semibold transition-colors">Book a 30-minute call</a>
@@ -342,7 +334,7 @@ function Moment({ children, tone, id }: { children: React.ReactNode; tone: 'dark
   const textColor = tone === 'cream' ? 'text-stone-900' : 'text-white';
   const scrollMt = id ? 'scroll-mt-24' : '';
   return (
-    <section id={id} className={`relative px-6 sm:px-12 py-14 sm:py-20 ${scrollMt} ${bg} ${textColor}`}>
+    <section id={id} className={`relative px-6 sm:px-12 py-16 sm:py-24 ${scrollMt} ${bg} ${textColor}`}>
       <ScrollReveal>
         <div className="max-w-6xl mx-auto">{children}</div>
       </ScrollReveal>
@@ -353,102 +345,6 @@ function Moment({ children, tone, id }: { children: React.ReactNode; tone: 'dark
 function Eyebrow({ children, tone }: { children: React.ReactNode; tone: 'cream' | 'dark' }) {
   const color = tone === 'cream' ? 'text-stone-500' : 'text-elec';
   return <p className={`font-mono text-[10px] sm:text-[11px] tracking-[0.32em] uppercase font-bold mb-7 ${color}`}>{children}</p>;
-}
-
-function WeeklyGrid() {
-  type BlockType = 'tools' | 'admin' | 'family' | 'own';
-  const days: { label: string; am: BlockType; pm: BlockType; eve: BlockType }[] = [
-    { label: 'Mon', am: 'tools', pm: 'tools', eve: 'admin' },
-    { label: 'Tue', am: 'tools', pm: 'tools', eve: 'admin' },
-    { label: 'Wed', am: 'tools', pm: 'admin', eve: 'tools' },
-    { label: 'Thu', am: 'tools', pm: 'tools', eve: 'admin' },
-    { label: 'Fri', am: 'tools', pm: 'tools', eve: 'admin' },
-    { label: 'Sat', am: 'admin', pm: 'family', eve: 'admin' },
-    { label: 'Sun', am: 'family', pm: 'own', eve: 'admin' },
-  ];
-  const classes: Record<BlockType, string> = {
-    tools: 'bg-stone-300/80 border-stone-400/40 text-stone-700',
-    admin: 'bg-amber-400 border-amber-500 text-white',
-    family: 'bg-stone-200 border-stone-300 text-stone-500',
-    own: 'bg-emerald-500 border-emerald-600 text-white',
-  };
-  const labels: Record<BlockType, string> = { tools: 'Tools', admin: 'Admin', family: 'Family', own: 'You' };
-  const slots: ('am' | 'pm' | 'eve')[] = ['am', 'pm', 'eve'];
-  const slotLabels = { am: 'AM', pm: 'PM', eve: 'EVE' } as const;
-  const adminCount = days.reduce((acc, d) => acc + slots.filter((s) => d[s] === 'admin').length, 0);
-  return (
-    <div>
-      <div className="grid grid-cols-[28px_repeat(7,1fr)] gap-1 sm:gap-1.5 items-end mb-2">
-        <div />
-        {days.map((d) => (<p key={d.label} className="text-stone-500 font-mono text-[8px] sm:text-[10px] tracking-[0.2em] uppercase text-center">{d.label}</p>))}
-      </div>
-      {slots.map((slot) => (
-        <div key={slot} className="grid grid-cols-[28px_repeat(7,1fr)] gap-1 sm:gap-1.5 items-center mb-1 sm:mb-1.5">
-          <p className="text-stone-400 font-mono text-[7px] sm:text-[9px] tracking-[0.18em] uppercase">{slotLabels[slot]}</p>
-          {days.map((d) => {
-            const type = d[slot];
-            return (
-              <div key={d.label + slot} className={`h-9 sm:h-11 rounded-md border ${classes[type]} flex items-center justify-center`}>
-                <span className="text-[7px] sm:text-[9px] font-semibold tracking-wider uppercase">{labels[type]}</span>
-              </div>
-            );
-          })}
-        </div>
-      ))}
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mt-5 text-[9px] sm:text-[10px] font-mono tracking-[0.16em] uppercase text-stone-500">
-        <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-sm bg-amber-400 border border-amber-500" /><span>{adminCount} admin blocks</span></div>
-        <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-sm bg-emerald-500 border border-emerald-600" /><span>1 for you</span></div>
-      </div>
-    </div>
-  );
-}
-
-function WeeklyGridAfter() {
-  type BlockType = 'tools' | 'sb' | 'family' | 'own';
-  type DayBlock = { type: BlockType; label: string };
-  const days: { label: string; am: DayBlock; pm: DayBlock; eve: DayBlock }[] = [
-    { label: 'Mon', am: { type: 'tools', label: 'Tools' }, pm: { type: 'tools', label: 'Tools' }, eve: { type: 'sb', label: 'Follow-up' } },
-    { label: 'Tue', am: { type: 'tools', label: 'Tools' }, pm: { type: 'tools', label: 'Tools' }, eve: { type: 'sb', label: 'Quote chase' } },
-    { label: 'Wed', am: { type: 'tools', label: 'Tools' }, pm: { type: 'sb', label: 'StayBookt run' }, eve: { type: 'tools', label: 'Tools' } },
-    { label: 'Thu', am: { type: 'tools', label: 'Tools' }, pm: { type: 'tools', label: 'Tools' }, eve: { type: 'sb', label: 'Review ask' } },
-    { label: 'Fri', am: { type: 'tools', label: 'Tools' }, pm: { type: 'tools', label: 'Tools' }, eve: { type: 'sb', label: 'Brief' } },
-    { label: 'Sat', am: { type: 'sb', label: 'Missed call' }, pm: { type: 'family', label: 'Family' }, eve: { type: 'sb', label: 'Reviews' } },
-    { label: 'Sun', am: { type: 'family', label: 'Family' }, pm: { type: 'own', label: 'You' }, eve: { type: 'sb', label: 'GBP update' } },
-  ];
-  const classes: Record<BlockType, string> = {
-    tools: 'bg-stone-300/80 border-stone-400/40 text-stone-700',
-    sb: 'bg-cyan-600 border-cyan-700 text-white',
-    family: 'bg-stone-200 border-stone-300 text-stone-500',
-    own: 'bg-emerald-500 border-emerald-600 text-white',
-  };
-  const slots: ('am' | 'pm' | 'eve')[] = ['am', 'pm', 'eve'];
-  const slotLabels = { am: 'AM', pm: 'PM', eve: 'EVE' } as const;
-  const sbCount = days.reduce((acc, d) => acc + slots.filter((s) => d[s].type === 'sb').length, 0);
-  return (
-    <div>
-      <div className="grid grid-cols-[28px_repeat(7,1fr)] gap-1 sm:gap-1.5 items-end mb-2">
-        <div />
-        {days.map((d) => (<p key={d.label} className="text-stone-500 font-mono text-[8px] sm:text-[10px] tracking-[0.2em] uppercase text-center">{d.label}</p>))}
-      </div>
-      {slots.map((slot) => (
-        <div key={slot} className="grid grid-cols-[28px_repeat(7,1fr)] gap-1 sm:gap-1.5 items-center mb-1 sm:mb-1.5">
-          <p className="text-stone-400 font-mono text-[7px] sm:text-[9px] tracking-[0.18em] uppercase">{slotLabels[slot]}</p>
-          {days.map((d) => {
-            const block = d[slot];
-            return (
-              <div key={d.label + slot} className={`h-9 sm:h-11 rounded-md border ${classes[block.type]} flex items-center justify-center px-0.5`}>
-                <span className="text-[6px] sm:text-[8px] font-semibold tracking-wider uppercase leading-tight text-center">{block.label}</span>
-              </div>
-            );
-          })}
-        </div>
-      ))}
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mt-5 text-[9px] sm:text-[10px] font-mono tracking-[0.16em] uppercase text-stone-500">
-        <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-sm bg-cyan-600 border border-cyan-700" /><span>{sbCount} run by us</span></div>
-        <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-sm bg-emerald-500 border border-emerald-600" /><span>1 still yours</span></div>
-      </div>
-    </div>
-  );
 }
 
 function Metric({ label, value, detail, trend }: { label: string; value: string; detail: string; trend?: 'up' | 'down' }) {
@@ -476,11 +372,11 @@ function Faq({ question, children }: { question: string; children: React.ReactNo
 
 function ClientCard({
   eyebrow, name, role, location, url, href, quote, reverse, frameType,
-  pulseStatus, customerReview, outcomeStats, outcomeTrackingNote,
+  statusBadge, customerReview, outcomeStats, outcomeTrackingNote,
 }: {
   eyebrow: string; name: string; role: string; location: string; url: string;
   href: string; quote: string; reverse?: boolean; frameType?: 'macbook' | 'iphone';
-  pulseStatus?: string;
+  statusBadge?: string;
   customerReview?: { text: string; author: string; authorLocation?: string; via: string; when?: string };
   outcomeStats?: { value: string; label: string }[];
   outcomeTrackingNote?: string;
@@ -525,10 +421,10 @@ function ClientCard({
       <h3 className="font-display text-3xl sm:text-4xl tracking-tight leading-tight mb-2 text-stone-900">{name}</h3>
       <p className="text-stone-600 text-sm sm:text-base mb-1">{role}</p>
       <p className="text-stone-500 text-sm mb-5">{location}</p>
-      {pulseStatus && (
+      {statusBadge && (
         <div className="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 rounded-full px-3 py-1 mb-5">
           <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" aria-hidden />
-          <p className="font-mono text-[10px] tracking-[0.18em] uppercase font-semibold text-emerald-700">{pulseStatus}</p>
+          <p className="font-mono text-[10px] tracking-[0.18em] uppercase font-semibold text-emerald-700">{statusBadge}</p>
         </div>
       )}
       {outcomeStats && outcomeStats.length > 0 && (
