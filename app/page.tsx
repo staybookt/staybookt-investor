@@ -3,7 +3,6 @@ import Hero from '@/components/Hero';
 import Wordmark from '@/components/Wordmark';
 import ScrollReveal from '@/components/ScrollReveal';
 import ParallaxOrbs from '@/components/ParallaxOrbs';
-import { IconMinusCircle } from '@/components/Icons';
 import Link from 'next/link';
 import { MacBookFrame, IPhoneFrame } from '@/components/DeviceFrames';
 import LeakCalculator from '@/components/LeakCalculator';
@@ -174,60 +173,69 @@ export default function HomePage() {
         </div>
         <Eyebrow tone="dark">What is next</Eyebrow>
         <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-4 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>The back office is the next layer.</h2>
-        <p className="text-platinum-soft text-base sm:text-lg mb-14 max-w-3xl leading-relaxed">Concept previews of what we are building behind the websites we ship. Tim and Evert are first in line. Pricing for each layer gets set as it ships.</p>
+        <p className="text-platinum-soft text-base sm:text-lg mb-14 max-w-3xl leading-relaxed">The website captures the leads. The back office converts them. Every customer touch loops back through your database, and the system gets smarter for you every month.</p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-          <div className="flex flex-col">
-            <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-amber-300 mb-3">Concept &middot; Monday brief</p>
-            <h3 className="font-display text-2xl sm:text-3xl tracking-tight leading-tight mb-5 text-white">Your week in one email.</h3>
-            <div className="bg-ink-deep/80 border border-divider/60 rounded-2xl overflow-hidden shadow-2xl">
-              <div className="bg-ink-soft/60 px-5 py-4 border-b border-divider/40">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-7 h-7 rounded-full bg-gradient-to-br from-elec/40 to-plumb/40 flex items-center justify-center text-xs font-bold text-white shrink-0">S</div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-white text-xs font-semibold leading-tight">StayBookt</p>
-                    <p className="text-mute text-[10px] leading-tight">to tim@topchoiceelectrical.com</p>
+        <div className="mb-16">
+          <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-elec mb-6 text-center">How the flywheel runs</p>
+          <Flywheel />
+          <p className="text-mute text-xs sm:text-sm leading-relaxed text-center mt-6 max-w-2xl mx-auto">Five of the six steps are AI plus a human safety net. The only step you do is the work itself.</p>
+        </div>
+
+        <div className="border-t border-divider/60 pt-14">
+          <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-amber-300 mb-6 text-center">Two artifacts the flywheel produces</p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+            <div className="flex flex-col">
+              <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-amber-300 mb-3">Concept &middot; Monday brief</p>
+              <h3 className="font-display text-2xl sm:text-3xl tracking-tight leading-tight mb-5 text-white">Your week in one email.</h3>
+              <div className="bg-ink-deep/80 border border-divider/60 rounded-2xl overflow-hidden shadow-2xl">
+                <div className="bg-ink-soft/60 px-5 py-4 border-b border-divider/40">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-elec/40 to-plumb/40 flex items-center justify-center text-xs font-bold text-white shrink-0">S</div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-white text-xs font-semibold leading-tight">StayBookt</p>
+                      <p className="text-mute text-[10px] leading-tight">to tim@topchoiceelectrical.com</p>
+                    </div>
+                    <p className="text-mute text-[10px] whitespace-nowrap">Mon 7:02 a.m.</p>
                   </div>
-                  <p className="text-mute text-[10px] whitespace-nowrap">Mon 7:02 a.m.</p>
+                  <p className="text-platinum text-sm font-display tracking-tight">Week of June 8, your roll-up</p>
                 </div>
-                <p className="text-platinum text-sm font-display tracking-tight">Week of June 8, your roll-up</p>
-              </div>
-              <div className="p-5 sm:p-6 space-y-5">
-                <p className="text-platinum text-sm leading-relaxed">Hey Tim, here is what last week looked like.</p>
-                <div className="grid grid-cols-2 gap-2.5">
-                  <Metric label="New leads" value="7" detail="3 web, 4 Google" />
-                  <Metric label="Booked jobs" value="4" detail="avg ticket $640" />
-                  <Metric label="Revenue" value="$2,840" detail="vs $2,180 prior" trend="up" />
-                  <Metric label="New reviews" value="2" detail="5.0 stars" />
+                <div className="p-5 sm:p-6 space-y-5">
+                  <p className="text-platinum text-sm leading-relaxed">Hey Tim, here is what last week looked like.</p>
+                  <div className="grid grid-cols-2 gap-2.5">
+                    <Metric label="New leads" value="7" detail="3 web, 4 Google" />
+                    <Metric label="Booked jobs" value="4" detail="avg ticket $640" />
+                    <Metric label="Revenue" value="$2,840" detail="vs $2,180 prior" trend="up" />
+                    <Metric label="New reviews" value="2" detail="5.0 stars" />
+                  </div>
+                  <div className="bg-elec/5 border border-elec/20 rounded-lg p-4">
+                    <p className="text-[10px] tracking-[0.2em] uppercase font-bold text-elec mb-2">What changed</p>
+                    <p className="text-platinum-soft text-xs leading-relaxed mb-2">Your Newmarket service page got 23% more views than the prior week. Two of last week&apos;s bookings came from people who landed on that page.</p>
+                    <p className="text-platinum-soft text-xs leading-relaxed">One quote from 9 days ago is still open. We are following up with the homeowner this morning.</p>
+                  </div>
+                  <p className="text-mute text-[11px] leading-relaxed">Reply if anything looks off. Next roll-up Monday at 7 a.m.</p>
                 </div>
-                <div className="bg-elec/5 border border-elec/20 rounded-lg p-4">
-                  <p className="text-[10px] tracking-[0.2em] uppercase font-bold text-elec mb-2">What changed</p>
-                  <p className="text-platinum-soft text-xs leading-relaxed mb-2">Your Newmarket service page got 23% more views than the prior week. Two of last week&apos;s bookings came from people who landed on that page.</p>
-                  <p className="text-platinum-soft text-xs leading-relaxed">One quote from 9 days ago is still open. We are following up with the homeowner this morning.</p>
-                </div>
-                <p className="text-mute text-[11px] leading-relaxed">Reply if anything looks off. Next roll-up Monday at 7 a.m.</p>
               </div>
             </div>
-          </div>
 
-          <div className="flex flex-col">
-            <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-amber-300 mb-3">Concept &middot; Review request</p>
-            <h3 className="font-display text-2xl sm:text-3xl tracking-tight leading-tight mb-5 text-white">Reviews while the work is fresh.</h3>
-            <div className="bg-ink-deep/80 border border-divider/60 rounded-2xl overflow-hidden shadow-2xl">
-              <div className="bg-ink-soft/60 px-5 py-4 border-b border-divider/40 flex items-center justify-center gap-2.5">
-                <div className="w-7 h-7 rounded-full bg-mute-dark/60 flex items-center justify-center text-xs font-bold text-platinum">P</div>
-                <div>
-                  <p className="text-platinum text-xs font-semibold leading-tight">Patricia, Stonehaven Lane</p>
-                  <p className="text-mute text-[10px] leading-tight">Today, 4:18 p.m.</p>
+            <div className="flex flex-col">
+              <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-amber-300 mb-3">Concept &middot; Review request</p>
+              <h3 className="font-display text-2xl sm:text-3xl tracking-tight leading-tight mb-5 text-white">Reviews while the work is fresh.</h3>
+              <div className="bg-ink-deep/80 border border-divider/60 rounded-2xl overflow-hidden shadow-2xl">
+                <div className="bg-ink-soft/60 px-5 py-4 border-b border-divider/40 flex items-center justify-center gap-2.5">
+                  <div className="w-7 h-7 rounded-full bg-mute-dark/60 flex items-center justify-center text-xs font-bold text-platinum">P</div>
+                  <div>
+                    <p className="text-platinum text-xs font-semibold leading-tight">Patricia, Stonehaven Lane</p>
+                    <p className="text-mute text-[10px] leading-tight">Today, 4:18 p.m.</p>
+                  </div>
                 </div>
-              </div>
-              <div className="p-5 sm:p-6 space-y-3">
-                <div className="flex justify-end"><div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-2xl rounded-tr-md px-4 py-3 max-w-[88%]"><p className="text-[13px] leading-relaxed">Hi Patricia, this is Tim from Top Choice Electrical. The work wrapped up just after 4. Receipt went to your email.</p><p className="text-[13px] leading-relaxed mt-2">If you have 20 seconds, would you mind dropping a quick Google review? g.co/r/topchoice</p></div></div>
-                <div className="flex justify-start"><div className="bg-divider/40 text-platinum rounded-2xl rounded-tl-md px-4 py-3 max-w-[88%]"><p className="text-[13px] leading-relaxed">All done, looks great. Will do, that was a fast turnaround.</p></div></div>
-                <div className="flex justify-end"><div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-2xl rounded-tr-md px-4 py-3 max-w-[88%]"><p className="text-[13px] leading-relaxed">Appreciate it. Tell Bill I said hi.</p></div></div>
-                <div className="pt-4 mt-2 border-t border-divider/40 flex items-center gap-2.5">
-                  <div className="flex items-center gap-0.5 text-emerald-400 text-xs"><span aria-hidden>{'★'}</span><span aria-hidden>{'★'}</span><span aria-hidden>{'★'}</span><span aria-hidden>{'★'}</span><span aria-hidden>{'★'}</span></div>
-                  <p className="text-emerald-400 text-xs font-medium">5 stars, posted 18 minutes later.</p>
+                <div className="p-5 sm:p-6 space-y-3">
+                  <div className="flex justify-end"><div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-2xl rounded-tr-md px-4 py-3 max-w-[88%]"><p className="text-[13px] leading-relaxed">Hi Patricia, this is Tim from Top Choice Electrical. The work wrapped up just after 4. Receipt went to your email.</p><p className="text-[13px] leading-relaxed mt-2">If you have 20 seconds, would you mind dropping a quick Google review? g.co/r/topchoice</p></div></div>
+                  <div className="flex justify-start"><div className="bg-divider/40 text-platinum rounded-2xl rounded-tl-md px-4 py-3 max-w-[88%]"><p className="text-[13px] leading-relaxed">All done, looks great. Will do, that was a fast turnaround.</p></div></div>
+                  <div className="flex justify-end"><div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-2xl rounded-tr-md px-4 py-3 max-w-[88%]"><p className="text-[13px] leading-relaxed">Appreciate it. Tell Bill I said hi.</p></div></div>
+                  <div className="pt-4 mt-2 border-t border-divider/40 flex items-center gap-2.5">
+                    <div className="flex items-center gap-0.5 text-emerald-400 text-xs"><span aria-hidden>{'★'}</span><span aria-hidden>{'★'}</span><span aria-hidden>{'★'}</span><span aria-hidden>{'★'}</span><span aria-hidden>{'★'}</span></div>
+                    <p className="text-emerald-400 text-xs font-medium">5 stars, posted 18 minutes later.</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -235,32 +243,6 @@ export default function HomePage() {
         </div>
 
         <p className="text-mute text-[11px] leading-relaxed max-w-3xl mt-10">Not shown: AI receptionist for missed calls, automated quote follow-up at 24h/72h/7d, integrated booking calendar. All on the roadmap. None of them ship today.</p>
-      </Moment>
-
-      <Moment tone="cream">
-        <Eyebrow tone="cream">Honest</Eyebrow>
-        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-6 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>What we do not do.</h2>
-        <p className="text-stone-600 text-base sm:text-lg mb-14 max-w-2xl leading-relaxed">We are not for everyone. Here is who we are not for and what we leave alone in your business.</p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 sm:gap-12">
-          <div>
-            <p className="font-mono text-[11px] tracking-[0.18em] uppercase text-stone-500 mb-5">Not for you if</p>
-            <ul className="space-y-3 text-sm sm:text-base text-stone-700 leading-snug">
-              <li className="flex items-start gap-3"><span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={13} /></span><span>You already have a marketing manager.</span></li>
-              <li className="flex items-start gap-3"><span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={13} /></span><span>You are over $5M in revenue.</span></li>
-              <li className="flex items-start gap-3"><span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={13} /></span><span>You want a tool you log into. We are not a tool.</span></li>
-              <li className="flex items-start gap-3"><span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={13} /></span><span>You want to be taught. We do the work.</span></li>
-            </ul>
-          </div>
-          <div>
-            <p className="font-mono text-[11px] tracking-[0.18em] uppercase text-stone-500 mb-5">What we leave alone</p>
-            <ul className="space-y-3 text-sm sm:text-base text-stone-700 leading-snug">
-              <li className="flex items-start gap-3"><span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={13} /></span><span>Your accounting. Your accountant stays.</span></li>
-              <li className="flex items-start gap-3"><span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={13} /></span><span>Your employees. You manage them.</span></li>
-              <li className="flex items-start gap-3"><span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={13} /></span><span>Paid Google or Facebook ads. We refer.</span></li>
-              <li className="flex items-start gap-3"><span className="text-stone-400 mt-0.5 shrink-0" aria-hidden><IconMinusCircle size={13} /></span><span>Your dispatcher and existing workflow.</span></li>
-            </ul>
-          </div>
-        </div>
       </Moment>
 
       <Moment tone="dark" id="faq">
@@ -308,6 +290,117 @@ export default function HomePage() {
 
       <FooterBlock />
     </main>
+  );
+}
+
+function Flywheel() {
+  const nodes = [
+    { angle: -90, label: 'Discover', sub: 'Website + Google', isYou: false },
+    { angle: -30, label: 'Capture', sub: 'AI lead agent', isYou: false },
+    { angle: 30, label: 'Book', sub: 'AI booking', isYou: false },
+    { angle: 90, label: 'Deliver', sub: 'You, on the tools', isYou: true },
+    { angle: 150, label: 'Follow up', sub: 'AI review ask', isYou: false },
+    { angle: 210, label: 'Bring back', sub: 'AI re-engage', isYou: false },
+  ];
+  const cx = 300;
+  const cy = 300;
+  const r = 200;
+  const positions = nodes.map((n) => {
+    const rad = (n.angle * Math.PI) / 180;
+    return { ...n, x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
+  });
+
+  return (
+    <svg viewBox="0 0 600 600" className="w-full max-w-xl mx-auto block" role="img" aria-label="Customer flywheel diagram">
+      <defs>
+        <linearGradient id="fw-grad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="#06B6D4" />
+          <stop offset="100%" stopColor="#10B981" />
+        </linearGradient>
+        <marker id="fw-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#06B6D4" />
+        </marker>
+      </defs>
+
+      {/* Curved arcs clockwise between adjacent nodes */}
+      {positions.map((from, i) => {
+        const to = positions[(i + 1) % positions.length];
+        return (
+          <path
+            key={`arc-${i}`}
+            d={`M ${from.x} ${from.y} A ${r} ${r} 0 0 1 ${to.x} ${to.y}`}
+            stroke="url(#fw-grad)"
+            strokeWidth="2"
+            fill="none"
+            strokeLinecap="round"
+            opacity="0.5"
+            markerEnd="url(#fw-arrow)"
+          />
+        );
+      })}
+
+      {/* Center hub */}
+      <circle cx={cx} cy={cy} r="68" fill="#050811" stroke="url(#fw-grad)" strokeWidth="2" />
+      <text x={cx} y={cy - 10} textAnchor="middle" fill="#ffffff" fontSize="16" fontWeight="700" fontFamily="ui-sans-serif, system-ui">
+        Your customer
+      </text>
+      <text x={cx} y={cy + 10} textAnchor="middle" fill="#ffffff" fontSize="16" fontWeight="700" fontFamily="ui-sans-serif, system-ui">
+        database
+      </text>
+      <text x={cx} y={cy + 30} textAnchor="middle" fill="#06B6D4" fontSize="11" fontFamily="ui-monospace, monospace" letterSpacing="1.5">
+        COMPOUNDS
+      </text>
+
+      {/* Nodes */}
+      {positions.map((p, i) => (
+        <g key={`node-${i}`}>
+          <circle
+            cx={p.x}
+            cy={p.y}
+            r="52"
+            fill={p.isYou ? '#10B981' : '#141826'}
+            stroke={p.isYou ? '#10B981' : '#06B6D4'}
+            strokeWidth="2"
+          />
+          {p.isYou && (
+            <circle
+              cx={p.x}
+              cy={p.y}
+              r="58"
+              fill="none"
+              stroke="#10B981"
+              strokeWidth="2"
+              opacity="0.4"
+            >
+              <animate attributeName="r" values="58;66;58" dur="2.5s" repeatCount="indefinite" />
+              <animate attributeName="opacity" values="0.4;0;0.4" dur="2.5s" repeatCount="indefinite" />
+            </circle>
+          )}
+          <text
+            x={p.x}
+            y={p.y - 3}
+            textAnchor="middle"
+            fill={p.isYou ? '#050811' : '#ffffff'}
+            fontSize="15"
+            fontWeight="700"
+            fontFamily="ui-sans-serif, system-ui"
+          >
+            {p.label}
+          </text>
+          <text
+            x={p.x}
+            y={p.y + 14}
+            textAnchor="middle"
+            fill={p.isYou ? '#050811' : '#C7C7CC'}
+            fontSize="10"
+            fontFamily="ui-monospace, monospace"
+            letterSpacing="0.5"
+          >
+            {p.sub}
+          </text>
+        </g>
+      ))}
+    </svg>
   );
 }
 
