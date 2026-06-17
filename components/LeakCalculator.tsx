@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, useMemo } from 'react';
 
-const PULSE_SMS = 'sms:+16474908937';
+const CAL_LINK = 'https://cal.com/jacobcharendoff/staybookt';
 
 function fmt(n: number) {
   return '$' + Math.round(n).toLocaleString();
@@ -40,71 +40,26 @@ export default function LeakCalculator() {
     <div className="bg-paper/[0.03] border border-divider/60 rounded-2xl p-7 sm:p-10 lg:p-12">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
         <div>
-          <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.22em] uppercase font-bold text-elec mb-3">
-            Calculate your leak
-          </p>
-          <h3 className="font-display text-2xl sm:text-3xl tracking-tight leading-tight text-white mb-3">
-            Slide to your business.
-          </h3>
-          <p className="text-platinum-soft text-sm sm:text-base leading-relaxed mb-10">
-            The numbers update live. These are honest industry estimates. Pulse calculates your real numbers from your actual data.
-          </p>
-
+          <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.22em] uppercase font-bold text-elec mb-3">Calculate your leak</p>
+          <h3 className="font-display text-2xl sm:text-3xl tracking-tight leading-tight text-white mb-3">Slide to your business.</h3>
+          <p className="text-platinum-soft text-sm sm:text-base leading-relaxed mb-10">The numbers update live. These are honest industry estimates calibrated to a $400K owner-operator. We walk through your real numbers on the call.</p>
           <div className="space-y-8">
-            <SliderRow
-              label="Monthly jobs completed"
-              value={jobs}
-              display={`${jobs} jobs`}
-              min={5}
-              max={200}
-              step={5}
-              onChange={setJobs}
-            />
-            <SliderRow
-              label="Average job value"
-              value={value}
-              display={fmt(value)}
-              min={100}
-              max={5000}
-              step={50}
-              onChange={setValue}
-            />
-            <SliderRow
-              label="Missed calls per week"
-              value={missed}
-              display={`${missed} calls`}
-              min={0}
-              max={30}
-              step={1}
-              onChange={setMissed}
-            />
-            <SliderRow
-              label="Hours on admin per week"
-              value={hours}
-              display={`${hours} hrs`}
-              min={0}
-              max={40}
-              step={1}
-              onChange={setHours}
-            />
+            <SliderRow label="Monthly jobs completed" value={jobs} display={`${jobs} jobs`} min={5} max={200} step={5} onChange={setJobs} />
+            <SliderRow label="Average job value" value={value} display={fmt(value)} min={100} max={5000} step={50} onChange={setValue} />
+            <SliderRow label="Missed calls per week" value={missed} display={`${missed} calls`} min={0} max={30} step={1} onChange={setMissed} />
+            <SliderRow label="Hours on admin per week" value={hours} display={`${hours} hrs`} min={0} max={40} step={1} onChange={setHours} />
           </div>
         </div>
 
         <div className="lg:pl-8 lg:border-l lg:border-divider/40">
-          <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.22em] uppercase font-bold text-mute mb-4">
-            Your annual leak
-          </p>
+          <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.22em] uppercase font-bold text-mute mb-4">Your annual leak</p>
           <p
-            className={`font-display tabular-nums tracking-[-0.035em] leading-[0.9] text-brand-gradient mb-3 transition-all duration-300 ${
-              flash ? 'lc-total-flash' : ''
-            }`}
+            className={`font-display tabular-nums tracking-[-0.035em] leading-[0.9] text-brand-gradient mb-3 transition-all duration-300 ${flash ? 'lc-total-flash' : ''}`}
             style={{ fontSize: 'clamp(54px, 9vw, 96px)' }}
           >
             {fmt(totalLeak)}
           </p>
-          <p className="text-platinum-soft text-sm sm:text-base mb-8">
-            leaking out of your business this year, from three sources.
-          </p>
+          <p className="text-platinum-soft text-sm sm:text-base mb-8">leaking out of your business this year, from three sources.</p>
 
           <div className="border-t border-divider/30 pt-6 space-y-4 mb-8">
             <LeakRow label="Missed calls" amount={fmt(callLeak)} />
@@ -114,53 +69,28 @@ export default function LeakCalculator() {
 
           <div className="border-t border-divider/30 pt-6 mb-8">
             <p className="text-platinum-soft text-sm leading-relaxed">
-              Plus{' '}
-              <span className="text-white font-semibold tabular-nums">
-                {hoursYear.toLocaleString()} hours
-              </span>{' '}
-              a year on admin you cannot give back to your family.
+              Plus <span className="text-white font-semibold tabular-nums">{hoursYear.toLocaleString()} hours</span> a year on admin you cannot give back to your family.
             </p>
           </div>
 
           <a
-            href={PULSE_SMS}
+            href={CAL_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
             className="group block bg-gradient-to-r from-elec to-plumb hover:opacity-90 text-ink font-bold px-5 py-4 rounded-lg text-center transition-opacity"
           >
-            <span className="block font-mono text-[10px] sm:text-[11px] tracking-[0.22em] uppercase font-bold mb-1.5 opacity-90">
-              See your real numbers
-            </span>
-            <span className="font-display text-lg sm:text-xl tracking-tight">
-              Text Pulse {'→'} (647) 490-8937
-            </span>
+            <span className="block font-mono text-[10px] sm:text-[11px] tracking-[0.22em] uppercase font-bold mb-1.5 opacity-90">See your real numbers</span>
+            <span className="font-display text-lg sm:text-xl tracking-tight">Book a 30-minute call {'→'}</span>
           </a>
-          <p className="text-mute text-[11px] mt-3 leading-relaxed text-center">
-            Free diagnostic. Lands on your phone in 90 seconds. No signup. No list.
-          </p>
+          <p className="text-mute text-[11px] mt-3 leading-relaxed text-center">We walk through your business. No pitch deck. No homework.</p>
         </div>
       </div>
     </div>
   );
 }
 
-function SliderRow({
-  label,
-  value,
-  display,
-  min,
-  max,
-  step,
-  onChange,
-}: {
-  label: string;
-  value: number;
-  display: string;
-  min: number;
-  max: number;
-  step: number;
-  onChange: (n: number) => void;
-}) {
+function SliderRow({ label, value, display, min, max, step, onChange }: { label: string; value: number; display: string; min: number; max: number; step: number; onChange: (n: number) => void }) {
   const progress = ((value - min) / (max - min)) * 100;
-
   return (
     <div>
       <div className="flex items-baseline justify-between mb-3">
@@ -184,12 +114,8 @@ function SliderRow({
 function LeakRow({ label, amount }: { label: string; amount: string }) {
   return (
     <div className="flex items-center justify-between">
-      <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.18em] uppercase text-mute">
-        {label}
-      </p>
-      <p className="font-display text-xl sm:text-2xl text-platinum tracking-tight tabular-nums">
-        {amount}
-      </p>
+      <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.18em] uppercase text-mute">{label}</p>
+      <p className="font-display text-xl sm:text-2xl text-platinum tracking-tight tabular-nums">{amount}</p>
     </div>
   );
 }
