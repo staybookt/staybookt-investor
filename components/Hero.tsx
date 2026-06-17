@@ -11,26 +11,20 @@ export default function Hero() {
           <span className="text-platinum-soft">For Ontario service businesses under $1M</span>
         </p>
 
-        <h1 className="font-display text-[44px] sm:text-[68px] lg:text-[96px] leading-[1.02] tracking-[-0.035em] mb-6 max-w-5xl mx-auto mobile-text-balance">
+        <h1 className="font-display text-[44px] sm:text-[68px] lg:text-[104px] leading-[1.02] tracking-[-0.035em] mb-8 max-w-5xl mx-auto mobile-text-balance">
           We build websites that bring in booked work.<br className="hidden sm:inline" /> <span className="text-brand-gradient">Paid for by the results.</span>
         </h1>
 
-        <p className="text-platinum-soft text-base sm:text-lg lg:text-xl leading-relaxed mb-10 max-w-3xl mx-auto">
+        <p className="text-platinum-soft text-base sm:text-lg lg:text-xl leading-relaxed mb-12 max-w-3xl mx-auto">
           For owner-operated trades and local services where the phone still rings to the owner. The back-office layer that books, follows up, and asks for reviews is rolling out behind it.
         </p>
-
-        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-12 max-w-3xl mx-auto">
-          <LeakChip label="Missed calls" amount="$24K" />
-          <LeakChip label="Slow quote follow-up" amount="$31K" />
-          <LeakChip label="Missing reviews" amount="$18K" />
-        </div>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-10">
           <a
             href={CAL_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-elec to-hvac text-ink font-bold px-7 py-4 rounded-lg text-sm sm:text-base transition-opacity hover:opacity-90"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-elec to-hvac text-ink font-bold px-8 py-4 rounded-lg text-base sm:text-lg transition-opacity hover:opacity-90"
           >
             Book a 30-minute call
             <span aria-hidden>{'→'}</span>
@@ -49,18 +43,5 @@ export default function Hero() {
         </p>
       </div>
     </section>
-  );
-}
-
-function LeakChip({ label, amount }: { label: string; amount: string }) {
-  return (
-    <div className="inline-flex items-center gap-2.5 bg-paper/[0.04] border border-divider/60 rounded-full px-4 py-2 text-xs sm:text-sm">
-      <span className="font-mono tracking-[0.12em] uppercase text-[10px] sm:text-[11px] text-platinum-soft font-semibold">
-        {label}
-      </span>
-      <span className="font-display text-base sm:text-lg text-amber-400 font-semibold tabular-nums">
-        {amount}
-      </span>
-    </div>
   );
 }
