@@ -12,11 +12,11 @@ export default function Hero() {
         </p>
 
         <h1 className="font-display text-[44px] sm:text-[68px] lg:text-[96px] leading-[1.02] tracking-[-0.035em] mb-6 max-w-5xl mx-auto mobile-text-balance">
-          We build the website that closes them.<br className="hidden sm:inline" /> <span className="text-brand-gradient">Paid for by the results.</span>
+          We build websites that bring in booked work.<br className="hidden sm:inline" /> <span className="text-brand-gradient">Paid for by the results.</span>
         </h1>
 
         <p className="text-platinum-soft text-base sm:text-lg lg:text-xl leading-relaxed mb-10 max-w-3xl mx-auto">
-          For owner-operated service businesses where the phone still rings to the owner. We build the website that captures your leads and convert them into bookings. The AI back office that books, follows up, and asks for reviews is rolling out behind it.
+          For owner-operated trades and local services where the phone still rings to the owner. The back-office layer that books, follows up, and asks for reviews is rolling out behind it.
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-12 max-w-3xl mx-auto">
