@@ -1,22 +1,19 @@
 import { TopNav } from '@/components/TopNav';
-import HeroPulse from '@/components/HeroPulse';
+import Hero from '@/components/Hero';
 import Wordmark from '@/components/Wordmark';
-import WordRotator from '@/components/WordRotator';
 import ScrollReveal from '@/components/ScrollReveal';
 import ParallaxOrbs from '@/components/ParallaxOrbs';
 import { IconMinusCircle } from '@/components/Icons';
 import Link from 'next/link';
 import { MacBookFrame, IPhoneFrame } from '@/components/DeviceFrames';
 import LeakCalculator from '@/components/LeakCalculator';
-import PersistentPulse from '@/components/PersistentPulse';
 import Interstitial from '@/components/Interstitial';
 
 export const metadata = {
-  title: 'StayBookt | Marketing and back office for service businesses under $1M',
-  description: 'StayBookt builds and runs the website and back office for service businesses where the owner answers the phone. Trades, local services, professional practices. Built for Ontario operators.',
+  title: 'StayBookt | Websites that close them. The back office, rolling out next.',
+  description: 'StayBookt builds the website that captures leads for service businesses under $1M. Pay for performance: $2,500 to launch, $149 a month, 5% on new business the site brings you. The AI back office is rolling out behind it. Built for Ontario operators.',
 };
 
-const PULSE_SMS = 'sms:+16474908937';
 const CAL_LINK = 'https://cal.com/jacobcharendoff/staybookt';
 
 export default function HomePage() {
@@ -24,22 +21,8 @@ export default function HomePage() {
     <main id="top" className="relative text-white scroll-stage">
       <ParallaxOrbs />
       <TopNav />
-      <PersistentPulse />
 
-      <HeroPulse />
-
-      <section className="px-6 sm:px-12 py-12 sm:py-16">
-        <ScrollReveal>
-          <div className="max-w-5xl mx-auto text-center">
-            <p className="text-platinum-soft text-base sm:text-lg leading-relaxed mb-5">
-              Software should run <WordRotator words={['your website', 'your bookings', 'your invoices', 'your follow-ups']} />.
-            </p>
-            <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.22em] uppercase text-mute">
-              Replaces: Wix &middot; Jobber lite &middot; a part-time admin
-            </p>
-          </div>
-        </ScrollReveal>
-      </section>
+      <Hero />
 
       <Interstitial tone="dark" height="55vh">
         <p className="font-mono text-[11px] sm:text-xs tracking-[0.32em] uppercase font-bold text-elec mb-12">The diagnosis</p>
@@ -51,15 +34,9 @@ export default function HomePage() {
       <Moment tone="dark">
         <Eyebrow tone="dark">The Leak</Eyebrow>
         <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-6 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>See your numbers.</h2>
-        <p className="text-platinum-soft text-base sm:text-lg mb-14 max-w-2xl leading-relaxed">The hero shows the average. Slide to your business and the math recomputes live. Pulse will give you the real number when you text your URL.</p>
-        <div className="mb-24"><LeakCalculator /></div>
-        <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.22em] uppercase font-bold text-mute mb-6">How each leak works</p>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-12">
-          <LeakCard label="Missed calls" amount="$24,000" stat="Roughly half of inbound calls to small service businesses go to voicemail. Most callers do not try again." stop="An AI receptionist answers, asks the questions you would ask, books the job, and texts you the summary in your voice." source="AT&T small business call study, Invoca call benchmarks." />
-          <LeakCard label="Slow quote follow-up" amount="$31,000" stat="Around 70% of sent quotes never get a second touch. The job goes to whoever followed up first." stop="Quotes follow up automatically at 24 hours, 72 hours, and 7 days. Live pipeline dashboard. Text the system to ask what is open over a week." source="HubSpot lead-response benchmarks." />
-          <LeakCard label="Missing reviews" amount="$18,000" stat="Only 14% of happy customers leave a review unprompted. The other 86% would, if you asked at the right moment." stop="A text goes out while the work is fresh. Reviews land. Maps ranking climbs. Your reputation gets bigger every month." source="BrightLocal 2024 consumer review survey." />
-        </div>
-        <p className="text-mute text-[11px] leading-relaxed max-w-3xl">Calculator uses industry benchmarks (AT&T, Invoca, HubSpot, BrightLocal) calibrated to a $400K owner-operator with a $500 average ticket. Pulse pulls your actual traffic, quotes, and reviews and recomputes from your business.</p>
+        <p className="text-platinum-soft text-base sm:text-lg mb-14 max-w-2xl leading-relaxed">Slide to your business and the math recomputes live. We walk through your real numbers on the call.</p>
+        <div><LeakCalculator /></div>
+        <p className="text-mute text-[11px] leading-relaxed max-w-3xl mt-10">Calculator uses industry benchmarks (AT&amp;T, Invoca, HubSpot, BrightLocal) calibrated to a $400K owner-operator with a $500 average ticket.</p>
       </Moment>
 
       <Interstitial tone="cream" height="50vh">
@@ -130,16 +107,21 @@ export default function HomePage() {
         <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-4 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>Two real businesses. Two real owners.</h2>
         <p className="text-stone-600 text-sm mb-14 max-w-2xl">The panels below are the actual sites, running live. Click either one to open in a new tab.</p>
         <div className="space-y-10">
-          <ClientCard eyebrow="Top Choice Electrical" name="Tim Ciszko" role="Residential electrician. 22 years on the tools, 6 on his own." location="Newmarket, Ontario" url="www.topchoiceelectrical.com" href="https://www.topchoiceelectrical.com" quote="My old site was three pages of stock photos. A month after launch I had homeowners calling me by name from the website. By month two I was turning down jobs that did not fit. That is the problem you want to have." pulseStatus="Built to Pulse standards" outcomeStats={[{ value: '14', label: 'Inbound web leads, first 30 days' }, { value: '6', label: 'Booked jobs from web, first 60 days' }]} outcomeTrackingNote="Tracking since launch. Updated weekly." customerReview={{ text: 'Tim showed up when he said he would. Quoted a fair price and stuck to it. Cleaned up after himself. Would absolutely hire again.', author: 'Stephanie K.', authorLocation: 'Newmarket homeowner', via: 'Google', when: '3 weeks ago' }} frameType="macbook" />
-          <ClientCard eyebrow="XNL HR & Communications" name="Evert Akkerman, CHRL, LL.M." role="Fractional HR practice. Founded 2012. 25+ years and 25+ bylines in Canadian HR press." location="Newmarket, Ontario" url="www.xnlhr.com" href="https://www.xnlhr.com" quote="The new site tells the XNL story the way I have been trying to tell it for ten years. The first three intake calls after we launched were better prepared than the last twenty I had taken." pulseStatus="Built to Pulse standards" outcomeStats={[{ value: '4', label: 'Intake calls scheduled, first 60 days' }, { value: '2', label: 'New retainer clients' }]} outcomeTrackingNote="Tracking since launch. Updated weekly." customerReview={{ text: 'Evert came in mid-investigation and turned a mess into a plan. Clear, fair, did not run up hours. We have kept him on retainer.', author: 'Procurement Director', authorLocation: 'Toronto manufacturing firm', via: 'LinkedIn', when: '1 month ago' }} reverse frameType="iphone" />
+          <ClientCard eyebrow="Top Choice Electrical" name="Tim Ciszko" role="Residential electrician. 22 years on the tools, 6 on his own." location="Newmarket, Ontario" url="www.topchoiceelectrical.com" href="https://www.topchoiceelectrical.com" quote="My old site was three pages of stock photos. A month after launch I had homeowners calling me by name from the website. By month two I was turning down jobs that did not fit. That is the problem you want to have." pulseStatus="Built to StayBookt standards" outcomeStats={[{ value: '14', label: 'Inbound web leads, first 30 days' }, { value: '6', label: 'Booked jobs from web, first 60 days' }]} outcomeTrackingNote="Tracking since launch. Updated weekly." customerReview={{ text: 'Tim showed up when he said he would. Quoted a fair price and stuck to it. Cleaned up after himself. Would absolutely hire again.', author: 'Stephanie K.', authorLocation: 'Newmarket homeowner', via: 'Google', when: '3 weeks ago' }} frameType="macbook" />
+          <ClientCard eyebrow="XNL HR & Communications" name="Evert Akkerman, CHRL, LL.M." role="Fractional HR practice. Founded 2012. 25+ years and 25+ bylines in Canadian HR press." location="Newmarket, Ontario" url="www.xnlhr.com" href="https://www.xnlhr.com" quote="The new site tells the XNL story the way I have been trying to tell it for ten years. The first three intake calls after we launched were better prepared than the last twenty I had taken." pulseStatus="Built to StayBookt standards" outcomeStats={[{ value: '4', label: 'Intake calls scheduled, first 60 days' }, { value: '2', label: 'New retainer clients' }]} outcomeTrackingNote="Tracking since launch. Updated weekly." customerReview={{ text: 'Evert came in mid-investigation and turned a mess into a plan. Clear, fair, did not run up hours. We have kept him on retainer.', author: 'Procurement Director', authorLocation: 'Toronto manufacturing firm', via: 'LinkedIn', when: '1 month ago' }} reverse frameType="iphone" />
         </div>
         <p className="text-stone-500 text-xs mt-10 max-w-3xl leading-relaxed">Customer reviews shown are illustrative of the kind of feedback Tim and Evert receive. Live reviews are at each business profile, linked above the live sites.</p>
       </Moment>
 
       <Moment tone="cream">
-        <Eyebrow tone="cream">Output</Eyebrow>
-        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-4 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>The work, in three artifacts.</h2>
-        <p className="text-stone-600 text-sm sm:text-base mb-14 max-w-2xl leading-relaxed">Three examples of what runs in the background while you are off the laptop. Numbers and names below are illustrative of a typical week.</p>
+        <div className="inline-flex items-center gap-2 bg-amber-50 border border-amber-200 rounded-full px-3 py-1 mb-5">
+          <span className="inline-block w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" aria-hidden />
+          <p className="font-mono text-[10px] tracking-[0.18em] uppercase font-semibold text-amber-700">Rolling out for pilot clients in 2026</p>
+        </div>
+        <Eyebrow tone="cream">What is next</Eyebrow>
+        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-4 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>The website is the start. The back office is next.</h2>
+        <p className="text-stone-600 text-sm sm:text-base mb-14 max-w-2xl leading-relaxed">Two examples of what we are building behind the websites we ship. Tim and Evert will be the first to have it. Numbers and names below are illustrative of a typical week.</p>
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
           <div className="flex flex-col">
             <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-stone-500 mb-3">Monday at 7 a.m.</p>
@@ -169,10 +151,11 @@ export default function HomePage() {
                   <p className="text-platinum-soft text-xs leading-relaxed mb-2">Your Newmarket service page got 23% more views than the prior week. Two of last week&apos;s bookings came from people who landed on that page.</p>
                   <p className="text-platinum-soft text-xs leading-relaxed">One quote from 9 days ago is still open. We are following up with the homeowner this morning.</p>
                 </div>
-                <p className="text-mute text-[11px] leading-relaxed">Reply if anything looks off. Pulse runs the full diagnostic again Wednesday at 6 a.m.</p>
+                <p className="text-mute text-[11px] leading-relaxed">Reply if anything looks off. The next roll-up lands Monday at 7 a.m.</p>
               </div>
             </div>
           </div>
+
           <div className="flex flex-col">
             <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-emerald-600 mb-3">Same day, after the job.</p>
             <h3 className="font-display text-2xl sm:text-3xl tracking-tight leading-tight mb-5 text-stone-900">Reviews while the work is fresh.</h3>
@@ -196,45 +179,8 @@ export default function HomePage() {
             </div>
           </div>
         </div>
+
         <p className="text-stone-500 text-xs mt-10 max-w-3xl leading-relaxed">The brief gets adapted to your trade and your funnel. A plumber sees emergency-call response time. A fractional consultant sees pipeline meetings booked. Same shape, different metrics.</p>
-        <div className="mt-24 pt-16 border-t border-stone-300/60">
-          <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-elec mb-3">And any time you want to ask.</p>
-          <h3 className="font-display text-3xl sm:text-4xl tracking-tight leading-tight mb-4 text-stone-900 max-w-2xl">Run your business by text.</h3>
-          <p className="text-stone-600 text-base sm:text-lg max-w-2xl leading-relaxed mb-14">Pulse remembers your data. Text a question, get a real answer in a sentence. No app to open. No dashboard to learn.</p>
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-12 items-start">
-            <div className="lg:col-span-2">
-              <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-stone-500 mb-5">Try sending</p>
-              <ul className="space-y-3 text-stone-800 text-sm sm:text-base">
-                <li>{`"what's open over 7 days"`}</li>
-                <li>{`"revenue this month"`}</li>
-                <li>{`"who hasn't paid me yet"`}</li>
-                <li>{`"book a callback with Maria"`}</li>
-              </ul>
-              <p className="text-stone-500 text-xs sm:text-sm mt-8 leading-relaxed">Pulse pulls from your CRM, your calendar, your QuickBooks, and your live pipeline. Answers come back to your phone. The memory only knows what your tools already know.</p>
-            </div>
-            <div className="lg:col-span-3 flex justify-center">
-              <div className="bg-ink-deep border border-stone-800 rounded-2xl overflow-hidden shadow-2xl max-w-md w-full">
-                <div className="bg-ink-soft/60 px-5 py-4 border-b border-divider/40 flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-elec/40 to-plumb/40 flex items-center justify-center text-xs font-bold text-white">P</div>
-                  <div>
-                    <p className="text-platinum text-xs font-semibold leading-tight">Pulse</p>
-                    <p className="text-mute text-[10px] leading-tight">(647) 490-8937</p>
-                  </div>
-                </div>
-                <div className="p-5 sm:p-6 space-y-3">
-                  <div className="flex justify-end"><div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-2xl rounded-tr-md px-4 py-3 max-w-[88%]"><p className="text-[13px] leading-relaxed">{`what's open over 7 days`}</p></div></div>
-                  <div className="flex justify-start"><div className="bg-divider/40 text-platinum rounded-2xl rounded-tl-md px-4 py-3 max-w-[88%]"><p className="text-[13px] leading-relaxed">3 quotes are over 7 days, totaling $8,400.</p><ul className="text-[12px] leading-relaxed mt-2 space-y-1 text-platinum-soft"><li>Maria, kitchen reno. Day 9. $4,800.</li><li>Bryan, HVAC service plan. Day 11. $2,400.</li><li>Karen, basement waterproofing. Day 8. $1,200.</li></ul><p className="text-[12px] leading-relaxed mt-2">{`Reply "chase all" or "chase [name]".`}</p></div></div>
-                  <div className="flex justify-end"><div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-2xl rounded-tr-md px-4 py-3 max-w-[88%]"><p className="text-[13px] leading-relaxed">chase maria</p></div></div>
-                  <div className="flex justify-start"><div className="bg-divider/40 text-platinum rounded-2xl rounded-tl-md px-4 py-3 max-w-[88%]"><p className="text-[13px] leading-relaxed">On it. Maria gets a friendly text in 5 min. I will text you back when she replies.</p></div></div>
-                  <div className="pt-3 mt-2 border-t border-divider/40 flex items-center gap-2.5">
-                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" aria-hidden />
-                    <p className="text-mute text-[11px] font-medium">Pulse memory &middot; live pipeline &middot; QuickBooks</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </Moment>
 
       <Interstitial tone="cream" height="55vh">
@@ -276,9 +222,9 @@ export default function HomePage() {
         <div className="border-t border-stone-300/60 pt-12 mb-8">
           <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.22em] uppercase font-bold text-stone-500 mb-6">The actual numbers</p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <PriceCell amount="$1,500 to $2,500" detail="One-time build fee. Due at kickoff." />
-            <PriceCell amount="$99 a month" detail="To keep the site running. Cancel any month." />
-            <PriceCell amount="3% to 5%" detail="On new business the site brings in. Tracked, not estimated." highlight />
+            <PriceCell amount="$2,500" detail="One-time build fee. Due at kickoff." />
+            <PriceCell amount="$149 a month" detail="To keep the site running. Cancel any month." />
+            <PriceCell amount="5%" detail="On new business the site brings in. Tracked, not estimated." highlight />
           </div>
         </div>
         <p className="text-stone-500 text-xs">All prices in CAD. Built for Ontario operators.</p>
@@ -287,14 +233,14 @@ export default function HomePage() {
       <Moment tone="cream">
         <Eyebrow tone="cream">Timeline</Eyebrow>
         <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-6 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>Three weeks. Then it just runs.</h2>
-        <p className="text-stone-600 text-base sm:text-lg mb-20 max-w-2xl leading-relaxed">We do not disappear after launch. Week 4 is when the Monday brief starts landing. Week 12 is when the Pulse score starts moving up.</p>
+        <p className="text-stone-600 text-base sm:text-lg mb-20 max-w-2xl leading-relaxed">We do not disappear after launch. Week 4 is when the Monday brief starts landing. The back office layer rolls in as we ship it.</p>
         <div className="relative">
           <div className="hidden md:block absolute top-5 left-[5%] right-[5%] h-0.5 bg-gradient-to-r from-stone-300 via-emerald-300 to-emerald-500" aria-hidden />
           <div className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-6 relative">
             <TimelineMilestone week="Day 1" title="Kickoff call" body="60 minutes. You walk us through what you do, who you serve, what is broken. We come back the next morning with the build list." tone="stone" />
-            <TimelineMilestone week="Week 1" title="Account brain" body="We catalog your services, areas, photos, real reviews, real customer voice. The site is built from this, not a template." tone="stone" />
-            <TimelineMilestone week="Week 3" title="Site goes live" body="Domain points. GBP rebuilt. Review pipeline running. Missed-call SMS wired. You are off the laptop." tone="emerald-light" />
-            <TimelineMilestone week="Week 4 →" title="Monday brief lands" body="7 a.m. every Monday. Numbers in your inbox. Pulse runs the diagnostic weekly. You run the business." tone="emerald" final />
+            <TimelineMilestone week="Week 1" title="Discovery + content" body="We catalog your services, areas, photos, real reviews, real customer voice. The site is built from this, not a template." tone="stone" />
+            <TimelineMilestone week="Week 3" title="Site goes live" body="Domain points. Google Business Profile rebuilt. Review request flow wired. You are off the laptop." tone="emerald-light" />
+            <TimelineMilestone week="Week 4 &rarr;" title="Monday brief lands" body="7 a.m. every Monday. Numbers in your inbox. Back-office features roll in as we ship them." tone="emerald" final />
           </div>
         </div>
       </Moment>
@@ -303,59 +249,47 @@ export default function HomePage() {
         <Eyebrow tone="dark">Questions</Eyebrow>
         <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>Read this before you click.</h2>
         <div className="space-y-3 max-w-4xl">
-          <Faq question="What if I want to cancel?">You cancel any month. We hand you the website code, the Google Business Profile login, the customer list, and the keys to the review pipeline. No locked-in dependencies. The only thing we keep is the Pulse diagnostic engine, because that one is ours.</Faq>
-          <Faq question="What if you go out of business?">Your domain is registered to you. Your website lives on Vercel under your own account. Your Google Business Profile is yours. Your customer list lives in your CRM, not ours. We are the people running the system, not the system itself. If we vanish you keep everything that matters.</Faq>
+          <Faq question="What if I want to cancel?">You cancel any month. We hand you the website code, the Google Business Profile login, the customer list, and the review pipeline keys. No locked-in dependencies.</Faq>
+          <Faq question="What if you go out of business?">Your domain is registered to you. Your website lives on Vercel under your own account. Your Google Business Profile is yours. Your customer list lives in your CRM, not ours. If we vanish you keep everything that matters.</Faq>
           <Faq question="Why charge a percentage on new business?">Most marketing agencies charge a flat fee whether they brought you anything or not. We dropped the flat fee down to almost nothing and put the rest on the work actually moving the needle. If the site does not bring you new bookings, we do not make money on the third row.</Faq>
-          <Faq question="Can I just buy the website without the monthly?">Yes, but read this first. A site without ongoing care drifts. The Google profile goes stale. Review requests stop going out. Page speed degrades. After a year, an unmaintained site is roughly as effective as no site. The $99 a month is the thing that stops that from happening.</Faq>
+          <Faq question="Can I just buy the website without the monthly?">Yes, but read this first. A site without ongoing care drifts. The Google profile goes stale. Review requests stop going out. Page speed degrades. After a year, an unmaintained site is roughly as effective as no site. The $149 a month is the thing that stops that from happening.</Faq>
           <Faq question="Will you take over my domain and Google account?">No. You stay the registered owner of your domain. We get added as a manager on your Google Business Profile so we can update hours, photos, and posts. If you part ways with us, we are removed. You keep the account.</Faq>
-          <Faq question="What if I want to switch trades or add a new service?">Tell us. The website gets the new pages within a week. Pulse adapts. The Monday brief shows the new metrics. Service businesses change shape all the time. The site should never be the thing holding that back.</Faq>
-          <Faq question="What happens when I hire help?">Tell us. We add your office manager, your apprentice, or your spouse to the Monday brief. They get their own view, their own access. The owner stays the person we talk to. The team gets what they need to do their part.</Faq>
+          <Faq question="What about the AI back office you mentioned?">It is rolling out in 2026 for our pilot clients (Tim and Evert first). Booking, follow-up, review pipeline, CRM, Monday brief. Pricing for those layers gets set as each one ships. The website is what you pay for today.</Faq>
+          <Faq question="What happens when I hire help?">Tell us. We add your office manager, your apprentice, or your spouse to the Monday brief when it ships. The owner stays the person we talk to. The team gets what they need to do their part.</Faq>
         </div>
-        <p className="text-mute text-xs sm:text-sm mt-10 leading-relaxed">Have one we did not answer? Text it to (647) 490-8937 or bring it to the call.</p>
+        <p className="text-mute text-xs sm:text-sm mt-10 leading-relaxed">Have one we did not answer? Bring it to the call.</p>
       </Moment>
 
       <Interstitial tone="dark" height="50vh">
         <p className="font-mono text-[11px] sm:text-xs tracking-[0.32em] uppercase font-bold text-mute mb-12">Next step</p>
         <p className="font-display tracking-[-0.04em] leading-[0.92]" style={{ fontSize: 'clamp(54px, 11vw, 144px)' }}>
-          Text your URL.<br /><span className="text-brand-gradient">90 seconds.</span>
+          Book a call.<br /><span className="text-brand-gradient">30 minutes.</span>
         </p>
       </Interstitial>
 
       <Moment tone="dark">
         <Eyebrow tone="dark">Start</Eyebrow>
-        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>Pick one. We pick up.</h2>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-          <a href={PULSE_SMS} className="group lg:col-span-2 block bg-paper/[0.03] border border-divider/60 hover:border-elec/40 rounded-2xl p-8 sm:p-10 transition-colors">
-            <div className="flex items-center gap-3 mb-4">
-              <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-elec">Option one</p>
-              <span className="font-mono text-[9px] tracking-[0.18em] uppercase font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 rounded-full px-2 py-0.5">Recommended</span>
-            </div>
-            <h3 className="font-display text-3xl sm:text-4xl tracking-tight leading-tight mb-4">Text Pulse.</h3>
-            <p className="text-platinum-soft text-base leading-relaxed mb-7">Text your business URL to (647) 490-8937. PDF with your 14-signal diagnostic lands on your phone in 90 seconds. No signup. We do not put you on a list.</p>
-            <div className="bg-ink/40 border border-divider/40 rounded-xl p-4 mb-7">
-              <p className="font-mono text-[9px] tracking-[0.22em] uppercase font-bold text-mute mb-3">What you will receive</p>
-              <div className="space-y-2">
-                <div className="flex justify-end"><div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-2xl rounded-tr-md px-3 py-2 max-w-[80%] text-[11px] leading-relaxed">yourbusiness.com</div></div>
-                <div className="flex justify-start"><div className="bg-divider/40 text-platinum rounded-2xl rounded-tl-md px-3 py-2 max-w-[88%] text-[11px] leading-relaxed">On it. Pulse running on yourbusiness.com. About 90 seconds.</div></div>
-                <div className="flex justify-start"><div className="bg-divider/40 text-platinum rounded-2xl rounded-tl-md px-3 py-2 max-w-[88%] text-[11px] leading-relaxed">Pulse complete. 6 of 14 signals strong. PDF: pulse.staybookt.com/pdf</div></div>
-              </div>
-            </div>
-            <span className="inline-flex items-center gap-2 text-elec font-semibold text-sm">Open Messages <span aria-hidden className="group-hover:translate-x-1 transition-transform">{'→'}</span></span>
-          </a>
-          <a href={CAL_LINK} target="_blank" rel="noopener noreferrer" className="group block bg-paper/[0.03] border border-divider/60 hover:border-plumb/40 rounded-2xl p-8 sm:p-10 transition-colors">
-            <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-plumb mb-4">Option two</p>
-            <h3 className="font-display text-3xl sm:text-4xl tracking-tight leading-tight mb-4">Book a call.</h3>
-            <p className="text-platinum-soft text-base leading-relaxed mb-6">30 minutes with Jacob. We walk through your business, what would move the needle, what it would cost. No pitch deck. No homework.</p>
-            <span className="inline-flex items-center gap-2 text-plumb font-semibold text-sm">Pick a time <span aria-hidden className="group-hover:translate-x-1 transition-transform">{'→'}</span></span>
-          </a>
-        </div>
+        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>Book the call. We pick up.</h2>
+        <a href={CAL_LINK} target="_blank" rel="noopener noreferrer" className="group block bg-paper/[0.03] border border-divider/60 hover:border-elec/40 rounded-2xl p-8 sm:p-12 transition-colors max-w-3xl">
+          <div className="flex items-center gap-3 mb-4">
+            <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-elec">30 minutes with Jacob</p>
+            <span className="font-mono text-[9px] tracking-[0.18em] uppercase font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 rounded-full px-2 py-0.5">Recommended</span>
+          </div>
+          <h3 className="font-display text-3xl sm:text-4xl tracking-tight leading-tight mb-4">Tell us about your business.</h3>
+          <p className="text-platinum-soft text-base leading-relaxed mb-7">We walk through what you do, who you serve, what is broken, and what we would build for you. We talk through the calculator with real numbers from your business. No pitch deck. No homework. If it is a fit, we send a proposal the next day.</p>
+          <span className="inline-flex items-center gap-2 text-elec font-semibold text-sm">
+            Pick a time
+            <span aria-hidden className="group-hover:translate-x-1 transition-transform">{'→'}</span>
+          </span>
+        </a>
+        <p className="text-mute text-sm mt-6">Or email <a href="mailto:jacob@staybookt.com" className="text-platinum-soft hover:text-white transition-colors">jacob@staybookt.com</a> if a call does not work.</p>
       </Moment>
 
       <Moment tone="dark">
         <Eyebrow tone="dark">Team</Eyebrow>
         <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>Two humans.</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <PersonCard initial="J" name="Jacob Charendoff" role="Co-founder · Builder" bio="Builds the websites, runs the Pulse intelligence layer, ships the back-office systems. Background in operations and software for owner-operated businesses. Lives in Toronto." voiceQuote="If the site does not bring you anything in 90 days, something is broken. Tell me and I will fix it." meetWhen="On the kickoff call. In your Monday brief replies. Anytime you text the (647) number." />
+          <PersonCard initial="J" name="Jacob Charendoff" role="Co-founder · Builder" bio="Builds the websites, ships the back-office systems. Background in operations and software for owner-operated businesses. Lives in Toronto." voiceQuote="If the site does not bring you anything in 90 days, something is broken. Tell me and I will fix it." meetWhen="On the kickoff call. In your Monday brief replies. Whenever you have a question." />
           <PersonCard initial="R" name="Richard Roos, CPA" role="Co-founder · Operator" bio="20 years across finance and operations. Runs intake, client relationships, and the parts of the work that need a senior voice. Lives in Newmarket." voiceQuote="I sign off the numbers before they go to a client. Always. That is what we are paid for." meetWhen="On the intro call before kickoff. In the quarterly performance review. Whenever the numbers need a second pair of eyes." />
         </div>
       </Moment>
@@ -373,11 +307,10 @@ function FooterBlock() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8 mb-12">
             <div>
               <Wordmark size="sm" onDark />
-              <p className="text-mute text-sm mt-3 max-w-md leading-relaxed">Marketing and back office for service businesses under $1M in revenue. Built for Ontario operators.</p>
+              <p className="text-mute text-sm mt-3 max-w-md leading-relaxed">Websites that close them. The back office, rolling out next. Built for Ontario service businesses under $1M.</p>
             </div>
             <div className="flex flex-col items-start sm:items-end gap-3">
               <a href={CAL_LINK} target="_blank" rel="noopener noreferrer" className="text-platinum hover:text-white text-sm font-semibold transition-colors">Book a 30-minute call</a>
-              <a href={PULSE_SMS} className="text-platinum-soft hover:text-white text-sm transition-colors">Text Pulse: (647) 490-8937</a>
               <a href="mailto:jacob@staybookt.com" className="text-mute hover:text-platinum-soft text-sm transition-colors">jacob@staybookt.com</a>
             </div>
           </div>
@@ -420,22 +353,6 @@ function Moment({ children, tone, id }: { children: React.ReactNode; tone: 'dark
 function Eyebrow({ children, tone }: { children: React.ReactNode; tone: 'cream' | 'dark' }) {
   const color = tone === 'cream' ? 'text-stone-500' : 'text-elec';
   return <p className={`font-mono text-[10px] sm:text-[11px] tracking-[0.32em] uppercase font-bold mb-7 ${color}`}>{children}</p>;
-}
-
-function LeakCard({ label, amount, stat, stop, source }: { label: string; amount: string; stat: string; stop: string; source: string }) {
-  return (
-    <div className="bg-paper/[0.03] border border-divider/60 rounded-2xl p-7 sm:p-8 flex flex-col">
-      <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-amber-400 mb-5">{label}</p>
-      <p className="font-display text-5xl sm:text-6xl tracking-[-0.035em] leading-[0.9] text-white mb-2">{amount}</p>
-      <p className="font-mono text-[10px] tracking-[0.18em] uppercase text-mute mb-6">Lost per year</p>
-      <p className="text-platinum text-sm sm:text-base leading-relaxed mb-7 border-t border-divider/30 pt-6">{stat}</p>
-      <div className="mt-auto">
-        <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-elec mb-3">How we stop it</p>
-        <p className="text-platinum-soft text-sm leading-relaxed mb-6">{stop}</p>
-        <p className="text-mute text-[10px] leading-relaxed pt-4 border-t border-divider/20">Source: {source}</p>
-      </div>
-    </div>
-  );
 }
 
 function WeeklyGrid() {
@@ -492,7 +409,7 @@ function WeeklyGridAfter() {
   const days: { label: string; am: DayBlock; pm: DayBlock; eve: DayBlock }[] = [
     { label: 'Mon', am: { type: 'tools', label: 'Tools' }, pm: { type: 'tools', label: 'Tools' }, eve: { type: 'sb', label: 'Follow-up' } },
     { label: 'Tue', am: { type: 'tools', label: 'Tools' }, pm: { type: 'tools', label: 'Tools' }, eve: { type: 'sb', label: 'Quote chase' } },
-    { label: 'Wed', am: { type: 'tools', label: 'Tools' }, pm: { type: 'sb', label: 'Pulse run' }, eve: { type: 'tools', label: 'Tools' } },
+    { label: 'Wed', am: { type: 'tools', label: 'Tools' }, pm: { type: 'sb', label: 'StayBookt run' }, eve: { type: 'tools', label: 'Tools' } },
     { label: 'Thu', am: { type: 'tools', label: 'Tools' }, pm: { type: 'tools', label: 'Tools' }, eve: { type: 'sb', label: 'Review ask' } },
     { label: 'Fri', am: { type: 'tools', label: 'Tools' }, pm: { type: 'tools', label: 'Tools' }, eve: { type: 'sb', label: 'Brief' } },
     { label: 'Sat', am: { type: 'sb', label: 'Missed call' }, pm: { type: 'family', label: 'Family' }, eve: { type: 'sb', label: 'Reviews' } },
