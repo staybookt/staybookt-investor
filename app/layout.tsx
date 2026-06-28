@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter_Tight } from 'next/font/google';
 import './globals.css';
+import Analytics from '@/components/Analytics';
+import StructuredData from '@/components/StructuredData';
 
 const interTight = Inter_Tight({
   subsets: ['latin'],
@@ -44,7 +46,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`antialiased ${interTight.variable}`}>{children}</body>
+      <body className={`antialiased ${interTight.variable}`}>
+        {children}
+        <StructuredData />
+        <Analytics />
+      </body>
     </html>
   );
 }
