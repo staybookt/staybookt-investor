@@ -30,10 +30,12 @@ export default function Hero() {
       ref={ref}
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-28 pb-20 px-6 sm:px-12 bg-ink-deep"
     >
-      {/* Aurora background — two parallax layers of drifting gradient blobs */}
+      {/* Aurora background — two parallax layers of drifting gradient blobs.
+         Blur radii kept moderate and the third blob is dropped on mobile to
+         keep paint cost low on phones. */}
       <motion.div aria-hidden style={{ y: y1 }} className="pointer-events-none absolute inset-0">
         <motion.div
-          className="absolute -top-48 -left-32 h-[44rem] w-[44rem] rounded-full blur-[120px] opacity-50"
+          className="absolute -top-48 -left-32 h-[40rem] w-[40rem] rounded-full blur-[90px] opacity-45"
           style={{ background: 'radial-gradient(circle at 30% 30%, rgba(6,182,212,0.55), rgba(6,182,212,0) 70%)' }}
           animate={reduce ? undefined : { x: [0, 40, 0], y: [0, -30, 0] }}
           transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
@@ -41,13 +43,13 @@ export default function Hero() {
       </motion.div>
       <motion.div aria-hidden style={{ y: y2 }} className="pointer-events-none absolute inset-0">
         <motion.div
-          className="absolute top-1/3 -right-40 h-[40rem] w-[40rem] rounded-full blur-[120px] opacity-40"
+          className="absolute top-1/3 -right-40 h-[38rem] w-[38rem] rounded-full blur-[90px] opacity-40"
           style={{ background: 'radial-gradient(circle at 60% 40%, rgba(16,185,129,0.5), rgba(16,185,129,0) 70%)' }}
           animate={reduce ? undefined : { x: [0, -50, 0], y: [0, 40, 0] }}
           transition={{ duration: 24, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
-          className="absolute -bottom-56 left-1/4 h-[40rem] w-[40rem] rounded-full blur-[130px] opacity-[0.35]"
+          className="hidden sm:block absolute -bottom-56 left-1/4 h-[38rem] w-[38rem] rounded-full blur-[100px] opacity-30"
           style={{ background: 'radial-gradient(circle at 50% 50%, rgba(79,70,229,0.5), rgba(79,70,229,0) 70%)' }}
           animate={reduce ? undefined : { x: [0, 30, 0], y: [0, -20, 0] }}
           transition={{ duration: 26, repeat: Infinity, ease: 'easeInOut' }}
