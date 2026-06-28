@@ -4,6 +4,8 @@ import Wordmark from '@/components/Wordmark';
 import ScrollReveal from '@/components/ScrollReveal';
 import ParallaxOrbs from '@/components/ParallaxOrbs';
 import { MacBookFrame, IPhoneFrame } from '@/components/DeviceFrames';
+import { IconFind, IconBook, IconStay } from '@/components/WorkIcons';
+import ConceptDashboard from '@/components/ConceptDashboard';
 import { CAL_LINK, EMAIL, PHONE_DISPLAY, PHONE_HREF, PRICING } from '@/lib/site';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -48,16 +50,19 @@ export default function HomePage() {
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <WorkColumn
+            icon={<IconFind className="w-10 h-10" />}
             tag="Find"
             title="People find you first."
             body="A custom website built to rank, convert, and look like you actually do the work. Google Business Profile rebuilt. Service-area pages. Built mobile-first, because that is where your customers are."
           />
           <WorkColumn
+            icon={<IconBook className="w-10 h-10" />}
             tag="Book"
             title="The call turns into a job."
             body="Form fills routed to your phone in seconds. A review request flow wired before launch. Missed-call recovery is on the roadmap, so fewer leads slip between the ring and the booked job."
           />
           <WorkColumn
+            icon={<IconStay className="w-10 h-10" />}
             tag="Stay"
             title="The calendar stays full."
             body="Ongoing care keeps the site converting. Pages updated. Reviews flowing. Profile fresh. The back-office layer rolls in as we ship it, and you keep doing the work."
@@ -212,9 +217,13 @@ export default function HomePage() {
         <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-4 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
           The back office is the next layer.
         </h2>
-        <p className="text-platinum-soft text-base sm:text-lg mb-14 max-w-3xl leading-relaxed">
+        <p className="text-platinum-soft text-base sm:text-lg mb-12 max-w-3xl leading-relaxed">
           The website captures the leads. The back office converts them, then brings them back. As each layer ships, your monthly grows into the full operating system, and the work it takes off your plate grows with it. Here is where it is headed.
         </p>
+
+        <div className="mb-10">
+          <ConceptDashboard />
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
           <div className="flex flex-col">
@@ -273,7 +282,7 @@ export default function HomePage() {
         </div>
 
         <p className="text-mute text-[11px] leading-relaxed max-w-3xl mt-10">
-          Concept previews of where the platform is headed. Also on the roadmap: an AI receptionist for missed calls, automated quote follow-up, and an integrated booking calendar. None of them ship today. The website is what you pay for now.
+          Concept previews of where the platform is headed. Numbers shown are illustrative. Also on the roadmap: an AI receptionist for missed calls, automated quote follow-up, and an integrated booking calendar. None of them ship today. The website is what you pay for now.
         </p>
       </Moment>
 
@@ -345,10 +354,11 @@ function Eyebrow({ children, tone }: { children: React.ReactNode; tone: 'cream' 
   return <p className={`font-mono text-[10px] sm:text-[11px] tracking-[0.32em] uppercase font-bold mb-7 ${color}`}>{children}</p>;
 }
 
-function WorkColumn({ tag, title, body }: { tag: string; title: string; body: string }) {
+function WorkColumn({ icon, tag, title, body }: { icon?: React.ReactNode; tag: string; title: string; body: string }) {
   return (
-    <div className="bg-white border border-stone-200 rounded-2xl p-7 sm:p-8 h-full">
-      <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-emerald-700 mb-4">{tag}</p>
+    <div className="bg-white border border-stone-200 rounded-2xl p-7 sm:p-8 h-full hover-lift">
+      {icon && <div className="mb-5">{icon}</div>}
+      <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-emerald-700 mb-3">{tag}</p>
       <h3 className="font-display text-xl sm:text-2xl tracking-tight leading-tight mb-3 text-stone-900">{title}</h3>
       <p className="text-stone-600 text-sm sm:text-base leading-relaxed">{body}</p>
     </div>
