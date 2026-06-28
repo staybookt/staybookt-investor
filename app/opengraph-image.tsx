@@ -1,13 +1,10 @@
 import { ImageResponse } from 'next/og';
 
 /* StayBookt share card. 1200x630 PNG. Used by every social platform
- * (LinkedIn, Twitter, Slack, iMessage, WhatsApp) when the URL is shared.
- *
- * Layout: dark ink background, gradient wordmark top-left, big tagline
- * centered, domain bottom-right. Reads from 100px away. */
+ * (LinkedIn, Twitter, Slack, iMessage, WhatsApp) when the URL is shared. */
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
-export const alt = 'StayBookt: The operating layer for the trades';
+export const alt = 'StayBookt: Get found, get booked, stay booked.';
 export const dynamic = 'force-static';
 
 export default function OpenGraphImage() {
@@ -26,7 +23,6 @@ export default function OpenGraphImage() {
           position: 'relative',
         }}
       >
-        {/* Gradient orb top-right */}
         <div
           style={{
             position: 'absolute',
@@ -39,7 +35,6 @@ export default function OpenGraphImage() {
             display: 'flex',
           }}
         />
-        {/* Gradient orb bottom-left */}
         <div
           style={{
             position: 'absolute',
@@ -53,7 +48,6 @@ export default function OpenGraphImage() {
           }}
         />
 
-        {/* Top: wordmark */}
         <div
           style={{
             display: 'flex',
@@ -78,7 +72,6 @@ export default function OpenGraphImage() {
           </span>
         </div>
 
-        {/* Center: tagline */}
         <div
           style={{
             display: 'flex',
@@ -88,7 +81,7 @@ export default function OpenGraphImage() {
         >
           <div
             style={{
-              fontSize: 100,
+              fontSize: 96,
               fontWeight: 800,
               color: 'white',
               letterSpacing: '-0.04em',
@@ -96,11 +89,11 @@ export default function OpenGraphImage() {
               display: 'flex',
             }}
           >
-            The operating layer
+            Get found. Get booked.
           </div>
           <div
             style={{
-              fontSize: 100,
+              fontSize: 96,
               fontWeight: 800,
               color: '#94a3b8',
               letterSpacing: '-0.04em',
@@ -108,11 +101,10 @@ export default function OpenGraphImage() {
               display: 'flex',
             }}
           >
-            for the trades.
+            Stay booked.
           </div>
         </div>
 
-        {/* Bottom: meta strip */}
         <div
           style={{
             display: 'flex',
@@ -126,8 +118,8 @@ export default function OpenGraphImage() {
             position: 'relative',
           }}
         >
-          <div style={{ display: 'flex' }}>Investor brief</div>
-          <div style={{ display: 'flex' }}>invest.staybookt.com</div>
+          <div style={{ display: 'flex' }}>For Ontario service businesses</div>
+          <div style={{ display: 'flex' }}>staybookt.com</div>
         </div>
       </div>
     ),

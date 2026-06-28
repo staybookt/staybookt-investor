@@ -1,11 +1,10 @@
 import { ImageResponse } from 'next/og';
 
 /* Twitter share card. Same design as opengraph-image.tsx. Duplicated
- * (not re-exported) because Next.js route segment configs cannot be
- * proxied through another module. */
+ * because Next.js route segment configs cannot be proxied through another module. */
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
-export const alt = 'StayBookt: The operating layer for the trades';
+export const alt = 'StayBookt: Get found, get booked, stay booked.';
 export const dynamic = 'force-static';
 
 export default function TwitterImage() {
@@ -76,7 +75,7 @@ export default function TwitterImage() {
         <div style={{ display: 'flex', flexDirection: 'column', position: 'relative' }}>
           <div
             style={{
-              fontSize: 100,
+              fontSize: 96,
               fontWeight: 800,
               color: 'white',
               letterSpacing: '-0.04em',
@@ -84,11 +83,11 @@ export default function TwitterImage() {
               display: 'flex',
             }}
           >
-            The operating layer
+            Get found. Get booked.
           </div>
           <div
             style={{
-              fontSize: 100,
+              fontSize: 96,
               fontWeight: 800,
               color: '#94a3b8',
               letterSpacing: '-0.04em',
@@ -96,7 +95,7 @@ export default function TwitterImage() {
               display: 'flex',
             }}
           >
-            for the trades.
+            Stay booked.
           </div>
         </div>
         <div
@@ -112,8 +111,8 @@ export default function TwitterImage() {
             position: 'relative',
           }}
         >
-          <div style={{ display: 'flex' }}>Investor brief</div>
-          <div style={{ display: 'flex' }}>invest.staybookt.com</div>
+          <div style={{ display: 'flex' }}>For Ontario service businesses</div>
+          <div style={{ display: 'flex' }}>staybookt.com</div>
         </div>
       </div>
     ),
