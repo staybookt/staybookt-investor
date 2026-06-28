@@ -12,7 +12,7 @@ const interTight = Inter_Tight({
 const TITLE = 'StayBookt | Get found. Get booked. Stay booked.';
 const DESCRIPTION =
   'StayBookt builds and runs websites for Ontario service businesses under $1M. We get you found, book the work, and keep the calendar full. Built and run by us. Paid for by the results.';
-const SITE_URL = 'https://staybookt-investor.vercel.app';
+const SITE_URL = 'https://staybookt.com';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -21,7 +21,10 @@ export const metadata: Metadata = {
     template: '%s · StayBookt',
   },
   description: DESCRIPTION,
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
+  alternates: {
+    canonical: SITE_URL,
+  },
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,
