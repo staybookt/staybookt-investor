@@ -1,10 +1,11 @@
 import { ImageResponse } from 'next/og';
 
 /* StayBookt share card. 1200x630 PNG. Used by every social platform
- * (LinkedIn, Twitter, Slack, iMessage, WhatsApp) when the URL is shared. */
+ * (LinkedIn, Twitter, Slack, iMessage, WhatsApp) when the URL is shared.
+ * Carries the official slogan: Get Found. StayBookt. */
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
-export const alt = 'StayBookt: Get found, get booked, stay booked.';
+export const alt = 'Get Found. StayBookt.';
 export const dynamic = 'force-static';
 
 export default function OpenGraphImage() {
@@ -52,24 +53,14 @@ export default function OpenGraphImage() {
           style={{
             display: 'flex',
             alignItems: 'baseline',
-            fontSize: 56,
+            fontSize: 44,
             fontWeight: 800,
             letterSpacing: '-0.04em',
-            color: 'white',
+            color: '#94a3b8',
             position: 'relative',
           }}
         >
-          <span>Stay</span>
-          <span
-            style={{
-              background: 'linear-gradient(90deg, #06B6D4 0%, #10B981 50%, #4F46E5 100%)',
-              backgroundClip: 'text',
-              color: 'transparent',
-              marginLeft: '0',
-            }}
-          >
-            Bookt
-          </span>
+          For Ontario service businesses under $1M
         </div>
 
         <div
@@ -81,34 +72,43 @@ export default function OpenGraphImage() {
         >
           <div
             style={{
-              fontSize: 96,
+              fontSize: 112,
               fontWeight: 800,
               color: 'white',
               letterSpacing: '-0.04em',
-              lineHeight: 1.02,
+              lineHeight: 1.0,
               display: 'flex',
             }}
           >
-            Get found. Get booked.
+            Get Found.
           </div>
           <div
             style={{
-              fontSize: 96,
+              fontSize: 112,
               fontWeight: 800,
-              color: '#94a3b8',
               letterSpacing: '-0.04em',
-              lineHeight: 1.02,
+              lineHeight: 1.0,
               display: 'flex',
             }}
           >
-            Stay booked.
+            <span style={{ color: 'white' }}>Stay</span>
+            <span
+              style={{
+                background: 'linear-gradient(90deg, #06B6D4 0%, #10B981 50%, #4F46E5 100%)',
+                backgroundClip: 'text',
+                color: 'transparent',
+              }}
+            >
+              Bookt
+            </span>
+            <span style={{ color: 'white' }}>.</span>
           </div>
         </div>
 
         <div
           style={{
             display: 'flex',
-            justifyContent: 'space-between',
+            justifyContent: 'flex-end',
             alignItems: 'center',
             fontSize: 22,
             color: '#64748b',
@@ -118,7 +118,6 @@ export default function OpenGraphImage() {
             position: 'relative',
           }}
         >
-          <div style={{ display: 'flex' }}>For Ontario service businesses</div>
           <div style={{ display: 'flex' }}>staybookt.com</div>
         </div>
       </div>

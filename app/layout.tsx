@@ -9,7 +9,8 @@ const interTight = Inter_Tight({
   display: 'swap',
 });
 
-const TITLE = 'StayBookt | Get found. Get booked. Stay booked.';
+// Official company slogan. Use in brand-line slots (title, OG, share card).
+const SLOGAN = 'Get Found. StayBookt.';
 const DESCRIPTION =
   'StayBookt builds and runs websites for Ontario service businesses under $1M. We get you found, book the work, and keep the calendar full. Built and run by us. Paid for by the results.';
 const SITE_URL = 'https://www.staybookt.com';
@@ -17,7 +18,7 @@ const SITE_URL = 'https://www.staybookt.com';
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: TITLE,
+    default: SLOGAN,
     template: '%s · StayBookt',
   },
   description: DESCRIPTION,
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
     canonical: SITE_URL,
   },
   openGraph: {
-    title: TITLE,
+    title: SLOGAN,
     description: DESCRIPTION,
     url: SITE_URL,
     siteName: 'StayBookt',
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: TITLE,
+    title: SLOGAN,
     description: DESCRIPTION,
   },
 };
