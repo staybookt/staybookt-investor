@@ -8,10 +8,25 @@ import { CAL_LINK, EMAIL, PHONE_DISPLAY, PHONE_HREF, PRICING } from '@/lib/site'
 import Image from 'next/image';
 import Link from 'next/link';
 
+const SHARE_DESCRIPTION =
+  'StayBookt builds and runs websites for Ontario service businesses under $1M. We get you found, book the work, and keep the calendar full. Paid for by the results.';
+
 export const metadata = {
-  title: 'StayBookt | Get found. Get booked. Stay booked.',
-  description:
-    'StayBookt builds and runs websites for Ontario service businesses under $1M. We get you found, book the work, and keep the calendar full. Paid for by the results.',
+  title: 'Get Found. StayBookt.',
+  description: SHARE_DESCRIPTION,
+  openGraph: {
+    title: 'Get Found. StayBookt.',
+    description: SHARE_DESCRIPTION,
+    url: 'https://www.staybookt.com',
+    siteName: 'StayBookt',
+    locale: 'en_CA',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Get Found. StayBookt.',
+    description: SHARE_DESCRIPTION,
+  },
 };
 
 export default function HomePage() {
