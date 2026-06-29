@@ -4,7 +4,8 @@ import { TopNav } from '@/components/TopNav';
 import { CAL_LINK } from '@/lib/site';
 
 export const metadata = {
-  title: 'Our work · StayBookt',
+  title: 'Our work',
+  alternates: { canonical: '/work' },
   description: 'Real sites we built and run for real owner-operators. Top Choice Electrical and XNL HR, both live on their own domains.',
 };
 
