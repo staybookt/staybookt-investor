@@ -11,7 +11,8 @@ import {
 } from '@/components/PlatformPreview';
 
 export const metadata = {
-  title: 'The platform · StayBookt',
+  title: 'The platform',
+  alternates: { canonical: '/platform' },
   description:
     'See what StayBookt runs for you: the AI receptionist that answers every lead, self-serve booking, automatic reviews, and a Monday brief that comes to you. A preview of the operating layer rolling out through 2026.',
 };
@@ -88,7 +89,7 @@ export default function PlatformPage() {
               >
                 Book a 30-minute call
               </a>
-              <Link href="/proof" className="px-5 py-3.5 text-sm text-platinum-soft transition-colors hover:text-white">
+              <Link href="/work" className="px-5 py-3.5 text-sm text-platinum-soft transition-colors hover:text-white">
                 See real builds →
               </Link>
             </div>
