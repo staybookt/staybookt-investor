@@ -181,6 +181,23 @@ export default function HomePage() {
         </p>
       </Moment>
 
+      {/* Atmosphere band */}
+      <section className="relative h-[42vh] min-h-[320px] overflow-hidden">
+        <Image
+          src="https://images.unsplash.com/photo-1567361808960-dec9cb578182?auto=format&fit=crop&w=2000&q=70"
+          alt=""
+          fill
+          className="object-cover"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(5,8,17,0.74), rgba(5,8,17,0.82))' }} />
+        <div className="absolute inset-0 flex items-center justify-center px-6">
+          <p className="font-display text-white text-center tracking-tight leading-tight max-w-3xl" style={{ fontSize: 'clamp(24px, 4vw, 44px)' }}>
+            Built and run by us. <Grad>Paid for by the results.</Grad>
+          </p>
+        </div>
+      </section>
+
       {/* Executive results, affordable */}
       <section className="relative px-6 sm:px-12 py-24 sm:py-32 bg-ink-deep">
         <ScrollReveal>
