@@ -4,9 +4,10 @@ import Link from 'next/link';
 import Wordmark from './Wordmark';
 
 const OWNER_NAV = [
-  { href: '#work', label: 'Work' },
-  { href: '#pricing', label: 'Pricing' },
-  { href: '#faq', label: 'FAQ' },
+  { href: '/platform', label: 'Platform' },
+  { href: '/how-it-works', label: 'How it works' },
+  { href: '/work', label: 'Proof' },
+  { href: '/pricing', label: 'Pricing' },
 ];
 
 const INVESTOR_NAV = [
