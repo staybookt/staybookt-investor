@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { TopNav } from '@/components/TopNav';
-import Flywheel from '@/components/Flywheel';
+import OperatingLoop from '@/components/OperatingLoop';
 import { CAL_LINK } from '@/lib/site';
 
 export const metadata = {
@@ -46,18 +46,19 @@ export default function HowItWorksPage() {
           </div>
         </section>
 
-        <section className="px-6 py-14 sm:px-12">
+        <section className="px-6 pt-14 pb-4 sm:px-12">
           <div className="mx-auto max-w-5xl text-center">
-            <h2 className="font-display text-3xl tracking-tight text-white sm:text-4xl">The loop that keeps your calendar full</h2>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-elec-light">The operating loop</p>
+            <h2 className="mt-3 font-display text-3xl tracking-tight text-white sm:text-4xl">What each part actually does</h2>
             <p className="mx-auto mt-4 max-w-2xl text-base text-platinum-soft">
-              Every customer who comes through gets captured, booked, followed up, and brought back. Your customer list
-              compounds, and the system gets sharper the longer it runs.
+              Scroll through the loop. Every customer who comes through gets found, captured, booked, followed up, and
+              brought back, and your database compounds the whole time.
             </p>
-            <div className="mt-10"><Flywheel /></div>
           </div>
         </section>
+        <OperatingLoop />
 
-        <section className="px-6 pb-24 sm:px-12">
+        <section className="px-6 pb-24 pt-10 sm:px-12">
           <div className="mx-auto max-w-2xl rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-transparent p-8 text-center sm:p-12">
             <h2 className="font-display text-3xl tracking-tight text-white">See what it looks like running</h2>
             <p className="mx-auto mt-4 max-w-md text-base text-platinum-soft">Take a look at the platform, or book a call and we will map it to your business.</p>
