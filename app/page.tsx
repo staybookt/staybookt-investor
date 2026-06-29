@@ -31,6 +31,19 @@ export const metadata = {
   },
 };
 
+const DEEP_GRAD: React.CSSProperties = {
+  backgroundImage: 'linear-gradient(96deg, #0891B2 0%, #047857 100%)',
+  WebkitBackgroundClip: 'text',
+  backgroundClip: 'text',
+  color: 'transparent',
+};
+
+/* Gradient accent for a headline phrase. deep = darker, for light/cream backgrounds. */
+function Grad({ children, deep }: { children: React.ReactNode; deep?: boolean }) {
+  if (deep) return <span style={DEEP_GRAD}>{children}</span>;
+  return <span className="text-brand-gradient">{children}</span>;
+}
+
 export default function HomePage() {
   return (
     <main id="top" className="relative text-white scroll-stage">
@@ -43,7 +56,7 @@ export default function HomePage() {
       <Moment tone="cream" id="work">
         <Eyebrow tone="cream">The work we ship</Eyebrow>
         <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-4 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
-          Get found. Book the work. Stay booked.
+          Get found. Book the work. <Grad deep>Stay booked.</Grad>
         </h2>
         <p className="text-stone-600 text-base sm:text-lg mb-14 max-w-2xl leading-relaxed">
           The website is the front door. We build it, we run it, and we measure the new business that comes through it.
@@ -74,7 +87,7 @@ export default function HomePage() {
       <Moment tone="cream">
         <Eyebrow tone="cream">Recent work</Eyebrow>
         <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-4 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
-          Two builds. Both live.
+          Two builds. <Grad deep>Both live.</Grad>
         </h2>
         <p className="text-stone-600 text-sm sm:text-base mb-14 max-w-2xl leading-relaxed">
           Real sites for real owners, built and shipped. Click either one to open it in a new tab.
@@ -111,7 +124,7 @@ export default function HomePage() {
       <Moment tone="cream" id="pricing">
         <Eyebrow tone="cream">How we get paid</Eyebrow>
         <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-6 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
-          We do not get paid until you do.
+          We do not get paid <Grad deep>until you do.</Grad>
         </h2>
         <p className="text-stone-600 text-base sm:text-lg mb-14 max-w-2xl leading-relaxed">
           A small fee to build it. A low monthly to keep it running. The rest is a share of the new business the site actually brings you. If it does not bring you anything, we do not earn the third line.
@@ -136,7 +149,7 @@ export default function HomePage() {
       <Moment tone="cream">
         <Eyebrow tone="cream">Who this is for</Eyebrow>
         <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
-          Be honest about the fit.
+          Be honest about <Grad deep>the fit.</Grad>
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <FitList
@@ -166,7 +179,7 @@ export default function HomePage() {
       <Moment tone="cream">
         <Eyebrow tone="cream">The founders</Eyebrow>
         <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-6 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
-          Two people. No layers.
+          Two people. <Grad deep>No layers.</Grad>
         </h2>
         <p className="text-stone-600 text-base sm:text-lg mb-14 max-w-2xl leading-relaxed">
           One saw the gap from the outside, working alongside owners. The other saw it from the inside, running the discipline at scale. You talk to a founder on day one and every day after.
@@ -215,7 +228,7 @@ export default function HomePage() {
         </div>
         <Eyebrow tone="dark">What is next</Eyebrow>
         <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-4 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
-          The back office is the next layer.
+          The back office is the <Grad>next layer.</Grad>
         </h2>
         <p className="text-platinum-soft text-base sm:text-lg mb-12 max-w-3xl leading-relaxed">
           The website captures the leads. The back office converts them, then brings them back. As each layer ships, your monthly grows into the full operating system, and the work it takes off your plate grows with it. Here is where it is headed.
@@ -290,7 +303,7 @@ export default function HomePage() {
       <Moment tone="dark" id="faq">
         <Eyebrow tone="dark">Questions</Eyebrow>
         <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
-          Read this before you click.
+          Read this <Grad>before you click.</Grad>
         </h2>
         <div className="space-y-3 max-w-4xl">
           <Faq question="What if I want to cancel?">You cancel any month. We hand you the website code, the Google Business Profile login, the customer list, and the review request keys. No locked-in dependencies.</Faq>
@@ -306,7 +319,7 @@ export default function HomePage() {
       <Moment tone="dark" id="book">
         <Eyebrow tone="dark">Start</Eyebrow>
         <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-10 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
-          Book the call.
+          <Grad>Book the call.</Grad>
         </h2>
         <a href={CAL_LINK} target="_blank" rel="noopener noreferrer" className="group block bg-paper/[0.03] border border-divider/60 hover:border-elec/40 rounded-2xl p-8 sm:p-12 transition-colors max-w-3xl">
           <div className="flex items-center gap-3 mb-4">
@@ -448,6 +461,12 @@ function ClientCard({
 
   const deviceCol = (
     <div className={deviceWrap}>
+      {/* Branded fallback sits behind the iframe so a blocked/blank frame still shows something */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 z-0">
+        <p className="font-mono text-[10px] tracking-[0.2em] uppercase font-bold text-stone-400 mb-2">{eyebrow}</p>
+        <p className="font-display text-lg text-stone-500">{url}</p>
+        <span className="mt-3 text-[11px] tracking-[0.1em] uppercase font-semibold text-emerald-700">Visit live site {'↗'}</span>
+      </div>
       <a href={href} target="_blank" rel="noopener noreferrer" className="absolute inset-0 z-20" aria-label={`Open ${name}'s live site`} />
       {isMac && (
         <MacBookFrame>
