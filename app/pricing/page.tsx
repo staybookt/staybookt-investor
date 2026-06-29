@@ -3,7 +3,8 @@ import { TopNav } from '@/components/TopNav';
 import { CAL_LINK, PRICING } from '@/lib/site';
 
 export const metadata = {
-  title: 'Pricing · StayBookt',
+  title: 'Pricing',
+  alternates: { canonical: '/pricing' },
   description:
     'Simple pricing: a one-time build to get you live and found, a flat monthly to keep it running, and a small share of the new revenue we help you win. Executive results you can actually afford.',
 };

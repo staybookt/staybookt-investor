@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Wordmark from './Wordmark';
+import { CAL_LINK } from '@/lib/site';
 
 const OWNER_NAV = [
   { href: '/platform', label: 'Platform' },
@@ -16,8 +17,6 @@ const INVESTOR_NAV = [
   { href: '/economics', label: 'Model' },
   { href: '/team', label: 'Team' },
 ];
-
-const CAL_LINK = 'https://cal.com/jacobcharendoff/staybookt';
 
 export function TopNav({
   active,

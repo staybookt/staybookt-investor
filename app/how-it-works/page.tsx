@@ -4,7 +4,8 @@ import OperatingLoop from '@/components/OperatingLoop';
 import { CAL_LINK } from '@/lib/site';
 
 export const metadata = {
-  title: 'How it works · StayBookt',
+  title: 'How it works',
+  alternates: { canonical: '/how-it-works' },
   description:
     'Four steps: we build your site, set up how customers find you, run the bookings and follow-up, and report back every Monday. You deliver the work. We run the front of the business.',
 };

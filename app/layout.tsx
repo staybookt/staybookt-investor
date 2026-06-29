@@ -25,9 +25,6 @@ export const metadata: Metadata = {
   },
   description: DESCRIPTION,
   robots: { index: true, follow: true },
-  alternates: {
-    canonical: SITE_URL,
-  },
   openGraph: {
     title: SLOGAN,
     description: DESCRIPTION,

@@ -117,11 +117,11 @@ export default function Hero() {
             <span aria-hidden className="transition-transform group-hover:translate-x-1">{'→'}</span>
           </a>
           <Link
-            href="#work"
+            href="/how-it-works"
             className="inline-flex items-center gap-2 text-platinum-soft hover:text-white text-sm sm:text-base px-5 py-4 transition-colors"
           >
-            See the builds
-            <span aria-hidden>{'↓'}</span>
+            See how it works
+            <span aria-hidden>{'→'}</span>
           </Link>
         </motion.div>
 

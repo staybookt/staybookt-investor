@@ -4,7 +4,8 @@ import { TopNav } from '@/components/TopNav';
 import { CAL_LINK } from '@/lib/site';
 
 export const metadata = {
-  title: 'About · StayBookt',
+  title: 'About',
+  alternates: { canonical: '/about' },
   description: 'Two founders, no layers. One saw the gap from the outside, working alongside owners. The other ran the discipline from the inside, at scale.',
 };
 
