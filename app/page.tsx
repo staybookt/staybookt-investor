@@ -31,6 +31,19 @@ export const metadata = {
   },
 };
 
+const DEEP_GRAD: React.CSSProperties = {
+  backgroundImage: 'linear-gradient(96deg, #0891B2 0%, #047857 100%)',
+  WebkitBackgroundClip: 'text',
+  backgroundClip: 'text',
+  color: 'transparent',
+};
+
+/* Gradient accent for a headline phrase. deep = darker, for light/cream backgrounds. */
+function Grad({ children, deep }: { children: React.ReactNode; deep?: boolean }) {
+  if (deep) return <span style={DEEP_GRAD}>{children}</span>;
+  return <span className="text-brand-gradient">{children}</span>;
+}
+
 export default function HomePage() {
   return (
     <main id="top" className="relative text-white scroll-stage">
@@ -39,11 +52,11 @@ export default function HomePage() {
 
       <Hero />
 
-      {/* S2 - The work we ship */}
+      {/* The work we ship */}
       <Moment tone="cream" id="work">
         <Eyebrow tone="cream">The work we ship</Eyebrow>
         <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-4 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
-          Get found. Book the work. Stay booked.
+          Get found. Book the work. <Grad deep>Stay booked.</Grad>
         </h2>
         <p className="text-stone-600 text-base sm:text-lg mb-14 max-w-2xl leading-relaxed">
           The website is the front door. We build it, we run it, and we measure the new business that comes through it.
@@ -70,11 +83,41 @@ export default function HomePage() {
         </div>
       </Moment>
 
-      {/* S3 - Real builds */}
+      {/* Who this is for */}
+      <Moment tone="cream">
+        <Eyebrow tone="cream">Who this is for</Eyebrow>
+        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
+          Be honest about <Grad deep>the fit.</Grad>
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <FitList
+            heading="A fit if"
+            tone="yes"
+            items={[
+              'You do under $1M and you own the business.',
+              'The phone still rings to you.',
+              'You are great at the work, but the pipeline leaks.',
+              'You want it handled, not taught.',
+            ]}
+          />
+          <FitList
+            heading="Not a fit if"
+            tone="no"
+            items={[
+              'You are doing $5M or more.',
+              'You already have a marketing manager.',
+              'You want one more tool to log into.',
+              'You want a course, not an operator.',
+            ]}
+          />
+        </div>
+      </Moment>
+
+      {/* Real builds */}
       <Moment tone="cream">
         <Eyebrow tone="cream">Recent work</Eyebrow>
         <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-4 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
-          Two builds. Both live.
+          Two builds. <Grad deep>Both live.</Grad>
         </h2>
         <p className="text-stone-600 text-sm sm:text-base mb-14 max-w-2xl leading-relaxed">
           Real sites for real owners, built and shipped. Click either one to open it in a new tab.
@@ -107,66 +150,11 @@ export default function HomePage() {
         </div>
       </Moment>
 
-      {/* S4 - How we get paid */}
-      <Moment tone="cream" id="pricing">
-        <Eyebrow tone="cream">How we get paid</Eyebrow>
-        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-6 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
-          We do not get paid until you do.
-        </h2>
-        <p className="text-stone-600 text-base sm:text-lg mb-14 max-w-2xl leading-relaxed">
-          A small fee to build it. A low monthly to keep it running. The rest is a share of the new business the site actually brings you. If it does not bring you anything, we do not earn the third line.
-        </p>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-          <PriceCell amount={PRICING.build} detail="One-time build fee. Due at kickoff. About three weeks to launch." />
-          <PriceCell amount={`${PRICING.care} a month`} detail="Ongoing care. Cancel any month, and take everything with you." />
-          <PriceCell amount={PRICING.performance} detail="On new business the site brings in. The report goes out monthly, before the invoice." highlight />
-        </div>
-
-        <div className="bg-stone-100 border border-stone-200 rounded-xl p-5 max-w-2xl">
-          <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-stone-500 mb-2">How we track new business</p>
-          <p className="text-stone-700 text-sm leading-relaxed">
-            Form fills tagged at submission. Calls tracked through your Google Business Profile. New customers reconciled against your existing pipeline so we never double-count. You see exactly what we count. The report goes out every month before the invoice.
-          </p>
-        </div>
-        <p className="text-stone-500 text-xs mt-6">All prices in CAD. Built for Ontario operators.</p>
-      </Moment>
-
-      {/* S5 - Who this is for */}
-      <Moment tone="cream">
-        <Eyebrow tone="cream">Who this is for</Eyebrow>
-        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
-          Be honest about the fit.
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <FitList
-            heading="A fit if"
-            tone="yes"
-            items={[
-              'You do under $1M and you own the business.',
-              'The phone still rings to you.',
-              'You are great at the work, but the pipeline leaks.',
-              'You want it handled, not taught.',
-            ]}
-          />
-          <FitList
-            heading="Not a fit if"
-            tone="no"
-            items={[
-              'You are doing $5M or more.',
-              'You already have a marketing manager.',
-              'You want one more tool to log into.',
-              'You want a course, not an operator.',
-            ]}
-          />
-        </div>
-      </Moment>
-
-      {/* S6 - The founders */}
+      {/* The founders */}
       <Moment tone="cream">
         <Eyebrow tone="cream">The founders</Eyebrow>
         <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-6 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
-          Two people. No layers.
+          Two people. <Grad deep>No layers.</Grad>
         </h2>
         <p className="text-stone-600 text-base sm:text-lg mb-14 max-w-2xl leading-relaxed">
           One saw the gap from the outside, working alongside owners. The other saw it from the inside, running the discipline at scale. You talk to a founder on day one and every day after.
@@ -192,7 +180,7 @@ export default function HomePage() {
         </p>
       </Moment>
 
-      {/* S7 - Executive results, affordable */}
+      {/* Executive results, affordable */}
       <section className="relative px-6 sm:px-12 py-24 sm:py-32 bg-ink-deep">
         <ScrollReveal>
           <div className="max-w-4xl mx-auto text-center">
@@ -207,7 +195,32 @@ export default function HomePage() {
         </ScrollReveal>
       </section>
 
-      {/* S8 - What's next (RevOps preview) */}
+      {/* How we get paid */}
+      <Moment tone="cream" id="pricing">
+        <Eyebrow tone="cream">How we get paid</Eyebrow>
+        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-6 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
+          We do not get paid <Grad deep>until you do.</Grad>
+        </h2>
+        <p className="text-stone-600 text-base sm:text-lg mb-14 max-w-2xl leading-relaxed">
+          A small fee to build it. A low monthly to keep it running. The rest is a share of the new business the site actually brings you. If it does not bring you anything, we do not earn the third line.
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+          <PriceCell amount={PRICING.build} detail="One-time build fee. Due at kickoff. About three weeks to launch." />
+          <PriceCell amount={`${PRICING.care} a month`} detail="Ongoing care. Cancel any month, and take everything with you." />
+          <PriceCell amount={PRICING.performance} detail="On new business the site brings in. The report goes out monthly, before the invoice." highlight />
+        </div>
+
+        <div className="bg-stone-100 border border-stone-200 rounded-xl p-5 max-w-2xl">
+          <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-stone-500 mb-2">How we track new business</p>
+          <p className="text-stone-700 text-sm leading-relaxed">
+            Form fills tagged at submission. Calls tracked through your Google Business Profile. New customers reconciled against your existing pipeline so we never double-count. You see exactly what we count. The report goes out every month before the invoice.
+          </p>
+        </div>
+        <p className="text-stone-500 text-xs mt-6">All prices in CAD. Built for Ontario operators.</p>
+      </Moment>
+
+      {/* What's next (RevOps preview) */}
       <Moment tone="dark">
         <div className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 rounded-full px-3 py-1 mb-6">
           <span className="inline-block w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" aria-hidden />
@@ -215,7 +228,7 @@ export default function HomePage() {
         </div>
         <Eyebrow tone="dark">What is next</Eyebrow>
         <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-4 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
-          The back office is the next layer.
+          The back office is the <Grad>next layer.</Grad>
         </h2>
         <p className="text-platinum-soft text-base sm:text-lg mb-12 max-w-3xl leading-relaxed">
           The website captures the leads. The back office converts them, then brings them back. As each layer ships, your monthly grows into the full operating system, and the work it takes off your plate grows with it. Here is where it is headed.
@@ -286,11 +299,11 @@ export default function HomePage() {
         </p>
       </Moment>
 
-      {/* S9 - Questions */}
+      {/* Questions */}
       <Moment tone="dark" id="faq">
         <Eyebrow tone="dark">Questions</Eyebrow>
         <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
-          Read this before you click.
+          Read this <Grad>before you click.</Grad>
         </h2>
         <div className="space-y-3 max-w-4xl">
           <Faq question="What if I want to cancel?">You cancel any month. We hand you the website code, the Google Business Profile login, the customer list, and the review request keys. No locked-in dependencies.</Faq>
@@ -302,11 +315,11 @@ export default function HomePage() {
         <p className="text-mute text-xs sm:text-sm mt-10 leading-relaxed">Have more? Bring them to the call.</p>
       </Moment>
 
-      {/* S10 - Book the call */}
+      {/* Book the call */}
       <Moment tone="dark" id="book">
         <Eyebrow tone="dark">Start</Eyebrow>
         <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-10 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
-          Book the call.
+          <Grad>Book the call.</Grad>
         </h2>
         <a href={CAL_LINK} target="_blank" rel="noopener noreferrer" className="group block bg-paper/[0.03] border border-divider/60 hover:border-elec/40 rounded-2xl p-8 sm:p-12 transition-colors max-w-3xl">
           <div className="flex items-center gap-3 mb-4">
@@ -367,8 +380,6 @@ function WorkColumn({ icon, tag, title, body }: { icon?: React.ReactNode; tag: s
 
 function FitList({ heading, tone, items }: { heading: string; tone: 'yes' | 'no'; items: string[] }) {
   const isYes = tone === 'yes';
-  const mark = isYes ? '✓' : '✕';
-  const markColor = isYes ? 'text-emerald-600' : 'text-stone-400';
   const ring = isYes ? 'border-emerald-200' : 'border-stone-200';
   return (
     <div className={`bg-white border ${ring} rounded-2xl p-7 sm:p-8`}>
@@ -376,7 +387,13 @@ function FitList({ heading, tone, items }: { heading: string; tone: 'yes' | 'no'
       <ul className="space-y-4">
         {items.map((item, i) => (
           <li key={i} className="flex items-start gap-3">
-            <span className={`${markColor} text-lg leading-none mt-0.5 shrink-0`} aria-hidden>{mark}</span>
+            <span
+              className={`shrink-0 mt-0.5 w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-bold ${isYes ? 'text-white' : 'text-stone-500 bg-stone-200'}`}
+              style={isYes ? { backgroundImage: 'linear-gradient(135deg, #06B6D4, #10B981)' } : undefined}
+              aria-hidden
+            >
+              {isYes ? '✓' : '✕'}
+            </span>
             <span className="text-stone-700 text-sm sm:text-base leading-snug">{item}</span>
           </li>
         ))}
@@ -448,6 +465,12 @@ function ClientCard({
 
   const deviceCol = (
     <div className={deviceWrap}>
+      {/* Branded fallback sits behind the iframe so a blocked/blank frame still shows something */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 z-0">
+        <p className="font-mono text-[10px] tracking-[0.2em] uppercase font-bold text-stone-400 mb-2">{eyebrow}</p>
+        <p className="font-display text-lg text-stone-500">{url}</p>
+        <span className="mt-3 text-[11px] tracking-[0.1em] uppercase font-semibold text-emerald-700">Visit live site {'↗'}</span>
+      </div>
       <a href={href} target="_blank" rel="noopener noreferrer" className="absolute inset-0 z-20" aria-label={`Open ${name}'s live site`} />
       {isMac && (
         <MacBookFrame>
