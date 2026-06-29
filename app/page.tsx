@@ -6,6 +6,7 @@ import ParallaxOrbs from '@/components/ParallaxOrbs';
 import { MacBookFrame, IPhoneFrame } from '@/components/DeviceFrames';
 import { IconFind, IconBook, IconStay } from '@/components/WorkIcons';
 import ConceptDashboard from '@/components/ConceptDashboard';
+import Flywheel from '@/components/Flywheel';
 import { CAL_LINK, EMAIL, PHONE_DISPLAY, PHONE_HREF, PRICING } from '@/lib/site';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -233,6 +234,12 @@ export default function HomePage() {
         <p className="text-platinum-soft text-base sm:text-lg mb-12 max-w-3xl leading-relaxed">
           The website captures the leads. The back office converts them, then brings them back. As each layer ships, your monthly grows into the full operating system, and the work it takes off your plate grows with it. Here is where it is headed.
         </p>
+
+        <div className="mb-12">
+          <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-elec mb-6 text-center">How the engine runs</p>
+          <Flywheel />
+          <p className="text-mute text-xs sm:text-sm leading-relaxed text-center mt-6 max-w-2xl mx-auto">Every customer touch loops back into your database, and it compounds. The website runs today. The lead, booking, follow-up, and re-engage steps roll in as we ship them, each with a human safety net.</p>
+        </div>
 
         <div className="mb-10">
           <ConceptDashboard />
