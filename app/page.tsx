@@ -7,6 +7,7 @@ import { MacBookFrame, IPhoneFrame } from '@/components/DeviceFrames';
 import { IconFind, IconBook, IconStay } from '@/components/WorkIcons';
 import ConceptDashboard from '@/components/ConceptDashboard';
 import Flywheel from '@/components/Flywheel';
+import { PreviewPill, ReceptionistScreen } from '@/components/PlatformPreview';
 import { CAL_LINK, EMAIL, PHONE_DISPLAY, PHONE_HREF, PRICING } from '@/lib/site';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -53,6 +54,20 @@ export default function HomePage() {
 
       <Hero />
 
+      {/* The reality */}
+      <Moment tone="cream">
+        <Eyebrow tone="cream">If this sounds familiar</Eyebrow>
+        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-6 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
+          You are the best in town at the work.<br />You are also <Grad deep>everything else.</Grad>
+        </h2>
+        <p className="text-stone-600 text-base sm:text-lg mb-5 max-w-2xl leading-relaxed">
+          Receptionist. Scheduler. Bookkeeper. The one who calls back at 9pm. The phone rings while you are under a sink or up a ladder, and half the time it goes to voicemail and the customer calls the next guy. The work is great. The business runs on you, and you are out of hours.
+        </p>
+        <p className="text-stone-900 text-lg sm:text-xl font-display tracking-tight max-w-2xl leading-snug">
+          That is the part we take over.
+        </p>
+      </Moment>
+
       {/* The work we ship */}
       <Moment tone="cream" id="work">
         <Eyebrow tone="cream">The work we ship</Eyebrow>
@@ -82,6 +97,26 @@ export default function HomePage() {
             body="Ongoing care keeps the site converting. Pages updated. Reviews flowing. Profile fresh. The back-office layer rolls in as we ship it, and you keep doing the work."
           />
         </div>
+      </Moment>
+
+      {/* See the platform */}
+      <Moment tone="dark">
+        <div className="flex items-center justify-between gap-4 mb-7">
+          <Eyebrow tone="dark">See it working</Eyebrow>
+          <PreviewPill />
+        </div>
+        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-4 max-w-3xl" style={{ fontSize: 'clamp(36px, 6vw, 76px)' }}>
+          The front office, <Grad>running without you.</Grad>
+        </h2>
+        <p className="text-platinum-soft text-base sm:text-lg mb-10 max-w-2xl leading-relaxed">
+          Every lead answered in seconds, in your voice. Jobs booked. Reviews chasing themselves. Your whole week summed up Monday morning. Here is one piece of it.
+        </p>
+        <div className="max-w-2xl">
+          <ReceptionistScreen />
+        </div>
+        <Link href="/platform" className="inline-flex items-center gap-2 text-elec font-semibold text-sm mt-8 hover:gap-3 transition-all">
+          Tour the whole platform <span aria-hidden>{'→'}</span>
+        </Link>
       </Moment>
 
       {/* Who this is for */}
@@ -151,34 +186,18 @@ export default function HomePage() {
         </div>
       </Moment>
 
-      {/* The founders */}
+      {/* The founders, compact */}
       <Moment tone="cream">
-        <Eyebrow tone="cream">The founders</Eyebrow>
+        <Eyebrow tone="cream">Who you work with</Eyebrow>
         <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-6 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
-          Two people. <Grad deep>No layers.</Grad>
+          Two founders. <Grad deep>No layers.</Grad>
         </h2>
-        <p className="text-stone-600 text-base sm:text-lg mb-14 max-w-2xl leading-relaxed">
-          One saw the gap from the outside, working alongside owners. The other saw it from the inside, running the discipline at scale. You talk to a founder on day one and every day after.
+        <p className="text-stone-600 text-base sm:text-lg mb-8 max-w-2xl leading-relaxed">
+          One saw the gap from the outside, working alongside owners. The other ran the discipline from the inside, at scale. You talk to a founder on day one and every day after.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <FounderCard
-            photo="/photos/jacob.jpg"
-            name="Jacob Charendoff"
-            role="Co-founder · Builder"
-            lens="The outside view"
-            bio="A decade alongside service-business owners across health, hospitality, software, retail, and home services. The same conversation every time: the owner is brilliant at the work, the work is good, and the pipeline leaks. He builds the system from the outside in."
-          />
-          <FounderCard
-            photo="/photos/richard.jpg"
-            name="Richard Roos, CPA"
-            role="Co-founder · Operator"
-            lens="The inside view"
-            bio="Two decades inside operationally rigorous service businesses at scale. Multifamily real estate across North America, hospital foundation oversight, and audit work across hundreds of growing companies. Twenty years a CPA. He brings the discipline that gets enterprise outcomes."
-          />
-        </div>
-        <p className="text-stone-700 text-lg sm:text-xl leading-relaxed mt-12 max-w-3xl font-display tracking-tight">
-          The system they both wished existed, for the people they kept running into.
-        </p>
+        <Link href="/about" className="inline-flex items-center gap-2 text-emerald-700 font-semibold text-sm hover:gap-3 transition-all">
+          Meet Jacob and Richard <span aria-hidden>{'→'}</span>
+        </Link>
       </Moment>
 
       {/* Atmosphere band */}
@@ -252,74 +271,19 @@ export default function HomePage() {
           The website captures the leads. The back office converts them, then brings them back. As each layer ships, your monthly grows into the full operating system, and the work it takes off your plate grows with it. Here is where it is headed.
         </p>
 
-        <div className="mb-12">
-          <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-elec mb-6 text-center">How the engine runs</p>
-          <Flywheel />
-          <p className="text-mute text-xs sm:text-sm leading-relaxed text-center mt-6 max-w-2xl mx-auto">Every customer touch loops back into your database, and it compounds. The website runs today. The lead, booking, follow-up, and re-engage steps roll in as we ship them, each with a human safety net.</p>
-        </div>
-
         <div className="mb-10">
           <ConceptDashboard />
         </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-          <div className="flex flex-col">
-            <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-amber-300 mb-3">Concept · Monday brief</p>
-            <h3 className="font-display text-2xl sm:text-3xl tracking-tight leading-tight mb-5 text-white">Your week in one email.</h3>
-            <div className="bg-ink-deep/80 border border-divider/60 rounded-2xl overflow-hidden shadow-2xl">
-              <div className="bg-ink-soft/60 px-5 py-4 border-b border-divider/40">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-7 h-7 rounded-full bg-gradient-to-br from-elec/40 to-plumb/40 flex items-center justify-center text-xs font-bold text-white shrink-0">S</div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-white text-xs font-semibold leading-tight">StayBookt</p>
-                    <p className="text-mute text-[10px] leading-tight">to the owner</p>
-                  </div>
-                  <p className="text-mute text-[10px] whitespace-nowrap">Mon 7:02 a.m.</p>
-                </div>
-                <p className="text-platinum text-sm font-display tracking-tight">Your week, rolled up</p>
-              </div>
-              <div className="p-5 sm:p-6 space-y-5">
-                <p className="text-platinum text-sm leading-relaxed">Here is what last week looked like.</p>
-                <div className="grid grid-cols-2 gap-2.5">
-                  <Metric label="New leads" value="7" detail="3 web, 4 Google" />
-                  <Metric label="Booked jobs" value="4" detail="avg ticket $640" />
-                  <Metric label="Revenue" value="$2,840" detail="up from $2,180" trend="up" />
-                  <Metric label="New reviews" value="2" detail="5.0 stars" />
-                </div>
-                <div className="bg-elec/5 border border-elec/20 rounded-lg p-4">
-                  <p className="text-[10px] tracking-[0.2em] uppercase font-bold text-elec mb-2">What changed</p>
-                  <p className="text-platinum-soft text-xs leading-relaxed">Your service-area page drew more views than the week before, and two of last week&apos;s bookings landed there first. One quote from nine days ago is still open. We are following up this morning.</p>
-                </div>
-                <p className="text-mute text-[11px] leading-relaxed">Reply if anything looks off. Next roll-up Monday at 7 a.m.</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-col">
-            <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-amber-300 mb-3">Concept · Review request</p>
-            <h3 className="font-display text-2xl sm:text-3xl tracking-tight leading-tight mb-5 text-white">Reviews while the work is fresh.</h3>
-            <div className="bg-ink-deep/80 border border-divider/60 rounded-2xl overflow-hidden shadow-2xl">
-              <div className="bg-ink-soft/60 px-5 py-4 border-b border-divider/40 flex items-center justify-center gap-2.5">
-                <div className="w-7 h-7 rounded-full bg-mute-dark/60 flex items-center justify-center text-xs font-bold text-platinum">P</div>
-                <div>
-                  <p className="text-platinum text-xs font-semibold leading-tight">Patricia, Stonehaven Lane</p>
-                  <p className="text-mute text-[10px] leading-tight">Today, 4:18 p.m.</p>
-                </div>
-              </div>
-              <div className="p-5 sm:p-6 space-y-3">
-                <div className="flex justify-end"><div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-2xl rounded-tr-md px-4 py-3 max-w-[88%]"><p className="text-[13px] leading-relaxed">Hi Patricia, the work wrapped up just after 4. Receipt is in your email.</p><p className="text-[13px] leading-relaxed mt-2">If you have 20 seconds, would you mind dropping a quick Google review?</p></div></div>
-                <div className="flex justify-start"><div className="bg-divider/40 text-platinum rounded-2xl rounded-tl-md px-4 py-3 max-w-[88%]"><p className="text-[13px] leading-relaxed">All done, looks great. Will do, that was a fast turnaround.</p></div></div>
-                <div className="pt-4 mt-2 border-t border-divider/40 flex items-center gap-2.5">
-                  <div className="flex items-center gap-0.5 text-emerald-400 text-xs"><span aria-hidden>{'★★★★★'}</span></div>
-                  <p className="text-emerald-400 text-xs font-medium">5 stars, posted minutes later.</p>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <Link href="/platform" className="inline-flex items-center justify-center gap-2 bg-elec hover:bg-elec-light text-ink font-bold px-6 py-3.5 rounded-lg text-sm transition-colors">
+            See the platform <span aria-hidden>{'→'}</span>
+          </Link>
+          <Link href="/how-it-works" className="inline-flex items-center justify-center gap-2 border border-divider/60 hover:border-elec/40 text-white font-semibold px-6 py-3.5 rounded-lg text-sm transition-colors">
+            See how it runs
+          </Link>
         </div>
-
         <p className="text-mute text-[11px] leading-relaxed max-w-3xl mt-10">
-          Concept previews of where the platform is headed. Numbers shown are illustrative. Also on the roadmap: an AI receptionist for missed calls, automated quote follow-up, and an integrated booking calendar. None of them ship today. The website is what you pay for now.
+          Concept preview of where the platform is headed. Numbers shown are illustrative. The AI receptionist, automated follow-up, the review flow, and the Monday brief roll out through 2026, each with a human safety net. The website is what you pay for today.
         </p>
       </Moment>
 
@@ -426,40 +390,11 @@ function FitList({ heading, tone, items }: { heading: string; tone: 'yes' | 'no'
   );
 }
 
-function FounderCard({ photo, name, role, lens, bio }: { photo: string; name: string; role: string; lens: string; bio: string }) {
-  return (
-    <div className="bg-white border border-stone-200 rounded-2xl overflow-hidden">
-      <div className="relative w-full aspect-[4/3] bg-stone-100">
-        <Image src={photo} alt={name} fill className="object-cover object-top" sizes="(max-width: 768px) 100vw, 50vw" />
-      </div>
-      <div className="p-7 sm:p-8">
-        <div className="flex items-center justify-between mb-2">
-          <h3 className="font-display text-2xl tracking-tight leading-none text-stone-900">{name}</h3>
-          <p className="font-mono text-[10px] tracking-[0.18em] uppercase font-semibold text-stone-400">{lens}</p>
-        </div>
-        <p className="font-mono text-emerald-700 text-[11px] tracking-[0.18em] uppercase font-semibold mb-5">{role}</p>
-        <p className="text-stone-600 text-sm sm:text-base leading-relaxed">{bio}</p>
-      </div>
-    </div>
-  );
-}
-
 function PriceCell({ amount, detail, highlight }: { amount: string; detail: string; highlight?: boolean }) {
   return (
     <div className={`rounded-2xl p-6 ${highlight ? 'bg-emerald-50 border-2 border-emerald-300' : 'bg-white border border-stone-200'}`}>
       <p className={`font-display text-2xl sm:text-3xl tracking-tight leading-none mb-3 ${highlight ? 'text-emerald-700' : 'text-stone-900'}`}>{amount}</p>
       <p className="text-stone-600 text-sm leading-snug">{detail}</p>
-    </div>
-  );
-}
-
-function Metric({ label, value, detail, trend }: { label: string; value: string; detail: string; trend?: 'up' | 'down' }) {
-  const trendColor = trend === 'up' ? 'text-emerald-400' : trend === 'down' ? 'text-amber-300' : 'text-mute';
-  return (
-    <div className="bg-ink/40 border border-divider/40 rounded-lg p-3.5">
-      <p className="text-[9px] tracking-[0.2em] uppercase font-bold text-mute mb-1.5">{label}</p>
-      <p className="font-display text-xl sm:text-2xl tracking-tight leading-none text-white">{value}</p>
-      <p className={`text-[10px] mt-1.5 leading-tight ${trendColor}`}>{detail}</p>
     </div>
   );
 }
