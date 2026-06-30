@@ -115,8 +115,8 @@ export default function HomePage() {
         <div className="max-w-2xl">
           <ReceptionistScreen />
         </div>
-        <Link href="/how-it-works" className="inline-flex items-center gap-2 text-elec font-semibold text-sm mt-8 hover:gap-3 transition-all">
-          See how it all works <span aria-hidden>{'→'}</span>
+        <Link href="/platform" className="inline-flex items-center gap-2 text-elec font-semibold text-sm mt-8 hover:gap-3 transition-all">
+          Tour the whole platform <span aria-hidden>{'→'}</span>
         </Link>
       </Moment>
 
@@ -224,11 +224,11 @@ export default function HomePage() {
           <ConceptDashboard />
         </div>
         <div className="flex flex-col sm:flex-row gap-3">
-          <Link href="/how-it-works" className="inline-flex items-center justify-center gap-2 bg-elec hover:bg-elec-light text-ink font-bold px-6 py-3.5 rounded-lg text-sm transition-colors">
-            See how it all works <span aria-hidden>{'→'}</span>
+          <Link href="/platform" className="inline-flex items-center justify-center gap-2 bg-elec hover:bg-elec-light text-ink font-bold px-6 py-3.5 rounded-lg text-sm transition-colors">
+            See the platform <span aria-hidden>{'→'}</span>
           </Link>
-          <Link href="/work" className="inline-flex items-center justify-center gap-2 border border-divider/60 hover:border-elec/40 text-white font-semibold px-6 py-3.5 rounded-lg text-sm transition-colors">
-            See the proof
+          <Link href="/how-it-works" className="inline-flex items-center justify-center gap-2 border border-divider/60 hover:border-elec/40 text-white font-semibold px-6 py-3.5 rounded-lg text-sm transition-colors">
+            See how it runs
           </Link>
         </div>
         <p className="text-mute text-[11px] leading-relaxed max-w-3xl mt-10">
@@ -468,6 +468,7 @@ function FooterBottomRow() {
     <div className={wrap}>
       <div className={linkRow}>
         <Link href="/how-it-works" className={linkCls}>How it works</Link>
+        <Link href="/platform" className={linkCls}>Platform</Link>
         <Link href="/work" className={linkCls}>Proof</Link>
         <Link href="/is-this-for-me" className={linkCls}>Is it for me?</Link>
         <Link href="/pricing" className={linkCls}>Pricing</Link>
