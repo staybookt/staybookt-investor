@@ -55,7 +55,7 @@ export default function HomePage() {
 
       <Hero />
 
-      {/* The reality */}
+      {/* WHY — the reality */}
       <Moment tone="cream">
         <Eyebrow tone="cream">If this sounds familiar</Eyebrow>
         <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-6 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
@@ -69,7 +69,7 @@ export default function HomePage() {
         </p>
       </Moment>
 
-      {/* The work we ship */}
+      {/* WHAT — the work we ship */}
       <Moment tone="cream" id="work">
         <Eyebrow tone="cream">The work we ship</Eyebrow>
         <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-4 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
@@ -100,7 +100,7 @@ export default function HomePage() {
         </div>
       </Moment>
 
-      {/* See the platform */}
+      {/* WHAT — see it working */}
       <Moment tone="dark">
         <div className="flex items-center justify-between gap-4 mb-7">
           <Eyebrow tone="dark">See it working</Eyebrow>
@@ -115,12 +115,12 @@ export default function HomePage() {
         <div className="max-w-2xl">
           <ReceptionistScreen />
         </div>
-        <Link href="/platform" className="inline-flex items-center gap-2 text-elec font-semibold text-sm mt-8 hover:gap-3 transition-all">
-          Tour the whole platform <span aria-hidden>{'→'}</span>
+        <Link href="/how-it-works" className="inline-flex items-center gap-2 text-elec font-semibold text-sm mt-8 hover:gap-3 transition-all">
+          See how it all works <span aria-hidden>{'→'}</span>
         </Link>
       </Moment>
 
-      {/* Real builds */}
+      {/* PROVE IT — real builds */}
       <Moment tone="cream">
         <Eyebrow tone="cream">Recent work</Eyebrow>
         <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-4 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
@@ -157,6 +157,23 @@ export default function HomePage() {
         </div>
       </Moment>
 
+      {/* WHO (for you) — thin teaser */}
+      <section className="relative bg-stone-50 px-6 sm:px-12 py-14">
+        <ScrollReveal>
+          <div className="max-w-6xl mx-auto flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.32em] uppercase font-bold text-stone-500 mb-2">Is this you?</p>
+              <p className="font-display text-2xl sm:text-3xl tracking-tight text-stone-900 leading-snug max-w-2xl">
+                You run a service business under $5M, the phone still rings to you, and the follow-up eats your nights.
+              </p>
+            </div>
+            <Link href="/is-this-for-me" className="shrink-0 inline-flex items-center gap-2 text-emerald-700 font-semibold text-sm hover:gap-3 transition-all">
+              See if it is a fit <span aria-hidden>{'→'}</span>
+            </Link>
+          </div>
+        </ScrollReveal>
+      </section>
+
       {/* Atmosphere band */}
       <section className="relative h-[42vh] min-h-[320px] overflow-hidden">
         <Image
@@ -189,7 +206,37 @@ export default function HomePage() {
         </ScrollReveal>
       </section>
 
-      {/* How we get paid */}
+      {/* WHEN — what's next (roadmap) */}
+      <Moment tone="dark">
+        <div className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 rounded-full px-3 py-1 mb-6">
+          <span className="inline-block w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" aria-hidden />
+          <p className="font-mono text-[10px] tracking-[0.18em] uppercase font-semibold text-amber-300">Rolling out 2026</p>
+        </div>
+        <Eyebrow tone="dark">What is next</Eyebrow>
+        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-4 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
+          The back office is the <Grad>next layer.</Grad>
+        </h2>
+        <p className="text-platinum-soft text-base sm:text-lg mb-12 max-w-3xl leading-relaxed">
+          The website captures the leads. The back office converts them, then brings them back. As each piece ships, your monthly grows with it, and so does the work it takes off your plate. Here is where it is headed.
+        </p>
+
+        <div className="mb-10">
+          <ConceptDashboard />
+        </div>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <Link href="/how-it-works" className="inline-flex items-center justify-center gap-2 bg-elec hover:bg-elec-light text-ink font-bold px-6 py-3.5 rounded-lg text-sm transition-colors">
+            See how it all works <span aria-hidden>{'→'}</span>
+          </Link>
+          <Link href="/work" className="inline-flex items-center justify-center gap-2 border border-divider/60 hover:border-elec/40 text-white font-semibold px-6 py-3.5 rounded-lg text-sm transition-colors">
+            See the proof
+          </Link>
+        </div>
+        <p className="text-mute text-[11px] leading-relaxed max-w-3xl mt-10">
+          Concept preview of where the platform is headed. Numbers shown are illustrative. The AI receptionist, automated follow-up, the review flow, and the Monday brief roll out through 2026, each with a human safety net. The website is what you pay for today.
+        </p>
+      </Moment>
+
+      {/* COST — how we get paid */}
       <Moment tone="cream" id="pricing">
         <Eyebrow tone="cream">How we get paid</Eyebrow>
         <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-6 max-w-4xl text-stone-900" style={{ fontSize: 'clamp(38px, 6.4vw, 84px)' }}>
@@ -221,35 +268,22 @@ export default function HomePage() {
         <p className="text-stone-500 text-xs mt-6">All prices in CAD. The 5% is only on new business we bring you, measured and agreed up front.</p>
       </Moment>
 
-      {/* What's next (RevOps preview) */}
-      <Moment tone="dark">
-        <div className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 rounded-full px-3 py-1 mb-6">
-          <span className="inline-block w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" aria-hidden />
-          <p className="font-mono text-[10px] tracking-[0.18em] uppercase font-semibold text-amber-300">Rolling out 2026</p>
-        </div>
-        <Eyebrow tone="dark">What is next</Eyebrow>
-        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-4 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
-          The back office is the <Grad>next layer.</Grad>
-        </h2>
-        <p className="text-platinum-soft text-base sm:text-lg mb-12 max-w-3xl leading-relaxed">
-          The website captures the leads. The back office converts them, then brings them back. As each piece ships, your monthly grows with it, and so does the work it takes off your plate. Here is where it is headed.
-        </p>
-
-        <div className="mb-10">
-          <ConceptDashboard />
-        </div>
-        <div className="flex flex-col sm:flex-row gap-3">
-          <Link href="/platform" className="inline-flex items-center justify-center gap-2 bg-elec hover:bg-elec-light text-ink font-bold px-6 py-3.5 rounded-lg text-sm transition-colors">
-            See the platform <span aria-hidden>{'→'}</span>
-          </Link>
-          <Link href="/how-it-works" className="inline-flex items-center justify-center gap-2 border border-divider/60 hover:border-elec/40 text-white font-semibold px-6 py-3.5 rounded-lg text-sm transition-colors">
-            See how it runs
-          </Link>
-        </div>
-        <p className="text-mute text-[11px] leading-relaxed max-w-3xl mt-10">
-          Concept preview of where the platform is headed. Numbers shown are illustrative. The AI receptionist, automated follow-up, the review flow, and the Monday brief roll out through 2026, each with a human safety net. The website is what you pay for today.
-        </p>
-      </Moment>
+      {/* WHO (you work with) — thin teaser */}
+      <section className="relative bg-ink-deep px-6 sm:px-12 py-14">
+        <ScrollReveal>
+          <div className="max-w-6xl mx-auto flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.32em] uppercase font-bold text-elec mb-2">Who you work with</p>
+              <p className="font-display text-2xl sm:text-3xl tracking-tight text-white leading-snug max-w-2xl">
+                Two founders, no layers. You talk to one of us on day one and every day after.
+              </p>
+            </div>
+            <Link href="/about" className="shrink-0 inline-flex items-center gap-2 text-elec font-semibold text-sm hover:gap-3 transition-all">
+              Meet Jacob and Richard <span aria-hidden>{'→'}</span>
+            </Link>
+          </div>
+        </ScrollReveal>
+      </section>
 
       {/* Questions */}
       <Moment tone="dark" id="faq">
@@ -433,9 +467,11 @@ function FooterBottomRow() {
   return (
     <div className={wrap}>
       <div className={linkRow}>
-        <Link href="/about" className={linkCls}>About</Link>
-        <Link href="/platform" className={linkCls}>Platform</Link>
+        <Link href="/how-it-works" className={linkCls}>How it works</Link>
+        <Link href="/work" className={linkCls}>Proof</Link>
+        <Link href="/is-this-for-me" className={linkCls}>Is it for me?</Link>
         <Link href="/pricing" className={linkCls}>Pricing</Link>
+        <Link href="/about" className={linkCls}>About</Link>
       </div>
       <p>{'©'} 2026 StayBookt Inc. Toronto, ON.</p>
     </div>
