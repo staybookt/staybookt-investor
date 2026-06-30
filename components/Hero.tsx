@@ -88,7 +88,6 @@ export default function Hero() {
           variants={item}
           className="font-display text-[52px] sm:text-[88px] lg:text-[128px] leading-[0.98] tracking-[-0.04em] mb-9"
         >
-          <span className="block text-white">Get Found.</span>
           <span className="flex items-baseline justify-center">
             <span className="text-white">Stay</span>
             <span className="wordmark-gradient">Bookt</span>
