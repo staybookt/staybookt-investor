@@ -7,6 +7,7 @@ import { CAL_LINK } from '@/lib/site';
 const OWNER_NAV = [
   { href: '/platform', label: 'Platform' },
   { href: '/how-it-works', label: 'How it works' },
+  { href: '/is-this-for-me', label: 'Is it for me?' },
   { href: '/work', label: 'Proof' },
   { href: '/pricing', label: 'Pricing' },
 ];
