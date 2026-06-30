@@ -29,27 +29,42 @@ export default function WorkPage() {
         {/* TCE */}
         <section className="px-6 py-8 sm:px-12">
           <div className="mx-auto max-w-5xl overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02]">
-            <div className="grid gap-0 lg:grid-cols-2">
-              <div className="p-8 sm:p-10">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-hvac-light">Trades · Electrical · York Region</p>
-                <h2 className="mt-3 font-display text-3xl tracking-tight text-white">Top Choice Electrical</h2>
-                <p className="mt-4 text-[15px] leading-relaxed text-platinum-soft">
-                  Tim Ciszkowski, 22 years on the tools, was running on word of mouth and a phone that rang straight to him. We
-                  built a site that looks like the established pro he is, rebuilt his Google profile, and wired
-                  tap-to-call and booking so a homeowner reaches him in one tap. Live at topchoiceelectrical.com.
-                </p>
-                <a
-                  href="https://www.topchoiceelectrical.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-6 inline-flex items-center gap-2 rounded-lg border border-white/15 px-5 py-3 text-sm font-semibold text-white hover:bg-white/5"
-                >
-                  Visit the live site <span aria-hidden>→</span>
-                </a>
+            {/* clean browser-framed screenshot */}
+            <div className="p-6 pb-0 sm:p-8 sm:pb-0">
+              <div className="overflow-hidden rounded-xl border border-white/10 shadow-2xl shadow-black/50">
+                <div className="flex items-center gap-1.5 border-b border-white/8 bg-white/[0.06] px-3 py-2">
+                  <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
+                  <span className="ml-3 truncate text-[10px] tracking-wide text-mute">topchoiceelectrical.com</span>
+                </div>
+                <div className="relative aspect-[16/9] w-full bg-ink">
+                  <Image
+                    src="/photos/tce-after.png"
+                    alt="Top Choice Electrical website built by StayBookt"
+                    fill
+                    className="object-cover object-top"
+                    sizes="(max-width: 1024px) 100vw, 1024px"
+                  />
+                </div>
               </div>
-              <div className="relative min-h-[280px] bg-ink">
-                <Image src="/photos/tce-after.png" alt="Top Choice Electrical website built by StayBookt" fill className="object-cover object-top" sizes="(max-width: 1024px) 100vw, 50vw" />
-              </div>
+            </div>
+            <div className="p-8 sm:p-10">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-hvac-light">Trades · Electrical · York Region</p>
+              <h2 className="mt-3 font-display text-3xl tracking-tight text-white">Top Choice Electrical</h2>
+              <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-platinum-soft">
+                Tim Ciszkowski, 22 years on the tools, was running on word of mouth and a phone that rang straight to him. We
+                built a site that looks like the established pro he is, rebuilt his Google profile, and wired
+                tap-to-call and booking so a homeowner reaches him in one tap. Live at topchoiceelectrical.com.
+              </p>
+              <a
+                href="https://www.topchoiceelectrical.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 inline-flex items-center gap-2 rounded-lg border border-white/15 px-5 py-3 text-sm font-semibold text-white hover:bg-white/5"
+              >
+                Visit the live site <span aria-hidden>→</span>
+              </a>
             </div>
           </div>
         </section>
