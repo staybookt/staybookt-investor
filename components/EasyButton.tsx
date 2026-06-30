@@ -7,7 +7,14 @@ import { motion, useReducedMotion } from 'framer-motion';
  * colors. Press it and the front office gets handled, ticking through the jobs
  * StayBookt runs, landing on "That was easy." Fun, and a one-glance demo. Preview. */
 
-const TASKS = ['Answering every lead, 24/7', 'Booking the jobs', 'Chasing the reviews', 'Sending your Monday brief'];
+const TASKS = [
+  'Answering every lead, 24/7',
+  'Booking the jobs',
+  'Organizing quotes',
+  'Chasing the reviews',
+  'Chasing repeat business',
+  'Sending your Monday brief',
+];
 
 type Phase = 'idle' | 'running' | 'done';
 
@@ -33,9 +40,9 @@ export default function EasyButton() {
     setPhase('running');
     setStep(-1);
     TASKS.forEach((_, i) => {
-      timers.current.push(setTimeout(() => setStep(i), 450 + i * 620));
+      timers.current.push(setTimeout(() => setStep(i), 450 + i * 560));
     });
-    timers.current.push(setTimeout(() => setPhase('done'), 450 + TASKS.length * 620 + 350));
+    timers.current.push(setTimeout(() => setPhase('done'), 450 + TASKS.length * 560 + 350));
   };
 
   const reset = () => {
