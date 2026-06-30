@@ -8,6 +8,8 @@ import {
   BookingScreen,
   BriefScreen,
   ReviewScreen,
+  AnalystScreen,
+  RepeatBusinessScreen,
 } from '@/components/PlatformPreview';
 
 export const metadata = {
@@ -22,6 +24,14 @@ function Why({ children }: { children: React.ReactNode }) {
 }
 
 const BLOCKS = [
+  {
+    eyebrow: 'Your morning, at a glance',
+    title: 'The operating dashboard',
+    body:
+      'Open it and see exactly where the business stands: leads in, jobs booked, follow-ups sent, reviews landed, revenue trending. The number you need, not a wall of charts. Most mornings, nothing needs you.',
+    why: 'You run the business from one screen, in under a minute.',
+    Comp: DashboardScreen,
+  },
   {
     eyebrow: 'Every lead, answered',
     title: 'The AI receptionist',
@@ -53,6 +63,22 @@ const BLOCKS = [
       'Every Monday you get one short message: what got booked, what got recovered, what came back, and the one thing that actually needs you. No dashboard to log into. It comes to you.',
     why: 'You stay in control without living in an app.',
     Comp: BriefScreen,
+  },
+  {
+    eyebrow: 'Your analyst, in your pocket',
+    title: 'Ask it anything, by text or phone',
+    body:
+      'Text it or call it like you would a business partner. Ask how last week went, or who is due for service, and the answer comes back in plain English, day or night. The business intelligence comes to you, in a sentence.',
+    why: 'No dashboard to dig through. You just ask.',
+    Comp: AnalystScreen,
+  },
+  {
+    eyebrow: 'Past work into future work',
+    title: 'The customer database that compounds',
+    body:
+      'Every job you have done is future business. Your database watches for who is due for service, who is ready for a referral ask, and who went quiet, then brings them back. The cheapest growth you have is the customers you already earned.',
+    why: 'Repeat and referral, working while you do the job.',
+    Comp: RepeatBusinessScreen,
   },
 ];
 
@@ -93,17 +119,6 @@ export default function PlatformPage() {
                 See real builds →
               </Link>
             </div>
-          </div>
-        </section>
-
-        {/* Dashboard centerpiece */}
-        <section className="px-6 pb-8 sm:px-12">
-          <div className="mx-auto max-w-4xl">
-            <div className="mb-4 flex items-center justify-between">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-mute">What you see in the morning</p>
-              <PreviewPill />
-            </div>
-            <DashboardScreen />
           </div>
         </section>
 
