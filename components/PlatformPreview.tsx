@@ -88,7 +88,7 @@ export function DashboardScreen() {
   );
 }
 
-/* 2. AI RECEPTIONIST — a real-feeling text thread */
+/* 2. AI RECEPTIONIST — a real-feeling text thread, always on */
 export function ReceptionistScreen() {
   const thread = [
     { from: 'them', t: 'Hi, my AC stopped working. Can someone come today?' },
@@ -99,9 +99,9 @@ export function ReceptionistScreen() {
     { from: 'us', t: "Booked. You'll get a text reminder at 1pm. Anything else I can help with?" },
   ];
   return (
-    <AppFrame title="AI Receptionist — Live conversation" accent="hvac">
+    <AppFrame title="AI Receptionist — always on" accent="hvac">
       <div className="mb-3 flex items-center justify-between">
-        <p className="text-[11px] uppercase tracking-[0.2em] text-mute">Inbound text · answered in 4 seconds</p>
+        <p className="text-[11px] uppercase tracking-[0.2em] text-mute">Inbound · 2:14 a.m. · answered in 4 seconds</p>
         <span className="rounded-md bg-hvac/15 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-hvac-light">Booked</span>
       </div>
       <div className="space-y-2.5">
@@ -119,7 +119,7 @@ export function ReceptionistScreen() {
           </div>
         ))}
       </div>
-      <p className="mt-3 text-center text-[10px] text-mute">Handled by StayBookt. Escalates to you only when it should.</p>
+      <p className="mt-3 text-center text-[10px] text-mute">Always on. It answers every call and text, day or night, and escalates to you only when it should.</p>
     </AppFrame>
   );
 }

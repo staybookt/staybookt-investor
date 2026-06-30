@@ -17,7 +17,7 @@ export const metadata = {
   title: 'The platform',
   alternates: { canonical: '/platform' },
   description:
-    'See what StayBookt runs for you: the AI receptionist that answers every lead, self-serve booking, automatic reviews, and a Monday brief that comes to you. A preview of the operating layer rolling out through 2026.',
+    'See what StayBookt runs for you: an always-on AI receptionist that answers every lead, self-serve booking, automatic reviews, and a Monday brief that comes to you. A preview of the operating layer rolling out through 2026.',
 };
 
 function Why({ children }: { children: React.ReactNode }) {
@@ -34,11 +34,11 @@ const BLOCKS = [
     Comp: DashboardScreen,
   },
   {
-    eyebrow: 'Every lead, answered',
+    eyebrow: 'Always on, every lead answered',
     title: 'The AI receptionist',
     body:
-      'A customer texts or calls. It gets answered in seconds, day or night, in your voice. It qualifies them, answers the basic questions, and books the job. You were on a ladder. You did not miss the call.',
-    why: 'Missed calls are missed money. This one never misses.',
+      'It never clocks out. A customer texts or calls at 2pm or 2am, and it answers in seconds, in your voice. It listens, qualifies them, answers the basic questions, and books the job. You were on a ladder, or asleep. You did not miss the call.',
+    why: 'A receptionist that works 24/7 and never misses.',
     Comp: ReceptionistScreen,
   },
   {

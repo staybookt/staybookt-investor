@@ -3,11 +3,11 @@
 import { useRef, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 
-/* The "easy button." Press it and watch the front office get handled, ticking
- * through the jobs StayBookt runs, landing on "That was easy." Fun, simple,
- * and it doubles as a one-glance demo of the whole value prop. Preview. */
+/* The "easy button." Domed, glossy, embossed EASY — the classic, in StayBookt
+ * colors. Press it and the front office gets handled, ticking through the jobs
+ * StayBookt runs, landing on "That was easy." Fun, and a one-glance demo. Preview. */
 
-const TASKS = ['Answering your leads', 'Booking the jobs', 'Chasing the reviews', 'Sending your Monday brief'];
+const TASKS = ['Answering every lead, 24/7', 'Booking the jobs', 'Chasing the reviews', 'Sending your Monday brief'];
 
 type Phase = 'idle' | 'running' | 'done';
 
@@ -50,37 +50,46 @@ export default function EasyButton() {
   return (
     <div className="mx-auto w-full max-w-md">
       <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-8 text-center">
-        {/* the button */}
-        <button
-          type="button"
-          onClick={done ? reset : run}
-          className="group relative mx-auto flex h-28 w-28 items-center justify-center rounded-full text-ink transition-transform duration-150 active:scale-95"
-          style={{
-            backgroundImage: done ? 'linear-gradient(135deg,#10B981,#34d399)' : 'linear-gradient(135deg,#06B6D4,#10B981)',
-            boxShadow: '0 0 60px -12px rgba(6,182,212,0.55)',
-          }}
-          aria-label={done ? 'Run it again' : 'Run my front office'}
-        >
+        {/* the dome button, in its housing */}
+        <div className="relative mx-auto h-36 w-36">
+          <div
+            aria-hidden
+            className="absolute inset-0 rounded-full"
+            style={{ background: 'radial-gradient(circle at 50% 38%, #0c2a33, #050811 78%)', boxShadow: '0 12px 30px rgba(0,0,0,0.55)' }}
+          />
           {!reduce && phase === 'idle' && (
             <motion.span
               aria-hidden
-              className="absolute inset-0 rounded-full border-2 border-elec/50"
-              animate={{ scale: [1, 1.3], opacity: [0.6, 0] }}
+              className="absolute inset-1 rounded-full border-2 border-elec/40"
+              animate={{ scale: [1, 1.22], opacity: [0.5, 0] }}
               transition={{ duration: 1.8, repeat: Infinity, ease: 'easeOut' }}
             />
           )}
-          <motion.span
-            key={done ? 'check' : 'play'}
-            initial={reduce ? false : { scale: 0.5, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 18 }}
-            className="text-3xl font-bold leading-none"
+          <motion.button
+            type="button"
+            onClick={done ? reset : run}
+            whileTap={reduce ? undefined : { y: 4, scale: 0.97 }}
+            aria-label={done ? 'Run it again' : 'Run my front office'}
+            className="absolute inset-[14px] flex items-center justify-center rounded-full"
+            style={{
+              background: done
+                ? 'radial-gradient(circle at 35% 28%, #6ee7b7 0%, #10B981 45%, #047857 100%)'
+                : 'radial-gradient(circle at 35% 28%, #a5f3fc 0%, #22d3ee 32%, #06B6D4 62%, #0e7490 100%)',
+              boxShadow:
+                '0 14px 30px -6px rgba(6,182,212,0.55), inset 0 6px 14px rgba(255,255,255,0.55), inset 0 -16px 28px rgba(2,28,38,0.6)',
+            }}
           >
-            {done ? '✓' : '▶'}
-          </motion.span>
-        </button>
+            <span aria-hidden className="pointer-events-none absolute left-1/2 top-4 h-7 w-16 -translate-x-1/2 rounded-[50%] bg-white/45 blur-md" />
+            <span
+              className="relative font-display text-2xl font-extrabold tracking-[0.12em] text-white"
+              style={{ textShadow: '0 1px 1px rgba(0,0,0,0.35)' }}
+            >
+              EASY
+            </span>
+          </motion.button>
+        </div>
 
-        <p className="mt-5 font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-platinum-soft">{label}</p>
+        <p className="mt-6 font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-platinum-soft">{label}</p>
 
         {/* the work, ticking off */}
         <div className="mx-auto mt-6 max-w-xs space-y-2.5 text-left">
