@@ -120,34 +120,30 @@ export default function HomePage() {
         </Link>
       </Moment>
 
-      {/* Who this is for */}
+      {/* Is this for you */}
       <Moment tone="cream">
-        <Eyebrow tone="cream">Who this is for</Eyebrow>
-        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
-          Be honest about <Grad deep>the fit.</Grad>
+        <Eyebrow tone="cream">Is this for you?</Eyebrow>
+        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-6 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
+          If this is your week, <Grad deep>yes.</Grad>
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <p className="text-stone-600 text-base sm:text-lg mb-10 max-w-2xl leading-relaxed">
+          You run a service business under $5M, the phone still rings to you, and the follow-up and admin eat your nights. That is exactly who we build for.
+        </p>
+        <div className="max-w-xl">
           <FitList
-            heading="A fit if"
+            heading="Sound familiar?"
             tone="yes"
             items={[
-              'You do up to $5M and you own the business.',
-              'The phone still rings to you.',
-              'You are great at the work, but the pipeline leaks.',
-              'You want it handled, not taught.',
-            ]}
-          />
-          <FitList
-            heading="Not a fit if"
-            tone="no"
-            items={[
-              'You are an enterprise with a back-office team.',
-              'You already have a marketing manager.',
-              'You want one more tool to log into.',
-              'You want a course, not an operator.',
+              'You can’t get back to people quickly.',
+              'You’re great at your work, but the follow-up and management is hard.',
+              'You want to spend more effort growing the business.',
+              'You spend your nights on admin instead of time with your family.',
             ]}
           />
         </div>
+        <Link href="/is-this-for-me" className="inline-flex items-center gap-2 text-emerald-700 font-semibold text-sm mt-8 hover:gap-3 transition-all">
+          See the full list <span aria-hidden>{'→'}</span>
+        </Link>
       </Moment>
 
       {/* Real builds */}
