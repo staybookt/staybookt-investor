@@ -11,8 +11,76 @@ export const EMAIL = 'info@staybookt.com';
 export const PHONE_DISPLAY: string | null = null;
 export const PHONE_HREF: string | null = null;
 
+// Lowest upfront across the tiers, used for the hero "Starting at ___ to launch".
 export const PRICING = {
-  build: '$2,500',
+  build: '$2,000',
   care: '$149',
   performance: '5%',
 } as const;
+
+// The three ways to work with us, ranked by how much of the business we run.
+// Single source of truth: home + pricing page both read this, so numbers never drift.
+export type Tier = {
+  name: string;
+  scope: string;
+  tagline: string;
+  upfront: string;
+  upfrontNote: string;
+  recurring: string | null;
+  commission: string | null;
+  terms: string;
+  recommended?: boolean;
+  points: string[];
+};
+
+export const TIERS: Tier[] = [
+  {
+    name: 'Get Found',
+    scope: 'The website',
+    tagline: 'A site that gets you found and makes you look like the pro you are.',
+    upfront: '$5,000',
+    upfrontNote: 'one-time',
+    recurring: null,
+    commission: null,
+    terms: 'Pay once. The site is yours to keep.',
+    points: [
+      'Custom, mobile-first website',
+      'Google Business Profile rebuilt',
+      'Search and reviews foundation',
+      'Tap-to-call and booking wired in',
+    ],
+  },
+  {
+    name: 'Get Booked',
+    scope: 'Website + management',
+    tagline: 'We keep it running and turn found into booked.',
+    upfront: '$3,000',
+    upfrontNote: 'to build',
+    recurring: '$149/mo',
+    commission: '5%',
+    terms: '6-month minimum. The 5% is only on new business we bring you.',
+    recommended: true,
+    points: [
+      'Everything in Get Found',
+      'Ongoing site and profile management',
+      'Lead capture and booking',
+      'Reviews after every job, and the Monday brief',
+    ],
+  },
+  {
+    name: 'Stay Booked',
+    scope: 'The full platform',
+    tagline: 'We run the front of your business. You just deliver.',
+    upfront: '$2,000',
+    upfrontNote: 'to build',
+    recurring: '$249/mo',
+    commission: '5%',
+    terms: '6-month minimum. The 5% is only on new business we bring you.',
+    points: [
+      'Everything in Get Booked',
+      'The operating layer as it ships',
+      'AI receptionist, follow-up, re-engagement',
+      'Least upfront, the most we run for you',
+    ],
+  },
+];
