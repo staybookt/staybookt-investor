@@ -4,11 +4,12 @@ import Link from 'next/link';
 import Wordmark from './Wordmark';
 import { CAL_LINK } from '@/lib/site';
 
+// Four doors, ordered as the story reads: What it is / how it runs, the proof,
+// who it is for, what it costs. (About lives in the footer.)
 const OWNER_NAV = [
-  { href: '/platform', label: 'Platform' },
   { href: '/how-it-works', label: 'How it works' },
-  { href: '/is-this-for-me', label: 'Is it for me?' },
   { href: '/work', label: 'Proof' },
+  { href: '/is-this-for-me', label: 'Is it for me?' },
   { href: '/pricing', label: 'Pricing' },
 ];
 
