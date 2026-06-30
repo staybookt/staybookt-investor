@@ -127,7 +127,7 @@ export default function HomePage() {
           Two builds. <Grad deep>Both live.</Grad>
         </h2>
         <p className="text-stone-600 text-sm sm:text-base mb-14 max-w-2xl leading-relaxed">
-          Real sites for real owners, built and shipped. Click either one to open it in a new tab.
+          Real sites for real owners, built and shipped.
         </p>
         <div className="space-y-10">
           {/* NOTE: build quotes below are placeholders approved by Jacob. Swap for real client quotes when available. No outcome stats until pilots produce real numbers. */}
@@ -232,7 +232,7 @@ export default function HomePage() {
           The back office is the <Grad>next layer.</Grad>
         </h2>
         <p className="text-platinum-soft text-base sm:text-lg mb-12 max-w-3xl leading-relaxed">
-          The website captures the leads. The back office converts them, then brings them back. As each layer ships, your monthly grows into the full operating system, and the work it takes off your plate grows with it. Here is where it is headed.
+          The website captures the leads. The back office converts them, then brings them back. As each piece ships, your monthly grows with it, and so does the work it takes off your plate. Here is where it is headed.
         </p>
 
         <div className="mb-10">
@@ -350,7 +350,7 @@ function ClientCard({
 }) {
   const isMac = frameType === 'macbook';
   const isPhone = frameType === 'iphone';
-  const deviceWrap = ['relative bg-stone-100 group', isMac ? 'lg:col-span-3 flex flex-col justify-center p-5 sm:p-6' : 'lg:col-span-2 flex items-center justify-center py-10 sm:py-14'].join(' ');
+  const deviceWrap = ['relative bg-stone-100', isMac ? 'lg:col-span-3 flex flex-col justify-center p-5 sm:p-6' : 'lg:col-span-2 flex items-center justify-center py-10 sm:py-14'].join(' ');
   const macIframeCls = 'border-0 pointer-events-none [width:1400px] [height:900px] [transform-origin:top_left] [transform:scale(0.36)] sm:[transform:scale(0.45)] xl:[transform:scale(0.55)]';
 
   const deviceCol = (
@@ -359,9 +359,7 @@ function ClientCard({
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 z-0">
         <p className="font-mono text-[10px] tracking-[0.2em] uppercase font-bold text-stone-400 mb-2">{eyebrow}</p>
         <p className="font-display text-lg text-stone-500">{url}</p>
-        <span className="mt-3 text-[11px] tracking-[0.1em] uppercase font-semibold text-emerald-700">Visit live site {'↗'}</span>
       </div>
-      <a href={href} target="_blank" rel="noopener noreferrer" className="absolute inset-0 z-20" aria-label={`Open ${name}'s live site`} />
       {isMac && (
         <MacBookFrame>
           <iframe src={href} title={`${name} live site`} loading="lazy" sandbox="allow-same-origin allow-scripts allow-popups" className={macIframeCls} />
@@ -375,7 +373,6 @@ function ClientCard({
         </div>
       )}
       <div className="absolute bottom-3 left-3 z-30 px-2.5 py-1 rounded-md bg-stone-900/85 backdrop-blur-sm border border-stone-700 text-[10px] tracking-[0.18em] uppercase font-semibold text-emerald-300">Live</div>
-      <div className="absolute bottom-3 right-3 z-30 px-2.5 py-1 rounded-md bg-stone-900/85 backdrop-blur-sm border border-stone-700 text-[10px] tracking-[0.1em] uppercase font-semibold text-stone-300 opacity-0 group-hover:opacity-100 transition-opacity">Click to open {'↗'}</div>
     </div>
   );
 
@@ -383,7 +380,7 @@ function ClientCard({
     <div className={`${isMac ? 'lg:col-span-2' : 'lg:col-span-3'} p-7 sm:p-10`}>
       <div className="flex items-center justify-between mb-4">
         <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-stone-500">{eyebrow}</p>
-        <a href={href} target="_blank" rel="noopener noreferrer" className="text-xs font-semibold text-stone-500 hover:text-stone-900 transition-colors">{url} {'↗'}</a>
+        <span className="text-xs font-semibold text-stone-500">{url}</span>
       </div>
       <h3 className="font-display text-3xl sm:text-4xl tracking-tight leading-tight mb-2 text-stone-900">{name}</h3>
       <p className="text-stone-600 text-sm sm:text-base mb-1">{role}</p>
@@ -394,12 +391,9 @@ function ClientCard({
           <p className="font-mono text-[10px] tracking-[0.18em] uppercase font-semibold text-emerald-700">{statusBadge}</p>
         </div>
       )}
-      <blockquote className="border-l-2 border-emerald-600 pl-5 mb-6">
+      <blockquote className="border-l-2 border-emerald-600 pl-5">
         <p className="text-stone-800 text-base sm:text-lg italic leading-snug">{'“'}{quote}{'”'}</p>
       </blockquote>
-      <a href={href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-emerald-700 font-semibold text-sm hover:gap-3 transition-all">
-        See {name.split(' ')[0]}{'’'}s site <span aria-hidden>{'→'}</span>
-      </a>
     </div>
   );
 
@@ -439,9 +433,9 @@ function FooterBottomRow() {
   return (
     <div className={wrap}>
       <div className={linkRow}>
-        <a href="https://www.topchoiceelectrical.com" target="_blank" rel="noopener noreferrer" className={linkCls}>topchoiceelectrical.com</a>
-        <a href="https://www.xnlhr.com" target="_blank" rel="noopener noreferrer" className={linkCls}>xnlhr.com</a>
         <Link href="/about" className={linkCls}>About</Link>
+        <Link href="/platform" className={linkCls}>Platform</Link>
+        <Link href="/pricing" className={linkCls}>Pricing</Link>
       </div>
       <p>{'©'} 2026 StayBookt Inc. Toronto, ON.</p>
     </div>

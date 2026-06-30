@@ -62,15 +62,15 @@ export const TIERS: Tier[] = [
     recommended: true,
     points: [
       'Everything in Get Found',
-      'Ongoing site and profile management',
-      'Lead capture and booking',
-      'Reviews after every job, and the Monday brief',
+      'We keep your site and Google profile current',
+      'We capture every lead and book the jobs',
+      'A review after every job, plus a simple weekly summary',
     ],
   },
   {
     name: 'Stay Booked',
-    scope: 'The full platform',
-    tagline: 'We run the front of your business. You just deliver.',
+    scope: 'We run the front of your business',
+    tagline: 'We run the front of your business. You just do the work.',
     upfront: '$2,000',
     upfrontNote: 'to build',
     recurring: '$249/mo',
@@ -78,9 +78,9 @@ export const TIERS: Tier[] = [
     terms: '6-month minimum. The 5% is only on new business we bring you.',
     points: [
       'Everything in Get Booked',
-      'The operating layer as it ships',
-      'AI receptionist, follow-up, re-engagement',
-      'Least upfront, the most we run for you',
+      'We answer your phone and texts, 24/7',
+      'We chase quotes, follow-ups, and past customers',
+      'Least to pay upfront, the most we run for you',
     ],
   },
 ];

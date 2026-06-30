@@ -57,14 +57,6 @@ export default function WorkPage() {
                 built a site that looks like the established pro he is, rebuilt his Google profile, and wired
                 tap-to-call and booking so a homeowner reaches him in one tap. Live at topchoiceelectrical.com.
               </p>
-              <a
-                href="https://www.topchoiceelectrical.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-6 inline-flex items-center gap-2 rounded-lg border border-white/15 px-5 py-3 text-sm font-semibold text-white hover:bg-white/5"
-              >
-                Visit the live site <span aria-hidden>→</span>
-              </a>
             </div>
           </div>
         </section>
@@ -79,9 +71,6 @@ export default function WorkPage() {
               tells the XNL story the way he has been trying to tell it for years, so intake calls land already warmed
               up. Live at xnlhr.com.
             </p>
-            <a href="https://www.xnlhr.com" target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-2 rounded-lg border border-white/15 px-5 py-3 text-sm font-semibold text-white hover:bg-white/5">
-              Visit the live site <span aria-hidden>→</span>
-            </a>
           </div>
         </section>
 
