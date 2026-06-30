@@ -120,32 +120,6 @@ export default function HomePage() {
         </Link>
       </Moment>
 
-      {/* Is this for you */}
-      <Moment tone="cream">
-        <Eyebrow tone="cream">Is this for you?</Eyebrow>
-        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-6 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
-          If this is your week, <Grad deep>yes.</Grad>
-        </h2>
-        <p className="text-stone-600 text-base sm:text-lg mb-10 max-w-2xl leading-relaxed">
-          You run a service business under $5M, the phone still rings to you, and the follow-up and admin eat your nights. That is exactly who we build for.
-        </p>
-        <div className="max-w-xl">
-          <FitList
-            heading="Sound familiar?"
-            tone="yes"
-            items={[
-              'You can’t get back to people quickly.',
-              'You’re great at your work, but the follow-up and management is hard.',
-              'You want to spend more effort growing the business.',
-              'You spend your nights on admin instead of time with your family.',
-            ]}
-          />
-        </div>
-        <Link href="/is-this-for-me" className="inline-flex items-center gap-2 text-emerald-700 font-semibold text-sm mt-8 hover:gap-3 transition-all">
-          See the full list <span aria-hidden>{'→'}</span>
-        </Link>
-      </Moment>
-
       {/* Real builds */}
       <Moment tone="cream">
         <Eyebrow tone="cream">Recent work</Eyebrow>
@@ -181,20 +155,6 @@ export default function HomePage() {
             frameType="iphone"
           />
         </div>
-      </Moment>
-
-      {/* The founders, compact */}
-      <Moment tone="cream">
-        <Eyebrow tone="cream">Who you work with</Eyebrow>
-        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-6 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
-          Two founders. <Grad deep>No layers.</Grad>
-        </h2>
-        <p className="text-stone-600 text-base sm:text-lg mb-8 max-w-2xl leading-relaxed">
-          One saw the gap from the outside, working alongside owners. The other ran the discipline from the inside, at scale. You talk to a founder on day one and every day after.
-        </p>
-        <Link href="/about" className="inline-flex items-center gap-2 text-emerald-700 font-semibold text-sm hover:gap-3 transition-all">
-          Meet Jacob and Richard <span aria-hidden>{'→'}</span>
-        </Link>
       </Moment>
 
       {/* Atmosphere band */}
@@ -366,39 +326,6 @@ function WorkColumn({ icon, tag, title, body }: { icon?: React.ReactNode; tag: s
       <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-emerald-700 mb-3">{tag}</p>
       <h3 className="font-display text-xl sm:text-2xl tracking-tight leading-tight mb-3 text-stone-900">{title}</h3>
       <p className="text-stone-600 text-sm sm:text-base leading-relaxed">{body}</p>
-    </div>
-  );
-}
-
-function FitList({ heading, tone, items }: { heading: string; tone: 'yes' | 'no'; items: string[] }) {
-  const isYes = tone === 'yes';
-  const ring = isYes ? 'border-emerald-200' : 'border-stone-200';
-  return (
-    <div className={`bg-white border ${ring} rounded-2xl p-7 sm:p-8`}>
-      <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-stone-500 mb-6">{heading}</p>
-      <ul className="space-y-4">
-        {items.map((item, i) => (
-          <li key={i} className="flex items-start gap-3">
-            <span
-              className={`shrink-0 mt-0.5 w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-bold ${isYes ? 'text-white' : 'text-stone-500 bg-stone-200'}`}
-              style={isYes ? { backgroundImage: 'linear-gradient(135deg, #06B6D4, #10B981)' } : undefined}
-              aria-hidden
-            >
-              {isYes ? '✓' : '✕'}
-            </span>
-            <span className="text-stone-700 text-sm sm:text-base leading-snug">{item}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function PriceCell({ amount, detail, highlight }: { amount: string; detail: string; highlight?: boolean }) {
-  return (
-    <div className={`rounded-2xl p-6 ${highlight ? 'bg-emerald-50 border-2 border-emerald-300' : 'bg-white border border-stone-200'}`}>
-      <p className={`font-display text-2xl sm:text-3xl tracking-tight leading-none mb-3 ${highlight ? 'text-emerald-700' : 'text-stone-900'}`}>{amount}</p>
-      <p className="text-stone-600 text-sm leading-snug">{detail}</p>
     </div>
   );
 }

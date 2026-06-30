@@ -250,19 +250,25 @@ export function AnalystScreen() {
   );
 }
 
-/* 7. REPEAT BUSINESS — the CRM that turns past work into future work */
+/* 7. REPEAT BUSINESS — the database that grows revenue from customers you already have */
 export function RepeatBusinessScreen() {
   const rows = [
-    { name: 'Sarah M.', last: 'AC install · 11 mo ago', due: 'Tune-up due' },
-    { name: 'John D.', last: 'Panel upgrade · 2 yr ago', due: 'Safety check due' },
-    { name: 'The Patels', last: 'Furnace · 9 mo ago', due: 'Service due' },
-    { name: 'R. Okafor', last: 'Rewire · 6 mo ago', due: 'Referral ask ready' },
+    { name: 'Sarah M.', last: 'AC install · 11 mo ago', action: 'Offer a maintenance plan', tag: 'Upsell' },
+    { name: 'John D.', last: 'Panel upgrade · 2 yr ago', action: 'Add surge protection', tag: 'Cross-sell' },
+    { name: 'The Patels', last: 'Furnace · 9 mo ago', action: 'Annual tune-up due', tag: 'Repeat' },
+    { name: 'R. Okafor', last: 'Rewire · 6 mo ago', action: 'Ask for a referral', tag: 'Referral' },
   ];
+  const tagTone: Record<string, string> = {
+    Upsell: 'text-hvac-light',
+    'Cross-sell': 'text-elec-light',
+    Repeat: 'text-platinum-soft',
+    Referral: 'text-hvac-light',
+  };
   return (
-    <AppFrame title="Customer database — past work into future work" accent="hvac">
+    <AppFrame title="Customer database — grow what you already have" accent="hvac">
       <div className="mb-3 flex items-center justify-between">
-        <p className="text-[11px] uppercase tracking-[0.2em] text-mute">Due to hear from you</p>
-        <span className="rounded-md bg-hvac/15 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-hvac-light">23 this month</span>
+        <p className="text-[11px] uppercase tracking-[0.2em] text-mute">Revenue hiding in your customer list</p>
+        <span className="rounded-md bg-hvac/15 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-hvac-light">11 opportunities</span>
       </div>
       <div className="divide-y divide-white/8 rounded-xl border border-white/8 bg-white/[0.02]">
         {rows.map((r) => (
@@ -272,13 +278,13 @@ export function RepeatBusinessScreen() {
               <p className="text-[11px] text-mute">{r.last}</p>
             </div>
             <div className="flex items-center gap-3 shrink-0">
-              <span className="text-[11px] text-hvac-light">{r.due}</span>
-              <span className="rounded-md border border-white/12 px-2 py-1 text-[10px] font-semibold text-platinum-soft">Reach out</span>
+              <span className="text-[11px] text-platinum-soft">{r.action}</span>
+              <span className={`rounded-md border border-white/12 px-2 py-1 text-[10px] font-semibold ${tagTone[r.tag]}`}>{r.tag}</span>
             </div>
           </div>
         ))}
       </div>
-      <p className="mt-3 text-[11px] text-mute">Sample list. Every job you’ve done is future business. We surface who’s due and bring them back.</p>
+      <p className="mt-3 text-[11px] text-mute">Sample list. Repeat jobs, upsells, cross-sells, and referrals — more revenue and a higher average job from the customers you already earned, with nothing spent to find them.</p>
     </AppFrame>
   );
 }

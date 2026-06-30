@@ -74,11 +74,11 @@ const BLOCKS = [
     Comp: AnalystScreen,
   },
   {
-    eyebrow: 'Past work into future work',
+    eyebrow: 'Grow what you already have',
     title: 'The customer database that compounds',
     body:
-      'Every job you have done is future business. Your database watches for who is due for service, who is ready for a referral ask, and who went quiet, then brings them back. The cheapest growth you have is the customers you already earned.',
-    why: 'Repeat and referral, working while you do the job.',
+      'Every customer you have ever served is room to grow. Your database spots who is due for repeat work, who is a fit for an upsell or a cross-sell, and who is ready to refer you, then brings the work back. You raise your average job and expand revenue without spending a dollar to find a new customer.',
+    why: 'The cheapest growth there is: the customers you already earned.',
     Comp: RepeatBusinessScreen,
   },
 ];
