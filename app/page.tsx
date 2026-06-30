@@ -8,7 +8,7 @@ import { IconFind, IconBook, IconStay } from '@/components/WorkIcons';
 import ConceptDashboard from '@/components/ConceptDashboard';
 import Flywheel from '@/components/Flywheel';
 import { PreviewPill, ReceptionistScreen } from '@/components/PlatformPreview';
-import { CAL_LINK, EMAIL, PHONE_DISPLAY, PHONE_HREF, PRICING } from '@/lib/site';
+import { CAL_LINK, EMAIL, PHONE_DISPLAY, PHONE_HREF, PRICING, TIERS } from '@/lib/site';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -232,26 +232,33 @@ export default function HomePage() {
       {/* How we get paid */}
       <Moment tone="cream" id="pricing">
         <Eyebrow tone="cream">How we get paid</Eyebrow>
-        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-6 max-w-3xl text-stone-900" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
-          We do not get paid <Grad deep>until you do.</Grad>
+        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-6 max-w-4xl text-stone-900" style={{ fontSize: 'clamp(38px, 6.4vw, 84px)' }}>
+          Finally, a company that only makes money <Grad deep>when you do.</Grad>
         </h2>
-        <p className="text-stone-600 text-base sm:text-lg mb-14 max-w-2xl leading-relaxed">
-          A small fee to build it. A low monthly to keep it running. The rest is a share of the new business the site actually brings you. If it does not bring you anything, we do not earn the third line.
+        <p className="text-stone-600 text-base sm:text-lg mb-12 max-w-2xl leading-relaxed">
+          A fee to build it, a flat monthly to run it, and a small share of the new business we actually bring you. If we do not grow your revenue, we do not earn the last line. The more of your business we run, the less it costs to start.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-          <PriceCell amount={PRICING.build} detail="One-time build fee. Due at kickoff. About three weeks to launch." />
-          <PriceCell amount={`${PRICING.care} a month`} detail="Ongoing care. Cancel any month, and take everything with you." />
-          <PriceCell amount={PRICING.performance} detail="On new business the site brings in. The report goes out monthly, before the invoice." highlight />
+        <div className="grid gap-4 sm:grid-cols-3">
+          {TIERS.map((t) => (
+            <div key={t.name} className={`rounded-2xl border p-6 ${t.recommended ? 'border-emerald-300 bg-emerald-50' : 'border-stone-200 bg-white'}`}>
+              <div className="flex items-center justify-between mb-1">
+                <p className="font-mono text-[10px] tracking-[0.2em] uppercase font-bold text-stone-500">{t.scope}</p>
+                {t.recommended && <span className="font-mono text-[9px] tracking-[0.14em] uppercase font-bold text-emerald-700">Most popular</span>}
+              </div>
+              <h3 className="font-display text-2xl tracking-tight leading-none text-stone-900 mb-3">{t.name}</h3>
+              <p className="font-display text-xl tracking-tight text-stone-900">{t.upfront} <span className="text-stone-500 text-sm">{t.upfrontNote}</span></p>
+              <p className="text-stone-600 text-sm mt-1 leading-snug">
+                {t.recurring ? `+ ${t.recurring} + ${t.commission} of new business` : 'No monthly. Yours to keep.'}
+              </p>
+            </div>
+          ))}
         </div>
 
-        <div className="bg-stone-100 border border-stone-200 rounded-xl p-5 max-w-2xl">
-          <p className="font-mono text-[10px] tracking-[0.22em] uppercase font-bold text-stone-500 mb-2">How we track new business</p>
-          <p className="text-stone-700 text-sm leading-relaxed">
-            Form fills tagged at submission. Calls tracked through your Google Business Profile. New customers reconciled against your existing pipeline so we never double-count. You see exactly what we count. The report goes out every month before the invoice.
-          </p>
-        </div>
-        <p className="text-stone-500 text-xs mt-6">All prices in CAD.</p>
+        <Link href="/pricing" className="inline-flex items-center gap-2 text-emerald-700 font-semibold text-sm mt-8 hover:gap-3 transition-all">
+          See what is in each tier <span aria-hidden>{'→'}</span>
+        </Link>
+        <p className="text-stone-500 text-xs mt-6">All prices in CAD. The 5% is only on new business we bring you, measured and agreed up front.</p>
       </Moment>
 
       {/* What's next (RevOps preview) */}
@@ -291,11 +298,11 @@ export default function HomePage() {
           Read this <Grad>before you click.</Grad>
         </h2>
         <div className="space-y-3 max-w-4xl">
-          <Faq question="What if I want to cancel?">You cancel any month. We hand you the website code, the Google Business Profile login, the customer list, and the review request keys. No locked-in dependencies.</Faq>
+          <Faq question="What if I want to cancel?">You cancel any month after the minimum. We hand you the website code, the Google Business Profile login, the customer list, and the review request keys. No locked-in dependencies.</Faq>
           <Faq question="What if you go out of business?">Your domain is registered to you. Your website lives under your own account. Your Google Business Profile is yours. Your customer list is yours. If we vanish, you keep everything that matters.</Faq>
-          <Faq question="Can I just buy the website without the monthly?">You can, but a site without care drifts. The profile goes stale, review requests stop, page speed slips. After a year, an unmaintained site is about as useful as no site. The monthly is what stops that.</Faq>
-          <Faq question="How exactly do you count new business?">Form fills tagged at the source. Calls tracked through your Google Business Profile. New customers reconciled against your existing pipeline so we never double-count. The report goes out every month before the invoice.</Faq>
-          <Faq question="What about the back-office platform you mention?">It is on the roadmap, rolling out through 2026 for our first clients. Booking, follow-up, review flow, the Monday brief. Pricing for each layer gets set as it ships. The website is what you pay for today.</Faq>
+          <Faq question="Can I just buy the website without the monthly?">Yes, that is the Get Found tier: a one-time build, yours to keep. A site without care drifts over time, which is what the monthly tiers prevent, but the choice is yours.</Faq>
+          <Faq question="How exactly do you count new business?">Form fills tagged at the source. Calls tracked through your Google Business Profile. New customers reconciled against your existing book so we never double-count. The report goes out every month before the invoice.</Faq>
+          <Faq question="What about the back-office platform you mention?">It is on the roadmap, rolling out through 2026 for our first clients. Booking, follow-up, review flow, the Monday brief. The Stay Booked tier turns each piece on as it ships. The website is what you pay for today.</Faq>
         </div>
         <p className="text-mute text-xs sm:text-sm mt-10 leading-relaxed">Have more? Bring them to the call.</p>
       </Moment>
