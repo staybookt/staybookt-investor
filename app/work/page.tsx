@@ -34,7 +34,7 @@ export default function WorkPage() {
                 <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-hvac-light">Trades · Electrical · York Region</p>
                 <h2 className="mt-3 font-display text-3xl tracking-tight text-white">Top Choice Electrical</h2>
                 <p className="mt-4 text-[15px] leading-relaxed text-platinum-soft">
-                  Tim Ciszko, 22 years on the tools, was running on word of mouth and a phone that rang straight to him. We
+                  Tim Ciszkowski, 22 years on the tools, was running on word of mouth and a phone that rang straight to him. We
                   built a site that looks like the established pro he is, rebuilt his Google profile, and wired
                   tap-to-call and booking so a homeowner reaches him in one tap. Live at topchoiceelectrical.com.
                 </p>

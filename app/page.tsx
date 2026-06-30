@@ -159,7 +159,7 @@ export default function HomePage() {
           {/* NOTE: build quotes below are placeholders approved by Jacob. Swap for real client quotes when available. No outcome stats until pilots produce real numbers. */}
           <ClientCard
             eyebrow="Top Choice Electrical"
-            name="Tim Ciszko"
+            name="Tim Ciszkowski"
             role="Residential electrician. 22 years on the tools, 6 on his own."
             location="Newmarket, Ontario"
             url="www.topchoiceelectrical.com"
