@@ -222,6 +222,67 @@ export function BookingScreen() {
   );
 }
 
+/* 6. THE ANALYST — conversational business intelligence by text or phone */
+export function AnalystScreen() {
+  const thread = [
+    { from: 'you', t: 'How did we do last week?' },
+    { from: 'sb', t: 'Strong week. 11 jobs booked, $14,200 in revenue, up 18% from the week before. Your service-area page drove the most leads.' },
+    { from: 'you', t: 'Who haven’t we heard from in a while?' },
+    { from: 'sb', t: '23 past customers are due for annual service. Want me to reach out and book what comes back?' },
+    { from: 'you', t: 'Yes, do it.' },
+    { from: 'sb', t: 'On it. Texting them today. Anything that books goes straight on your calendar.' },
+  ];
+  return (
+    <AppFrame title="Ask StayBookt — by text or phone">
+      <div className="mb-3 flex items-center justify-between">
+        <p className="text-[11px] uppercase tracking-[0.2em] text-mute">Your business analyst, in your pocket</p>
+        <span className="rounded-md bg-elec/15 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-elec-light">Live answer</span>
+      </div>
+      <div className="space-y-2.5">
+        {thread.map((m, i) => (
+          <div key={i} className={`flex ${m.from === 'you' ? 'justify-end' : 'justify-start'}`}>
+            <div className={`max-w-[80%] rounded-2xl px-3.5 py-2 text-[13px] leading-snug ${m.from === 'you' ? 'rounded-br-sm bg-elec text-ink' : 'rounded-bl-sm border border-white/10 bg-white/[0.04] text-platinum'}`}>{m.t}</div>
+          </div>
+        ))}
+      </div>
+      <p className="mt-3 text-center text-[10px] text-mute">Ask in plain English, day or night. The numbers come back in a sentence, not a spreadsheet.</p>
+    </AppFrame>
+  );
+}
+
+/* 7. REPEAT BUSINESS — the CRM that turns past work into future work */
+export function RepeatBusinessScreen() {
+  const rows = [
+    { name: 'Sarah M.', last: 'AC install · 11 mo ago', due: 'Tune-up due' },
+    { name: 'John D.', last: 'Panel upgrade · 2 yr ago', due: 'Safety check due' },
+    { name: 'The Patels', last: 'Furnace · 9 mo ago', due: 'Service due' },
+    { name: 'R. Okafor', last: 'Rewire · 6 mo ago', due: 'Referral ask ready' },
+  ];
+  return (
+    <AppFrame title="Customer database — past work into future work" accent="hvac">
+      <div className="mb-3 flex items-center justify-between">
+        <p className="text-[11px] uppercase tracking-[0.2em] text-mute">Due to hear from you</p>
+        <span className="rounded-md bg-hvac/15 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-hvac-light">23 this month</span>
+      </div>
+      <div className="divide-y divide-white/8 rounded-xl border border-white/8 bg-white/[0.02]">
+        {rows.map((r) => (
+          <div key={r.name} className="flex items-center justify-between gap-3 px-4 py-3">
+            <div className="min-w-0">
+              <p className="text-[13px] font-semibold text-white">{r.name}</p>
+              <p className="text-[11px] text-mute">{r.last}</p>
+            </div>
+            <div className="flex items-center gap-3 shrink-0">
+              <span className="text-[11px] text-hvac-light">{r.due}</span>
+              <span className="rounded-md border border-white/12 px-2 py-1 text-[10px] font-semibold text-platinum-soft">Reach out</span>
+            </div>
+          </div>
+        ))}
+      </div>
+      <p className="mt-3 text-[11px] text-mute">Sample list. Every job you’ve done is future business. We surface who’s due and bring them back.</p>
+    </AppFrame>
+  );
+}
+
 export const PREVIEW_SCREENS = [
   { id: 'dashboard', label: 'Your morning dashboard', Comp: DashboardScreen },
   { id: 'receptionist', label: 'The AI receptionist', Comp: ReceptionistScreen },
