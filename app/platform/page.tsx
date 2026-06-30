@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { TopNav } from '@/components/TopNav';
 import { CAL_LINK } from '@/lib/site';
+import EasyButton from '@/components/EasyButton';
 import {
   PreviewPill,
   DashboardScreen,
@@ -100,12 +101,12 @@ export default function PlatformPage() {
           <div className="relative mx-auto max-w-4xl text-center">
             <PreviewPill className="mb-6" />
             <h1 className="font-display text-4xl leading-[1.02] tracking-tight text-white sm:text-6xl">
-              This is the front of your business, <Why>running without you</Why>.
+              This is the front of your business. <Why>Running without you.</Why>
             </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-platinum-soft sm:text-lg">
-              You deliver the work. StayBookt answers the leads, books the jobs, chases the reviews, and tells you
-              what matters on Monday. Here is what that actually looks like.
+            <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-platinum-soft sm:text-lg">
+              You do the work. We run the rest. Go ahead, press the button.
             </p>
+            <div className="mt-10"><EasyButton /></div>
             <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <a
                 href={CAL_LINK}
