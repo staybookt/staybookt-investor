@@ -69,14 +69,6 @@ export function TopNav({
         </nav>
 
         <div className="hidden md:flex items-center gap-3">
-          {variant === 'owner' && (
-            <Link
-              href="/brief"
-              className="text-[11px] tracking-[0.18em] uppercase font-medium text-mute hover:text-platinum-soft transition-colors"
-            >
-              For investors
-            </Link>
-          )}
           <a
             href={CAL_LINK}
             target="_blank"
@@ -124,15 +116,6 @@ export function TopNav({
                 </Link>
               );
             })}
-            {variant === 'owner' && (
-              <Link
-                href="/brief"
-                onClick={() => setOpen(false)}
-                className="text-sm tracking-wider uppercase font-medium py-2 text-mute"
-              >
-                For investors
-              </Link>
-            )}
             <a
               href={CAL_LINK}
               target="_blank"

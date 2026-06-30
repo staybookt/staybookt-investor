@@ -515,7 +515,6 @@ function FooterBottomRow() {
         <a href="https://www.topchoiceelectrical.com" target="_blank" rel="noopener noreferrer" className={linkCls}>topchoiceelectrical.com</a>
         <a href="https://www.xnlhr.com" target="_blank" rel="noopener noreferrer" className={linkCls}>xnlhr.com</a>
         <Link href="/about" className={linkCls}>About</Link>
-        <Link href="/brief" className={linkCls}>For investors and partners, read the brief</Link>
       </div>
       <p>{'©'} 2026 StayBookt Inc. Toronto, ON.</p>
     </div>
