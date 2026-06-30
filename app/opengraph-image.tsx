@@ -60,7 +60,7 @@ export default function OpenGraphImage() {
             position: 'relative',
           }}
         >
-          For Ontario service businesses under $1M
+          For North American service businesses up to $5M
         </div>
 
         <div

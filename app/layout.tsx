@@ -14,7 +14,7 @@ const interTight = Inter_Tight({
 // Official company slogan. Use in brand-line slots (title, OG, share card).
 const SLOGAN = 'Get Found. StayBookt.';
 const DESCRIPTION =
-  'StayBookt builds and runs websites for Ontario service businesses under $1M. We get you found, book the work, and keep the calendar full. Built and run by us. Paid for by the results.';
+  'StayBookt builds and runs websites for service businesses up to $5M across North America. We get you found, book the work, and keep the calendar full. Built and run by us. Paid for by the results.';
 const SITE_URL = 'https://www.staybookt.com';
 
 export const metadata: Metadata = {

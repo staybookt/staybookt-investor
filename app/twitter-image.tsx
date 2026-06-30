@@ -60,7 +60,7 @@ export default function TwitterImage() {
             position: 'relative',
           }}
         >
-          For Ontario service businesses under $1M
+          For North American service businesses up to $5M
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', position: 'relative' }}>
           <div

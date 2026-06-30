@@ -81,7 +81,7 @@ export default function Hero() {
           className="text-[10px] sm:text-[11px] tracking-[0.3em] uppercase font-semibold mb-8 inline-flex items-center gap-2.5 justify-center"
         >
           <span className="inline-block w-1.5 h-1.5 rounded-full bg-elec animate-pulse" aria-hidden />
-          <span className="text-platinum-soft">For Ontario service businesses under $1M</span>
+          <span className="text-platinum-soft">For North American service businesses up to $5M</span>
         </motion.p>
 
         <motion.h1

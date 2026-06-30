@@ -33,8 +33,8 @@ export default function StructuredData() {
       url: 'https://www.staybookt.com',
       email: 'info@staybookt.com',
       description:
-        'StayBookt builds and runs websites for Ontario service businesses under $1M. We get you found, book the work, and keep the calendar full. Paid for by the results.',
-      areaServed: { '@type': 'State', name: 'Ontario, Canada' },
+        'StayBookt builds and runs websites for service businesses up to $5M across North America. We get you found, book the work, and keep the calendar full. Paid for by the results.',
+      areaServed: [{ '@type': 'Country', name: 'Canada' }, { '@type': 'Country', name: 'United States' }],
       founder: [
         { '@type': 'Person', name: 'Jacob Charendoff' },
         { '@type': 'Person', name: 'Richard Roos' },
