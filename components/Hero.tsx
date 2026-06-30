@@ -89,18 +89,19 @@ export default function Hero() {
           className="font-display text-[52px] sm:text-[88px] lg:text-[128px] leading-[0.98] tracking-[-0.04em] mb-9"
         >
           <span className="block text-white">Get Found.</span>
-          <span className="inline-flex items-baseline justify-center">
+          <span className="flex items-baseline justify-center">
             <span className="text-white">Stay</span>
             <span className="wordmark-gradient">Bookt</span>
             <span className="text-white">.</span>
           </span>
+          <span className="block text-brand-gradient">Enjoy Life.</span>
         </motion.h1>
 
         <motion.p
           variants={item}
           className="text-platinum-soft text-base sm:text-lg lg:text-xl leading-relaxed mb-12 max-w-2xl mx-auto"
         >
-          The system that gets service businesses found, books the work, and keeps the calendar full. Built and run by us. Paid for by the results.
+          The system that gets service businesses found, books the work, and keeps the calendar full, so the business runs without you. Built and run by us. Paid for by the results.
         </motion.p>
 
         <motion.div
