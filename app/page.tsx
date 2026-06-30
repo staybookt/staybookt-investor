@@ -13,7 +13,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const SHARE_DESCRIPTION =
-  'StayBookt builds and runs websites for Ontario service businesses under $1M. We get you found, book the work, and keep the calendar full. Paid for by the results.';
+  'StayBookt builds and runs websites for service businesses up to $5M across North America. We get you found, book the work, and keep the calendar full. Paid for by the results.';
 
 export const metadata = {
   title: 'Get Found. StayBookt.',
@@ -131,7 +131,7 @@ export default function HomePage() {
             heading="A fit if"
             tone="yes"
             items={[
-              'You do under $1M and you own the business.',
+              'You do up to $5M and you own the business.',
               'The phone still rings to you.',
               'You are great at the work, but the pipeline leaks.',
               'You want it handled, not taught.',
@@ -141,7 +141,7 @@ export default function HomePage() {
             heading="Not a fit if"
             tone="no"
             items={[
-              'You are doing $5M or more.',
+              'You are an enterprise with a back-office team.',
               'You already have a marketing manager.',
               'You want one more tool to log into.',
               'You want a course, not an operator.',
@@ -255,7 +255,7 @@ export default function HomePage() {
             Form fills tagged at submission. Calls tracked through your Google Business Profile. New customers reconciled against your existing pipeline so we never double-count. You see exactly what we count. The report goes out every month before the invoice.
           </p>
         </div>
-        <p className="text-stone-500 text-xs mt-6">All prices in CAD. Built for Ontario operators.</p>
+        <p className="text-stone-500 text-xs mt-6">All prices in CAD.</p>
       </Moment>
 
       {/* What's next (RevOps preview) */}
@@ -488,7 +488,7 @@ function FooterBlock() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8 mb-12">
             <div>
               <Wordmark size="sm" onDark />
-              <p className="text-mute text-sm mt-3 max-w-md leading-relaxed">Get found. Get booked. Stay booked. Built and run for Ontario service businesses under $1M.</p>
+              <p className="text-mute text-sm mt-3 max-w-md leading-relaxed">Get found. Get booked. Stay booked. Built and run for service businesses up to $5M across North America.</p>
             </div>
             <div className="flex flex-col items-start sm:items-end gap-3">
               <a href={CAL_LINK} target="_blank" rel="noopener noreferrer" className="text-platinum hover:text-white text-sm font-semibold transition-colors">Book a 30-minute call</a>
