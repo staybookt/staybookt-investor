@@ -58,7 +58,7 @@ export const TIERS: Tier[] = [
     upfrontNote: 'to build',
     recurring: '$149/mo',
     commission: '5%',
-    terms: '6-month minimum. The 5% is only on new business we bring you.',
+    terms: '6-month minimum. The 5% is only on new online sourced business.',
     recommended: true,
     points: [
       'Everything in Get Found',
@@ -75,7 +75,7 @@ export const TIERS: Tier[] = [
     upfrontNote: 'to build',
     recurring: '$249/mo',
     commission: '5%',
-    terms: '6-month minimum. The 5% is only on new business we bring you.',
+    terms: '6-month minimum. The 5% is only on new online sourced business.',
     points: [
       'Everything in Get Booked',
       'We answer your phone and texts, 24/7',

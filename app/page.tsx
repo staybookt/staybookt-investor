@@ -5,22 +5,20 @@ import ScrollReveal from '@/components/ScrollReveal';
 import ParallaxOrbs from '@/components/ParallaxOrbs';
 import { MacBookFrame, IPhoneFrame } from '@/components/DeviceFrames';
 import { IconFind, IconBook, IconStay } from '@/components/WorkIcons';
-import ConceptDashboard from '@/components/ConceptDashboard';
-import Flywheel from '@/components/Flywheel';
 import { PreviewPill, ReceptionistScreen } from '@/components/PlatformPreview';
-import { CAL_LINK, EMAIL, PHONE_DISPLAY, PHONE_HREF, PRICING, TIERS } from '@/lib/site';
+import { CAL_LINK, EMAIL, PHONE_DISPLAY, PHONE_HREF, TIERS } from '@/lib/site';
 import Image from 'next/image';
 import Link from 'next/link';
 
 const SHARE_DESCRIPTION =
-  'StayBookt builds and runs websites for service businesses up to $5M across North America. We get you found, book the work, and keep the calendar full. Paid for by the results.';
+  'StayBookt builds and runs websites for service businesses up to $5M. We get you found, book the work, and keep the calendar full. Paid for by the results.';
 
 export const metadata = {
-  title: 'Get Found. StayBookt.',
+  title: 'StayBookt. Enjoy Life.',
   description: SHARE_DESCRIPTION,
   alternates: { canonical: '/' },
   openGraph: {
-    title: 'Get Found. StayBookt.',
+    title: 'StayBookt. Enjoy Life.',
     description: SHARE_DESCRIPTION,
     url: 'https://www.staybookt.com',
     siteName: 'StayBookt',
@@ -29,7 +27,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Get Found. StayBookt.',
+    title: 'StayBookt. Enjoy Life.',
     description: SHARE_DESCRIPTION,
   },
 };
@@ -130,7 +128,6 @@ export default function HomePage() {
           Real sites for real owners, built and shipped.
         </p>
         <div className="space-y-10">
-          {/* NOTE: build quotes below are placeholders approved by Jacob. Swap for real client quotes when available. No outcome stats until pilots produce real numbers. */}
           <ClientCard
             eyebrow="Top Choice Electrical"
             name="Tim Ciszkowski"
@@ -138,7 +135,7 @@ export default function HomePage() {
             location="Newmarket, Ontario"
             url="www.topchoiceelectrical.com"
             href="https://www.topchoiceelectrical.com"
-            quote="My old site was three pages of stock photos. The new one looks like the business I actually run. People show up to the first call already knowing who I am."
+            quote="My old site was prepared by a family member and existed, but that was it. I never received leads from it. The new one looks like the business I want to be and is giving me instant credibility. StayBookt has given me a partner to grow with."
             statusBadge="Live"
             frameType="macbook"
           />
@@ -149,47 +146,13 @@ export default function HomePage() {
             location="Newmarket, Ontario"
             url="www.xnlhr.com"
             href="https://www.xnlhr.com"
-            quote="The new site tells the XNL story the way I have been trying to tell it for ten years. The intake calls after launch came in better prepared."
+            quote="The new site tells the XNL story the way I have been trying to tell it for ten years. Working with Jacob and the StayBookt team was very easy and enjoyable. They were clearly invested in building me an impactful website that would allow me to achieve my goals."
             statusBadge="Live"
             reverse
             frameType="iphone"
           />
         </div>
       </Moment>
-
-      {/* WHO (for you) — thin teaser */}
-      <section className="relative bg-stone-50 px-6 sm:px-12 py-14">
-        <ScrollReveal>
-          <div className="max-w-6xl mx-auto flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.32em] uppercase font-bold text-stone-500 mb-2">Is this you?</p>
-              <p className="font-display text-2xl sm:text-3xl tracking-tight text-stone-900 leading-snug max-w-2xl">
-                You run a service business under $5M, the phone still rings to you, and the follow-up eats your nights.
-              </p>
-            </div>
-            <Link href="/is-this-for-me" className="shrink-0 inline-flex items-center gap-2 text-emerald-700 font-semibold text-sm hover:gap-3 transition-all">
-              See if it is a fit <span aria-hidden>{'→'}</span>
-            </Link>
-          </div>
-        </ScrollReveal>
-      </section>
-
-      {/* Atmosphere band */}
-      <section className="relative h-[42vh] min-h-[320px] overflow-hidden">
-        <Image
-          src="https://images.unsplash.com/photo-1567361808960-dec9cb578182?auto=format&fit=crop&w=2000&q=70"
-          alt=""
-          fill
-          className="object-cover"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(5,8,17,0.74), rgba(5,8,17,0.82))' }} />
-        <div className="absolute inset-0 flex items-center justify-center px-6">
-          <p className="font-display text-white text-center tracking-tight leading-tight max-w-3xl" style={{ fontSize: 'clamp(24px, 4vw, 44px)' }}>
-            Built and run by us. <Grad>Paid for by the results.</Grad>
-          </p>
-        </div>
-      </section>
 
       {/* Executive results, affordable */}
       <section className="relative px-6 sm:px-12 py-24 sm:py-32 bg-ink-deep">
@@ -200,41 +163,11 @@ export default function HomePage() {
               Executive results you can <span className="text-brand-gradient">actually afford.</span>
             </h2>
             <p className="text-platinum-soft text-base sm:text-lg leading-relaxed max-w-3xl mx-auto">
-              Big companies hire a Chief Revenue Officer to keep the customer journey connected end to end. They pay half a million dollars a year for that role, plus a team behind it. Most service-business owners cannot afford a single one of those hires. They can afford StayBookt. We deliver the same system, built and run by us, paid for by the results. Whether you have got two trucks or two laptops.
+              Big companies hire a Chief Revenue Officer to keep the customer journey connected end to end, and pay half a million dollars a year for that role plus a team behind it. Most service-business owners cannot afford a single one of those hires. But you can afford StayBookt. We deliver the same system, built and run by us, paid for by the results. Whether you have got two trucks or two laptops.
             </p>
           </div>
         </ScrollReveal>
       </section>
-
-      {/* WHEN — what's next (roadmap) */}
-      <Moment tone="dark">
-        <div className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 rounded-full px-3 py-1 mb-6">
-          <span className="inline-block w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" aria-hidden />
-          <p className="font-mono text-[10px] tracking-[0.18em] uppercase font-semibold text-amber-300">Rolling out 2026</p>
-        </div>
-        <Eyebrow tone="dark">What is next</Eyebrow>
-        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-4 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
-          The back office is the <Grad>next layer.</Grad>
-        </h2>
-        <p className="text-platinum-soft text-base sm:text-lg mb-12 max-w-3xl leading-relaxed">
-          The website captures the leads. The back office converts them, then brings them back. As each piece ships, your monthly grows with it, and so does the work it takes off your plate. Here is where it is headed.
-        </p>
-
-        <div className="mb-10">
-          <ConceptDashboard />
-        </div>
-        <div className="flex flex-col sm:flex-row gap-3">
-          <Link href="/platform" className="inline-flex items-center justify-center gap-2 bg-elec hover:bg-elec-light text-ink font-bold px-6 py-3.5 rounded-lg text-sm transition-colors">
-            See the platform <span aria-hidden>{'→'}</span>
-          </Link>
-          <Link href="/how-it-works" className="inline-flex items-center justify-center gap-2 border border-divider/60 hover:border-elec/40 text-white font-semibold px-6 py-3.5 rounded-lg text-sm transition-colors">
-            See how it runs
-          </Link>
-        </div>
-        <p className="text-mute text-[11px] leading-relaxed max-w-3xl mt-10">
-          Concept preview of where the platform is headed. Numbers shown are illustrative. The AI receptionist, automated follow-up, the review flow, and the Monday brief roll out through 2026, each with a human safety net. The website is what you pay for today.
-        </p>
-      </Moment>
 
       {/* COST — how we get paid */}
       <Moment tone="cream" id="pricing">
@@ -256,7 +189,7 @@ export default function HomePage() {
               <h3 className="font-display text-2xl tracking-tight leading-none text-stone-900 mb-3">{t.name}</h3>
               <p className="font-display text-xl tracking-tight text-stone-900">{t.upfront} <span className="text-stone-500 text-sm">{t.upfrontNote}</span></p>
               <p className="text-stone-600 text-sm mt-1 leading-snug">
-                {t.recurring ? `+ ${t.recurring} + ${t.commission} of new business` : 'No monthly. Yours to keep.'}
+                {t.recurring ? `+ ${t.recurring} + ${t.commission} of new online sourced business` : 'No monthly. Yours to keep.'}
               </p>
             </div>
           ))}
@@ -265,7 +198,7 @@ export default function HomePage() {
         <Link href="/pricing" className="inline-flex items-center gap-2 text-emerald-700 font-semibold text-sm mt-8 hover:gap-3 transition-all">
           See what is in each tier <span aria-hidden>{'→'}</span>
         </Link>
-        <p className="text-stone-500 text-xs mt-6">All prices in CAD. The 5% is only on new business we bring you, measured and agreed up front.</p>
+        <p className="text-stone-500 text-xs mt-6">All prices in CAD, plus applicable taxes. The 5% is only on new online sourced business, measured and agreed up front.</p>
       </Moment>
 
       {/* WHO (you work with) — thin teaser */}
@@ -284,22 +217,6 @@ export default function HomePage() {
           </div>
         </ScrollReveal>
       </section>
-
-      {/* Questions */}
-      <Moment tone="dark" id="faq">
-        <Eyebrow tone="dark">Questions</Eyebrow>
-        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
-          Read this <Grad>before you click.</Grad>
-        </h2>
-        <div className="space-y-3 max-w-4xl">
-          <Faq question="What if I want to cancel?">You cancel any month after the minimum. We hand you the website code, the Google Business Profile login, the customer list, and the review request keys. No locked-in dependencies.</Faq>
-          <Faq question="What if you go out of business?">Your domain is registered to you. Your website lives under your own account. Your Google Business Profile is yours. Your customer list is yours. If we vanish, you keep everything that matters.</Faq>
-          <Faq question="Can I just buy the website without the monthly?">Yes, that is the Get Found tier: a one-time build, yours to keep. A site without care drifts over time, which is what the monthly tiers prevent, but the choice is yours.</Faq>
-          <Faq question="How exactly do you count new business?">Form fills tagged at the source. Calls tracked through your Google Business Profile. New customers reconciled against your existing book so we never double-count. The report goes out every month before the invoice.</Faq>
-          <Faq question="What about the back-office platform you mention?">It is on the roadmap, rolling out through 2026 for our first clients. Booking, follow-up, review flow, the Monday brief. The Stay Booked tier turns each piece on as it ships. The website is what you pay for today.</Faq>
-        </div>
-        <p className="text-mute text-xs sm:text-sm mt-10 leading-relaxed">Have more? Bring them to the call.</p>
-      </Moment>
 
       {/* Book the call */}
       <Moment tone="dark" id="book">
@@ -326,6 +243,22 @@ export default function HomePage() {
           ) : null}
           {' '}if a call does not work.
         </p>
+      </Moment>
+
+      {/* Questions */}
+      <Moment tone="dark" id="faq">
+        <Eyebrow tone="dark">Questions</Eyebrow>
+        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-14 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}>
+          Read this <Grad>before you click.</Grad>
+        </h2>
+        <div className="space-y-3 max-w-4xl">
+          <Faq question="What if I want to cancel?">You cancel any month after the minimum. We hand you the website code, the Google Business Profile login, the customer list, and the review request keys. No locked-in dependencies.</Faq>
+          <Faq question="What if you go out of business?">Your domain is registered to you. Your website lives under your own account. Your Google Business Profile is yours. Your customer list is yours. If we vanish, you keep everything that matters.</Faq>
+          <Faq question="Can I just buy the website without the monthly?">Yes, that is the Get Found tier: a one-time build, yours to keep. A site without care drifts over time, which is what the monthly tiers prevent, but the choice is yours.</Faq>
+          <Faq question="How exactly do you count new business?">Form fills tagged at the source. Calls tracked through your Google Business Profile. New customers reconciled against your existing book so we never double-count. The report goes out every month before the invoice.</Faq>
+          <Faq question="What about the back-office platform you mention?">It is on the roadmap, rolling out through 2026 for our first clients. Booking, follow-up, review flow, the Monday brief. The Stay Booked tier turns each piece on as it ships. The website is what you pay for today.</Faq>
+        </div>
+        <p className="text-mute text-xs sm:text-sm mt-10 leading-relaxed">Have more? Bring them to the call.</p>
       </Moment>
 
       <FooterBlock />
@@ -446,7 +379,7 @@ function FooterBlock() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8 mb-12">
             <div>
               <Wordmark size="sm" onDark />
-              <p className="text-mute text-sm mt-3 max-w-md leading-relaxed">Get found. Get booked. Stay booked. Built and run for service businesses up to $5M across North America.</p>
+              <p className="text-mute text-sm mt-3 max-w-md leading-relaxed">Get found. Get booked. Stay booked. Built and run for service businesses up to $5M.</p>
             </div>
             <div className="flex flex-col items-start sm:items-end gap-3">
               <a href={CAL_LINK} target="_blank" rel="noopener noreferrer" className="text-platinum hover:text-white text-sm font-semibold transition-colors">Book a 30-minute call</a>

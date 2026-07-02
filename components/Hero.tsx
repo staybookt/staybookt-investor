@@ -50,7 +50,7 @@ export default function Hero() {
         />
         <motion.div
           className="hidden sm:block absolute -bottom-56 left-1/4 h-[38rem] w-[38rem] rounded-full blur-[100px] opacity-30"
-          style={{ background: 'radial-gradient(circle at 50% 50%, rgba(79,70,229,0.5), rgba(79,70,229,0) 70%)' }}
+          style={{ background: 'radial-gradient(circle at 50% 50%, rgba(124,58,237,0.5), rgba(124,58,237,0) 70%)' }}
           animate={reduce ? undefined : { x: [0, 30, 0], y: [0, -20, 0] }}
           transition={{ duration: 26, repeat: Infinity, ease: 'easeInOut' }}
         />
@@ -81,7 +81,7 @@ export default function Hero() {
           className="text-[10px] sm:text-[11px] tracking-[0.3em] uppercase font-semibold mb-8 inline-flex items-center gap-2.5 justify-center"
         >
           <span className="inline-block w-1.5 h-1.5 rounded-full bg-elec animate-pulse" aria-hidden />
-          <span className="text-platinum-soft">For North American service businesses up to $5M</span>
+          <span className="text-platinum-soft">For service businesses up to $5M</span>
         </motion.p>
 
         <motion.h1
@@ -91,7 +91,7 @@ export default function Hero() {
           <span className="flex items-baseline justify-center">
             <span className="text-white">Stay</span>
             <span className="wordmark-gradient">Bookt</span>
-            <span className="text-white">.</span>
+            <span style={{ color: '#7C3AED' }}>.</span>
           </span>
           <span className="block text-brand-gradient">Enjoy Life.</span>
         </motion.h1>
@@ -100,7 +100,7 @@ export default function Hero() {
           variants={item}
           className="text-platinum-soft text-base sm:text-lg lg:text-xl leading-relaxed mb-12 max-w-2xl mx-auto"
         >
-          The system that gets service businesses found, books the work, and keeps the calendar full, so the business runs without you. Built and run by us. Paid for by the results.
+          The system that gets service businesses found, drives revenue and repeat business, keeps the calendar full, and automates admin work, so you can enjoy life more. Built and run by us. Paid for by the results. Win-win.
         </motion.p>
 
         <motion.div
