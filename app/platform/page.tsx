@@ -7,6 +7,7 @@ import {
   DashboardScreen,
   ReceptionistScreen,
   BookingScreen,
+  QuoteFollowupScreen,
   BriefScreen,
   ReviewScreen,
   AnalystScreen,
@@ -17,7 +18,7 @@ export const metadata = {
   title: 'The platform',
   alternates: { canonical: '/platform' },
   description:
-    'See what StayBookt runs for you: an always-on AI receptionist that answers every lead, self-serve booking, automatic reviews, and a Monday brief that comes to you. A preview of the operating layer rolling out through 2026.',
+    'See what StayBookt runs for you: an always-on AI receptionist, self-serve booking, quote follow-up, automatic reviews, a configurable morning brief and end-of-day debrief, and a customer database that compounds. A preview of the operating layer rolling out through 2026.',
 };
 
 function Why({ children }: { children: React.ReactNode }) {
@@ -50,6 +51,14 @@ const BLOCKS = [
     Comp: BookingScreen,
   },
   {
+    eyebrow: 'No estimate dies in a text thread',
+    title: 'Quote management and follow-up',
+    body:
+      'Every quote you send is tracked and chased on a schedule, so the $9,400 rewire does not get forgotten because you were busy. You see what is out, what got followed up, what was won, and what needs you, with a running total of the revenue in play.',
+    why: 'The follow-up that wins jobs, done for you, and measured.',
+    Comp: QuoteFollowupScreen,
+  },
+  {
     eyebrow: 'Your reputation, growing',
     title: 'Reviews on autopilot',
     body:
@@ -58,11 +67,11 @@ const BLOCKS = [
     Comp: ReviewScreen,
   },
   {
-    eyebrow: 'Your week, in 30 seconds',
-    title: 'The Monday brief',
+    eyebrow: 'Your day, bookended',
+    title: 'Morning brief and end-of-day debrief',
     body:
-      'Every Monday you get one short message: what got booked, what got recovered, what came back, and the one thing that actually needs you. No dashboard to log into. It comes to you.',
-    why: 'You stay in control without living in an app.',
+      'Start the day with one short message: what is booked, what came back, and the one thing that needs you. Set it daily or weekly, your call. At day’s end, a debrief bookends it with what got done, what moved, and what is still open.',
+    why: 'In control from the first coffee to the last job, without living in an app.',
     Comp: BriefScreen,
   },
   {
@@ -141,22 +150,6 @@ export default function PlatformPage() {
                 </div>
               </div>
             ))}
-          </div>
-        </section>
-
-        {/* Honesty / roadmap band */}
-        <section className="border-y border-white/8 bg-white/[0.02] px-6 py-12 sm:px-12">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-mute">Straight with you</p>
-            <h2 className="mt-3 font-display text-2xl tracking-tight text-white sm:text-3xl">
-              The website is live today. The rest rolls in as we ship it.
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-platinum-soft">
-              We build and launch your site first, so you are found and bookable right away. The AI receptionist,
-              automatic reviews, and the Monday brief roll out through 2026, and we turn each one on for you as it is
-              ready. The screens above are a preview of where you are headed, not a dashboard we are pretending you
-              already have.
-            </p>
           </div>
         </section>
 

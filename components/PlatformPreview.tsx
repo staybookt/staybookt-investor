@@ -124,7 +124,7 @@ export function ReceptionistScreen() {
   );
 }
 
-/* 3. MONDAY BRIEF — the weekly owner email */
+/* 3. MORNING BRIEF — the configurable owner brief, bookended by an end-of-day debrief */
 export function BriefScreen() {
   const lines = [
     { k: 'Booked last week', v: '11 jobs', good: true },
@@ -134,9 +134,9 @@ export function BriefScreen() {
     { k: 'Needs your call', v: '1 quote over $5k', good: false },
   ];
   return (
-    <AppFrame title="Monday Brief — your week in 30 seconds">
+    <AppFrame title="Morning Brief — your day in 30 seconds">
       <p className="mb-3 text-sm text-platinum">
-        Here is your business last week. <span className="text-mute">No dashboard to log into. It comes to you.</span>
+        Here is your business. <span className="text-mute">No dashboard to log into. It comes to you.</span>
       </p>
       <div className="divide-y divide-white/8 rounded-xl border border-white/8 bg-white/[0.02]">
         {lines.map((l) => (
@@ -146,7 +146,7 @@ export function BriefScreen() {
           </div>
         ))}
       </div>
-      <p className="mt-3 text-[11px] text-mute">Sample brief. Sent every Monday, 7am.</p>
+      <p className="mt-3 text-[11px] text-mute">Sample brief. Runs every morning, or weekly, your call. An end-of-day debrief bookends it with what got done.</p>
     </AppFrame>
   );
 }
@@ -222,7 +222,45 @@ export function BookingScreen() {
   );
 }
 
-/* 6. THE ANALYST — conversational business intelligence by text or phone */
+/* 6. QUOTES & FOLLOW-UP — nothing goes cold, everything tracked */
+export function QuoteFollowupScreen() {
+  const rows = [
+    { job: 'Panel upgrade · R. Okafor', amount: '$3,200', status: 'Sent', note: 'Auto follow-up in 2 days', tone: 'elec' },
+    { job: 'AC install · Sarah M.', amount: '$6,800', status: 'Followed up', note: 'Nudge sent this morning', tone: 'elec' },
+    { job: 'Service call · The Patels', amount: '$480', status: 'Won', note: 'Booked for Thursday', tone: 'hvac' },
+    { job: 'Rewire · J. Diaz', amount: '$9,400', status: 'Needs you', note: 'Over $5k, your call', tone: 'amber' },
+  ];
+  const pill: Record<string, string> = {
+    elec: 'text-elec-light',
+    hvac: 'text-hvac-light',
+    amber: 'text-amber-300',
+  };
+  return (
+    <AppFrame title="Quotes & follow-up — nothing goes cold">
+      <div className="mb-3 flex items-center justify-between">
+        <p className="text-[11px] uppercase tracking-[0.2em] text-mute">Open quotes, chased on a schedule</p>
+        <span className="rounded-md bg-elec/15 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-elec-light">$19,400 in play</span>
+      </div>
+      <div className="divide-y divide-white/8 rounded-xl border border-white/8 bg-white/[0.02]">
+        {rows.map((r) => (
+          <div key={r.job} className="flex items-center justify-between gap-3 px-4 py-3">
+            <div className="min-w-0">
+              <p className="text-[13px] font-semibold text-white">{r.job}</p>
+              <p className="text-[11px] text-mute">{r.note}</p>
+            </div>
+            <div className="flex items-center gap-3 shrink-0">
+              <span className="text-[13px] font-semibold text-platinum">{r.amount}</span>
+              <span className={`rounded-md border border-white/12 px-2 py-1 text-[10px] font-semibold ${pill[r.tone]}`}>{r.status}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+      <p className="mt-3 text-[11px] text-mute">Sample board. Every quote is tracked and chased for you, so no estimate dies in a text thread and you always see what is in play.</p>
+    </AppFrame>
+  );
+}
+
+/* 7. THE ANALYST — conversational business intelligence by text or phone */
 export function AnalystScreen() {
   const thread = [
     { from: 'you', t: 'How did we do last week?' },
@@ -250,7 +288,7 @@ export function AnalystScreen() {
   );
 }
 
-/* 7. REPEAT BUSINESS — the database that grows revenue from customers you already have */
+/* 8. REPEAT BUSINESS — the database that grows revenue from customers you already have */
 export function RepeatBusinessScreen() {
   const rows = [
     { name: 'Sarah M.', last: 'AC install · 11 mo ago', action: 'Offer a maintenance plan', tag: 'Upsell' },
@@ -293,6 +331,6 @@ export const PREVIEW_SCREENS = [
   { id: 'dashboard', label: 'Your morning dashboard', Comp: DashboardScreen },
   { id: 'receptionist', label: 'The AI receptionist', Comp: ReceptionistScreen },
   { id: 'booking', label: 'Self-serve booking', Comp: BookingScreen },
-  { id: 'brief', label: 'The Monday brief', Comp: BriefScreen },
+  { id: 'brief', label: 'The morning brief', Comp: BriefScreen },
   { id: 'reviews', label: 'Reviews on autopilot', Comp: ReviewScreen },
 ] as const;
