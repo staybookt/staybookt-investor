@@ -8,7 +8,7 @@ const NODES = [
   { angle: 30, label: 'Book', sub: 'Booking + reminders' },
   { angle: 90, label: 'Deliver', sub: 'You, on the tools', isYou: true },
   { angle: 150, label: 'Follow up', sub: 'Review request' },
-  { angle: 210, label: 'Bring back', sub: 'Win them twice' },
+  { angle: 210, label: 'Win them twice', sub: 'Repeat business' },
 ];
 
 export default function Flywheel() {
@@ -22,7 +22,7 @@ export default function Flywheel() {
   });
 
   return (
-    <svg viewBox="0 0 600 600" className="w-full max-w-2xl mx-auto block" role="img" aria-label="StayBookt operating loop: discover, capture, book, deliver, follow up, bring back">
+    <svg viewBox="0 0 600 600" className="w-full max-w-2xl mx-auto block" role="img" aria-label="StayBookt operating loop: discover, capture, book, deliver, follow up, win them twice">
       <defs>
         <linearGradient id="fw-grad" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%" stopColor="#06B6D4" />

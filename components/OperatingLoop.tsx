@@ -26,7 +26,7 @@ const STEPS: Step[] = [
   {
     key: 'capture', label: 'Capture', sub: 'Lead agent',
     headline: 'Nobody slips through',
-    body: 'Every call, text, and form gets answered first, in seconds, in your voice. It asks the right questions, handles the easy stuff, and either books the job or hands it to you with a clean summary. No lead sits in a voicemail. (The AI answering rolls out through 2026; today we make sure every lead is captured and routed.)',
+    body: 'Every call, text, and form gets answered first, in seconds, in your voice. It asks the right questions, handles the easy stuff, and either books the job or hands it to you with a clean summary. No lead sits in a voicemail.',
   },
   {
     key: 'book', label: 'Book', sub: 'Booking + reminders',
@@ -44,14 +44,14 @@ const STEPS: Step[] = [
     body: 'After the job, the right customer gets a nudge for a review, by text and email, plus a thank-you that keeps you top of mind. A quick survey tells you how it went. Good work turns into proof that wins the next job.',
   },
   {
-    key: 'bring', label: 'Bring back', sub: 'Win them twice',
+    key: 'bring', label: 'Win them twice', sub: 'Repeat business',
     headline: 'Win them twice',
     body: 'We keep the channels you own warm: reminders when service is due, check-ins on past jobs, a friendly reach-out before they think to call anyone else. The customer you already earned turns into repeat work and referrals, so you win them a second, third, and fourth time.',
   },
   {
     key: 'compound', label: 'Database', sub: 'Compounds',
     headline: 'Your database compounds',
-    body: 'Every customer flows into one database that is yours, tagged and segmented, feeding a simple dashboard of what actually matters: leads, bookings, response time, reviews, repeat customers, monthly revenue. The longer it runs, the smarter it gets about your business, and the bigger the asset you own.',
+    body: 'Every customer flows into one database that is yours, tagged and segmented, feeding a simple dashboard of what actually matters: leads, bookings, response time, reviews, repeat customers, monthly revenue. Stop wasting time aimlessly searching an endless contact list on your phone just to remember someone. That is not scalable. With a consolidated database you can unleash the power of your rolodex, and running an email campaign is just a few clicks away. The longer it runs, the smarter it gets about your business, and the bigger the asset you own.',
   },
 ];
 

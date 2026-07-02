@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { TopNav } from '@/components/TopNav';
 import OperatingLoop from '@/components/OperatingLoop';
-import { PreviewPill, AnalystScreen, RepeatBusinessScreen } from '@/components/PlatformPreview';
 import { CAL_LINK } from '@/lib/site';
 
 export const metadata = {
@@ -54,52 +53,13 @@ export default function HowItWorksPage() {
             <h2 className="mt-3 font-display text-3xl tracking-tight text-white sm:text-4xl">What each part actually does</h2>
             <p className="mx-auto mt-4 max-w-2xl text-base text-platinum-soft">
               Scroll through the loop. Every customer who comes through gets found, captured, booked, followed up, and
-              brought back, and your database compounds the whole time.
+              won again, and your database compounds the whole time.
             </p>
           </div>
         </section>
         <OperatingLoop />
 
-        {/* Show: conversational intelligence + the CRM that compounds (preview) */}
-        <section className="px-6 py-16 sm:px-12">
-          <div className="mx-auto max-w-6xl">
-            <div className="mb-12 text-center">
-              <div className="mb-4 flex justify-center"><PreviewPill /></div>
-              <h2 className="font-display text-3xl tracking-tight text-white sm:text-4xl">
-                More than a website. A <span className="bg-gradient-to-r from-elec-light to-hvac-light bg-clip-text text-transparent">business analyst in your pocket.</span>
-              </h2>
-              <p className="mx-auto mt-4 max-w-2xl text-base text-platinum-soft">
-                As the platform ships, the website becomes the front of a system you can talk to, one that knows your customers and brings them back.
-              </p>
-            </div>
-
-            <div className="grid items-center gap-7 lg:grid-cols-2">
-              <div>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-elec-light">Ask it anything</p>
-                <h3 className="mt-2 font-display text-2xl tracking-tight text-white sm:text-3xl">Your analyst, in your pocket.</h3>
-                <p className="mt-4 text-base leading-relaxed text-platinum-soft">
-                  Text it or call it like you would a partner. Ask how last week went, or who is due for service, and the answer comes back in plain English, day or night. The numbers come to you in a sentence, not a spreadsheet.
-                </p>
-              </div>
-              <AnalystScreen />
-            </div>
-
-            <div className="mt-12 grid items-center gap-7 lg:grid-cols-2">
-              <div className="lg:order-2">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-hvac-light">Past work into future work</p>
-                <h3 className="mt-2 font-display text-2xl tracking-tight text-white sm:text-3xl">Your customer list is future revenue.</h3>
-                <p className="mt-4 text-base leading-relaxed text-platinum-soft">
-                  Every job you have done sits in a database that is yours. We watch for who is due for service, who is ready for a referral ask, and who went quiet, then bring them back. The cheapest growth you have is the customers you already earned.
-                </p>
-              </div>
-              <div className="lg:order-1"><RepeatBusinessScreen /></div>
-            </div>
-
-            <p className="mt-10 text-center text-[11px] text-mute">Preview of where the platform is headed. The conversational intelligence and re-engagement roll out through 2026, each with a human safety net.</p>
-          </div>
-        </section>
-
-        <section className="px-6 pb-24 pt-10 sm:px-12">
+        <section className="px-6 pb-24 pt-16 sm:px-12">
           <div className="mx-auto max-w-2xl rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-transparent p-8 text-center sm:p-12">
             <h2 className="font-display text-3xl tracking-tight text-white">See what it looks like running</h2>
             <p className="mx-auto mt-4 max-w-md text-base text-platinum-soft">Take a look at the platform, or book a call and we will map it to your business.</p>
