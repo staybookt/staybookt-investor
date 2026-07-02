@@ -55,7 +55,7 @@ export default function WorkPage() {
               <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-platinum-soft">
                 Tim Ciszkowski, 22 years on the tools, was running on word of mouth and a phone that rang straight to him. We
                 built a site that looks like the established pro he is, rebuilt his Google profile, and wired
-                tap-to-call and booking so a homeowner reaches him in one tap. Live at topchoiceelectrical.com.
+                tap-to-call and booking so a homeowner reaches him in one tap.
               </p>
             </div>
           </div>
@@ -74,7 +74,6 @@ export default function WorkPage() {
                   <span className="ml-3 truncate text-[10px] tracking-wide text-mute">xnlhr.com</span>
                 </div>
                 <div className="relative aspect-[16/9] w-full overflow-hidden bg-ink">
-                  {/* fallback behind the iframe so a blocked/blank frame still shows something */}
                   <div className="absolute inset-0 z-0 flex flex-col items-center justify-center px-6 text-center">
                     <p className="mb-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-mute">XNL HR &amp; Communications</p>
                     <p className="font-display text-lg text-platinum-soft">xnlhr.com</p>
@@ -96,19 +95,9 @@ export default function WorkPage() {
               <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-platinum-soft">
                 Evert Akkerman, CHRL, runs a fractional HR practice where his judgment is the product. We built a site that
                 tells the XNL story the way he has been trying to tell it for years, so intake calls land already warmed
-                up. Live at xnlhr.com.
+                up.
               </p>
             </div>
-          </div>
-        </section>
-
-        {/* Honest reviews gate */}
-        <section className="px-6 py-8 sm:px-12">
-          <div className="mx-auto max-w-3xl rounded-2xl border border-dashed border-white/12 bg-white/[0.015] p-7 text-center">
-            <p className="text-[13px] leading-relaxed text-mute">
-              We will put real customer reviews here as our first clients hit their stride. We do not invent
-              testimonials, and we never will.
-            </p>
           </div>
         </section>
 

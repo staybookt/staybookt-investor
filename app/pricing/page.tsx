@@ -62,7 +62,7 @@ export default function PricingPage() {
                   )}
                   {t.commission && (
                     <p className="mt-1 text-[14px] text-platinum">
-                      + <span className="font-semibold text-hvac-light">{t.commission}</span> of new business we bring you
+                      + <span className="font-semibold text-hvac-light">{t.commission}</span> of new online sourced business
                     </p>
                   )}
                   <p className="mt-3 text-[12px] leading-snug text-mute">{t.terms}</p>
@@ -81,9 +81,7 @@ export default function PricingPage() {
                   href={CAL_LINK}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`mt-7 inline-block rounded-lg px-5 py-3 text-center text-sm font-bold transition-transform hover:-translate-y-0.5 ${
-                    t.recommended ? 'bg-gradient-to-r from-elec to-hvac text-ink' : 'border border-white/15 text-white hover:bg-white/5'
-                  }`}
+                  className="mt-7 inline-block rounded-lg bg-gradient-to-r from-elec to-hvac px-5 py-3 text-center text-sm font-bold text-ink transition-transform hover:-translate-y-0.5"
                 >
                   Book a call
                 </a>
@@ -91,7 +89,7 @@ export default function PricingPage() {
             ))}
           </div>
           <p className="mx-auto mt-6 max-w-3xl text-center text-[13px] text-mute">
-            All prices in CAD. The 5% applies only to new business we bring you, measured and agreed up front. No long lock-in past the six months.
+            All prices in CAD, plus applicable taxes. The 5% applies only to new online sourced business, measured and agreed up front. No long lock-in past the six months.
           </p>
         </section>
 

@@ -52,14 +52,14 @@ export default function AboutPage() {
               name="Jacob Charendoff"
               role="Co-founder · Builder"
               lens="The outside view"
-              bio="A decade alongside service-business owners across health, hospitality, software, retail, and home services. The same conversation every time: the owner is brilliant at the work, the work is good, and the pipeline leaks. He builds the system from the outside in."
+              bio="A decade alongside service-business owners across health, hospitality, software, retail, and home services. The same conversation every time: the owner is brilliant at the work, the work is good, and the follow-up falls through the cracks. He builds the system from the outside in."
             />
             <FounderCard
               photo="/photos/richard.jpg"
               name="Richard Roos, CPA"
               role="Co-founder · Operator"
               lens="The inside view"
-              bio="Two decades inside operationally rigorous service businesses at scale. Multifamily real estate across North America, hospital foundation oversight, and audit work across hundreds of growing companies. Twenty years a CPA. He brings the discipline that gets enterprise outcomes."
+              bio="Two-plus decades of executive-level leadership in high-growth service businesses at scale. Responsible for multiple start-up efforts and for leading significant growth at Venterra from $15M to $500M+ in revenue. A deep understanding of the entire customer journey and every aspect of delivering world-class revenue performance. A CPA with a passion for operations and for leveraging technology to deliver tangible results."
             />
           </div>
           <p className="mx-auto mt-12 max-w-3xl text-center font-display text-xl leading-snug tracking-tight text-platinum sm:text-2xl">
