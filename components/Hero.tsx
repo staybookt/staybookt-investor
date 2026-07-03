@@ -93,10 +93,10 @@ export default function Hero() {
       >
         <motion.p
           variants={item}
-          className="mb-8 inline-flex items-center gap-2.5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.34em]"
+          className="mb-8 inline-flex items-center gap-2.5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.32em]"
         >
           <span className="inline-block h-1.5 w-1.5 rounded-full bg-elec animate-pulse" aria-hidden />
-          <span className="text-platinum-soft">The front office that runs itself</span>
+          <span className="text-platinum-soft">A front office that gets paid to hustle like you</span>
         </motion.p>
 
         <motion.h1
@@ -114,10 +114,11 @@ export default function Hero() {
 
         <motion.p
           variants={item}
-          className="mx-auto mt-9 max-w-xl text-lg leading-relaxed text-platinum-soft sm:text-xl"
+          className="mx-auto mt-9 max-w-2xl text-lg leading-relaxed text-platinum-soft sm:text-xl"
           style={{ textShadow: '0 2px 30px rgba(0,0,0,0.5)' }}
         >
-          We build and run the entire front office for your service business. You get the work, and the life, back.
+          It answers, quotes, and books every job while you are on the tools, and only gets paid when it puts money
+          in your pocket. Built, run, and priced for a shop your size.
         </motion.p>
 
         <motion.div
