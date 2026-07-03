@@ -1,7 +1,6 @@
 'use client';
 
-import { useRef, useState, type ReactNode } from 'react';
-import { useScroll, useMotionValueEvent } from 'framer-motion';
+import { useRef, useState, useEffect, type ReactNode } from 'react';
 import Link from 'next/link';
 import Frame from '@/components/Frame';
 import {
@@ -76,12 +75,27 @@ const STEPS: Step[] = [
 export default function PlatformWalkthrough() {
   const ref = useRef<HTMLElement | null>(null);
   const [active, setActive] = useState(0);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
 
-  useMotionValueEvent(scrollYProgress, 'change', (v) => {
-    const idx = Math.max(0, Math.min(STEPS.length - 1, Math.floor(v * STEPS.length - 1e-4)));
-    if (idx !== active) setActive(idx);
-  });
+  // Drive the active step directly from scroll position (no rAF dependency),
+  // so it stays reliable across browsers and background tabs.
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const compute = () => {
+      const total = el.offsetHeight - window.innerHeight;
+      const scrolled = Math.min(Math.max(-el.getBoundingClientRect().top, 0), Math.max(total, 1));
+      const p = total > 0 ? scrolled / total : 0;
+      const idx = Math.max(0, Math.min(STEPS.length - 1, Math.floor(p * STEPS.length - 1e-4)));
+      setActive((prev) => (prev === idx ? prev : idx));
+    };
+    compute();
+    window.addEventListener('scroll', compute, { passive: true });
+    window.addEventListener('resize', compute);
+    return () => {
+      window.removeEventListener('scroll', compute);
+      window.removeEventListener('resize', compute);
+    };
+  }, []);
 
   const goTo = (i: number) => {
     const el = ref.current;
