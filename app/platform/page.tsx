@@ -2,10 +2,10 @@ import Link from 'next/link';
 import { TopNav } from '@/components/TopNav';
 import { CAL_LINK } from '@/lib/site';
 import EasyButton from '@/components/EasyButton';
+import CaughtCall from '@/components/CaughtCall';
 import {
   PreviewPill,
   DashboardScreen,
-  ReceptionistScreen,
   BookingScreen,
   QuoteFollowupScreen,
   BriefScreen,
@@ -40,7 +40,7 @@ const BLOCKS = [
     body:
       'It never clocks out. A customer texts or calls at 2pm or 2am, and it answers in seconds, in your voice. It listens, qualifies them, answers the basic questions, and books the job. You were on a ladder, or asleep. You did not miss the call.',
     why: 'A receptionist that works 24/7 and never misses.',
-    Comp: ReceptionistScreen,
+    Comp: CaughtCall,
   },
   {
     eyebrow: 'The calendar fills itself',
@@ -98,15 +98,7 @@ export default function PlatformPage() {
       <TopNav active="platform" />
       <main className="bg-ink-deep">
         {/* Hero */}
-        <section className="relative overflow-hidden px-6 pb-16 pt-36 sm:px-12 sm:pt-44">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 opacity-60"
-            style={{
-              background:
-                'radial-gradient(60% 40% at 50% 0%, rgba(6,182,212,0.18), rgba(6,182,212,0) 70%)',
-            }}
-          />
+        <section className="px-6 pb-16 pt-36 sm:px-12 sm:pt-44">
           <div className="relative mx-auto max-w-4xl text-center">
             <PreviewPill className="mb-6" />
             <h1 className="font-display text-4xl leading-[1.02] tracking-tight text-white sm:text-6xl">
