@@ -65,10 +65,10 @@ export default function IsThisForMePage() {
             style={{ background: 'radial-gradient(60% 40% at 50% 0%, rgba(6,182,212,0.18), rgba(6,182,212,0) 70%)' }}
           />
           <div className="relative mx-auto max-w-3xl text-center">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-elec-light">Is this for me?</p>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-mute">Is this for me?</p>
             <h1 className="mt-4 font-display text-4xl leading-[1.03] tracking-tight text-white sm:text-6xl">
               If this is your week, the answer is{' '}
-              <span className="bg-gradient-to-r from-elec-light to-hvac-light bg-clip-text text-transparent">yes.</span>
+              <span className="text-white">yes.</span>
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-platinum-soft sm:text-lg">
               No quiz. No funnel. Read the list. If you nod at even a few of these, we should talk.
@@ -93,13 +93,13 @@ export default function IsThisForMePage() {
 
         {/* CTA — immediately after the list */}
         <section className="px-6 py-14 sm:px-12">
-          <div className="mx-auto max-w-2xl rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-transparent p-8 text-center sm:p-12">
+          <div className="mx-auto max-w-2xl rounded-3xl border border-white/10 p-8 text-center sm:p-12">
             <h2 className="font-display text-3xl tracking-tight text-white sm:text-4xl">Sound like you?</h2>
             <p className="mx-auto mt-4 max-w-md text-base text-platinum-soft">
               We take on a small number of owners we can do great work for. Thirty minutes tells us both if it is a fit.
             </p>
             <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <a href={CAL_LINK} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-gradient-to-r from-elec to-hvac px-8 py-4 text-base font-bold text-ink transition-transform hover:-translate-y-0.5">Book a 30-minute call</a>
+              <a href={CAL_LINK} target="_blank" rel="noopener noreferrer" className="rounded-full bg-white px-8 py-4 text-base font-bold text-ink transition-transform hover:-translate-y-0.5 hover:bg-white/90">Book a 30-minute call</a>
               <Link href="/platform" className="px-5 py-3.5 text-sm text-platinum-soft transition-colors hover:text-white">See the platform {'→'}</Link>
             </div>
           </div>
