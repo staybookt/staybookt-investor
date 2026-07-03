@@ -3,8 +3,8 @@
 import { useRef, useState, useEffect, type ReactNode } from 'react';
 import Link from 'next/link';
 import Frame from '@/components/Frame';
+import CaughtCall from '@/components/CaughtCall';
 import {
-  ReceptionistScreen,
   BookingScreen,
   QuoteFollowupScreen,
   RepeatBusinessScreen,
@@ -32,7 +32,7 @@ const STEPS: Step[] = [
     ),
     body:
       'A customer texts at 9pm. StayBookt replies in seconds, quotes the job, and books it, while you are at dinner. Every missed call is a job your competitor takes. You stop missing them.',
-    Screen: ReceptionistScreen,
+    Screen: CaughtCall,
   },
   {
     tab: 'Books',
