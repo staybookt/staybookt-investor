@@ -2,13 +2,8 @@
 
 import { useRef, useState, useEffect, type ReactNode } from 'react';
 import Link from 'next/link';
-import Frame from '@/components/Frame';
 import CaughtCall from '@/components/CaughtCall';
-import {
-  BookingScreen,
-  QuoteFollowupScreen,
-  RepeatBusinessScreen,
-} from '@/components/PlatformPreview';
+import { BookingApple, QuotesApple, RepeatApple } from '@/components/WalkthroughGraphics';
 import { CAL_LINK } from '@/lib/site';
 
 type Step = {
@@ -17,11 +12,10 @@ type Step = {
   headline: ReactNode;
   body: string;
   Screen: () => ReactNode;
-  framed?: boolean;
 };
 
 // Each step answers all three questions in miniature: what it is (headline),
-// why you care / what's in it for you (body), shown against a real product screen.
+// why you care / what's in it for you (body), shown against one clean graphic.
 const STEPS: Step[] = [
   {
     tab: 'Answers',
@@ -34,7 +28,6 @@ const STEPS: Step[] = [
     body:
       'A customer texts at 9pm. StayBookt replies in seconds, quotes the job, and books it, while you are at dinner. Every missed call is a job your competitor takes. You stop missing them.',
     Screen: CaughtCall,
-    framed: false,
   },
   {
     tab: 'Books',
@@ -46,7 +39,7 @@ const STEPS: Step[] = [
     ),
     body:
       'No phone tag. Customers pick a slot, StayBookt confirms it, and reminders go out so they actually show. Your week fills itself while you are on the tools.',
-    Screen: BookingScreen,
+    Screen: BookingApple,
   },
   {
     tab: 'Follows up',
@@ -58,7 +51,7 @@ const STEPS: Step[] = [
     ),
     body:
       'Most jobs are won on the follow-up nobody has time for. StayBookt chases every open estimate on a schedule, so no money dies in a text thread and you always see what is in play.',
-    Screen: QuoteFollowupScreen,
+    Screen: QuotesApple,
   },
   {
     tab: 'Grows',
@@ -70,7 +63,7 @@ const STEPS: Step[] = [
     ),
     body:
       'The cheapest revenue you will ever earn is a customer you already won. StayBookt spots who is due, who to upsell, and who to ask for a referral, then reaches out for you.',
-    Screen: RepeatBusinessScreen,
+    Screen: RepeatApple,
   },
 ];
 
@@ -168,7 +161,7 @@ export default function PlatformWalkthrough() {
               })}
             </div>
 
-            {/* Right: crossfading product screen */}
+            {/* Right: crossfading graphic, floating (no card frame) */}
             <div className="relative flex min-h-[560px] items-center justify-center">
               {STEPS.map((s, i) => {
                 const on = active === i;
@@ -184,7 +177,7 @@ export default function PlatformWalkthrough() {
                       pointerEvents: on ? 'auto' : 'none',
                     }}
                   >
-                    {s.framed === false ? <S /> : <Frame><S /></Frame>}
+                    <S />
                   </div>
                 );
               })}
