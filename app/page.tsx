@@ -2,14 +2,16 @@ import { TopNav } from '@/components/TopNav';
 import Hero from '@/components/Hero';
 import Wordmark from '@/components/Wordmark';
 import ScrollReveal from '@/components/ScrollReveal';
-import ParallaxOrbs from '@/components/ParallaxOrbs';
-import { PreviewPill, ReceptionistScreen } from '@/components/PlatformPreview';
+import HomeCanvas from '@/components/HomeCanvas';
+import Spine from '@/components/Spine';
+import Frame from '@/components/Frame';
+import { ReceptionistScreen } from '@/components/PlatformPreview';
 import { CAL_LINK, EMAIL } from '@/lib/site';
 import Image from 'next/image';
 import Link from 'next/link';
 
 const SHARE_DESCRIPTION =
-  'StayBookt builds and runs the website and front office for service businesses up to $5M. The phone gets answered, the jobs get booked, and you get your life back. Paid for by the results.';
+  'StayBookt builds and runs the entire front office for service businesses up to $5M, and only gets paid when it brings you work. So the business runs without you, and you get your life back.';
 
 export const metadata = {
   title: 'StayBookt. Enjoy Life.',
@@ -30,15 +32,7 @@ export const metadata = {
   },
 };
 
-const DEEP_GRAD: React.CSSProperties = {
-  backgroundImage: 'linear-gradient(96deg, #0891B2 0%, #047857 100%)',
-  WebkitBackgroundClip: 'text',
-  backgroundClip: 'text',
-  color: 'transparent',
-};
-
-function Grad({ children, deep }: { children: React.ReactNode; deep?: boolean }) {
-  if (deep) return <span style={DEEP_GRAD}>{children}</span>;
+function Grad({ children }: { children: React.ReactNode }) {
   return <span className="text-brand-gradient">{children}</span>;
 }
 
@@ -50,98 +44,124 @@ const FORKS = [
 
 export default function HomePage() {
   return (
-    <main id="top" className="relative text-white scroll-stage">
-      <ParallaxOrbs />
+    <main id="top" className="relative text-white">
+      <HomeCanvas />
+      <Spine />
       <TopNav />
 
-      {/* 1 — HERO: the feeling */}
-      <Hero />
+      {/* 00 — HERO: the feeling */}
+      <div id="m0" data-i="0">
+        <Hero />
+      </div>
 
-      {/* 2 — WATCH IT WORK: one live artifact, almost no words */}
-      <Moment tone="dark">
-        <div className="flex items-center justify-between gap-4 mb-8">
-          <Eyebrow tone="dark">Watch it run</Eyebrow>
-          <PreviewPill />
+      {/* 01 — WATCH IT RUN */}
+      <Moment i={1} eyebrow="01 / Watch it run">
+        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <h2 className="font-display tracking-[-0.03em] leading-[1.02] text-white" style={{ fontSize: 'clamp(34px, 5vw, 60px)' }}>
+              The phone rings. <Grad>It is already handled.</Grad>
+            </h2>
+            <p className="mt-6 max-w-xl text-platinum-soft text-lg leading-relaxed">
+              A customer texts at 9pm. StayBookt answers, quotes, and books the job while you are at dinner. You wake up to it done.
+            </p>
+            <p className="mt-6 font-display text-2xl sm:text-3xl tracking-tight leading-snug max-w-md">
+              Booked at 2:14 a.m. You heard about it <Grad>over coffee.</Grad>
+            </p>
+            <Link href="/platform" className="mt-7 inline-flex items-center gap-2 text-elec font-semibold text-sm hover:gap-3 transition-all">
+              See everything we run <span aria-hidden>{'→'}</span>
+            </Link>
+          </div>
+          <Frame accent>
+            <ReceptionistScreen />
+          </Frame>
         </div>
-        <div className="max-w-2xl">
-          <ReceptionistScreen />
-        </div>
-        <p className="mt-8 font-display text-2xl sm:text-3xl tracking-tight leading-snug max-w-2xl">
-          A lead came in at 2 a.m. It was booked <Grad>before you woke up.</Grad>
-        </p>
-        <Link href="/platform" className="inline-flex items-center gap-2 text-elec font-semibold text-sm mt-6 hover:gap-3 transition-all">
-          See everything we run <span aria-hidden>{'→'}</span>
-        </Link>
       </Moment>
 
-      {/* 3 — SEE IT'S REAL: a live client site, not a claim */}
-      <Moment tone="cream">
-        <Eyebrow tone="cream">Real, and live right now</Eyebrow>
-        <div className="max-w-3xl overflow-hidden rounded-xl border border-stone-300 bg-white shadow-2xl shadow-stone-400/30">
-          <div className="flex items-center gap-1.5 border-b border-stone-200 bg-stone-100 px-3 py-2">
-            <span className="h-2.5 w-2.5 rounded-full bg-stone-300" />
-            <span className="h-2.5 w-2.5 rounded-full bg-stone-300" />
-            <span className="h-2.5 w-2.5 rounded-full bg-stone-300" />
-            <span className="ml-3 text-[10px] tracking-wide text-stone-400">topchoiceelectrical.com</span>
+      {/* 02 — SEE IT IS REAL */}
+      <Moment i={2} eyebrow="02 / See it is real">
+        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <h2 className="font-display tracking-[-0.03em] leading-[1.02] text-white" style={{ fontSize: 'clamp(34px, 5vw, 60px)' }}>
+              This one is <Grad>already running.</Grad>
+            </h2>
+            <p className="mt-6 max-w-xl text-platinum-soft text-lg leading-relaxed">
+              We built and we run Top Choice Electrical. Real business, real site, real bookings coming in.
+            </p>
+            <blockquote className="mt-7 border-l-2 border-hvac/60 pl-5 max-w-xl">
+              <p className="text-platinum text-lg italic leading-snug mb-2">
+                {'“'}My old site never once sent me a lead. Now people show up to the first call already knowing who I am.{'”'}
+              </p>
+              <cite className="not-italic text-mute text-sm font-semibold">Tim Ciszkowski, Top Choice Electrical</cite>
+            </blockquote>
+            <Link href="/work" className="mt-7 inline-flex items-center gap-2 text-elec font-semibold text-sm hover:gap-3 transition-all">
+              See the work <span aria-hidden>{'→'}</span>
+            </Link>
           </div>
-          <div className="relative aspect-[16/9] w-full bg-stone-900">
-            <Image
-              src="/photos/tce-after.png"
-              alt="Top Choice Electrical, a live site StayBookt built and runs"
-              fill
-              className="object-cover object-top"
-              sizes="(max-width: 1024px) 100vw, 768px"
-            />
-          </div>
+          <Frame accent>
+            <div className="flex items-center gap-1.5 border-b border-white/8 bg-white/[0.04] px-3 py-2">
+              <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+              <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+              <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+              <span className="ml-3 text-[10px] tracking-wide text-mute">topchoiceelectrical.com</span>
+            </div>
+            <div className="relative aspect-[16/10] w-full bg-ink">
+              <Image
+                src="/photos/tce-after.png"
+                alt="Top Choice Electrical, a live site StayBookt built and runs"
+                fill
+                className="object-cover object-top"
+                sizes="(max-width: 1024px) 100vw, 560px"
+              />
+            </div>
+          </Frame>
         </div>
-        <blockquote className="mt-8 border-l-2 border-emerald-600 pl-5 max-w-2xl">
-          <p className="text-stone-800 text-lg sm:text-xl italic leading-snug mb-2">
-            {'“'}My old site never sent me a lead. People show up to the first call already knowing who I am.{'”'}
-          </p>
-          <cite className="not-italic text-stone-500 text-sm font-semibold">Tim Ciszkowski, Top Choice Electrical</cite>
-        </blockquote>
-        <Link href="/work" className="inline-flex items-center gap-2 text-emerald-700 font-semibold text-sm mt-7 hover:gap-3 transition-all">
-          See the work <span aria-hidden>{'→'}</span>
-        </Link>
       </Moment>
 
-      {/* 4 — THE DEAL + THE FORK */}
-      <Moment tone="dark">
-        <h2 className="font-display tracking-[-0.035em] leading-[0.95] mb-5 max-w-3xl" style={{ fontSize: 'clamp(40px, 7vw, 84px)' }}>
+      {/* 03 — THE DEAL + FORK */}
+      <Moment i={3} eyebrow="03 / The deal" purple>
+        <h2 className="font-display tracking-[-0.03em] leading-[1.0] text-white max-w-4xl" style={{ fontSize: 'clamp(38px, 6vw, 72px)' }}>
           We only make money <Grad>when you do.</Grad>
         </h2>
-        <p className="text-platinum-soft text-base sm:text-lg mb-12 max-w-2xl leading-relaxed">
-          Paid on the new business we bring you. That is the whole deal.
+        <p className="mt-6 max-w-2xl text-platinum-soft text-lg leading-relaxed">
+          A build fee, a flat monthly, and 5% of the new business we bring in. If the phone does not ring more, we have not earned it.
+        </p>
+        <p className="mt-4 max-w-2xl text-mute text-base leading-relaxed">
+          No agency retainer, no lock-in, no new system to learn. We run it. You do the work you are good at.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 max-w-4xl">
           {FORKS.map((f) => (
             <Link
               key={f.href}
               href={f.href}
-              className="group flex items-center justify-between rounded-2xl border border-divider/60 bg-paper/[0.03] px-6 py-5 hover:border-elec/40 hover:bg-paper/[0.05] transition-colors"
+              className="group flex items-center justify-between rounded-2xl border border-divider/60 bg-paper/[0.03] px-5 py-5 hover:border-elec/40 hover:bg-paper/[0.05] transition-colors"
             >
-              <span className="font-display text-lg sm:text-xl tracking-tight text-white">{f.label}</span>
+              <span className="font-display text-lg tracking-tight text-white">{f.label}</span>
               <span aria-hidden className="text-elec transition-transform group-hover:translate-x-1">{'→'}</span>
             </Link>
           ))}
-        </div>
-
-        <div className="mt-8 flex flex-col sm:flex-row sm:items-center gap-4">
           <a
             href={CAL_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-elec to-hvac text-ink font-bold px-8 py-4 rounded-lg text-base transition-transform hover:-translate-y-0.5"
+            className="group flex items-center justify-between rounded-2xl bg-gradient-to-r from-elec to-hvac px-5 py-5 text-ink transition-transform hover:-translate-y-0.5"
           >
-            Book a 30-minute call
-            <span aria-hidden>{'→'}</span>
+            <span className="font-display text-lg tracking-tight font-bold">Book a call</span>
+            <span aria-hidden className="transition-transform group-hover:translate-x-1">{'→'}</span>
           </a>
-          <p className="text-mute text-sm">
-            30 minutes with a founder. No pitch deck. Or email{' '}
-            <a href={`mailto:${EMAIL}`} className="text-platinum-soft hover:text-white transition-colors">{EMAIL}</a>.
-          </p>
         </div>
+
+        <p className="mt-6 text-mute text-sm">
+          30 minutes with a founder. No pitch deck. Or email{' '}
+          <a href={`mailto:${EMAIL}`} className="text-platinum-soft hover:text-white transition-colors">{EMAIL}</a>.
+        </p>
+
+        <p className="mt-20 text-center font-display text-3xl tracking-tight">
+          <span className="text-white">Stay</span>
+          <span className="wordmark-gradient">Bookt</span>
+          <span style={{ color: '#7C3AED' }}>.</span>{' '}
+          <span className="text-brand-gradient">Enjoy Life.</span>
+        </p>
       </Moment>
 
       <FooterBlock />
@@ -151,27 +171,37 @@ export default function HomePage() {
 
 /* Helpers */
 
-function Moment({ children, tone, id }: { children: React.ReactNode; tone: 'dark' | 'cream'; id?: string }) {
-  const bg = tone === 'cream' ? 'bg-stone-50' : 'bg-ink-deep';
-  const textColor = tone === 'cream' ? 'text-stone-900' : 'text-white';
-  const scrollMt = id ? 'scroll-mt-24' : '';
+function Moment({
+  i,
+  eyebrow,
+  purple,
+  children,
+}: {
+  i: number;
+  eyebrow: string;
+  purple?: boolean;
+  children: React.ReactNode;
+}) {
   return (
-    <section id={id} className={`relative px-6 sm:px-12 py-16 sm:py-24 ${scrollMt} ${bg} ${textColor}`}>
+    <section id={`m${i}`} data-i={i} className="relative scroll-mt-24 px-6 sm:px-12 lg:pl-28 py-24 sm:py-32">
       <ScrollReveal>
-        <div className="max-w-6xl mx-auto">{children}</div>
+        <div className="max-w-6xl mx-auto">
+          <p
+            className="font-mono text-[11px] tracking-[0.28em] uppercase font-semibold mb-10"
+            style={{ color: purple ? '#a78bfa' : undefined }}
+          >
+            <span className={purple ? '' : 'text-elec'}>{eyebrow}</span>
+          </p>
+          {children}
+        </div>
       </ScrollReveal>
     </section>
   );
 }
 
-function Eyebrow({ children, tone }: { children: React.ReactNode; tone: 'cream' | 'dark' }) {
-  const color = tone === 'cream' ? 'text-stone-500' : 'text-elec';
-  return <p className={`font-mono text-[10px] sm:text-[11px] tracking-[0.32em] uppercase font-bold mb-7 ${color}`}>{children}</p>;
-}
-
 function FooterBlock() {
   return (
-    <footer className="px-6 sm:px-12 py-16 border-t border-divider/40 bg-ink-deep">
+    <footer className="relative px-6 sm:px-12 lg:pl-28 py-16 border-t border-divider/40">
       <ScrollReveal>
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8 mb-12">

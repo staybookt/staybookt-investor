@@ -28,11 +28,9 @@ export default function Hero() {
   return (
     <section
       ref={ref}
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-28 pb-20 px-6 sm:px-12 bg-ink-deep"
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-28 pb-20 px-6 sm:px-12"
     >
-      {/* Aurora background — two parallax layers of drifting gradient blobs.
-         Blur radii kept moderate and the third blob is dropped on mobile to
-         keep paint cost low on phones. */}
+      {/* Aurora background — two parallax layers of drifting gradient blobs. */}
       <motion.div aria-hidden style={{ y: y1 }} className="pointer-events-none absolute inset-0">
         <motion.div
           className="absolute -top-48 -left-32 h-[40rem] w-[40rem] rounded-full blur-[90px] opacity-45"
@@ -81,7 +79,7 @@ export default function Hero() {
           className="text-[10px] sm:text-[11px] tracking-[0.3em] uppercase font-semibold mb-8 inline-flex items-center gap-2.5 justify-center"
         >
           <span className="inline-block w-1.5 h-1.5 rounded-full bg-elec animate-pulse" aria-hidden />
-          <span className="text-platinum-soft">For service businesses up to $5M</span>
+          <span className="text-platinum-soft">The front office that runs itself</span>
         </motion.p>
 
         <motion.h1
@@ -100,7 +98,7 @@ export default function Hero() {
           variants={item}
           className="text-platinum-soft text-base sm:text-lg lg:text-xl leading-relaxed mb-12 max-w-2xl mx-auto"
         >
-          The system that gets service businesses found, drives revenue and repeat business, keeps the calendar full, and automates admin work, so you can enjoy life more. Built and run by us. Paid for by the results. Win-win.
+          We build and run the entire front office for your service business, and we only get paid when it brings you work.
         </motion.p>
 
         <motion.div
@@ -116,13 +114,13 @@ export default function Hero() {
             Book a 30-minute call
             <span aria-hidden className="transition-transform group-hover:translate-x-1">{'→'}</span>
           </a>
-          <Link
-            href="/how-it-works"
+          <a
+            href="#m1"
             className="inline-flex items-center gap-2 text-platinum-soft hover:text-white text-sm sm:text-base px-5 py-4 transition-colors"
           >
-            See how it works
-            <span aria-hidden>{'→'}</span>
-          </Link>
+            See it run
+            <span aria-hidden>{'↓'}</span>
+          </a>
         </motion.div>
 
         <motion.p variants={item} className="font-mono text-[11px] sm:text-xs tracking-[0.2em] uppercase">
