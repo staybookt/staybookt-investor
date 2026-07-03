@@ -27,7 +27,7 @@ const STEPS: Step[] = [
     kicker: 'It picks up',
     headline: (
       <>
-        It answers the calls <span className="text-brand-gradient">you can’t.</span>
+        It answers the calls <span className="text-white">you can’t.</span>
       </>
     ),
     body:
@@ -39,7 +39,7 @@ const STEPS: Step[] = [
     kicker: 'It fills the week',
     headline: (
       <>
-        It keeps the calendar <span className="text-brand-gradient">full.</span>
+        It keeps the calendar <span className="text-white">full.</span>
       </>
     ),
     body:
@@ -51,7 +51,7 @@ const STEPS: Step[] = [
     kicker: 'It closes the loop',
     headline: (
       <>
-        It never lets a quote <span className="text-brand-gradient">go cold.</span>
+        It never lets a quote <span className="text-white">go cold.</span>
       </>
     ),
     body:
@@ -63,7 +63,7 @@ const STEPS: Step[] = [
     kicker: 'It compounds',
     headline: (
       <>
-        It grows the customers <span className="text-brand-gradient">you already have.</span>
+        It grows the customers <span className="text-white">you already have.</span>
       </>
     ),
     body:
@@ -112,7 +112,7 @@ export default function PlatformWalkthrough() {
         style={{ minHeight: '100svh' }}
       >
         <div className="mx-auto w-full max-w-6xl px-6 py-16 sm:px-12 lg:pl-28">
-          <p className="mb-8 font-mono text-[11px] font-semibold uppercase tracking-[0.28em] text-elec">
+          <p className="mb-8 font-mono text-[11px] font-semibold uppercase tracking-[0.28em] text-mute">
             01 / Watch it run
           </p>
 
@@ -126,11 +126,11 @@ export default function PlatformWalkthrough() {
                   onClick={() => goTo(i)}
                   className={`group flex items-center gap-2 rounded-full border px-3.5 py-2 text-[12px] font-semibold transition-all ${
                     on
-                      ? 'border-elec/50 bg-elec/10 text-white'
-                      : 'border-divider/60 text-mute hover:text-platinum-soft'
+                      ? 'border-white/25 bg-white/[0.08] text-white'
+                      : 'border-white/10 text-mute hover:text-platinum-soft'
                   }`}
                 >
-                  <span className={`font-mono text-[10px] ${on ? 'text-elec' : 'text-mute'}`}>{`0${i + 1}`}</span>
+                  <span className={`font-mono text-[10px] ${on ? 'text-platinum-soft' : 'text-mute'}`}>{`0${i + 1}`}</span>
                   {s.tab}
                 </button>
               );
@@ -182,7 +182,7 @@ export default function PlatformWalkthrough() {
                       pointerEvents: on ? 'auto' : 'none',
                     }}
                   >
-                    <Frame accent>
+                    <Frame>
                       <S />
                     </Frame>
                   </div>
@@ -196,10 +196,9 @@ export default function PlatformWalkthrough() {
               href={CAL_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-elec to-hvac px-6 py-3 text-sm font-bold text-ink transition-transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-white/90"
             >
               See it run on your business
-              <span aria-hidden className="transition-transform group-hover:translate-x-1">{'→'}</span>
             </a>
             <Link
               href="/how-it-works"
