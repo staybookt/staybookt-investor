@@ -5,7 +5,7 @@ import ScrollReveal from '@/components/ScrollReveal';
 import HomeCanvas from '@/components/HomeCanvas';
 import Spine from '@/components/Spine';
 import Frame from '@/components/Frame';
-import { ReceptionistScreen } from '@/components/PlatformPreview';
+import PlatformWalkthrough from '@/components/PlatformWalkthrough';
 import { CAL_LINK, EMAIL } from '@/lib/site';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -54,28 +54,8 @@ export default function HomePage() {
         <Hero />
       </div>
 
-      {/* 01 — WATCH IT RUN */}
-      <Moment i={1} eyebrow="01 / Watch it run">
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-          <div>
-            <h2 className="font-display tracking-[-0.03em] leading-[1.02] text-white" style={{ fontSize: 'clamp(34px, 5vw, 62px)' }}>
-              The phone rings. <Grad>It is already handled.</Grad>
-            </h2>
-            <p className="mt-7 max-w-xl text-platinum-soft text-lg leading-relaxed">
-              A customer texts at 9pm. StayBookt answers, quotes, and books the job while you are at dinner. You wake up to it done.
-            </p>
-            <p className="mt-8 font-display text-2xl sm:text-3xl tracking-tight leading-snug max-w-md">
-              Booked at 2:14 a.m. You heard about it <Grad>over coffee.</Grad>
-            </p>
-            <Link href="/platform" className="mt-8 inline-flex items-center gap-2 text-elec font-semibold text-sm hover:gap-3 transition-all">
-              See everything we run <span aria-hidden>{'→'}</span>
-            </Link>
-          </div>
-          <Frame accent>
-            <ReceptionistScreen />
-          </Frame>
-        </div>
-      </Moment>
+      {/* 01 — WATCH IT RUN: pinned platform walkthrough */}
+      <PlatformWalkthrough />
 
       {/* 02 — SEE IT IS REAL */}
       <Moment i={2} eyebrow="02 / See it is real">
