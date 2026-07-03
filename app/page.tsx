@@ -141,6 +141,11 @@ export default function HomePage() {
           <span style={{ color: '#7C3AED' }}>.</span>{' '}
           <span className="text-brand-gradient">Enjoy Life.</span>
         </p>
+        <p className="mt-6 text-center">
+          <Link href="/manifesto" className="inline-flex items-center gap-2 text-sm font-semibold text-elec transition-all hover:gap-3">
+            Read the manifesto <span aria-hidden>{'→'}</span>
+          </Link>
+        </p>
       </Moment>
 
       <FooterBlock />
@@ -209,6 +214,7 @@ function FooterBottomRow() {
         <Link href="/work" className={linkCls}>Proof</Link>
         <Link href="/is-this-for-me" className={linkCls}>Is it for me?</Link>
         <Link href="/pricing" className={linkCls}>Pricing</Link>
+        <Link href="/manifesto" className={linkCls}>Manifesto</Link>
         <Link href="/about" className={linkCls}>About</Link>
       </div>
       <p>{'©'} 2026 StayBookt Inc. Toronto, ON.</p>
