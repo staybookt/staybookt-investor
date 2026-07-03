@@ -9,6 +9,26 @@ export const metadata = {
   description: 'Real sites we built and run for real owner-operators. Top Choice Electrical and XNL HR, both live on their own domains.',
 };
 
+function BrowserBar({ url }: { url: string }) {
+  return (
+    <div className="flex items-center gap-2 border-b border-white/8 bg-white/[0.03] px-3.5 py-2.5">
+      <div className="flex gap-1.5">
+        <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+        <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+        <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+      </div>
+      <div className="mx-auto flex items-center gap-1.5 rounded-md border border-white/10 bg-white/[0.03] px-3 py-1">
+        <svg viewBox="0 0 24 24" fill="none" className="h-3 w-3 text-mute" aria-hidden>
+          <rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" strokeWidth="2" />
+          <path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="currentColor" strokeWidth="2" />
+        </svg>
+        <span className="text-[11px] tracking-wide text-mute">{url}</span>
+      </div>
+      <span className="w-[46px]" aria-hidden />
+    </div>
+  );
+}
+
 export default function WorkPage() {
   return (
     <>
@@ -28,16 +48,10 @@ export default function WorkPage() {
 
         {/* TCE */}
         <section className="px-6 py-8 sm:px-12">
-          <div className="mx-auto max-w-5xl overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02]">
-            {/* clean browser-framed screenshot */}
+          <div className="mx-auto max-w-5xl overflow-hidden rounded-3xl border border-white/10">
             <div className="p-6 pb-0 sm:p-8 sm:pb-0">
-              <div className="overflow-hidden rounded-xl border border-white/10 shadow-2xl shadow-black/50">
-                <div className="flex items-center gap-1.5 border-b border-white/8 bg-white/[0.06] px-3 py-2">
-                  <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
-                  <span className="ml-3 truncate text-[10px] tracking-wide text-mute">topchoiceelectrical.com</span>
-                </div>
+              <div className="overflow-hidden rounded-xl border border-white/10">
+                <BrowserBar url="topchoiceelectrical.com" />
                 <div className="relative aspect-[16/9] w-full bg-ink">
                   <Image
                     src="/photos/tce-after.png"
@@ -50,7 +64,7 @@ export default function WorkPage() {
               </div>
             </div>
             <div className="p-8 sm:p-10">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-hvac-light">Trades · Electrical · York Region</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-mute">Trades &middot; Electrical &middot; York Region</p>
               <h2 className="mt-3 font-display text-3xl tracking-tight text-white">Top Choice Electrical</h2>
               <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-platinum-soft">
                 Tim Ciszkowski, 22 years on the tools, was running on word of mouth and a phone that rang straight to him. We
@@ -63,16 +77,10 @@ export default function WorkPage() {
 
         {/* XNL */}
         <section className="px-6 py-8 sm:px-12">
-          <div className="mx-auto max-w-5xl overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02]">
-            {/* clean browser-framed live header */}
+          <div className="mx-auto max-w-5xl overflow-hidden rounded-3xl border border-white/10">
             <div className="p-6 pb-0 sm:p-8 sm:pb-0">
-              <div className="overflow-hidden rounded-xl border border-white/10 shadow-2xl shadow-black/50">
-                <div className="flex items-center gap-1.5 border-b border-white/8 bg-white/[0.06] px-3 py-2">
-                  <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
-                  <span className="ml-3 truncate text-[10px] tracking-wide text-mute">xnlhr.com</span>
-                </div>
+              <div className="overflow-hidden rounded-xl border border-white/10">
+                <BrowserBar url="xnlhr.com" />
                 <div className="relative aspect-[16/9] w-full overflow-hidden bg-ink">
                   <div className="absolute inset-0 z-0 flex flex-col items-center justify-center px-6 text-center">
                     <p className="mb-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-mute">XNL HR &amp; Communications</p>
@@ -90,7 +98,7 @@ export default function WorkPage() {
               </div>
             </div>
             <div className="p-8 sm:p-10">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-mute">Professional services · HR consultancy · York Region</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-mute">Professional services &middot; HR consultancy &middot; York Region</p>
               <h2 className="mt-3 font-display text-3xl tracking-tight text-white">XNL HR &amp; Communications</h2>
               <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-platinum-soft">
                 Evert Akkerman, CHRL, runs a fractional HR practice where his judgment is the product. We built a site that
