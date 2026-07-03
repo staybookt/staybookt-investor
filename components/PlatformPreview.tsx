@@ -20,24 +20,15 @@ export function PreviewPill({ className = '' }: { className?: string }) {
 function AppFrame({
   title,
   children,
-  accent = 'elec',
 }: {
   title: string;
   children: React.ReactNode;
   accent?: 'elec' | 'hvac';
 }) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-white/10 bg-ink shadow-2xl shadow-black/40 ring-1 ring-white/5">
-      <div className="flex items-center gap-2 border-b border-white/8 bg-white/[0.03] px-4 py-3">
-        <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-        <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-        <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-        <span className="ml-3 text-[11px] font-medium tracking-wide text-mute">{title}</span>
-        <span className={`ml-auto text-[10px] font-bold uppercase tracking-[0.2em] ${accent === 'hvac' ? 'text-hvac-light' : 'text-elec-light'}`}>
-          StayBookt
-        </span>
-      </div>
-      <div className="p-4 sm:p-5">{children}</div>
+    <div className="rounded-[22px] border border-white/[0.08] bg-white/[0.015] p-6 sm:p-7">
+      <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.16em] text-mute">{title}</p>
+      <div>{children}</div>
     </div>
   );
 }
