@@ -29,6 +29,19 @@ function BrowserBar({ url }: { url: string }) {
   );
 }
 
+function LiveLink({ href, label }: { href: string; label: string }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-elec transition-all hover:gap-3"
+    >
+      {label} <span aria-hidden>{'↗'}</span>
+    </a>
+  );
+}
+
 export default function WorkPage() {
   return (
     <>
@@ -71,6 +84,7 @@ export default function WorkPage() {
                 built a site that looks like the established pro he is, rebuilt his Google profile, and wired
                 tap-to-call and booking so a homeowner reaches him in one tap.
               </p>
+              <LiveLink href="https://topchoiceelectrical.com" label="Visit the live site" />
             </div>
           </div>
         </section>
@@ -105,6 +119,7 @@ export default function WorkPage() {
                 tells the XNL story the way he has been trying to tell it for years, so intake calls land already warmed
                 up.
               </p>
+              <LiveLink href="https://www.xnlhr.com" label="Visit the live site" />
             </div>
           </div>
         </section>
