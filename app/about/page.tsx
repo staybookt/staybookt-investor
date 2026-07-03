@@ -34,7 +34,7 @@ export default function AboutPage() {
       <main className="bg-ink-deep">
         <section className="px-6 pb-10 pt-36 sm:px-12 sm:pt-44">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-elec-light">Who you work with</p>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-mute">Who you work with</p>
             <h1 className="mt-4 font-display text-4xl leading-tight tracking-tight text-white sm:text-6xl">
               Two people. No layers.
             </h1>
@@ -68,10 +68,10 @@ export default function AboutPage() {
         </section>
 
         <section className="px-6 py-20 sm:px-12">
-          <div className="mx-auto max-w-2xl rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-transparent p-8 text-center sm:p-12">
+          <div className="mx-auto max-w-2xl rounded-3xl border border-white/10 p-8 text-center sm:p-12">
             <h2 className="font-display text-3xl tracking-tight text-white">Talk to one of us</h2>
             <p className="mx-auto mt-4 max-w-md text-base text-platinum-soft">30 minutes, no pitch deck. We learn your business and tell you straight whether we can help.</p>
-            <a href={CAL_LINK} target="_blank" rel="noopener noreferrer" className="mt-7 inline-block rounded-lg bg-gradient-to-r from-elec to-hvac px-8 py-4 text-base font-bold text-ink transition-transform hover:-translate-y-0.5">Book a 30-minute call</a>
+            <a href={CAL_LINK} target="_blank" rel="noopener noreferrer" className="mt-7 inline-block rounded-full bg-white px-8 py-4 text-base font-bold text-ink transition-transform hover:-translate-y-0.5 hover:bg-white/90">Book a 30-minute call</a>
           </div>
         </section>
       </main>
