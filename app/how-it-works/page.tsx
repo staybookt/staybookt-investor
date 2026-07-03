@@ -24,7 +24,7 @@ export default function HowItWorksPage() {
       <main className="bg-ink-deep">
         <section className="px-6 pb-12 pt-36 sm:px-12 sm:pt-44">
           <div className="mx-auto max-w-4xl text-center">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-elec-light">How it works</p>
+            <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-mute">How it works</p>
             <h1 className="mt-4 font-display text-4xl leading-[1.03] tracking-tight text-white sm:text-6xl">
               You deliver the work.<br />We run everything in front of it.
             </h1>
@@ -38,8 +38,8 @@ export default function HowItWorksPage() {
         <section className="px-6 py-8 sm:px-12">
           <div className="mx-auto grid max-w-5xl gap-5 sm:grid-cols-2">
             {STEPS.map((s) => (
-              <div key={s.n} className="rounded-2xl border border-white/10 bg-white/[0.02] p-7">
-                <span className="font-display text-3xl text-elec-light">{s.n}</span>
+              <div key={s.n} className="rounded-2xl border border-white/10 p-7">
+                <span className="font-display text-3xl text-mute">{s.n}</span>
                 <h2 className="mt-3 font-display text-2xl tracking-tight text-white">{s.t}</h2>
                 <p className="mt-3 text-[15px] leading-relaxed text-platinum-soft">{s.d}</p>
               </div>
@@ -49,7 +49,7 @@ export default function HowItWorksPage() {
 
         <section className="px-6 pt-14 pb-4 sm:px-12">
           <div className="mx-auto max-w-5xl text-center">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-elec-light">The operating loop</p>
+            <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-mute">The operating loop</p>
             <h2 className="mt-3 font-display text-3xl tracking-tight text-white sm:text-4xl">What each part actually does</h2>
             <p className="mx-auto mt-4 max-w-2xl text-base text-platinum-soft">
               Scroll through the loop. Every customer who comes through gets found, captured, booked, followed up, and
@@ -60,12 +60,12 @@ export default function HowItWorksPage() {
         <OperatingLoop />
 
         <section className="px-6 pb-24 pt-16 sm:px-12">
-          <div className="mx-auto max-w-2xl rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-transparent p-8 text-center sm:p-12">
+          <div className="mx-auto max-w-2xl rounded-3xl border border-white/10 p-8 text-center sm:p-12">
             <h2 className="font-display text-3xl tracking-tight text-white">See what it looks like running</h2>
             <p className="mx-auto mt-4 max-w-md text-base text-platinum-soft">Take a look at the platform, or book a call and we will map it to your business.</p>
             <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Link href="/platform" className="rounded-lg border border-white/15 px-6 py-3.5 text-sm font-semibold text-white hover:bg-white/5">See the platform</Link>
-              <a href={CAL_LINK} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-gradient-to-r from-elec to-hvac px-7 py-3.5 text-base font-bold text-ink transition-transform hover:-translate-y-0.5">Book a 30-minute call</a>
+              <Link href="/platform" className="rounded-full border border-white/15 px-6 py-3.5 text-sm font-semibold text-white hover:bg-white/5">See the platform</Link>
+              <a href={CAL_LINK} target="_blank" rel="noopener noreferrer" className="rounded-full bg-white px-7 py-3.5 text-base font-semibold text-ink transition-colors hover:bg-white/90">Book a 30-minute call</a>
             </div>
           </div>
         </section>
