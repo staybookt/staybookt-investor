@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react';
 
-// The managed-journey spine. A fixed chapter rail down the left edge, present
-// in every moment, so four sections read as one guided flow. The active
-// chapter's tick lights up in the brand gradient as you scroll.
+// The managed-journey spine. A fixed chapter rail down the left edge, one
+// continuous line with four nodes, present in every moment so the page reads
+// as one guided flow. The active chapter lights up in the brand gradient.
 const CHAPTERS = ['00', '01', '02', '03'];
 
 export default function Spine() {
@@ -33,31 +33,39 @@ export default function Spine() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none fixed left-4 xl:left-8 top-1/2 z-40 hidden -translate-y-1/2 flex-col gap-7 lg:flex"
+      className="pointer-events-none fixed left-4 xl:left-9 top-1/2 z-40 hidden -translate-y-1/2 lg:block"
     >
-      {CHAPTERS.map((n, i) => {
-        const on = i === active;
-        return (
-          <div key={n} className="flex items-center gap-3">
-            <span
-              className="h-px transition-all duration-500"
-              style={{
-                width: on ? 28 : 16,
-                background: on
-                  ? 'linear-gradient(90deg, #06B6D4, #10B981)'
-                  : 'rgba(148,163,184,0.25)',
-              }}
-            />
-            <span
-              className={`font-display text-sm tabular-nums transition-colors duration-500 ${
-                on ? 'text-white' : 'text-white/25'
-              }`}
-            >
-              {n}
-            </span>
-          </div>
-        );
-      })}
+      <div className="relative">
+        <span
+          className="absolute left-0 top-3 bottom-3 w-px"
+          style={{ background: 'rgba(148,163,184,0.18)' }}
+        />
+        <div className="flex flex-col gap-9">
+          {CHAPTERS.map((n, i) => {
+            const on = i === active;
+            return (
+              <div key={n} className="flex items-center gap-3">
+                <span
+                  className="h-px transition-all duration-500"
+                  style={{
+                    width: on ? 28 : 14,
+                    background: on
+                      ? 'linear-gradient(90deg, #06B6D4, #10B981)'
+                      : 'rgba(148,163,184,0.35)',
+                  }}
+                />
+                <span
+                  className={`font-display text-xs tabular-nums transition-colors duration-500 ${
+                    on ? 'text-white' : 'text-white/30'
+                  }`}
+                >
+                  {n}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }

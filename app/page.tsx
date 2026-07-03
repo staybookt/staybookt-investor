@@ -56,18 +56,18 @@ export default function HomePage() {
 
       {/* 01 — WATCH IT RUN */}
       <Moment i={1} eyebrow="01 / Watch it run">
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div>
-            <h2 className="font-display tracking-[-0.03em] leading-[1.02] text-white" style={{ fontSize: 'clamp(34px, 5vw, 60px)' }}>
+            <h2 className="font-display tracking-[-0.03em] leading-[1.02] text-white" style={{ fontSize: 'clamp(34px, 5vw, 62px)' }}>
               The phone rings. <Grad>It is already handled.</Grad>
             </h2>
-            <p className="mt-6 max-w-xl text-platinum-soft text-lg leading-relaxed">
+            <p className="mt-7 max-w-xl text-platinum-soft text-lg leading-relaxed">
               A customer texts at 9pm. StayBookt answers, quotes, and books the job while you are at dinner. You wake up to it done.
             </p>
-            <p className="mt-6 font-display text-2xl sm:text-3xl tracking-tight leading-snug max-w-md">
+            <p className="mt-8 font-display text-2xl sm:text-3xl tracking-tight leading-snug max-w-md">
               Booked at 2:14 a.m. You heard about it <Grad>over coffee.</Grad>
             </p>
-            <Link href="/platform" className="mt-7 inline-flex items-center gap-2 text-elec font-semibold text-sm hover:gap-3 transition-all">
+            <Link href="/platform" className="mt-8 inline-flex items-center gap-2 text-elec font-semibold text-sm hover:gap-3 transition-all">
               See everything we run <span aria-hidden>{'→'}</span>
             </Link>
           </div>
@@ -79,21 +79,21 @@ export default function HomePage() {
 
       {/* 02 — SEE IT IS REAL */}
       <Moment i={2} eyebrow="02 / See it is real">
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div>
-            <h2 className="font-display tracking-[-0.03em] leading-[1.02] text-white" style={{ fontSize: 'clamp(34px, 5vw, 60px)' }}>
+            <h2 className="font-display tracking-[-0.03em] leading-[1.02] text-white" style={{ fontSize: 'clamp(34px, 5vw, 62px)' }}>
               This one is <Grad>already running.</Grad>
             </h2>
-            <p className="mt-6 max-w-xl text-platinum-soft text-lg leading-relaxed">
+            <p className="mt-7 max-w-xl text-platinum-soft text-lg leading-relaxed">
               We built and we run Top Choice Electrical. Real business, real site, real bookings coming in.
             </p>
-            <blockquote className="mt-7 border-l-2 border-hvac/60 pl-5 max-w-xl">
+            <blockquote className="mt-8 border-l-2 border-hvac/60 pl-5 max-w-xl">
               <p className="text-platinum text-lg italic leading-snug mb-2">
                 {'“'}My old site never once sent me a lead. Now people show up to the first call already knowing who I am.{'”'}
               </p>
               <cite className="not-italic text-mute text-sm font-semibold">Tim Ciszkowski, Top Choice Electrical</cite>
             </blockquote>
-            <Link href="/work" className="mt-7 inline-flex items-center gap-2 text-elec font-semibold text-sm hover:gap-3 transition-all">
+            <Link href="/work" className="mt-8 inline-flex items-center gap-2 text-elec font-semibold text-sm hover:gap-3 transition-all">
               See the work <span aria-hidden>{'→'}</span>
             </Link>
           </div>
@@ -119,17 +119,17 @@ export default function HomePage() {
 
       {/* 03 — THE DEAL + FORK */}
       <Moment i={3} eyebrow="03 / The deal" purple>
-        <h2 className="font-display tracking-[-0.03em] leading-[1.0] text-white max-w-4xl" style={{ fontSize: 'clamp(38px, 6vw, 72px)' }}>
+        <h2 className="font-display tracking-[-0.03em] leading-[1.0] text-white max-w-4xl" style={{ fontSize: 'clamp(38px, 6vw, 74px)' }}>
           We only make money <Grad>when you do.</Grad>
         </h2>
-        <p className="mt-6 max-w-2xl text-platinum-soft text-lg leading-relaxed">
+        <p className="mt-7 max-w-2xl text-platinum-soft text-lg leading-relaxed">
           A build fee, a flat monthly, and 5% of the new business we bring in. If the phone does not ring more, we have not earned it.
         </p>
         <p className="mt-4 max-w-2xl text-mute text-base leading-relaxed">
           No agency retainer, no lock-in, no new system to learn. We run it. You do the work you are good at.
         </p>
 
-        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 max-w-4xl">
+        <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 max-w-4xl">
           {FORKS.map((f) => (
             <Link
               key={f.href}
@@ -156,7 +156,7 @@ export default function HomePage() {
           <a href={`mailto:${EMAIL}`} className="text-platinum-soft hover:text-white transition-colors">{EMAIL}</a>.
         </p>
 
-        <p className="mt-20 text-center font-display text-3xl tracking-tight">
+        <p className="mt-24 text-center font-display text-3xl tracking-tight">
           <span className="text-white">Stay</span>
           <span className="wordmark-gradient">Bookt</span>
           <span style={{ color: '#7C3AED' }}>.</span>{' '}
@@ -183,14 +183,11 @@ function Moment({
   children: React.ReactNode;
 }) {
   return (
-    <section id={`m${i}`} data-i={i} className="relative scroll-mt-24 px-6 sm:px-12 lg:pl-28 py-24 sm:py-32">
+    <section id={`m${i}`} data-i={i} className="relative scroll-mt-24 px-6 sm:px-12 lg:pl-28 py-28 sm:py-40">
       <ScrollReveal>
         <div className="max-w-6xl mx-auto">
-          <p
-            className="font-mono text-[11px] tracking-[0.28em] uppercase font-semibold mb-10"
-            style={{ color: purple ? '#a78bfa' : undefined }}
-          >
-            <span className={purple ? '' : 'text-elec'}>{eyebrow}</span>
+          <p className="font-mono text-[11px] tracking-[0.28em] uppercase font-semibold mb-12">
+            <span className={purple ? '' : 'text-elec'} style={{ color: purple ? '#a78bfa' : undefined }}>{eyebrow}</span>
           </p>
           {children}
         </div>

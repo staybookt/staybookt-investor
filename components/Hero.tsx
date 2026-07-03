@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import Image from 'next/image';
 import { useRef } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion, type Variants } from 'framer-motion';
 import { CAL_LINK, PRICING } from '@/lib/site';
@@ -30,42 +30,48 @@ export default function Hero() {
       ref={ref}
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-28 pb-20 px-6 sm:px-12"
     >
+      {/* Photographic atmosphere, graded into the ink so it reads as depth, not stock. */}
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        <Image
+          src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=2200&q=70"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(100% 70% at 50% 0%, rgba(5,8,17,0.55), rgba(5,8,17,0.9) 70%), linear-gradient(180deg, rgba(5,8,17,0.78) 0%, rgba(5,8,17,0.94) 55%, #050811 100%)',
+          }}
+        />
+      </div>
+
       {/* Aurora background — two parallax layers of drifting gradient blobs. */}
       <motion.div aria-hidden style={{ y: y1 }} className="pointer-events-none absolute inset-0">
         <motion.div
-          className="absolute -top-48 -left-32 h-[40rem] w-[40rem] rounded-full blur-[90px] opacity-45"
-          style={{ background: 'radial-gradient(circle at 30% 30%, rgba(6,182,212,0.55), rgba(6,182,212,0) 70%)' }}
+          className="absolute -top-48 -left-32 h-[40rem] w-[40rem] rounded-full blur-[90px] opacity-40"
+          style={{ background: 'radial-gradient(circle at 30% 30%, rgba(6,182,212,0.5), rgba(6,182,212,0) 70%)' }}
           animate={reduce ? undefined : { x: [0, 40, 0], y: [0, -30, 0] }}
           transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
         />
       </motion.div>
       <motion.div aria-hidden style={{ y: y2 }} className="pointer-events-none absolute inset-0">
         <motion.div
-          className="absolute top-1/3 -right-40 h-[38rem] w-[38rem] rounded-full blur-[90px] opacity-40"
-          style={{ background: 'radial-gradient(circle at 60% 40%, rgba(16,185,129,0.5), rgba(16,185,129,0) 70%)' }}
+          className="absolute top-1/3 -right-40 h-[38rem] w-[38rem] rounded-full blur-[90px] opacity-35"
+          style={{ background: 'radial-gradient(circle at 60% 40%, rgba(16,185,129,0.45), rgba(16,185,129,0) 70%)' }}
           animate={reduce ? undefined : { x: [0, -50, 0], y: [0, 40, 0] }}
           transition={{ duration: 24, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
-          className="hidden sm:block absolute -bottom-56 left-1/4 h-[38rem] w-[38rem] rounded-full blur-[100px] opacity-30"
-          style={{ background: 'radial-gradient(circle at 50% 50%, rgba(124,58,237,0.5), rgba(124,58,237,0) 70%)' }}
+          className="hidden sm:block absolute -bottom-56 left-1/4 h-[38rem] w-[38rem] rounded-full blur-[100px] opacity-25"
+          style={{ background: 'radial-gradient(circle at 50% 50%, rgba(124,58,237,0.45), rgba(124,58,237,0) 70%)' }}
           animate={reduce ? undefined : { x: [0, 30, 0], y: [0, -20, 0] }}
           transition={{ duration: 26, repeat: Infinity, ease: 'easeInOut' }}
         />
       </motion.div>
-
-      {/* Subtle grid, masked to a soft center glow for depth */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.06]"
-        style={{
-          backgroundImage:
-            'linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)',
-          backgroundSize: '64px 64px',
-          maskImage: 'radial-gradient(ellipse 80% 60% at 50% 40%, black, transparent 75%)',
-          WebkitMaskImage: 'radial-gradient(ellipse 80% 60% at 50% 40%, black, transparent 75%)',
-        }}
-      />
 
       <motion.div
         style={{ y: yContent, opacity: fade }}
