@@ -67,20 +67,20 @@ export default function Hero() {
         />
       </motion.div>
 
-      {/* Legibility + tie into the ink page below. */}
-      <div aria-hidden className="absolute inset-0" style={{ background: 'rgba(5,8,17,0.40)' }} />
+      {/* Legibility + tie into the ink page below. Let the footage carry the color. */}
+      <div aria-hidden className="absolute inset-0" style={{ background: 'rgba(5,8,17,0.42)' }} />
       <div
         aria-hidden
         className="absolute inset-0"
         style={{
           background:
-            'linear-gradient(180deg, rgba(5,8,17,0.72) 0%, rgba(5,8,17,0.14) 26%, rgba(5,8,17,0.22) 55%, rgba(5,8,17,0.66) 82%, #050811 100%)',
+            'linear-gradient(180deg, rgba(5,8,17,0.72) 0%, rgba(5,8,17,0.16) 26%, rgba(5,8,17,0.24) 55%, rgba(5,8,17,0.68) 82%, #050811 100%)',
         }}
       />
       <div
         aria-hidden
         className="absolute inset-0"
-        style={{ background: 'radial-gradient(120% 92% at 50% 42%, rgba(0,0,0,0) 40%, rgba(5,8,17,0.5) 100%)' }}
+        style={{ background: 'radial-gradient(120% 92% at 50% 44%, rgba(0,0,0,0) 42%, rgba(5,8,17,0.5) 100%)' }}
       />
 
       {/* Content */}
@@ -93,29 +93,27 @@ export default function Hero() {
       >
         <motion.p
           variants={item}
-          className="mb-8 inline-flex items-center gap-2.5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.32em]"
+          className="mb-9 text-[11px] font-medium uppercase tracking-[0.24em] text-platinum-soft/90 sm:text-xs"
         >
-          <span className="inline-block h-1.5 w-1.5 rounded-full bg-elec animate-pulse" aria-hidden />
-          <span className="text-platinum-soft">A front office that gets paid to hustle like you</span>
+          A front office that gets paid to hustle like you
         </motion.p>
 
         <motion.h1
           variants={item}
-          className="font-display tracking-[-0.045em]"
-          style={{ fontSize: 'clamp(56px, 12vw, 150px)', lineHeight: 0.92, textShadow: '0 4px 60px rgba(0,0,0,0.45)' }}
+          className="font-display tracking-[-0.045em] text-white"
+          style={{ fontSize: 'clamp(56px, 12vw, 150px)', lineHeight: 0.9 }}
         >
           <span className="flex items-baseline justify-center">
-            <span className="text-white">Stay</span>
+            <span>Stay</span>
             <span className="wordmark-gradient">Bookt</span>
-            <span style={{ color: '#7C3AED' }}>.</span>
+            <span className="text-white">.</span>
           </span>
-          <span className="block text-brand-gradient">Enjoy Life.</span>
+          <span className="block">Enjoy Life.</span>
         </motion.h1>
 
         <motion.p
           variants={item}
-          className="mx-auto mt-9 max-w-2xl text-lg leading-relaxed text-platinum-soft sm:text-xl"
-          style={{ textShadow: '0 2px 30px rgba(0,0,0,0.5)' }}
+          className="mx-auto mt-10 max-w-2xl text-lg leading-relaxed text-platinum sm:text-xl"
         >
           It answers, quotes, and books every job while you are on the tools, and only gets paid when it puts money
           in your pocket. Built, run, and priced for a shop your size.
@@ -123,20 +121,19 @@ export default function Hero() {
 
         <motion.div
           variants={item}
-          className="mt-11 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4"
+          className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6"
         >
           <a
             href={CAL_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-elec to-hvac px-8 py-4 text-base font-bold text-ink transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_50px_-8px_rgba(6,182,212,0.7)] sm:text-lg"
+            className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-3.5 text-base font-semibold text-ink transition-colors duration-200 hover:bg-white/90"
           >
             Book a 30-minute call
-            <span aria-hidden className="transition-transform group-hover:translate-x-1">{'→'}</span>
           </a>
           <a
             href="#m1"
-            className="inline-flex items-center gap-2 px-5 py-4 text-sm text-platinum-soft transition-colors hover:text-white sm:text-base"
+            className="inline-flex items-center gap-2 text-base text-platinum-soft transition-colors hover:text-white"
           >
             See it run <span aria-hidden>{'↓'}</span>
           </a>
