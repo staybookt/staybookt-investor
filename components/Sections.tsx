@@ -98,7 +98,7 @@ export function Hero() {
           transition={{ duration: 0.4, delay: 0.45 }}
           className="mt-6 text-platinum-soft/90 text-xs sm:text-sm tracking-[0.18em] uppercase font-semibold"
         >
-          <span className="text-elec">Pilot 1 paid · May 2026</span>
+          <span className="text-mute">Pilot 1 paid · May 2026</span>
           <span className="mx-3 text-mute">·</span>
           <span>3 more in conversation</span>
         </motion.p>
@@ -245,18 +245,9 @@ export function CategoryPosition() {
         }}
       />
 
-      {/* Cyan glow behind the StayBookt lane */}
-      <div
-        className="absolute right-[8%] top-[58%] w-[480px] h-[480px] rounded-full pointer-events-none opacity-25"
-        style={{
-          background: 'radial-gradient(circle, var(--elec) 0%, transparent 70%)',
-          filter: 'blur(100px)',
-        }}
-      />
-
       <div className="relative px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-[11px] tracking-[0.3em] uppercase text-elec font-semibold mb-6">
+          <p className="text-[11px] tracking-[0.3em] uppercase text-mute font-semibold mb-6">
             Positioning
           </p>
         </Reveal>
@@ -322,7 +313,7 @@ export function CategoryPosition() {
                   <div
                     className={`flex flex-col lg:grid lg:grid-cols-[240px_1fr_90px] gap-4 lg:gap-8 lg:items-center rounded-xl px-5 sm:px-5 py-5 sm:py-6 border transition-all ${
                       lane.us
-                        ? 'border-elec/40 bg-gradient-to-r from-elec/[0.10] via-elec/[0.04] to-transparent shadow-[0_18px_44px_-16px_rgba(6,182,212,0.4)]'
+                        ? 'border-elec/40 bg-ink-soft/30'
                         : 'border-divider/40 bg-ink-soft/30'
                     }`}
                   >
@@ -450,7 +441,7 @@ export function TheWhy() {
           {/* LEFT, copy */}
           <div className="lg:col-span-6">
             <Reveal>
-              <p className="text-xs sm:text-sm font-semibold tracking-[0.3em] text-elec uppercase mb-8">
+              <p className="text-xs sm:text-sm font-semibold tracking-[0.3em] text-mute uppercase mb-8">
                 Why we exist
               </p>
             </Reveal>
@@ -460,7 +451,7 @@ export function TheWhy() {
               </h2>
             </Reveal>
             <Reveal delay={0.25}>
-              <h2 className="font-display text-elec text-[56px] sm:text-[88px] leading-[0.95] tracking-[-0.04em]">
+              <h2 className="font-display text-white text-[56px] sm:text-[88px] leading-[0.95] tracking-[-0.04em]">
                 at $1M.
               </h2>
             </Reveal>
@@ -698,7 +689,7 @@ export function Photography() {
       {/* Caption */}
       <div className="absolute bottom-0 left-0 right-0 px-8 sm:px-16 pb-16">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-4">First embedded client</p>
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-4">First embedded client</p>
           <h3 className="font-display text-white text-5xl sm:text-7xl tracking-tight">Top Choice Electrical</h3>
           <p className="mt-3 text-platinum-soft text-base sm:text-lg max-w-2xl">
             Tim Ciszkowski · Newmarket, Ontario · 22 years on the tools · ESA certified
@@ -722,7 +713,7 @@ export function Problems() {
     <section id="problems" className="relative bg-ink text-white py-32 overflow-hidden">
       <div className="px-8 sm:px-16 max-w-7xl mx-auto w-full">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-8">Five problems</p>
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-8">Five problems</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-tight mb-16">
@@ -794,7 +785,7 @@ function LeakyFunnel({ items }: { items: { color: string; loss: number; name: st
 
   return (
     <div className="bg-ink-soft border border-divider rounded-2xl p-6">
-      <p className="text-[10px] tracking-[0.25em] uppercase text-elec font-semibold mb-2">Lead leakage funnel</p>
+      <p className="text-[10px] tracking-[0.25em] uppercase text-mute font-semibold mb-2">Lead leakage funnel</p>
       <p className="text-platinum-soft text-sm mb-6">100 inbound signals at the top , how few survive to a booking.</p>
 
       <svg ref={ref} viewBox={`0 0 ${W} ${H}`} className="w-full h-auto">
@@ -975,9 +966,6 @@ export function Flywheel() {
 export function TAM() {
   return (
     <section id="tam" className="relative bg-ink text-white min-h-screen flex items-center py-32 overflow-hidden">
-      <div className="orb" style={{ width: 500, height: 500, background: 'var(--hvac)', top: '20%', left: '-10%', opacity: 0.3 }} />
-      <div className="orb" style={{ width: 400, height: 400, background: 'var(--plumb)', bottom: '10%', right: '-5%', opacity: 0.25 }} />
-
       <div className="px-8 sm:px-16 max-w-7xl mx-auto w-full relative">
         <Reveal>
           <p className="text-xs tracking-[0.3em] text-hvac font-semibold uppercase mb-8">The market</p>
@@ -1006,26 +994,6 @@ export function TAM() {
 export function Ask() {
   return (
     <section id="ask" className="relative bg-ink text-white min-h-screen flex items-center justify-center py-32 overflow-hidden">
-      {/* Closing gradient sweep */}
-      <motion.div
-        className="orb"
-        style={{ width: 800, height: 800, background: 'var(--elec)', top: '-20%', right: '-20%', opacity: 0.3 }}
-        animate={{ scale: [1, 1.2, 1] }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      <motion.div
-        className="orb"
-        style={{ width: 600, height: 600, background: 'var(--plumb)', bottom: '0%', left: '-10%', opacity: 0.25 }}
-        animate={{ scale: [1.1, 1, 1.1] }}
-        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      <motion.div
-        className="orb"
-        style={{ width: 500, height: 500, background: 'var(--hvac)', top: '40%', right: '20%', opacity: 0.2 }}
-        animate={{ scale: [1, 1.15, 1] }}
-        transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
-      />
-
       <div className="relative z-10 text-center px-8">
         <Reveal>
           <h2 className="font-display text-[80px] sm:text-[180px] leading-none tracking-[-0.05em]">
