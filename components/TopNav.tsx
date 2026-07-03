@@ -49,12 +49,12 @@ export function TopNav({
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-1">
+        <nav className="hidden md:flex items-center gap-2">
           {pages.map((p) => {
             const isActive = !!active && p.href.includes(active);
             const isAnchor = p.href.startsWith('#');
-            const className = `text-[11px] tracking-[0.18em] uppercase font-semibold px-3 py-2 rounded-md transition-colors ${
-              isActive ? 'text-elec' : 'text-platinum-soft hover:text-white'
+            const className = `text-[13px] font-medium px-3 py-2 transition-colors ${
+              isActive ? 'text-white' : 'text-platinum-soft hover:text-white'
             }`;
             return isAnchor ? (
               <a key={p.href} href={p.href} className={className}>
@@ -73,9 +73,9 @@ export function TopNav({
             href={CAL_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-elec hover:bg-elec-light text-ink text-xs font-bold px-4 py-2 rounded-lg transition-colors"
+            className="rounded-full bg-white text-ink text-[13px] font-semibold px-5 py-2 transition-colors hover:bg-white/90"
           >
-            Book 30 min
+            Book a call
           </a>
         </div>
 
@@ -98,11 +98,11 @@ export function TopNav({
       {/* Mobile menu */}
       {open && (
         <nav className="md:hidden border-t border-divider/50 bg-ink/95 backdrop-blur-md">
-          <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-2">
+          <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-1">
             {pages.map((p) => {
               const isAnchor = p.href.startsWith('#');
               const inner = (
-                <span className="block text-sm tracking-wider uppercase font-semibold py-2 text-platinum hover:text-white">
+                <span className="block text-[15px] font-medium py-2 text-platinum hover:text-white">
                   {p.label}
                 </span>
               );
@@ -120,9 +120,9 @@ export function TopNav({
               href={CAL_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-2 bg-elec text-ink text-sm font-bold px-4 py-3 rounded-lg text-center"
+              className="mt-3 rounded-full bg-white text-ink text-sm font-semibold px-4 py-3 text-center"
             >
-              Book 30 min
+              Book a call
             </a>
           </div>
         </nav>
