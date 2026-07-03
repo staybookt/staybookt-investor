@@ -113,7 +113,7 @@ export function TimCase() {
     <section id="case" ref={ref} className="relative bg-cream text-ink py-32 overflow-hidden">
       <div className="px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">First customer · Live since March 2026</p>
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-6">First customer · Live since March 2026</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
@@ -142,7 +142,7 @@ export function TimCase() {
                 />
               </motion.div>
               <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-ink/95 via-ink/60 to-transparent text-white">
-                <p className="text-xs tracking-[0.25em] text-elec font-semibold uppercase mb-2">Tim Ciszkowski</p>
+                <p className="text-xs tracking-[0.25em] text-mute font-semibold uppercase mb-2">Tim Ciszkowski</p>
                 <p className="font-display text-2xl tracking-tight">Owner, Top Choice Electrical</p>
                 <p className="text-platinum-soft text-sm mt-1">Newmarket, ON · ESA licensed · 22 yrs</p>
               </div>
@@ -213,7 +213,7 @@ export function TimCase() {
               className="lg:col-span-5 group bg-ink text-white rounded-2xl p-6 sm:p-8 flex flex-col justify-between hover:bg-ink-soft transition-colors"
             >
               <div>
-                <p className="text-[10px] tracking-[0.25em] uppercase text-elec font-semibold mb-2">See it live</p>
+                <p className="text-[10px] tracking-[0.25em] uppercase text-mute font-semibold mb-2">See it live</p>
                 <p className="font-display text-2xl tracking-tight mb-3">topchoiceelectrical.ca</p>
                 <p className="text-platinum-soft text-sm leading-relaxed">
                   The actual site we shipped for Tim. Fielding real calls today. Open it in a new tab and click around.
@@ -264,8 +264,6 @@ export function HowItWorks() {
 
   return (
     <section id="how" className="relative bg-ink text-white py-32 overflow-hidden">
-      <div className="orb" style={{ width: 400, height: 400, background: 'var(--plumb)', top: '10%', left: '-10%', opacity: 0.15 }} />
-
       <div className="px-8 sm:px-16 max-w-7xl mx-auto relative">
         <Reveal>
           <p className="text-xs tracking-[0.3em] text-plumb font-semibold uppercase mb-6">How it works</p>
@@ -346,7 +344,7 @@ export function Pricing() {
     <section id="pricing" className="relative bg-cream text-ink py-32">
       <div className="px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">Pricing</p>
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-6">Pricing</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
@@ -441,11 +439,9 @@ export function Moat() {
 
   return (
     <section id="moat" className="relative bg-ink text-white py-32 overflow-hidden">
-      <div className="orb" style={{ width: 600, height: 600, background: 'var(--elec)', top: '-15%', right: '-10%', opacity: 0.18 }} />
-
       <div className="px-8 sm:px-16 max-w-7xl mx-auto relative">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">Why us, why now</p>
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-6">Why us, why now</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
@@ -554,8 +550,6 @@ export function Pipeline() {
 
   return (
     <section id="pipeline" className="relative bg-ink text-white py-32 overflow-hidden">
-      <div className="orb" style={{ width: 500, height: 500, background: 'var(--hvac)', bottom: '-10%', left: '-5%', opacity: 0.15 }} />
-
       <div className="px-8 sm:px-16 max-w-7xl mx-auto relative">
         <Reveal>
           <p className="text-xs tracking-[0.3em] text-hvac font-semibold uppercase mb-6">In motion</p>
@@ -652,7 +646,7 @@ export function Team() {
     <section id="team" className="relative bg-cream text-ink py-32">
       <div className="px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">Who is building this</p>
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-6">Who is building this</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-16">
@@ -726,28 +720,9 @@ export function Team() {
 export function AskV2() {
   return (
     <section id="ask" className="relative bg-ink text-white min-h-screen flex items-center justify-center py-32 overflow-hidden">
-      <motion.div
-        className="orb"
-        style={{ width: 800, height: 800, background: 'var(--elec)', top: '-20%', right: '-20%', opacity: 0.3 }}
-        animate={{ scale: [1, 1.2, 1] }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      <motion.div
-        className="orb"
-        style={{ width: 600, height: 600, background: 'var(--plumb)', bottom: '0%', left: '-10%', opacity: 0.25 }}
-        animate={{ scale: [1.1, 1, 1.1] }}
-        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      <motion.div
-        className="orb"
-        style={{ width: 500, height: 500, background: 'var(--hvac)', top: '40%', right: '20%', opacity: 0.2 }}
-        animate={{ scale: [1, 1.15, 1] }}
-        transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
-      />
-
       <div className="relative z-10 text-center px-8 max-w-5xl">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-8">The ask</p>
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-8">The ask</p>
         </Reveal>
         <Reveal delay={0.15}>
           <h2 className="font-display text-[80px] sm:text-[160px] leading-[0.9] tracking-[-0.05em]">
@@ -777,7 +752,7 @@ export function AskV2() {
               href="https://cal.com/jacobcharendoff/staybookt"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-elec hover:bg-elec-light text-ink font-bold px-8 py-4 rounded-xl text-base sm:text-lg transition-all hover:scale-[1.02] shadow-lg shadow-elec/30"
+              className="rounded-full bg-white hover:bg-white/90 text-ink font-bold px-8 py-4 text-base sm:text-lg transition-all hover:scale-[1.02]"
             >
               Book 30 min →
             </a>
