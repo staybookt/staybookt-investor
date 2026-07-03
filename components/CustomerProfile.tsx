@@ -37,7 +37,7 @@ export function ICPSegment() {
     <section id="icp" className="relative bg-cream text-ink py-32">
       <div className="px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">The segment</p>
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-6">The segment</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
@@ -135,7 +135,7 @@ export function OwnerWeek() {
 
       <div className="relative px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">The owner&apos;s week</p>
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-6">The owner&apos;s week</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
@@ -262,7 +262,7 @@ export function VendorSpend() {
     <section id="spend" className="relative bg-cream text-ink py-32">
       <div className="px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">What they spend today</p>
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-6">What they spend today</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
@@ -318,7 +318,7 @@ export function VendorSpend() {
                 <p className="text-mute text-sm mt-3 max-w-md">Plus 16 hours per week of owner time integrating four vendors into something resembling an operating system.</p>
               </div>
               <div className="text-right">
-                <p className="text-[11px] tracking-[0.25em] uppercase font-semibold text-elec mb-2">StayBookt</p>
+                <p className="text-[11px] tracking-[0.25em] uppercase font-semibold text-mute mb-2">StayBookt</p>
                 <p className="font-display text-2xl sm:text-3xl tracking-tight text-ink">$28K – $50K /yr</p>
                 <p className="text-mute text-xs mt-2 max-w-[240px] ml-auto">One retainer, one team, one accountable cadence. Foundation buildout amortized.</p>
               </div>
@@ -342,17 +342,9 @@ export function VendorSpend() {
 export function MissedCallWound() {
   return (
     <section id="missed-calls" className="relative bg-ink text-white py-32 overflow-hidden">
-      {/* Radial red wash */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-40"
-        style={{
-          background: 'radial-gradient(circle at 75% 30%, rgba(79, 70, 229, 0.18) 0%, transparent 60%)',
-        }}
-      />
-
       <div className="relative px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">The single biggest leak</p>
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-6">The single biggest leak</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
@@ -390,7 +382,7 @@ export function MissedCallWound() {
 
         <Reveal delay={0.7}>
           <div className="mt-12 p-6 sm:p-8 bg-ink-soft/60 border-l-4 border-elec rounded-2xl">
-            <p className="text-elec text-[11px] tracking-[0.25em] uppercase font-semibold mb-3">What this means for our pitch</p>
+            <p className="text-mute text-[11px] tracking-[0.25em] uppercase font-semibold mb-3">What this means for our pitch</p>
             <p className="font-display text-2xl sm:text-3xl tracking-[-0.02em] leading-snug max-w-4xl">
               Software does not pick up the phone. A marketing agency does not pick up the phone. The single biggest revenue lever in this segment is recovering missed calls, and only an operating team that runs capture and follow-up on a defined cadence actually does it.
             </p>
@@ -441,7 +433,7 @@ function CallFunnelWaterfall() {
     <div className="bg-ink-soft/40 border border-divider rounded-2xl p-6 sm:p-10">
       <div className="flex items-baseline justify-between mb-6 flex-wrap gap-2">
         <p className="text-[11px] tracking-[0.25em] uppercase text-mute font-semibold">Where 100 inbound calls go in a typical week</p>
-        <p className="text-[10px] tracking-[0.2em] uppercase text-elec font-semibold sm:hidden">Swipe to follow →</p>
+        <p className="text-[10px] tracking-[0.2em] uppercase text-mute font-semibold sm:hidden">Swipe to follow →</p>
       </div>
       <div className="overflow-x-auto -mx-6 sm:mx-0 px-6 sm:px-0">
       <svg ref={ref} viewBox={`0 0 ${W} ${H}`} className="w-full h-auto min-w-[640px]">
@@ -572,7 +564,7 @@ export function BuyingTriggers() {
     <section id="triggers" className="relative bg-cream text-ink py-32">
       <div className="px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">Why they sign</p>
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-6">Why they sign</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
@@ -614,16 +606,9 @@ export function BuyingTriggers() {
 export function SegmentTAM() {
   return (
     <section id="segment-tam" className="relative bg-ink text-white py-32 overflow-hidden">
-      <div
-        className="absolute inset-0 pointer-events-none opacity-30"
-        style={{
-          background: 'radial-gradient(circle at 30% 50%, rgba(6,182,212,0.15) 0%, transparent 60%)',
-        }}
-      />
-
       <div className="relative px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">Ontario serviceable ARR</p>
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-6">Ontario serviceable ARR</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
@@ -673,7 +658,7 @@ export function SegmentTAM() {
             <div className="mt-10 pt-8 border-t border-divider grid sm:grid-cols-[auto_1fr] items-center gap-6">
               <p className="font-display text-4xl text-platinum-soft">=</p>
               <div>
-                <p className="text-[11px] tracking-[0.25em] uppercase text-elec font-semibold mb-2">Ontario serviceable ARR, 5% penetration</p>
+                <p className="text-[11px] tracking-[0.25em] uppercase text-mute font-semibold mb-2">Ontario serviceable ARR, 5% penetration</p>
                 <motion.p
                   className="font-display text-5xl sm:text-7xl tracking-[-0.05em] text-white"
                   initial={{ opacity: 0, y: 12 }}
@@ -701,7 +686,7 @@ export function PilotOneCompact() {
     <section id="pilot-one" className="relative bg-cream text-ink py-24">
       <div className="px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">Pilot 1, live</p>
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-6">Pilot 1, live</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-4xl sm:text-6xl tracking-[-0.04em] mb-10 max-w-3xl">
@@ -721,7 +706,7 @@ export function PilotOneCompact() {
                 sizes="260px"
               />
               <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-ink/95 via-ink/40 to-transparent text-white">
-                <p className="text-[10px] tracking-[0.25em] text-elec font-semibold uppercase mb-1">Pilot 01</p>
+                <p className="text-[10px] tracking-[0.25em] text-mute font-semibold uppercase mb-1">Pilot 01</p>
                 <p className="font-display text-lg tracking-tight">Tim Ciszkowski</p>
                 <p className="text-platinum-soft text-[11px]">Top Choice Electrical · ESA licensed</p>
               </div>
@@ -788,7 +773,7 @@ export function MeasurementPlan() {
     <section id="measurement" className="relative bg-cream text-ink py-32">
       <div className="px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">How we publish receipts</p>
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-6">How we publish receipts</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-4xl sm:text-6xl tracking-[-0.04em] mb-4">
