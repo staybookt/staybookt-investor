@@ -4,9 +4,7 @@ import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useMotionValueEvent, useReducedMotion } from 'framer-motion';
 
 /* The operating loop, told. A sticky wheel on one side; as you scroll, each
- * node lights up and the panel explains what that part actually does. Content
- * is the whiteboard flywheel in plain owner language. The website + getting
- * found run today; the AI steps roll in as the platform ships. */
+ * node lights up and the panel explains what that part actually does. */
 
 type Step = {
   key: string;
@@ -57,7 +55,7 @@ const STEPS: Step[] = [
 
 // 6 nodes around the ring (the 7th step emphasizes the center).
 const ANGLES = [-90, -30, 30, 90, 150, 210];
-const CX = 300, CY = 300, R = 200, NR = 60;
+const CX = 300, CY = 300, R = 200, NR = 56;
 const NODE_PTS = ANGLES.map((a) => {
   const rad = (a * Math.PI) / 180;
   return { x: CX + R * Math.cos(rad), y: CY + R * Math.sin(rad) };
@@ -75,7 +73,6 @@ export default function OperatingLoop() {
   });
 
   const wheelY = useTransform(scrollYProgress, [0, 1], [reduce ? 0 : 24, reduce ? 0 : -24]);
-  const wheelScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.05, 1]);
   const onCompound = active === STEPS.length - 1;
 
   return (
@@ -83,7 +80,7 @@ export default function OperatingLoop() {
       <div className="mx-auto grid max-w-6xl gap-8 px-6 sm:px-12 lg:grid-cols-2 lg:gap-12">
         {/* Sticky wheel */}
         <div className="top-0 flex h-[62vh] items-center justify-center lg:sticky lg:h-screen">
-          <motion.div style={{ y: wheelY, scale: wheelScale }} className="w-full max-w-lg">
+          <motion.div style={{ y: wheelY }} className="w-full max-w-lg">
             <Wheel active={active} onCompound={onCompound} />
           </motion.div>
         </div>
@@ -101,8 +98,8 @@ export default function OperatingLoop() {
                 <span className="font-mono text-[12px] tracking-[0.2em] text-mute">
                   {String(i + 1).padStart(2, '0')} / {STEPS.length}
                 </span>
-                <p className={`mt-3 text-[11px] font-semibold uppercase tracking-[0.22em] ${s.isYou ? 'text-hvac-light' : 'text-elec-light'}`}>
-                  {s.label} · {s.sub}
+                <p className="mt-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-mute">
+                  {s.label} &middot; {s.sub}
                 </p>
                 <h3 className="mt-2 font-display text-3xl leading-tight tracking-tight text-white sm:text-4xl">{s.headline}</h3>
                 <p className="mt-4 max-w-md text-base leading-relaxed text-platinum-soft sm:text-lg">{s.body}</p>
@@ -118,48 +115,51 @@ export default function OperatingLoop() {
 function Wheel({ active, onCompound }: { active: number; onCompound: boolean }) {
   return (
     <svg viewBox="0 0 600 600" className="block w-full" role="img" aria-label="The StayBookt operating loop">
-      <defs>
-        <linearGradient id="ol-grad" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#06B6D4" />
-          <stop offset="100%" stopColor="#10B981" />
-        </linearGradient>
-        <filter id="ol-glow" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="6" result="b" />
-          <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
-        </filter>
-      </defs>
-
       {/* arcs */}
       {NODE_PTS.map((from, i) => {
         const to = NODE_PTS[(i + 1) % NODE_PTS.length];
+        const done = active >= i;
         return (
-          <path key={`arc-${i}`} d={`M ${from.x} ${from.y} A ${R} ${R} 0 0 1 ${to.x} ${to.y}`}
-            stroke="url(#ol-grad)" strokeWidth="3" fill="none" strokeLinecap="round"
-            opacity={active >= i ? 0.9 : 0.4} style={{ transition: 'opacity 0.4s' }} />
+          <path
+            key={`arc-${i}`}
+            d={`M ${from.x} ${from.y} A ${R} ${R} 0 0 1 ${to.x} ${to.y}`}
+            stroke={done ? '#22D3EE' : 'rgba(255,255,255,0.13)'}
+            strokeWidth="2.5"
+            fill="none"
+            strokeLinecap="round"
+            style={{ transition: 'stroke 0.4s' }}
+          />
         );
       })}
 
       {/* center: customer database */}
-      <circle cx={CX} cy={CY} r="80" fill="#050811" stroke="url(#ol-grad)" strokeWidth="3"
-        opacity={onCompound ? 1 : 0.85} filter={onCompound ? 'url(#ol-glow)' : undefined} style={{ transition: 'opacity 0.4s' }} />
-      <text x={CX} y={CY - 10} textAnchor="middle" fill="#fff" fontSize="19" fontWeight="800">Your customer</text>
-      <text x={CX} y={CY + 13} textAnchor="middle" fill="#fff" fontSize="19" fontWeight="800">database</text>
-      <text x={CX} y={CY + 35} textAnchor="middle" fill="#67E8F9" fontSize="12" fontWeight="700" letterSpacing="2">COMPOUNDS</text>
+      <circle
+        cx={CX} cy={CY} r="78" fill="#0A0F1A"
+        stroke={onCompound ? 'rgba(103,232,249,0.55)' : 'rgba(255,255,255,0.2)'}
+        strokeWidth="1.5"
+        style={{ transition: 'stroke 0.4s' }}
+      />
+      <text x={CX} y={CY - 10} textAnchor="middle" fill="#fff" fontSize="18" fontWeight="700">Your customer</text>
+      <text x={CX} y={CY + 13} textAnchor="middle" fill="#fff" fontSize="18" fontWeight="700">database</text>
+      <text x={CX} y={CY + 35} textAnchor="middle" fill="#8CA0B8" fontSize="11" fontWeight="600" letterSpacing="2">COMPOUNDS</text>
 
       {/* nodes */}
       {NODE_PTS.map((p, i) => {
         const s = STEPS[i];
         const isActive = active === i;
         const you = s.isYou;
-        const fill = you ? '#10B981' : isActive ? '#0E2230' : '#161B2C';
-        const stroke = you ? '#10B981' : isActive ? '#67E8F9' : '#22D3EE';
+        const fill = you ? '#10B981' : isActive ? '#101828' : '#0B1019';
+        const stroke = you ? '#10B981' : isActive ? 'rgba(255,255,255,0.6)' : 'rgba(255,255,255,0.14)';
         return (
-          <g key={s.key} filter={isActive ? 'url(#ol-glow)' : undefined} style={{ transition: 'all 0.3s' }}>
-            <circle cx={p.x} cy={p.y} r={NR} fill={fill} stroke={stroke} strokeWidth={isActive ? 4 : 2.5}
-              opacity={isActive || you ? 1 : 0.82} style={{ transition: 'all 0.3s' }} />
-            <text x={p.x} y={p.y - 4} textAnchor="middle" fill={you ? '#050811' : '#fff'} fontSize="18" fontWeight="800"
-              opacity={isActive || you ? 1 : 0.92}>{s.label}</text>
-            <text x={p.x} y={p.y + 15} textAnchor="middle" fill={you ? '#04231A' : '#D7E3EA'} fontSize="11" fontWeight="600" letterSpacing="0.3"
+          <g key={s.key} style={{ transition: 'all 0.3s' }}>
+            <circle
+              cx={p.x} cy={p.y} r={NR} fill={fill} stroke={stroke}
+              strokeWidth={isActive ? 2.5 : 1.5}
+              style={{ transition: 'all 0.3s' }}
+            />
+            <text x={p.x} y={p.y - 3} textAnchor="middle" fill={you ? '#04231A' : '#fff'} fontSize="17" fontWeight="700"
+              opacity={isActive || you ? 1 : 0.9}>{s.label}</text>
+            <text x={p.x} y={p.y + 15} textAnchor="middle" fill={you ? '#04231A' : '#8CA0B8'} fontSize="10.5" fontWeight="500"
               opacity={isActive || you ? 1 : 0.85}>{s.sub}</text>
           </g>
         );
