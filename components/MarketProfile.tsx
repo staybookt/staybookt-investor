@@ -70,7 +70,7 @@ export function CapitalFlow() {
 
       <div className="relative px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">Where the smart money landed</p>
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-6">Where the smart money landed</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
@@ -148,7 +148,7 @@ export function TwoLayers() {
     <section id="two-layers" className="relative bg-cream text-ink py-32">
       <div className="px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">The two funded layers</p>
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-6">The two funded layers</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
@@ -210,7 +210,7 @@ function PositioningChart() {
     <div className="bg-paper border border-divider-lt rounded-2xl p-6 sm:p-10">
       <div className="flex items-baseline justify-between mb-6 flex-wrap gap-2">
         <p className="text-[11px] tracking-[0.25em] uppercase text-mute font-semibold">Trades capital, plotted by business size and depth of service</p>
-        <p className="text-[10px] tracking-[0.2em] uppercase text-elec font-semibold lg:hidden">Swipe to explore →</p>
+        <p className="text-[10px] tracking-[0.2em] uppercase text-mute font-semibold lg:hidden">Swipe to explore →</p>
       </div>
       <div className="overflow-x-auto -mx-6 sm:mx-0 px-6 sm:px-0">
       <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto min-w-[820px]">
@@ -346,7 +346,7 @@ export function SilverTsunami() {
     <section id="silver-tsunami" className="relative bg-cream text-ink py-32">
       <div className="px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">The timing window</p>
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-6">The timing window</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
@@ -382,7 +382,7 @@ export function SilverTsunami() {
         {/* Closing claim card */}
         <Reveal delay={0.7}>
           <div className="mt-14 p-8 bg-ink text-white rounded-2xl">
-            <p className="text-elec text-[11px] tracking-[0.25em] uppercase font-semibold mb-3">What this means for the thesis</p>
+            <p className="text-mute text-[11px] tracking-[0.25em] uppercase font-semibold mb-3">What this means for the thesis</p>
             <p className="font-display text-2xl sm:text-3xl tracking-[-0.02em] leading-snug max-w-4xl">
               We are not building a marketing agency or a CRM. We are building the operating layer that makes a $700K HVAC business into an asset somebody can buy. The wave of forced exits creates a buyer of last resort that only takes $5M+ businesses. We are the path from $700K to $5M. We are also the path to sale of the business as an asset.
             </p>
@@ -446,7 +446,7 @@ export function NamedComp() {
     <section id="named-comp" className="relative bg-ink text-white py-32 overflow-hidden">
       <div className="relative px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">The comp set, by name</p>
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-6">The comp set, by name</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
@@ -468,7 +468,7 @@ export function NamedComp() {
               <div
                 className={`grid grid-cols-1 lg:grid-cols-[200px_1fr_1fr_1fr] gap-5 lg:gap-8 rounded-2xl border p-6 sm:p-8 transition-all ${
                   row.us
-                    ? 'bg-gradient-to-r from-indigo-500/10 via-indigo-500/5 to-transparent border-indigo-500/40 shadow-[0_18px_44px_-16px_rgba(79,70,229,0.4)]'
+                    ? 'bg-ink-soft/40 border-indigo-500/40'
                     : 'bg-ink-soft/40 border-divider'
                 }`}
               >
@@ -540,7 +540,7 @@ export function MoatFour() {
     <section id="moat" className="relative bg-cream text-ink py-32">
       <div className="px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">Defensibility</p>
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-6">Defensibility</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
