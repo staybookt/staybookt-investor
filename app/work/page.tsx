@@ -16,7 +16,7 @@ export default function WorkPage() {
       <main className="bg-ink-deep">
         <section className="px-6 pb-10 pt-36 sm:px-12 sm:pt-44">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-elec-light">Our work</p>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-mute">Our work</p>
             <h1 className="mt-4 font-display text-4xl leading-tight tracking-tight text-white sm:text-6xl">
               Real owners. Real sites. Live now.
             </h1>
@@ -90,7 +90,7 @@ export default function WorkPage() {
               </div>
             </div>
             <div className="p-8 sm:p-10">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-elec-light">Professional services · HR consultancy · York Region</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-mute">Professional services · HR consultancy · York Region</p>
               <h2 className="mt-3 font-display text-3xl tracking-tight text-white">XNL HR &amp; Communications</h2>
               <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-platinum-soft">
                 Evert Akkerman, CHRL, runs a fractional HR practice where his judgment is the product. We built a site that
@@ -102,10 +102,10 @@ export default function WorkPage() {
         </section>
 
         <section className="px-6 py-20 sm:px-12">
-          <div className="mx-auto max-w-2xl rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-transparent p-8 text-center sm:p-12">
+          <div className="mx-auto max-w-2xl rounded-3xl border border-white/10 p-8 text-center sm:p-12">
             <h2 className="font-display text-3xl tracking-tight text-white">Want to be one of these?</h2>
             <p className="mx-auto mt-4 max-w-md text-base text-platinum-soft">We are taking on a small number of owners we can do great work for. See if you are a fit.</p>
-            <a href={CAL_LINK} target="_blank" rel="noopener noreferrer" className="mt-7 inline-block rounded-lg bg-gradient-to-r from-elec to-hvac px-8 py-4 text-base font-bold text-ink transition-transform hover:-translate-y-0.5">Book a 30-minute call</a>
+            <a href={CAL_LINK} target="_blank" rel="noopener noreferrer" className="mt-7 inline-block rounded-full bg-white px-8 py-4 text-base font-bold text-ink transition-transform hover:-translate-y-0.5 hover:bg-white/90">Book a 30-minute call</a>
           </div>
         </section>
       </main>
