@@ -65,7 +65,7 @@ export function BeforeAfterTCE() {
     <section id="before-after" className="relative bg-ink text-white py-32 overflow-hidden">
       <div className="px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">Drag the handle</p>
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-6">Drag the handle</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
@@ -167,7 +167,7 @@ export function LiveTimEmbed() {
     <section id="live-demo" className="relative bg-cream text-ink py-32">
       <div className="px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">Live · not a mockup</p>
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-6">Live · not a mockup</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
@@ -318,7 +318,6 @@ export function CustomerJourney() {
 
   return (
     <section id="journey" className="relative bg-ink text-white py-32 overflow-hidden">
-      <div className="orb" style={{ width: 400, height: 400, background: 'var(--plumb)', top: '20%', right: '-10%', opacity: 0.15 }} />
 
       <div className="px-8 sm:px-16 max-w-7xl mx-auto relative">
         <Reveal>
@@ -398,7 +397,7 @@ export function PricingV3() {
 
       <div className="relative px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-6">
             Pricing &amp; revenue model
           </p>
         </Reveal>
@@ -420,14 +419,14 @@ export function PricingV3() {
 
         {/* ============== STEP 1, The Pilot front door ============== */}
         <Reveal delay={0.35}>
-          <div className="mb-6 rounded-2xl border border-elec/40 bg-gradient-to-r from-elec/[0.10] to-transparent p-7 sm:p-9 relative overflow-hidden">
+          <div className="mb-6 rounded-2xl border border-elec/40 p-7 sm:p-9 relative overflow-hidden">
             <div
               className="absolute top-0 left-0 right-0 h-[2px]"
               style={{ background: 'linear-gradient(90deg, #06B6D4 0%, #10B981 50%, #4F46E5 100%)' }}
             />
             <div className="grid md:grid-cols-[1fr_auto] gap-6 items-center">
               <div>
-                <p className="text-[10px] tracking-[0.3em] uppercase font-bold text-elec mb-3">
+                <p className="text-[10px] tracking-[0.3em] uppercase font-bold text-mute mb-3">
                   Step 01 · The Pilot
                 </p>
                 <h3 className="font-display text-3xl sm:text-4xl tracking-tight leading-tight mb-3">
@@ -436,7 +435,7 @@ export function PricingV3() {
                 <p className="text-platinum-soft text-base leading-relaxed max-w-2xl mb-4">
                   A real paid pilot, not a free trial. GBP rebuild + lead-gen audit + 30 days of capture systems live + first content shipped. Audited proof of concept in 30 days.
                 </p>
-                <p className="text-[11px] tracking-[0.2em] uppercase text-elec font-semibold">
+                <p className="text-[11px] tracking-[0.2em] uppercase text-mute font-semibold">
                   → 100% credited toward Foundation if you continue
                 </p>
               </div>
@@ -560,13 +559,13 @@ export function PricingV3() {
 
           {/* TIER 2, Operating Layer (featured) */}
           <Reveal delay={0.6}>
-            <div className="relative rounded-2xl border border-elec/40 bg-gradient-to-b from-elec/[0.10] via-elec/[0.04] to-transparent shadow-[0_24px_60px_-20px_rgba(6,182,212,0.4)] p-7 sm:p-9 h-full flex flex-col md:-translate-y-2">
+            <div className="relative rounded-2xl border border-elec/40 p-7 sm:p-9 h-full flex flex-col md:-translate-y-2">
               <div
                 className="absolute top-0 left-0 right-0 h-[2px]"
                 style={{ background: 'linear-gradient(90deg, #06B6D4 0%, #10B981 25%, #14B8A6 50%, #2563EB 75%, #4F46E5 100%)' }}
               />
               <div className="flex items-center justify-between mb-5">
-                <p className="text-[10px] tracking-[0.25em] uppercase font-bold text-elec">
+                <p className="text-[10px] tracking-[0.25em] uppercase font-bold text-mute">
                   Tier 02 · Operating Layer
                 </p>
                 <span className="text-[9px] tracking-[0.2em] uppercase font-bold px-2 py-1 rounded bg-elec/20 text-elec border border-elec/30">
@@ -583,7 +582,7 @@ export function PricingV3() {
 
               {/* Stage indicator dots, all 7 active */}
               <div className="mb-6">
-                <p className="text-[9px] tracking-[0.2em] uppercase font-semibold text-elec/80 mb-3">
+                <p className="text-[9px] tracking-[0.2em] uppercase font-semibold text-mute mb-3">
                   Flywheel stages active
                 </p>
                 <div className="flex gap-2">
@@ -607,7 +606,7 @@ export function PricingV3() {
                 </div>
               </div>
 
-              <p className="text-[10px] tracking-[0.25em] uppercase font-bold text-elec/80 mb-3">
+              <p className="text-[10px] tracking-[0.25em] uppercase font-bold text-mute/80 mb-3">
                 Everything in Tier 1 +
               </p>
               <ul className="space-y-2 text-sm text-platinum mb-6 flex-1">
@@ -619,7 +618,7 @@ export function PricingV3() {
               </ul>
 
               <div className="pt-5 border-t border-elec/20">
-                <p className="text-[10px] tracking-[0.25em] uppercase font-bold text-elec mb-2">
+                <p className="text-[10px] tracking-[0.25em] uppercase font-bold text-mute mb-2">
                   Target customer
                 </p>
                 <p className="text-sm text-white">$1M-$3M revenue · ready to break the $1M ceiling</p>
@@ -635,7 +634,7 @@ export function PricingV3() {
         <Reveal delay={0.7}>
           <div className="grid md:grid-cols-2 gap-5">
             <div className="rounded-2xl border border-divider/40 bg-ink-soft/20 p-6">
-              <p className="text-[10px] tracking-[0.3em] uppercase font-bold text-elec mb-3">
+              <p className="text-[10px] tracking-[0.3em] uppercase font-bold text-mute mb-3">
                 + Performance kicker (opt-in)
               </p>
               <p className="font-display text-xl tracking-tight mb-2">
@@ -646,7 +645,7 @@ export function PricingV3() {
               </p>
             </div>
             <div className="rounded-2xl border border-divider/40 bg-ink-soft/20 p-6">
-              <p className="text-[10px] tracking-[0.3em] uppercase font-bold text-elec mb-3">
+              <p className="text-[10px] tracking-[0.3em] uppercase font-bold text-mute mb-3">
                 + Annual commit
               </p>
               <p className="font-display text-xl tracking-tight mb-2">
@@ -717,7 +716,7 @@ export function Roadmap() {
     <section id="roadmap" className="relative bg-ink text-white py-32 overflow-hidden">
       <div className="px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">The roadmap</p>
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-6">The roadmap</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-6">
@@ -869,7 +868,7 @@ export function TAMBreakdown() {
     <section className="relative bg-ink text-white py-24 sm:py-32 overflow-hidden">
       <div className="px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-[11px] tracking-[0.3em] uppercase text-elec font-semibold mb-6">
+          <p className="text-[11px] tracking-[0.3em] uppercase text-mute font-semibold mb-6">
             The math
           </p>
         </Reveal>
@@ -1101,7 +1100,7 @@ export function Moat() {
       />
       <div className="relative px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-[11px] tracking-[0.3em] uppercase text-elec font-semibold mb-6">
+          <p className="text-[11px] tracking-[0.3em] uppercase text-mute font-semibold mb-6">
             Defensibility
           </p>
         </Reveal>
@@ -1177,8 +1176,6 @@ export function WhyNow() {
 
   return (
     <section id="why-now" className="relative bg-ink text-white py-32 overflow-hidden">
-      <div className="orb" style={{ width: 500, height: 500, background: 'var(--hvac)', top: '10%', left: '-10%', opacity: 0.18 }} />
-      <div className="orb" style={{ width: 400, height: 400, background: 'var(--plumb)', bottom: '0%', right: '-5%', opacity: 0.15 }} />
 
       <div className="px-8 sm:px-16 max-w-7xl mx-auto relative">
         <Reveal>
@@ -1198,7 +1195,7 @@ export function WhyNow() {
 
         <Reveal delay={0.4}>
           <div className="mt-20 mb-10">
-            <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-3">Why now</p>
+            <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-3">Why now</p>
             <h3 className="font-display text-3xl sm:text-5xl tracking-[-0.03em] max-w-3xl">
               Smart money is consolidating trades. They&apos;re missing the operating layer.
             </h3>
@@ -1241,7 +1238,7 @@ export function PipelineV2() {
     <section id="pipeline-v2" className="relative bg-cream text-ink py-32">
       <div className="px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">In motion · May 2026</p>
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-6">In motion · May 2026</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
@@ -1340,7 +1337,7 @@ export function UnitEconomics() {
 
       <div className="relative px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-6">
             Unit economics · drag the sliders
           </p>
         </Reveal>
@@ -1424,7 +1421,7 @@ export function UnitEconomics() {
               </div>
 
               <div className="mt-6 pt-6 border-t border-divider">
-                <p className="text-[10px] tracking-[0.25em] uppercase text-elec font-bold mb-2">
+                <p className="text-[10px] tracking-[0.25em] uppercase text-mute font-bold mb-2">
                   Year-1 total revenue
                 </p>
                 <p className="font-display text-3xl tracking-tight text-white">
@@ -1493,7 +1490,7 @@ export function SideBySideTCE() {
     <section id="before-after" className="relative bg-ink text-white py-32 overflow-hidden">
       <div className="px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">Before · after</p>
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-6">Before · after</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
