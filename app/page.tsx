@@ -119,17 +119,40 @@ export default function HomePage() {
 
       {/* 03 — THE DEAL + FORK */}
       <Moment i={3} eyebrow="03 / The deal" purple>
-        <h2 className="font-display tracking-[-0.03em] leading-[1.0] text-white max-w-4xl" style={{ fontSize: 'clamp(38px, 6vw, 74px)' }}>
-          We only make money <Grad>when you do.</Grad>
-        </h2>
-        <p className="mt-7 max-w-2xl text-platinum-soft text-lg leading-relaxed">
-          A build fee, a flat monthly, and 5% of the new business we bring in. If the phone does not ring more, we have not earned it.
-        </p>
-        <p className="mt-4 max-w-2xl text-mute text-base leading-relaxed">
-          No agency retainer, no lock-in, no new system to learn. We run it. You do the work you are good at.
-        </p>
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <h2 className="font-display tracking-[-0.03em] leading-[1.0] text-white" style={{ fontSize: 'clamp(38px, 5.4vw, 66px)' }}>
+              We only make money <Grad>when you do.</Grad>
+            </h2>
+            <p className="mt-7 max-w-xl text-platinum-soft text-lg leading-relaxed">
+              A build fee, a flat monthly, and 5% of the new business we bring in. If the phone does not ring more, we have not earned it.
+            </p>
+            <p className="mt-4 max-w-xl text-mute text-base leading-relaxed">
+              No agency retainer, no lock-in, no new system to learn. We run it. You do the work you are good at.
+            </p>
+          </div>
+          <div>
+            <Frame accent>
+              <div className="relative overflow-hidden aspect-[4/5] w-full bg-ink">
+                <Image
+                  src="https://images.unsplash.com/photo-1530983822321-fcac2d3c0f06?auto=format&fit=crop&w=1000&q=75"
+                  alt="A service business owner with his time back"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 520px"
+                  className="object-cover object-center"
+                />
+                <div
+                  aria-hidden
+                  className="absolute inset-0"
+                  style={{ background: 'linear-gradient(180deg, rgba(5,8,17,0.1) 0%, rgba(5,8,17,0.35) 65%, rgba(5,8,17,0.7) 100%)' }}
+                />
+              </div>
+            </Frame>
+            <p className="mt-4 text-sm" style={{ color: '#a78bfa' }}>This is what it buys back.</p>
+          </div>
+        </div>
 
-        <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 max-w-4xl">
+        <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 max-w-4xl">
           {FORKS.map((f) => (
             <Link
               key={f.href}
