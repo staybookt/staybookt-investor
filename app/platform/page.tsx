@@ -22,7 +22,7 @@ export const metadata = {
 };
 
 function Why({ children }: { children: React.ReactNode }) {
-  return <span className="bg-gradient-to-r from-elec-light to-hvac-light bg-clip-text text-transparent">{children}</span>;
+  return <span className="text-white">{children}</span>;
 }
 
 const BLOCKS = [
@@ -121,7 +121,7 @@ export default function PlatformPage() {
                 href={CAL_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-lg bg-gradient-to-r from-elec to-hvac px-7 py-3.5 text-base font-bold text-ink transition-transform hover:-translate-y-0.5"
+                className="rounded-full bg-white px-7 py-3.5 text-base font-bold text-ink transition-transform hover:-translate-y-0.5 hover:bg-white/90"
               >
                 Book a 30-minute call
               </a>
@@ -138,7 +138,7 @@ export default function PlatformPage() {
             {BLOCKS.map((b, i) => (
               <div key={b.title} className="grid items-center gap-7 lg:grid-cols-2">
                 <div className={i % 2 === 1 ? 'lg:order-2' : ''}>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-elec-light">{b.eyebrow}</p>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-mute">{b.eyebrow}</p>
                   <h2 className="mt-2 font-display text-3xl tracking-tight text-white sm:text-4xl">{b.title}</h2>
                   <p className="mt-4 text-base leading-relaxed text-platinum-soft">{b.body}</p>
                   <p className="mt-4 border-l-2 border-hvac/50 pl-4 text-sm font-medium text-hvac-light">
@@ -155,7 +155,7 @@ export default function PlatformPage() {
 
         {/* CTA */}
         <section className="px-6 py-20 sm:px-12">
-          <div className="mx-auto max-w-2xl rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-transparent p-8 text-center sm:p-12">
+          <div className="mx-auto max-w-2xl rounded-3xl border border-white/10 p-8 text-center sm:p-12">
             <h2 className="font-display text-3xl tracking-tight text-white sm:text-4xl">
               Want this running your front office?
             </h2>
@@ -166,7 +166,7 @@ export default function PlatformPage() {
               href={CAL_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-7 inline-block rounded-lg bg-gradient-to-r from-elec to-hvac px-8 py-4 text-base font-bold text-ink transition-transform hover:-translate-y-0.5"
+              className="mt-7 inline-block rounded-full bg-white px-8 py-4 text-base font-bold text-ink transition-transform hover:-translate-y-0.5 hover:bg-white/90"
             >
               Book a 30-minute call
             </a>
