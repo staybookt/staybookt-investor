@@ -33,8 +33,8 @@ export const metadata = {
   },
 };
 
-function Grad({ children }: { children: React.ReactNode }) {
-  return <span className="text-brand-gradient">{children}</span>;
+function Accent({ children }: { children: React.ReactNode }) {
+  return <span className="text-white">{children}</span>;
 }
 
 export default function HomePage() {
@@ -57,12 +57,12 @@ export default function HomePage() {
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div>
             <h2 className="font-display tracking-[-0.03em] leading-[1.02] text-white" style={{ fontSize: 'clamp(34px, 5vw, 62px)' }}>
-              This one is <Grad>already running.</Grad>
+              This one is <Accent>already running.</Accent>
             </h2>
             <p className="mt-7 max-w-xl text-platinum-soft text-lg leading-relaxed">
               We built and we run Top Choice Electrical. Real business, real site, real bookings coming in.
             </p>
-            <blockquote className="mt-8 border-l-2 border-hvac/60 pl-5 max-w-xl">
+            <blockquote className="mt-8 border-l border-white/15 pl-5 max-w-xl">
               <p className="text-platinum text-lg italic leading-snug mb-2">
                 {'“'}My old site never once sent me a lead. Now people show up to the first call already knowing who I am.{'”'}
               </p>
@@ -72,7 +72,7 @@ export default function HomePage() {
               See the work <span aria-hidden>{'→'}</span>
             </Link>
           </div>
-          <Frame accent>
+          <Frame>
             <div className="flex items-center gap-1.5 border-b border-white/8 bg-white/[0.04] px-3 py-2">
               <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
               <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
@@ -93,11 +93,11 @@ export default function HomePage() {
       </Moment>
 
       {/* 03 — THE CLOSE: aligned incentives, one ask */}
-      <Moment i={3} eyebrow="03 / The deal" purple>
+      <Moment i={3} eyebrow="03 / The deal">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
             <h2 className="font-display tracking-[-0.03em] leading-[1.0] text-white" style={{ fontSize: 'clamp(38px, 5.4vw, 66px)' }}>
-              We only make money <Grad>when you do.</Grad>
+              We only make money <Accent>when you do.</Accent>
             </h2>
             <p className="mt-7 max-w-xl text-platinum-soft text-lg leading-relaxed">
               A build fee, a flat monthly, and a small share of the new business we bring in. If the phone does not ring
@@ -106,7 +106,7 @@ export default function HomePage() {
             <p className="mt-4 max-w-xl text-mute text-base leading-relaxed">
               No agency retainer, no lock-in, nothing new to learn. We build it, we run it, and we grow with you.
             </p>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed" style={{ color: '#c4b5fd' }}>
+            <p className="mt-6 max-w-xl text-platinum text-lg leading-relaxed">
               Priced so an owner your size can actually say yes. So you get back to the work, and the life, you built
               this for.
             </p>
@@ -116,10 +116,9 @@ export default function HomePage() {
                 href={CAL_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-elec to-hvac px-8 py-4 text-base font-bold text-ink transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_50px_-8px_rgba(6,182,212,0.7)] sm:text-lg"
+                className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-3.5 text-base font-semibold text-ink transition-colors duration-200 hover:bg-white/90"
               >
                 Book a 30-minute call
-                <span aria-hidden className="transition-transform group-hover:translate-x-1">{'→'}</span>
               </a>
               <p className="text-mute text-sm">
                 30 minutes with a founder. No pitch deck. Or email{' '}
@@ -128,18 +127,18 @@ export default function HomePage() {
             </div>
           </div>
 
-          <Frame accent>
+          <Frame>
             <div className="px-5 py-7 sm:px-7 sm:py-9">
               <AlignedGrowth />
             </div>
           </Frame>
         </div>
 
-        <p className="mt-24 text-center font-display text-3xl tracking-tight">
-          <span className="text-white">Stay</span>
+        <p className="mt-24 text-center font-display text-3xl tracking-tight text-white">
+          <span>Stay</span>
           <span className="wordmark-gradient">Bookt</span>
-          <span style={{ color: '#7C3AED' }}>.</span>{' '}
-          <span className="text-brand-gradient">Enjoy Life.</span>
+          <span>.</span>{' '}
+          <span>Enjoy Life.</span>
         </p>
         <p className="mt-6 text-center">
           <Link href="/manifesto" className="inline-flex items-center gap-2 text-sm font-semibold text-elec transition-all hover:gap-3">
@@ -158,21 +157,17 @@ export default function HomePage() {
 function Moment({
   i,
   eyebrow,
-  purple,
   children,
 }: {
   i: number;
   eyebrow: string;
-  purple?: boolean;
   children: React.ReactNode;
 }) {
   return (
     <section id={`m${i}`} data-i={i} className="relative scroll-mt-24 px-6 sm:px-12 lg:pl-28 py-28 sm:py-40">
       <ScrollReveal>
         <div className="max-w-6xl mx-auto">
-          <p className="font-mono text-[11px] tracking-[0.28em] uppercase font-semibold mb-12">
-            <span className={purple ? '' : 'text-elec'} style={{ color: purple ? '#a78bfa' : undefined }}>{eyebrow}</span>
-          </p>
+          <p className="font-mono text-[11px] tracking-[0.28em] uppercase font-semibold mb-12 text-mute">{eyebrow}</p>
           {children}
         </div>
       </ScrollReveal>
