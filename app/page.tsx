@@ -6,6 +6,7 @@ import HomeCanvas from '@/components/HomeCanvas';
 import Spine from '@/components/Spine';
 import Frame from '@/components/Frame';
 import PlatformWalkthrough from '@/components/PlatformWalkthrough';
+import AlignedGrowth from '@/components/AlignedGrowth';
 import { CAL_LINK, EMAIL } from '@/lib/site';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -35,12 +36,6 @@ export const metadata = {
 function Grad({ children }: { children: React.ReactNode }) {
   return <span className="text-brand-gradient">{children}</span>;
 }
-
-const FORKS = [
-  { href: '/how-it-works', label: 'How it works' },
-  { href: '/is-this-for-me', label: 'Is it for me?' },
-  { href: '/pricing', label: 'Pricing' },
-];
 
 export default function HomePage() {
   return (
@@ -97,7 +92,7 @@ export default function HomePage() {
         </div>
       </Moment>
 
-      {/* 03 — THE DEAL + FORK */}
+      {/* 03 — THE CLOSE: aligned incentives, one ask */}
       <Moment i={3} eyebrow="03 / The deal" purple>
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
@@ -105,59 +100,40 @@ export default function HomePage() {
               We only make money <Grad>when you do.</Grad>
             </h2>
             <p className="mt-7 max-w-xl text-platinum-soft text-lg leading-relaxed">
-              A build fee, a flat monthly, and 5% of the new business we bring in. If the phone does not ring more, we have not earned it.
+              A build fee, a flat monthly, and a small share of the new business we bring in. If the phone does not ring
+              more, we have not earned a cent.
             </p>
             <p className="mt-4 max-w-xl text-mute text-base leading-relaxed">
-              No agency retainer, no lock-in, no new system to learn. We run it. You do the work you are good at.
+              No agency retainer, no lock-in, nothing new to learn. We build it, we run it, and we grow with you.
             </p>
-          </div>
-          <div>
-            <Frame accent>
-              <div className="relative overflow-hidden aspect-[4/5] w-full bg-ink">
-                <Image
-                  src="https://images.unsplash.com/photo-1530983822321-fcac2d3c0f06?auto=format&fit=crop&w=1000&q=75"
-                  alt="A service business owner with his time back"
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 520px"
-                  className="object-cover object-center"
-                />
-                <div
-                  aria-hidden
-                  className="absolute inset-0"
-                  style={{ background: 'linear-gradient(180deg, rgba(5,8,17,0.1) 0%, rgba(5,8,17,0.35) 65%, rgba(5,8,17,0.7) 100%)' }}
-                />
-              </div>
-            </Frame>
-            <p className="mt-4 text-sm" style={{ color: '#a78bfa' }}>This is what it buys back.</p>
-          </div>
-        </div>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed" style={{ color: '#c4b5fd' }}>
+              Priced so an owner your size can actually say yes. So you get back to the work, and the life, you built
+              this for.
+            </p>
 
-        <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 max-w-4xl">
-          {FORKS.map((f) => (
-            <Link
-              key={f.href}
-              href={f.href}
-              className="group flex items-center justify-between rounded-2xl border border-divider/60 bg-paper/[0.03] px-5 py-5 hover:border-elec/40 hover:bg-paper/[0.05] transition-colors"
-            >
-              <span className="font-display text-lg tracking-tight text-white">{f.label}</span>
-              <span aria-hidden className="text-elec transition-transform group-hover:translate-x-1">{'→'}</span>
-            </Link>
-          ))}
-          <a
-            href={CAL_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center justify-between rounded-2xl bg-gradient-to-r from-elec to-hvac px-5 py-5 text-ink transition-transform hover:-translate-y-0.5"
-          >
-            <span className="font-display text-lg tracking-tight font-bold">Book a call</span>
-            <span aria-hidden className="transition-transform group-hover:translate-x-1">{'→'}</span>
-          </a>
-        </div>
+            <div className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
+              <a
+                href={CAL_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-elec to-hvac px-8 py-4 text-base font-bold text-ink transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_50px_-8px_rgba(6,182,212,0.7)] sm:text-lg"
+              >
+                Book a 30-minute call
+                <span aria-hidden className="transition-transform group-hover:translate-x-1">{'→'}</span>
+              </a>
+              <p className="text-mute text-sm">
+                30 minutes with a founder. No pitch deck. Or email{' '}
+                <a href={`mailto:${EMAIL}`} className="text-platinum-soft hover:text-white transition-colors">{EMAIL}</a>.
+              </p>
+            </div>
+          </div>
 
-        <p className="mt-6 text-mute text-sm">
-          30 minutes with a founder. No pitch deck. Or email{' '}
-          <a href={`mailto:${EMAIL}`} className="text-platinum-soft hover:text-white transition-colors">{EMAIL}</a>.
-        </p>
+          <Frame accent>
+            <div className="px-5 py-7 sm:px-7 sm:py-9">
+              <AlignedGrowth />
+            </div>
+          </Frame>
+        </div>
 
         <p className="mt-24 text-center font-display text-3xl tracking-tight">
           <span className="text-white">Stay</span>
