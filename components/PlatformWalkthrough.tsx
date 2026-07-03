@@ -17,6 +17,7 @@ type Step = {
   headline: ReactNode;
   body: string;
   Screen: () => ReactNode;
+  framed?: boolean;
 };
 
 // Each step answers all three questions in miniature: what it is (headline),
@@ -33,6 +34,7 @@ const STEPS: Step[] = [
     body:
       'A customer texts at 9pm. StayBookt replies in seconds, quotes the job, and books it, while you are at dinner. Every missed call is a job your competitor takes. You stop missing them.',
     Screen: CaughtCall,
+    framed: false,
   },
   {
     tab: 'Books',
@@ -167,7 +169,7 @@ export default function PlatformWalkthrough() {
             </div>
 
             {/* Right: crossfading product screen */}
-            <div className="relative flex min-h-[440px] items-center justify-center sm:min-h-[500px]">
+            <div className="relative flex min-h-[560px] items-center justify-center">
               {STEPS.map((s, i) => {
                 const on = active === i;
                 const S = s.Screen;
@@ -182,9 +184,7 @@ export default function PlatformWalkthrough() {
                       pointerEvents: on ? 'auto' : 'none',
                     }}
                   >
-                    <Frame>
-                      <S />
-                    </Frame>
+                    {s.framed === false ? <S /> : <Frame><S /></Frame>}
                   </div>
                 );
               })}
