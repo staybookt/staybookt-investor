@@ -45,7 +45,7 @@ export function FoundersDeep() {
     <section id="founders" className="relative bg-cream text-ink py-32">
       <div className="px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">The two of us</p>
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-6">The two of us</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
@@ -174,7 +174,7 @@ export function OwnershipMap() {
     <section id="ownership" className="relative bg-ink text-white py-32 overflow-hidden">
       <div className="relative px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">Who owns what</p>
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-6">Who owns what</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
@@ -215,7 +215,7 @@ export function RichardPortfolio() {
     <section id="rollup" className="relative bg-cream text-ink py-32 overflow-hidden">
       <div className="relative px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">The inside track</p>
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-6">The inside track</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
@@ -229,7 +229,7 @@ export function RichardPortfolio() {
         <Reveal delay={0.2}>
           <div className="grid lg:grid-cols-3 gap-6 mb-14">
             <div className="bg-paper border border-divider-lt rounded-2xl p-7">
-              <p className="text-[10px] tracking-[0.25em] uppercase text-elec font-semibold mb-3">What it is</p>
+              <p className="text-[10px] tracking-[0.25em] uppercase text-mute font-semibold mb-3">What it is</p>
               <p className="font-display text-xl tracking-tight mb-3 text-ink">A live roll-up portfolio</p>
               <p className="text-ink/75 text-sm leading-relaxed">
                 Richard is actively acquiring service businesses in HVAC, plumbing, and electrical inside Canada. His own operator-investor portfolio.
@@ -254,7 +254,7 @@ export function RichardPortfolio() {
 
         <Reveal delay={0.4}>
           <div className="bg-ink text-white rounded-2xl p-7 sm:p-10 border-l-4 border-elec">
-            <p className="text-elec text-[11px] tracking-[0.25em] uppercase font-semibold mb-3">Why this matters at pre-seed</p>
+            <p className="text-mute text-[11px] tracking-[0.25em] uppercase font-semibold mb-3">Why this matters at pre-seed</p>
             <p className="font-display text-2xl sm:text-3xl tracking-[-0.02em] leading-snug max-w-4xl">
               Most pre-seed teams pitching trades are outsiders. Richard is an insider. His existing portfolio gives us pipeline, validation, and a buyer-of-last-resort all in one. We are not the company asking for permission to enter the market. We are already running in it.
             </p>
@@ -281,7 +281,7 @@ export function OperatingBench() {
     <section id="bench" className="relative bg-ink text-white py-32 overflow-hidden">
       <div className="relative px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">The bench</p>
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-6">The bench</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
@@ -299,7 +299,7 @@ export function OperatingBench() {
             <Reveal key={b.role} delay={0.2 + i * 0.07}>
               <div className="grid grid-cols-1 sm:grid-cols-[240px_140px_1fr] gap-3 sm:gap-6 items-start sm:items-center bg-ink-soft/40 border border-divider rounded-xl p-5 sm:p-6">
                 <p className="font-display text-base sm:text-lg tracking-tight text-white">{b.role}</p>
-                <p className="text-[10px] tracking-[0.2em] uppercase font-semibold text-elec">{b.when}</p>
+                <p className="text-[10px] tracking-[0.2em] uppercase font-semibold text-mute">{b.when}</p>
                 <p className="text-platinum-soft text-sm leading-relaxed">{b.detail}</p>
               </div>
             </Reveal>
@@ -345,7 +345,7 @@ export function HiringPlan() {
     <section id="hiring" className="relative bg-cream text-ink py-32">
       <div className="px-8 sm:px-16 max-w-7xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">Hiring tied to raise stages</p>
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-6">Hiring tied to raise stages</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-display text-5xl sm:text-7xl tracking-[-0.04em] mb-4">
