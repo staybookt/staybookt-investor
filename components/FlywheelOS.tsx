@@ -555,7 +555,7 @@ export function FlywheelOS() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-xs tracking-[0.3em] uppercase text-elec font-semibold mb-6"
+          className="text-xs tracking-[0.3em] uppercase text-mute font-semibold mb-6"
         >
           Operating cycle
         </motion.p>
