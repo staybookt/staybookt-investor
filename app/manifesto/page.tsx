@@ -39,9 +39,9 @@ export default function ManifestoPage() {
         {/* Hero */}
         <section className="px-6 pt-36 pb-14 sm:px-12 sm:pt-44">
           <div className="mx-auto max-w-4xl">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-elec-light">Our manifesto</p>
+            <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-mute">Our manifesto</p>
             <h1 className="mt-5 font-display text-4xl leading-[1.02] tracking-tight text-white sm:text-6xl lg:text-7xl">
-              Great work deserves a <span className="text-brand-gradient">great business.</span>
+              Great work deserves a great business.
             </h1>
           </div>
         </section>
@@ -73,11 +73,11 @@ export default function ManifestoPage() {
         {/* Beliefs */}
         <section className="px-6 py-16 sm:px-12">
           <div className="mx-auto max-w-4xl">
-            <p className="mb-8 text-[11px] font-semibold uppercase tracking-[0.25em] text-elec-light">What we believe</p>
+            <p className="mb-8 text-[11px] font-medium uppercase tracking-[0.24em] text-mute">What we believe</p>
             <ul className="space-y-5">
               {BELIEFS.map((b, i) => (
                 <li key={i} className="flex gap-4 border-b border-white/10 pb-5">
-                  <span className="font-display text-lg text-hvac-light">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="font-display text-lg text-mute">{String(i + 1).padStart(2, '0')}</span>
                   <span className="font-display text-xl leading-snug tracking-tight text-white sm:text-2xl">{b}</span>
                 </li>
               ))}
@@ -91,20 +91,20 @@ export default function ManifestoPage() {
             <p className="font-display text-3xl leading-snug tracking-tight text-white sm:text-4xl">
               To the ones who built it.<br />It is time it gave something back.
             </p>
-            <p className="mt-8 font-display text-3xl tracking-tight">
-              <span className="text-white">Stay</span>
+            <p className="mt-8 font-display text-3xl tracking-tight text-white">
+              <span>Stay</span>
               <span className="wordmark-gradient">Bookt</span>
-              <span style={{ color: '#7C3AED' }}>.</span>{' '}
-              <span className="text-brand-gradient">Enjoy Life.</span>
+              <span>.</span>{' '}
+              <span>Enjoy Life.</span>
             </p>
             <div className="mt-10">
               <a
                 href={CAL_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-elec to-hvac px-8 py-4 text-base font-bold text-ink transition-transform hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-base font-semibold text-ink transition-colors hover:bg-white/90"
               >
-                Book a 30-minute call <span aria-hidden>{'→'}</span>
+                Book a 30-minute call
               </a>
             </div>
             <p className="mt-8">
