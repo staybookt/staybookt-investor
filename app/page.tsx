@@ -205,6 +205,7 @@ function FooterBottomRow() {
         <Link href="/is-this-for-me" className={linkCls}>Is it for me?</Link>
         <Link href="/pricing" className={linkCls}>Pricing</Link>
         <Link href="/manifesto" className={linkCls}>Manifesto</Link>
+        <Link href="/enjoy-life" className={linkCls}>Enjoy Life</Link>
         <Link href="/about" className={linkCls}>About</Link>
       </div>
       <p>{'©'} 2026 StayBookt Inc. Toronto, ON.</p>
