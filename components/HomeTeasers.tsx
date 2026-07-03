@@ -17,7 +17,7 @@ export function Manifesto() {
     <section className="relative bg-cream text-ink py-32 sm:py-48 overflow-hidden">
       <div className="px-8 sm:px-16 max-w-6xl mx-auto">
         <Reveal>
-          <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-10">
+          <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-10">
             The thing we want you to understand
           </p>
         </Reveal>
@@ -27,7 +27,7 @@ export function Manifesto() {
             <br />
             <span className="text-mute">We are the operating team</span>
             <br />
-            <span className="text-elec">that runs your revenue engine.</span>
+            <span className="text-white">that runs your revenue engine.</span>
           </h2>
         </Reveal>
         <Reveal delay={0.5}>
@@ -44,12 +44,11 @@ export function Manifesto() {
 export function MechanismTeaser() {
   return (
     <section className="relative bg-ink text-white py-24 overflow-hidden">
-      <div className="orb" style={{ width: 400, height: 400, background: 'var(--elec)', top: '20%', right: '-10%', opacity: 0.12 }} />
       <div className="px-8 sm:px-16 max-w-7xl mx-auto relative">
         <div className="grid lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-6">
             <Reveal>
-              <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">The mechanism</p>
+              <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-6">The mechanism</p>
             </Reveal>
             <Reveal delay={0.1}>
               <h2 className="font-display text-4xl sm:text-6xl tracking-[-0.04em] leading-tight mb-6">
@@ -156,7 +155,7 @@ export function ProofTeaser() {
                 sizes="(max-width: 1024px) 100vw, 40vw"
               />
               <div className="absolute inset-x-0 bottom-0 p-5 bg-gradient-to-t from-ink/95 via-ink/50 to-transparent text-white">
-                <p className="text-xs tracking-[0.25em] text-elec font-semibold uppercase mb-1">Pilot 1 · Engaged May 2026</p>
+                <p className="text-xs tracking-[0.25em] text-mute font-semibold uppercase mb-1">Pilot 1 · Engaged May 2026</p>
                 <p className="font-display text-xl">Top Choice Electrical</p>
               </div>
             </div>
@@ -173,7 +172,7 @@ export function ProofTeaser() {
             </Reveal>
 
             <Reveal delay={0.2}>
-              <p className="text-[10px] tracking-[0.25em] uppercase font-semibold text-elec mb-3">Pilot 1 targets · day 90</p>
+              <p className="text-[10px] tracking-[0.25em] uppercase font-semibold text-mute mb-3">Pilot 1 targets · day 90</p>
               <div className="grid grid-cols-3 gap-4 mb-8">
                 {[
                   { stat: '40+ / mo', label: 'inbound leads', color: 'var(--elec)' },
@@ -210,7 +209,6 @@ export function ProofTeaser() {
 export function OpportunityTeaser() {
   return (
     <section className="relative bg-ink text-white py-24 overflow-hidden">
-      <div className="orb" style={{ width: 500, height: 500, background: 'var(--hvac)', top: '10%', left: '-10%', opacity: 0.12 }} />
       <div className="px-8 sm:px-16 max-w-7xl mx-auto relative">
         <div className="grid lg:grid-cols-12 gap-10 items-center">
           <Reveal className="lg:col-span-6">
@@ -259,7 +257,7 @@ export function EconomicsTeaser() {
         <div className="grid lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-6">
             <Reveal>
-              <p className="text-xs tracking-[0.3em] text-elec font-semibold uppercase mb-6">The math</p>
+              <p className="text-xs tracking-[0.3em] text-mute font-semibold uppercase mb-6">The math</p>
               <h2 className="font-display text-4xl sm:text-6xl tracking-[-0.04em] leading-tight mb-6">
                 Drag the slider.
                 <br />
@@ -414,7 +412,7 @@ export function UpNext({ current }: { current: string }) {
             href={next.href}
             className="group bg-ink-soft border border-divider hover:border-elec/40 rounded-2xl p-7 transition-all"
           >
-            <p className="text-[10px] tracking-[0.25em] uppercase text-elec font-semibold mb-3">Up next →</p>
+            <p className="text-[10px] tracking-[0.25em] uppercase text-mute font-semibold mb-3">Up next →</p>
             <h3 className="font-display text-2xl tracking-tight mb-2 group-hover:text-elec transition-colors">{next.label}</h3>
             <p className="text-platinum-soft text-sm leading-relaxed">{next.tagline}</p>
           </Link>
