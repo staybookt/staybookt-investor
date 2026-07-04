@@ -11,9 +11,9 @@ const THREAD = [
   { from: 'them', t: 'Hi, my AC just died and the house is 31 degrees. Can someone come today?' },
   { from: 'us', t: 'Hi Sarah, sorry to hear that. We can get a tech out today. Are you still at 14 Maple Crescent?' },
   { from: 'them', t: 'Yes that is right.' },
-  { from: 'us', t: 'I can do 2:00pm or 4:30pm today. Which works better?' },
+  { from: 'us', t: 'I can do 2:00 PM or 4:30 PM today. Which works better?' },
   { from: 'them', t: '2pm please' },
-  { from: 'us', t: "You're booked for 2pm. I'll text a reminder at 1." },
+  { from: 'us', t: "You're booked for 2:00 PM. I'll text a reminder at 1." },
 ];
 
 const container: Variants = {
