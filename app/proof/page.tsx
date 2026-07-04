@@ -13,7 +13,11 @@ import { AskV2 } from '@/components/ExtendedSections';
 import { TopNav } from '@/components/TopNav';
 import { SiteFooter, UpNext } from '@/components/HomeTeasers';
 
-export const metadata = { title: 'Customer' };
+export const metadata = {
+  title: 'Customer',
+  description: 'The customer: who StayBookt serves, the problem, and the proof from live pilots.',
+  alternates: { canonical: '/proof' },
+};
 
 export default function ProofPage() {
   return (
