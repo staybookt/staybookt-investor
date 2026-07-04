@@ -9,6 +9,9 @@ export const metadata = {
     'The point was never the business. It was the life it was supposed to buy. A business that runs without you is an asset you can sell, pass on, or finally step back from.',
 };
 
+// Placeholder footage (Pexels, licensed). Swap for owned lifestyle footage.
+const LIFE_SRC = 'https://videos.pexels.com/video-files/1966695/1966695-hd_1920_1080_30fps.mp4';
+
 const DOORS = [
   {
     k: 'Sell it',
@@ -32,14 +35,37 @@ export default function EnjoyLifePage() {
     <>
       <TopNav active="enjoy-life" />
       <main className="bg-ink-deep">
-        {/* Hero */}
-        <section className="px-6 pt-36 pb-16 sm:px-12 sm:pt-44">
-          <div className="mx-auto max-w-4xl">
-            <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-mute">Enjoy Life</p>
-            <h1 className="mt-5 font-display text-4xl leading-[1.02] tracking-tight text-white sm:text-6xl lg:text-7xl">
+        {/* Cinematic hero band */}
+        <section className="relative flex items-end overflow-hidden" style={{ minHeight: '66vh', background: '#050811' }}>
+          <video
+            className="absolute inset-0 h-full w-full object-cover"
+            src={LIFE_SRC}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            aria-hidden
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background:
+                'linear-gradient(180deg, rgba(5,8,17,0.72) 0%, rgba(5,8,17,0.28) 34%, rgba(5,8,17,0.5) 70%, #050811 100%)',
+            }}
+          />
+          <div className="relative z-10 mx-auto w-full max-w-4xl px-6 pb-14 sm:px-12">
+            <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-platinum-soft/90">Enjoy Life</p>
+            <h1 className="mt-4 font-display text-4xl leading-[1.02] tracking-tight text-white sm:text-6xl lg:text-7xl">
               The point was never the business.
             </h1>
-            <p className="mt-7 max-w-2xl text-xl leading-relaxed text-platinum-soft sm:text-2xl">
+          </div>
+        </section>
+
+        <section className="px-6 pt-16 pb-6 sm:px-12">
+          <div className="mx-auto max-w-4xl">
+            <p className="max-w-2xl text-xl leading-relaxed text-platinum-soft sm:text-2xl">
               It was the life the business was supposed to buy. StayBookt runs the front office so the business runs
               without you, and you finally get to go collect it.
             </p>
