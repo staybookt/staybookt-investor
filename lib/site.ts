@@ -11,10 +11,11 @@ export const EMAIL = 'info@staybookt.com';
 export const PHONE_DISPLAY: string | null = null;
 export const PHONE_HREF: string | null = null;
 
-// Lowest upfront across the tiers, used for the hero "Starting at ___ to launch".
+// Confirmed public ladder. Get Found (one-time) + StayBookt (monthly) +
+// Enjoy Life (invite-only, 5% of new business). Numbers live here so nothing drifts.
 export const PRICING = {
-  build: '$2,000',
-  care: '$149',
+  build: '$1,750',
+  care: '$199',
   performance: '5%',
 } as const;
 
@@ -38,7 +39,7 @@ export const TIERS: Tier[] = [
     name: 'Get Found',
     scope: 'The website',
     tagline: 'A site that gets you found and makes you look like the pro you are.',
-    upfront: '$5,000',
+    upfront: '$1,750',
     upfrontNote: 'one-time',
     recurring: null,
     commission: null,
@@ -51,36 +52,36 @@ export const TIERS: Tier[] = [
     ],
   },
   {
-    name: 'Get Booked',
-    scope: 'Website + management',
-    tagline: 'We keep it running and turn found into booked.',
-    upfront: '$3,000',
+    name: 'StayBookt',
+    scope: 'We run the front of your business',
+    tagline: 'We run the front of your business. You just do the work.',
+    upfront: '$1,750',
     upfrontNote: 'to build',
-    recurring: '$149/mo',
-    commission: '5%',
-    terms: '6-month minimum. The 5% is only on new online sourced business.',
+    recurring: '$199/mo',
+    commission: null,
+    terms: 'The front office, run for you. Cancel anytime.',
     recommended: true,
     points: [
       'Everything in Get Found',
-      'We keep your site and Google profile current',
+      'We answer your phone and texts, 24/7',
       'We capture every lead and book the jobs',
-      'A review after every job, plus a simple weekly summary',
+      'We chase quotes, follow-ups, and past customers',
     ],
   },
   {
-    name: 'Stay Booked',
-    scope: 'We run the front of your business',
-    tagline: 'We run the front of your business. You just do the work.',
-    upfront: '$2,000',
-    upfrontNote: 'to build',
-    recurring: '$249/mo',
+    name: 'Enjoy Life',
+    scope: 'A partnership, by invitation',
+    tagline: 'We turn the business into an asset you can walk away from.',
+    upfront: 'By invitation',
+    upfrontNote: 'invite-only',
+    recurring: null,
     commission: '5%',
-    terms: '6-month minimum. The 5% is only on new online sourced business.',
+    terms: 'Invite-only. The 5% is only on the new business we generate.',
     points: [
-      'Everything in Get Booked',
-      'We answer your phone and texts, 24/7',
-      'We chase quotes, follow-ups, and past customers',
-      'Least to pay upfront, the most we run for you',
+      'Everything in StayBookt',
+      'Systems built for a clean exit or a family handoff',
+      'We turn a job into a sellable, inheritable asset',
+      'We share the upside: 5% of the new business we generate',
     ],
   },
 ];
