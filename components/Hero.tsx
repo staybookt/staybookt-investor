@@ -115,8 +115,8 @@ export default function Hero() {
           variants={item}
           className="mx-auto mt-10 max-w-2xl text-lg leading-relaxed text-platinum sm:text-xl"
         >
-          It answers, quotes, and books every job while you are on the tools, and only gets paid when it puts money
-          in your pocket. Built, run, and priced for a shop your size.
+          We build and run the entire front office for your business, and only get paid when it works. So you can put
+          the phone down and get back to the life you built it for.
         </motion.p>
 
         <motion.div
