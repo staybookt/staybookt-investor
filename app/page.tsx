@@ -92,7 +92,7 @@ export default function HomePage() {
         </div>
       </Moment>
 
-      {/* 03 — THE CLOSE: aligned incentives, one ask */}
+      {/* 03 — THE CLOSE: the promise, one ask. Mechanics live on Pricing. */}
       <Moment i={3} eyebrow="03 / The deal">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
@@ -100,15 +100,14 @@ export default function HomePage() {
               We only make money <Accent>when you do.</Accent>
             </h2>
             <p className="mt-7 max-w-xl text-platinum-soft text-lg leading-relaxed">
-              A build fee, a flat monthly, and a small share of the new business we bring in. If the phone does not ring
-              more, we have not earned a cent.
+              We build it, we run it, and we only get paid when it brings you work. If the phone does not ring more, we
+              have not earned a cent.
             </p>
             <p className="mt-4 max-w-xl text-mute text-base leading-relaxed">
-              No agency retainer, no lock-in, nothing new to learn. We build it, we run it, and we grow with you.
+              No agency retainer, no lock-in, nothing new to learn. We grow when you grow.
             </p>
             <p className="mt-6 max-w-xl text-platinum text-lg leading-relaxed">
-              Priced so an owner your size can actually say yes. So you get back to the work, and the life, you built
-              this for.
+              So you get back to the work, and the life, you built this for.
             </p>
 
             <div className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
