@@ -115,13 +115,13 @@ export default function Hero() {
           variants={item}
           className="mx-auto mt-10 max-w-2xl text-lg leading-relaxed text-platinum sm:text-xl"
         >
-          We build and run the entire front office for your business, and only get paid when it works. So you can put
-          the phone down and get back to the life you built it for.
+          You built this for a life, not a phone that never stops ringing. We take the whole front office off your
+          hands, and only get paid when it brings you work.
         </motion.p>
 
         <motion.div
           variants={item}
-          className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6"
+          className="mt-12 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-6"
         >
           <a
             href={CAL_LINK}
@@ -138,6 +138,10 @@ export default function Hero() {
             See it run <span aria-hidden>{'↓'}</span>
           </a>
         </motion.div>
+
+        <motion.p variants={item} className="mt-5 text-[13px] text-mute">
+          30 minutes with a founder. No pitch deck. No lock-in.
+        </motion.p>
       </motion.div>
 
       {/* Scroll cue */}
