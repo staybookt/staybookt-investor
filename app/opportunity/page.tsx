@@ -10,7 +10,12 @@ import { AskV2 } from '@/components/ExtendedSections';
 import { TopNav } from '@/components/TopNav';
 import { SiteFooter, UpNext } from '@/components/HomeTeasers';
 
-export const metadata = { title: 'Market' };
+export const metadata = {
+  title: 'Market',
+  description:
+    'The market: the size and shape of the opportunity for an operating layer across sub-$5M service businesses.',
+  alternates: { canonical: '/opportunity' },
+};
 
 export default function OpportunityPage() {
   return (
