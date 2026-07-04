@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter_Tight } from 'next/font/google';
 import './globals.css';
 import Analytics from '@/components/Analytics';
+import AnalyticsEvents from '@/components/AnalyticsEvents';
 import StructuredData from '@/components/StructuredData';
 
 const interTight = Inter_Tight({
@@ -47,6 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {children}
         <StructuredData />
         <Analytics />
+        <AnalyticsEvents />
       </body>
     </html>
   );
