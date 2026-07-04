@@ -25,7 +25,7 @@ export function BookingApple() {
     <div ref={ref} className={PANEL}>
       <div className="mb-6 flex items-baseline justify-between">
         <p className="text-[13px] font-semibold text-platinum-soft">This week</p>
-        <p className="text-[12px] text-mute">6 jobs booked</p>
+        <p className="text-[12px] text-mute">filling itself</p>
       </div>
       <motion.div variants={stagger} initial="hidden" animate={inView ? 'show' : 'hidden'} className="grid grid-cols-5 gap-2.5">
         {week.map((col) => (
@@ -56,7 +56,7 @@ export function BookingApple() {
   );
 }
 
-/* FOLLOWS UP — one hero number, a few clean lines. */
+/* FOLLOWS UP — the feeling: nothing you send goes cold. */
 export function QuotesApple() {
   const ref = useRef<HTMLDivElement | null>(null);
   const inView = useInView(ref, { amount: 0.3 });
@@ -67,12 +67,11 @@ export function QuotesApple() {
   ];
   return (
     <div ref={ref} className={PANEL}>
-      <p className="text-[12px] uppercase tracking-[0.18em] text-mute">Open quotes, chased for you</p>
+      <p className="text-[12px] uppercase tracking-[0.18em] text-mute">Every quote, chased for you</p>
       <motion.div variants={stagger} initial="hidden" animate={inView ? 'show' : 'hidden'}>
-        <motion.p variants={rise} className="mt-3 font-display text-6xl leading-none tracking-tight text-white sm:text-7xl">
-          $19,400
+        <motion.p variants={rise} className="mt-3 font-display text-4xl leading-[1.05] tracking-tight text-white sm:text-5xl">
+          Nothing you quote<br />gets forgotten.
         </motion.p>
-        <motion.p variants={rise} className="mt-2 text-[14px] text-platinum-soft">in play right now, none of it dropped.</motion.p>
         <div className="mt-7 space-y-4">
           {rows.map((r) => (
             <motion.div key={r.job} variants={rise} className="flex items-center justify-between gap-4">
@@ -91,7 +90,7 @@ export function QuotesApple() {
   );
 }
 
-/* GROWS — one hero number, a few clean lines. */
+/* GROWS — the feeling: the customers you already won, coming back. */
 export function RepeatApple() {
   const ref = useRef<HTMLDivElement | null>(null);
   const inView = useInView(ref, { amount: 0.3 });
@@ -104,10 +103,9 @@ export function RepeatApple() {
     <div ref={ref} className={PANEL}>
       <p className="text-[12px] uppercase tracking-[0.18em] text-mute">Customers you already earned</p>
       <motion.div variants={stagger} initial="hidden" animate={inView ? 'show' : 'hidden'}>
-        <motion.p variants={rise} className="mt-3 font-display text-6xl leading-none tracking-tight text-white sm:text-7xl">
-          11
+        <motion.p variants={rise} className="mt-3 font-display text-4xl leading-[1.05] tracking-tight text-white sm:text-5xl">
+          The ones you won,<br />coming back.
         </motion.p>
-        <motion.p variants={rise} className="mt-2 text-[14px] text-platinum-soft">ready to book again, reached out for you.</motion.p>
         <div className="mt-7 space-y-4">
           {rows.map((r) => (
             <motion.div key={r.who} variants={rise} className="flex items-center justify-between gap-4">
