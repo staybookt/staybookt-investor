@@ -60,7 +60,7 @@ export default function HomePage() {
               This one is <Accent>already running.</Accent>
             </h2>
             <p className="mt-7 max-w-xl text-platinum-soft text-lg leading-relaxed">
-              We built and we run Top Choice Electrical. Real business, real site, real bookings coming in.
+              We built Top Choice Electrical and we run it. Real business, real site, real jobs booked.
             </p>
             <blockquote className="mt-8 border-l border-white/15 pl-5 max-w-xl">
               <p className="text-platinum text-lg italic leading-snug mb-2">
@@ -68,9 +68,19 @@ export default function HomePage() {
               </p>
               <cite className="not-italic text-mute text-sm font-semibold">Tim Ciszkowski, Top Choice Electrical</cite>
             </blockquote>
-            <Link href="/work" className="mt-8 inline-flex items-center gap-2 text-elec font-semibold text-sm hover:gap-3 transition-all">
-              See the work <span aria-hidden>{'→'}</span>
-            </Link>
+            <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-5">
+              <a
+                href={CAL_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-white/90"
+              >
+                Book a 30-minute call
+              </a>
+              <Link href="/work" className="inline-flex items-center gap-2 text-elec font-semibold text-sm hover:gap-3 transition-all">
+                See the work <span aria-hidden>{'→'}</span>
+              </Link>
+            </div>
           </div>
           <Frame>
             <div className="flex items-center gap-1.5 border-b border-white/8 bg-white/[0.04] px-3 py-2">
@@ -103,12 +113,9 @@ export default function HomePage() {
               We build it, we run it, and we only get paid when it brings you work. If the phone does not ring more, we
               have not earned a cent.
             </p>
-            <p className="mt-4 max-w-xl text-mute text-base leading-relaxed">
-              No agency retainer, no lock-in, nothing new to learn. We grow when you grow.
-            </p>
             <p className="mt-6 max-w-xl text-platinum text-lg leading-relaxed">
-              You do not have to be a big company to have this. It is built for a business your size, and it is priced
-              like it. So you get back to the work, and the life, you built this for.
+              You do not have to be a big company to have this. It is built for a business your size, and priced for
+              one. So you get back to the work, and the life, you built this for.
             </p>
 
             <div className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
@@ -201,7 +208,7 @@ function FooterBottomRow() {
       <div className={linkRow}>
         <Link href="/how-it-works" className={linkCls}>How it works</Link>
         <Link href="/platform" className={linkCls}>Platform</Link>
-        <Link href="/work" className={linkCls}>Proof</Link>
+        <Link href="/work" className={linkCls}>Our work</Link>
         <Link href="/is-this-for-me" className={linkCls}>Is it for me?</Link>
         <Link href="/pricing" className={linkCls}>Pricing</Link>
         <Link href="/manifesto" className={linkCls}>Manifesto</Link>
