@@ -6,30 +6,51 @@ export const metadata = {
   title: 'Pricing',
   alternates: { canonical: '/pricing' },
   description:
-    'Three simple parts. Get Found: a one-time build. StayBookt: a flat monthly to run it. Enjoy Life: a small share of the new revenue we bring you. We only make money when you do.',
+    'Get Found: your visibility, built. StayBookt: the front office, run for you. Enjoy Life: an invite-only partnership for owners building toward an exit or succession. We only make money when you do.',
 };
 
 const PILLARS = [
   {
     tag: 'Get found',
-    role: 'Build it',
+    role: 'Be seen',
     price: '$1,750',
     unit: 'one time',
-    body: 'We build your site, set up your Google profile, and get you showing up when customers nearby search for what you do. Yours to keep.',
+    body: 'The foundation. We make you findable and credible before a customer ever calls.',
+    includes: [
+      'A fast, mobile-first website, yours to keep',
+      'Google Business Profile, built and optimized',
+      'Local SEO, AEO, and GEO so you show up',
+      'Listings and NAP consistency across the web',
+      'A review and referral engine',
+    ],
   },
   {
     tag: 'StayBookt',
-    role: 'Run it',
+    role: 'Be run',
     price: '$199',
     unit: 'per month',
-    body: 'We run the front office: the site, the bookings, the follow-up, the reviews. Every month, handled, so you never touch it.',
+    body: 'The operating layer. The whole front office runs itself, so you never touch it.',
+    includes: [
+      'AI receptionist: every call and text answered, 24/7',
+      'Self-serve scheduling and booking',
+      'Quotes sent, tracked, and chased for you',
+      'Reviews and referrals, automated',
+      'Your customer database, and a daily brief',
+    ],
   },
   {
     tag: 'Enjoy Life',
-    role: 'Grow it',
-    price: '5%',
-    unit: 'of new revenue',
-    body: 'A small share of the new business we bring you. If the phone does not ring more, this line is zero. We only win when you win.',
+    role: 'Be free',
+    price: 'By invitation',
+    unit: '',
+    invite: true,
+    body: 'Not software, a partnership. For select owners building toward an exit or a succession handoff.',
+    includes: [
+      'Systems built for a clean exit or a family handoff',
+      'We turn a job into a sellable, inheritable asset',
+      'We share the upside: 5% of the new business we generate',
+      'A true partner, invite-only',
+    ],
   },
 ];
 
@@ -40,13 +61,13 @@ export default function PricingPage() {
       <main className="bg-ink-deep">
         <section className="px-6 pb-8 pt-36 sm:px-12 sm:pt-44">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-mute">How we get paid</p>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-mute">How it works</p>
             <h1 className="mt-4 font-display text-4xl leading-[1.05] tracking-tight text-white sm:text-6xl">
               We only make money <span className="text-white">when you do.</span>
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-platinum-soft sm:text-lg">
-              Three simple parts. A one-time build, a flat monthly to run it, and a small share of the new business we
-              actually bring you. If the phone does not ring more, that last part is nothing.
+              A ladder, not a menu. Get found, then let us run it, and for a select few, a partnership that turns the
+              business into an asset you can walk away from.
             </p>
           </div>
         </section>
@@ -54,14 +75,34 @@ export default function PricingPage() {
         <section className="px-6 py-8 sm:px-12">
           <div className="mx-auto grid max-w-5xl items-stretch gap-5 lg:grid-cols-3">
             {PILLARS.map((p) => (
-              <div key={p.tag} className="flex h-full flex-col rounded-2xl border border-white/10 p-7">
-                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-mute">{p.role}</p>
+              <div
+                key={p.tag}
+                className={`flex h-full flex-col rounded-2xl border p-7 ${
+                  p.invite ? 'border-white/20 bg-white/[0.02]' : 'border-white/10'
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-mute">{p.role}</p>
+                  {p.invite && (
+                    <span className="rounded-full border border-white/20 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-platinum-soft">
+                      Invite only
+                    </span>
+                  )}
+                </div>
                 <h2 className="mt-2 font-display text-2xl tracking-tight text-white">{p.tag}</h2>
                 <div className="mt-5 flex items-baseline gap-2 border-t border-white/8 pt-5">
-                  <span className="font-display text-4xl tracking-tight text-white">{p.price}</span>
-                  <span className="text-[13px] text-mute">{p.unit}</span>
+                  <span className={`font-display tracking-tight text-white ${p.invite ? 'text-2xl' : 'text-4xl'}`}>{p.price}</span>
+                  {p.unit && <span className="text-[13px] text-mute">{p.unit}</span>}
                 </div>
                 <p className="mt-4 text-[14px] leading-relaxed text-platinum-soft">{p.body}</p>
+                <ul className="mt-5 space-y-2">
+                  {p.includes.map((it) => (
+                    <li key={it} className="flex items-start gap-2 text-[13px] text-platinum-soft">
+                      <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-white/40" />
+                      {it}
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
