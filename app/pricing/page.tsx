@@ -44,7 +44,7 @@ const PILLARS = [
     price: 'By invitation',
     unit: '',
     invite: true,
-    body: 'Not software, a partnership. For select owners building toward an exit or a succession handoff.',
+    body: 'Not software. A partnership. For select owners building toward an exit or a succession handoff.',
     includes: [
       'Systems built for a clean exit or a family handoff',
       'We turn a job into a sellable, inheritable asset',
@@ -61,7 +61,7 @@ export default function PricingPage() {
       <main className="bg-ink-deep">
         <section className="px-6 pb-8 pt-36 sm:px-12 sm:pt-44">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-mute">How it works</p>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-mute">Pricing</p>
             <h1 className="mt-4 font-display text-4xl leading-[1.05] tracking-tight text-white sm:text-6xl">
               We only make money <span className="text-white">when you do.</span>
             </h1>
