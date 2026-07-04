@@ -66,8 +66,8 @@ export default function EnjoyLifePage() {
         <section className="px-6 pt-16 pb-6 sm:px-12">
           <div className="mx-auto max-w-4xl">
             <p className="max-w-2xl text-xl leading-relaxed text-platinum-soft sm:text-2xl">
-              It was the life the business was supposed to buy. StayBookt runs the front office so the business runs
-              without you, and you finally get to go collect it.
+              It was the life it was supposed to buy. StayBookt runs the front office so the business runs
+              without you, and you finally get to go live it.
             </p>
           </div>
         </section>
