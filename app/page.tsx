@@ -107,7 +107,8 @@ export default function HomePage() {
               No agency retainer, no lock-in, nothing new to learn. We grow when you grow.
             </p>
             <p className="mt-6 max-w-xl text-platinum text-lg leading-relaxed">
-              So you get back to the work, and the life, you built this for.
+              You do not have to be a big company to have this. It is built for a business your size, and it is priced
+              like it. So you get back to the work, and the life, you built this for.
             </p>
 
             <div className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
