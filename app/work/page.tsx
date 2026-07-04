@@ -96,18 +96,10 @@ export default function WorkPage() {
               <div className="overflow-hidden rounded-xl border border-white/10">
                 <BrowserBar url="xnlhr.com" />
                 <div className="relative aspect-[16/9] w-full overflow-hidden bg-ink">
-                  <div className="absolute inset-0 z-0 flex flex-col items-center justify-center px-6 text-center">
+                  <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
                     <p className="mb-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-mute">XNL HR &amp; Communications</p>
                     <p className="font-display text-lg text-platinum-soft">xnlhr.com</p>
                   </div>
-                  <iframe
-                    src="https://www.xnlhr.com"
-                    title="XNL HR live site"
-                    loading="lazy"
-                    scrolling="no"
-                    sandbox="allow-same-origin allow-scripts allow-popups"
-                    className="absolute left-0 top-0 z-10 h-[1400px] w-full border-0 pointer-events-none"
-                  />
                 </div>
               </div>
             </div>
@@ -116,8 +108,7 @@ export default function WorkPage() {
               <h2 className="mt-3 font-display text-3xl tracking-tight text-white">XNL HR &amp; Communications</h2>
               <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-platinum-soft">
                 Evert Akkerman, CHRL, runs a fractional HR practice where his judgment is the product. We built a site that
-                tells the XNL story the way he has been trying to tell it for years, so intake calls land already warmed
-                up.
+                tells the XNL story the way he has been trying to tell it for years, so intake calls start already warm.
               </p>
               <LiveLink href="https://www.xnlhr.com" label="Visit the live site" />
             </div>
