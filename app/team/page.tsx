@@ -9,7 +9,11 @@ import { AskV2 } from '@/components/ExtendedSections';
 import { TopNav } from '@/components/TopNav';
 import { SiteFooter, UpNext } from '@/components/HomeTeasers';
 
-export const metadata = { title: 'Team' };
+export const metadata = {
+  title: 'Team',
+  description: 'The team behind StayBookt: Jacob Charendoff and Richard Roos.',
+  alternates: { canonical: '/team' },
+};
 
 export default function TeamPage() {
   return (
