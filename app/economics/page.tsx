@@ -4,7 +4,11 @@ import { AskV2 } from '@/components/ExtendedSections';
 import { TopNav } from '@/components/TopNav';
 import { SiteFooter, UpNext } from '@/components/HomeTeasers';
 
-export const metadata = { title: 'Model' };
+export const metadata = {
+  title: 'Model',
+  description: 'The StayBookt model: unit economics, pricing, and how the business compounds.',
+  alternates: { canonical: '/economics' },
+};
 
 export default function EconomicsPage() {
   return (
