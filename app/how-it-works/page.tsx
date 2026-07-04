@@ -12,7 +12,7 @@ export const metadata = {
 
 const STEPS = [
   { n: '01', t: 'We build and launch your site', d: 'A fast, mobile-first site that makes you look like the best operator in town and turns visitors into booked jobs. Live in weeks, not months.' },
-  { n: '02', t: 'We get you found', d: 'Google Business Profile, local search, reviews, the works. When someone nearby needs what you do, you are who they find.' },
+  { n: '02', t: 'We get you found', d: 'Google Business Profile, local search, reviews, listings. When someone nearby needs what you do, you are who they find.' },
   { n: '03', t: 'We run the front office', d: 'Leads get answered in seconds. Jobs get booked. Reminders go out. Reviews get requested. All of it happens whether you are on a job or asleep.' },
   { n: '04', t: 'We report back', d: 'One short brief every Monday: what got booked, what came back, and the one thing that needs you. You stay in control without living in an app.' },
 ];
