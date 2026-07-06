@@ -5,8 +5,17 @@ import type { ReactNode } from 'react';
 
 /* Full-bleed sunset band. The image drifts with scroll (translateY of the
  * band's viewport top * -0.06), mirroring the mockup's parallax. The headline
- * reveals on scroll-in like the mockup's .reveal. */
-export default function ParallaxBand({ src, children }: { src: string; children: ReactNode }) {
+ * reveals on scroll-in like the mockup's .reveal. An optional subheading sits
+ * beneath the headline. */
+export default function ParallaxBand({
+  src,
+  children,
+  subheading,
+}: {
+  src: string;
+  children: ReactNode;
+  subheading?: string;
+}) {
   const bandRef = useRef<HTMLDivElement | null>(null);
   const [offset, setOffset] = useState(0);
   const [inView, setInView] = useState(false);
@@ -46,7 +55,10 @@ export default function ParallaxBand({ src, children }: { src: string; children:
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={src} alt="" style={{ transform: `translateY(${offset}px)` }} />
       <div className="ov" />
-      <h2 className={`reveal${inView ? ' in' : ''}`}>{children}</h2>
+      <div className={`life-copy reveal${inView ? ' in' : ''}`}>
+        <h2>{children}</h2>
+        {subheading && <p className="life-sub">{subheading}</p>}
+      </div>
     </div>
   );
 }
