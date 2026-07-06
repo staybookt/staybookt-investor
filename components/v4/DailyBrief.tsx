@@ -1,12 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import {
   motion,
+  useMotionValue,
   useMotionValueEvent,
   useTransform,
-  type MotionValue,
 } from 'framer-motion';
+import { ScrubContext } from './ProductScrub';
 
 /* Ported from product-dailybrief.html. Now scrubbed by scroll progress passed
  * from ProductScrub: the brief cards rise in one at a time as progress passes
@@ -16,7 +17,10 @@ import {
 
 const CARD_T = [0.12, 0.34, 0.54, 0.74];
 
-export default function DailyBrief({ progress }: { progress: MotionValue<number> }) {
+export default function DailyBrief() {
+  const still = useMotionValue(1);
+  const ctx = useContext(ScrubContext);
+  const progress = ctx ?? still;
   const [p, setP] = useState(progress.get());
   useMotionValueEvent(progress, 'change', setP);
 

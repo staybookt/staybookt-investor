@@ -120,8 +120,9 @@ export default function HomePage() {
           </>
         }
         signature
-        device={(progress) => <Receptionist progress={progress} />}
-      />
+      >
+        <Receptionist />
+      </ProductScrub>
 
       {/* 03 — PRODUCT: Operating Dashboard */}
       <ProductScrub
@@ -133,8 +134,9 @@ export default function HomePage() {
         }
         sub={<>Every job, every lead, every dollar. Run for you, in one place.</>}
         reverse
-        device={(progress) => <Dashboard progress={progress} />}
-      />
+      >
+        <Dashboard />
+      </ProductScrub>
 
       {/* 04 — PRODUCT: Daily Brief */}
       <ProductScrub
@@ -145,8 +147,9 @@ export default function HomePage() {
             You wake up, read one short brief, and get on with your day. Or your life.
           </>
         }
-        device={(progress) => <DailyBrief progress={progress} />}
-      />
+      >
+        <DailyBrief />
+      </ProductScrub>
 
       <div className="seam seam-dark-to-light" aria-hidden="true" />
 

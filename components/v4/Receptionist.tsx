@@ -1,12 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import {
   motion,
+  useMotionValue,
   useMotionValueEvent,
   useTransform,
-  type MotionValue,
 } from 'framer-motion';
+import { ScrubContext } from './ProductScrub';
 
 /* Ported from product-receptionist.html. The iMessage thread is now scrubbed by
  * scroll progress (0->1) passed from ProductScrub: each bubble reveals as
@@ -27,7 +28,10 @@ const T = {
   delivered: 0.9,
 };
 
-export default function Receptionist({ progress }: { progress: MotionValue<number> }) {
+export default function Receptionist() {
+  const still = useMotionValue(1);
+  const ctx = useContext(ScrubContext);
+  const progress = ctx ?? still;
   const [p, setP] = useState(progress.get());
   useMotionValueEvent(progress, 'change', setP);
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, createContext } from 'react';
 import type { ReactNode } from 'react';
 import {
   motion,
@@ -11,27 +11,33 @@ import {
 } from 'framer-motion';
 import { useStaticFallback } from '@/lib/useReducedMotion';
 
+/* Scroll progress (0->1) for the current product moment, provided to the device
+ * child via context. Elements are serializable across the server->client
+ * boundary; functions are not, so the device screen is passed as `children` and
+ * reads progress from here rather than through a render-prop. */
+export const ScrubContext = createContext<MotionValue<number> | null>(null);
+
 /* A pinned, scroll-scrubbed product moment. The outer section is TALL (~220vh);
  * an inner sticky container holds the copy + device and stays pinned in the
  * viewport while the section scrolls. useScroll gives progress 0->1 across the
- * scroll of the tall section, which is handed to the device render-prop to drive
- * its animation. On reduced-motion / narrow viewports we drop the pin and the
- * scrub entirely: a static centered layout, device told to show its final state
- * (progress fixed at 1). */
+ * scroll of the tall section, which is handed to the device child through
+ * ScrubContext to drive its animation. On reduced-motion / narrow viewports we
+ * drop the pin and the scrub entirely: a static centered layout, device told to
+ * show its final state (progress fixed at 1). */
 export default function ProductScrub({
   eyebrow,
   headline,
   sub,
   reverse = false,
   signature = false,
-  device,
+  children,
 }: {
   eyebrow: string;
   headline: ReactNode;
   sub: ReactNode;
   reverse?: boolean;
   signature?: boolean;
-  device: (progress: MotionValue<number>) => ReactNode;
+  children: ReactNode;
 }) {
   const staticMode = useStaticFallback();
   const tallRef = useRef<HTMLDivElement | null>(null);
@@ -54,38 +60,42 @@ export default function ProductScrub({
 
   if (staticMode) {
     return (
-      <section className={cls}>
-        <div className="aura" />
-        <div className="wrap grid">
-          <div className="reveal in">
-            <div className="eyebrow">{eyebrow}</div>
-            <h2>{headline}</h2>
-            <p className="sub">{sub}</p>
+      <ScrubContext.Provider value={progress}>
+        <section className={cls}>
+          <div className="aura" />
+          <div className="wrap grid">
+            <div className="reveal in">
+              <div className="eyebrow">{eyebrow}</div>
+              <h2>{headline}</h2>
+              <p className="sub">{sub}</p>
+            </div>
+            <div className="reveal in visual">{children}</div>
           </div>
-          <div className="reveal in visual">{device(progress)}</div>
-        </div>
-      </section>
+        </section>
+      </ScrubContext.Provider>
     );
   }
 
   return (
-    <section className={`${cls} pin-tall`}>
-      <div ref={tallRef} className="pin-track">
-        <div className="pin-sticky">
-          <div className="aura" />
-          {signature ? <SignatureBackdrop progress={scrollYProgress} /> : null}
-          <div className="wrap grid">
-            <motion.div style={{ opacity: copyOpacity, y: copyY }}>
-              <div className="eyebrow">{eyebrow}</div>
-              <h2>{headline}</h2>
-              <p className="sub">{sub}</p>
-            </motion.div>
-            <div className="visual">{device(progress)}</div>
+    <ScrubContext.Provider value={progress}>
+      <section className={`${cls} pin-tall`}>
+        <div ref={tallRef} className="pin-track">
+          <div className="pin-sticky">
+            <div className="aura" />
+            {signature ? <SignatureBackdrop progress={scrollYProgress} /> : null}
+            <div className="wrap grid">
+              <motion.div style={{ opacity: copyOpacity, y: copyY }}>
+                <div className="eyebrow">{eyebrow}</div>
+                <h2>{headline}</h2>
+                <p className="sub">{sub}</p>
+              </motion.div>
+              <div className="visual">{children}</div>
+            </div>
+            {signature ? <SignatureResolve progress={scrollYProgress} /> : null}
           </div>
-          {signature ? <SignatureResolve progress={scrollYProgress} /> : null}
         </div>
-      </div>
-    </section>
+      </section>
+    </ScrubContext.Provider>
   );
 }
 

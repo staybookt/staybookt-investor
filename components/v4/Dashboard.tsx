@@ -1,12 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import {
   motion,
+  useMotionValue,
   useMotionValueEvent,
   useTransform,
-  type MotionValue,
 } from 'framer-motion';
+import { ScrubContext } from './ProductScrub';
 
 /* Ported from product-dashboard.html. Now scrubbed by scroll progress passed
  * from ProductScrub: the window scales up and lifts, the revenue line draws
@@ -23,7 +24,10 @@ function counter(p: number, target: number, start: number, end: number) {
   return Math.round(target * k);
 }
 
-export default function Dashboard({ progress }: { progress: MotionValue<number> }) {
+export default function Dashboard() {
+  const still = useMotionValue(1);
+  const ctx = useContext(ScrubContext);
+  const progress = ctx ?? still;
   const [p, setP] = useState(progress.get());
   useMotionValueEvent(progress, 'change', setP);
 
