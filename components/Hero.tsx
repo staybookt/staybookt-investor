@@ -106,9 +106,9 @@ export default function Hero() {
           <span className="flex items-baseline justify-center">
             <span>Stay</span>
             <span className="wordmark-gradient">Bookt</span>
-            <span className="text-white">.</span>
+            <span className="text-[#7C3AED]">.</span>
           </span>
-          <span className="block">Enjoy Life.</span>
+          <span className="block text-hvac">Enjoy Life.</span>
         </motion.h1>
 
         <motion.p

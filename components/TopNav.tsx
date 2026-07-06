@@ -4,31 +4,17 @@ import Link from 'next/link';
 import Wordmark from './Wordmark';
 import { CAL_LINK } from '@/lib/site';
 
-const OWNER_NAV = [
+const NAV = [
+  { href: '/why-a-website', label: 'Why a website' },
   { href: '/how-it-works', label: 'How it works' },
-  { href: '/platform', label: 'Platform' },
-  { href: '/work', label: 'Proof' },
-  { href: '/is-this-for-me', label: 'Is it for me?' },
   { href: '/pricing', label: 'Pricing' },
+  { href: '/enjoy-life', label: 'Enjoy Life' },
+  { href: '/founders', label: 'Founders' },
 ];
 
-const INVESTOR_NAV = [
-  { href: '/proof', label: 'Customer' },
-  { href: '/opportunity', label: 'Market' },
-  { href: '/economics', label: 'Model' },
-  { href: '/team', label: 'Team' },
-];
-
-export function TopNav({
-  active,
-  variant = 'owner',
-}: {
-  active?: string;
-  variant?: 'owner' | 'investor';
-}) {
+export function TopNav({ active }: { active?: string }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const pages = variant === 'investor' ? INVESTOR_NAV : OWNER_NAV;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -39,8 +25,8 @@ export function TopNav({
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all ${
-        scrolled ? 'bg-ink/85 backdrop-blur-md border-b border-divider/50' : 'bg-transparent'
+      className={`fixed top-0 left-0 right-0 z-50 bg-ink/90 backdrop-blur-md transition-colors ${
+        scrolled ? 'border-b border-white/10' : 'border-b border-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-12 py-4 flex items-center justify-between gap-6">
@@ -49,19 +35,17 @@ export function TopNav({
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-2">
-          {pages.map((p) => {
+        <nav className="hidden md:flex items-center gap-1">
+          {NAV.map((p) => {
             const isActive = !!active && p.href.includes(active);
-            const isAnchor = p.href.startsWith('#');
-            const className = `text-[13px] font-medium px-3 py-2 transition-colors ${
-              isActive ? 'text-white' : 'text-platinum-soft hover:text-white'
-            }`;
-            return isAnchor ? (
-              <a key={p.href} href={p.href} className={className}>
-                {p.label}
-              </a>
-            ) : (
-              <Link key={p.href} href={p.href} className={className}>
+            return (
+              <Link
+                key={p.href}
+                href={p.href}
+                className={`text-[13px] font-medium px-3 py-2 transition-colors ${
+                  isActive ? 'text-white' : 'text-platinum-soft hover:text-white'
+                }`}
+              >
                 {p.label}
               </Link>
             );
@@ -97,25 +81,15 @@ export function TopNav({
 
       {/* Mobile menu */}
       {open && (
-        <nav className="md:hidden border-t border-divider/50 bg-ink/95 backdrop-blur-md">
+        <nav className="md:hidden border-t border-white/10 bg-ink/95 backdrop-blur-md">
           <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-1">
-            {pages.map((p) => {
-              const isAnchor = p.href.startsWith('#');
-              const inner = (
+            {NAV.map((p) => (
+              <Link key={p.href} href={p.href} onClick={() => setOpen(false)}>
                 <span className="block text-[15px] font-medium py-2 text-platinum hover:text-white">
                   {p.label}
                 </span>
-              );
-              return isAnchor ? (
-                <a key={p.href} href={p.href} onClick={() => setOpen(false)}>
-                  {inner}
-                </a>
-              ) : (
-                <Link key={p.href} href={p.href} onClick={() => setOpen(false)}>
-                  {inner}
-                </Link>
-              );
-            })}
+              </Link>
+            ))}
             <a
               href={CAL_LINK}
               target="_blank"
