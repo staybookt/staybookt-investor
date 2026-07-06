@@ -3,7 +3,6 @@ import Hero from '@/components/Hero';
 import ImpactMatrix from '@/components/ImpactMatrix';
 import LogicCases from '@/components/LogicCases';
 import HomePricing from '@/components/HomePricing';
-import Testimonials from '@/components/Testimonials';
 import { CAL_LINK, EMAIL } from '@/lib/site';
 import Link from 'next/link';
 
@@ -52,8 +51,7 @@ export default function HomePage() {
       {/* 03 — PRICING: three columns */}
       <HomePricing />
 
-      {/* 04 — PROOF */}
-      <Testimonials />
+      {/* 04 — PROOF: gated until real, attributed quotes exist (placeholders removed from live). */}
 
       {/* 05 — LONG-TERM teaser */}
       <section className="bg-cream px-6 py-24 sm:py-32">
