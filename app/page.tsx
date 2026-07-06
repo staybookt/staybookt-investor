@@ -10,6 +10,10 @@ import Link from 'next/link';
 const SHARE_DESCRIPTION =
   'StayBookt builds and runs the entire front office for service businesses, and only gets paid when it brings you work. So the business runs without you, and you get your life back.';
 
+// Lifestyle still (Pexels, licensed). One-line swap to change it.
+const LIFE_IMG =
+  'https://images.pexels.com/photos/34534420/pexels-photo-34534420.jpeg?auto=compress&cs=tinysrgb&w=1600';
+
 export const metadata = {
   title: 'StayBookt. Enjoy Life.',
   description: SHARE_DESCRIPTION,
@@ -38,7 +42,9 @@ export default function HomePage() {
       <Hero />
 
       {/* 01 — WHAT IT IS: the product, mapped to enjoy-life */}
-      <ImpactMatrix />
+      <div id="m1">
+        <ImpactMatrix />
+      </div>
 
       {/* 02 — WHY: the most compelling logic, as dark cards */}
       <LogicCases />
@@ -76,7 +82,33 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 06 — CLOSER: the promise, one ask (dark) */}
+      {/* 06 — LIFESTYLE band: the payoff, made real */}
+      <section className="relative overflow-hidden">
+        <img
+          src={LIFE_IMG}
+          alt="An owner enjoying an evening off while the business runs without him"
+          className="h-[58vh] min-h-[380px] w-full object-cover"
+          loading="lazy"
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(180deg, rgba(5,8,17,0.55) 0%, rgba(5,8,17,0.30) 40%, rgba(5,8,17,0.82) 100%)',
+          }}
+        />
+        <div className="absolute inset-0 flex items-center justify-center px-6">
+          <p
+            className="max-w-2xl text-center font-display tracking-[-0.02em] text-white"
+            style={{ fontSize: 'clamp(28px, 4.4vw, 52px)', lineHeight: 1.04 }}
+          >
+            You built it for this.
+          </p>
+        </div>
+      </section>
+
+      {/* 07 — CLOSER: the promise, one ask (dark) */}
       <section className="bg-ink px-6 py-28 sm:py-40 text-white">
         <div className="mx-auto max-w-3xl text-center">
           <h2
