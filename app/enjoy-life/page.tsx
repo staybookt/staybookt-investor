@@ -1,5 +1,6 @@
-import Link from 'next/link';
 import { TopNav } from '@/components/TopNav';
+import Wordmark from '@/components/Wordmark';
+import SiteFooter from '@/components/SiteFooter';
 import { CAL_LINK } from '@/lib/site';
 
 export const metadata = {
@@ -35,7 +36,7 @@ export default function EnjoyLifePage() {
     <>
       <TopNav active="enjoy-life" />
       <main className="bg-paper text-ink">
-        {/* Cinematic hero band (stays dark) */}
+        {/* Cinematic video hero band (stays dark) */}
         <section className="relative flex items-end overflow-hidden" style={{ minHeight: '66vh', background: '#050811' }}>
           <video
             className="absolute inset-0 h-full w-full object-cover"
@@ -56,16 +57,16 @@ export default function EnjoyLifePage() {
             }}
           />
           <div className="relative z-10 mx-auto w-full max-w-4xl px-6 pb-14 sm:px-12">
-            <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-platinum-soft/90">Enjoy Life</p>
-            <h1 className="mt-4 font-display text-4xl leading-[1.02] tracking-tight text-white sm:text-6xl lg:text-7xl">
+            <p className="eyebrow text-platinum-soft/90">Enjoy Life</p>
+            <h1 className="display-1 mt-4 text-white">
               The point was never the business.
             </h1>
           </div>
         </section>
 
-        <section className="px-6 pt-16 pb-6 sm:px-12">
+        <section className="px-6 pt-24 pb-6 sm:px-12">
           <div className="mx-auto max-w-4xl">
-            <p className="max-w-2xl text-xl leading-relaxed text-[#475569] sm:text-2xl">
+            <p className="display-3 max-w-2xl font-normal leading-relaxed text-body">
               It was the life it was supposed to buy. StayBookt runs the front office so the business runs
               without you, and you finally get to go live it.
             </p>
@@ -73,15 +74,15 @@ export default function EnjoyLifePage() {
         </section>
 
         {/* Three doors */}
-        <section className="px-6 py-10 sm:px-12">
+        <section className="px-6 py-24 sm:px-12 sm:py-32">
           <div className="mx-auto max-w-4xl">
-            <p className="mb-10 text-[11px] font-medium uppercase tracking-[0.24em] text-mute">Three doors, one key</p>
+            <p className="eyebrow mb-10">Three doors, one key</p>
             <div className="space-y-14">
               {DOORS.map((d) => (
-                <div key={d.k} className="border-t border-[#E5E7EB] pt-8">
-                  <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-mute">{d.k}</p>
-                  <h2 className="mt-3 font-display text-3xl leading-tight tracking-tight text-ink sm:text-5xl">{d.h}</h2>
-                  <p className="mt-5 max-w-2xl text-lg leading-relaxed text-[#475569]">{d.b}</p>
+                <div key={d.k} className="border-t border-divider-lt pt-8">
+                  <p className="eyebrow">{d.k}</p>
+                  <h2 className="display-2 mt-3 text-ink">{d.h}</h2>
+                  <p className="mt-5 max-w-2xl text-lg leading-relaxed text-body">{d.b}</p>
                 </div>
               ))}
             </div>
@@ -89,9 +90,9 @@ export default function EnjoyLifePage() {
         </section>
 
         {/* The key — dark highlight band */}
-        <section className="px-6 py-8 sm:px-12">
-          <div className="mx-auto max-w-4xl rounded-3xl bg-ink px-8 py-14 text-white sm:px-14">
-            <p className="font-display text-3xl leading-snug tracking-tight text-white sm:text-4xl">
+        <section className="px-6 py-24 sm:px-12 sm:py-32">
+          <div className="panel-ink mx-auto max-w-4xl px-8 py-14 sm:px-14">
+            <p className="display-2 text-white">
               Three different doors. The same key: a business that runs without you.
             </p>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-platinum-soft">
@@ -102,30 +103,23 @@ export default function EnjoyLifePage() {
         </section>
 
         {/* Close */}
-        <section className="px-6 pb-28 pt-12 sm:px-12">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="font-display text-3xl tracking-tight text-ink sm:text-4xl">
-              <span>Stay</span>
-              <span className="wordmark-gradient">Bookt</span>
-              <span className="text-[#7C3AED]">.</span> <span className="text-hvac">Enjoy Life.</span>
-            </p>
+        <section className="px-6 py-24 sm:px-12 sm:py-32">
+          <div className="mx-auto max-w-4xl text-center">
+            <Wordmark onDark={false} period tagline size="lg" />
             <div className="mt-9">
               <a
                 href={CAL_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-ink px-8 py-4 text-base font-semibold text-white transition-colors hover:bg-ink/90"
+                className="btn btn-onlight"
               >
                 Book a 30-minute call
               </a>
             </div>
-            <p className="mt-8">
-              <Link href="/" className="text-sm font-semibold text-ink transition-colors hover:opacity-70">
-                {'←'} Back home
-              </Link>
-            </p>
           </div>
         </section>
+
+        <SiteFooter />
       </main>
     </>
   );
