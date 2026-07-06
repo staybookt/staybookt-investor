@@ -1,5 +1,7 @@
-import Link from 'next/link';
 import { TopNav } from '@/components/TopNav';
+import Reveal from '@/components/Reveal';
+import ParallaxBand from '@/components/ParallaxBand';
+import SiteFooter from '@/components/SiteFooter';
 import { CAL_LINK } from '@/lib/site';
 
 export const metadata = {
@@ -9,10 +11,13 @@ export const metadata = {
     'The point was never the business. It was the life it was supposed to buy. A business that runs without you is an asset you can sell, pass on, or finally step back from.',
 };
 
-// Placeholder footage (Pexels, licensed). Swap for owned lifestyle footage.
-const LIFE_SRC = 'https://videos.pexels.com/video-files/1966695/1966695-hd_1920_1080_30fps.mp4';
+// Lifestyle still (Pexels, licensed). One-line swap to change it.
+const LIFE_IMG =
+  'https://images.pexels.com/photos/34534420/pexels-photo-34534420.jpeg?auto=compress&cs=tinysrgb&w=1600';
 
-const DOORS = [
+type Door = { k: string; h: string; b: string };
+
+const DOORS: Door[] = [
   {
     k: 'Sell it',
     h: 'Build an asset, not a job.',
@@ -32,101 +37,95 @@ const DOORS = [
 
 export default function EnjoyLifePage() {
   return (
-    <>
+    <main className="hpv2">
       <TopNav active="enjoy-life" />
-      <main className="bg-paper text-ink">
-        {/* Cinematic hero band (stays dark) */}
-        <section className="relative flex items-end overflow-hidden" style={{ minHeight: '66vh', background: '#050811' }}>
-          <video
-            className="absolute inset-0 h-full w-full object-cover"
-            src={LIFE_SRC}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            aria-hidden
-          />
-          <div
-            aria-hidden
-            className="absolute inset-0"
-            style={{
-              background:
-                'linear-gradient(180deg, rgba(5,8,17,0.72) 0%, rgba(5,8,17,0.28) 34%, rgba(5,8,17,0.5) 70%, #050811 100%)',
-            }}
-          />
-          <div className="relative z-10 mx-auto w-full max-w-4xl px-6 pb-14 sm:px-12">
-            <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-platinum-soft/90">Enjoy Life</p>
-            <h1 className="mt-4 font-display text-4xl leading-[1.02] tracking-tight text-white sm:text-6xl lg:text-7xl">
-              The point was never the business.
-            </h1>
-          </div>
-        </section>
 
-        <section className="px-6 pt-16 pb-6 sm:px-12">
-          <div className="mx-auto max-w-4xl">
-            <p className="max-w-2xl text-xl leading-relaxed text-[#475569] sm:text-2xl">
-              It was the life it was supposed to buy. StayBookt runs the front office so the business runs
-              without you, and you finally get to go live it.
-            </p>
-          </div>
-        </section>
+      {/* Full-bleed sunset */}
+      <ParallaxBand src={LIFE_IMG}>The point was never the business.</ParallaxBand>
 
-        {/* Three doors */}
-        <section className="px-6 py-10 sm:px-12">
-          <div className="mx-auto max-w-4xl">
-            <p className="mb-10 text-[11px] font-medium uppercase tracking-[0.24em] text-mute">Three doors, one key</p>
-            <div className="space-y-14">
-              {DOORS.map((d) => (
-                <div key={d.k} className="border-t border-[#E5E7EB] pt-8">
-                  <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-mute">{d.k}</p>
-                  <h2 className="mt-3 font-display text-3xl leading-tight tracking-tight text-ink sm:text-5xl">{d.h}</h2>
-                  <p className="mt-5 max-w-2xl text-lg leading-relaxed text-[#475569]">{d.b}</p>
-                </div>
-              ))}
+      {/* Intro */}
+      <section className="section">
+        <div className="wrap-narrow prose">
+          <Reveal>
+            <div className="eyebrow" style={{ marginBottom: 16 }}>
+              Enjoy Life
             </div>
+          </Reveal>
+          <Reveal delay={1}>
+            <p style={{ fontSize: 'clamp(20px,2.4vw,28px)', color: 'var(--hp-text)', maxWidth: '30ch', lineHeight: 1.4 }}>
+              It was the life it was supposed to buy. StayBookt runs the front office so the
+              business runs without you, and you finally get to go live it.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Three doors */}
+      {DOORS.map((d, i) => (
+        <section key={d.k} className={`feat${i % 2 === 1 ? ' cream reverse' : ''}`}>
+          <div className="wrap grid">
+            <Reveal>
+              <div className="eyebrow">{d.k}</div>
+              <h2 className="big">
+                <span className="grad">{d.h}</span>
+              </h2>
+            </Reveal>
+            <Reveal delay={1} className="visual">
+              <div className="card-soft">
+                <p style={{ fontSize: 'clamp(16px,1.5vw,19px)', lineHeight: 1.7, color: 'var(--hp-muted)', margin: 0 }}>
+                  {d.b}
+                </p>
+              </div>
+            </Reveal>
           </div>
         </section>
+      ))}
 
-        {/* The key — dark highlight band */}
-        <section className="px-6 py-8 sm:px-12">
-          <div className="mx-auto max-w-4xl rounded-3xl bg-ink px-8 py-14 text-white sm:px-14">
-            <p className="font-display text-3xl leading-snug tracking-tight text-white sm:text-4xl">
-              Three different doors. The same key: a business that runs without you.
+      {/* The key */}
+      <section className="stand">
+        <div className="hair" />
+        <div className="aura" />
+        <div className="wrap">
+          <Reveal>
+            <h3>Three different doors. The same key: a business that runs without you.</h3>
+          </Reveal>
+          <Reveal delay={1}>
+            <p style={{ maxWidth: '44ch' }}>
+              That is the whole reason StayBookt exists. Not another tool for you to run. We run it,
+              we only get paid when it works, and what it buys back is your time, your options, and
+              the life you built it for.
             </p>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-platinum-soft">
-              That is the whole reason StayBookt exists. Not another tool for you to run. We run it, we only get paid
-              when it works, and what it buys back is your time, your options, and the life you built it for.
-            </p>
-          </div>
-        </section>
+          </Reveal>
+        </div>
+      </section>
 
-        {/* Close */}
-        <section className="px-6 pb-28 pt-12 sm:px-12">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="font-display text-3xl tracking-tight text-ink sm:text-4xl">
-              <span>Stay</span>
-              <span className="wordmark-gradient">Bookt</span>
-              <span className="text-[#7C3AED]">.</span> <span className="text-hvac">Enjoy Life.</span>
-            </p>
-            <div className="mt-9">
+      {/* Closer */}
+      <section className="closer">
+        <div className="aura" />
+        <div className="wrap">
+          <Reveal>
+            <h2>
+              Stay<span className="b">Bookt</span>
+              <span className="dot">.</span> <span className="life">Enjoy Life.</span>
+            </h2>
+          </Reveal>
+          <Reveal delay={1}>
+            <div style={{ marginTop: 40 }}>
               <a
                 href={CAL_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-ink px-8 py-4 text-base font-semibold text-white transition-colors hover:bg-ink/90"
+                className="pill pill-white"
+                style={{ padding: '14px 28px', fontSize: 15 }}
               >
                 Book a 30-minute call
               </a>
             </div>
-            <p className="mt-8">
-              <Link href="/" className="text-sm font-semibold text-ink transition-colors hover:opacity-70">
-                {'←'} Back home
-              </Link>
-            </p>
-          </div>
-        </section>
-      </main>
-    </>
+          </Reveal>
+        </div>
+      </section>
+
+      <SiteFooter />
+    </main>
   );
 }

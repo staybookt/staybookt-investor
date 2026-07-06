@@ -1,6 +1,7 @@
-import Link from 'next/link';
 import { TopNav } from '@/components/TopNav';
-import { CAL_LINK, EMAIL } from '@/lib/site';
+import Reveal from '@/components/Reveal';
+import SiteFooter from '@/components/SiteFooter';
+import { CAL_LINK } from '@/lib/site';
 
 export const metadata = {
   title: 'Why the website comes first | StayBookt',
@@ -8,6 +9,11 @@ export const metadata = {
     'For a service business, the website is not a brochure. It is the first impression and the lead engine. Everything else runs on top of it.',
   alternates: { canonical: '/why-a-website' },
 };
+
+// PLACEHOLDER image (Pexels, licensed). A tradesperson on the phone / a booking
+// in hand. Swap for owned or curated imagery; image ID to be curated.
+const BAND_IMG =
+  'https://images.pexels.com/photos/8005397/pexels-photo-8005397.jpeg?auto=compress&cs=tinysrgb&w=1600';
 
 const points = [
   {
@@ -30,66 +36,67 @@ const points = [
 
 export default function WhyAWebsitePage() {
   return (
-    <main className="bg-paper text-ink">
-      <TopNav />
+    <main className="hpv2">
+      <TopNav active="why-a-website" />
 
-      <section className="mx-auto max-w-4xl px-6 pt-40 pb-16 sm:px-12">
-        <h1 className="font-display tracking-[-0.03em] text-4xl sm:text-6xl text-ink">
-          Why the website comes first.
-        </h1>
-        <p className="mt-6 max-w-3xl text-lg leading-relaxed text-[#475569]">
-          For a service business, the website is not a brochure. It is the first
-          impression and the lead engine. Everything else runs on top of it.
-        </p>
-      </section>
-
-      <section className="mx-auto max-w-4xl px-6 pb-12 sm:px-12">
-        <div className="grid gap-6 sm:grid-cols-2">
-          {points.map((p, i) => (
-            <div
-              key={p.title}
-              className="rounded-2xl border border-[#E5E7EB] bg-cream p-8"
-            >
-              <span className="text-sm font-semibold text-mute">
-                {String(i + 1).padStart(2, '0')}
-              </span>
-              <h2 className="mt-3 font-display tracking-[-0.03em] text-xl text-ink">
-                {p.title}
-              </h2>
-              <p className="mt-3 text-base leading-relaxed text-[#475569]">
-                {p.body}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-4xl px-6 pb-24 sm:px-12">
-        <div className="rounded-2xl bg-ink p-10 text-white sm:p-14">
-          <p className="font-display tracking-[-0.03em] text-2xl leading-snug sm:text-3xl">
-            Get found first. Then StayBookt runs the rest.
+      <section className="subhero">
+        <div className="aura" />
+        <div className="veil" />
+        <div className="wrap subhero-in">
+          <div className="eyebrow on-dark reveal">Why a website</div>
+          <h1 className="reveal d1">
+            <span className="grad">Why the website</span> comes first.
+          </h1>
+          <p className="lead reveal d2">
+            For a service business, the website is not a brochure. It is the first impression and the
+            lead engine. Everything else runs on top of it.
           </p>
-          <div className="mt-8">
-            <a
-              href={CAL_LINK}
-              className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-white/90"
-            >
-              Book a 30-minute call
-            </a>
-          </div>
         </div>
       </section>
 
-      <footer className="border-t border-[#E5E7EB]">
-        <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-8 text-sm text-mute sm:px-12">
-          <Link href="/" className="hover:text-ink">
-            Back to home
-          </Link>
-          <a href={`mailto:${EMAIL}`} className="hover:text-ink">
-            {EMAIL}
-          </a>
+      <section className="life-band">
+        <img src={BAND_IMG} alt="A tradesperson taking a booking on the phone" loading="lazy" />
+        <div className="ov" />
+      </section>
+
+      {points.map((p, i) => (
+        <section key={p.title} className={i % 2 === 1 ? 'feat cream reverse' : 'feat'}>
+          <div className="wrap grid">
+            <Reveal>
+              <div className="eyebrow">{String(i + 1).padStart(2, '0')}</div>
+              <h2 className="big">{p.title}</h2>
+              <p className="body">{p.body}</p>
+            </Reveal>
+          </div>
+        </section>
+      ))}
+
+      <section className="stand">
+        <div className="hair" />
+        <div className="aura" />
+        <div className="wrap">
+          <Reveal>
+            <h2>
+              Get found first. <span className="grad">Then StayBookt runs the rest.</span>
+            </h2>
+          </Reveal>
+          <Reveal delay={1}>
+            <div style={{ marginTop: 40 }}>
+              <a
+                href={CAL_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pill pill-white"
+                style={{ padding: '14px 28px', fontSize: 15 }}
+              >
+                Book a 30-minute call
+              </a>
+            </div>
+          </Reveal>
         </div>
-      </footer>
+      </section>
+
+      <SiteFooter />
     </main>
   );
 }

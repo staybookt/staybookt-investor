@@ -1,6 +1,6 @@
-import Link from 'next/link';
 import { TopNav } from '@/components/TopNav';
-import HomePricing from '@/components/HomePricing';
+import Reveal from '@/components/Reveal';
+import SiteFooter from '@/components/SiteFooter';
 import { CAL_LINK } from '@/lib/site';
 
 export const metadata = {
@@ -10,64 +10,179 @@ export const metadata = {
     'Get Found: your visibility, built, one-time. StayBookt: the front office, run for you, monthly. Enjoy Life: an invite-only partnership for owners building toward an exit or succession. We only make money when you do.',
 };
 
+type PriceTier = {
+  nm: string;
+  pr: string;
+  u: string;
+  ds: string;
+  dark: boolean;
+  points: string[];
+};
+
+const TIERS: PriceTier[] = [
+  {
+    nm: 'Get Found',
+    pr: '$1,750',
+    u: 'one-time',
+    ds: 'A site that gets you found, and it is yours to keep.',
+    dark: false,
+    points: [
+      'Custom, mobile-first website',
+      'Google Business Profile rebuilt',
+      'Search and reviews foundation',
+      'Tap-to-call and booking wired in',
+    ],
+  },
+  {
+    nm: 'StayBookt',
+    pr: '$199',
+    u: 'per month',
+    ds: 'The whole front office, run for you.',
+    dark: true,
+    points: [
+      'Everything in Get Found',
+      'We answer your phone and texts, 24/7',
+      'We capture every lead and book the jobs',
+      'We chase quotes, follow-ups, and past customers',
+    ],
+  },
+  {
+    nm: 'Enjoy Life',
+    pr: 'By invitation',
+    u: ' ',
+    ds: 'A partnership that turns the business into something you can sell.',
+    dark: false,
+    points: [
+      'Everything in StayBookt',
+      'Systems built for a clean exit or a family handoff',
+      'We turn a job into a sellable, inheritable asset',
+      'We share the upside: 5% of the new business we generate',
+    ],
+  },
+];
+
 export default function PricingPage() {
   return (
-    <>
+    <main className="hpv2">
       <TopNav active="pricing" />
-      <main className="bg-paper text-ink">
-        <section className="px-6 pb-4 pt-36 sm:px-12 sm:pt-44">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-mute">Pricing</p>
-            <h1 className="mt-4 font-display text-4xl leading-[1.05] tracking-tight text-ink sm:text-6xl">
-              We only make money when you do.
-            </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-[#475569] sm:text-lg">
-              A ladder, not a menu. Get found, then let us run it. And for a select few, a partnership
-              that turns the business into an asset you can walk away from.
-            </p>
+
+      <section className="subhero">
+        <div className="aura" />
+        <div className="veil" />
+        <div className="wrap subhero-in">
+          <div className="eyebrow on-dark reveal">Pricing</div>
+          <h1 className="reveal d1">
+            We only make money <span className="grad">when you do.</span>
+          </h1>
+          <p className="lead reveal d2">
+            A ladder, not a menu. Get found, then let us run it. And for a select few, a
+            partnership that turns the business into an asset you can walk away from.
+          </p>
+        </div>
+      </section>
+
+      <section className="price" id="price">
+        <div className="wrap">
+          <div className="tiers">
+            {TIERS.map((t, i) => (
+              <Reveal
+                key={t.nm}
+                delay={i === 1 ? 1 : i === 2 ? 2 : undefined}
+                className={`tier${t.dark ? ' dark' : ''}`}
+              >
+                <div className="nm">{t.nm}</div>
+                <div className="pr">{t.pr}</div>
+                <div className="u">{t.u}</div>
+                <div className="ds">{t.ds}</div>
+                <ul
+                  style={{
+                    listStyle: 'none',
+                    padding: 0,
+                    margin: '20px 0 0',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 10,
+                  }}
+                >
+                  {t.points.map((p) => (
+                    <li
+                      key={p}
+                      style={{
+                        display: 'flex',
+                        gap: 10,
+                        fontSize: 14,
+                        lineHeight: 1.45,
+                        color: t.dark ? '#c3c9d4' : 'var(--hp-muted)',
+                      }}
+                    >
+                      <span
+                        aria-hidden
+                        style={{
+                          marginTop: 6,
+                          width: 6,
+                          height: 6,
+                          borderRadius: '50%',
+                          flex: 'none',
+                          background: 'var(--hp-emerald)',
+                        }}
+                      />
+                      <span>{p}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Reveal>
+            ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* The three columns, shared with the homepage */}
-        <HomePricing detailed />
-
-        <section className="border-t border-[#E5E7EB] bg-cream px-6 py-16 sm:px-12">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-mute">
+      <section className="section center">
+        <div className="wrap-narrow prose" style={{ textAlign: 'center' }}>
+          <Reveal>
+            <div className="eyebrow" style={{ marginBottom: 14 }}>
               How we count new business
+            </div>
+          </Reveal>
+          <Reveal delay={1}>
+            <p style={{ margin: '0 auto', textAlign: 'center' }}>
+              Form fills tagged at the source. Calls tracked through your Google Business Profile.
+              New customers reconciled against your existing book so we never double-count. You see
+              exactly what we count, and the report goes out every month before the invoice.
             </p>
-            <p className="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-[#475569]">
-              Form fills tagged at the source. Calls tracked through your Google Business Profile. New
-              customers reconciled against your existing book so we never double-count. You see exactly
-              what we count, and the report goes out every month before the invoice.
-            </p>
-          </div>
-        </section>
+          </Reveal>
+        </div>
+      </section>
 
-        <section className="px-6 py-20 sm:px-12">
-          <div className="mx-auto max-w-2xl rounded-3xl bg-ink p-8 text-center text-white sm:p-12">
-            <h2 className="font-display text-3xl tracking-tight text-white">Not sure it is for you?</h2>
-            <p className="mx-auto mt-4 max-w-md text-base text-platinum-soft">
-              That is what the call is for. 30 minutes, no pitch deck, and we tell you straight whether
-              it is a fit.
+      <section className="stand">
+        <div className="hair" />
+        <div className="aura" />
+        <div className="wrap">
+          <Reveal>
+            <h3>Not sure it is for you?</h3>
+          </Reveal>
+          <Reveal delay={1}>
+            <p>
+              That is what the call is for. 30 minutes, no pitch deck, and we tell you straight
+              whether it is a fit.
             </p>
-            <a
-              href={CAL_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-7 inline-block rounded-full bg-white px-8 py-4 text-base font-semibold text-ink transition-transform hover:-translate-y-0.5 hover:bg-white/90"
-            >
-              Book a 30-minute call
-            </a>
-            <p className="mt-5 text-[13px] text-platinum-soft">
-              Prefer to see it first?{' '}
-              <Link href="/how-it-works" className="text-elec-light underline-offset-2 hover:underline">
-                See how it works {'→'}
-              </Link>
-            </p>
-          </div>
-        </section>
-      </main>
-    </>
+          </Reveal>
+          <Reveal delay={2}>
+            <div style={{ marginTop: 36 }}>
+              <a
+                href={CAL_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pill pill-white"
+                style={{ padding: '14px 28px', fontSize: 15 }}
+              >
+                Book a 30-minute call
+              </a>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <SiteFooter />
+    </main>
   );
 }

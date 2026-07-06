@@ -1,6 +1,8 @@
-import Link from 'next/link';
+import type { ReactNode } from 'react';
 import { TopNav } from '@/components/TopNav';
-import { CAL_LINK, EMAIL } from '@/lib/site';
+import Reveal from '@/components/Reveal';
+import SiteFooter from '@/components/SiteFooter';
+import { CAL_LINK } from '@/lib/site';
 
 export const metadata = {
   title: 'The two of us | StayBookt',
@@ -9,85 +11,127 @@ export const metadata = {
   alternates: { canonical: '/founders' },
 };
 
+const AVATAR_BG = {
+  background: 'linear-gradient(135deg,#06b6d4,#10b981 55%,#4f46e5)',
+  color: '#fff',
+  borderRadius: '50%',
+  width: 64,
+  height: 64,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  fontWeight: 700,
+  fontSize: 20,
+  letterSpacing: '-.02em',
+  flexShrink: 0,
+} as const;
+
+function FounderCard({
+  initials,
+  name,
+  role,
+  children,
+}: {
+  initials: string;
+  name: string;
+  role: string;
+  children: ReactNode;
+}) {
+  return (
+    <div className="card-soft" style={{ padding: 'clamp(28px,4vw,40px)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
+        <div style={AVATAR_BG} aria-hidden>
+          {initials}
+        </div>
+        <div>
+          <h3 style={{ fontSize: 24, letterSpacing: '-.03em' }}>{name}</h3>
+          <p style={{ marginTop: 4, fontSize: 14, fontWeight: 600, color: 'var(--hp-muted)' }}>
+            {role}
+          </p>
+        </div>
+      </div>
+      <p className="prose" style={{ marginTop: 22 }}>
+        {children}
+      </p>
+    </div>
+  );
+}
+
 export default function FoundersPage() {
   return (
-    <main className="bg-paper text-ink">
-      <TopNav />
+    <main className="hpv2">
+      <TopNav active="founders" />
 
-      <section className="mx-auto max-w-5xl px-6 pt-40 pb-16 sm:px-12">
-        <h1 className="font-display tracking-[-0.03em] text-4xl sm:text-6xl text-ink">
-          The two of us.
-        </h1>
-        <p className="mt-6 max-w-3xl text-lg leading-relaxed text-[#475569]">
-          StayBookt is built and run by two founders who have been on both sides of a
-          service business: the one bringing in the work, and the one making the
-          operation actually run.
-        </p>
-      </section>
-
-      <section className="mx-auto max-w-5xl px-6 pb-12 sm:px-12">
-        <div className="grid gap-6 md:grid-cols-2">
-          <div className="rounded-2xl border border-[#E5E7EB] bg-cream p-8">
-            <h2 className="font-display tracking-[-0.03em] text-2xl text-ink">
-              Jacob Charendoff
-            </h2>
-            <p className="mt-1 text-sm font-semibold text-[#7C3AED]">
-              Brand, product, and growth.
-            </p>
-            <p className="mt-5 text-base leading-relaxed text-[#475569]">
-              Jacob runs the outside game: the brand, the product, and how StayBookt
-              shows up in the world. His focus is making a service business impossible
-              to miss and effortless to hire, then turning that first impression into a
-              system the owner can actually hand off.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-[#E5E7EB] bg-cream p-8">
-            <h2 className="font-display tracking-[-0.03em] text-2xl text-ink">
-              Richard
-            </h2>
-            <p className="mt-1 text-sm font-semibold text-hvac">
-              Operations, growth, and finance.
-            </p>
-            <p className="mt-5 text-base leading-relaxed text-[#475569]">
-              Two plus decades of executive-level leadership in high-growth service
-              businesses at scale. Responsible for multiple start-up efforts and leading
-              significant growth at Venterra from $15M to $500M+ in revenues. Deep
-              understanding of the entire customer journey and all aspects of delivering
-              world-class revenue performance. A CPA who has a passion for operations and
-              leveraging technology to deliver tangible results.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-5xl px-6 pb-24 sm:px-12">
-        <div className="rounded-2xl bg-ink p-10 text-white sm:p-14">
-          <p className="font-display tracking-[-0.03em] text-2xl leading-snug sm:text-3xl">
-            One of us builds the demand. One of us builds the operation. Together, we
-            build the thing that runs without you.
+      <section className="subhero">
+        <div className="aura" />
+        <div className="veil" />
+        <div className="wrap subhero-in">
+          <div className="eyebrow on-dark reveal">Founders</div>
+          <h1 className="reveal d1">
+            <span className="grad">The two of us.</span>
+          </h1>
+          <p className="lead reveal d2">
+            StayBookt is built and run by two founders who have been on both sides of a service
+            business: the one bringing in the work, and the one making the operation actually run.
           </p>
-          <div className="mt-8">
-            <a
-              href={CAL_LINK}
-              className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-white/90"
-            >
-              Book a 30-minute call
-            </a>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="wrap">
+          <div className="feat grid" style={{ alignItems: 'stretch' }}>
+            <Reveal>
+              <FounderCard
+                initials="JC"
+                name="Jacob Charendoff"
+                role="Brand, product, and growth."
+              >
+                Jacob runs the outside game: the brand, the product, and how StayBookt shows up in
+                the world. His focus is making a service business impossible to miss and effortless
+                to hire, then turning that first impression into a system the owner can actually
+                hand off.
+              </FounderCard>
+            </Reveal>
+            <Reveal delay={1}>
+              <FounderCard initials="R" name="Richard" role="Operations, growth, and finance.">
+                Two plus decades of executive-level leadership in high-growth service businesses at
+                scale. Responsible for multiple start-up efforts and leading significant growth at
+                Venterra from $15M to $500M+ in revenues. Deep understanding of the entire customer
+                journey and all aspects of delivering world-class revenue performance. A CPA who has
+                a passion for operations and leveraging technology to deliver tangible results.
+              </FounderCard>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      <footer className="border-t border-[#E5E7EB]">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-8 text-sm text-mute sm:px-12">
-          <Link href="/" className="hover:text-ink">
-            Back to home
-          </Link>
-          <a href={`mailto:${EMAIL}`} className="hover:text-ink">
-            {EMAIL}
-          </a>
+      <section className="stand">
+        <div className="hair" />
+        <div className="aura" />
+        <div className="wrap">
+          <Reveal>
+            <h2>
+              One of us builds the demand. One of us builds the operation.{' '}
+              <span className="grad">Together, we build the thing that runs without you.</span>
+            </h2>
+          </Reveal>
+          <Reveal delay={1}>
+            <div style={{ marginTop: 40 }}>
+              <a
+                href={CAL_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pill pill-white"
+                style={{ padding: '14px 28px', fontSize: 15 }}
+              >
+                Book a 30-minute call
+              </a>
+            </div>
+          </Reveal>
         </div>
-      </footer>
+      </section>
+
+      <SiteFooter />
     </main>
   );
 }
