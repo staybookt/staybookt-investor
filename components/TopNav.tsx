@@ -8,6 +8,7 @@ const NAV = [
   { href: '/why-a-website', label: 'Why a website' },
   { href: '/how-it-works', label: 'How it works' },
   { href: '/pricing', label: 'Pricing' },
+  { href: '/long-term', label: 'Long-term value' },
   { href: '/enjoy-life', label: 'Enjoy Life' },
   { href: '/founders', label: 'Founders' },
 ];
