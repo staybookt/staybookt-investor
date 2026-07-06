@@ -162,7 +162,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 05 — Proof: live client browser card */}
+      {/* 05 — Proof: live client browser card, auto-scrolling through the site */}
       <section className="proof">
         <div className="wrap">
           <Reveal>
@@ -173,12 +173,28 @@ export default function HomePage() {
                 <i />
                 <span className="url">topchoiceelectrical.com</span>
               </div>
-              <div className="site">
-                <div className="glow" />
-                <div className="k">Licensed electricians · Newmarket, ON</div>
-                <div className="t">Top Choice Electrical</div>
-                <div className="cta2">
-                  <span className="ph">Book online in 60 seconds</span>
+              <div className="bwrap">
+                <div className="bscroll">
+                  <div className="site">
+                    <div className="glow" />
+                    <div className="k">Licensed electricians · Newmarket, ON</div>
+                    <div className="t">Top Choice Electrical</div>
+                    <div className="cta2">
+                      <span className="ph">Book online in 60 seconds</span>
+                    </div>
+                  </div>
+                  <div className="site srow">
+                    <div className="k">Services</div>
+                    <div className="svc">Panel upgrades · EV chargers · Rewiring · Emergency calls</div>
+                  </div>
+                  <div className="site srev">
+                    <div className="rev">
+                      &ldquo;Showed up on time, fixed it fast.&rdquo; <span className="stars">★★★★★</span>
+                    </div>
+                  </div>
+                  <div className="site sbook">
+                    <span className="bookbtn">Book your electrician</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -191,6 +207,16 @@ export default function HomePage() {
             <a href="https://topchoiceelectrical.com" target="_blank" rel="noopener noreferrer" className="visit">
               Visit the live site ↗
             </a>
+          </Reveal>
+          <Reveal delay={2}>
+            <figure className="timquote">
+              <blockquote>
+                &ldquo;My phone used to ring off the hook and half of it went to voicemail. Now every
+                call gets answered and booked. <span className="grad">I actually took a weekend off.</span>&rdquo;
+              </blockquote>
+              <figcaption>Tim Ciszkowski, Top Choice Electrical, Newmarket ON</figcaption>
+              <div className="qnote">Placeholder quote, pending approval.</div>
+            </figure>
           </Reveal>
         </div>
       </section>
@@ -217,7 +243,12 @@ export default function HomePage() {
       </section>
 
       {/* 07 — Lifestyle band with subtle parallax */}
-      <ParallaxBand src={LIFE_IMG}>You built it for this.</ParallaxBand>
+      <ParallaxBand
+        src={LIFE_IMG}
+        subheading="You poured years of blood, sweat, and tears into building this. Now it is time to enjoy the life it was supposed to buy."
+      >
+        You built your business for this.
+      </ParallaxBand>
 
       {/* 08 — Pricing */}
       <section className="price" id="price">
