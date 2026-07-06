@@ -12,10 +12,10 @@ const interTight = Inter_Tight({
   display: 'swap',
 });
 
-// Official company slogan. Use in brand-line slots (title, OG, share card).
-const SLOGAN = 'Get Found. StayBookt.';
+// Official brand line. Use in brand-line slots (title, OG, share card).
+const SLOGAN = 'StayBookt. Enjoy Life.';
 const DESCRIPTION =
-  'StayBookt builds and runs websites for service businesses up to $5M across North America. We get you found, book the work, and keep the calendar full. Built and run by us. Paid for by the results.';
+  'StayBookt runs the entire front office for service businesses, and only gets paid when it brings you work. So the business runs without you, and you get your life back.';
 const SITE_URL = 'https://www.staybookt.com';
 
 export const metadata: Metadata = {
