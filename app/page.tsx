@@ -108,26 +108,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 03 — Capability wall */}
-      <section className="capwall">
-        <div className="wrap">
-          <Reveal className="head">
-            <div className="eyebrow center">The whole front office</div>
-            <h2 className="big grad" style={{ margin: '12px auto 0' }}>
-              Everything it does. So you don't have to.
-            </h2>
-          </Reveal>
-          <div className="capgrid">
-            {CAPABILITIES.map((c) => (
-              <Reveal key={c.nm} className="cap">
-                <span className="nm">{c.nm}</span>
-                <span className="py">{c.py}</span>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* 04 — Standout beat with logic cases */}
       <section className="stand">
         <div className="hair" />
@@ -157,6 +137,27 @@ export default function HomePage() {
               <h4>Priced for your size</h4>
               <p>An executive front office without the executive payroll.</p>
             </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* 03 — Capability wall */}
+      <section className="capwall">
+        <div className="wrap">
+          <Reveal className="head">
+            <div className="eyebrow center">The whole front office</div>
+            <h2 className="big grad" style={{ margin: '12px auto 0', maxWidth: '18ch' }}>
+              Everything it does. So you don't have to.
+            </h2>
+            <p className="lead" style={{ maxWidth: '54ch', margin: '22px auto 0' }}>A receptionist, an office manager, a marketer, and a bookkeeper. That is what it takes to run the front of a business, and most owners are doing all of it themselves at 9pm. StayBookt runs the whole thing for you. Here is every part.</p>
+          </Reveal>
+          <div className="capgrid">
+            {CAPABILITIES.map((c) => (
+              <Reveal key={c.nm} className="cap">
+                <span className="nm">{c.nm}</span>
+                <span className="py">{c.py}</span>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
