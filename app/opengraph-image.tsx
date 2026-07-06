@@ -2,10 +2,10 @@ import { ImageResponse } from 'next/og';
 
 /* StayBookt share card. 1200x630 PNG. Used by every social platform
  * (LinkedIn, Twitter, Slack, iMessage, WhatsApp) when the URL is shared.
- * Carries the official slogan: Get Found. StayBookt. */
+ * Carries the brand line: StayBookt. Enjoy Life. */
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
-export const alt = 'Get Found. StayBookt.';
+export const alt = 'StayBookt. Enjoy Life.';
 export const dynamic = 'force-static';
 
 export default function OpenGraphImage() {
@@ -15,7 +15,7 @@ export default function OpenGraphImage() {
         style={{
           width: '100%',
           height: '100%',
-          background: '#0A0E1A',
+          background: '#06080d',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
@@ -44,7 +44,7 @@ export default function OpenGraphImage() {
             width: 700,
             height: 700,
             borderRadius: 9999,
-            background: 'radial-gradient(circle, rgba(79,70,229,0.32) 0%, rgba(79,70,229,0) 70%)',
+            background: 'radial-gradient(circle, rgba(16,185,129,0.30) 0%, rgba(16,185,129,0) 70%)',
             display: 'flex',
           }}
         />
@@ -52,41 +52,22 @@ export default function OpenGraphImage() {
         <div
           style={{
             display: 'flex',
-            alignItems: 'baseline',
-            fontSize: 44,
-            fontWeight: 800,
-            letterSpacing: '-0.04em',
+            fontSize: 40,
+            fontWeight: 700,
+            letterSpacing: '-0.02em',
             color: '#94a3b8',
             position: 'relative',
           }}
         >
-          For North American service businesses up to $5M
+          The operating layer for the trades
         </div>
 
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            position: 'relative',
-          }}
-        >
+        <div style={{ display: 'flex', flexDirection: 'column', position: 'relative' }}>
           <div
             style={{
-              fontSize: 112,
+              fontSize: 116,
               fontWeight: 800,
-              color: 'white',
-              letterSpacing: '-0.04em',
-              lineHeight: 1.0,
-              display: 'flex',
-            }}
-          >
-            Get Found.
-          </div>
-          <div
-            style={{
-              fontSize: 112,
-              fontWeight: 800,
-              letterSpacing: '-0.04em',
+              letterSpacing: '-0.045em',
               lineHeight: 1.0,
               display: 'flex',
             }}
@@ -101,7 +82,19 @@ export default function OpenGraphImage() {
             >
               Bookt
             </span>
-            <span style={{ color: 'white' }}>.</span>
+            <span style={{ color: '#7C3AED' }}>.</span>
+          </div>
+          <div
+            style={{
+              fontSize: 116,
+              fontWeight: 800,
+              letterSpacing: '-0.045em',
+              lineHeight: 1.0,
+              color: '#10B981',
+              display: 'flex',
+            }}
+          >
+            Enjoy Life.
           </div>
         </div>
 
