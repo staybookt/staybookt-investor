@@ -491,6 +491,39 @@ section[id] { scroll-margin-top: 5rem; }
 .v4 .product p.sub{margin-top:22px;font-size:clamp(17px,1.6vw,21px);line-height:1.55;color:#aeb4c0;max-width:38ch;}
 @media(max-width:900px){.v4 .product .grid{grid-template-columns:1fr;gap:52px;}.v4 .product.reverse .visual{order:0;}.v4 .product h2{max-width:100%;}}
 
+/* ===== PINNED SCROLL-SCRUB PRODUCT MOMENTS =====
+   Each product moment is a TALL section; an inner sticky container pins the
+   copy + device in the viewport while scroll progress scrubs the animation.
+   Below 820px the pin is disabled (see media query) and the moment renders as a
+   simple centered reveal. */
+.v4 .product.pin-tall{padding:0;overflow:visible;}
+.v4 .pin-track{position:relative;height:220vh;}
+.v4 .product.signature .pin-track{height:250vh;}
+.v4 .pin-sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center;overflow:hidden;padding:clamp(40px,7vw,90px) 0;}
+.v4 .pin-sticky .grid{width:100%;}
+/* Signature 2 AM beat: near-black wash, muted timestamp, stark resolve line. */
+.v4 .product.signature{background:#04060b;}
+.v4 .product.signature .aura{opacity:.55;}
+.v4 .sig-time{position:absolute;top:clamp(48px,9vw,110px);left:0;right:0;text-align:center;font-size:clamp(58px,13vw,190px);font-weight:700;letter-spacing:-.05em;color:#0f141d;line-height:1;pointer-events:none;z-index:0;}
+.v4 .product.signature .wrap{position:relative;z-index:1;}
+.v4 .sig-resolve{position:absolute;left:0;right:0;bottom:clamp(48px,9vw,96px);text-align:center;font-size:clamp(28px,5vw,64px);font-weight:700;letter-spacing:-.04em;line-height:1.02;color:#fff;padding:0 24px;z-index:2;}
+
+/* ===== SEAM SCRIMS: soft eased transitions between adjacent sections ===== */
+.v4 .seam{height:120px;margin-top:-120px;position:relative;z-index:3;pointer-events:none;}
+.v4 .seam-dark-to-dark{display:none;}
+.v4 .seam-dark-to-light{background:linear-gradient(180deg,rgba(6,8,13,0) 0%,var(--v4-paper) 100%);}
+.v4 .seam-light-to-dark{background:linear-gradient(180deg,rgba(255,255,255,0) 0%,var(--v4-ink) 100%);}
+.v4 .seam-dark-to-cream{background:linear-gradient(180deg,rgba(6,8,13,0) 0%,var(--v4-cream) 100%);}
+.v4 .seam-cream-to-dark{background:linear-gradient(180deg,rgba(246,246,243,0) 0%,var(--v4-ink) 100%);}
+
+/* Below the pin breakpoint: no pinning, static centered moment. */
+@media(max-width:819px){
+  .v4 .product.pin-tall{padding:clamp(96px,14vw,180px) 0;}
+  .v4 .pin-track{height:auto;}
+  .v4 .pin-sticky{position:static;height:auto;display:block;padding:0;overflow:visible;}
+  .v4 .sig-time,.v4 .sig-resolve{display:none;}
+}
+
 /* light type moment */
 .v4 .light{background:var(--v4-paper);padding:clamp(120px,17vw,220px) 0;}
 .v4 .light h2{font-size:clamp(40px,6.6vw,92px);max-width:15ch;}
