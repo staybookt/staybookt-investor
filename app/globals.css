@@ -10,6 +10,7 @@
   --platinum-soft: #C7C7CC;
   --mute: #64748B;
   --mute-dark: #94A3B8;
+  --body: #475569;
   --divider: #1F2937;
   --divider-lt: #E5E7EB;
 
@@ -25,6 +26,7 @@
   --elec: #06B6D4;
   --elec-light: #67E8F9;
   --elec-accent: #4F46E5;
+  --period: #7C3AED;
 }
 
 :root {
@@ -44,6 +46,7 @@
   --color-platinum-soft: var(--platinum-soft);
   --color-mute: var(--mute);
   --color-mute-dark: var(--mute-dark);
+  --color-body: var(--body);
   --color-divider: var(--divider);
   --color-divider-lt: var(--divider-lt);
   --color-hvac: var(--hvac);
@@ -56,11 +59,12 @@
   --color-elec-deep: var(--elec-deep);
   --color-elec-light: var(--elec-light);
   --color-elec-accent: var(--elec-accent);
+  --color-period: var(--period);
 }
 
 html, body {
-  background: var(--ink-deep);
-  color: white;
+  background: var(--paper);
+  color: var(--ink);
   font-family: 'Helvetica Neue', Helvetica, Arial, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -71,22 +75,52 @@ main#top {
   overflow-x: clip;
 }
 
-/* The continuous gradient is gone. Every section paints itself. */
-main.scroll-stage {
-  position: relative;
-  background: var(--ink-deep);
+/* ============================================================
+   DESIGN SYSTEM (unify pass) — one type ramp, one button, one
+   eyebrow, one container. Use these everywhere. Do not hand-roll
+   heading sizes or button padding per page.
+   ============================================================ */
+
+/* Type ramp — fluid, consistent line-heights across every page */
+.display-xl { font-size: clamp(56px, 12vw, 150px); line-height: 0.9;  letter-spacing: -0.045em; font-weight: 700; }
+.display-1  { font-size: clamp(40px, 6.2vw, 88px); line-height: 1.0;  letter-spacing: -0.035em; font-weight: 700; }
+.display-2  { font-size: clamp(30px, 4.4vw, 54px); line-height: 1.04; letter-spacing: -0.03em;  font-weight: 700; }
+.display-3  { font-size: clamp(23px, 2.8vw, 34px); line-height: 1.12; letter-spacing: -0.02em;  font-weight: 700; }
+.display-xl, .display-1, .display-2, .display-3 {
+  font-family: var(--font-display), 'Inter Tight', 'Helvetica Neue', system-ui, sans-serif;
 }
 
-main.scroll-stage > * { position: relative; z-index: 1; }
-
-/* DEFENSE: any section that contains dark text (text-stone-900) gets
-   a cream background automatically. This guarantees readability even
-   if the per-section bg classes haven't been deployed yet, or if a
-   future section forgets to declare its bg. */
-section:has(.text-stone-900),
-section.text-stone-900 {
-  background-color: #FAFAF7;
+/* Eyebrow — always mute grey, never a color accent (Apple restraint) */
+.eyebrow {
+  font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.24em; color: var(--mute);
 }
+
+/* Buttons — one pill, two contexts. .btn-onlight = dark pill for light
+   sections; .btn-ondark = white pill for dark sections. */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  border-radius: 9999px; font-weight: 600; font-size: 1rem;
+  padding: 0.9rem 2rem; transition: background-color 0.2s ease, opacity 0.2s ease;
+  cursor: pointer;
+}
+.btn-onlight { background: var(--ink); color: #fff; }
+.btn-onlight:hover { opacity: 0.9; }
+.btn-ondark { background: #fff; color: var(--ink); }
+.btn-ondark:hover { background: rgba(255,255,255,0.9); }
+.btn-ghost {
+  background: transparent; border: 1px solid var(--divider-lt); color: var(--ink);
+}
+.btn-ghost:hover { background: var(--cream); }
+.btn-ghost-dark {
+  background: transparent; border: 1px solid rgba(255,255,255,0.18); color: #fff;
+}
+.btn-ghost-dark:hover { background: rgba(255,255,255,0.06); }
+
+/* Containers — NO 1px borders on the marketing surface. Separate content
+   with tint + whitespace. Cream card for grouping, ink panel for highlights. */
+.card-cream { background: var(--cream); border-radius: 1rem; }
+.panel-ink  { background: var(--ink); color: #fff; border-radius: 1rem; }
 
 .font-display {
   font-family: var(--font-display), 'Inter Tight', 'Helvetica Neue', system-ui, sans-serif;
@@ -119,23 +153,6 @@ section.text-stone-900 {
   font-weight: inherit;
 }
 
-.text-brand-gradient-slow {
-  background: linear-gradient(96deg, #06B6D4 0%, #10B981 60%, #2563EB 100%);
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  font-weight: inherit;
-  animation: wordmark-pulse 9s ease-in-out infinite;
-}
-
-.gradient-border {
-  position: relative;
-  background: linear-gradient(135deg, rgba(6,182,212,0.4), rgba(16,185,129,0.4));
-  padding: 1px;
-  border-radius: inherit;
-}
-
 @keyframes wordmark-pulse {
   0%   { background-position: 0% 50%; }
   50%  { background-position: 100% 50%; }
@@ -143,20 +160,7 @@ section.text-stone-900 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .wordmark-gradient-live, .text-brand-gradient-slow { animation: none; }
-}
-
-.gradient-tri { background: linear-gradient(135deg, var(--elec) 0%, var(--plumb) 50%, var(--hvac) 100%); }
-.gradient-elec { background: linear-gradient(180deg, var(--elec-deep) 0%, var(--elec) 50%, var(--elec-light) 100%); }
-.gradient-plumb { background: linear-gradient(180deg, var(--plumb-deep) 0%, var(--plumb) 50%, var(--plumb-light) 100%); }
-.gradient-hvac { background: linear-gradient(180deg, var(--hvac-deep) 0%, var(--hvac) 50%, var(--hvac-light) 100%); }
-
-.orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.4;
-  pointer-events: none;
+  .wordmark-gradient-live { animation: none; }
 }
 
 section[id] { scroll-margin-top: 5rem; }
@@ -182,149 +186,15 @@ section[id] { scroll-margin-top: 5rem; }
 }
 
 @media (max-width: 640px) {
-  .font-display { word-break: keep-all; overflow-wrap: break-word; }
+  .font-display, .display-xl, .display-1, .display-2 { word-break: keep-all; overflow-wrap: break-word; }
 }
 
 .mobile-text-balance { text-wrap: balance; }
-
-.hover-lift { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease; }
-.hover-lift:hover { transform: translateY(-4px); box-shadow: 0 18px 48px -16px rgba(0, 0, 0, 0.35); }
 
 .zoom-on-hover { overflow: hidden; }
 .zoom-on-hover img { transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
 .zoom-on-hover:hover img { transform: scale(1.04); }
 
 @media (prefers-reduced-motion: reduce) {
-  .hover-lift, .zoom-on-hover img { transition: none !important; transform: none !important; }
-}
-
-.hero-cta {
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-  background: transparent;
-}
-.hero-cta::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, #06B6D4 0%, #10B981 25%, #14B8A6 50%, #2563EB 75%, #4F46E5 100%);
-  opacity: 0;
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: -1;
-}
-.hero-cta:hover::before { opacity: 1; }
-.hero-cta:hover { color: #0A0E1A; transform: translateY(-1px); }
-
-@keyframes node-active-pulse {
-  0%   { transform: scale(1); opacity: 1; }
-  50%  { transform: scale(1.15); opacity: 0.85; }
-  100% { transform: scale(1); opacity: 1; }
-}
-.node-active {
-  transform-origin: center;
-  animation: node-active-pulse 1.8s ease-in-out infinite;
-}
-
-/* ===== LeakCalculator custom slider =========================== */
-input[type="range"].lc-slider {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  height: 6px;
-  border-radius: 9999px;
-  background: linear-gradient(
-    to right,
-    #06B6D4 0%,
-    #06B6D4 var(--lc-progress, 0%),
-    rgba(255, 255, 255, 0.08) var(--lc-progress, 0%),
-    rgba(255, 255, 255, 0.08) 100%
-  );
-  outline: none;
-  cursor: pointer;
-}
-
-input[type="range"].lc-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 22px;
-  height: 22px;
-  margin-top: -8px;
-  border-radius: 50%;
-  background: #ffffff;
-  border: 2px solid #06B6D4;
-  box-shadow:
-    0 0 0 4px rgba(6, 182, 212, 0.18),
-    0 4px 14px rgba(0, 0, 0, 0.4);
-  cursor: grab;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-input[type="range"].lc-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.08);
-}
-
-input[type="range"].lc-slider::-webkit-slider-thumb:active {
-  cursor: grabbing;
-  transform: scale(1.15);
-  box-shadow:
-    0 0 0 8px rgba(6, 182, 212, 0.28),
-    0 4px 20px rgba(0, 0, 0, 0.5);
-}
-
-input[type="range"].lc-slider::-moz-range-track {
-  height: 6px;
-  border-radius: 9999px;
-  background: linear-gradient(
-    to right,
-    #06B6D4 0%,
-    #06B6D4 var(--lc-progress, 0%),
-    rgba(255, 255, 255, 0.08) var(--lc-progress, 0%),
-    rgba(255, 255, 255, 0.08) 100%
-  );
-}
-
-input[type="range"].lc-slider::-moz-range-thumb {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: #ffffff;
-  border: 2px solid #06B6D4;
-  box-shadow:
-    0 0 0 4px rgba(6, 182, 212, 0.18),
-    0 4px 14px rgba(0, 0, 0, 0.4);
-  cursor: grab;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-input[type="range"].lc-slider::-moz-range-thumb:hover {
-  transform: scale(1.08);
-}
-
-input[type="range"].lc-slider:focus {
-  outline: none;
-}
-
-input[type="range"].lc-slider:focus-visible::-webkit-slider-thumb {
-  box-shadow:
-    0 0 0 6px rgba(6, 182, 212, 0.35),
-    0 4px 14px rgba(0, 0, 0, 0.4);
-}
-
-@keyframes lc-flash {
-  0% {
-    transform: scale(1);
-    filter: drop-shadow(0 0 0 transparent);
-  }
-  50% {
-    transform: scale(1.04);
-    filter: drop-shadow(0 0 36px rgba(16, 185, 129, 0.55));
-  }
-  100% {
-    transform: scale(1);
-    filter: drop-shadow(0 0 0 transparent);
-  }
-}
-.lc-total-flash {
-  animation: lc-flash 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  .zoom-on-hover img { transition: none !important; transform: none !important; }
 }
