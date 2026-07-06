@@ -7,6 +7,7 @@ import Wordmark from '@/components/Wordmark';
 import SiteFooter from '@/components/SiteFooter';
 import { CAL_LINK, EMAIL } from '@/lib/site';
 import Link from 'next/link';
+import type { ComponentType } from 'react';
 
 const SHARE_DESCRIPTION =
   'StayBookt builds and runs the entire front office for service businesses, and only gets paid when it brings you work. So the business runs without you, and you get your life back.';
@@ -41,7 +42,7 @@ type Moment = {
   eyebrow: string;
   headline: string;
   support: string;
-  Visual: () => JSX.Element;
+  Visual: ComponentType;
 };
 
 const MOMENTS: Moment[] = [
