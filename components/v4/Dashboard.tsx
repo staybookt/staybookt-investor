@@ -1,78 +1,47 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
+import {
+  motion,
+  useMotionValueEvent,
+  useTransform,
+  type MotionValue,
+} from 'framer-motion';
 
-/* Ported from product-dashboard.html. The window scales in, the revenue line
- * draws (CSS, gated by .in), and the KPI numbers count up when the frame
- * scrolls into view. Reduced motion shows final values instantly. */
-export default function Dashboard() {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [inView, setInView] = useState(false);
-  const [booked, setBooked] = useState('$0');
-  const [jobs, setJobs] = useState('0');
-  const [reviews, setReviews] = useState('0');
-  const played = useRef(false);
+/* Ported from product-dashboard.html. Now scrubbed by scroll progress passed
+ * from ProductScrub: the window scales up and lifts, the revenue line draws
+ * proportional to progress (stroke-dashoffset mapped to progress), and the KPI
+ * numbers count up mapped to progress. At progress 1 (static / reduced-motion)
+ * everything is at its final state. */
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+const DASH = 1400; // matches stroke-dasharray in CSS
 
-    const reduce =
-      typeof window !== 'undefined' &&
-      window.matchMedia &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function counter(p: number, target: number, start: number, end: number) {
+  if (p <= start) return 0;
+  if (p >= end) return target;
+  const k = (p - start) / (end - start);
+  return Math.round(target * k);
+}
 
-    const countUp = (
-      target: number,
-      prefix: string,
-      set: (v: string) => void,
-      delay: number,
-    ) => {
-      let start: number | null = null;
-      const step = (ts: number) => {
-        if (start === null) start = ts;
-        const k = Math.min((ts - start) / 1100, 1);
-        const val = Math.round(target * (1 - Math.pow(1 - k, 3)));
-        set(prefix + val.toLocaleString());
-        if (k < 1) requestAnimationFrame(step);
-      };
-      setTimeout(() => requestAnimationFrame(step), delay);
-    };
+export default function Dashboard({ progress }: { progress: MotionValue<number> }) {
+  const [p, setP] = useState(progress.get());
+  useMotionValueEvent(progress, 'change', setP);
 
-    const run = () => {
-      if (played.current) return;
-      played.current = true;
-      setInView(true);
-      if (reduce) {
-        setBooked('$12,480');
-        setJobs('18');
-        setReviews('6');
-        return;
-      }
-      setTimeout(() => {
-        countUp(12480, '$', setBooked, 0);
-        countUp(18, '', setJobs, 140);
-        countUp(6, '', setReviews, 280);
-      }, 600);
-    };
+  const booked = '$' + counter(p, 12480, 0.15, 0.85).toLocaleString();
+  const jobs = counter(p, 18, 0.2, 0.85).toString();
+  const reviews = counter(p, 6, 0.25, 0.85).toString();
 
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            run();
-            io.unobserve(e.target);
-          }
-        });
-      },
-      { threshold: 0.3 },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
+  // Window scale + lift as you scroll in.
+  const scale = useTransform(progress, [0, 0.5], [0.95, 1]);
+  const y = useTransform(progress, [0, 0.5], [26, 0]);
+  const opacity = useTransform(progress, [0, 0.16], [0, 1]);
+
+  // Line draws proportional to progress: offset goes DASH -> 0 across the scrub.
+  const dashOffset = useTransform(progress, [0.12, 0.82], [DASH, 0]);
+  const areaOpacity = useTransform(progress, [0.7, 0.95], [0, 1]);
 
   return (
-    <div className={`db-frame${inView ? ' in' : ''}`} ref={ref}>
+    <motion.div className="db-frame" style={{ scale, y, opacity }}>
       <aside className="db-side">
         <div className="db-brand">
           Stay<span className="g">Bookt</span>
@@ -163,12 +132,14 @@ export default function Dashboard() {
                   <stop offset="1" stopColor="rgba(16,185,129,0)" />
                 </linearGradient>
               </defs>
-              <path
+              <motion.path
                 className="area"
+                style={{ opacity: areaOpacity }}
                 d="M0,130 L70,120 L140,124 L210,96 L280,102 L350,70 L420,58 L520,34 L520,170 L0,170 Z"
               />
-              <path
+              <motion.path
                 className="ln"
+                style={{ strokeDashoffset: dashOffset }}
                 d="M0,130 L70,120 L140,124 L210,96 L280,102 L350,70 L420,58 L520,34"
               />
             </svg>
@@ -216,6 +187,6 @@ export default function Dashboard() {
           </div>
         </div>
       </main>
-    </div>
+    </motion.div>
   );
 }
