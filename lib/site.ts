@@ -1,9 +1,7 @@
 // Central site config. Change these in one place; every section reads from here.
 
-// FALLBACK: the cal.com/jacobcharendoff/staybookt page does not exist yet (404).
-// Until Jacob creates it, every CTA routes to email so nothing dead-ends.
-// One-line flip back to the cal.com URL once the booking page is live.
-export const CAL_LINK = 'mailto:info@staybookt.com?subject=Booking%20a%2030-minute%20call%20with%20StayBookt';
+// Live booking page. Every "Book a call" CTA across the site routes here.
+export const CAL_LINK = 'https://cal.com/team/staybookt/talk-to-a-founder';
 export const EMAIL = 'info@staybookt.com';
 
 // Phone: a Twilio number for call + text. Not provisioned yet, so we leave it
