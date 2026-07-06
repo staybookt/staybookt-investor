@@ -1,11 +1,9 @@
-'use client';
-import { motion } from 'framer-motion';
-
 interface Props {
   size?: 'sm' | 'md' | 'lg' | 'xl';
   onDark?: boolean;
-  animate?: boolean;
-  mono?: boolean;
+  period?: boolean;
+  tagline?: boolean;
+  className?: string;
 }
 
 const sizes = {
@@ -15,31 +13,27 @@ const sizes = {
   xl: 'text-7xl',
 };
 
-export default function Wordmark({ size = 'md', onDark = true, animate = false, mono = false }: Props) {
-  const sweep = ['#06B6D4', '#10B981', '#10B981', '#14B8A6', '#2563EB'];
-  const baseColor = onDark ? 'text-white' : 'text-ink';
-
+/* The single source of truth for the wordmark. "Bookt" is always the gradient,
+ * the period is always brand purple, "Enjoy Life." is always green. */
+export default function Wordmark({
+  size = 'md',
+  onDark = true,
+  period = false,
+  tagline = false,
+  className = '',
+}: Props) {
+  const base = onDark ? 'text-white' : 'text-ink';
   return (
-    <span className={`font-display ${sizes[size]} tracking-tight inline-flex items-baseline`}>
-      <span className={baseColor}>Stay</span>
-      {'Bookt'.split('').map((letter, i) => {
-        const color = mono ? undefined : sweep[i];
-        const className = mono ? baseColor : '';
-        return animate ? (
-          <motion.span
-            key={i}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 + i * 0.06, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className={className}
-            style={color ? { color } : undefined}
-          >
-            {letter}
-          </motion.span>
-        ) : (
-          <span key={i} className={className} style={color ? { color } : undefined}>{letter}</span>
-        );
-      })}
+    <span className={`font-display ${sizes[size]} tracking-tight ${className}`}>
+      <span className={base}>Stay</span>
+      <span className="wordmark-gradient">Bookt</span>
+      {period && <span className="text-period">.</span>}
+      {tagline && (
+        <>
+          {' '}
+          <span className="text-hvac">Enjoy Life.</span>
+        </>
+      )}
     </span>
   );
 }
