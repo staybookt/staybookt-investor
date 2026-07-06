@@ -4,6 +4,7 @@ import Reveal from '@/components/v4/Reveal';
 import Receptionist from '@/components/v4/Receptionist';
 import Dashboard from '@/components/v4/Dashboard';
 import DailyBrief from '@/components/v4/DailyBrief';
+import ProductScrub from '@/components/v4/ProductScrub';
 import SiteFooter from '@/components/SiteFooter';
 import { CAL_LINK } from '@/lib/site';
 
@@ -71,7 +72,7 @@ export default function HomePage() {
 
       {/* 01 — HERO: full-bleed photograph, aspiration, solid white type */}
       <header className="scene">
-        <img src={HERO_IMG} alt="" />
+        <img src={HERO_IMG} alt="" fetchPriority="high" decoding="async" />
         <div className="grad-ov" />
         <div className="wrap inner">
           <Reveal className="eyebrow" as="div">
@@ -106,59 +107,48 @@ export default function HomePage() {
         <div className="scrollcue">Scroll</div>
       </header>
 
-      {/* 02 — PRODUCT: AI Receptionist */}
-      <section className="product">
-        <div className="aura" />
-        <div className="wrap grid">
-          <Reveal>
-            <div className="eyebrow">It picks up</div>
-            <h2>It answers, and books, before you&rsquo;d have heard the ring.</h2>
-            <p className="sub">
-              Every call and text picked up in your business&rsquo;s voice, 24/7. The job is on the
-              calendar before you even knew it came in.
-            </p>
-          </Reveal>
-          <Reveal delay={1} className="visual">
-            <Receptionist />
-          </Reveal>
-        </div>
-      </section>
+      <div className="seam seam-dark-to-dark" aria-hidden="true" />
+
+      {/* 02 — SIGNATURE PRODUCT: AI Receptionist, the 2 AM beat */}
+      <ProductScrub
+        eyebrow="The receptionist that never sleeps"
+        headline={<>Answered at 2 AM.</>}
+        sub={
+          <>
+            Every call and text, picked up in your voice and booked, before you would have even
+            stirred.
+          </>
+        }
+        signature
+        device={(progress) => <Receptionist progress={progress} />}
+      />
 
       {/* 03 — PRODUCT: Operating Dashboard */}
-      <section className="product reverse">
-        <div className="aura" />
-        <div className="wrap grid">
-          <Reveal>
-            <div className="eyebrow">It runs</div>
-            <h2>One system runs the whole business.</h2>
-            <p className="sub">
-              The site, the phone, the pipeline, the reviews. Every part of the front office in one
-              place, run for you and reporting live.
-            </p>
-          </Reveal>
-          <Reveal delay={1} className="visual">
-            <Dashboard />
-          </Reveal>
-        </div>
-      </section>
+      <ProductScrub
+        eyebrow="The operation"
+        headline={
+          <>
+            The whole business. One screen.
+          </>
+        }
+        sub={<>Every job, every lead, every dollar. Run for you, in one place.</>}
+        reverse
+        device={(progress) => <Dashboard progress={progress} />}
+      />
 
       {/* 04 — PRODUCT: Daily Brief */}
-      <section className="product">
-        <div className="aura" />
-        <div className="wrap grid">
-          <Reveal>
-            <div className="eyebrow">You wake up to it</div>
-            <h2>The business already ran. This is all you read.</h2>
-            <p className="sub">
-              While you slept it answered the calls, booked the jobs, and chased the quotes. One
-              short brief every morning, and you always know where things stand.
-            </p>
-          </Reveal>
-          <Reveal delay={1} className="visual">
-            <DailyBrief />
-          </Reveal>
-        </div>
-      </section>
+      <ProductScrub
+        eyebrow="Every morning"
+        headline={<>It ran while you slept.</>}
+        sub={
+          <>
+            You wake up, read one short brief, and get on with your day. Or your life.
+          </>
+        }
+        device={(progress) => <DailyBrief progress={progress} />}
+      />
+
+      <div className="seam seam-dark-to-light" aria-hidden="true" />
 
       {/* 05 — CAPABILITY LIST: light, restrained, typographic */}
       <section className="light">
@@ -179,6 +169,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <div className="seam seam-light-to-dark" aria-hidden="true" />
 
       {/* 06 — PROOF: dark, photography of promise, real client */}
       <section className="dark">
@@ -219,6 +211,8 @@ export default function HomePage() {
           </Reveal>
         </div>
       </section>
+
+      <div className="seam seam-dark-to-cream" aria-hidden="true" />
 
       {/* 07 — PRICING: cream, minimal, three tiers */}
       <section className="price" id="price">
@@ -274,9 +268,11 @@ export default function HomePage() {
         </div>
       </section>
 
+      <div className="seam seam-cream-to-dark" aria-hidden="true" />
+
       {/* 08 — CLOSER: full-bleed photograph, brand wordmark, the one gradient */}
       <section className="scene closer">
-        <img src={CLOSER_IMG} alt="" />
+        <img src={CLOSER_IMG} alt="" loading="lazy" decoding="async" />
         <div className="grad-ov" />
         <div className="wrap inner">
           <Reveal>
