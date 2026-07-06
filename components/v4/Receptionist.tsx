@@ -1,87 +1,54 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
+import {
+  motion,
+  useMotionValueEvent,
+  useTransform,
+  type MotionValue,
+} from 'framer-motion';
 
-/* Ported from product-receptionist.html. The iMessage thread animates in on a
- * scripted timeline that fires when the phone scrolls into view (not on mount),
- * and only once. Respects prefers-reduced-motion by showing everything at once. */
-export default function Receptionist() {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [m1, setM1] = useState(false);
-  const [m2, setM2] = useState(false);
-  const [m3, setM3] = useState(false);
-  const [m4, setM4] = useState(false);
-  const [typing, setTyping] = useState(false);
-  const [bk, setBk] = useState(false);
-  const [delivered, setDelivered] = useState(false);
-  const played = useRef(false);
+/* Ported from product-receptionist.html. The iMessage thread is now scrubbed by
+ * scroll progress (0->1) passed from ProductScrub: each bubble reveals as
+ * progress passes its threshold, the typing indicator shows in the gaps between
+ * messages, the device settles with a subtle scale + rotateX, and the dispatch
+ * card lands near progress 0.9. At progress 1 (static / reduced-motion) the whole
+ * thread is shown at once. */
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+// Reveal thresholds along the scrub for each beat.
+const T = {
+  m1: 0.12,
+  typing1: 0.2,
+  m2: 0.34,
+  m3: 0.46,
+  typing2: 0.54,
+  m4: 0.66,
+  bk: 0.82,
+  delivered: 0.9,
+};
 
-    const reduce =
-      typeof window !== 'undefined' &&
-      window.matchMedia &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+export default function Receptionist({ progress }: { progress: MotionValue<number> }) {
+  const [p, setP] = useState(progress.get());
+  useMotionValueEvent(progress, 'change', setP);
 
-    const showAll = () => {
-      setM1(true);
-      setM2(true);
-      setM3(true);
-      setM4(true);
-      setBk(true);
-      setDelivered(true);
-    };
+  const m1 = p >= T.m1;
+  const m2 = p >= T.m2;
+  const m3 = p >= T.m3;
+  const m4 = p >= T.m4;
+  const bk = p >= T.bk;
+  const delivered = p >= T.delivered;
+  // Typing shows only in the gaps just before an outbound reply lands.
+  const typing = (p >= T.typing1 && p < T.m2) || (p >= T.typing2 && p < T.m4);
 
-    const timers: ReturnType<typeof setTimeout>[] = [];
-    const run = () => {
-      if (played.current) return;
-      played.current = true;
-      if (reduce) {
-        showAll();
-        return;
-      }
-      timers.push(setTimeout(() => setM1(true), 500));
-      timers.push(setTimeout(() => setTyping(true), 1300));
-      timers.push(
-        setTimeout(() => {
-          setTyping(false);
-          setM2(true);
-        }, 2400),
-      );
-      timers.push(setTimeout(() => setM3(true), 3300));
-      timers.push(setTimeout(() => setTyping(true), 3900));
-      timers.push(
-        setTimeout(() => {
-          setTyping(false);
-          setM4(true);
-        }, 4900),
-      );
-      timers.push(setTimeout(() => setBk(true), 5600));
-      timers.push(setTimeout(() => setDelivered(true), 6100));
-    };
-
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            run();
-            io.unobserve(e.target);
-          }
-        });
-      },
-      { threshold: 0.35 },
-    );
-    io.observe(el);
-    return () => {
-      io.disconnect();
-      timers.forEach(clearTimeout);
-    };
-  }, []);
+  // Device settle: scales up and a slight rotateX flattens as you scroll in.
+  const scale = useTransform(progress, [0, 0.5], [0.96, 1]);
+  const rotateX = useTransform(progress, [0, 0.5], [6, 0]);
 
   return (
-    <div className="rc-phone" ref={ref}>
+    <motion.div
+      className="rc-phone"
+      style={{ scale, rotateX, transformPerspective: 1200 }}
+    >
       <div className="rc-screen">
         <div className="rc-island" />
         <div className="rc-imhdr">
@@ -150,6 +117,6 @@ export default function Receptionist() {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
