@@ -10,11 +10,6 @@ export const metadata = {
   alternates: { canonical: '/why-a-website' },
 };
 
-// PLACEHOLDER image (Pexels, licensed). A tradesperson on the phone / a booking
-// in hand. Swap for owned or curated imagery; image ID to be curated.
-const BAND_IMG =
-  'https://images.pexels.com/photos/8005397/pexels-photo-8005397.jpeg?auto=compress&cs=tinysrgb&w=1600';
-
 const points = [
   {
     title: 'You show up when someone searches.',
@@ -52,11 +47,6 @@ export default function WhyAWebsitePage() {
             lead engine. Everything else runs on top of it.
           </p>
         </div>
-      </section>
-
-      <section className="life-band">
-        <img src={BAND_IMG} alt="A tradesperson taking a booking on the phone" loading="lazy" />
-        <div className="ov" />
       </section>
 
       {points.map((p, i) => (
