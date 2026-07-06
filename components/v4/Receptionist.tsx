@@ -96,7 +96,7 @@ export default function Receptionist() {
           </div>
           <div className="rc-row in">
             <div className={`rc-b in${m1 ? ' show' : ''}`}>
-              Hi, my furnace just died and it&rsquo;s freezing in here. Can someone come tomorrow?
+              Hi, my furnace just died and it&rsquo;s freezing in here. Can someone come out?
             </div>
           </div>
           <div className={`rc-typing${typing ? ' show' : ''}`}>
@@ -106,8 +106,7 @@ export default function Receptionist() {
           </div>
           <div className="rc-row out">
             <div className={`rc-b out${m2 ? ' show' : ''}`}>
-              So sorry, that&rsquo;s miserable. I can get Mike out to you at 9am tomorrow. Want me to
-              lock it in?
+              That&rsquo;s an emergency, I&rsquo;m on it. Mike can be there within the hour. Should I send him now?
             </div>
           </div>
           <div className="rc-row in">
@@ -115,7 +114,7 @@ export default function Receptionist() {
           </div>
           <div className="rc-row out">
             <div className={`rc-b out${m4 ? ' show' : ''}`}>
-              Done. You&rsquo;re booked for 9am. I&rsquo;ll text a reminder at 8.
+              Done. Mike is on his way, about 40 minutes out. I&rsquo;ll text you when he&rsquo;s close.
             </div>
           </div>
           <div className={`rc-bkcard${bk ? ' show' : ''}`}>
@@ -123,12 +122,12 @@ export default function Receptionist() {
               <svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth={3}>
                 <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-              Job booked
+              Dispatched
             </div>
             <div className="body">
               <div className="r">
                 <span className="k">When</span>
-                <span className="v">Tomorrow, 9:00 AM</span>
+                <span className="v">Tonight, ETA 40 min</span>
               </div>
               <div className="r">
                 <span className="k">Job</span>
@@ -136,7 +135,7 @@ export default function Receptionist() {
               </div>
               <div className="r">
                 <span className="k">Tech</span>
-                <span className="v">Mike</span>
+                <span className="v">Mike, en route</span>
               </div>
             </div>
           </div>
