@@ -187,7 +187,7 @@ export default function HomePage() {
               <b>We built and run Top Choice Electrical.</b> Real business, real site, real jobs
               booked in Newmarket, Ontario.
             </p>
-            <a href="/work" className="visit">
+            <a href="https://topchoiceelectrical.com" target="_blank" rel="noopener noreferrer" className="visit">
               Visit the live site ↗
             </a>
           </Reveal>
