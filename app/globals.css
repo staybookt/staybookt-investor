@@ -405,3 +405,25 @@ section[id] { scroll-margin-top: 5rem; }
 .hpv2 .subhero .reveal.d1{animation-delay:.12s;}
 .hpv2 .subhero .reveal.d2{animation-delay:.24s;}
 @media(prefers-reduced-motion:reduce){.hpv2 .subhero .reveal{animation:none;opacity:1;transform:none;}}
+
+/* PROOF — auto-scrolling client-site walkthrough */
+.hpv2 .browser .bwrap{height:400px; overflow:hidden; position:relative;}
+.hpv2 .browser .bscroll{animation:tceScroll 16s ease-in-out infinite;}
+@keyframes tceScroll{0%,8%{transform:translateY(0)} 48%,58%{transform:translateY(calc(-100% + 400px))} 92%,100%{transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.hpv2 .browser .bscroll{animation:none;}}
+.hpv2 .browser .site.srow, .hpv2 .browser .site.srev, .hpv2 .browser .site.sbook{padding:44px 40px;}
+.hpv2 .browser .site .svc{position:relative; margin-top:12px; font-size:clamp(15px,2vw,20px); color:#e6e9f0; font-weight:500; line-height:1.4;}
+.hpv2 .browser .site .rev{position:relative; font-size:clamp(16px,2.2vw,22px); color:#e6e9f0; font-weight:500;}
+.hpv2 .browser .site .rev .stars{color:#f59e0b; letter-spacing:.08em; margin-left:6px;}
+.hpv2 .browser .site.sbook{display:flex;}
+.hpv2 .browser .site .bookbtn{position:relative; background:#f59e0b; color:#1a1206; font-weight:700; border-radius:8px; padding:12px 22px; font-size:15px;}
+
+/* PROOF — Tim pull-quote (placeholder) */
+.hpv2 .proof .timquote{position:relative; max-width:26ch; margin:52px auto 0; text-align:center;}
+.hpv2 .proof .timquote blockquote{font-size:clamp(20px,2.6vw,30px); line-height:1.4; font-style:italic; letter-spacing:-.01em; color:#f2f4f8; margin:0;}
+.hpv2 .proof .timquote figcaption{margin-top:18px; font-size:14px; font-weight:600; color:#c3c9d4; font-style:normal;}
+.hpv2 .proof .timquote .qnote{margin-top:8px; font-size:12px; color:#7e8698;}
+
+/* LIFESTYLE band — optional subheading under the headline */
+.hpv2 .life-band .life-copy{position:relative; text-align:center; max-width:920px; padding:0 24px;}
+.hpv2 .life-band .life-sub{color:#dfe3ea; font-weight:400; max-width:46ch; margin:18px auto 0; font-size:clamp(16px,1.8vw,22px); line-height:1.5;}
