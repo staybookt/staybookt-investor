@@ -4,7 +4,7 @@ import { ImageResponse } from 'next/og';
  * because Next.js route segment configs cannot be proxied through another module. */
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
-export const alt = 'Get Found. StayBookt.';
+export const alt = 'StayBookt. Enjoy Life.';
 export const dynamic = 'force-static';
 
 export default function TwitterImage() {
@@ -14,7 +14,7 @@ export default function TwitterImage() {
         style={{
           width: '100%',
           height: '100%',
-          background: '#0A0E1A',
+          background: '#06080d',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
@@ -31,8 +31,7 @@ export default function TwitterImage() {
             width: 700,
             height: 700,
             borderRadius: 9999,
-            background:
-              'radial-gradient(circle, rgba(6,182,212,0.40) 0%, rgba(6,182,212,0) 70%)',
+            background: 'radial-gradient(circle, rgba(6,182,212,0.40) 0%, rgba(6,182,212,0) 70%)',
             display: 'flex',
           }}
         />
@@ -44,42 +43,28 @@ export default function TwitterImage() {
             width: 700,
             height: 700,
             borderRadius: 9999,
-            background:
-              'radial-gradient(circle, rgba(79,70,229,0.32) 0%, rgba(79,70,229,0) 70%)',
+            background: 'radial-gradient(circle, rgba(16,185,129,0.30) 0%, rgba(16,185,129,0) 70%)',
             display: 'flex',
           }}
         />
         <div
           style={{
             display: 'flex',
-            alignItems: 'baseline',
-            fontSize: 44,
-            fontWeight: 800,
-            letterSpacing: '-0.04em',
+            fontSize: 40,
+            fontWeight: 700,
+            letterSpacing: '-0.02em',
             color: '#94a3b8',
             position: 'relative',
           }}
         >
-          For North American service businesses up to $5M
+          The operating layer for the trades
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', position: 'relative' }}>
           <div
             style={{
-              fontSize: 112,
+              fontSize: 116,
               fontWeight: 800,
-              color: 'white',
-              letterSpacing: '-0.04em',
-              lineHeight: 1.0,
-              display: 'flex',
-            }}
-          >
-            Get Found.
-          </div>
-          <div
-            style={{
-              fontSize: 112,
-              fontWeight: 800,
-              letterSpacing: '-0.04em',
+              letterSpacing: '-0.045em',
               lineHeight: 1.0,
               display: 'flex',
             }}
@@ -87,15 +72,26 @@ export default function TwitterImage() {
             <span style={{ color: 'white' }}>Stay</span>
             <span
               style={{
-                background:
-                  'linear-gradient(90deg, #06B6D4 0%, #10B981 50%, #4F46E5 100%)',
+                background: 'linear-gradient(90deg, #06B6D4 0%, #10B981 50%, #4F46E5 100%)',
                 backgroundClip: 'text',
                 color: 'transparent',
               }}
             >
               Bookt
             </span>
-            <span style={{ color: 'white' }}>.</span>
+            <span style={{ color: '#7C3AED' }}>.</span>
+          </div>
+          <div
+            style={{
+              fontSize: 116,
+              fontWeight: 800,
+              letterSpacing: '-0.045em',
+              lineHeight: 1.0,
+              color: '#10B981',
+              display: 'flex',
+            }}
+          >
+            Enjoy Life.
           </div>
         </div>
         <div
