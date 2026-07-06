@@ -11,17 +11,18 @@ const NAV = [
   { href: '/founders', label: 'Founders' },
 ];
 
-/* The single shared footer for every page. Wordmark via the component, one
- * hairline on top, one nav. No card borders anywhere else. */
+/* The single shared footer for every page. Dark, so it flows from the dark
+ * closer above it. Wordmark via the component (onDark), one hairline on top,
+ * one nav. No card borders anywhere else. */
 export default function SiteFooter() {
-  const linkCls = 'text-mute transition-colors hover:text-ink';
+  const linkCls = 'transition-colors hover:text-white';
   return (
-    <footer className="bg-paper px-6 py-16 sm:px-12">
+    <footer className="px-6 py-16 sm:px-12" style={{ background: '#06080f' }}>
       <div className="mx-auto max-w-6xl">
         <div className="mb-12 flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-center">
           <div>
-            <Wordmark onDark={false} period />
-            <p className="mt-3 max-w-md text-sm leading-relaxed text-mute">
+            <Wordmark onDark period />
+            <p className="mt-3 max-w-md text-sm leading-relaxed" style={{ color: '#7e8698' }}>
               Built and run for service businesses.
             </p>
           </div>
@@ -30,19 +31,26 @@ export default function SiteFooter() {
               href={CAL_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm font-semibold text-ink transition-colors hover:opacity-70"
+              className="text-sm font-semibold text-white transition-colors hover:opacity-70"
             >
               Book a 30-minute call
             </a>
-            <a href={`mailto:${EMAIL}`} className="text-sm text-mute transition-colors hover:text-ink">
+            <a
+              href={`mailto:${EMAIL}`}
+              className="text-sm transition-colors hover:text-white"
+              style={{ color: '#c7ccd6' }}
+            >
               {EMAIL}
             </a>
           </div>
         </div>
-        <div className="flex flex-col items-start justify-between gap-3 border-t border-divider-lt pt-8 text-xs text-mute sm:flex-row sm:items-center">
+        <div
+          className="flex flex-col items-start justify-between gap-3 border-t pt-8 text-xs sm:flex-row sm:items-center"
+          style={{ borderColor: 'rgba(255,255,255,.08)', color: '#8b93a5' }}
+        >
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
             {NAV.map((p) => (
-              <Link key={p.href} href={p.href} className={linkCls}>
+              <Link key={p.href} href={p.href} className={linkCls} style={{ color: '#c7ccd6' }}>
                 {p.label}
               </Link>
             ))}
