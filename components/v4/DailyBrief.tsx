@@ -1,83 +1,41 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
+import {
+  motion,
+  useMotionValueEvent,
+  useTransform,
+  type MotionValue,
+} from 'framer-motion';
 
-/* Ported from product-dailybrief.html. Cards rise in sequence and the overnight
- * revenue counts up when the phone scrolls into view. Reduced motion reveals
- * everything at once with the final number. */
-export default function DailyBrief() {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [cards, setCards] = useState<boolean[]>([false, false, false, false]);
-  const [rev, setRev] = useState('$0');
-  const played = useRef(false);
+/* Ported from product-dailybrief.html. Now scrubbed by scroll progress passed
+ * from ProductScrub: the brief cards rise in one at a time as progress passes
+ * their thresholds, the overnight revenue counts up mapped to progress, and the
+ * live dot keeps pulsing (CSS). At progress 1 (static / reduced-motion) all
+ * cards are shown with the final number. */
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+const CARD_T = [0.12, 0.34, 0.54, 0.74];
 
-    const reduce =
-      typeof window !== 'undefined' &&
-      window.matchMedia &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+export default function DailyBrief({ progress }: { progress: MotionValue<number> }) {
+  const [p, setP] = useState(progress.get());
+  useMotionValueEvent(progress, 'change', setP);
 
-    const timers: ReturnType<typeof setTimeout>[] = [];
+  const revNum = (() => {
+    const target = 2140;
+    if (p <= 0.12) return 0;
+    if (p >= 0.7) return target;
+    return Math.round(target * ((p - 0.12) / (0.7 - 0.12)));
+  })();
+  const rev = '$' + revNum.toLocaleString();
 
-    const run = () => {
-      if (played.current) return;
-      played.current = true;
+  // Device settle.
+  const scale = useTransform(progress, [0, 0.5], [0.96, 1]);
+  const opacity = useTransform(progress, [0, 0.14], [0, 1]);
 
-      if (reduce) {
-        setCards([true, true, true, true]);
-        setRev('$2,140');
-        return;
-      }
-
-      [0, 1, 2, 3].forEach((i) => {
-        timers.push(
-          setTimeout(
-            () => setCards((prev) => prev.map((v, idx) => (idx === i ? true : v))),
-            500 + i * 450,
-          ),
-        );
-      });
-
-      timers.push(
-        setTimeout(() => {
-          const target = 2140;
-          let start: number | null = null;
-          const step = (ts: number) => {
-            if (start === null) start = ts;
-            const k = Math.min((ts - start) / 1000, 1);
-            setRev('$' + Math.round(target * (1 - Math.pow(1 - k, 3))).toLocaleString());
-            if (k < 1) requestAnimationFrame(step);
-          };
-          requestAnimationFrame(step);
-        }, 700),
-      );
-    };
-
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            run();
-            io.unobserve(e.target);
-          }
-        });
-      },
-      { threshold: 0.3 },
-    );
-    io.observe(el);
-    return () => {
-      io.disconnect();
-      timers.forEach(clearTimeout);
-    };
-  }, []);
-
-  const sc = (i: number) => (cards[i] ? ' show' : '');
+  const sc = (i: number) => (p >= CARD_T[i] ? ' show' : '');
 
   return (
-    <div className="brf-phone" ref={ref}>
+    <motion.div className="brf-phone" style={{ scale, opacity }}>
       <div className="brf-screen">
         <div className="brf-island" />
         <div className="brf-statusbar">
@@ -157,6 +115,6 @@ export default function DailyBrief() {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
