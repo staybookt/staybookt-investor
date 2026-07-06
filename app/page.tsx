@@ -1,8 +1,10 @@
 import { TopNav } from '@/components/TopNav';
 import Hero from '@/components/Hero';
-import ImpactMatrix from '@/components/ImpactMatrix';
 import LogicCases from '@/components/LogicCases';
-import HomePricing from '@/components/HomePricing';
+import CaughtCall from '@/components/CaughtCall';
+import { BookingApple, QuotesApple, RepeatApple } from '@/components/WalkthroughGraphics';
+import Wordmark from '@/components/Wordmark';
+import SiteFooter from '@/components/SiteFooter';
 import { CAL_LINK, EMAIL } from '@/lib/site';
 import Link from 'next/link';
 
@@ -32,55 +34,129 @@ export const metadata = {
   },
 };
 
+// One idea per screen. The reused product graphics are built for dark
+// surfaces, so each visual sits in a dark panel-ink tile while the section
+// background alternates paper / cream. No borders. Just tint and air.
+type Moment = {
+  eyebrow: string;
+  headline: string;
+  support: string;
+  Visual: () => JSX.Element;
+};
+
+const MOMENTS: Moment[] = [
+  {
+    eyebrow: 'It picks up',
+    headline: 'Answers every call. Day or night.',
+    support:
+      'A real-sounding receptionist picks up every call and text, so no job ever goes to voicemail again.',
+    Visual: CaughtCall,
+  },
+  {
+    eyebrow: 'It books',
+    headline: 'Books the job while you sleep.',
+    support:
+      'Customers book themselves straight into your calendar. You wake up to a full day, not a full inbox.',
+    Visual: BookingApple,
+  },
+  {
+    eyebrow: 'It follows up',
+    headline: 'Chases every quote, so none slip.',
+    support:
+      'Every quote gets sent, tracked, and followed up until it is won or lost. Nothing you quote gets forgotten.',
+    Visual: QuotesApple,
+  },
+  {
+    eyebrow: 'It grows',
+    headline: 'Brings your best customers back.',
+    support:
+      'Reviews get requested and past customers get nudged, on their own, so repeat work keeps coming.',
+    Visual: RepeatApple,
+  },
+];
+
+function FeatureMoment({ moment, index }: { moment: Moment; index: number }) {
+  const visualLeft = index % 2 === 1;
+  const bg = index % 2 === 0 ? 'bg-paper' : 'bg-cream';
+  const { Visual } = moment;
+
+  const Copy = (
+    <div className={visualLeft ? 'lg:order-2' : 'lg:order-1'}>
+      <p className="eyebrow">{moment.eyebrow}</p>
+      <h2 className="display-2 mt-5">{moment.headline}</h2>
+      <p className="text-body mt-6 max-w-md">{moment.support}</p>
+    </div>
+  );
+
+  const VisualTile = (
+    <div className={visualLeft ? 'lg:order-1' : 'lg:order-2'}>
+      <div className="panel-ink flex items-center justify-center px-6 py-12 sm:px-10 sm:py-16">
+        <Visual />
+      </div>
+    </div>
+  );
+
+  return (
+    <section className={`${bg} px-6 py-24 sm:py-32`}>
+      <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2 lg:gap-20">
+        {Copy}
+        {VisualTile}
+      </div>
+    </section>
+  );
+}
+
 export default function HomePage() {
   return (
-    <main id="top" className="relative bg-paper text-ink">
+    <main id="top" className="bg-paper text-ink">
       <TopNav />
 
-      {/* 00 — HERO: the feeling (dark, cinematic) */}
+      {/* 00 — HERO: the feeling */}
       <Hero />
 
-      {/* 01 — WHAT IT IS: the product, mapped to enjoy-life */}
-      <div id="m1">
-        <ImpactMatrix />
-      </div>
+      {/* 01 — FEATURE MOMENTS: one idea per screen */}
+      {MOMENTS.map((moment, i) => (
+        <FeatureMoment key={moment.headline} moment={moment} index={i} />
+      ))}
 
-      {/* 02 — WHY: the most compelling logic, as dark cards */}
+      {/* 02 — WHY: the logic, as dark cards */}
       <LogicCases />
 
-      {/* 03 — PRICING: three columns */}
-      <HomePricing />
-
-      {/* 04 — PROOF: gated until real, attributed quotes exist (placeholders removed from live). */}
-
-      {/* 05 — LONG-TERM teaser */}
+      {/* 03 — PRICING TEASER: full ladder lives on /pricing */}
       <section className="bg-cream px-6 py-24 sm:py-32">
-        <div className="mx-auto max-w-4xl text-center">
-          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.28em] text-mute">
-            The long game
-          </p>
-          <h2
-            className="mt-6 font-display tracking-[-0.03em] text-ink"
-            style={{ fontSize: 'clamp(30px, 4.4vw, 52px)', lineHeight: 1.04 }}
-          >
-            We build a business you could sell.
-          </h2>
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[#475569]">
-            The same systems that give you your week back also turn your business into an asset
-            you can sell or pass on. That is the whole point of Enjoy Life.
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="eyebrow">Pricing</p>
+          <h2 className="display-2 mt-5">Three steps. Be seen, be run, be free.</h2>
+          <p className="text-body mx-auto mt-6 max-w-2xl">
+            Get found for $1,750 to build. We run the whole front office for $199 a month. And for a
+            select few, a partnership.
           </p>
           <div className="mt-9">
-            <Link
-              href="/long-term"
-              className="inline-flex items-center gap-2 rounded-full border border-[#E5E7EB] bg-paper px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-cream"
-            >
-              How that works <span aria-hidden>{'→'}</span>
+            <Link href="/pricing" className="btn btn-onlight">
+              See pricing
             </Link>
           </div>
         </div>
       </section>
 
-      {/* 06 — LIFESTYLE band: the payoff, made real */}
+      {/* 04 — LONG-TERM teaser */}
+      <section className="bg-paper px-6 py-24 sm:py-32">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="eyebrow">The long game</p>
+          <h2 className="display-2 mt-5">We build a business you could sell.</h2>
+          <p className="text-body mx-auto mt-6 max-w-2xl">
+            The same systems that give you your week back also turn your business into an asset you
+            can sell or pass on. That is the whole point of Enjoy Life.
+          </p>
+          <div className="mt-9">
+            <Link href="/long-term" className="btn btn-ghost">
+              How that works
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 05 — LIFESTYLE band: the payoff, made real */}
       <section className="relative overflow-hidden">
         <img
           src={LIFE_IMG}
@@ -97,103 +173,42 @@ export default function HomePage() {
           }}
         />
         <div className="absolute inset-0 flex items-center justify-center px-6">
-          <p
-            className="max-w-2xl text-center font-display tracking-[-0.02em] text-white"
-            style={{ fontSize: 'clamp(28px, 4.4vw, 52px)', lineHeight: 1.04 }}
-          >
-            You built it for this.
-          </p>
+          <p className="display-2 max-w-2xl text-center text-white">You built it for this.</p>
         </div>
       </section>
 
-      {/* 07 — CLOSER: the promise, one ask (dark) */}
-      <section className="bg-ink px-6 py-28 sm:py-40 text-white">
+      {/* 06 — CLOSER: the promise, one ask */}
+      <section className="bg-ink px-6 py-24 sm:py-32 text-white">
         <div className="mx-auto max-w-3xl text-center">
-          <h2
-            className="font-display tracking-[-0.03em] text-white"
-            style={{ fontSize: 'clamp(36px, 5.2vw, 64px)', lineHeight: 1.0 }}
-          >
-            We only make money when you do.
-          </h2>
-          <p className="mx-auto mt-7 max-w-xl text-lg leading-relaxed text-platinum-soft">
+          <h2 className="display-2 text-white">We only make money when you do.</h2>
+          <p className="text-platinum-soft mx-auto mt-7 max-w-xl text-lg leading-relaxed">
             We build it, we run it, and we only get paid when it brings you work. Built for a
             business your size, and priced for one. So you get back to the work, and the life, you
             built this for.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-5">
-            <a
-              href={CAL_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-3.5 text-base font-semibold text-ink transition-colors hover:bg-white/90"
-            >
+            <a href={CAL_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-ondark">
               Book a 30-minute call
             </a>
             <p className="text-sm text-mute">
               30 minutes with a founder. No pitch deck. Or email{' '}
-              <a href={`mailto:${EMAIL}`} className="text-platinum-soft transition-colors hover:text-white">
+              <a
+                href={`mailto:${EMAIL}`}
+                className="text-platinum-soft transition-colors hover:text-white"
+              >
                 {EMAIL}
               </a>
               .
             </p>
           </div>
 
-          <p className="mt-20 font-display text-3xl tracking-tight">
-            <span className="text-white">Stay</span>
-            <span className="wordmark-gradient">Bookt</span>
-            <span className="text-[#7C3AED]">.</span>{' '}
-            <span className="text-hvac">Enjoy Life.</span>
-          </p>
+          <div className="mt-20">
+            <Wordmark onDark period tagline size="lg" />
+          </div>
         </div>
       </section>
 
-      <FooterBlock />
+      <SiteFooter />
     </main>
-  );
-}
-
-function FooterBlock() {
-  const linkCls = 'text-mute transition-colors hover:text-ink';
-  return (
-    <footer className="border-t border-[#E5E7EB] bg-paper px-6 py-16 sm:px-12">
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-12 flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-center">
-          <div>
-            <p className="font-display text-xl tracking-tight text-ink">
-              <span>Stay</span>
-              <span className="wordmark-gradient">Bookt</span>
-              <span className="text-[#7C3AED]">.</span>
-            </p>
-            <p className="mt-3 max-w-md text-sm leading-relaxed text-mute">
-              Built and run for service businesses.
-            </p>
-          </div>
-          <div className="flex flex-col items-start gap-3 sm:items-end">
-            <a
-              href={CAL_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm font-semibold text-ink transition-colors hover:opacity-70"
-            >
-              Book a 30-minute call
-            </a>
-            <a href={`mailto:${EMAIL}`} className="text-sm text-mute transition-colors hover:text-ink">
-              {EMAIL}
-            </a>
-          </div>
-        </div>
-        <div className="flex flex-col items-start justify-between gap-3 border-t border-[#E5E7EB] pt-8 text-xs text-mute sm:flex-row sm:items-center">
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            <Link href="/why-a-website" className={linkCls}>Why a website</Link>
-            <Link href="/how-it-works" className={linkCls}>How it works</Link>
-            <Link href="/pricing" className={linkCls}>Pricing</Link>
-            <Link href="/enjoy-life" className={linkCls}>Enjoy Life</Link>
-            <Link href="/long-term" className={linkCls}>Long-term value</Link>
-            <Link href="/founders" className={linkCls}>Founders</Link>
-          </div>
-          <p>{'©'} 2026 StayBookt Inc. Toronto, ON.</p>
-        </div>
-      </div>
-    </footer>
   );
 }
