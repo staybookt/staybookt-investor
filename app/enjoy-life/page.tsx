@@ -34,8 +34,8 @@ export default function EnjoyLifePage() {
   return (
     <>
       <TopNav active="enjoy-life" />
-      <main className="bg-ink-deep">
-        {/* Cinematic hero band */}
+      <main className="bg-paper text-ink">
+        {/* Cinematic hero band (stays dark) */}
         <section className="relative flex items-end overflow-hidden" style={{ minHeight: '66vh', background: '#050811' }}>
           <video
             className="absolute inset-0 h-full w-full object-cover"
@@ -65,7 +65,7 @@ export default function EnjoyLifePage() {
 
         <section className="px-6 pt-16 pb-6 sm:px-12">
           <div className="mx-auto max-w-4xl">
-            <p className="max-w-2xl text-xl leading-relaxed text-platinum-soft sm:text-2xl">
+            <p className="max-w-2xl text-xl leading-relaxed text-[#475569] sm:text-2xl">
               It was the life it was supposed to buy. StayBookt runs the front office so the business runs
               without you, and you finally get to go live it.
             </p>
@@ -78,19 +78,19 @@ export default function EnjoyLifePage() {
             <p className="mb-10 text-[11px] font-medium uppercase tracking-[0.24em] text-mute">Three doors, one key</p>
             <div className="space-y-14">
               {DOORS.map((d) => (
-                <div key={d.k} className="border-t border-white/10 pt-8">
+                <div key={d.k} className="border-t border-[#E5E7EB] pt-8">
                   <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-mute">{d.k}</p>
-                  <h2 className="mt-3 font-display text-3xl leading-tight tracking-tight text-white sm:text-5xl">{d.h}</h2>
-                  <p className="mt-5 max-w-2xl text-lg leading-relaxed text-platinum-soft">{d.b}</p>
+                  <h2 className="mt-3 font-display text-3xl leading-tight tracking-tight text-ink sm:text-5xl">{d.h}</h2>
+                  <p className="mt-5 max-w-2xl text-lg leading-relaxed text-[#475569]">{d.b}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* The key */}
-        <section className="px-6 py-16 sm:px-12">
-          <div className="mx-auto max-w-3xl">
+        {/* The key — dark highlight band */}
+        <section className="px-6 py-8 sm:px-12">
+          <div className="mx-auto max-w-4xl rounded-3xl bg-ink px-8 py-14 text-white sm:px-14">
             <p className="font-display text-3xl leading-snug tracking-tight text-white sm:text-4xl">
               Three different doors. The same key: a business that runs without you.
             </p>
@@ -102,25 +102,25 @@ export default function EnjoyLifePage() {
         </section>
 
         {/* Close */}
-        <section className="px-6 pb-28 pt-8 sm:px-12">
+        <section className="px-6 pb-28 pt-12 sm:px-12">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="font-display text-3xl tracking-tight text-white sm:text-4xl">
+            <p className="font-display text-3xl tracking-tight text-ink sm:text-4xl">
               <span>Stay</span>
               <span className="wordmark-gradient">Bookt</span>
-              <span>.</span> <span>Enjoy Life.</span>
+              <span className="text-[#7C3AED]">.</span> <span className="text-hvac">Enjoy Life.</span>
             </p>
             <div className="mt-9">
               <a
                 href={CAL_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-base font-semibold text-ink transition-colors hover:bg-white/90"
+                className="inline-flex items-center gap-2 rounded-full bg-ink px-8 py-4 text-base font-semibold text-white transition-colors hover:bg-ink/90"
               >
                 Book a 30-minute call
               </a>
             </div>
             <p className="mt-8">
-              <Link href="/" className="text-sm font-semibold text-elec transition-colors hover:text-white">
+              <Link href="/" className="text-sm font-semibold text-ink transition-colors hover:opacity-70">
                 {'←'} Back home
               </Link>
             </p>
