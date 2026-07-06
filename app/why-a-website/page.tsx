@@ -1,4 +1,5 @@
 import { TopNav } from '@/components/TopNav';
+import Reveal from '@/components/Reveal';
 import SiteFooter from '@/components/SiteFooter';
 import { CAL_LINK } from '@/lib/site';
 
@@ -35,60 +36,63 @@ const points = [
 
 export default function WhyAWebsitePage() {
   return (
-    <main className="bg-paper text-ink">
+    <main className="hpv2">
       <TopNav active="why-a-website" />
 
-      <section className="mx-auto max-w-4xl px-6 pt-36 pb-16 sm:px-12 sm:pt-44">
-        <p className="eyebrow">Why a website</p>
-        <h1 className="display-1 mt-4 text-ink">Why the website comes first.</h1>
-        <p className="mt-6 max-w-3xl text-lg leading-relaxed text-body">
-          For a service business, the website is not a brochure. It is the first
-          impression and the lead engine. Everything else runs on top of it.
-        </p>
-      </section>
-
-      {/* Full-width image band */}
-      <section className="relative overflow-hidden">
-        <img
-          src={BAND_IMG}
-          alt="A tradesperson taking a booking on the phone"
-          className="h-[46vh] min-h-[320px] w-full object-cover"
-          loading="lazy"
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0"
-          style={{
-            background:
-              'linear-gradient(180deg, rgba(5,8,17,0.35) 0%, rgba(5,8,17,0.20) 50%, rgba(5,8,17,0.60) 100%)',
-          }}
-        />
-      </section>
-
-      <section className="mx-auto max-w-5xl px-6 py-24 sm:px-12 sm:py-32">
-        <div className="grid gap-6 sm:grid-cols-2">
-          {points.map((p, i) => (
-            <div key={p.title} className="card-cream p-8">
-              <span className="text-sm font-semibold text-mute">
-                {String(i + 1).padStart(2, '0')}
-              </span>
-              <h2 className="display-3 mt-3 text-ink">{p.title}</h2>
-              <p className="mt-3 leading-relaxed text-body">{p.body}</p>
-            </div>
-          ))}
+      <section className="subhero">
+        <div className="aura" />
+        <div className="veil" />
+        <div className="wrap subhero-in">
+          <div className="eyebrow on-dark reveal">Why a website</div>
+          <h1 className="reveal d1">
+            <span className="grad">Why the website</span> comes first.
+          </h1>
+          <p className="lead reveal d2">
+            For a service business, the website is not a brochure. It is the first impression and the
+            lead engine. Everything else runs on top of it.
+          </p>
         </div>
       </section>
 
-      <section className="mx-auto max-w-5xl px-6 pb-24 sm:px-12">
-        <div className="panel-ink p-10 sm:p-14">
-          <p className="display-3 leading-snug text-white">
-            Get found first. Then StayBookt runs the rest.
-          </p>
-          <div className="mt-8">
-            <a href={CAL_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-ondark">
-              Book a 30-minute call
-            </a>
+      <section className="life-band">
+        <img src={BAND_IMG} alt="A tradesperson taking a booking on the phone" loading="lazy" />
+        <div className="ov" />
+      </section>
+
+      {points.map((p, i) => (
+        <section key={p.title} className={i % 2 === 1 ? 'feat cream reverse' : 'feat'}>
+          <div className="wrap grid">
+            <Reveal>
+              <div className="eyebrow">{String(i + 1).padStart(2, '0')}</div>
+              <h2 className="big">{p.title}</h2>
+              <p className="body">{p.body}</p>
+            </Reveal>
           </div>
+        </section>
+      ))}
+
+      <section className="stand">
+        <div className="hair" />
+        <div className="aura" />
+        <div className="wrap">
+          <Reveal>
+            <h2>
+              Get found first. <span className="grad">Then StayBookt runs the rest.</span>
+            </h2>
+          </Reveal>
+          <Reveal delay={1}>
+            <div style={{ marginTop: 40 }}>
+              <a
+                href={CAL_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pill pill-white"
+                style={{ padding: '14px 28px', fontSize: 15 }}
+              >
+                Book a 30-minute call
+              </a>
+            </div>
+          </Reveal>
         </div>
       </section>
 
