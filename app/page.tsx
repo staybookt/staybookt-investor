@@ -1,37 +1,32 @@
-import { TopNav } from '@/components/TopNav';
-import Hero from '@/components/Hero';
-import Reveal from '@/components/Reveal';
-import PhoneBooking from '@/components/PhoneBooking';
-import ActivityCard from '@/components/ActivityCard';
-import ParallaxBand from '@/components/ParallaxBand';
+import type { ReactNode } from 'react';
+import Nav from '@/components/v4/Nav';
+import Reveal from '@/components/v4/Reveal';
+import Receptionist from '@/components/v4/Receptionist';
+import Dashboard from '@/components/v4/Dashboard';
+import DailyBrief from '@/components/v4/DailyBrief';
+import ProductScrub from '@/components/v4/ProductScrub';
 import SiteFooter from '@/components/SiteFooter';
 import { CAL_LINK } from '@/lib/site';
 
 const SHARE_DESCRIPTION =
   'StayBookt builds and runs the entire front office for service businesses, and only gets paid when it brings you work. So the business runs without you, and you get your life back.';
 
-// Lifestyle still (Pexels, licensed). One-line swap to change it.
-const LIFE_IMG =
-  'https://images.pexels.com/photos/34534420/pexels-photo-34534420.jpeg?auto=compress&cs=tinysrgb&w=1600';
+const HERO_IMG =
+  'https://images.pexels.com/photos/34534420/pexels-photo-34534420.jpeg?auto=compress&cs=tinysrgb&w=2000';
+const CLOSER_IMG =
+  'https://images.pexels.com/photos/30660768/pexels-photo-30660768.jpeg?auto=compress&cs=tinysrgb&w=2000';
 
-const CAPABILITIES = [
-  { nm: 'Website', py: 'A site that gets you found on Google.' },
-  { nm: 'AI Receptionist', py: 'Every call and text answered, 24/7.' },
-  { nm: 'Self-serve booking', py: 'Customers book themselves straight in.' },
-  { nm: 'CRM', py: 'Every customer and job in one place.' },
-  { nm: 'Quote tool', py: 'Sent, tracked, chased. Never forgotten.' },
-  { nm: 'Review engine', py: 'Five-star reviews on autopilot.' },
-  { nm: 'Repeat business', py: 'Past customers brought back on their own.' },
-  { nm: 'Operating dashboard', py: 'Your whole business at a glance.' },
-  { nm: 'AI analyst', py: "Reads your numbers, tells you what's next." },
-  { nm: 'Daily brief', py: 'One short update every morning.' },
-];
-
-const STEPS = [
-  { dot: '1', w: 'Week 1', d: 'Your new site goes live and starts getting found.' },
-  { dot: '2', w: 'Day 3', d: 'We answer every call and text for you.' },
-  { dot: '3', w: 'Week 2', d: 'Your first job booked through the system.' },
-  { dot: 'check', w: 'Every Monday', d: 'One short brief. You always know where things stand.' },
+const CAPABILITIES: { nm: string; p: string }[] = [
+  { nm: 'Website', p: 'Found on Google' },
+  { nm: 'AI receptionist', p: 'Answered 24/7' },
+  { nm: 'Self-serve booking', p: 'Books itself' },
+  { nm: 'CRM', p: 'One place' },
+  { nm: 'Quotes', p: 'Sent and chased' },
+  { nm: 'Reviews', p: 'On autopilot' },
+  { nm: 'Repeat business', p: 'Brought back' },
+  { nm: 'Dashboard', p: 'At a glance' },
+  { nm: 'AI analyst', p: 'What is next' },
+  { nm: 'Daily brief', p: 'Every morning' },
 ];
 
 export const metadata = {
@@ -53,224 +48,190 @@ export const metadata = {
   },
 };
 
-function Check() {
+function ArrowUpRight(): ReactNode {
   return (
-    <svg viewBox="0 0 20 20" width="14" height="14" fill="none" stroke="currentColor" strokeWidth={2.4} aria-hidden="true">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M4 10.5l3.5 3.5L16 5.5" />
+    <svg
+      viewBox="0 0 24 24"
+      width="15"
+      height="15"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2.2}
+      style={{ display: 'inline-block', verticalAlign: '-2px', marginLeft: 5 }}
+      aria-hidden="true"
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M9 7h8v8" />
     </svg>
   );
 }
 
 export default function HomePage() {
   return (
-    <main id="top" className="hpv2">
-      <TopNav />
+    <main id="top" className="v4">
+      <Nav />
 
-      {/* 00 — HERO: dark aura, film grain, sweeping wordmark */}
-      <Hero />
-
-      {/* 01 — It picks up */}
-      <section className="feat" id="f1">
-        <div className="wrap grid">
+      {/* 01 — HERO: full-bleed photograph, aspiration, solid white type */}
+      <header className="scene">
+        <img src={HERO_IMG} alt="" fetchPriority="high" decoding="async" />
+        <div className="grad-ov" />
+        <div className="wrap inner">
+          <Reveal className="eyebrow" as="div">
+            <span style={{ color: '#c9cdd6' }}>StayBookt &middot; the operating layer for the trades</span>
+          </Reveal>
           <Reveal>
-            <div className="eyebrow">It picks up</div>
-            <h2 className="big">
-              <span className="grad">Answers every call.</span> Day or night.
-            </h2>
-            <p className="body">
-              A real-sounding receptionist picks up every call and text, books the job, and sends
-              the reminder. Even at 2 in the morning. No lead ever hits voicemail again.
+            <h1 style={{ marginTop: 22 }}>You built it for a life.</h1>
+          </Reveal>
+          <Reveal>
+            <p className="sub">
+              Not a phone that never stops ringing. StayBookt runs the whole front office, so the
+              business runs without you, and you get to go live it.
             </p>
           </Reveal>
-          <Reveal delay={1} className="visual">
-            <PhoneBooking />
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 02 — It follows up (cream, reversed) */}
-      <section className="feat cream reverse">
-        <div className="wrap grid">
           <Reveal>
-            <div className="eyebrow">It follows up</div>
-            <h2 className="big">
-              <span className="grad">Nothing you quote</span> gets forgotten.
-            </h2>
-            <p className="body">
-              Every quote gets sent, tracked, and chased until it's won or lost. Reviews get
-              requested. Past customers get nudged back. The work keeps coming without you lifting a
-              finger.
-            </p>
-          </Reveal>
-          <Reveal delay={1} className="visual">
-            <ActivityCard />
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 04 — Standout beat with logic cases */}
-      <section className="stand">
-        <div className="hair" />
-        <div className="aura" />
-        <div className="wrap">
-          <Reveal>
-            <h2>
-              We only make money <span className="grad">when you do.</span>
-            </h2>
-          </Reveal>
-          <Reveal delay={1}>
-            <p>
-              We build it, we run it, and we only get paid when it brings you work. If the phone
-              doesn't ring more, we haven't earned a cent.
-            </p>
-          </Reveal>
-          <div className="logic">
-            <Reveal className="li">
-              <h4>Aligned with you</h4>
-              <p>We only win when you win. No retainer for nothing.</p>
-            </Reveal>
-            <Reveal delay={1} className="li">
-              <h4>One system, not ten apps</h4>
-              <p>The site, the phone, the follow-up. Run for you, in one place.</p>
-            </Reveal>
-            <Reveal delay={2} className="li">
-              <h4>Priced for your size</h4>
-              <p>An executive front office without the executive payroll.</p>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* 03 — Capability wall */}
-      <section className="capwall">
-        <div className="wrap">
-          <Reveal className="head">
-            <div className="eyebrow center">The whole front office</div>
-            <h2 className="big grad" style={{ margin: '12px auto 0', maxWidth: '18ch' }}>
-              Everything it does. So you don't have to.
-            </h2>
-            <p className="lead" style={{ maxWidth: '54ch', margin: '22px auto 0' }}>A receptionist, an office manager, a marketer, and a bookkeeper. That is what it takes to run the front of a business, and most owners are doing all of it themselves at 9pm. StayBookt runs the whole thing for you. Here is every part.</p>
-          </Reveal>
-          <div className="capgrid">
-            {CAPABILITIES.map((c) => (
-              <Reveal key={c.nm} className="cap">
-                <span className="nm">{c.nm}</span>
-                <span className="py">{c.py}</span>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 05 — Proof: live client browser card, auto-scrolling through the site */}
-      <section className="proof">
-        <div className="wrap">
-          <Reveal>
-            <div className="browser">
-              <div className="bbar">
-                <i />
-                <i />
-                <i />
-                <span className="url">topchoiceelectrical.com</span>
-              </div>
-              <div className="bwrap">
-                <div className="bscroll">
-                  <div className="site">
-                    <div className="glow" />
-                    <div className="k">Licensed electricians · Newmarket, ON</div>
-                    <div className="t">Top Choice Electrical</div>
-                    <div className="cta2">
-                      <span className="ph">Book online in 60 seconds</span>
-                    </div>
-                  </div>
-                  <div className="site srow">
-                    <div className="k">Services</div>
-                    <div className="svc">Panel upgrades · EV chargers · Rewiring · Emergency calls</div>
-                  </div>
-                  <div className="site srev">
-                    <div className="rev">
-                      &ldquo;Showed up on time, fixed it fast.&rdquo; <span className="stars">★★★★★</span>
-                    </div>
-                  </div>
-                  <div className="site sbook">
-                    <span className="bookbtn">Book your electrician</span>
-                  </div>
-                </div>
-              </div>
+            <div className="cta">
+              <a
+                href={CAL_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pill pill-white"
+                style={{ padding: '14px 28px', fontSize: 15 }}
+              >
+                Book a 30-minute call
+              </a>
             </div>
           </Reveal>
-          <Reveal delay={1}>
-            <p className="cap2">
-              <b>We built and run Top Choice Electrical.</b> Real business, real site, real jobs
-              booked in Newmarket, Ontario.
-            </p>
-            <a href="https://topchoiceelectrical.com" target="_blank" rel="noopener noreferrer" className="visit">
-              Visit the live site ↗
-            </a>
-          </Reveal>
-          <Reveal delay={2}>
-            <figure className="timquote">
-              <blockquote>
-                &ldquo;My phone used to ring off the hook and half of it went to voicemail. Now every
-                call gets answered and booked. <span className="grad">I actually took a weekend off.</span>&rdquo;
-              </blockquote>
-              <figcaption>Tim Ciszkowski, Top Choice Electrical, Newmarket ON</figcaption>
-              <div className="qnote">Placeholder quote, pending approval.</div>
-            </figure>
+          <Reveal>
+            <div className="note">30 minutes with a founder. No pitch. No lock-in.</div>
           </Reveal>
         </div>
-      </section>
+        <div className="scrollcue">Scroll</div>
+      </header>
 
-      {/* 06 — Timeline: your first two weeks */}
-      <section className="timeline">
+      <div className="seam seam-dark-to-dark" aria-hidden="true" />
+
+      {/* 02 — SIGNATURE PRODUCT: AI Receptionist, the 2 AM beat */}
+      <ProductScrub
+        eyebrow="The receptionist that never sleeps"
+        headline={<>Answered at 2 AM.</>}
+        sub={
+          <>
+            Every call and text, picked up in your voice and booked, before you would have even
+            stirred.
+          </>
+        }
+        signature
+      >
+        <Receptionist />
+      </ProductScrub>
+
+      {/* 03 — PRODUCT: Operating Dashboard */}
+      <ProductScrub
+        eyebrow="The operation"
+        headline={
+          <>
+            The whole business. One screen.
+          </>
+        }
+        sub={<>Every job, every lead, every dollar. Run for you, in one place.</>}
+        reverse
+      >
+        <Dashboard />
+      </ProductScrub>
+
+      {/* 04 — PRODUCT: Daily Brief */}
+      <ProductScrub
+        eyebrow="Every morning"
+        headline={<>It ran while you slept.</>}
+        sub={
+          <>
+            You wake up, read one short brief, and get on with your day. Or your life.
+          </>
+        }
+      >
+        <DailyBrief />
+      </ProductScrub>
+
+      <div className="seam seam-dark-to-light" aria-hidden="true" />
+
+      {/* 05 — CAPABILITY LIST: light, restrained, typographic */}
+      <section className="light">
         <div className="wrap">
-          <Reveal className="head">
-            <div className="eyebrow center">What it feels like</div>
-            <h2 className="big" style={{ margin: '12px auto 0', maxWidth: '16ch' }}>
-              Your first two weeks.
-            </h2>
+          <Reveal className="eyebrow" as="div">
+            The whole front office
           </Reveal>
-          <div className="steps">
-            {STEPS.map((s, i) => (
-              <Reveal key={s.w} delay={i === 0 ? undefined : ((i as 1 | 2 | 3))} className="step">
-                <div className="dot">{s.dot === 'check' ? <Check /> : s.dot}</div>
-                <div className="w">{s.w}</div>
-                <div className="d">{s.d}</div>
+          <Reveal>
+            <h2 style={{ marginTop: 16 }}>Everything else it quietly does.</h2>
+          </Reveal>
+          <div className="caps">
+            {CAPABILITIES.map((c) => (
+              <Reveal key={c.nm} className="cap">
+                <span className="n">{c.nm}</span>
+                <span className="p">{c.p}</span>
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 07 — Lifestyle band with subtle parallax */}
-      <ParallaxBand
-        src={LIFE_IMG}
-        subheading="You poured years of blood, sweat, and tears into building this. Now it is time to enjoy the life it was supposed to buy."
-      >
-        You built your business for this.
-      </ParallaxBand>
+      <div className="seam seam-light-to-dark" aria-hidden="true" />
 
-      {/* 08 — Pricing */}
+      {/* 06 — PROOF: dark, photography of promise, real client */}
+      <section className="dark">
+        <div className="wrap">
+          <Reveal className="eyebrow" as="div">
+            <span style={{ color: '#8b93a5' }}>Real business, real results</span>
+          </Reveal>
+          <Reveal>
+            <h2 style={{ marginTop: 16 }}>We only make money when you do.</h2>
+          </Reveal>
+          <Reveal>
+            <p className="sub">
+              We build it, we run it, and we only get paid when it brings you work. We proved it on
+              ourselves: we built and run Top Choice Electrical, a live business in Newmarket,
+              Ontario.
+            </p>
+          </Reveal>
+          <Reveal className="proof-q">
+            <blockquote>
+              My phone used to ring off the hook and half of it went to voicemail. Now every call
+              gets answered and booked. I took a weekend off.
+            </blockquote>
+            <cite>Tim Ciszkowski, Top Choice Electrical</cite>
+            <div className="ph">Placeholder quote, pending approval.</div>
+          </Reveal>
+          <Reveal>
+            <div className="proof">
+              <a
+                href="https://topchoiceelectrical.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="visit"
+              >
+                Visit topchoiceelectrical.com
+                <ArrowUpRight />
+              </a>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <div className="seam seam-dark-to-cream" aria-hidden="true" />
+
+      {/* 07 — PRICING: cream, minimal, three tiers */}
       <section className="price" id="price">
         <div className="wrap">
-          <Reveal>
-            <div className="eyebrow center">Pricing</div>
+          <Reveal className="eyebrow" as="div">
+            Pricing
           </Reveal>
-          <Reveal delay={1}>
-            <h2 className="big grad" style={{ margin: '14px auto 0', maxWidth: '18ch' }}>
-              Three steps. Be seen, be run, be free.
-            </h2>
+          <Reveal>
+            <h2 style={{ marginTop: 14 }}>Get seen. Get run. Get free.</h2>
           </Reveal>
           <div className="tiers">
             <Reveal className="tier">
               <div className="nm">Get Found</div>
               <div className="pr">$1,750</div>
               <div className="u">one-time</div>
-              <div className="ds">The visibility foundation.</div>
-              <ul className="pts">
-                <li>Marketing-quality website</li>
-                <li>Google Business Profile + local SEO</li>
-              </ul>
+              <div className="ds">The website that gets you found.</div>
               <div className="term">Yours to keep.</div>
             </Reveal>
             <Reveal delay={1} className="tier dark">
@@ -278,26 +239,21 @@ export default function HomePage() {
               <div className="pr">$199</div>
               <div className="u">per month</div>
               <div className="ds">The whole front office, run for you.</div>
-              <ul className="pts">
-                <li>24/7 receptionist + booking</li>
-                <li>Quotes, reviews, repeat business</li>
-              </ul>
               <div className="term">Cancel anytime.</div>
             </Reveal>
             <Reveal delay={2} className="tier">
               <div className="nm">Enjoy Life</div>
               <div className="pr">By invitation</div>
-              <div className="u">{' '}</div>
-              <div className="ds">A partnership that makes the business sellable.</div>
-              <ul className="pts">
-                <li>Built for a clean exit or handoff</li>
-                <li>We share the upside</li>
-              </ul>
+              <div className="u">&nbsp;</div>
+              <div className="ds">A partnership that makes it sellable.</div>
               <div className="term">Invite only.</div>
             </Reveal>
           </div>
           <Reveal className="seefull">
-            <a href="/pricing">See full pricing →</a>
+            <a href="/pricing">
+              See full pricing
+              <ArrowUpRight />
+            </a>
           </Reveal>
           <Reveal>
             <div style={{ marginTop: 30 }}>
@@ -306,7 +262,7 @@ export default function HomePage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="pill pill-ink"
-                style={{ padding: '13px 26px', fontSize: 15 }}
+                style={{ padding: '14px 28px', fontSize: 15 }}
               >
                 Book a 30-minute call
               </a>
@@ -315,30 +271,27 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 09 — Closer */}
-      <section className="closer">
-        <div className="aura" />
-        <div className="wrap">
+      <div className="seam seam-cream-to-dark" aria-hidden="true" />
+
+      {/* 08 — CLOSER: full-bleed photograph, brand wordmark, the one gradient */}
+      <section className="scene closer">
+        <img src={CLOSER_IMG} alt="" loading="lazy" decoding="async" />
+        <div className="grad-ov" />
+        <div className="wrap inner">
           <Reveal>
-            <div className="cred">
-              Built by operators, not marketers.{' '}
-              <b>One of us scaled a service business from $15M to $500M+.</b>
+            <div className="mk">
+              Stay<span className="bk">Bookt</span>
+              <span className="dot">.</span> <span className="life">Enjoy Life.</span>
             </div>
           </Reveal>
-          <Reveal delay={1}>
-            <h2>
-              Stay<span className="b">Bookt</span>
-              <span className="dot">.</span> <span className="life">Enjoy Life.</span>
-            </h2>
-          </Reveal>
-          <Reveal delay={1}>
-            <div style={{ marginTop: 40 }}>
+          <Reveal>
+            <div className="cta" style={{ marginTop: 40 }}>
               <a
                 href={CAL_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="pill pill-white"
-                style={{ padding: '14px 28px', fontSize: 15 }}
+                style={{ padding: '15px 30px', fontSize: 15 }}
               >
                 Book a 30-minute call
               </a>
