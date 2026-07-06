@@ -60,12 +60,16 @@ export default function WhyAWebsitePage() {
       </section>
 
       {points.map((p, i) => (
-        <section key={p.title} className={i % 2 === 1 ? 'feat cream reverse' : 'feat'}>
-          <div className="wrap grid">
+        <section key={p.title} className={i % 2 === 1 ? 'section cream' : 'section'}>
+          <div className="wrap-narrow center">
             <Reveal>
-              <div className="eyebrow">{String(i + 1).padStart(2, '0')}</div>
-              <h2 className="big">{p.title}</h2>
-              <p className="body">{p.body}</p>
+              <div className="eyebrow center">{String(i + 1).padStart(2, '0')}</div>
+              <h2 className="big" style={{ margin: '12px auto 0', maxWidth: '18ch' }}>
+                {p.title}
+              </h2>
+              <p className="body" style={{ margin: '20px auto 0', maxWidth: '46ch' }}>
+                {p.body}
+              </p>
             </Reveal>
           </div>
         </section>

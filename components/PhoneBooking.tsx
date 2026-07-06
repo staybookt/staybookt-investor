@@ -9,7 +9,7 @@ const BUBBLES = [
   { dir: 'in', text: "Hey, my furnace just died and it's freezing. Can someone come tomorrow?" },
   { dir: 'out', text: "So sorry, that's the worst. I can get you a 9am slot with Mike. Want me to lock it in?" },
   { dir: 'in', text: 'Yes please!!' },
-  { dir: 'out', text: "Booked for 9am. You'll get a reminder at 8. Stay warm. 👋" },
+  { dir: 'out', text: "Booked for 9am. You'll get a reminder at 8. Stay warm." },
 ] as const;
 
 export default function PhoneBooking() {
@@ -45,13 +45,21 @@ export default function PhoneBooking() {
   return (
     <div className="phone" ref={ref}>
       <div className="screen">
-        <div className="time">2:14 AM</div>
+        <div className="bar">
+          <span className="av" />
+          Messages
+        </div>
         {BUBBLES.map((b, i) => (
           <div key={i} className={`bubble ${b.dir}${i < shown ? ' show' : ''}`}>
             {b.text}
           </div>
         ))}
-        <div className={`tag${tag ? ' show' : ''}`}>{'✓'} Booked while you slept</div>
+        <div className={`tag${tag ? ' show' : ''}`}>
+          <svg viewBox="0 0 20 20" width="12" height="12" fill="none" stroke="currentColor" strokeWidth={2.4} aria-hidden="true">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4 10.5l3.5 3.5L16 5.5" />
+          </svg>
+          Booked while you slept
+        </div>
       </div>
     </div>
   );
