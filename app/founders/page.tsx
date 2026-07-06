@@ -1,6 +1,7 @@
-import Link from 'next/link';
 import { TopNav } from '@/components/TopNav';
-import { CAL_LINK, EMAIL } from '@/lib/site';
+import Wordmark from '@/components/Wordmark';
+import SiteFooter from '@/components/SiteFooter';
+import { CAL_LINK } from '@/lib/site';
 
 export const metadata = {
   title: 'The two of us | StayBookt',
@@ -9,85 +10,91 @@ export const metadata = {
   alternates: { canonical: '/founders' },
 };
 
+// PLACEHOLDER headshots (Pexels, licensed). Two professional man portraits.
+// Swap for real founder photos before launch; image IDs to be curated.
+const JACOB_IMG =
+  'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=800';
+const RICHARD_IMG =
+  'https://images.pexels.com/photos/697509/pexels-photo-697509.jpeg?auto=compress&cs=tinysrgb&w=800';
+
 export default function FoundersPage() {
   return (
     <main className="bg-paper text-ink">
-      <TopNav />
+      <TopNav active="founders" />
 
-      <section className="mx-auto max-w-5xl px-6 pt-40 pb-16 sm:px-12">
-        <h1 className="font-display tracking-[-0.03em] text-4xl sm:text-6xl text-ink">
-          The two of us.
-        </h1>
-        <p className="mt-6 max-w-3xl text-lg leading-relaxed text-[#475569]">
+      <section className="mx-auto max-w-4xl px-6 pt-36 pb-16 sm:px-12 sm:pt-44">
+        <p className="eyebrow">Founders</p>
+        <h1 className="display-1 mt-4 text-ink">The two of us.</h1>
+        <p className="mt-6 max-w-3xl text-lg leading-relaxed text-body">
           StayBookt is built and run by two founders who have been on both sides of a
           service business: the one bringing in the work, and the one making the
           operation actually run.
         </p>
       </section>
 
-      <section className="mx-auto max-w-5xl px-6 pb-12 sm:px-12">
+      <section className="mx-auto max-w-5xl px-6 py-24 sm:px-12 sm:py-32">
         <div className="grid gap-6 md:grid-cols-2">
-          <div className="rounded-2xl border border-[#E5E7EB] bg-cream p-8">
-            <h2 className="font-display tracking-[-0.03em] text-2xl text-ink">
-              Jacob Charendoff
-            </h2>
-            <p className="mt-1 text-sm font-semibold text-[#7C3AED]">
-              Brand, product, and growth.
-            </p>
-            <p className="mt-5 text-base leading-relaxed text-[#475569]">
-              Jacob runs the outside game: the brand, the product, and how StayBookt
-              shows up in the world. His focus is making a service business impossible
-              to miss and effortless to hire, then turning that first impression into a
-              system the owner can actually hand off.
-            </p>
+          <div className="card-cream overflow-hidden">
+            <img
+              src={JACOB_IMG}
+              alt="Jacob Charendoff"
+              className="h-72 w-full object-cover"
+              loading="lazy"
+            />
+            <div className="p-8">
+              <h2 className="display-3 text-ink">Jacob Charendoff</h2>
+              <p className="mt-1 text-sm font-semibold text-period">
+                Brand, product, and growth.
+              </p>
+              <p className="mt-5 leading-relaxed text-body">
+                Jacob runs the outside game: the brand, the product, and how StayBookt
+                shows up in the world. His focus is making a service business impossible
+                to miss and effortless to hire, then turning that first impression into a
+                system the owner can actually hand off.
+              </p>
+            </div>
           </div>
 
-          <div className="rounded-2xl border border-[#E5E7EB] bg-cream p-8">
-            <h2 className="font-display tracking-[-0.03em] text-2xl text-ink">
-              Richard
-            </h2>
-            <p className="mt-1 text-sm font-semibold text-hvac">
-              Operations, growth, and finance.
-            </p>
-            <p className="mt-5 text-base leading-relaxed text-[#475569]">
-              Two plus decades of executive-level leadership in high-growth service
-              businesses at scale. Responsible for multiple start-up efforts and leading
-              significant growth at Venterra from $15M to $500M+ in revenues. Deep
-              understanding of the entire customer journey and all aspects of delivering
-              world-class revenue performance. A CPA who has a passion for operations and
-              leveraging technology to deliver tangible results.
-            </p>
+          <div className="card-cream overflow-hidden">
+            <img
+              src={RICHARD_IMG}
+              alt="Richard"
+              className="h-72 w-full object-cover"
+              loading="lazy"
+            />
+            <div className="p-8">
+              <h2 className="display-3 text-ink">Richard</h2>
+              <p className="mt-1 text-sm font-semibold text-hvac">
+                Operations, growth, and finance.
+              </p>
+              <p className="mt-5 leading-relaxed text-body">
+                Two plus decades of executive-level leadership in high-growth service
+                businesses at scale. Responsible for multiple start-up efforts and leading
+                significant growth at Venterra from $15M to $500M+ in revenues. Deep
+                understanding of the entire customer journey and all aspects of delivering
+                world-class revenue performance. A CPA who has a passion for operations and
+                leveraging technology to deliver tangible results.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       <section className="mx-auto max-w-5xl px-6 pb-24 sm:px-12">
-        <div className="rounded-2xl bg-ink p-10 text-white sm:p-14">
-          <p className="font-display tracking-[-0.03em] text-2xl leading-snug sm:text-3xl">
+        <div className="panel-ink p-10 sm:p-14">
+          <p className="display-3 leading-snug text-white">
             One of us builds the demand. One of us builds the operation. Together, we
             build the thing that runs without you.
           </p>
           <div className="mt-8">
-            <a
-              href={CAL_LINK}
-              className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-white/90"
-            >
+            <a href={CAL_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-ondark">
               Book a 30-minute call
             </a>
           </div>
         </div>
       </section>
 
-      <footer className="border-t border-[#E5E7EB]">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-8 text-sm text-mute sm:px-12">
-          <Link href="/" className="hover:text-ink">
-            Back to home
-          </Link>
-          <a href={`mailto:${EMAIL}`} className="hover:text-ink">
-            {EMAIL}
-          </a>
-        </div>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }
