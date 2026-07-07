@@ -6,7 +6,7 @@ import Dashboard from '@/components/v4/Dashboard';
 import DailyBrief from '@/components/v4/DailyBrief';
 import ProductScrub from '@/components/v4/ProductScrub';
 import SiteFooter from '@/components/SiteFooter';
-import { CAL_LINK } from '@/lib/site';
+import { START_LINK } from '@/lib/site';
 
 const SHARE_DESCRIPTION =
   'StayBookt builds and runs the entire front office for service businesses, and only gets paid when it brings you work. So the business runs without you, and you get your life back.';
@@ -90,13 +90,11 @@ export default function HomePage() {
           <Reveal>
             <div className="cta">
               <a
-                href={CAL_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={START_LINK}
                 className="pill pill-white"
                 style={{ padding: '14px 28px', fontSize: 15 }}
               >
-                Book a 30-minute call
+                Get Started
               </a>
             </div>
           </Reveal>
@@ -258,13 +256,11 @@ export default function HomePage() {
           <Reveal>
             <div style={{ marginTop: 30 }}>
               <a
-                href={CAL_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={START_LINK}
                 className="pill pill-ink"
                 style={{ padding: '14px 28px', fontSize: 15 }}
               >
-                Book a 30-minute call
+                Get Started
               </a>
             </div>
           </Reveal>
@@ -287,13 +283,11 @@ export default function HomePage() {
           <Reveal>
             <div className="cta" style={{ marginTop: 40 }}>
               <a
-                href={CAL_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={START_LINK}
                 className="pill pill-white"
                 style={{ padding: '15px 30px', fontSize: 15 }}
               >
-                Book a 30-minute call
+                Get Started
               </a>
             </div>
           </Reveal>
