@@ -3,13 +3,12 @@ import Nav from '@/components/v4/Nav';
 import Reveal from '@/components/v4/Reveal';
 import Receptionist from '@/components/v4/Receptionist';
 import Dashboard from '@/components/v4/Dashboard';
-import DailyBrief from '@/components/v4/DailyBrief';
 import ProductScrub from '@/components/v4/ProductScrub';
 import SiteFooter from '@/components/SiteFooter';
 import { START_LINK } from '@/lib/site';
 
 const SHARE_DESCRIPTION =
-  'StayBookt finds the revenue you are missing, runs your business day to day, and turns it into an asset you can sell or pass on. You built your business to enjoy your life.';
+  'StayBookt finds the revenue you are missing, runs your business day to day, and builds lasting value in what you have made. You built your business to enjoy your life.';
 
 const CLOSER_IMG =
   'https://images.pexels.com/photos/30660768/pexels-photo-30660768.jpeg?auto=compress&cs=tinysrgb&w=2000';
@@ -66,7 +65,7 @@ function ArrowUpRight(): ReactNode {
 const PAGE_CSS = `
 .v4 .proof-two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,56px);}
 @media(max-width:760px){.v4 .proof-two{grid-template-columns:1fr;}}
-.v4 .product{background:var(--v4-cream);color:var(--v4-ink);padding:clamp(72px,9vw,120px) 0;}
+.v4 .product{background:var(--v4-cream);color:var(--v4-ink);padding:clamp(56px,7vw,92px) 0;}
 .v4 .product.signature{background:var(--v4-cream);}
 .v4 .product h2{color:var(--v4-ink);max-width:20ch;margin-left:auto;margin-right:auto;}
 .v4 .product p.sub{color:var(--v4-muted);margin-left:auto;margin-right:auto;}
@@ -75,16 +74,21 @@ const PAGE_CSS = `
 .v4 .product .grid{grid-template-columns:1fr;justify-items:center;text-align:center;gap:clamp(36px,5vw,64px);}
 .v4 .product.reverse .visual{order:0;}
 .v4 .product .grid>.reveal:not(.visual){max-width:660px;}
-.v4 .light,.v4 .dark{padding:clamp(90px,12vw,150px) 0;}
-.v4 .price{padding:clamp(90px,12vw,150px) 0;}
+.v4 .light,.v4 .dark{padding:clamp(72px,9vw,112px) 0;}
+.v4 .price{padding:clamp(72px,9vw,112px) 0;}
 .v4 .scene>video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
 .v4 .scene .reveal{opacity:1;transform:none;}
-.v4 .thesis{background:var(--v4-ink);padding:clamp(110px,15vw,180px) 0;text-align:center;}
+.v4 .thesis{background:var(--v4-ink);padding:clamp(80px,10vw,132px) 0;text-align:center;position:relative;overflow:hidden;}
+.v4 .thesis::before{content:'';position:absolute;inset:0;background:radial-gradient(55% 75% at 50% -12%,rgba(6,182,212,.20),transparent 60%),radial-gradient(50% 70% at 86% 120%,rgba(79,70,229,.22),transparent 62%),radial-gradient(40% 55% at 12% 108%,rgba(16,185,129,.14),transparent 60%);pointer-events:none;}
+.v4 .thesis .wrap{position:relative;z-index:1;}
 .v4 .thesis h2{font-size:clamp(32px,5.2vw,74px);max-width:20ch;margin:0 auto;color:#fff;letter-spacing:-.045em;line-height:1.04;}
-.v4 .statement{background:var(--v4-cream);padding:clamp(96px,13vw,160px) 0;}
+.v4 .statement{background:var(--v4-cream);padding:clamp(72px,9vw,120px) 0;}
 .v4 .statement h2{font-size:clamp(34px,5vw,68px);max-width:17ch;letter-spacing:-.04em;line-height:1.03;color:var(--v4-ink);margin-top:16px;}
 .v4 .statement p.sub{margin-top:24px;font-size:clamp(17px,1.6vw,21px);line-height:1.55;color:var(--v4-muted);max-width:46ch;}
 .v4 .learn{display:inline-block;margin-top:22px;color:var(--v4-indigo);font-weight:600;font-size:15px;text-decoration:none;}
+.v4 .proofband{position:relative;overflow:hidden;}
+.v4 .proofband::before{content:'';position:absolute;inset:0;background:radial-gradient(45% 60% at 12% 0%,rgba(6,182,212,.16),transparent 60%),radial-gradient(50% 65% at 92% 105%,rgba(79,70,229,.20),transparent 62%);pointer-events:none;}
+.v4 .proofband .wrap{position:relative;z-index:1;}
 `;
 
 export default function HomePage() {
@@ -106,8 +110,8 @@ export default function HomePage() {
           </Reveal>
           <Reveal>
             <p className="sub">
-              We find the money you are missing, run the day to day, and turn what you built into
-              something you can sell or pass on. So the work finally pays off the way you meant it to.
+              We find the money you are missing, run the day to day, and build real, lasting value
+              in what you have made. So the work finally pays off the way you meant it to.
             </p>
           </Reveal>
           <Reveal>
@@ -130,7 +134,7 @@ export default function HomePage() {
       <section className="thesis">
         <div className="wrap">
           <Reveal>
-            <h2>We turn a job you can&apos;t leave into a business you can sell.</h2>
+            <h2>We turn a job you can&apos;t leave into a business that works for you.</h2>
           </Reveal>
         </div>
       </section>
@@ -178,14 +182,6 @@ export default function HomePage() {
         <Dashboard />
       </ProductScrub>
 
-      {/* 04b — the morning brief, part of the operation */}
-      <ProductScrub
-        eyebrow="Every morning"
-        headline={<>It ran while you slept.</>}
-        sub={<>You wake up, read one short brief, and get on with your day. Or your life.</>}
-      >
-        <DailyBrief />
-      </ProductScrub>
 
       <div className="seam seam-dark-to-light" aria-hidden="true" />
 
@@ -213,16 +209,16 @@ export default function HomePage() {
       <section className="statement">
         <div className="wrap">
           <Reveal className="eyebrow" as="div">
-            <span style={{ color: 'var(--v4-green-d)' }}>Finally, build the asset</span>
+            <span style={{ color: 'var(--v4-green-d)' }}>Finally, build lasting value</span>
           </Reveal>
           <Reveal>
-            <h2>Then we make it worth walking away from.</h2>
+            <h2>Then we make it an asset, not just a job.</h2>
           </Reveal>
           <Reveal>
             <p className="sub">
-              A business that runs without you is one you can actually sell, or hand to your family.
-              We build the systems that turn years of work into a number a buyer will pay. And when
-              you&apos;re ready, we help you realize it.
+              A business that runs without you is worth real money, and it gives you options: keep
+              enjoying it, hand it to your family, or one day move on, on your terms. We build that
+              value in from the start.
             </p>
           </Reveal>
           <Reveal>
@@ -238,7 +234,7 @@ export default function HomePage() {
       <div className="seam seam-cream-to-dark" aria-hidden="true" />
 
       {/* 07 — PROOF */}
-      <section className="dark">
+      <section className="dark proofband">
         <div className="wrap">
           <Reveal className="eyebrow" as="div">
             <span style={{ color: '#8b93a5' }}>Real businesses, live now</span>
@@ -320,7 +316,7 @@ export default function HomePage() {
               <div className="nm">Enjoy Life</div>
               <div className="pr">By invitation</div>
               <div className="u">&nbsp;</div>
-              <div className="ds">Build the asset, then cash it in.</div>
+              <div className="ds">A real asset, and the freedom to choose.</div>
               <div className="term">Invite only.</div>
             </Reveal>
           </div>
