@@ -2,6 +2,8 @@
 
 // Live booking page. Every "Book a call" CTA across the site routes here.
 export const CAL_LINK = 'https://cal.com/team/staybookt/talk-to-a-founder';
+// Internal landing page that explains the Pulse read and embeds the calendar.
+export const START_LINK = '/start';
 export const EMAIL = 'info@staybookt.com';
 
 // Phone: a Twilio number for call + text. Not provisioned yet, so we leave it
