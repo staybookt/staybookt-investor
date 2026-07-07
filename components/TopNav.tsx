@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Wordmark from './Wordmark';
-import { CAL_LINK } from '@/lib/site';
+import { START_LINK } from '@/lib/site';
 
 const NAV = [
   { href: '/why-a-website', label: 'Why a website' },
@@ -57,12 +57,10 @@ export function TopNav({ active }: { active?: string }) {
 
         <div className="hidden md:flex items-center gap-3">
           <a
-            href={CAL_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={START_LINK}
             className="rounded-full bg-white text-ink text-[13px] font-semibold px-5 py-2 transition-colors hover:bg-white/90"
           >
-            Book a call
+            Get Started
           </a>
         </div>
 
@@ -94,12 +92,10 @@ export function TopNav({ active }: { active?: string }) {
               </Link>
             ))}
             <a
-              href={CAL_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={START_LINK}
               className="mt-3 rounded-full bg-white text-ink text-sm font-semibold px-4 py-3 text-center"
             >
-              Book a call
+              Get Started
             </a>
           </div>
         </nav>
