@@ -68,6 +68,7 @@ function ArrowUpRight(): ReactNode {
 export default function HomePage() {
   return (
     <main id="top" className="v4">
+      <style>{`.v4 .proof-two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,56px);}@media(max-width:760px){.v4 .proof-two{grid-template-columns:1fr;}}`}</style>
       <Nav />
 
       {/* 01 — HERO: full-bleed photograph, aspiration, solid white type */}
@@ -76,7 +77,7 @@ export default function HomePage() {
         <div className="grad-ov" />
         <div className="wrap inner">
           <Reveal className="eyebrow" as="div">
-            <span style={{ color: '#c9cdd6' }}>StayBookt &middot; the operating layer for the trades</span>
+            <span style={{ color: '#c9cdd6' }}>StayBookt &middot; we run the office so you can run the jobs</span>
           </Reveal>
           <Reveal>
             <h1 style={{ marginTop: 22 }}>You built it for a life.</h1>
@@ -173,43 +174,68 @@ export default function HomePage() {
 
       <div className="seam seam-light-to-dark" aria-hidden="true" />
 
-      {/* 06 — PROOF: dark, photography of promise, real client */}
+      {/* 06 — PROOF: dark, two real businesses we built and run */}
       <section className="dark">
         <div className="wrap">
           <Reveal className="eyebrow" as="div">
-            <span style={{ color: '#8b93a5' }}>Real business, real results</span>
+            <span style={{ color: '#8b93a5' }}>Real businesses, live now</span>
           </Reveal>
           <Reveal>
-            <h2 style={{ marginTop: 16 }}>We only make money when you do.</h2>
+            <h2 style={{ marginTop: 16 }}>We don&apos;t just build it. We run it.</h2>
           </Reveal>
           <Reveal>
             <p className="sub">
-              We build it, we run it, and we only get paid when it brings you work. We proved it on
-              ourselves: we built and run Top Choice Electrical, a live business in Newmarket,
-              Ontario.
+              We stake our own name on the work. These are real businesses we built, live on their
+              own domains right now, not stock mockups.
             </p>
           </Reveal>
-          <Reveal className="proof-q">
-            <blockquote>
-              My phone used to ring off the hook and half of it went to voicemail. Now every call
-              gets answered and booked. I took a weekend off.
-            </blockquote>
-            <cite>Tim Ciszkowski, Top Choice Electrical</cite>
-            <div className="ph">Placeholder quote, pending approval.</div>
-          </Reveal>
-          <Reveal>
-            <div className="proof">
+          <div className="proof-two" style={{ marginTop: 'clamp(48px,6vw,72px)' }}>
+            <Reveal>
+              <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.14em', textTransform: 'uppercase', color: '#8b93a5' }}>
+                Electrical &middot; Newmarket, ON
+              </div>
+              <div style={{ marginTop: 10, fontSize: 'clamp(22px,2.4vw,29px)', fontWeight: 700, letterSpacing: '-.03em', color: '#fff' }}>
+                Top Choice Electrical
+              </div>
+              <p style={{ marginTop: 12, fontSize: 16, lineHeight: 1.55, color: '#aeb4c0', maxWidth: '40ch' }}>
+                Tim was running on word of mouth and a phone that rang straight to him. We built the
+                site, rebuilt his Google profile, wired tap-to-call and booking, and we run the front
+                office for him day to day.
+              </p>
               <a
                 href="https://topchoiceelectrical.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="visit"
+                style={{ display: 'inline-block', marginTop: 16 }}
               >
                 Visit topchoiceelectrical.com
                 <ArrowUpRight />
               </a>
-            </div>
-          </Reveal>
+            </Reveal>
+            <Reveal delay={1}>
+              <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.14em', textTransform: 'uppercase', color: '#8b93a5' }}>
+                Professional services &middot; York Region
+              </div>
+              <div style={{ marginTop: 10, fontSize: 'clamp(22px,2.4vw,29px)', fontWeight: 700, letterSpacing: '-.03em', color: '#fff' }}>
+                XNL HR &amp; Communications
+              </div>
+              <p style={{ marginTop: 12, fontSize: 16, lineHeight: 1.55, color: '#aeb4c0', maxWidth: '40ch' }}>
+                Evert runs a fractional HR practice where his judgment is the product. We built a site
+                that finally tells the XNL story the way he had been trying to for years.
+              </p>
+              <a
+                href="https://www.xnlhr.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="visit"
+                style={{ display: 'inline-block', marginTop: 16 }}
+              >
+                Visit xnlhr.com
+                <ArrowUpRight />
+              </a>
+            </Reveal>
+          </div>
         </div>
       </section>
 
