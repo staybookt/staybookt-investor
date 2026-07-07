@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { TopNav } from '@/components/TopNav';
 import Reveal from '@/components/Reveal';
 import SiteFooter from '@/components/SiteFooter';
-import { CAL_LINK } from '@/lib/site';
+import { START_LINK } from '@/lib/site';
 
 export const metadata = {
   title: 'The two of us | StayBookt',
@@ -118,13 +118,11 @@ export default function FoundersPage() {
           <Reveal delay={1}>
             <div style={{ marginTop: 40 }}>
               <a
-                href={CAL_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={START_LINK}
                 className="pill pill-white"
                 style={{ padding: '14px 28px', fontSize: 15 }}
               >
-                Book a 30-minute call
+                Get Started
               </a>
             </div>
           </Reveal>
