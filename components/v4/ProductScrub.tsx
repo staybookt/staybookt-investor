@@ -17,13 +17,10 @@ import { useStaticFallback } from '@/lib/useReducedMotion';
  * reads progress from here rather than through a render-prop. */
 export const ScrubContext = createContext<MotionValue<number> | null>(null);
 
-/* A pinned, scroll-scrubbed product moment. The outer section is TALL (~220vh);
- * an inner sticky container holds the copy + device and stays pinned in the
- * viewport while the section scrolls. useScroll gives progress 0->1 across the
- * scroll of the tall section, which is handed to the device child through
- * ScrubContext to drive its animation. On reduced-motion / narrow viewports we
- * drop the pin and the scrub entirely: a static centered layout, device told to
- * show its final state (progress fixed at 1). */
+/* Product moment. The scroll-scrubbed pin was removed (it lagged on desktop and
+ * rendered the copy dark mid-scrub); we now always render a static, readable
+ * two-column layout with the device shown in its final state (progress = 1).
+ * The pinned code path is retained below but no longer used. */
 export default function ProductScrub({
   eyebrow,
   headline,
@@ -39,7 +36,10 @@ export default function ProductScrub({
   signature?: boolean;
   children: ReactNode;
 }) {
-  const staticMode = useStaticFallback();
+  // Scroll-scrub pinning removed: it lagged on desktop and rendered copy dark
+  // mid-scrub. Always render the static, readable layout.
+  useStaticFallback();
+  const staticMode = true;
   const tallRef = useRef<HTMLDivElement | null>(null);
 
   // Always create both a scroll-driven and a constant progress; pick per mode so
