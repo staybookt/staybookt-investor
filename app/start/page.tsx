@@ -34,12 +34,12 @@ const SEE: { n: string; nm: string; p: string }[] = [
   {
     n: '02',
     nm: "What's slipping",
-    p: 'The calls that went to voicemail. The quotes that went cold. The leads nobody called back. With a dollar figure on it.',
+    p: 'The calls that went to voicemail. The quotes that went cold. The leads nobody called back. So you can see the size of what is slipping through.',
   },
   {
     n: '03',
     nm: 'Where you stand',
-    p: 'How you show up against the other trucks in your area. Reviews, ranking, response time. Who is winning the jobs you are not.',
+    p: 'How you show up against the other trucks in your area: reviews, ranking, response time. Who is winning the jobs you are not, and the demand in your market you are not capturing yet, in dollars.',
   },
   {
     n: '04',
