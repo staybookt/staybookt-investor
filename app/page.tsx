@@ -68,7 +68,7 @@ function ArrowUpRight(): ReactNode {
 export default function HomePage() {
   return (
     <main id="top" className="v4">
-      <style>{`.v4 .proof-two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,56px);}@media(max-width:760px){.v4 .proof-two{grid-template-columns:1fr;}} .v4 .product{background:var(--v4-cream);color:var(--v4-ink);} .v4 .product.signature{background:var(--v4-cream);} .v4 .product h2{color:var(--v4-ink);} .v4 .product p.sub{color:var(--v4-muted);} .v4 .product .eyebrow{color:var(--v4-green-d);} .v4 .product .aura{opacity:.4;}`}</style>
+      <style>{`.v4 .proof-two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,56px);}@media(max-width:760px){.v4 .proof-two{grid-template-columns:1fr;}} .v4 .product{background:var(--v4-cream);color:var(--v4-ink);padding:clamp(72px,9vw,120px) 0;} .v4 .product.signature{background:var(--v4-cream);} .v4 .product h2{color:var(--v4-ink);max-width:20ch;margin-left:auto;margin-right:auto;} .v4 .product p.sub{color:var(--v4-muted);margin-left:auto;margin-right:auto;} .v4 .product .eyebrow{color:var(--v4-green-d);} .v4 .product .aura{opacity:.35;} .v4 .product .grid{grid-template-columns:1fr;justify-items:center;text-align:center;gap:clamp(36px,5vw,64px);} .v4 .product.reverse .visual{order:0;} .v4 .product .grid>.reveal:not(.visual){max-width:660px;} .v4 .light,.v4 .dark{padding:clamp(90px,12vw,150px) 0;} .v4 .price{padding:clamp(90px,12vw,150px) 0;} .v4 .scene .reveal{opacity:1;transform:none;}`}</style>
       <Nav />
 
       {/* 01 — HERO: full-bleed photograph, aspiration, solid white type */}
