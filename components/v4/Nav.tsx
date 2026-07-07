@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { CAL_LINK } from '@/lib/site';
+import { START_LINK } from '@/lib/site';
 
 const LINKS = [
   { href: '/why-a-website', label: 'Why a website' },
@@ -37,8 +37,8 @@ export default function Nav() {
             </a>
           ))}
         </div>
-        <a href={CAL_LINK} target="_blank" rel="noopener noreferrer" className="pill pill-white">
-          Book a call
+        <a href={START_LINK} className="pill pill-white">
+          Get Started
         </a>
       </div>
     </nav>
