@@ -7,7 +7,7 @@ export const metadata = {
   title: 'Pricing',
   alternates: { canonical: '/pricing' },
   description:
-    'Get Found: your visibility, built, one-time. StayBookt: the front office, run for you, monthly. Enjoy Life: an invite-only partnership for owners building toward an exit or succession. We only make money when you do.',
+    'Get Found: your visibility, built, one-time. StayBookt: the front office, run for you, monthly. Enjoy Life: an invite-only partnership for owners building toward an exit or succession. Low to start, and the upside is shared only on the partnership tier.',
 };
 
 type PriceTier = {
@@ -72,11 +72,11 @@ export default function PricingPage() {
         <div className="wrap subhero-in">
           <div className="eyebrow on-dark reveal">Pricing</div>
           <h1 className="reveal d1">
-            We only make money <span className="grad">when you do.</span>
+            Start small. <span className="grad">Grow into the rest.</span>
           </h1>
           <p className="lead reveal d2">
-            A ladder, not a menu. Get found, then let us run it. And for a select few, a
-            partnership that turns the business into an asset you can walk away from.
+            A ladder, not a menu. Get found first, then let us run the whole front office. And for a
+            select few, a partnership that turns the business into an asset you can walk away from.
           </p>
         </div>
       </section>
