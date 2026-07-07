@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Wordmark from '@/components/Wordmark';
-import { CAL_LINK, EMAIL } from '@/lib/site';
+import { START_LINK, EMAIL } from '@/lib/site';
 
 const NAV = [
   { href: '/why-a-website', label: 'Why a website' },
@@ -28,12 +28,10 @@ export default function SiteFooter() {
           </div>
           <div className="flex flex-col items-start gap-3 sm:items-end">
             <a
-              href={CAL_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={START_LINK}
               className="text-sm font-semibold text-white transition-colors hover:opacity-70"
             >
-              Book a 30-minute call
+              Get Started
             </a>
             <a
               href={`mailto:${EMAIL}`}
