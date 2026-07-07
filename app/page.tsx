@@ -3,6 +3,7 @@ import Nav from '@/components/v4/Nav';
 import Reveal from '@/components/v4/Reveal';
 import Receptionist from '@/components/v4/Receptionist';
 import Dashboard from '@/components/v4/Dashboard';
+import JourneyMap from '@/components/v4/JourneyMap';
 import ProductScrub from '@/components/v4/ProductScrub';
 import SiteFooter from '@/components/SiteFooter';
 import { START_LINK } from '@/lib/site';
@@ -89,6 +90,18 @@ const PAGE_CSS = `
 .v4 .proofband{position:relative;overflow:hidden;}
 .v4 .proofband::before{content:'';position:absolute;inset:0;background:radial-gradient(45% 60% at 12% 0%,rgba(6,182,212,.16),transparent 60%),radial-gradient(50% 65% at 92% 105%,rgba(79,70,229,.20),transparent 62%);pointer-events:none;}
 .v4 .proofband .wrap{position:relative;z-index:1;}
+.v4 .jmap{background:var(--v4-ink);padding:clamp(80px,11vw,140px) 0;position:relative;overflow:hidden;}
+.v4 .jmap::before{content:'';position:absolute;inset:0;background:radial-gradient(45% 60% at 15% -10%,rgba(6,182,212,.16),transparent 60%),radial-gradient(45% 60% at 85% 115%,rgba(230,178,77,.14),transparent 60%),radial-gradient(40% 55% at 50% 122%,rgba(16,185,129,.12),transparent 60%);pointer-events:none;}
+.v4 .jmap .wrap{position:relative;z-index:1;}
+.v4 .jmap .eyebrow{color:#8b93a5;}
+.v4 .jmap h2{color:#fff;font-size:clamp(30px,4.4vw,58px);letter-spacing:-.04em;line-height:1.05;max-width:20ch;margin-top:14px;}
+.v4 .jmap-track{margin-top:clamp(44px,6vw,76px);display:grid;grid-template-columns:repeat(5,1fr);gap:20px;position:relative;}
+.v4 .jmap-track::before{content:'';position:absolute;top:9px;left:10%;right:10%;height:2px;background:linear-gradient(90deg,#3b7fd0,#1ec8c8 28%,#16c088 55%,#7bbf4a 78%,#e6b24d);opacity:.65;}
+.v4 .jmap-stop{text-align:center;position:relative;}
+.v4 .jmap-dot{display:block;width:18px;height:18px;border-radius:50%;margin:0 auto;position:relative;z-index:1;}
+.v4 .jmap-stage{display:block;margin-top:18px;font-weight:700;font-size:clamp(15px,1.4vw,19px);color:#fff;letter-spacing:-.01em;}
+.v4 .jmap-feel{display:block;margin-top:8px;font-size:14px;line-height:1.5;color:#aeb4c0;max-width:20ch;margin-left:auto;margin-right:auto;}
+@media(max-width:760px){.v4 .jmap-track{grid-template-columns:1fr;gap:30px;}.v4 .jmap-track::before{top:0;bottom:0;left:50%;right:auto;transform:translateX(-50%);width:2px;height:auto;background:linear-gradient(180deg,#3b7fd0,#1ec8c8 28%,#16c088 55%,#7bbf4a 78%,#e6b24d);}}
 `;
 
 export default function HomePage() {
@@ -138,6 +151,11 @@ export default function HomePage() {
           </Reveal>
         </div>
       </section>
+
+      <div className="seam seam-dark-to-dark" aria-hidden="true" />
+
+      {/* 02b — CUSTOMER JOURNEY MAP */}
+      <JourneyMap />
 
       <div className="seam seam-dark-to-cream" aria-hidden="true" />
 
