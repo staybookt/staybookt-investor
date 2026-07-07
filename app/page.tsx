@@ -68,7 +68,7 @@ function ArrowUpRight(): ReactNode {
 export default function HomePage() {
   return (
     <main id="top" className="v4">
-      <style>{`.v4 .proof-two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,56px);}@media(max-width:760px){.v4 .proof-two{grid-template-columns:1fr;}}`}</style>
+      <style>{`.v4 .proof-two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,56px);}@media(max-width:760px){.v4 .proof-two{grid-template-columns:1fr;}} .v4 .product{background:var(--v4-cream);color:var(--v4-ink);} .v4 .product.signature{background:var(--v4-cream);} .v4 .product h2{color:var(--v4-ink);} .v4 .product p.sub{color:var(--v4-muted);} .v4 .product .eyebrow{color:var(--v4-green-d);} .v4 .product .aura{opacity:.4;}`}</style>
       <Nav />
 
       {/* 01 — HERO: full-bleed photograph, aspiration, solid white type */}
@@ -106,7 +106,7 @@ export default function HomePage() {
         <div className="scrollcue">Scroll</div>
       </header>
 
-      <div className="seam seam-dark-to-dark" aria-hidden="true" />
+      <div className="seam seam-dark-to-cream" aria-hidden="true" />
 
       {/* 02 — SIGNATURE PRODUCT: AI Receptionist, the 2 AM beat */}
       <ProductScrub
