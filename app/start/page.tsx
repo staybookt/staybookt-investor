@@ -4,14 +4,14 @@ import CalEmbed from '@/components/v4/CalEmbed';
 import SiteFooter from '@/components/SiteFooter';
 
 const SHARE_DESCRIPTION =
-  'Start with your Pulse: a free read on exactly where your business stands, and what it is leaving on the table. Yours to keep, no pitch.';
+  "A free, no-pitch read on where the calls, quotes, and jobs are slipping through your business, and what it is costing you. Yours to keep.";
 
 export const metadata = {
-  title: 'Start with your Pulse',
+  title: "See where you’re losing work",
   description: SHARE_DESCRIPTION,
   alternates: { canonical: '/start' },
   openGraph: {
-    title: 'Start with your Pulse · StayBookt',
+    title: "See where you’re losing work · StayBookt",
     description: SHARE_DESCRIPTION,
     url: 'https://www.staybookt.com/start',
     siteName: 'StayBookt',
@@ -20,7 +20,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Start with your Pulse · StayBookt',
+    title: "See where you’re losing work · StayBookt",
     description: SHARE_DESCRIPTION,
   },
 };
@@ -58,7 +58,7 @@ export default function StartPage() {
       <section className="dark" style={{ paddingBottom: 'clamp(90px,12vw,150px)' }}>
         <div className="wrap">
           <Reveal className="eyebrow" as="div">
-            <span style={{ color: '#8b93a5' }}>Start here</span>
+            <span style={{ color: '#8b93a5' }}>Free &middot; no pitch</span>
           </Reveal>
           <Reveal>
             <h1
@@ -72,13 +72,14 @@ export default function StartPage() {
                 fontWeight: 700,
               }}
             >
-              Start with your Pulse.
+              See where you&apos;re losing work.
             </h1>
           </Reveal>
           <Reveal>
             <p className="sub">
-              A free read on exactly where your business stands, and what it is leaving on the
-              table. Built off your real numbers. Yours to keep, whether we work together or not.
+              A straight read on where the calls, quotes, and jobs are slipping through, and what
+              it is costing you. Built from your real numbers and your market. Yours to keep,
+              whether you hire us or not.
             </p>
           </Reveal>
           <Reveal>
@@ -93,14 +94,14 @@ export default function StartPage() {
 
       <div className="seam seam-dark-to-light" aria-hidden="true" />
 
-      {/* WHAT YOU'LL SEE */}
+      {/* WHAT YOU GET */}
       <section className="light">
         <div className="wrap">
           <Reveal className="eyebrow" as="div">
-            What you will see
+            What you get
           </Reveal>
           <Reveal>
-            <h2 style={{ marginTop: 16 }}>Four things, in thirty minutes.</h2>
+            <h2 style={{ marginTop: 16 }}>What you get, in thirty minutes.</h2>
           </Reveal>
           <div className="start-see">
             {SEE.map((s) => (
@@ -120,7 +121,7 @@ export default function StartPage() {
 
       <div className="seam seam-light-to-dark" aria-hidden="true" />
 
-      {/* BOOK — Enjoy Life close + calendar */}
+      {/* BOOK — close + calendar */}
       <section className="dark" id="book" style={{ paddingTop: 'clamp(96px,13vw,160px)' }}>
         <div className="wrap">
           <Reveal>
