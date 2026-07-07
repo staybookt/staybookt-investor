@@ -85,7 +85,7 @@ export default function HomePage() {
             <span style={{ color: '#c9cdd6' }}>StayBookt &middot; we run the office so you can run the jobs</span>
           </Reveal>
           <Reveal>
-            <h1 style={{ marginTop: 22 }}>You built it for a life.</h1>
+            <h1 style={{ marginTop: 22 }}>You built your business to enjoy your life.</h1>
           </Reveal>
           <Reveal>
             <p className="sub">
