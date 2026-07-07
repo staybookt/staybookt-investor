@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { TopNav } from '@/components/TopNav';
-import { CAL_LINK } from '@/lib/site';
+import { START_LINK } from '@/lib/site';
 
 export const metadata = {
   title: 'Our work',
@@ -119,7 +119,7 @@ export default function WorkPage() {
           <div className="mx-auto max-w-2xl rounded-3xl border border-white/10 p-8 text-center sm:p-12">
             <h2 className="font-display text-3xl tracking-tight text-white">Want to be one of these?</h2>
             <p className="mx-auto mt-4 max-w-md text-base text-platinum-soft">We are taking on a small number of owners we can do great work for. See if you are a fit.</p>
-            <a href={CAL_LINK} target="_blank" rel="noopener noreferrer" className="mt-7 inline-block rounded-full bg-white px-8 py-4 text-base font-bold text-ink transition-transform hover:-translate-y-0.5 hover:bg-white/90">Book a 30-minute call</a>
+            <a href={START_LINK} className="mt-7 inline-block rounded-full bg-white px-8 py-4 text-base font-bold text-ink transition-transform hover:-translate-y-0.5 hover:bg-white/90">Get Started</a>
           </div>
         </section>
       </main>
