@@ -255,9 +255,6 @@ export default function HomePage() {
               <a href={START_LINK} className="pill pill-white" style={{ padding: '14px 28px', fontSize: 15 }}>Get Started</a>
             </div>
           </Reveal>
-          <Reveal>
-            <div className="note">30 minutes with a founder. No pitch. No lock-in.</div>
-          </Reveal>
         </div>
         <div className="scrollcue">Scroll</div>
       </header>
