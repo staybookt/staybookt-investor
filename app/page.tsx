@@ -214,6 +214,33 @@ const PAGE_CSS = `
 .v4 .whyus cite{display:block;margin-top:24px;font-style:normal;font-size:15px;font-weight:600;color:#86868b;}
 .v4 .whyus .learn{color:#38bdf8;}
 .v4 .learn{display:inline-block;margin-top:22px;color:#0891b2;font-weight:600;font-size:15px;text-decoration:none;}
+/* ===== ALL-DARK CINEMATIC CONSISTENCY PASS ===== */
+.v4{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;background:#050506;}
+.v4 p,.v4 a,.v4 span,.v4 div,.v4 li,.v4 blockquote,.v4 cite,.v4 button{font-family:inherit;}
+.v4 .seam{background:#050506 !important;}
+/* closer-look -> dark */
+.v4 .sb-clook{background:#050506;}
+.v4 .sb-clook .cl-head h2{color:#f5f5f7;}
+.v4 .sb-clook .cl-head p{color:#a1a1aa;}
+.v4 .sb-clook .cli{border-bottom-color:rgba(255,255,255,.1);}
+.v4 .sb-clook .cli .cl-lbl{color:#5f6068;}
+.v4 .sb-clook .cli.on .cl-lbl{color:#f5f5f7;}
+.v4 .sb-clook .cli:hover .cl-lbl{color:#a1a1aa;}
+.v4 .sb-clook .cli .cl-plus{border-color:rgba(255,255,255,.22);color:#8a8a90;}
+.v4 .sb-clook .cli .cl-desc{color:#9a9aa4;}
+/* pricing -> dark */
+.v4 .price{background:#050506;}
+.v4 .price h2{color:#f5f5f7;}
+.v4 .price .eyebrow{color:#86868b;}
+.v4 .price .tier{background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));border:1px solid rgba(255,255,255,.1);}
+.v4 .price .tier.dark{background:linear-gradient(180deg,rgba(34,211,238,.10),rgba(16,185,129,.04));border:1px solid rgba(34,211,238,.4);}
+.v4 .price .tier .nm{color:#f5f5f7;}
+.v4 .price .tier .pr{color:#f5f5f7;}
+.v4 .price .tier .u{color:#86868b;}
+.v4 .price .tier .ds{color:#c7ccd6;}
+.v4 .price .tier .term{color:#71717a;}
+.v4 .price .seefull a{color:#38bdf8;}
+.v4 .price .pill-ink{background:#f5f5f7;color:#050506;}
 `;
 
 export default function HomePage() {
