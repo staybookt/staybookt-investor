@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import Nav from '@/components/v4/Nav';
 import Reveal from '@/components/v4/Reveal';
 import JourneyMap from '@/components/v4/JourneyMap';
+import CloserLook from '@/components/v4/CloserLook';
 import SiteFooter from '@/components/SiteFooter';
 import { START_LINK } from '@/lib/site';
 
@@ -10,13 +11,6 @@ const SHARE_DESCRIPTION =
 
 const CLOSER_IMG =
   'https://images.pexels.com/photos/30660768/pexels-photo-30660768.jpeg?auto=compress&cs=tinysrgb&w=2000';
-
-const GET_WHAT: { n: string; p: string }[] = [
-  { n: 'A pipeline that fills itself.', p: 'Found on Google, calls answered 24/7, jobs booked while you sleep.' },
-  { n: 'Nothing slips through.', p: 'Every quote chased, every review asked for, every past customer brought back.' },
-  { n: 'The admin, gone.', p: 'Scheduling, quoting, closing, the back office — all run for you.' },
-  { n: 'A business worth something.', p: 'Years of work, turned into an asset you can keep, pass on, or sell.' },
-];
 
 export const metadata = {
   title: 'StayBookt. Enjoy Life.',
@@ -53,14 +47,153 @@ const PAGE_CSS = `
 .v4 header.scene p.sub{margin:24px auto 0;color:#e9e9ec;max-width:46ch;}
 .v4 header.scene .cta{justify-content:center;}
 .v4 header.scene .eyebrow{color:#c9cdd6;}
-/* BEAT 2: here's what you get */
-.v4 .getwhat{background:var(--v4-cream);padding:clamp(72px,9vw,120px) 0;text-align:center;}
-.v4 .getwhat h2{font-size:clamp(30px,4.4vw,52px);letter-spacing:-.025em;line-height:1.08;color:var(--v4-ink);max-width:20ch;margin:0 auto;}
-.v4 .getwhat-grid{margin-top:clamp(44px,6vw,72px);display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(24px,3vw,44px);text-align:left;}
-.v4 .getwhat-item .n{display:block;font-size:clamp(19px,1.9vw,23px);font-weight:600;letter-spacing:-.02em;color:var(--v4-ink);line-height:1.22;}
-.v4 .getwhat-item .p{display:block;margin-top:10px;font-size:15px;line-height:1.5;color:var(--v4-muted);}
-@media(max-width:820px){.v4 .getwhat-grid{grid-template-columns:1fr 1fr;}}
-@media(max-width:520px){.v4 .getwhat-grid{grid-template-columns:1fr;}}
+/* shared kicker */
+.v4 .kicker{font-size:14px;font-weight:600;letter-spacing:.02em;margin-bottom:14px;background:linear-gradient(90deg,#0ea5e9,#06b6d4 34%,#14b8a6 66%,#10b981);-webkit-background-clip:text;background-clip:text;color:transparent;}
+/* vars for ported sections */
+.v4 .sbwrap,.v4 .sb-clook{--grad:linear-gradient(90deg,#0ea5e9,#06b6d4 34%,#14b8a6 66%,#10b981);}
+/* HIGHLIGHTS: 3 product screens */
+.v4 .sb-hl{background:var(--v4-cream);padding:clamp(72px,9vw,120px) 0;}
+.v4 .sb-hl .hd{text-align:center;max-width:640px;margin:0 auto;}
+.v4 .sb-hl .hd h2{font-size:clamp(30px,4.4vw,52px);letter-spacing:-.025em;line-height:1.08;color:var(--v4-ink);}
+.v4 .sb-hl .hd p{margin-top:16px;font-size:clamp(18px,2vw,22px);color:#86868b;line-height:1.4;}
+.v4 .sb-hl .hl-row{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,64px);align-items:center;margin-top:clamp(56px,7vw,96px);}
+.v4 .sb-hl .hl-row.flip .cp{order:2;}
+.v4 .sb-hl .cp h3{font-size:clamp(26px,3vw,40px);letter-spacing:-.02em;line-height:1.1;color:var(--v4-ink);font-weight:600;}
+.v4 .sb-hl .cp p{margin-top:16px;font-size:19px;line-height:1.5;color:#86868b;max-width:440px;}
+.v4 .sb-hl .cp .mini{margin-top:20px;font-size:14px;color:#86868b;display:flex;gap:9px;align-items:center;}
+.v4 .sb-hl .cp .mini i{width:7px;height:7px;border-radius:50%;background:#10b981;box-shadow:0 0 0 4px rgba(16,185,129,.15);flex:0 0 auto;}
+.v4 .sb-hl .viz{display:flex;justify-content:center;}
+@media(max-width:860px){.v4 .sb-hl .hl-row{grid-template-columns:1fr;gap:28px;}.v4 .sb-hl .hl-row.flip .cp{order:0;}}
+/* CLOSER LOOK accordion */
+.v4 .sb-clook{background:#fff;padding:clamp(80px,10vw,120px) 0;}
+.v4 .sb-clook .cl-head{text-align:center;max-width:600px;margin:0 auto;}
+.v4 .sb-clook .cl-head h2{font-size:clamp(30px,4.4vw,52px);letter-spacing:-.025em;line-height:1.08;color:var(--v4-ink);}
+.v4 .sb-clook .cl-head p{margin-top:16px;font-size:clamp(17px,1.9vw,21px);color:#86868b;line-height:1.4;}
+.v4 .sb-clook .cl-stage{display:grid;grid-template-columns:.82fr 1.18fr;gap:52px;align-items:center;margin-top:clamp(44px,5vw,60px);}
+.v4 .sb-clook .cl-menu{display:flex;flex-direction:column;}
+.v4 .sb-clook .cli{text-align:left;background:transparent;border:0;border-bottom:1px solid #e6e6ea;padding:17px 40px 17px 6px;cursor:pointer;position:relative;font-family:inherit;width:100%;}
+.v4 .sb-clook .cli .ck{display:block;font-size:10.5px;font-weight:700;letter-spacing:.06em;color:#86868b;}
+.v4 .sb-clook .cli .cl-lbl{display:block;font-size:21px;font-weight:600;letter-spacing:-.02em;color:#b9b9c0;margin-top:3px;transition:color .25s;}
+.v4 .sb-clook .cli .cl-plus{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:24px;height:24px;border-radius:50%;border:1px solid #d0d0d7;color:#9a9aa2;display:flex;align-items:center;justify-content:center;font-size:16px;line-height:1;transition:.28s;}
+.v4 .sb-clook .cli .cl-desc{display:block;max-height:0;overflow:hidden;font-size:15px;color:#86868b;line-height:1.46;transition:max-height .38s ease,margin .38s ease;}
+.v4 .sb-clook .cli.on .cl-lbl{color:var(--v4-ink);}
+.v4 .sb-clook .cli.on .cl-plus{background:var(--grad);border-color:transparent;color:#fff;transform:translateY(-50%) rotate(45deg);}
+.v4 .sb-clook .cli.on .cl-desc{max-height:90px;margin-top:11px;}
+.v4 .sb-clook .cli:hover .cl-lbl{color:#6a6a72;}
+.v4 .sb-clook .cl-viz{position:relative;min-height:500px;display:flex;align-items:center;justify-content:center;}
+.v4 .sb-clook .vpanel{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(.97) translateY(10px);transition:.5s cubic-bezier(.2,.6,.2,1);pointer-events:none;}
+.v4 .sb-clook .vpanel.on{opacity:1;transform:none;pointer-events:auto;}
+@media(max-width:880px){.v4 .sb-clook .cl-stage{grid-template-columns:1fr;gap:12px;}.v4 .sb-clook .cl-viz{min-height:520px;order:-1;margin-bottom:20px;}}
+.v4 .sb-clook .cl-viz .phone{width:264px;}
+.v4 .sb-clook .cl-viz .phone .screen{height:472px;}
+.v4 .sb-clook .cl-viz .phone .ph-body{gap:8px;padding:14px 12px;}
+/* DEVICE PRIMITIVES scoped to ported sections */
+.v4 .sbwrap .phone{width:300px;max-width:82%;background:#0b0b0d;border-radius:44px;padding:12px;box-shadow:0 40px 80px -30px rgba(0,0,0,.45);position:relative;}
+.v4 .sbwrap .phone .screen{background:#f2f2f5;border-radius:33px;overflow:hidden;height:600px;display:flex;flex-direction:column;}
+.v4 .sbwrap .phone .notch{position:absolute;top:20px;left:50%;transform:translateX(-50%);width:120px;height:26px;background:#0b0b0d;border-radius:0 0 16px 16px;z-index:3;}
+.v4 .sbwrap .ph-bar{background:#fff;padding:14px 16px 12px;border-bottom:1px solid #ececf0;display:flex;align-items:center;gap:10px;}
+.v4 .sbwrap .ph-ava{width:34px;height:34px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px;flex:0 0 auto;}
+.v4 .sbwrap .ph-name{font-size:14px;font-weight:600;}
+.v4 .sbwrap .ph-sub{font-size:11px;color:#86868b;}
+.v4 .sbwrap .ph-body{flex:1;padding:16px 14px;display:flex;flex-direction:column;gap:9px;overflow:hidden;background:#f2f2f5;}
+.v4 .sbwrap .bub{max-width:80%;padding:9px 13px;border-radius:18px;font-size:13.5px;line-height:1.35;}
+.v4 .sbwrap .bub.them{align-self:flex-start;background:#e7e7ec;color:#111;border-bottom-left-radius:5px;}
+.v4 .sbwrap .bub.us{align-self:flex-end;background:#0a84ff;color:#fff;border-bottom-right-radius:5px;}
+.v4 .sbwrap .bub.sys{align-self:center;background:transparent;color:#86868b;font-size:11px;padding:2px;}
+.v4 .sbwrap .bub.us.ok{background:#10b981;}
+.v4 .sbwrap .ph-tag{background:#fff;border-top:1px solid #ececf0;padding:11px 14px;font-size:11px;color:#86868b;text-align:center;}
+.v4 .sbwrap .gsearch{background:#fff;height:100%;display:flex;flex-direction:column;}
+.v4 .sbwrap .gs-top{padding:14px 14px 10px;border-bottom:1px solid #eee;}
+.v4 .sbwrap .gs-inp{border:1px solid #dcdce1;border-radius:999px;padding:8px 14px;font-size:12.5px;color:#333;}
+.v4 .sbwrap .gs-map{height:96px;background:linear-gradient(135deg,#dbe8d5,#cfe0ea);}
+.v4 .sbwrap .gs-list{padding:12px 14px;display:flex;flex-direction:column;gap:12px;}
+.v4 .sbwrap .gbiz{border:1px solid #ececf0;border-radius:12px;padding:11px 12px;position:relative;}
+.v4 .sbwrap .gbiz.first{border-color:rgba(16,185,129,.5);box-shadow:0 6px 20px -10px rgba(16,185,129,.4);}
+.v4 .sbwrap .gbiz .rank{position:absolute;top:-8px;left:12px;background:#10b981;color:#fff;font-size:9px;font-weight:700;padding:2px 8px;border-radius:999px;}
+.v4 .sbwrap .gbiz .bn{font-size:14px;font-weight:600;}
+.v4 .sbwrap .gbiz .stars{font-size:11px;color:#f59e0b;margin-top:3px;}
+.v4 .sbwrap .gbiz .stars span{color:#86868b;}
+.v4 .sbwrap .gbiz .meta{font-size:11px;color:#86868b;margin-top:3px;}
+.v4 .sbwrap .gbiz .acts{display:flex;gap:8px;margin-top:9px;}
+.v4 .sbwrap .gbiz .acts .b{font-size:10.5px;font-weight:600;padding:5px 12px;border-radius:999px;border:1px solid #dcdce1;color:#0a84ff;}
+.v4 .sbwrap .gbiz .acts .b.fill{background:#10b981;color:#fff;border-color:#10b981;}
+.v4 .sbwrap .gbiz.dim{opacity:.62;}
+.v4 .sbwrap .browser{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 40px 80px -34px rgba(0,0,0,.4);border:1px solid rgba(0,0,0,.05);}
+.v4 .sbwrap .bz-bar{background:#f0f0f3;padding:11px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #e6e6ea;}
+.v4 .sbwrap .bz-dot{width:11px;height:11px;border-radius:50%;}
+.v4 .sbwrap .bz-url{margin-left:12px;background:#fff;border:1px solid #e2e2e7;border-radius:7px;font-size:11px;color:#8a8a90;padding:4px 12px;flex:1;max-width:260px;}
+.v4 .sbwrap .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.v4 .sbwrap .stat{background:var(--v4-cream);border:1px solid #eee;border-radius:12px;padding:12px 13px;}
+.v4 .sbwrap .stat .lbl{font-size:10.5px;color:#86868b;}
+.v4 .sbwrap .stat .val{font-size:22px;font-weight:600;letter-spacing:-.02em;margin-top:5px;color:var(--v4-ink);}
+.v4 .sbwrap .stat .val small{font-size:12px;color:#10b981;font-weight:600;margin-left:4px;}
+.v4 .sbwrap .card{background:#fff;border:1px solid #ececf0;border-radius:10px;padding:9px 10px;}
+.v4 .sbwrap .card .cn{font-size:12px;font-weight:600;}
+.v4 .sbwrap .card .cm{font-size:10.5px;color:#86868b;margin-top:3px;}
+.v4 .sbwrap .pill{display:inline-block;font-size:9.5px;padding:2px 7px;border-radius:999px;background:rgba(14,165,233,.1);color:#0284c7;font-weight:600;white-space:nowrap;}
+.v4 .sbwrap .pill.g{background:rgba(16,185,129,.12);color:#059669;}
+@media(max-width:520px){.v4 .sbwrap .stats{grid-template-columns:repeat(2,1fr);}}
+.v4 .sbwrap .appwin{width:410px;max-width:90%;background:#fff;border-radius:18px;border:1px solid #ececf0;box-shadow:0 44px 90px -44px rgba(0,0,0,.4);overflow:hidden;}
+.v4 .sbwrap .aw-top{padding:14px 17px;border-bottom:1px solid #f1f1f4;display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:var(--v4-ink);}
+.v4 .sbwrap .aw-ic{width:26px;height:26px;border-radius:8px;background:var(--grad);flex:0 0 auto;}
+.v4 .sbwrap .aw-r{margin-left:auto;font-size:11px;font-weight:600;color:#10b981;}
+.v4 .sbwrap .aw-body{padding:18px;}
+.v4 .sbwrap .aw-body .sub{font-size:12.5px;color:#86868b;}
+.v4 .sbwrap .site-hero{background:linear-gradient(180deg,#0f1720,#1a2733);color:#fff;padding:26px 20px 24px;text-align:left;}
+.v4 .sbwrap .site-hero .sh-nav{display:flex;justify-content:space-between;font-size:11px;color:#c7d2da;margin-bottom:26px;}
+.v4 .sbwrap .site-hero .sh-nav b{color:#fff;}
+.v4 .sbwrap .site-hero h5{font-size:24px;font-weight:600;letter-spacing:-.02em;line-height:1.12;color:#fff;}
+.v4 .sbwrap .site-hero p{font-size:13px;color:#c7d2da;margin-top:8px;}
+.v4 .sbwrap .site-hero .sh-row{display:flex;gap:10px;align-items:center;margin-top:16px;}
+.v4 .sbwrap .site-hero .sh-btn{background:#10b981;color:#04150e;font-size:12px;font-weight:700;padding:8px 16px;border-radius:999px;}
+.v4 .sbwrap .site-hero .sh-stars{font-size:11px;color:#ffd479;}
+.v4 .sbwrap .bk-days{display:flex;gap:7px;margin-bottom:14px;}
+.v4 .sbwrap .bk-days .d{flex:1;text-align:center;font-size:11px;color:#86868b;border:1px solid #e9e9ee;border-radius:9px;padding:7px 0;}
+.v4 .sbwrap .bk-days .d b{display:block;font-size:15px;color:var(--v4-ink);font-weight:600;margin-top:2px;}
+.v4 .sbwrap .bk-days .d.on{border-color:transparent;background:var(--grad);color:#fff;}
+.v4 .sbwrap .bk-days .d.on b{color:#fff;}
+.v4 .sbwrap .bk-slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.v4 .sbwrap .bk-slots .s{font-size:12px;text-align:center;border:1px solid #e2e2e8;border-radius:9px;padding:9px 0;color:#3b3b42;}
+.v4 .sbwrap .bk-slots .s.sel{background:#0a0a0b;color:#fff;border-color:#0a0a0b;}
+.v4 .sbwrap .bk-slots .s.x{color:#c2c2c9;text-decoration:line-through;}
+.v4 .sbwrap .bk-conf{margin-top:14px;background:rgba(16,185,129,.1);color:#059669;font-size:12.5px;font-weight:600;padding:10px 12px;border-radius:10px;}
+.v4 .sbwrap .crm-hd{display:flex;align-items:center;gap:12px;}
+.v4 .sbwrap .crm-hd .av{width:44px;height:44px;border-radius:50%;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex:0 0 auto;}
+.v4 .sbwrap .crm-hd .nm{font-size:16px;font-weight:600;color:var(--v4-ink);}
+.v4 .sbwrap .crm-hd .mt{font-size:12px;color:#86868b;}
+.v4 .sbwrap .crm-tags{display:flex;gap:6px;margin:12px 0;flex-wrap:wrap;}
+.v4 .sbwrap .crm-tags span{font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:999px;background:rgba(14,165,233,.1);color:#0284c7;}
+.v4 .sbwrap .crm-row{display:flex;justify-content:space-between;font-size:12.5px;padding:9px 0;border-top:1px solid #f1f1f4;color:var(--v4-ink);}
+.v4 .sbwrap .crm-row .amt{font-weight:600;}
+.v4 .sbwrap .crm-foot{margin-top:12px;font-size:12px;color:#86868b;}
+.v4 .sbwrap .q-row{display:flex;justify-content:space-between;font-size:13px;padding:8px 0;border-bottom:1px solid #f1f1f4;color:var(--v4-ink);}
+.v4 .sbwrap .q-row .qd{color:#3b3b42;}
+.v4 .sbwrap .q-row .qp{font-weight:600;}
+.v4 .sbwrap .q-total{display:flex;justify-content:space-between;font-size:16px;font-weight:700;margin-top:10px;color:var(--v4-ink);}
+.v4 .sbwrap .q-status{display:flex;gap:6px;margin-top:14px;flex-wrap:wrap;}
+.v4 .sbwrap .q-status .qs{font-size:10.5px;font-weight:600;padding:4px 10px;border-radius:999px;background:#f0f0f3;color:#6a6a72;}
+.v4 .sbwrap .q-status .qs.on{background:rgba(16,185,129,.12);color:#059669;}
+.v4 .sbwrap .an-ins{font-size:16px;font-weight:600;line-height:1.35;letter-spacing:-.01em;color:var(--v4-ink);}
+.v4 .sbwrap .an-ins .hl{background:linear-gradient(180deg,transparent 62%,rgba(245,158,11,.35) 62%);}
+.v4 .sbwrap .an-chart{display:flex;align-items:flex-end;gap:6px;height:78px;margin:16px 0 8px;}
+.v4 .sbwrap .an-chart .b{flex:1;background:#e6e6ec;border-radius:4px 4px 0 0;}
+.v4 .sbwrap .an-chart .b.hot{background:var(--grad);}
+.v4 .sbwrap .an-fix{font-size:12.5px;color:#059669;font-weight:600;background:rgba(16,185,129,.09);padding:9px 11px;border-radius:9px;}
+.v4 .sbwrap .rv-big{font-size:15px;font-weight:600;color:var(--v4-ink);}
+.v4 .sbwrap .rv-big b{font-size:26px;}
+.v4 .sbwrap .rv-big .st{color:#f59e0b;}
+.v4 .sbwrap .rv-item{border-top:1px solid #f1f1f4;padding:11px 0;font-size:12.5px;color:#3b3b42;}
+.v4 .sbwrap .rv-item .st{color:#f59e0b;font-size:11px;}
+.v4 .sbwrap .rv-item .who{color:#86868b;margin-top:2px;}
+.v4 .sbwrap .rp-camp{font-size:15px;font-weight:600;color:var(--v4-ink);}
+.v4 .sbwrap .rp-meta{font-size:12.5px;color:#86868b;margin:6px 0 14px;}
+.v4 .sbwrap .rp-bar{height:10px;border-radius:999px;background:#eee;overflow:hidden;}
+.v4 .sbwrap .rp-bar i{display:block;height:100%;width:64%;background:var(--grad);}
+.v4 .sbwrap .rp-res{display:flex;justify-content:space-between;margin-top:12px;font-size:13px;color:var(--v4-ink);}
+.v4 .sbwrap .rp-res b{font-weight:700;}
+.v4 .sbwrap .brief-l .bi{display:flex;gap:12px;padding:11px 0;border-top:1px solid #f1f1f4;align-items:flex-start;font-size:14px;color:#2b2b30;}
+.v4 .sbwrap .brief-l .bi:first-of-type{border-top:0;}
+.v4 .sbwrap .brief-l .bic{width:8px;height:8px;border-radius:50%;margin-top:6px;flex:0 0 auto;}
 /* SECRET SAUCE (jmap): dark + gradient glow */
 .v4 .jmap{background:var(--v4-ink);padding:clamp(80px,11vw,138px) 0 clamp(52px,7vw,84px);position:relative;overflow:hidden;}
 .v4 .jmap::before{content:'';position:absolute;inset:0;background:radial-gradient(45% 60% at 15% -10%,rgba(14,165,233,.16),transparent 60%),radial-gradient(45% 60% at 85% 115%,rgba(16,185,129,.16),transparent 60%),radial-gradient(40% 55% at 50% 122%,rgba(6,182,212,.12),transparent 60%);pointer-events:none;}
@@ -102,7 +235,7 @@ export default function HomePage() {
       <style>{PAGE_CSS}</style>
       <Nav />
 
-      {/* 1 — HERO: centered, top-anchored, video dominant */}
+      {/* 1 — HERO */}
       <header className="scene">
         <video autoPlay muted loop playsInline poster="/hero-poster.jpg" src="/hero-loop.mp4" />
         <div className="grad-ov" />
@@ -113,8 +246,8 @@ export default function HomePage() {
           </Reveal>
           <Reveal>
             <p className="sub">
-              We find the money you are missing, run the day to day, and build real, lasting value in
-              what you have made. So the work finally pays off the way you meant it to.
+              We get you found, run the day to day, and turn the work into something you can keep,
+              pass on, or sell.
             </p>
           </Reveal>
           <Reveal>
@@ -131,29 +264,99 @@ export default function HomePage() {
 
       <div className="seam seam-dark-to-cream" aria-hidden="true" />
 
-      {/* 2 — HERE'S WHAT YOU GET */}
-      <section className="getwhat">
+      {/* 2 — HERE'S WHAT YOU GET: three product screens */}
+      <section className="sb-hl sbwrap">
         <div className="wrap">
-          <Reveal>
-            <h2>Here&apos;s what you get.</h2>
+          <Reveal className="hd">
+            <h2>The whole business, handled.</h2>
+            <p>Three things run in the background so you don&apos;t have to. See each one working.</p>
           </Reveal>
-          <div className="getwhat-grid">
-            {GET_WHAT.map((g, i) => (
-              <Reveal key={g.n} className="getwhat-item" delay={i === 0 ? undefined : ((i > 3 ? 3 : i) as 1 | 2 | 3)}>
-                <span className="n">{g.n}</span>
-                <span className="p">{g.p}</span>
-              </Reveal>
-            ))}
+
+          <div className="hl-row">
+            <Reveal className="cp">
+              <h3>Found first.<br />Booked while you sleep.</h3>
+              <p>A site that ranks and a Google profile that wins the map. When someone searches, you are the one they call.</p>
+              <div className="mini"><i />Top of the local pack, 24/7</div>
+            </Reveal>
+            <Reveal className="viz" delay={1}>
+              <div className="phone"><div className="notch" /><div className="screen">
+                <div className="gsearch">
+                  <div className="gs-top"><div className="gs-inp">electrician near me</div></div>
+                  <div className="gs-map" />
+                  <div className="gs-list">
+                    <div className="gbiz first">
+                      <div className="rank">TOP RESULT</div>
+                      <div className="bn">Top Choice Electrical</div>
+                      <div className="stars">★★★★★ 4.9 <span>(312)</span></div>
+                      <div className="meta">Open 24/7 · Licensed · 15 min away</div>
+                      <div className="acts"><span className="b fill">Call</span><span className="b">Website</span><span className="b">Directions</span></div>
+                    </div>
+                    <div className="gbiz dim"><div className="bn">City Wide Electric</div><div className="stars">★★★★☆ 4.1 <span>(46)</span></div><div className="meta">Closed · Opens 8 AM</div></div>
+                    <div className="gbiz dim"><div className="bn">Sparky &amp; Sons</div><div className="stars">★★★★☆ 3.8 <span>(22)</span></div></div>
+                  </div>
+                </div>
+              </div></div>
+            </Reveal>
+          </div>
+
+          <div className="hl-row flip">
+            <Reveal className="cp">
+              <h3>Every call answered.<br />Every quote chased.</h3>
+              <p>Miss a call and it is texted back in seconds, booked before your competitor even picks up. Nothing slips through.</p>
+              <div className="mini"><i />Answered in 3 seconds — you did nothing</div>
+            </Reveal>
+            <Reveal className="viz" delay={1}>
+              <div className="phone"><div className="notch" /><div className="screen">
+                <div className="ph-bar"><div className="ph-ava">TC</div><div><div className="ph-name">Top Choice Electrical</div><div className="ph-sub">StayBookt receptionist</div></div></div>
+                <div className="ph-body">
+                  <div className="bub sys">Missed call · (416) 555-0192 · 7:42 PM</div>
+                  <div className="bub us">Hi, this is Top Choice Electrical — sorry we missed you! What can we help with?</div>
+                  <div className="bub them">Panel keeps tripping. Can someone come today?</div>
+                  <div className="bub us">We can. I have 2–4 PM open today. Want me to book it?</div>
+                  <div className="bub them">Yes please</div>
+                  <div className="bub us ok">Booked. You will get a text when we are on the way.</div>
+                </div>
+                <div className="ph-tag">Answered · quoted · booked — no one lifted a finger</div>
+              </div></div>
+            </Reveal>
+          </div>
+
+          <div className="hl-row">
+            <Reveal className="cp">
+              <h3>The whole operation,<br />run for you.</h3>
+              <p>Scheduling, quoting, follow-up, reviews, the back office. It runs itself and reports to you, instead of the other way around.</p>
+              <div className="mini"><i />You check it. You don&apos;t run it.</div>
+            </Reveal>
+            <Reveal className="viz" delay={1}>
+              <div className="browser" style={{ width: 460, maxWidth: '100%' }}>
+                <div className="bz-bar"><span className="bz-dot" style={{ background: '#ff5f57' }} /><span className="bz-dot" style={{ background: '#febc2e' }} /><span className="bz-dot" style={{ background: '#28c840' }} /><span className="bz-url">staybookt.com/ops</span></div>
+                <div className="aw-body">
+                  <div className="stats">
+                    <div className="stat"><div className="lbl">Booked this week</div><div className="val">14</div></div>
+                    <div className="stat"><div className="lbl">Revenue MTD</div><div className="val">$38.4k <small>▲12%</small></div></div>
+                    <div className="stat"><div className="lbl">Quotes out</div><div className="val">6</div></div>
+                    <div className="stat"><div className="lbl">Reviews</div><div className="val">9 <small>★</small></div></div>
+                  </div>
+                  <div style={{ marginTop: 14, display: 'flex', flexDirection: 'column', gap: 8 }}>
+                    <div className="card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}><div><div className="cn">Today · 3 jobs</div><div className="cm">First at 8:30 AM · all confirmed</div></div><span className="pill g">On track</span></div>
+                    <div className="card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}><div><div className="cn">M. Lowe — 2–4 PM</div><div className="cm">Panel upgrade · Riverdale</div></div><span className="pill">Next up</span></div>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
 
+      {/* 3 — TAKE A CLOSER LOOK: pinned accordion */}
+      <CloserLook />
+
       <div className="seam seam-light-to-dark" aria-hidden="true" />
 
-      {/* 3 — THE SECRET SAUCE (hybrid journey + tools -> life) */}
+      {/* 4 — THE SECRET SAUCE */}
       <JourneyMap />
 
-      {/* 3b — proof line */}
+      {/* 4b — proof line */}
       <section className="proofline">
         <div className="wrap">
           <Reveal>
@@ -167,7 +370,7 @@ export default function HomePage() {
 
       <div className="seam seam-dark-to-cream" aria-hidden="true" />
 
-      {/* 4 — THE LADDER = the journey */}
+      {/* 5 — THE LADDER */}
       <section className="price" id="price">
         <div className="wrap">
           <Reveal className="eyebrow" as="div">Where you are on the journey</Reveal>
@@ -210,7 +413,7 @@ export default function HomePage() {
 
       <div className="seam seam-cream-to-dark" aria-hidden="true" />
 
-      {/* 5 — WHY WE BUILT THIS */}
+      {/* 6 — WHY WE BUILT THIS */}
       <section className="whyus">
         <div className="wrap">
           <Reveal className="eyebrow" as="div">Why we built this</Reveal>
@@ -233,7 +436,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 6 — CLOSER */}
+      {/* 7 — CLOSER */}
       <section className="scene closer">
         <img src={CLOSER_IMG} alt="" loading="lazy" decoding="async" />
         <div className="grad-ov" />
