@@ -51,19 +51,6 @@ const PAGE_CSS = `
 .v4 .kicker{font-size:14px;font-weight:600;letter-spacing:.02em;margin-bottom:14px;background:linear-gradient(90deg,#0ea5e9,#06b6d4 34%,#14b8a6 66%,#10b981);-webkit-background-clip:text;background-clip:text;color:transparent;}
 /* vars for ported sections */
 .v4 .sbwrap,.v4 .sb-clook{--grad:linear-gradient(90deg,#0ea5e9,#06b6d4 34%,#14b8a6 66%,#10b981);}
-/* HIGHLIGHTS: 3 product screens */
-.v4 .sb-hl{background:var(--v4-cream);padding:clamp(72px,9vw,120px) 0;}
-.v4 .sb-hl .hd{text-align:center;max-width:640px;margin:0 auto;}
-.v4 .sb-hl .hd h2{font-size:clamp(30px,4.4vw,52px);letter-spacing:-.025em;line-height:1.08;color:var(--v4-ink);}
-.v4 .sb-hl .hd p{margin-top:16px;font-size:clamp(18px,2vw,22px);color:#86868b;line-height:1.4;}
-.v4 .sb-hl .hl-row{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,64px);align-items:center;margin-top:clamp(56px,7vw,96px);}
-.v4 .sb-hl .hl-row.flip .cp{order:2;}
-.v4 .sb-hl .cp h3{font-size:clamp(26px,3vw,40px);letter-spacing:-.02em;line-height:1.1;color:var(--v4-ink);font-weight:600;}
-.v4 .sb-hl .cp p{margin-top:16px;font-size:19px;line-height:1.5;color:#86868b;max-width:440px;}
-.v4 .sb-hl .cp .mini{margin-top:20px;font-size:14px;color:#86868b;display:flex;gap:9px;align-items:center;}
-.v4 .sb-hl .cp .mini i{width:7px;height:7px;border-radius:50%;background:#10b981;box-shadow:0 0 0 4px rgba(16,185,129,.15);flex:0 0 auto;}
-.v4 .sb-hl .viz{display:flex;justify-content:center;}
-@media(max-width:860px){.v4 .sb-hl .hl-row{grid-template-columns:1fr;gap:28px;}.v4 .sb-hl .hl-row.flip .cp{order:0;}}
 /* CLOSER LOOK accordion */
 .v4 .sb-clook{background:#fff;padding:clamp(80px,10vw,120px) 0;}
 .v4 .sb-clook .cl-head{text-align:center;max-width:600px;margin:0 auto;}
@@ -261,99 +248,15 @@ export default function HomePage() {
 
       <div className="seam seam-dark-to-cream" aria-hidden="true" />
 
-      {/* 2 — HERE'S WHAT YOU GET: three product screens */}
-      <section className="sb-hl sbwrap">
-        <div className="wrap">
-          <Reveal className="hd">
-            <h2>The whole business, handled.</h2>
-            <p>Three things run in the background so you don&apos;t have to. See each one working.</p>
-          </Reveal>
-
-          <div className="hl-row">
-            <Reveal className="cp">
-              <h3>Found first.<br />Booked while you sleep.</h3>
-              <p>A site that ranks and a Google profile that wins the map. When someone searches, you are the one they call.</p>
-              <div className="mini"><i />Top of the local pack, 24/7</div>
-            </Reveal>
-            <Reveal className="viz" delay={1}>
-              <div className="phone"><div className="notch" /><div className="screen">
-                <div className="gsearch">
-                  <div className="gs-top"><div className="gs-inp">electrician near me</div></div>
-                  <div className="gs-map" />
-                  <div className="gs-list">
-                    <div className="gbiz first">
-                      <div className="rank">TOP RESULT</div>
-                      <div className="bn">Top Choice Electrical</div>
-                      <div className="stars">★★★★★ 4.9 <span>(312)</span></div>
-                      <div className="meta">Open 24/7 · Licensed · 15 min away</div>
-                      <div className="acts"><span className="b fill">Call</span><span className="b">Website</span><span className="b">Directions</span></div>
-                    </div>
-                    <div className="gbiz dim"><div className="bn">City Wide Electric</div><div className="stars">★★★★☆ 4.1 <span>(46)</span></div><div className="meta">Closed · Opens 8 AM</div></div>
-                    <div className="gbiz dim"><div className="bn">Sparky &amp; Sons</div><div className="stars">★★★★☆ 3.8 <span>(22)</span></div></div>
-                  </div>
-                </div>
-              </div></div>
-            </Reveal>
-          </div>
-
-          <div className="hl-row flip">
-            <Reveal className="cp">
-              <h3>Every call answered.<br />Every quote chased.</h3>
-              <p>Miss a call and it is texted back in seconds, booked before your competitor even picks up. Nothing slips through.</p>
-              <div className="mini"><i />Answered in 3 seconds — you did nothing</div>
-            </Reveal>
-            <Reveal className="viz" delay={1}>
-              <div className="phone"><div className="notch" /><div className="screen">
-                <div className="ph-bar"><div className="ph-ava">TC</div><div><div className="ph-name">Top Choice Electrical</div><div className="ph-sub">StayBookt receptionist</div></div></div>
-                <div className="ph-body">
-                  <div className="bub sys">Missed call · (416) 555-0192 · 7:42 PM</div>
-                  <div className="bub us">Hi, this is Top Choice Electrical — sorry we missed you! What can we help with?</div>
-                  <div className="bub them">Panel keeps tripping. Can someone come today?</div>
-                  <div className="bub us">We can. I have 2–4 PM open today. Want me to book it?</div>
-                  <div className="bub them">Yes please</div>
-                  <div className="bub us ok">Booked. You will get a text when we are on the way.</div>
-                </div>
-                <div className="ph-tag">Answered · quoted · booked — no one lifted a finger</div>
-              </div></div>
-            </Reveal>
-          </div>
-
-          <div className="hl-row">
-            <Reveal className="cp">
-              <h3>The whole operation,<br />run for you.</h3>
-              <p>Scheduling, quoting, follow-up, reviews, the back office. It runs itself and reports to you, instead of the other way around.</p>
-              <div className="mini"><i />You check it. You don&apos;t run it.</div>
-            </Reveal>
-            <Reveal className="viz" delay={1}>
-              <div className="browser" style={{ width: 460, maxWidth: '100%' }}>
-                <div className="bz-bar"><span className="bz-dot" style={{ background: '#ff5f57' }} /><span className="bz-dot" style={{ background: '#febc2e' }} /><span className="bz-dot" style={{ background: '#28c840' }} /><span className="bz-url">staybookt.com/ops</span></div>
-                <div className="aw-body">
-                  <div className="stats">
-                    <div className="stat"><div className="lbl">Booked this week</div><div className="val">14</div></div>
-                    <div className="stat"><div className="lbl">Revenue MTD</div><div className="val">$38.4k <small>▲12%</small></div></div>
-                    <div className="stat"><div className="lbl">Quotes out</div><div className="val">6</div></div>
-                    <div className="stat"><div className="lbl">Reviews</div><div className="val">9 <small>★</small></div></div>
-                  </div>
-                  <div style={{ marginTop: 14, display: 'flex', flexDirection: 'column', gap: 8 }}>
-                    <div className="card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}><div><div className="cn">Today · 3 jobs</div><div className="cm">First at 8:30 AM · all confirmed</div></div><span className="pill g">On track</span></div>
-                    <div className="card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}><div><div className="cn">M. Lowe — 2–4 PM</div><div className="cm">Panel upgrade · Riverdale</div></div><span className="pill">Next up</span></div>
-                  </div>
-                </div>
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* 3 — TAKE A CLOSER LOOK: pinned accordion */}
+      {/* 2 — TAKE A CLOSER LOOK: pinned accordion */}
       <CloserLook />
 
       <div className="seam seam-light-to-dark" aria-hidden="true" />
 
-      {/* 4 — THE SECRET SAUCE */}
+      {/* 3 — THE SECRET SAUCE */}
       <JourneyMap />
 
-      {/* 4b — proof line */}
+      {/* 3b — proof line */}
       <section className="proofline">
         <div className="wrap">
           <Reveal>
@@ -367,7 +270,7 @@ export default function HomePage() {
 
       <div className="seam seam-dark-to-cream" aria-hidden="true" />
 
-      {/* 5 — THE LADDER */}
+      {/* 4 — THE LADDER */}
       <section className="price" id="price">
         <div className="wrap">
           <Reveal className="eyebrow" as="div">Where you are on the journey</Reveal>
@@ -410,7 +313,7 @@ export default function HomePage() {
 
       <div className="seam seam-cream-to-dark" aria-hidden="true" />
 
-      {/* 6 — WHY WE BUILT THIS */}
+      {/* 5 — WHY WE BUILT THIS */}
       <section className="whyus">
         <div className="wrap">
           <Reveal className="eyebrow" as="div">Why we built this</Reveal>
@@ -433,7 +336,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 7 — CLOSER */}
+      {/* 6 — CLOSER */}
       <section className="scene closer">
         <img src={CLOSER_IMG} alt="" loading="lazy" decoding="async" />
         <div className="grad-ov" />
