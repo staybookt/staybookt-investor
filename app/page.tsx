@@ -40,18 +40,15 @@ const PAGE_CSS = `
 .v4 h1,.v4 h2,.v4 h3{font-weight:600;}
 .v4 .scene>video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
 .v4 .scene .reveal{opacity:1;transform:none;}
-/* HERO: Apple centered, top-anchored, video dominant */
+/* HERO */
 .v4 header.scene{align-items:flex-start;}
 .v4 header.scene .inner{padding:15vh 0 0;text-align:center;max-width:940px;margin:0 auto;}
 .v4 header.scene h1{max-width:16ch;margin:20px auto 0;font-size:clamp(40px,6.6vw,88px);letter-spacing:-.03em;line-height:1.05;color:#f5f5f7;}
 .v4 header.scene p.sub{margin:24px auto 0;color:#e9e9ec;max-width:46ch;}
 .v4 header.scene .cta{justify-content:center;}
 .v4 header.scene .eyebrow{color:#c9cdd6;}
-/* shared kicker */
 .v4 .kicker{font-size:14px;font-weight:600;letter-spacing:.02em;margin-bottom:14px;background:linear-gradient(90deg,#0ea5e9,#06b6d4 34%,#14b8a6 66%,#10b981);-webkit-background-clip:text;background-clip:text;color:transparent;}
-/* vars for ported sections */
 .v4 .sbwrap,.v4 .sb-clook{--grad:linear-gradient(90deg,#0ea5e9,#06b6d4 34%,#14b8a6 66%,#10b981);}
-/* CLOSER LOOK accordion */
 .v4 .sb-clook{background:#fff;padding:clamp(80px,10vw,120px) 0;}
 .v4 .sb-clook .cl-head{text-align:center;max-width:600px;margin:0 auto;}
 .v4 .sb-clook .cl-head h2{font-size:clamp(30px,4.4vw,52px);letter-spacing:-.025em;line-height:1.08;color:var(--v4-ink);}
@@ -74,7 +71,6 @@ const PAGE_CSS = `
 .v4 .sb-clook .cl-viz .phone{width:264px;}
 .v4 .sb-clook .cl-viz .phone .screen{height:472px;}
 .v4 .sb-clook .cl-viz .phone .ph-body{gap:8px;padding:14px 12px;}
-/* DEVICE PRIMITIVES scoped to ported sections */
 .v4 .sbwrap .phone{width:300px;max-width:82%;background:#0b0b0d;border-radius:44px;padding:12px;box-shadow:0 40px 80px -30px rgba(0,0,0,.45);position:relative;}
 .v4 .sbwrap .phone .screen{background:#f2f2f5;border-radius:33px;overflow:hidden;height:600px;display:flex;flex-direction:column;}
 .v4 .sbwrap .phone .notch{position:absolute;top:20px;left:50%;transform:translateX(-50%);width:120px;height:26px;background:#0b0b0d;border-radius:0 0 16px 16px;z-index:3;}
@@ -181,23 +177,6 @@ const PAGE_CSS = `
 .v4 .sbwrap .brief-l .bi{display:flex;gap:12px;padding:11px 0;border-top:1px solid #f1f1f4;align-items:flex-start;font-size:14px;color:#2b2b30;}
 .v4 .sbwrap .brief-l .bi:first-of-type{border-top:0;}
 .v4 .sbwrap .brief-l .bic{width:8px;height:8px;border-radius:50%;margin-top:6px;flex:0 0 auto;}
-/* SECRET SAUCE (jmap): dark + gradient glow */
-.v4 .jmap{background:var(--v4-ink);padding:clamp(80px,11vw,138px) 0 clamp(52px,7vw,84px);position:relative;overflow:hidden;}
-.v4 .jmap::before{content:'';position:absolute;inset:0;background:radial-gradient(45% 60% at 15% -10%,rgba(14,165,233,.16),transparent 60%),radial-gradient(45% 60% at 85% 115%,rgba(16,185,129,.16),transparent 60%),radial-gradient(40% 55% at 50% 122%,rgba(6,182,212,.12),transparent 60%);pointer-events:none;}
-.v4 .jmap .wrap{position:relative;z-index:1;}
-.v4 .jmap .eyebrow{color:#86868b;}
-.v4 .jmap h2{color:#f5f5f7;font-size:clamp(28px,4.2vw,54px);letter-spacing:-.03em;line-height:1.08;max-width:24ch;margin-top:14px;}
-.v4 .jmap-track{margin-top:clamp(48px,6vw,80px);display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(20px,3vw,40px);position:relative;}
-.v4 .jmap-track::before{content:'';position:absolute;top:9px;left:12%;right:12%;height:2px;background:linear-gradient(90deg,#0ea5e9,#06b6d4 34%,#14b8a6 66%,#10b981);opacity:.7;}
-.v4 .jmap-stop{text-align:center;position:relative;}
-.v4 .jmap-dot{display:block;width:18px;height:18px;border-radius:50%;margin:0 auto;position:relative;z-index:1;}
-.v4 .jmap-phase{display:block;margin-top:16px;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#86868b;}
-.v4 .jmap-payoff{display:block;margin-top:8px;font-size:clamp(17px,1.7vw,21px);font-weight:600;color:#f5f5f7;letter-spacing:-.02em;line-height:1.25;max-width:18ch;margin-left:auto;margin-right:auto;}
-.v4 .jmap-stop.dest .jmap-payoff{color:#34d399;}
-.v4 .jmap-tools{margin-top:14px;display:flex;flex-wrap:wrap;gap:7px;justify-content:center;}
-.v4 .jmap-tool{font-size:12px;color:#c7ccd6;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:999px;padding:4px 11px;}
-@media(max-width:820px){.v4 .jmap-track{grid-template-columns:1fr 1fr;gap:38px 24px;}.v4 .jmap-track::before{display:none;}}
-@media(max-width:520px){.v4 .jmap-track{grid-template-columns:1fr;}}
 /* proof line */
 .v4 .proofline{background:var(--v4-ink);padding:0 0 clamp(64px,9vw,104px);text-align:center;}
 .v4 .proofline p{font-size:15px;color:#86868b;}
@@ -205,7 +184,7 @@ const PAGE_CSS = `
 /* LADDER */
 .v4 .price h2{font-weight:600;letter-spacing:-.025em;}
 .v4 .price .seefull a{color:#0891b2;}
-/* WHY US / founders */
+/* WHY US */
 .v4 .whyus{background:var(--v4-ink);padding:clamp(84px,11vw,140px) 0;text-align:center;position:relative;overflow:hidden;}
 .v4 .whyus::before{content:'';position:absolute;inset:0;background:radial-gradient(50% 60% at 20% 0%,rgba(6,182,212,.12),transparent 60%),radial-gradient(50% 60% at 85% 110%,rgba(16,185,129,.12),transparent 60%);pointer-events:none;}
 .v4 .whyus .wrap{position:relative;z-index:1;}
@@ -218,7 +197,6 @@ const PAGE_CSS = `
 .v4{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;background:#050506;}
 .v4 p,.v4 a,.v4 span,.v4 div,.v4 li,.v4 blockquote,.v4 cite,.v4 button{font-family:inherit;}
 .v4 .seam{background:#050506 !important;}
-/* closer-look -> dark */
 .v4 .sb-clook{background:#050506;}
 .v4 .sb-clook .cl-head h2{color:#f5f5f7;}
 .v4 .sb-clook .cl-head p{color:#a1a1aa;}
@@ -228,19 +206,13 @@ const PAGE_CSS = `
 .v4 .sb-clook .cli:hover .cl-lbl{color:#a1a1aa;}
 .v4 .sb-clook .cli .cl-plus{border-color:rgba(255,255,255,.22);color:#8a8a90;}
 .v4 .sb-clook .cli .cl-desc{color:#9a9aa4;}
-/* pricing -> dark */
 .v4 .price{background:#050506;}
 .v4 .price h2{color:#f5f5f7;}
 .v4 .price .eyebrow{color:#86868b;}
-.v4 .price .tier{background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));border:1px solid rgba(255,255,255,.1);}
-.v4 .price .tier.dark{background:linear-gradient(180deg,rgba(34,211,238,.10),rgba(16,185,129,.04));border:1px solid rgba(34,211,238,.4);}
-.v4 .price .tier .nm{color:#f5f5f7;}
-.v4 .price .tier .pr{color:#f5f5f7;}
-.v4 .price .tier .u{color:#86868b;}
-.v4 .price .tier .ds{color:#c7ccd6;}
-.v4 .price .tier .term{color:#71717a;}
 .v4 .price .seefull a{color:#38bdf8;}
 .v4 .price .pill-ink{background:#f5f5f7;color:#050506;}
+.v4 .price{text-align:center;}
+.v4 .price .priceline{font-size:clamp(18px,2.2vw,25px);color:#c7ccd6;margin:18px auto 0;max-width:38ch;line-height:1.42;}
 `;
 
 export default function HomePage() {
@@ -275,7 +247,7 @@ export default function HomePage() {
 
       <div className="seam seam-dark-to-cream" aria-hidden="true" />
 
-      {/* 2 — TAKE A CLOSER LOOK: pinned accordion */}
+      {/* 2 — TAKE A CLOSER LOOK */}
       <CloserLook />
 
       <div className="seam seam-light-to-dark" aria-hidden="true" />
@@ -297,38 +269,18 @@ export default function HomePage() {
 
       <div className="seam seam-dark-to-cream" aria-hidden="true" />
 
-      {/* 4 — THE LADDER */}
+      {/* 4 — PRICING (understated, Apple-style) */}
       <section className="price" id="price">
         <div className="wrap">
-          <Reveal className="eyebrow" as="div">Where you are on the journey</Reveal>
+          <Reveal className="eyebrow" as="div">Pricing</Reveal>
           <Reveal>
             <h2 style={{ marginTop: 14 }}>Get found. Get run. Get free.</h2>
           </Reveal>
-          <div className="tiers">
-            <Reveal className="tier">
-              <div className="nm">Get Found</div>
-              <div className="pr">$1,750</div>
-              <div className="u">one-time</div>
-              <div className="ds">Get found and stop the leaks.</div>
-              <div className="term">Yours to keep.</div>
-            </Reveal>
-            <Reveal delay={1} className="tier dark">
-              <div className="nm">StayBookt</div>
-              <div className="pr">$199</div>
-              <div className="u">per month</div>
-              <div className="ds">We run the whole operation.</div>
-              <div className="term">Cancel anytime.</div>
-            </Reveal>
-            <Reveal delay={2} className="tier">
-              <div className="nm">Enjoy Life</div>
-              <div className="pr">By invitation</div>
-              <div className="u">&nbsp;</div>
-              <div className="ds">A real asset, and the freedom to choose.</div>
-              <div className="term">Invite only.</div>
-            </Reveal>
-          </div>
+          <Reveal>
+            <p className="priceline">Starts at $1,750 to get found, then $199/mo to run it. No lock-in.</p>
+          </Reveal>
           <Reveal className="seefull">
-            <a href="/pricing">See full pricing<ArrowUpRight /></a>
+            <a href="/pricing">See pricing<ArrowUpRight /></a>
           </Reveal>
           <Reveal>
             <div style={{ marginTop: 30 }}>
