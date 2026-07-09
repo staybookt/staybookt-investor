@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 /* The Secret Sauce, as one scroll-pinned three-beat film. */
 
 const CSS = `
-.sscx-track{position:relative;height:300vh;background:#050506;}
+.sscx-track{position:relative;height:340vh;background:#050506;}
 .sscx-stage{position:sticky;top:0;height:100vh;min-height:600px;overflow:hidden;display:flex;flex-direction:column;color:#f5f5f7;--acc:#0ea5e9;}
 .sscx-tint{position:absolute;inset:0;transition:background 1s ease;pointer-events:none;background:radial-gradient(80% 55% at 78% 0%,rgba(14,165,233,.16),transparent 60%);}
 .sscx-stage[data-beat="1"] .sscx-tint{background:radial-gradient(80% 60% at 50% 6%,rgba(6,182,212,.15),transparent 60%);}
@@ -15,35 +15,36 @@ const CSS = `
 .sscx-seg{flex:1;height:2.5px;border-radius:2px;background:rgba(255,255,255,.12);overflow:hidden;}
 .sscx-seg i{display:block;height:100%;width:0;background:var(--acc);}
 .sscx-eye{font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--acc);transition:color .8s;white-space:nowrap;}
-.sscx-mid{position:relative;z-index:3;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(20px,4vh,54px);padding:2vh 24px;}
-.sscx-headwrap{position:relative;text-align:center;width:100%;min-height:1.2em;}
-.sscx-head{position:absolute;left:0;right:0;padding:0 20px;font-size:clamp(30px,4.8vw,62px);font-weight:600;letter-spacing:-.03em;line-height:1.03;opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease;}
-.sscx-stage[data-beat="0"] .h0,.sscx-stage[data-beat="1"] .h1,.sscx-stage[data-beat="2"] .h2{opacity:1;transform:none;}
-.sscx-panels{position:relative;width:100%;height:clamp(320px,46vh,440px);}
+.sscx-mid{position:relative;z-index:3;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(14px,2.6vh,34px);padding:1vh 24px;}
+.sscx-headwrap{position:relative;text-align:center;width:100%;min-height:2.15em;font-size:clamp(30px,4.8vw,62px);line-height:1.03;}
+.sscx-head{position:absolute;left:0;right:0;top:50%;padding:0 20px;font-size:inherit;font-weight:600;letter-spacing:-.03em;line-height:inherit;opacity:0;transform:translateY(calc(-50% + 14px));transition:opacity .6s ease,transform .6s ease;}
+.sscx-stage[data-beat="0"] .h0,.sscx-stage[data-beat="1"] .h1,.sscx-stage[data-beat="2"] .h2{opacity:1;transform:translateY(-50%);}
+.sscx-panels{position:relative;width:100%;height:clamp(340px,54vh,600px);}
 .sscx-p{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(.965);transition:opacity .7s ease,transform .7s ease;pointer-events:none;}
 .sscx-stage[data-beat="0"] .p0,.sscx-stage[data-beat="1"] .p1,.sscx-stage[data-beat="2"] .p2{opacity:1;transform:none;}
 
 /* beat 1 */
-.b1{width:min(440px,92%);}
-.b1 .sb{display:flex;align-items:center;gap:10px;background:#111114;border:1px solid #26262c;border-radius:999px;padding:11px 17px;margin-bottom:15px;}
-.b1 .sb span{font-size:14px;color:#d4d4d8;}
-.b1 .pack{position:relative;height:210px;}
-.b1 .row{position:absolute;left:0;right:0;height:54px;display:flex;align-items:center;gap:12px;border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:0 16px;transition:top .9s cubic-bezier(.5,0,.2,1);}
-.b1 .row span.d{width:8px;height:8px;border-radius:50%;background:#555;}
-.b1 .row .nm{font-size:15px;}
-.b1 .r-cw{top:72px;opacity:.5;}.b1 .r-sp{top:140px;opacity:.4;}
-.b1 .r-tc{top:140px;background:rgba(14,165,233,.10);border-color:rgba(14,165,233,.3);box-shadow:none;transition:top .9s cubic-bezier(.5,0,.2,1),box-shadow .6s,border-color .6s;}
+.b1{width:min(620px,94%);}
+.b1 .sb{display:flex;align-items:center;gap:12px;background:#111114;border:1px solid #26262c;border-radius:999px;padding:15px 22px;margin-bottom:20px;}
+.b1 .sb span{font-size:16px;color:#d4d4d8;}
+.b1 .pack{position:relative;height:290px;}
+.b1 .row{position:absolute;left:0;right:0;height:72px;display:flex;align-items:center;gap:14px;border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:0 22px;transition:top .9s cubic-bezier(.5,0,.2,1);}
+.b1 .row span.d{width:10px;height:10px;border-radius:50%;background:#555;}
+.b1 .row .nm{font-size:18px;}
+.b1 .r-cw{top:98px;opacity:.5;}.b1 .r-sp{top:190px;opacity:.4;}
+.b1 .r-tc{top:190px;background:rgba(14,165,233,.10);border-color:rgba(14,165,233,.3);box-shadow:none;transition:top .9s cubic-bezier(.5,0,.2,1),box-shadow .6s,border-color .6s;}
 .b1 .r-tc span.d{background:#0ea5e9;box-shadow:0 0 10px #0ea5e9;}
-.b1 .r-tc .nm{font-weight:600;}.b1 .r-tc .st{font-size:12px;color:#8fb7cf;}
-.b1 .badge{margin-left:auto;font-size:9.5px;font-weight:700;color:#04150e;background:#0ea5e9;border-radius:999px;padding:4px 10px;opacity:0;transition:opacity .5s .5s;}
-.b1 .booked{position:absolute;right:0;bottom:-12px;display:flex;align-items:center;gap:6px;background:rgba(16,185,129,.14);border:1px solid rgba(16,185,129,.5);color:#34d399;font-size:12px;font-weight:600;border-radius:999px;padding:6px 13px;opacity:0;transform:translateY(6px);transition:opacity .5s 1s,transform .5s 1s;}
-.sscx-stage[data-beat="0"] .b1 .r-tc{top:6px;box-shadow:0 0 34px -6px rgba(14,165,233,.6);border-color:rgba(14,165,233,.6);}
-.sscx-stage[data-beat="0"] .b1 .r-cw{top:72px;}.sscx-stage[data-beat="0"] .b1 .r-sp{top:140px;}
+.b1 .r-tc .nm{font-weight:600;}.b1 .r-tc .st{font-size:14px;color:#8fb7cf;}
+.b1 .badge{margin-left:auto;font-size:11px;font-weight:700;color:#04150e;background:#0ea5e9;border-radius:999px;padding:5px 13px;opacity:0;transition:opacity .5s .5s;}
+.b1 .booked{position:absolute;right:0;bottom:-16px;display:flex;align-items:center;gap:6px;background:rgba(16,185,129,.14);border:1px solid rgba(16,185,129,.5);color:#34d399;font-size:14px;font-weight:600;border-radius:999px;padding:8px 16px;opacity:0;transform:translateY(6px);transition:opacity .5s 1s,transform .5s 1s;}
+.sscx-stage[data-beat="0"] .b1 .r-tc{top:8px;box-shadow:0 0 34px -6px rgba(14,165,233,.6);border-color:rgba(14,165,233,.6);}
+.sscx-stage[data-beat="0"] .b1 .r-cw{top:98px;}.sscx-stage[data-beat="0"] .b1 .r-sp{top:190px;}
 .sscx-stage[data-beat="0"] .b1 .badge{opacity:1;}
 .sscx-stage[data-beat="0"] .b1 .booked{opacity:1;transform:none;}
 
 /* beat 2 */
-.b2 svg{width:min(540px,96%);height:auto;}
+.b2{width:min(690px,96%);}
+.b2 svg{display:block;width:100%;height:auto;}
 .b2 .arc{transform-origin:230px 160px;animation:sscxspin 6s linear infinite;}
 .b2 .job{opacity:0;transition:opacity .5s;}
 .sscx-stage[data-beat="1"] .b2 .job{opacity:1;}
@@ -63,16 +64,16 @@ const CSS = `
 .b3{position:absolute;inset:0;overflow:hidden;border-radius:24px;}
 .b3 .scene{position:absolute;inset:0;opacity:0;animation:sscxkb 9s ease-in-out infinite alternate;}
 .sscx-stage[data-beat="2"] .b3 .scene{animation:sscxkb 9s ease-in-out infinite alternate, sscxfade 9s ease-in-out infinite;}
-.b3 .s0{background:radial-gradient(80% 70% at 76% 10%,rgba(255,222,150,.5),transparent 55%),linear-gradient(180deg,#243a26,#16241a 70%,#101c22);}
-.b3 .s1{background:radial-gradient(70% 60% at 50% 55%,rgba(255,180,110,.5),rgba(120,60,30,.2) 45%,transparent 70%),linear-gradient(180deg,#1c130d,#241811 60%,#140d09);animation-delay:3s;}
+.b3 .s0{background:radial-gradient(80% 70% at 76% 10%,rgba(255,222,150,.6),transparent 55%),linear-gradient(180deg,#2c4a30,#1b2d20 70%,#13222a);}
+.b3 .s1{background:radial-gradient(70% 60% at 50% 55%,rgba(255,180,110,.6),rgba(120,60,30,.25) 45%,transparent 70%),linear-gradient(180deg,#241811,#2c1e15 60%,#181009);animation-delay:3s;}
 .b3 .s2{background:linear-gradient(180deg,#f0b978,#c98a63 14%,#3f5f6b 40%,#20323b 70%,#101c22);animation-delay:6s;}
-.b3 .grain{position:absolute;inset:0;mix-blend-mode:overlay;opacity:.1;}
+.b3 .grain{position:absolute;inset:0;width:100%;height:100%;mix-blend-mode:overlay;opacity:.1;}
 .b3 .vig{position:absolute;inset:0;background:radial-gradient(120% 100% at 50% 45%,transparent 45%,rgba(0,0,0,.55));}
 .b3 .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.12) 50%,rgba(4,8,6,.7));}
 .b3 .bloom{position:absolute;top:44%;left:50%;width:170px;height:170px;border-radius:50%;transform:translate(-50%,-50%) scale(.15);opacity:0;background:radial-gradient(closest-side,rgba(255,236,196,.95),rgba(255,196,120,.3) 45%,transparent 72%);}
 .sscx-stage[data-beat="2"] .b3 .bloom{animation:sscxbloom 1.7s ease forwards;}
 .b3 .life{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 30px;}
-.b3 .promise{opacity:0;font-size:clamp(16px,2vw,22px);color:#f0ead9;font-weight:500;transition:opacity 1.1s ease 1.1s;}
+.b3 .promise{opacity:0;font-size:clamp(18px,2.4vw,27px);color:#f0ead9;font-weight:500;transition:opacity 1.1s ease 1.1s;}
 .sscx-stage[data-beat="2"] .b3 .promise{opacity:1;}
 .b3 .whisper{position:absolute;bottom:7%;left:0;right:0;text-align:center;font-size:12.5px;color:#9fb8a6;opacity:0;transition:opacity 1s ease 1.6s;}
 .sscx-stage[data-beat="2"] .b3 .whisper{opacity:1;}
@@ -84,13 +85,13 @@ const CSS = `
 
 @keyframes sscxspin{to{transform:rotate(360deg);}}
 @keyframes sscxkb{from{transform:scale(1.04);}to{transform:scale(1.12);}}
-@keyframes sscxfade{0%,4%{opacity:0;}8%,30%{opacity:1;}37%,100%{opacity:0;}}
+@keyframes sscxfade{0%,2%{opacity:0;}10%,36%{opacity:1;}44%,100%{opacity:0;}}
 .b3 .s1{animation-name:sscxkb,sscxfade;}
 @keyframes sscxbloom{0%{transform:translate(-50%,-50%) scale(.15);opacity:0;}40%{opacity:.95;}100%{transform:translate(-50%,-50%) scale(3.4);opacity:0;}}
 
 @media (prefers-reduced-motion: reduce){
   .sscx-stage *{animation:none !important;transition:none !important;}
-  .b1 .r-tc{top:6px !important;}.b1 .badge,.b1 .booked{opacity:1 !important;transform:none !important;}
+  .b1 .r-tc{top:8px !important;}.b1 .badge,.b1 .booked{opacity:1 !important;transform:none !important;}
   .b2 .job,.b2 .chk{opacity:1 !important;}
   .b3 .s0{opacity:1 !important;}.b3 .promise,.b3 .whisper{opacity:1 !important;}
   .sscx-head{transition:none !important;}
@@ -98,17 +99,27 @@ const CSS = `
 @media (max-width:640px){
   .sscx-top{padding:16px 18px 0;}
   .sscx-dots{gap:16px;}
-  .b2 svg{width:100%;}
+  .sscx-headwrap{min-height:3.2em;}
+  .sscx-panels{height:clamp(300px,44vh,460px);}
+  .b1 .sb{padding:12px 18px;}
+  .b1 .sb span{font-size:14px;}
+  .b1 .pack{height:224px;}
+  .b1 .row{height:56px;padding:0 16px;border-radius:14px;gap:11px;}
+  .b1 .row .nm{font-size:15px;}
+  .b1 .r-cw{top:78px;}.b1 .r-sp,.b1 .r-tc{top:150px;}
+  .sscx-stage[data-beat="0"] .b1 .r-tc{top:8px;}
+  .sscx-stage[data-beat="0"] .b1 .r-cw{top:78px;}.sscx-stage[data-beat="0"] .b1 .r-sp{top:150px;}
+  .b2{width:100%;}
 }
 `;
 
 const JOBS: { t: string; lx: number; ly: number; dx: number; dy: number; a: 'start' | 'middle' | 'end' }[] = [
-  { t: 'Calls answered', lx: 230, ly: 42, dx: 230, dy: 68, a: 'middle' },
-  { t: 'Quotes chased', lx: 336, ly: 106, dx: 310, dy: 114, a: 'start' },
-  { t: 'Reviews earned', lx: 336, ly: 214, dx: 310, dy: 206, a: 'start' },
-  { t: 'Daily brief', lx: 230, ly: 288, dx: 230, dy: 252, a: 'middle' },
-  { t: 'Records kept', lx: 124, ly: 214, dx: 150, dy: 206, a: 'end' },
-  { t: 'Jobs scheduled', lx: 124, ly: 106, dx: 150, dy: 114, a: 'end' },
+  { t: 'Calls answered', lx: 230, ly: 22, dx: 230, dy: 42, a: 'middle' },
+  { t: 'Quotes chased', lx: 356, ly: 105, dx: 332, dy: 101, a: 'start' },
+  { t: 'Reviews earned', lx: 356, ly: 223, dx: 332, dy: 219, a: 'start' },
+  { t: 'Daily brief', lx: 230, ly: 306, dx: 230, dy: 278, a: 'middle' },
+  { t: 'Records kept', lx: 104, ly: 223, dx: 128, dy: 219, a: 'end' },
+  { t: 'Jobs scheduled', lx: 104, ly: 105, dx: 128, dy: 101, a: 'end' },
 ];
 
 export default function JourneyMap() {
@@ -128,9 +139,12 @@ export default function JourneyMap() {
         const total = el.offsetHeight - vh;
         const scrolled = Math.min(Math.max(-r.top, 0), total);
         const p = total > 0 ? scrolled / total : 0;
-        const b = p < 0.34 ? 0 : p < 0.67 ? 1 : 2;
+        // beat 3 gets the most scroll room: its bloom + scenes need time to play
+        const BOUNDS = [0, 0.32, 0.62, 1];
+        const b = p < BOUNDS[1] ? 0 : p < BOUNDS[2] ? 1 : 2;
         setBeat(b);
-        const seg = (i: number) => Math.min(Math.max((p - i / 3) / (1 / 3), 0), 1) * 100;
+        const seg = (i: number) =>
+          Math.min(Math.max((p - BOUNDS[i]) / (BOUNDS[i + 1] - BOUNDS[i]), 0), 1) * 100;
         setFills([seg(0), seg(1), seg(2)]);
       });
     };
@@ -192,18 +206,18 @@ export default function JourneyMap() {
               <div className="b2">
                 <svg width="460" height="320" viewBox="0 0 460 320" fill="none">
                   <g stroke="rgba(34,211,238,.2)" strokeWidth={1}>
-                    <line x1="230" y1="160" x2="230" y2="68" /><line x1="230" y1="160" x2="310" y2="114" /><line x1="230" y1="160" x2="310" y2="206" />
-                    <line x1="230" y1="160" x2="230" y2="252" /><line x1="230" y1="160" x2="150" y2="206" /><line x1="230" y1="160" x2="150" y2="114" />
+                    <line x1="230" y1="160" x2="230" y2="42" /><line x1="230" y1="160" x2="332" y2="101" /><line x1="230" y1="160" x2="332" y2="219" />
+                    <line x1="230" y1="160" x2="230" y2="278" /><line x1="230" y1="160" x2="128" y2="219" /><line x1="230" y1="160" x2="128" y2="101" />
                   </g>
-                  <circle cx="230" cy="160" r="92" stroke="rgba(255,255,255,.06)" strokeWidth={1} />
-                  <circle className="arc" cx="230" cy="160" r="92" stroke="#22d3ee" strokeWidth={2} strokeLinecap="round" strokeDasharray="70 500" />
-                  <circle cx="230" cy="160" r="44" fill="rgba(16,185,129,.1)" stroke="rgba(52,211,153,.5)" strokeWidth={1.4} />
-                  <text x="230" y="156" textAnchor="middle" fill="#34d399" fontSize="15" fontWeight="600" fontFamily="-apple-system,sans-serif">You</text>
-                  <text x="230" y="173" textAnchor="middle" fill="#7c8a83" fontSize="10" fontFamily="-apple-system,sans-serif">in control</text>
+                  <circle cx="230" cy="160" r="118" stroke="rgba(255,255,255,.06)" strokeWidth={1} />
+                  <circle className="arc" cx="230" cy="160" r="118" stroke="#22d3ee" strokeWidth={2} strokeLinecap="round" strokeDasharray="80 662" />
+                  <circle cx="230" cy="160" r="56" fill="rgba(16,185,129,.1)" stroke="rgba(52,211,153,.5)" strokeWidth={1.4} />
+                  <text x="230" y="157" textAnchor="middle" fill="#34d399" fontSize="17" fontWeight="600" fontFamily="-apple-system,sans-serif">You</text>
+                  <text x="230" y="175" textAnchor="middle" fill="#7c8a83" fontSize="11" fontFamily="-apple-system,sans-serif">in control</text>
                   {JOBS.map((j, i) => (
                     <g key={j.t}>
-                      <circle className={`chk c${i}`} cx={j.dx} cy={j.dy} r="5" fill="#22d3ee" />
-                      <text className={`job j${i}`} x={j.lx} y={j.ly} textAnchor={j.a} fill="#e6e6ea" fontSize="12.5" fontWeight="600" fontFamily="-apple-system,sans-serif">{j.t}</text>
+                      <circle className={`chk c${i}`} cx={j.dx} cy={j.dy} r="5.5" fill="#22d3ee" />
+                      <text className={`job j${i}`} x={j.lx} y={j.ly} textAnchor={j.a} fill="#e6e6ea" fontSize="13" fontWeight="600" fontFamily="-apple-system,sans-serif">{j.t}</text>
                     </g>
                   ))}
                 </svg>

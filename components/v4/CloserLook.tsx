@@ -11,7 +11,7 @@ const TOOLS: Tool[] = [
   { k: 'booking', group: 'RUN IT', label: 'Self-serve booking', desc: 'Customers book themselves straight into your real calendar.' },
   { k: 'crm', group: 'RUN IT', label: 'CRM', desc: 'Every customer, job, and conversation in one place.' },
   { k: 'quotes', group: 'RUN IT', label: 'Quotes', desc: 'Send it fast, chase it automatically, close it.' },
-  { k: 'dash', group: 'RUN IT', label: 'Operating dashboard', desc: 'The whole business at a glance — running itself.' },
+  { k: 'dash', group: 'RUN IT', label: 'Operating dashboard', desc: 'The whole business at a glance, running itself.' },
   { k: 'analyst', group: 'GROW IT', label: 'AI analyst', desc: 'Spots what is leaking and where the money is hiding.' },
   { k: 'reviews', group: 'GROW IT', label: 'Review engine', desc: 'Turns finished jobs into five-star reputation, automatically.' },
   { k: 'repeat', group: 'GROW IT', label: 'Repeat business', desc: 'Brings past customers back on their own.' },
@@ -69,7 +69,7 @@ export default function CloserLook() {
                 <div className="site-hero">
                   <div className="sh-nav"><b>Top Choice Electrical</b><span>Services · Reviews · Book</span></div>
                   <h5>Licensed electricians.<br />Same-day service.</h5>
-                  <p>Panel upgrades, EV chargers, emergency calls — done right, done today.</p>
+                  <p>Panel upgrades, EV chargers, emergency calls. Done right, done today.</p>
                   <div className="sh-row"><span className="sh-btn">Book now</span><span className="sh-stars">★★★★★ 4.9 · 312 reviews</span></div>
                 </div>
               </div>,
@@ -80,13 +80,13 @@ export default function CloserLook() {
                 <div className="ph-bar"><div className="ph-ava">TC</div><div><div className="ph-name">Top Choice Electrical</div><div className="ph-sub">StayBookt receptionist</div></div></div>
                 <div className="ph-body">
                   <div className="bub sys">Missed call · (416) 555-0192</div>
-                  <div className="bub us">Hi, this is Top Choice — sorry we missed you! What can we help with?</div>
+                  <div className="bub us">Hi, this is Top Choice. Sorry we missed you! What can we help with?</div>
                   <div className="bub them">Panel keeps tripping. Someone today?</div>
                   <div className="bub us">We can. 2–4 PM is open today. Book it?</div>
                   <div className="bub them">Yes please</div>
                   <div className="bub us ok">Booked. We will text when we are on the way.</div>
                 </div>
-                <div className="ph-tag">Answered · quoted · booked — hands-free</div>
+                <div className="ph-tag">Answered · quoted · booked · hands-free</div>
               </div></div>,
             )}
 
@@ -100,7 +100,7 @@ export default function CloserLook() {
                   <div className="bk-slots">
                     <div className="s x">8–10</div><div className="s">10–12</div><div className="s x">12–2</div><div className="s sel">2–4 PM</div><div className="s">4–6</div><div className="s">6–8</div>
                   </div>
-                  <div className="bk-conf">Booked — Tue 2–4 PM. Added to your calendar and the customer&apos;s.</div>
+                  <div className="bk-conf">Booked: Tue 2–4 PM. Added to your calendar and the customer&apos;s.</div>
                 </div>
               </div>,
             )}
@@ -144,7 +144,7 @@ export default function CloserLook() {
                   </div>
                   <div style={{ marginTop: 14, display: 'flex', flexDirection: 'column', gap: 8 }}>
                     <div className="card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}><div><div className="cn">Today · 3 jobs</div><div className="cm">First at 8:30 AM · all confirmed</div></div><span className="pill g">On track</span></div>
-                    <div className="card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}><div><div className="cn">M. Lowe — 2–4 PM</div><div className="cm">Panel upgrade · Riverdale</div></div><span className="pill">Next up</span></div>
+                    <div className="card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}><div><div className="cn">M. Lowe · 2–4 PM</div><div className="cm">Panel upgrade · Riverdale</div></div><span className="pill">Next up</span></div>
                   </div>
                 </div>
               </div>,
@@ -193,10 +193,10 @@ export default function CloserLook() {
                 <div className="aw-top"><span className="aw-ic" />Your morning brief<span className="aw-r" style={{ color: '#86868b' }}>Tue, 7:00 AM</span></div>
                 <div className="aw-body">
                   <div className="bi"><span className="bic" style={{ background: '#0ea5e9' }} /><div><b>3 jobs today.</b> First at 8:30, all confirmed.</div></div>
-                  <div className="bi"><span className="bic" style={{ background: '#06b6d4' }} /><div><b>2 quotes open</b> — we are chasing both.</div></div>
+                  <div className="bi"><span className="bic" style={{ background: '#06b6d4' }} /><div><b>2 quotes open.</b> We are chasing both.</div></div>
                   <div className="bi"><span className="bic" style={{ background: '#14b8a6' }} /><div><b>$4,200 collected</b> yesterday.</div></div>
                   <div className="bi"><span className="bic" style={{ background: '#10b981' }} /><div><b>New 5★ review</b> from Sandra M.</div></div>
-                  <div className="sub" style={{ marginTop: 14 }}>That is it. Go run your day — or don&apos;t.</div>
+                  <div className="sub" style={{ marginTop: 14 }}>That is it. Go run your day. Or don&apos;t.</div>
                 </div>
               </div>,
             )}

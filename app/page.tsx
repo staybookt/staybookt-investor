@@ -42,6 +42,9 @@ const PAGE_CSS = `
 .v4 .scene .reveal{opacity:1;transform:none;}
 /* HERO */
 .v4 header.scene{align-items:flex-start;}
+.v4 header.scene .grad-ov{background:linear-gradient(180deg,rgba(5,5,6,.55) 0%,rgba(5,5,6,.12) 36%,rgba(5,5,6,.38) 68%,rgba(5,5,6,.86) 90%,#050506 100%);}
+.v4 header.scene .cta .pill{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.28);backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);}
+.v4 header.scene .cta .pill:hover{background:rgba(255,255,255,.22);transform:translateY(-1px);}
 .v4 header.scene .inner{padding:15vh 0 0;text-align:center;max-width:940px;margin:0 auto;}
 .v4 header.scene h1{max-width:16ch;margin:20px auto 0;font-size:clamp(40px,6.6vw,88px);letter-spacing:-.03em;line-height:1.05;color:#f5f5f7;}
 .v4 header.scene p.sub{margin:24px auto 0;color:#e9e9ec;max-width:46ch;}
@@ -64,10 +67,12 @@ const PAGE_CSS = `
 .v4 .sb-clook .cli.on .cl-plus{background:var(--grad);border-color:transparent;color:#fff;transform:translateY(-50%) rotate(45deg);}
 .v4 .sb-clook .cli.on .cl-desc{max-height:90px;margin-top:11px;}
 .v4 .sb-clook .cli:hover .cl-lbl{color:#6a6a72;}
-.v4 .sb-clook .cl-viz{position:relative;min-height:500px;display:flex;align-items:center;justify-content:center;}
+.v4 .sb-clook .cl-viz{position:relative;min-height:540px;display:flex;align-items:center;justify-content:center;}
+.v4 .sb-clook .cl-viz::before{content:'';position:absolute;inset:0;border-radius:32px;background:radial-gradient(75% 62% at 50% 42%,rgba(16,185,129,.07),transparent 72%);border:1px solid rgba(255,255,255,.06);pointer-events:none;}
 .v4 .sb-clook .vpanel{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(.97) translateY(10px);transition:.5s cubic-bezier(.2,.6,.2,1);pointer-events:none;}
 .v4 .sb-clook .vpanel.on{opacity:1;transform:none;pointer-events:auto;}
 @media(max-width:880px){.v4 .sb-clook .cl-stage{grid-template-columns:1fr;gap:12px;}.v4 .sb-clook .cl-viz{min-height:520px;order:-1;margin-bottom:20px;}}
+.v4 .sb-clook .cl-viz .appwin{width:470px;}
 .v4 .sb-clook .cl-viz .phone{width:264px;}
 .v4 .sb-clook .cl-viz .phone .screen{height:472px;}
 .v4 .sb-clook .cl-viz .phone .ph-body{gap:8px;padding:14px 12px;}
@@ -196,7 +201,7 @@ const PAGE_CSS = `
 /* ===== ALL-DARK CINEMATIC CONSISTENCY PASS ===== */
 .v4{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;background:#050506;}
 .v4 p,.v4 a,.v4 span,.v4 div,.v4 li,.v4 blockquote,.v4 cite,.v4 button{font-family:inherit;}
-.v4 .seam{background:#050506 !important;}
+.v4 .seam{background:linear-gradient(180deg,rgba(5,5,6,0) 0%,rgba(5,5,6,.55) 45%,#050506 88%) !important;}
 .v4 .sb-clook{background:#050506;}
 .v4 .sb-clook .cl-head h2{color:#f5f5f7;}
 .v4 .sb-clook .cl-head p{color:#a1a1aa;}
