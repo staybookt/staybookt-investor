@@ -51,23 +51,20 @@ const CSS = `
 .sscx-stage[data-beat="0"] .b1 .rw.tc .rvw,.sscx-stage[data-beat="0"] .b1 .rw.tc .acts,.sscx-stage[data-beat="0"] .b1 .rw.tc .badge{opacity:1;}
 .sscx-stage[data-beat="0"] .b1 .fc{opacity:1;transform:none;}
 
-/* beat 2 */
+/* beat 2 — busywork handed off (amber to-do -> teal handled) */
 .b2{width:min(690px,96%);}
 .b2 svg{display:block;width:100%;height:auto;}
 .b2 .arc{transform-origin:230px 160px;animation:sscxspin 6s linear infinite;}
-.b2 .job{opacity:0;transition:opacity .5s;}
-.sscx-stage[data-beat="1"] .b2 .job{opacity:1;}
-.sscx-stage[data-beat="1"] .b2 .job.j0{transition-delay:.3s;}
-.sscx-stage[data-beat="1"] .b2 .job.j1{transition-delay:.8s;}
-.sscx-stage[data-beat="1"] .b2 .job.j2{transition-delay:1.3s;}
-.sscx-stage[data-beat="1"] .b2 .job.j3{transition-delay:1.8s;}
-.sscx-stage[data-beat="1"] .b2 .job.j4{transition-delay:2.3s;}
-.sscx-stage[data-beat="1"] .b2 .job.j5{transition-delay:2.8s;}
-.b2 .chk{opacity:0;transition:opacity .4s;}
-.sscx-stage[data-beat="1"] .b2 .chk{opacity:1;}
-.sscx-stage[data-beat="1"] .b2 .chk.c0{transition-delay:.6s;}.sscx-stage[data-beat="1"] .b2 .chk.c1{transition-delay:1.1s;}
-.sscx-stage[data-beat="1"] .b2 .chk.c2{transition-delay:1.6s;}.sscx-stage[data-beat="1"] .b2 .chk.c3{transition-delay:2.1s;}
-.sscx-stage[data-beat="1"] .b2 .chk.c4{transition-delay:2.6s;}.sscx-stage[data-beat="1"] .b2 .chk.c5{transition-delay:3.1s;}
+.b2 .pipA,.b2 .lbP{transition:opacity .5s;}
+.b2 .pipT,.b2 .lbH{opacity:0;transition:opacity .5s;}
+.sscx-stage[data-beat="1"] .b2 .pipA,.sscx-stage[data-beat="1"] .b2 .lbP{opacity:0;}
+.sscx-stage[data-beat="1"] .b2 .pipT,.sscx-stage[data-beat="1"] .b2 .lbH{opacity:1;}
+.sscx-stage[data-beat="1"] .b2 .jc0,.sscx-stage[data-beat="1"] .b2 .jp0,.sscx-stage[data-beat="1"] .b2 .jh0{transition-delay:.4s;}
+.sscx-stage[data-beat="1"] .b2 .jc1,.sscx-stage[data-beat="1"] .b2 .jp1,.sscx-stage[data-beat="1"] .b2 .jh1{transition-delay:1s;}
+.sscx-stage[data-beat="1"] .b2 .jc2,.sscx-stage[data-beat="1"] .b2 .jp2,.sscx-stage[data-beat="1"] .b2 .jh2{transition-delay:1.6s;}
+.sscx-stage[data-beat="1"] .b2 .jc3,.sscx-stage[data-beat="1"] .b2 .jp3,.sscx-stage[data-beat="1"] .b2 .jh3{transition-delay:2.2s;}
+.sscx-stage[data-beat="1"] .b2 .jc4,.sscx-stage[data-beat="1"] .b2 .jp4,.sscx-stage[data-beat="1"] .b2 .jh4{transition-delay:2.8s;}
+.sscx-stage[data-beat="1"] .b2 .jc5,.sscx-stage[data-beat="1"] .b2 .jp5,.sscx-stage[data-beat="1"] .b2 .jh5{transition-delay:3.4s;}
 
 /* beat 3 */
 .b3{position:absolute;inset:0;overflow:hidden;border-radius:24px;}
@@ -103,7 +100,7 @@ const CSS = `
   .b1 .rw.tc{top:0 !important;opacity:1 !important;}
   .b1 .rw.a{top:78px !important;}.b1 .rw.b{top:156px !important;}.b1 .rw.c{top:234px !important;}
   .b1 .rw.tc .rvw,.b1 .rw.tc .acts,.b1 .rw.tc .badge,.b1 .fc{opacity:1 !important;transform:none !important;}
-  .b2 .job,.b2 .chk{opacity:1 !important;}
+  .b2 .pipT,.b2 .lbH{opacity:1 !important;}.b2 .pipA,.b2 .lbP{opacity:0 !important;}
   .b3 .s0{opacity:1 !important;}.b3 .promise,.b3 .whisper{opacity:1 !important;}
   .sscx-head{transition:none !important;}
 }
@@ -126,13 +123,13 @@ const CSS = `
 }
 `;
 
-const JOBS: { t: string; lx: number; ly: number; dx: number; dy: number; a: 'start' | 'middle' | 'end' }[] = [
-  { t: 'Calls answered', lx: 230, ly: 22, dx: 230, dy: 42, a: 'middle' },
-  { t: 'Quotes chased', lx: 356, ly: 105, dx: 332, dy: 101, a: 'start' },
-  { t: 'Reviews earned', lx: 356, ly: 223, dx: 332, dy: 219, a: 'start' },
-  { t: 'Daily brief', lx: 230, ly: 306, dx: 230, dy: 278, a: 'middle' },
-  { t: 'Records kept', lx: 104, ly: 223, dx: 128, dy: 219, a: 'end' },
-  { t: 'Jobs scheduled', lx: 104, ly: 105, dx: 128, dy: 101, a: 'end' },
+const JOBS: { t: string; p: string; lx: number; ly: number; dx: number; dy: number; a: 'start' | 'middle' | 'end' }[] = [
+  { t: 'Calls answered', p: 'Missed call', lx: 230, ly: 22, dx: 230, dy: 42, a: 'middle' },
+  { t: 'Quotes chased', p: 'Quote to send', lx: 356, ly: 105, dx: 332, dy: 101, a: 'start' },
+  { t: 'Reviews earned', p: 'Review to chase', lx: 356, ly: 223, dx: 332, dy: 219, a: 'start' },
+  { t: 'Daily brief', p: 'What’s on today?', lx: 230, ly: 306, dx: 230, dy: 278, a: 'middle' },
+  { t: 'Records kept', p: 'Log the job', lx: 104, ly: 223, dx: 128, dy: 219, a: 'end' },
+  { t: 'Jobs scheduled', p: 'Book the visit', lx: 104, ly: 105, dx: 128, dy: 101, a: 'end' },
 ];
 
 export default function JourneyMap() {
@@ -232,8 +229,10 @@ export default function JourneyMap() {
                   <text x="230" y="175" textAnchor="middle" fill="#7c8a83" fontSize="11" fontFamily="-apple-system,sans-serif">in control</text>
                   {JOBS.map((j, i) => (
                     <g key={j.t}>
-                      <circle className={`chk c${i}`} cx={j.dx} cy={j.dy} r="5.5" fill="#22d3ee" />
-                      <text className={`job j${i}`} x={j.lx} y={j.ly} textAnchor={j.a} fill="#e6e6ea" fontSize="13" fontWeight="600" fontFamily="-apple-system,sans-serif">{j.t}</text>
+                      <circle className={`pipA jc${i}`} cx={j.dx} cy={j.dy} r="5.5" fill="#f59e0b" />
+                      <circle className={`pipT jc${i}`} cx={j.dx} cy={j.dy} r="5.5" fill="#22d3ee" />
+                      <text className={`lbP jp${i}`} x={j.lx} y={j.ly} textAnchor={j.a} fill="#c99a4a" fontSize="13" fontWeight="600" fontFamily="-apple-system,sans-serif">{j.p}</text>
+                      <text className={`lbH jh${i}`} x={j.lx} y={j.ly} textAnchor={j.a} fill="#e6e6ea" fontSize="13" fontWeight="600" fontFamily="-apple-system,sans-serif">{'✓ ' + j.t}</text>
                     </g>
                   ))}
                 </svg>
