@@ -5,13 +5,12 @@ import { START_LINK } from '@/lib/site';
 
 /* The Secret Sauce: one scroll-pinned four-beat film, fully scroll-scrubbed.
  * Get Found -> StayBookt -> Enjoy Life -> Get Started.
- * NOTHING is on a timer. Every change is driven by scroll position only.
- * Enjoy Life gets a bigger share of the track so its four moments each breathe. */
+ * NOTHING is on a timer. Every change is driven by scroll position only. */
 
-const B = [0, 0.22, 0.44, 0.8, 1]; // beat boundaries (Enjoy Life is the widest)
+const B = [0, 0.22, 0.46, 0.8, 1]; // beat boundaries (StayBookt + Enjoy Life get room)
 
 const CSS = `
-.sscx-track{position:relative;height:560vh;background:#050506;}
+.sscx-track{position:relative;height:600vh;background:#050506;}
 .sscx-stage{position:sticky;top:0;height:100vh;min-height:600px;overflow:hidden;display:flex;flex-direction:column;color:#f5f5f7;--acc:#0ea5e9;--cp:0;}
 .sscx-stage[data-beat="1"]{--acc:#22d3ee;}
 .sscx-stage[data-beat="2"]{--acc:#ffd9a3;}
@@ -56,11 +55,12 @@ const CSS = `
 .sscx-stage[data-beat="0"] .p0,.sscx-stage[data-beat="1"] .p1,.sscx-stage[data-beat="3"] .p3{opacity:1;transform:none;pointer-events:auto;}
 .sscx-stage[data-beat="3"] .p3{position:relative;}
 
-/* enjoy-life sub-progress dots */
-.sscx-life{position:absolute;left:0;right:0;bottom:13.5%;z-index:3;display:flex;gap:10px;justify-content:center;opacity:0;transition:opacity .5s ease;pointer-events:none;}
-.sscx-stage[data-beat="2"] .sscx-life{opacity:1;}
-.sscx-life span{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.32);transition:transform .3s ease,background .3s ease;}
-.sscx-life span.a{background:#ffd9a3;transform:scale(1.35);}
+/* sub-progress dots (Enjoy Life + StayBookt) */
+.sscx-sub{position:absolute;left:0;right:0;bottom:13.5%;z-index:3;display:flex;gap:10px;justify-content:center;opacity:0;transition:opacity .5s ease;pointer-events:none;}
+.sscx-stage[data-beat="1"] .sscx-sub.sub-sc,.sscx-stage[data-beat="2"] .sscx-sub.sub-life{opacity:1;}
+.sscx-sub span{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.32);transition:transform .3s ease,background .3s ease;}
+.sscx-sub.sub-life span.a{background:#ffd9a3;transform:scale(1.35);}
+.sscx-sub.sub-sc span.a{background:#22d3ee;transform:scale(1.35);}
 
 /* beat 1 — GET FOUND: climb rides scroll continuously via --cp (0..1) */
 .b1{width:min(600px,94%);}
@@ -88,13 +88,17 @@ const CSS = `
 .sscx-stage[data-s0="2"] .b1 .rw.tc .acts{opacity:1;}
 .sscx-stage[data-s0="2"] .b1 .fc{opacity:1;transform:none;}
 
-/* beat 2 — STAYBOOKT: each busywork item flips as scroll passes it (class flg per job) */
-.b2{width:min(690px,96%);}
-.b2 svg{display:block;width:100%;height:auto;}
-.b2 .pipA,.b2 .lbP{transition:opacity .5s ease;}
-.b2 .pipT,.b2 .lbH{opacity:0;transition:opacity .5s ease;}
-.b2 .flg .pipA,.b2 .flg .lbP{opacity:0;}
-.b2 .flg .pipT,.b2 .flg .lbH{opacity:1;}
+/* beat 2 — STAYBOOKT: scroll through real moments the work slips away, and how we catch it */
+.b2{position:relative;width:min(660px,94%);height:clamp(300px,40vh,380px);}
+.b2 .sc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:clamp(10px,1.6vh,16px);opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease;pointer-events:none;}
+.sscx-stage[data-beat="1"][data-sc="0"] .b2 .sc0,
+.sscx-stage[data-beat="1"][data-sc="1"] .b2 .sc1,
+.sscx-stage[data-beat="1"][data-sc="2"] .b2 .sc2{opacity:1;transform:none;}
+.b2 .sc-k{font-size:14px;font-weight:600;letter-spacing:.01em;color:#7f8593;}
+.b2 .sc-pain{font-size:clamp(24px,3.4vw,40px);font-weight:600;letter-spacing:-.03em;line-height:1.08;color:#f5f5f7;max-width:20ch;}
+.b2 .sc-cost{font-size:clamp(15px,1.8vw,18px);color:#e0a86b;max-width:34ch;line-height:1.45;}
+.b2 .sc-fix{display:inline-flex;align-items:center;gap:10px;margin-top:4px;font-size:clamp(14.5px,1.7vw,17px);font-weight:600;color:#5fe3b0;background:rgba(16,185,129,.1);border:1px solid rgba(52,211,153,.3);border-radius:14px;padding:12px 18px;max-width:42ch;line-height:1.35;text-align:left;}
+.b2 .sc-fix svg{flex:0 0 auto;margin-top:1px;}
 
 /* beat 4 — GET STARTED: a self-contained, tightly-centered CTA card */
 .b4{width:min(600px,92%);text-align:center;}
@@ -121,7 +125,7 @@ const CSS = `
   .sscx-dots{gap:14px;}
   .sscx-headwrap{min-height:3.4em;}
   .sscx-panels{height:clamp(300px,44vh,470px);}
-  .sscx-life{bottom:15%;}
+  .sscx-sub{bottom:15%;}
   .b1 .sb{padding:12px 18px;}
   .b1 .sb span{font-size:14px;}
   .b1 .pack{height:300px;}
@@ -134,16 +138,29 @@ const CSS = `
   .b1 .rw.c{top:calc(132px + 66px * var(--cp));}
   .b1 .rw.tc{top:calc(220px * (1 - var(--cp)));}
   .b2{width:100%;}
+  .b2 .sc-fix{font-size:14px;padding:11px 15px;}
 }
 `;
 
-const JOBS: { t: string; p: string; lx: number; ly: number; dx: number; dy: number; a: 'start' | 'middle' | 'end' }[] = [
-  { t: 'Calls answered', p: 'Missed call', lx: 230, ly: 22, dx: 230, dy: 42, a: 'middle' },
-  { t: 'Quotes chased', p: 'Quote to send', lx: 356, ly: 105, dx: 332, dy: 101, a: 'start' },
-  { t: 'Reviews earned', p: 'Review to chase', lx: 356, ly: 223, dx: 332, dy: 219, a: 'start' },
-  { t: 'Daily brief', p: 'What is on today?', lx: 230, ly: 306, dx: 230, dy: 278, a: 'middle' },
-  { t: 'Records kept', p: 'Log the job', lx: 104, ly: 223, dx: 128, dy: 219, a: 'end' },
-  { t: 'Jobs scheduled', p: 'Book the visit', lx: 104, ly: 105, dx: 128, dy: 101, a: 'end' },
+const SCENARIOS: { k: string; pain: string; cost: string; fix: string }[] = [
+  {
+    k: '6:47 PM. You are under a sink.',
+    pain: 'The phone rings. You let it go.',
+    cost: 'That was an $1,850 job. It went to whoever picked up.',
+    fix: 'StayBookt answered it, and booked it for Tuesday at 9.',
+  },
+  {
+    k: 'Thursday. You sent the quote.',
+    pain: 'Then the week buried you.',
+    cost: 'Two weeks later, they hired someone else.',
+    fix: 'StayBookt chases every quote until it is won or dead.',
+  },
+  {
+    k: 'Best job you did all month.',
+    pain: 'You meant to ask for the review.',
+    cost: 'You forgot. So did they. You stayed on page two.',
+    fix: 'StayBookt asks every customer. That is how you reach #1.',
+  },
 ];
 
 const LIFE: { img: string; cap: string }[] = [
@@ -153,12 +170,20 @@ const LIFE: { img: string; cap: string }[] = [
   { img: '4835776', cap: 'A day that is finally yours.' },
 ];
 
+function Check() {
+  return (
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#34d399" strokeWidth={2.6}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M4 12l5 5L20 6" />
+    </svg>
+  );
+}
+
 export default function JourneyMap() {
   const trackRef = useRef<HTMLElement | null>(null);
   const [beat, setBeat] = useState(0);
   const [cp, setCp] = useState(0);
   const [s0, setS0] = useState(0);
-  const [flipped, setFlipped] = useState(0);
+  const [sc, setSc] = useState(0);
   const [life, setLife] = useState(0);
   const [fills, setFills] = useState<[number, number, number, number]>([0, 0, 0, 0]);
 
@@ -181,7 +206,7 @@ export default function JourneyMap() {
         setBeat(b);
         setCp(climb);
         setS0(climb > 0.98 ? 2 : climb > 0.7 ? 1 : 0);
-        setFlipped(b < 1 ? 0 : b > 1 ? 6 : Math.min(6, Math.floor(lp * 7)));
+        setSc(b < 1 ? 0 : b > 1 ? 2 : Math.min(2, Math.floor(lp * 3)));
         setLife(b < 2 ? 0 : b > 2 ? 3 : Math.min(3, Math.floor(lp * 4)));
         const seg = (i: number) => clamp((p - B[i]) / (B[i + 1] - B[i])) * 100;
         setFills([seg(0), seg(1), seg(2), seg(3)]);
@@ -200,7 +225,7 @@ export default function JourneyMap() {
   return (
     <section ref={trackRef} className="sscx-track">
       <style>{CSS}</style>
-      <div className="sscx-stage" style={stageStyle} data-beat={beat} data-s0={s0} data-life={life}>
+      <div className="sscx-stage" style={stageStyle} data-beat={beat} data-s0={s0} data-sc={sc} data-life={life}>
         {/* ENJOY LIFE — full-stage cinematic film, behind everything */}
         <div className="sscx-film">
           {LIFE.map((l, i) => (
@@ -265,27 +290,17 @@ export default function JourneyMap() {
               </div>
             </div>
 
-            {/* BEAT 2 — STAYBOOKT */}
+            {/* BEAT 2 — STAYBOOKT (scroll through the moments work slips away) */}
             <div className="sscx-p p1">
               <div className="b2">
-                <svg width="460" height="320" viewBox="0 0 460 320" fill="none">
-                  <g stroke="rgba(34,211,238,.2)" strokeWidth={1}>
-                    <line x1="230" y1="160" x2="230" y2="42" /><line x1="230" y1="160" x2="332" y2="101" /><line x1="230" y1="160" x2="332" y2="219" />
-                    <line x1="230" y1="160" x2="230" y2="278" /><line x1="230" y1="160" x2="128" y2="219" /><line x1="230" y1="160" x2="128" y2="101" />
-                  </g>
-                  <circle cx="230" cy="160" r="118" stroke="rgba(255,255,255,.08)" strokeWidth={1} />
-                  <circle cx="230" cy="160" r="56" fill="rgba(16,185,129,.1)" stroke="rgba(52,211,153,.5)" strokeWidth={1.4} />
-                  <text x="230" y="157" textAnchor="middle" fill="#34d399" fontSize="17" fontWeight="600" fontFamily="-apple-system,sans-serif">You</text>
-                  <text x="230" y="175" textAnchor="middle" fill="#7c8a83" fontSize="11" fontFamily="-apple-system,sans-serif">in control</text>
-                  {JOBS.map((j, i) => (
-                    <g key={j.t} className={i < flipped ? 'flg' : undefined}>
-                      <circle className="pipA" cx={j.dx} cy={j.dy} r="5.5" fill="#f59e0b" />
-                      <circle className="pipT" cx={j.dx} cy={j.dy} r="5.5" fill="#22d3ee" />
-                      <text className="lbP" x={j.lx} y={j.ly} textAnchor={j.a} fill="#c99a4a" fontSize="13" fontWeight="600" fontFamily="-apple-system,sans-serif">{j.p}</text>
-                      <text className="lbH" x={j.lx} y={j.ly} textAnchor={j.a} fill="#e6e6ea" fontSize="13" fontWeight="600" fontFamily="-apple-system,sans-serif">{'✓ ' + j.t}</text>
-                    </g>
-                  ))}
-                </svg>
+                {SCENARIOS.map((s, i) => (
+                  <div key={i} className={`sc sc${i}`}>
+                    <div className="sc-k">{s.k}</div>
+                    <div className="sc-pain">{s.pain}</div>
+                    <div className="sc-cost">{s.cost}</div>
+                    <div className="sc-fix"><Check /> {s.fix}</div>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -307,8 +322,14 @@ export default function JourneyMap() {
           </div>
         </div>
 
-        {/* enjoy-life sub-progress */}
-        <div className="sscx-life">
+        {/* StayBookt scenario dots */}
+        <div className="sscx-sub sub-sc">
+          {SCENARIOS.map((s, i) => (
+            <span key={i} className={sc === i ? 'a' : ''} />
+          ))}
+        </div>
+        {/* Enjoy Life moment dots */}
+        <div className="sscx-sub sub-life">
           {LIFE.map((l, i) => (
             <span key={l.img} className={life === i ? 'a' : ''} />
           ))}
