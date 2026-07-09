@@ -188,10 +188,6 @@ const PAGE_CSS = `
 .v4 .sbwrap .brief-l .bi{display:flex;gap:12px;padding:11px 0;border-top:1px solid #f1f1f4;align-items:flex-start;font-size:14px;color:#2b2b30;}
 .v4 .sbwrap .brief-l .bi:first-of-type{border-top:0;}
 .v4 .sbwrap .brief-l .bic{width:8px;height:8px;border-radius:50%;margin-top:6px;flex:0 0 auto;}
-/* proof line */
-.v4 .proofline{background:var(--v4-ink);padding:0 0 clamp(64px,9vw,104px);text-align:center;}
-.v4 .proofline p{font-size:15px;color:#86868b;}
-.v4 .proofline a{color:#38bdf8;font-weight:600;text-decoration:none;}
 /* LADDER */
 .v4 .price h2{font-weight:600;letter-spacing:-.025em;}
 .v4 .price .seefull a{color:#0891b2;}
@@ -278,19 +274,7 @@ export default function HomePage() {
       {/* 2 — THE SECRET SAUCE (the story, straight after the hero) */}
       <JourneyMap />
 
-      {/* 3 — proof line */}
-      <section className="proofline">
-        <div className="wrap">
-          <Reveal>
-            <p>
-              We run these ourselves.{' '}
-              <a href="/work">Top Choice Electrical and XNL HR, live now<ArrowUpRight /></a>
-            </p>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 4 — WHY WE BUILT THIS */}
+      {/* 3 — WHY WE BUILT THIS */}
       <section className="whyus">
         <div className="wrap">
           <Reveal as="div">
@@ -334,7 +318,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5 — GO DEEPER (navigation) */}
+      {/* 4 — GO DEEPER (navigation) */}
       <section className="explore">
         <div className="wrap">
           <Reveal className="eyebrow" as="div">Go deeper</Reveal>
@@ -357,7 +341,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 6 — CLOSER */}
+      {/* 5 — CLOSER */}
       <section className="scene closer">
         <img src={CLOSER_IMG} alt="" loading="lazy" decoding="async" />
         <div className="grad-ov" />
