@@ -7,40 +7,49 @@ import { useEffect, useRef, useState } from 'react';
 const CSS = `
 .sscx-track{position:relative;height:340vh;background:#050506;}
 .sscx-stage{position:sticky;top:0;height:100vh;min-height:600px;overflow:hidden;display:flex;flex-direction:column;color:#f5f5f7;--acc:#0ea5e9;}
+.sscx-stage[data-beat="1"]{--acc:#22d3ee;}
+.sscx-stage[data-beat="2"]{--acc:#34d399;}
 .sscx-tint{position:absolute;inset:0;transition:background 1s ease;pointer-events:none;background:radial-gradient(80% 55% at 78% 0%,rgba(14,165,233,.16),transparent 60%);}
 .sscx-stage[data-beat="1"] .sscx-tint{background:radial-gradient(80% 60% at 50% 6%,rgba(6,182,212,.15),transparent 60%);}
 .sscx-stage[data-beat="2"] .sscx-tint{background:radial-gradient(90% 75% at 50% 0%,rgba(16,185,129,.16),transparent 62%);}
-.sscx-top{position:relative;z-index:3;display:flex;align-items:center;justify-content:space-between;padding:22px 32px 0;gap:18px;}
-.sscx-bars{display:flex;gap:6px;flex:1;max-width:280px;}
+.sscx-top{position:relative;z-index:3;display:flex;align-items:center;justify-content:center;padding:22px 32px 0;}
+.sscx-bars{display:flex;gap:6px;width:100%;max-width:280px;}
 .sscx-seg{flex:1;height:2.5px;border-radius:2px;background:rgba(255,255,255,.12);overflow:hidden;}
-.sscx-seg i{display:block;height:100%;width:0;background:var(--acc);}
-.sscx-eye{font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--acc);transition:color .8s;white-space:nowrap;}
-.sscx-mid{position:relative;z-index:3;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(14px,2.6vh,34px);padding:1vh 24px;}
+.sscx-seg i{display:block;height:100%;width:0;background:var(--acc);transition:background .8s;}
+.sscx-mid{position:relative;z-index:3;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(12px,2.4vh,30px);padding:1vh 24px;}
+.sscx-phase{font-size:13px;font-weight:700;letter-spacing:.2em;color:var(--acc);text-align:center;transition:color .8s ease;}
 .sscx-headwrap{position:relative;text-align:center;width:100%;min-height:2.15em;font-size:clamp(30px,4.8vw,62px);line-height:1.03;}
 .sscx-head{position:absolute;left:0;right:0;top:50%;padding:0 20px;font-size:inherit;font-weight:600;letter-spacing:-.03em;line-height:inherit;opacity:0;transform:translateY(calc(-50% + 14px));transition:opacity .6s ease,transform .6s ease;}
 .sscx-stage[data-beat="0"] .h0,.sscx-stage[data-beat="1"] .h1,.sscx-stage[data-beat="2"] .h2{opacity:1;transform:translateY(-50%);}
-.sscx-panels{position:relative;width:100%;height:clamp(340px,54vh,600px);}
+.sscx-panels{position:relative;width:100%;height:clamp(360px,56vh,620px);}
 .sscx-p{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(.965);transition:opacity .7s ease,transform .7s ease;pointer-events:none;}
 .sscx-stage[data-beat="0"] .p0,.sscx-stage[data-beat="1"] .p1,.sscx-stage[data-beat="2"] .p2{opacity:1;transform:none;}
 
-/* beat 1 */
-.b1{width:min(620px,94%);}
-.b1 .sb{display:flex;align-items:center;gap:12px;background:#111114;border:1px solid #26262c;border-radius:999px;padding:15px 22px;margin-bottom:20px;}
+/* beat 1 — climb from the bottom to #1 */
+.b1{width:min(600px,94%);}
+.b1 .sb{display:flex;align-items:center;gap:12px;background:#111114;border:1px solid #26262c;border-radius:999px;padding:15px 22px;margin-bottom:18px;}
 .b1 .sb span{font-size:16px;color:#d4d4d8;}
-.b1 .pack{position:relative;height:290px;}
-.b1 .row{position:absolute;left:0;right:0;height:72px;display:flex;align-items:center;gap:14px;border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:0 22px;transition:top .9s cubic-bezier(.5,0,.2,1);}
-.b1 .row span.d{width:10px;height:10px;border-radius:50%;background:#555;}
-.b1 .row .nm{font-size:18px;}
-.b1 .r-cw{top:98px;opacity:.5;}.b1 .r-sp{top:190px;opacity:.4;}
-.b1 .r-tc{top:190px;background:rgba(14,165,233,.10);border-color:rgba(14,165,233,.3);box-shadow:none;transition:top .9s cubic-bezier(.5,0,.2,1),box-shadow .6s,border-color .6s;}
-.b1 .r-tc span.d{background:#0ea5e9;box-shadow:0 0 10px #0ea5e9;}
-.b1 .r-tc .nm{font-weight:600;}.b1 .r-tc .st{font-size:14px;color:#8fb7cf;}
-.b1 .badge{margin-left:auto;font-size:11px;font-weight:700;color:#04150e;background:#0ea5e9;border-radius:999px;padding:5px 13px;opacity:0;transition:opacity .5s .5s;}
-.b1 .booked{position:absolute;right:0;bottom:-16px;display:flex;align-items:center;gap:6px;background:rgba(16,185,129,.14);border:1px solid rgba(16,185,129,.5);color:#34d399;font-size:14px;font-weight:600;border-radius:999px;padding:8px 16px;opacity:0;transform:translateY(6px);transition:opacity .5s 1s,transform .5s 1s;}
-.sscx-stage[data-beat="0"] .b1 .r-tc{top:8px;box-shadow:0 0 34px -6px rgba(14,165,233,.6);border-color:rgba(14,165,233,.6);}
-.sscx-stage[data-beat="0"] .b1 .r-cw{top:98px;}.sscx-stage[data-beat="0"] .b1 .r-sp{top:190px;}
-.sscx-stage[data-beat="0"] .b1 .badge{opacity:1;}
-.sscx-stage[data-beat="0"] .b1 .booked{opacity:1;transform:none;}
+.b1 .pack{position:relative;height:356px;}
+.b1 .rw{position:absolute;left:0;right:0;height:64px;display:flex;align-items:center;gap:14px;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:0 20px;background:#0a0a0c;transition:top .9s cubic-bezier(.5,0,.2,1),opacity .6s,box-shadow .6s,border-color .6s;}
+.b1 .rw .d{width:9px;height:9px;border-radius:50%;background:#555;flex:0 0 auto;}
+.b1 .rw .nm{font-size:17px;white-space:nowrap;}
+.b1 .rw .mini{margin-left:auto;font-size:13px;color:#6b6b74;}
+.b1 .rw.a{top:0;opacity:.5;}.b1 .rw.b{top:78px;opacity:.42;}.b1 .rw.c{top:156px;opacity:.34;}
+.b1 .rw.tc{top:258px;opacity:.4;}
+.b1 .rw.tc .d{background:#0ea5e9;box-shadow:0 0 11px #0ea5e9;}
+.b1 .rw.tc .nm{font-weight:600;}
+.b1 .rw.tc .rvw{font-size:13px;color:#ffd479;margin-left:14px;white-space:nowrap;opacity:0;transition:opacity .5s .9s;}
+.b1 .rw.tc .acts{margin-left:auto;display:flex;gap:8px;opacity:0;transition:opacity .5s 1.3s;}
+.b1 .rw.tc .acts .bt{font-size:12.5px;font-weight:700;color:#04150e;background:#0ea5e9;border-radius:999px;padding:7px 15px;}
+.b1 .rw.tc .acts .bt.o{background:transparent;color:#0ea5e9;border:1px solid #0ea5e9;}
+.b1 .rw.tc .badge{font-size:10.5px;font-weight:700;color:#04150e;background:#0ea5e9;border-radius:999px;padding:5px 11px;opacity:0;transition:opacity .5s .7s;}
+.b1 .fc{position:absolute;left:0;right:0;bottom:0;text-align:center;font-size:14px;font-weight:600;color:#34d399;opacity:0;transform:translateY(6px);transition:opacity .5s 2.1s,transform .5s 2.1s;}
+.sscx-stage[data-beat="0"] .b1 .rw.tc{top:0;opacity:1;box-shadow:0 0 36px -6px rgba(14,165,233,.6);border-color:rgba(14,165,233,.6);background:rgba(14,165,233,.10);}
+.sscx-stage[data-beat="0"] .b1 .rw.a{top:78px;}
+.sscx-stage[data-beat="0"] .b1 .rw.b{top:156px;}
+.sscx-stage[data-beat="0"] .b1 .rw.c{top:234px;}
+.sscx-stage[data-beat="0"] .b1 .rw.tc .rvw,.sscx-stage[data-beat="0"] .b1 .rw.tc .acts,.sscx-stage[data-beat="0"] .b1 .rw.tc .badge{opacity:1;}
+.sscx-stage[data-beat="0"] .b1 .fc{opacity:1;transform:none;}
 
 /* beat 2 */
 .b2{width:min(690px,96%);}
@@ -91,7 +100,9 @@ const CSS = `
 
 @media (prefers-reduced-motion: reduce){
   .sscx-stage *{animation:none !important;transition:none !important;}
-  .b1 .r-tc{top:8px !important;}.b1 .badge,.b1 .booked{opacity:1 !important;transform:none !important;}
+  .b1 .rw.tc{top:0 !important;opacity:1 !important;}
+  .b1 .rw.a{top:78px !important;}.b1 .rw.b{top:156px !important;}.b1 .rw.c{top:234px !important;}
+  .b1 .rw.tc .rvw,.b1 .rw.tc .acts,.b1 .rw.tc .badge,.b1 .fc{opacity:1 !important;transform:none !important;}
   .b2 .job,.b2 .chk{opacity:1 !important;}
   .b3 .s0{opacity:1 !important;}.b3 .promise,.b3 .whisper{opacity:1 !important;}
   .sscx-head{transition:none !important;}
@@ -100,15 +111,17 @@ const CSS = `
   .sscx-top{padding:16px 18px 0;}
   .sscx-dots{gap:16px;}
   .sscx-headwrap{min-height:3.2em;}
-  .sscx-panels{height:clamp(300px,44vh,460px);}
+  .sscx-panels{height:clamp(320px,46vh,480px);}
   .b1 .sb{padding:12px 18px;}
   .b1 .sb span{font-size:14px;}
-  .b1 .pack{height:224px;}
-  .b1 .row{height:56px;padding:0 16px;border-radius:14px;gap:11px;}
-  .b1 .row .nm{font-size:15px;}
-  .b1 .r-cw{top:78px;}.b1 .r-sp,.b1 .r-tc{top:150px;}
-  .sscx-stage[data-beat="0"] .b1 .r-tc{top:8px;}
-  .sscx-stage[data-beat="0"] .b1 .r-cw{top:78px;}.sscx-stage[data-beat="0"] .b1 .r-sp{top:150px;}
+  .b1 .pack{height:300px;}
+  .b1 .rw{height:56px;padding:0 15px;border-radius:14px;gap:11px;}
+  .b1 .rw .nm{font-size:14.5px;}
+  .b1 .rw.tc .rvw{display:none;}
+  .b1 .rw.tc .acts .bt{padding:6px 11px;font-size:11px;}
+  .b1 .rw.a{top:0;}.b1 .rw.b{top:66px;}.b1 .rw.c{top:132px;}.b1 .rw.tc{top:220px;}
+  .sscx-stage[data-beat="0"] .b1 .rw.tc{top:0;}
+  .sscx-stage[data-beat="0"] .b1 .rw.a{top:66px;}.sscx-stage[data-beat="0"] .b1 .rw.b{top:132px;}.sscx-stage[data-beat="0"] .b1 .rw.c{top:198px;}
   .b2{width:100%;}
 }
 `;
@@ -139,7 +152,6 @@ export default function JourneyMap() {
         const total = el.offsetHeight - vh;
         const scrolled = Math.min(Math.max(-r.top, 0), total);
         const p = total > 0 ? scrolled / total : 0;
-        // beat 3 gets the most scroll room: its bloom + scenes need time to play
         const BOUNDS = [0, 0.32, 0.62, 1];
         const b = p < BOUNDS[1] ? 0 : p < BOUNDS[2] ? 1 : 2;
         setBeat(b);
@@ -168,12 +180,13 @@ export default function JourneyMap() {
               <div className="sscx-seg" key={i}><i style={{ width: `${f}%` }} /></div>
             ))}
           </div>
-          <div className="sscx-eye">
-            {beat === 0 ? '01 · GET FOUND' : beat === 1 ? '02 · STAYBOOKT' : '03 · ENJOY LIFE'}
-          </div>
         </div>
 
         <div className="sscx-mid">
+          <div className="sscx-phase">
+            {beat === 0 ? 'GET FOUND' : beat === 1 ? 'STAYBOOKT' : 'ENJOY LIFE'}
+          </div>
+
           <div className="sscx-headwrap">
             <div className="sscx-head h0">Be the one they call.</div>
             <div className="sscx-head h1">You run the business. We run the busywork.</div>
@@ -181,7 +194,7 @@ export default function JourneyMap() {
           </div>
 
           <div className="sscx-panels">
-            {/* BEAT 1 */}
+            {/* BEAT 1 — GET FOUND: climb from the bottom to #1 */}
             <div className="sscx-p p0">
               <div className="b1">
                 <div className="sb">
@@ -189,14 +202,17 @@ export default function JourneyMap() {
                   <span>electrician near me</span>
                 </div>
                 <div className="pack">
-                  <div className="row r-cw"><span className="d" /><span className="nm">City Wide Electric</span></div>
-                  <div className="row r-sp"><span className="d" /><span className="nm">Sparky &amp; Sons</span></div>
-                  <div className="row r-tc">
+                  <div className="rw a"><span className="d" /><span className="nm">City Wide Electric</span><span className="mini">★ 4.1</span></div>
+                  <div className="rw b"><span className="d" /><span className="nm">Sparky &amp; Sons</span><span className="mini">★ 3.8</span></div>
+                  <div className="rw c"><span className="d" /><span className="nm">Rapid Volt</span><span className="mini">★ 4.0</span></div>
+                  <div className="rw tc">
                     <span className="d" />
-                    <span className="nm">Top Choice Electrical <span className="st">★ 4.9</span></span>
+                    <span className="nm">Top Choice Electrical</span>
+                    <span className="rvw">★ 4.9 · 312 reviews</span>
+                    <span className="acts"><span className="bt">Call</span><span className="bt o">Book</span></span>
                     <span className="badge">#1</span>
                   </div>
-                  <div className="booked">✓ Job booked</div>
+                  <div className="fc">✓ First call — booked</div>
                 </div>
               </div>
             </div>
