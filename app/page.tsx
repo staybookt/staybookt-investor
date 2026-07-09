@@ -56,7 +56,7 @@ const PAGE_CSS = `
 .v4 .sb-clook .cl-head{text-align:center;max-width:600px;margin:0 auto;}
 .v4 .sb-clook .cl-head h2{font-size:clamp(30px,4.4vw,52px);letter-spacing:-.025em;line-height:1.08;color:var(--v4-ink);}
 .v4 .sb-clook .cl-head p{margin-top:16px;font-size:clamp(17px,1.9vw,21px);color:#86868b;line-height:1.4;}
-.v4 .sb-clook .cl-stage{display:grid;grid-template-columns:.82fr 1.18fr;gap:52px;align-items:center;margin-top:clamp(44px,5vw,60px);}
+.v4 .sb-clook .cl-stage{display:grid;grid-template-columns:.82fr 1.18fr;gap:52px;align-items:start;margin-top:clamp(44px,5vw,60px);}
 .v4 .sb-clook .cl-menu{display:flex;flex-direction:column;}
 .v4 .sb-clook .cli{text-align:left;background:transparent;border:0;border-bottom:1px solid #e6e6ea;padding:17px 40px 17px 6px;cursor:pointer;position:relative;font-family:inherit;width:100%;}
 .v4 .sb-clook .cli .ck{display:block;font-size:10.5px;font-weight:700;letter-spacing:.06em;color:#86868b;}
@@ -67,11 +67,11 @@ const PAGE_CSS = `
 .v4 .sb-clook .cli.on .cl-plus{background:var(--grad);border-color:transparent;color:#fff;transform:translateY(-50%) rotate(45deg);}
 .v4 .sb-clook .cli.on .cl-desc{max-height:90px;margin-top:11px;}
 .v4 .sb-clook .cli:hover .cl-lbl{color:#6a6a72;}
-.v4 .sb-clook .cl-viz{position:relative;min-height:540px;display:flex;align-items:center;justify-content:center;}
+.v4 .sb-clook .cl-viz{position:sticky;top:max(84px,calc(50vh - 290px));min-height:540px;display:flex;align-items:center;justify-content:center;}
 .v4 .sb-clook .cl-viz::before{content:'';position:absolute;inset:0;border-radius:32px;background:radial-gradient(75% 62% at 50% 42%,rgba(16,185,129,.07),transparent 72%);border:1px solid rgba(255,255,255,.06);pointer-events:none;}
 .v4 .sb-clook .vpanel{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(.97) translateY(10px);transition:.5s cubic-bezier(.2,.6,.2,1);pointer-events:none;}
 .v4 .sb-clook .vpanel.on{opacity:1;transform:none;pointer-events:auto;}
-@media(max-width:880px){.v4 .sb-clook .cl-stage{grid-template-columns:1fr;gap:12px;}.v4 .sb-clook .cl-viz{min-height:520px;order:-1;margin-bottom:20px;}}
+@media(max-width:880px){.v4 .sb-clook .cl-stage{grid-template-columns:1fr;gap:12px;}.v4 .sb-clook .cl-viz{position:static;min-height:520px;order:-1;margin-bottom:20px;}}
 .v4 .sb-clook .cl-viz .appwin{width:470px;}
 .v4 .sb-clook .cl-viz .phone{width:264px;}
 .v4 .sb-clook .cl-viz .phone .screen{height:472px;}
@@ -252,13 +252,11 @@ export default function HomePage() {
 
       <div className="seam seam-dark-to-cream" aria-hidden="true" />
 
-      {/* 2 — TAKE A CLOSER LOOK */}
-      <CloserLook />
-
-      <div className="seam seam-light-to-dark" aria-hidden="true" />
-
-      {/* 3 — THE SECRET SAUCE */}
+      {/* 2 — THE SECRET SAUCE (the story, straight after the hero) */}
       <JourneyMap />
+
+      {/* 3 — TAKE A CLOSER LOOK (the product deep-dive under the story) */}
+      <CloserLook />
 
       {/* 3b — proof line */}
       <section className="proofline">

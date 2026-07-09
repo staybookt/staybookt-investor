@@ -43,7 +43,7 @@ export default function CloserLook() {
   );
 
   return (
-    <section className="sb-clook sbwrap" onMouseEnter={() => { paused.current = true; }}>
+    <section className="sb-clook sbwrap">
       <div className="wrap">
         <div className="cl-head">
           <div className="kicker">TAKE A CLOSER LOOK</div>
@@ -51,7 +51,9 @@ export default function CloserLook() {
           <p>Ten tools working together. Click through and watch each one run.</p>
         </div>
 
-        <div className="cl-stage">
+        {/* pause the auto-advance only when the cursor is over the stage itself,
+            not the whole section — otherwise the screen swaps never run on desktop */}
+        <div className="cl-stage" onMouseEnter={() => { paused.current = true; }}>
           <div className="cl-menu">
             {TOOLS.map((t) => (
               <button key={t.k} type="button" className={`cli${active === t.k ? ' on' : ''}`} onClick={() => pick(t.k)}>
