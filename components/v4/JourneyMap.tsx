@@ -32,7 +32,9 @@ const CSS = `
 .sscx-tint{position:absolute;inset:0;z-index:1;transition:opacity .8s ease,background 1s ease;pointer-events:none;background:radial-gradient(80% 55% at 78% 0%,rgba(14,165,233,.16),transparent 60%);}
 .sscx-stage[data-beat="1"] .sscx-tint{background:radial-gradient(90% 75% at 50% 0%,rgba(16,185,129,.16),transparent 62%);}
 .sscx-stage[data-beat="2"] .sscx-tint{opacity:0;}
-.sscx-stage[data-beat="3"] .sscx-tint{background:radial-gradient(80% 60% at 50% 0%,rgba(255,255,255,.06),transparent 62%);}
+.sscx-stage[data-beat="3"] .sscx-tint{background:radial-gradient(80% 60% at 50% 0%,rgba(255,255,255,.05),transparent 62%);}
+.sscx-ctabg{position:absolute;inset:0;z-index:0;opacity:0;transition:opacity 1s ease;pointer-events:none;background:radial-gradient(120% 95% at 50% 118%,rgba(16,185,129,.34),transparent 58%),radial-gradient(95% 70% at 50% -12%,rgba(14,165,233,.26),transparent 60%),linear-gradient(180deg,#071a22,#05130e);}
+.sscx-stage[data-beat="3"] .sscx-ctabg{opacity:1;}
 
 .sscx-top{position:relative;z-index:3;display:flex;align-items:center;justify-content:center;padding:22px 32px 0;}
 .sscx-bars{display:flex;gap:6px;width:100%;max-width:320px;}
@@ -96,18 +98,13 @@ const CSS = `
 .sscx-stage[data-beat="1"] .b2 .jc4,.sscx-stage[data-beat="1"] .b2 .jp4,.sscx-stage[data-beat="1"] .b2 .jh4{transition-delay:2.8s;}
 .sscx-stage[data-beat="1"] .b2 .jc5,.sscx-stage[data-beat="1"] .b2 .jp5,.sscx-stage[data-beat="1"] .b2 .jh5{transition-delay:3.4s;}
 
-/* beat 4 — get started (the first step) */
-.b4{width:min(560px,92%);text-align:center;}
-.b4 .cta-btn{display:inline-block;background:#f5f5f7;color:#050506;font-size:16px;font-weight:600;border-radius:999px;padding:15px 34px;text-decoration:none;opacity:0;transform:translateY(10px);transition:opacity .6s ease,transform .6s ease;}
-.b4 .cta-steps{display:flex;gap:12px;justify-content:center;margin-top:26px;flex-wrap:wrap;}
-.b4 .step{font-size:13.5px;color:#c7ccd6;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 16px;opacity:0;transform:translateY(10px);transition:opacity .6s ease,transform .6s ease;}
-.b4 .cta-sub{margin-top:22px;font-size:14.5px;color:#86868b;line-height:1.5;opacity:0;transform:translateY(10px);transition:opacity .6s ease,transform .6s ease;}
-.sscx-stage[data-beat="3"] .b4 .cta-btn{opacity:1;transform:none;transition-delay:.2s;}
-.sscx-stage[data-beat="3"] .b4 .step{opacity:1;transform:none;}
-.sscx-stage[data-beat="3"] .b4 .step.s1{transition-delay:.5s;}
-.sscx-stage[data-beat="3"] .b4 .step.s2{transition-delay:.7s;}
-.sscx-stage[data-beat="3"] .b4 .step.s3{transition-delay:.9s;}
-.sscx-stage[data-beat="3"] .b4 .cta-sub{opacity:1;transform:none;transition-delay:1.1s;}
+/* beat 4 — get started (the CTA card) */
+.b4{width:min(600px,92%);text-align:center;}
+.b4 .cta-sub{font-size:clamp(15px,1.7vw,18px);color:#d7dce4;line-height:1.55;max-width:46ch;margin:0 auto;opacity:0;transform:translateY(10px);transition:opacity .6s ease,transform .6s ease;}
+.b4 .cta-btn{display:inline-block;margin-top:30px;background:#f5f5f7;color:#050506;font-size:16px;font-weight:600;border-radius:999px;padding:16px 38px;text-decoration:none;box-shadow:0 22px 54px -18px rgba(0,0,0,.65);opacity:0;transform:translateY(10px);transition:opacity .6s ease,transform .6s ease;}
+.b4 .cta-btn:hover{transform:translateY(-1px);}
+.sscx-stage[data-beat="3"] .b4 .cta-sub{opacity:1;transform:none;transition-delay:.35s;}
+.sscx-stage[data-beat="3"] .b4 .cta-btn{opacity:1;transform:none;transition-delay:.6s;}
 
 /* dots */
 .sscx-dots{position:relative;z-index:3;display:flex;gap:24px;justify-content:center;padding:14px 20px 28px;flex-wrap:wrap;}
@@ -124,7 +121,7 @@ const CSS = `
   .b1 .rw.tc .rvw,.b1 .rw.tc .acts,.b1 .rw.tc .badge,.b1 .fc{opacity:1 !important;transform:none !important;}
   .b2 .pipT,.b2 .lbH{opacity:1 !important;}.b2 .pipA,.b2 .lbP{opacity:0 !important;}
   .sscx-film .whisper{opacity:1 !important;}
-  .b4 .cta-btn,.b4 .step,.b4 .cta-sub{opacity:1 !important;transform:none !important;}
+  .b4 .cta-btn,.b4 .cta-sub{opacity:1 !important;transform:none !important;}
 }
 @media (max-width:640px){
   .sscx-top{padding:16px 18px 0;}
@@ -237,6 +234,7 @@ export default function JourneyMap() {
         </div>
 
         <div className="sscx-tint" />
+        <div className="sscx-ctabg" />
 
         <div className="sscx-top">
           <div className="sscx-bars">
@@ -248,7 +246,7 @@ export default function JourneyMap() {
 
         <div className="sscx-mid">
           <div className="sscx-phase">
-            {beat === 0 ? 'GET FOUND' : beat === 1 ? 'STAYBOOKT' : beat === 2 ? 'ENJOY LIFE' : 'GET STARTED'}
+            {beat === 0 ? 'GET FOUND' : beat === 1 ? 'STAYBOOKT' : beat === 2 ? 'ENJOY LIFE' : 'NO PITCH · NO LOCK-IN'}
           </div>
 
           <div className="sscx-headwrap">
@@ -257,7 +255,7 @@ export default function JourneyMap() {
             {LIFE.map((l, i) => (
               <div key={l.cap} className={`sscx-head lc${beat === 2 && life === i ? ' on' : ''}`}>{l.cap}</div>
             ))}
-            <div className="sscx-head h3">Ready when you are.</div>
+            <div className="sscx-head h3">Get Started.</div>
           </div>
 
           <div className="sscx-panels">
@@ -312,13 +310,12 @@ export default function JourneyMap() {
             {/* BEAT 4 — GET STARTED */}
             <div className="sscx-p p3">
               <div className="b4">
-                <a className="cta-btn" href={START_LINK}>Get Started</a>
-                <div className="cta-steps">
-                  <span className="step s1">1 &nbsp; A 30-min call</span>
-                  <span className="step s2">2 &nbsp; We show you the leaks</span>
-                  <span className="step s3">3 &nbsp; We go run it</span>
-                </div>
-                <div className="cta-sub">A straight read on where the work is slipping through. No pitch. No lock-in.</div>
+                <p className="cta-sub">
+                  A free 30 minutes with a founder, not a sales rep. We show you where the calls,
+                  quotes, and jobs are slipping through, and what it is costing you. The read is
+                  yours to keep, whether you hire us or not.
+                </p>
+                <a className="cta-btn" href={START_LINK}>Pick a time</a>
               </div>
             </div>
           </div>
