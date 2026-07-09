@@ -2,7 +2,6 @@ import type { ReactNode } from 'react';
 import Nav from '@/components/v4/Nav';
 import Reveal from '@/components/v4/Reveal';
 import JourneyMap from '@/components/v4/JourneyMap';
-import CloserLook from '@/components/v4/CloserLook';
 import SiteFooter from '@/components/SiteFooter';
 import { START_LINK } from '@/lib/site';
 
@@ -255,10 +254,7 @@ export default function HomePage() {
       {/* 2 — THE SECRET SAUCE (the story, straight after the hero) */}
       <JourneyMap />
 
-      {/* 3 — TAKE A CLOSER LOOK (the product deep-dive under the story) */}
-      <CloserLook />
-
-      {/* 3b — proof line */}
+      {/* 3 — proof line */}
       <section className="proofline">
         <div className="wrap">
           <Reveal>
@@ -270,34 +266,27 @@ export default function HomePage() {
         </div>
       </section>
 
-      <div className="seam seam-dark-to-cream" aria-hidden="true" />
-
-      {/* 4 — PRICING (understated, Apple-style) */}
-      <section className="price" id="price">
-        <div className="wrap">
-          <Reveal className="eyebrow" as="div">Pricing</Reveal>
-          <Reveal>
-            <h2 style={{ marginTop: 14 }}>Get found. Get run. Get free.</h2>
-          </Reveal>
-          <Reveal>
-            <p className="priceline">Starts at $1,750 to get found, then $199/mo to run it. No lock-in.</p>
-          </Reveal>
-          <Reveal className="seefull">
-            <a href="/pricing">See pricing<ArrowUpRight /></a>
-          </Reveal>
-          <Reveal>
-            <div style={{ marginTop: 30 }}>
-              <a href={START_LINK} className="pill pill-ink" style={{ padding: '14px 28px', fontSize: 15 }}>Get Started</a>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      <div className="seam seam-cream-to-dark" aria-hidden="true" />
-
-      {/* 5 — WHY WE BUILT THIS */}
+      {/* 4 — WHY WE BUILT THIS */}
       <section className="whyus">
         <div className="wrap">
+          <Reveal as="div">
+            <img
+              src="/photos/richard.jpg"
+              alt="Richard, Co-founder of StayBookt"
+              width={64}
+              height={64}
+              style={{
+                width: 64,
+                height: 64,
+                borderRadius: '50%',
+                objectFit: 'cover',
+                objectPosition: 'center 20%',
+                display: 'block',
+                margin: '0 auto 24px',
+                boxShadow: '0 0 0 1px rgba(255,255,255,.14)',
+              }}
+            />
+          </Reveal>
           <Reveal className="eyebrow" as="div">Why we built this</Reveal>
           <Reveal>
             <blockquote>
@@ -318,7 +307,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 6 — CLOSER */}
+      {/* 5 — CLOSER */}
       <section className="scene closer">
         <img src={CLOSER_IMG} alt="" loading="lazy" decoding="async" />
         <div className="grad-ov" />
