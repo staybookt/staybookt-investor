@@ -66,22 +66,23 @@ const CSS = `
 .sscx-stage[data-beat="1"] .b2 .jc4,.sscx-stage[data-beat="1"] .b2 .jp4,.sscx-stage[data-beat="1"] .b2 .jh4{transition-delay:2.8s;}
 .sscx-stage[data-beat="1"] .b2 .jc5,.sscx-stage[data-beat="1"] .b2 .jp5,.sscx-stage[data-beat="1"] .b2 .jh5{transition-delay:3.4s;}
 
-/* beat 3 */
+/* beat 3 — enjoy life: real moments cross-dissolving in the stage */
 .b3{position:absolute;inset:0;overflow:hidden;border-radius:24px;}
-.b3 .scene{position:absolute;inset:0;opacity:0;animation:sscxkb 9s ease-in-out infinite alternate;}
-.sscx-stage[data-beat="2"] .b3 .scene{animation:sscxkb 9s ease-in-out infinite alternate, sscxfade 9s ease-in-out infinite;}
-.b3 .s0{background:radial-gradient(80% 70% at 76% 10%,rgba(255,222,150,.6),transparent 55%),linear-gradient(180deg,#2c4a30,#1b2d20 70%,#13222a);}
-.b3 .s1{background:radial-gradient(70% 60% at 50% 55%,rgba(255,180,110,.6),rgba(120,60,30,.25) 45%,transparent 70%),linear-gradient(180deg,#241811,#2c1e15 60%,#181009);animation-delay:3s;}
-.b3 .s2{background:linear-gradient(180deg,#f0b978,#c98a63 14%,#3f5f6b 40%,#20323b 70%,#101c22);animation-delay:6s;}
+.b3 .scene{position:absolute;inset:0;opacity:0;background-size:cover;background-position:center;animation:sscxkb 13s ease-in-out infinite alternate;}
+.sscx-stage[data-beat="2"] .b3 .scene{animation:sscxkb 13s ease-in-out infinite alternate, sscxfade 12s ease-in-out infinite;}
+.b3 .e0{animation-delay:0s;}
+.b3 .e1{animation-delay:3s;}
+.b3 .e2{animation-delay:6s;}
+.b3 .e3{animation-delay:9s;}
 .b3 .grain{position:absolute;inset:0;width:100%;height:100%;mix-blend-mode:overlay;opacity:.1;}
 .b3 .vig{position:absolute;inset:0;background:radial-gradient(120% 100% at 50% 45%,transparent 45%,rgba(0,0,0,.55));}
-.b3 .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.12) 50%,rgba(4,8,6,.7));}
+.b3 .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.14) 46%,rgba(4,8,6,.78));}
 .b3 .bloom{position:absolute;top:44%;left:50%;width:170px;height:170px;border-radius:50%;transform:translate(-50%,-50%) scale(.15);opacity:0;background:radial-gradient(closest-side,rgba(255,236,196,.95),rgba(255,196,120,.3) 45%,transparent 72%);}
 .sscx-stage[data-beat="2"] .b3 .bloom{animation:sscxbloom 1.7s ease forwards;}
 .b3 .life{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 30px;}
-.b3 .promise{opacity:0;font-size:clamp(18px,2.4vw,27px);color:#f0ead9;font-weight:500;transition:opacity 1.1s ease 1.1s;}
+.b3 .promise{opacity:0;font-size:clamp(18px,2.4vw,27px);color:#fff;font-weight:600;text-shadow:0 2px 30px rgba(0,0,0,.6);transition:opacity 1.1s ease 1.1s;}
 .sscx-stage[data-beat="2"] .b3 .promise{opacity:1;}
-.b3 .whisper{position:absolute;bottom:7%;left:0;right:0;text-align:center;font-size:12.5px;color:#9fb8a6;opacity:0;transition:opacity 1s ease 1.6s;}
+.b3 .whisper{position:absolute;bottom:7%;left:0;right:0;text-align:center;font-size:12.5px;color:#cfe0d5;opacity:0;transition:opacity 1s ease 1.6s;}
 .sscx-stage[data-beat="2"] .b3 .whisper{opacity:1;}
 
 /* dots */
@@ -91,8 +92,7 @@ const CSS = `
 
 @keyframes sscxspin{to{transform:rotate(360deg);}}
 @keyframes sscxkb{from{transform:scale(1.04);}to{transform:scale(1.12);}}
-@keyframes sscxfade{0%,2%{opacity:0;}10%,36%{opacity:1;}44%,100%{opacity:0;}}
-.b3 .s1{animation-name:sscxkb,sscxfade;}
+@keyframes sscxfade{0%{opacity:0;}3%{opacity:1;}22%{opacity:1;}27%{opacity:0;}100%{opacity:0;}}
 @keyframes sscxbloom{0%{transform:translate(-50%,-50%) scale(.15);opacity:0;}40%{opacity:.95;}100%{transform:translate(-50%,-50%) scale(3.4);opacity:0;}}
 
 @media (prefers-reduced-motion: reduce){
@@ -101,7 +101,7 @@ const CSS = `
   .b1 .rw.a{top:78px !important;}.b1 .rw.b{top:156px !important;}.b1 .rw.c{top:234px !important;}
   .b1 .rw.tc .rvw,.b1 .rw.tc .acts,.b1 .rw.tc .badge,.b1 .fc{opacity:1 !important;transform:none !important;}
   .b2 .pipT,.b2 .lbH{opacity:1 !important;}.b2 .pipA,.b2 .lbP{opacity:0 !important;}
-  .b3 .s0{opacity:1 !important;}.b3 .promise,.b3 .whisper{opacity:1 !important;}
+  .b3 .e0{opacity:1 !important;}.b3 .promise,.b3 .whisper{opacity:1 !important;}
   .sscx-head{transition:none !important;}
 }
 @media (max-width:640px){
@@ -239,12 +239,13 @@ export default function JourneyMap() {
               </div>
             </div>
 
-            {/* BEAT 3 */}
+            {/* BEAT 3 — ENJOY LIFE: real moments */}
             <div className="sscx-p p2">
               <div className="b3">
-                <div className="scene s0" />
-                <div className="scene s1" />
-                <div className="scene s2" />
+                <div className="scene e0" style={{ backgroundImage: 'url(https://images.pexels.com/photos/13727103/pexels-photo-13727103.jpeg?auto=compress&cs=tinysrgb&w=1600)' }} />
+                <div className="scene e1" style={{ backgroundImage: 'url(https://images.pexels.com/photos/12932171/pexels-photo-12932171.jpeg?auto=compress&cs=tinysrgb&w=1600)' }} />
+                <div className="scene e2" style={{ backgroundImage: 'url(https://images.pexels.com/photos/8623946/pexels-photo-8623946.jpeg?auto=compress&cs=tinysrgb&w=1600)' }} />
+                <div className="scene e3" style={{ backgroundImage: 'url(https://images.pexels.com/photos/4835776/pexels-photo-4835776.jpeg?auto=compress&cs=tinysrgb&w=1600)' }} />
                 <svg className="grain"><filter id="sscxG"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves={2} stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#sscxG)" /></svg>
                 <div className="vig" /><div className="scrim" />
                 <div className="bloom" />
