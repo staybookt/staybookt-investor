@@ -11,6 +11,13 @@ const SHARE_DESCRIPTION =
 const CLOSER_IMG =
   'https://images.pexels.com/photos/30660768/pexels-photo-30660768.jpeg?auto=compress&cs=tinysrgb&w=2000';
 
+const EXPLORE: { k: string; t: string; d: string; href: string; c: string }[] = [
+  { k: 'GET FOUND', t: 'Why a website', d: 'How we get you found and make you look like the pro you are.', href: '/why-a-website', c: '#38bdf8' },
+  { k: 'RUN IT', t: 'How it works', d: 'How we run the front of your business, day to day.', href: '/how-it-works', c: '#22d3ee' },
+  { k: 'ENJOY LIFE', t: 'Long-term value', d: 'How a job becomes a business you can sell or pass on.', href: '/long-term', c: '#34d399' },
+  { k: 'THE NUMBERS', t: 'Pricing', d: 'The simple, honest ways to work with us.', href: '/pricing', c: '#e5e7eb' },
+];
+
 export const metadata = {
   title: 'StayBookt. Enjoy Life.',
   description: SHARE_DESCRIPTION,
@@ -193,8 +200,9 @@ const PAGE_CSS = `
 .v4 .whyus::before{content:'';position:absolute;inset:0;background:radial-gradient(50% 60% at 20% 0%,rgba(6,182,212,.12),transparent 60%),radial-gradient(50% 60% at 85% 110%,rgba(16,185,129,.12),transparent 60%);pointer-events:none;}
 .v4 .whyus .wrap{position:relative;z-index:1;}
 .v4 .whyus .eyebrow{color:#86868b;}
-.v4 .whyus blockquote{margin:20px auto 0;font-size:clamp(24px,3.1vw,38px);font-weight:600;letter-spacing:-.025em;line-height:1.24;color:#f5f5f7;max-width:760px;}
-.v4 .whyus cite{display:block;margin-top:24px;font-style:normal;font-size:15px;font-weight:600;color:#86868b;}
+.v4 .whyus blockquote{margin:22px auto 0;font-size:clamp(26px,3.4vw,44px);font-weight:600;letter-spacing:-.03em;line-height:1.14;color:#f5f5f7;max-width:18ch;}
+.v4 .whyus .qsub{margin:22px auto 0;font-size:clamp(16px,1.9vw,19px);font-weight:400;line-height:1.55;color:#aeb4c0;max-width:48ch;}
+.v4 .whyus cite{display:block;margin-top:26px;font-style:normal;font-size:15px;font-weight:600;color:#86868b;}
 .v4 .whyus .learn{color:#38bdf8;}
 .v4 .learn{display:inline-block;margin-top:22px;color:#0891b2;font-weight:600;font-size:15px;text-decoration:none;}
 /* ===== ALL-DARK CINEMATIC CONSISTENCY PASS ===== */
@@ -217,6 +225,22 @@ const PAGE_CSS = `
 .v4 .price .pill-ink{background:#f5f5f7;color:#050506;}
 .v4 .price{text-align:center;}
 .v4 .price .priceline{font-size:clamp(18px,2.2vw,25px);color:#c7ccd6;margin:18px auto 0;max-width:38ch;line-height:1.42;}
+/* GO DEEPER / explore navigation */
+.v4 .explore{background:#050506;padding:clamp(78px,10vw,128px) 0 clamp(64px,8vw,104px);text-align:center;}
+.v4 .explore .eyebrow{color:#86868b;}
+.v4 .explore h2{margin-top:14px;font-size:clamp(26px,3.4vw,42px);letter-spacing:-.03em;color:#f5f5f7;font-weight:600;}
+.v4 .explore .xgrid{margin:clamp(38px,5vw,58px) auto 0;display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:940px;text-align:left;}
+.v4 .explore .xcard{display:block;height:100%;text-decoration:none;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.018));border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:clamp(24px,3vw,34px);transition:border-color .3s ease,transform .3s ease,background .3s ease;}
+.v4 .explore .xcard:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.22);background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.02));}
+.v4 .explore .xk{font-size:12px;font-weight:700;letter-spacing:.16em;}
+.v4 .explore .xt{margin-top:12px;font-size:clamp(20px,2.2vw,26px);font-weight:600;letter-spacing:-.02em;color:#f5f5f7;}
+.v4 .explore .xt .ar{color:#86868b;display:inline-block;transition:transform .3s ease;}
+.v4 .explore .xcard:hover .xt .ar{transform:translate(3px,-3px);}
+.v4 .explore .xd{margin-top:10px;font-size:15px;line-height:1.5;color:#9aa0ab;max-width:36ch;}
+@media(max-width:720px){.v4 .explore .xgrid{grid-template-columns:1fr;}}
+/* CLOSER promise headline */
+.v4 .closer .close-h{font-size:clamp(34px,5.4vw,74px);font-weight:600;letter-spacing:-.035em;line-height:1.03;color:#fff;max-width:15ch;margin:0 auto;text-shadow:0 2px 34px rgba(0,0,0,.55);}
+.v4 .closer .close-sub{margin:20px auto 0;font-size:clamp(16px,1.9vw,20px);line-height:1.5;color:#eef1f5;max-width:38ch;text-shadow:0 1px 22px rgba(0,0,0,.6);}
 `;
 
 export default function HomePage() {
@@ -290,11 +314,14 @@ export default function HomePage() {
           <Reveal className="eyebrow" as="div">Why we built this</Reveal>
           <Reveal>
             <blockquote>
-              In talking to entrepreneurs, one theme kept coming up: they didn&apos;t have enough time
-              to grow their business and enjoy the rewards they&apos;d hoped for. StayBookt is our
-              answer to &ldquo;not enough time.&rdquo; We get to build something great while helping
-              others realize their own dream, and get back time for the things they love.
+              Every owner we talked to said the same thing. There was never enough time.
             </blockquote>
+          </Reveal>
+          <Reveal>
+            <p className="qsub">
+              StayBookt is our answer. We take the busywork off your plate, so you get back to the
+              work you love, and the life you built it for.
+            </p>
           </Reveal>
           <Reveal>
             <cite>Richard, Co-founder</cite>
@@ -307,19 +334,42 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5 — CLOSER */}
+      {/* 5 — GO DEEPER (navigation) */}
+      <section className="explore">
+        <div className="wrap">
+          <Reveal className="eyebrow" as="div">Go deeper</Reveal>
+          <Reveal>
+            <h2>Want to look closer? Start anywhere.</h2>
+          </Reveal>
+          <div className="xgrid">
+            {EXPLORE.map((x) => (
+              <Reveal key={x.href}>
+                <a href={x.href} className="xcard">
+                  <div className="xk" style={{ color: x.c }}>{x.k}</div>
+                  <div className="xt">
+                    {x.t} <span className="ar">↗</span>
+                  </div>
+                  <div className="xd">{x.d}</div>
+                </a>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 6 — CLOSER */}
       <section className="scene closer">
         <img src={CLOSER_IMG} alt="" loading="lazy" decoding="async" />
         <div className="grad-ov" />
         <div className="wrap inner">
           <Reveal>
-            <div className="mk">
-              Stay<span className="bk">Bookt</span>
-              <span className="dot">.</span> <span className="life">Enjoy Life.</span>
-            </div>
+            <h2 className="close-h">Go enjoy the life you built it for.</h2>
           </Reveal>
           <Reveal>
-            <div className="cta" style={{ marginTop: 40 }}>
+            <p className="close-sub">We get you found and run the day to day. You get your time back.</p>
+          </Reveal>
+          <Reveal>
+            <div className="cta" style={{ marginTop: 36 }}>
               <a href={START_LINK} className="pill pill-white" style={{ padding: '15px 30px', fontSize: 15 }}>Get Started</a>
             </div>
           </Reveal>

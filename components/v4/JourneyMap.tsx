@@ -1,15 +1,16 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { START_LINK } from '@/lib/site';
 
 /* The Secret Sauce: one scroll-pinned four-beat film, fully scroll-scrubbed.
  * Get Found -> StayBookt -> Enjoy Life -> Get Started.
- * NOTHING is on a timer. Every change is driven by scroll position only. */
+ * NOTHING is on a timer. Every change is driven by scroll position only.
+ * Beat 1's climb is continuous: --cp (0..1) drives the row positions as you scroll. */
 
 const CSS = `
 .sscx-track{position:relative;height:520vh;background:#050506;}
-.sscx-stage{position:sticky;top:0;height:100vh;min-height:600px;overflow:hidden;display:flex;flex-direction:column;color:#f5f5f7;--acc:#0ea5e9;}
+.sscx-stage{position:sticky;top:0;height:100vh;min-height:600px;overflow:hidden;display:flex;flex-direction:column;color:#f5f5f7;--acc:#0ea5e9;--cp:0;}
 .sscx-stage[data-beat="1"]{--acc:#22d3ee;}
 .sscx-stage[data-beat="2"]{--acc:#ffd9a3;}
 .sscx-stage[data-beat="3"]{--acc:#f5f5f7;}
@@ -57,17 +58,19 @@ const CSS = `
 .sscx-life span{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.32);transition:transform .3s ease,background .3s ease;}
 .sscx-life span.a{background:#ffd9a3;transform:scale(1.35);}
 
-/* beat 1 — GET FOUND: climb scrubs with scroll (data-s0: 0 initial, 1 ranked, 2 booked) */
+/* beat 1 — GET FOUND: climb rides scroll continuously via --cp (0..1) */
 .b1{width:min(600px,94%);}
 .b1 .sb{display:flex;align-items:center;gap:12px;background:#111114;border:1px solid #26262c;border-radius:999px;padding:15px 22px;margin-bottom:18px;}
 .b1 .sb span{font-size:16px;color:#d4d4d8;}
 .b1 .pack{position:relative;height:356px;}
-.b1 .rw{position:absolute;left:0;right:0;height:64px;display:flex;align-items:center;gap:14px;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:0 20px;background:#0a0a0c;transition:top .8s cubic-bezier(.5,0,.2,1),opacity .5s,box-shadow .5s,border-color .5s,background .5s;}
+.b1 .rw{position:absolute;left:0;right:0;height:64px;display:flex;align-items:center;gap:14px;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:0 20px;background:#0a0a0c;transition:box-shadow .5s,border-color .5s,background .5s;}
 .b1 .rw .d{width:9px;height:9px;border-radius:50%;background:#555;flex:0 0 auto;}
 .b1 .rw .nm{font-size:17px;white-space:nowrap;}
 .b1 .rw .mini{margin-left:auto;font-size:13px;color:#6b6b74;}
-.b1 .rw.a{top:0;opacity:.5;}.b1 .rw.b{top:78px;opacity:.42;}.b1 .rw.c{top:156px;opacity:.34;}
-.b1 .rw.tc{top:258px;opacity:.4;}
+.b1 .rw.a{top:calc(78px * var(--cp));opacity:.5;}
+.b1 .rw.b{top:calc(78px + 78px * var(--cp));opacity:.42;}
+.b1 .rw.c{top:calc(156px + 78px * var(--cp));opacity:.34;}
+.b1 .rw.tc{top:calc(258px * (1 - var(--cp)));opacity:calc(.4 + .6 * var(--cp));}
 .b1 .rw.tc .d{background:#0ea5e9;box-shadow:0 0 11px #0ea5e9;}
 .b1 .rw.tc .nm{font-weight:600;}
 .b1 .rw.tc .rvw{font-size:13px;color:#ffd479;margin-left:14px;white-space:nowrap;opacity:0;transition:opacity .45s ease;}
@@ -76,10 +79,7 @@ const CSS = `
 .b1 .rw.tc .acts .bt.o{background:transparent;color:#0ea5e9;border:1px solid #0ea5e9;}
 .b1 .rw.tc .badge{font-size:10.5px;font-weight:700;color:#04150e;background:#0ea5e9;border-radius:999px;padding:5px 11px;opacity:0;transition:opacity .45s ease;}
 .b1 .fc{position:absolute;left:0;right:0;bottom:0;text-align:center;font-size:14px;font-weight:600;color:#34d399;opacity:0;transform:translateY(6px);transition:opacity .45s ease,transform .45s ease;}
-.sscx-stage[data-s0="1"] .b1 .rw.tc,.sscx-stage[data-s0="2"] .b1 .rw.tc{top:0;opacity:1;box-shadow:0 0 36px -6px rgba(14,165,233,.6);border-color:rgba(14,165,233,.6);background:rgba(14,165,233,.10);}
-.sscx-stage[data-s0="1"] .b1 .rw.a,.sscx-stage[data-s0="2"] .b1 .rw.a{top:78px;}
-.sscx-stage[data-s0="1"] .b1 .rw.b,.sscx-stage[data-s0="2"] .b1 .rw.b{top:156px;}
-.sscx-stage[data-s0="1"] .b1 .rw.c,.sscx-stage[data-s0="2"] .b1 .rw.c{top:234px;}
+.sscx-stage[data-s0="1"] .b1 .rw.tc,.sscx-stage[data-s0="2"] .b1 .rw.tc{box-shadow:0 0 36px -6px rgba(14,165,233,.6);border-color:rgba(14,165,233,.6);background:rgba(14,165,233,.10);}
 .sscx-stage[data-s0="1"] .b1 .rw.tc .rvw,.sscx-stage[data-s0="2"] .b1 .rw.tc .rvw,.sscx-stage[data-s0="1"] .b1 .rw.tc .badge,.sscx-stage[data-s0="2"] .b1 .rw.tc .badge{opacity:1;}
 .sscx-stage[data-s0="2"] .b1 .rw.tc .acts{opacity:1;}
 .sscx-stage[data-s0="2"] .b1 .fc{opacity:1;transform:none;}
@@ -120,11 +120,10 @@ const CSS = `
   .b1 .rw .nm{font-size:14.5px;}
   .b1 .rw.tc .rvw{display:none;}
   .b1 .rw.tc .acts .bt{padding:6px 11px;font-size:11px;}
-  .b1 .rw.a{top:0;}.b1 .rw.b{top:66px;}.b1 .rw.c{top:132px;}.b1 .rw.tc{top:220px;}
-  .sscx-stage[data-s0="1"] .b1 .rw.tc,.sscx-stage[data-s0="2"] .b1 .rw.tc{top:0;}
-  .sscx-stage[data-s0="1"] .b1 .rw.a,.sscx-stage[data-s0="2"] .b1 .rw.a{top:66px;}
-  .sscx-stage[data-s0="1"] .b1 .rw.b,.sscx-stage[data-s0="2"] .b1 .rw.b{top:132px;}
-  .sscx-stage[data-s0="1"] .b1 .rw.c,.sscx-stage[data-s0="2"] .b1 .rw.c{top:198px;}
+  .b1 .rw.a{top:calc(66px * var(--cp));}
+  .b1 .rw.b{top:calc(66px + 66px * var(--cp));}
+  .b1 .rw.c{top:calc(132px + 66px * var(--cp));}
+  .b1 .rw.tc{top:calc(220px * (1 - var(--cp)));}
   .b2{width:100%;}
 }
 `;
@@ -148,6 +147,7 @@ const LIFE: { img: string; cap: string }[] = [
 export default function JourneyMap() {
   const trackRef = useRef<HTMLElement | null>(null);
   const [beat, setBeat] = useState(0);
+  const [cp, setCp] = useState(0);
   const [s0, setS0] = useState(0);
   const [flipped, setFlipped] = useState(0);
   const [life, setLife] = useState(0);
@@ -168,8 +168,10 @@ export default function JourneyMap() {
         const p = total > 0 ? scrolled / total : 0;
         const b = p < 0.25 ? 0 : p < 0.5 ? 1 : p < 0.75 ? 2 : 3;
         const lp = Math.min(Math.max((p - b * 0.25) / 0.25, 0), 0.9999);
+        const climb = b === 0 ? Math.min(Math.max((lp - 0.1) / 0.55, 0), 1) : 1;
         setBeat(b);
-        setS0(b === 0 ? (lp < 0.4 ? 0 : lp < 0.72 ? 1 : 2) : 2);
+        setCp(climb);
+        setS0(climb > 0.98 ? 2 : climb > 0.7 ? 1 : 0);
         setFlipped(b < 1 ? 0 : b > 1 ? 6 : Math.min(6, Math.floor(lp * 7)));
         setLife(b < 2 ? 0 : b > 2 ? 3 : Math.min(3, Math.floor(lp * 4)));
         setS3(b === 3 && lp > 0.12 ? 1 : 0);
@@ -185,10 +187,12 @@ export default function JourneyMap() {
     };
   }, []);
 
+  const stageStyle = { '--cp': cp } as CSSProperties;
+
   return (
     <section ref={trackRef} className="sscx-track">
       <style>{CSS}</style>
-      <div className="sscx-stage" data-beat={beat} data-s0={s0} data-life={life} data-s3={s3}>
+      <div className="sscx-stage" style={stageStyle} data-beat={beat} data-s0={s0} data-life={life} data-s3={s3}>
         {/* ENJOY LIFE — full-stage cinematic film, behind everything */}
         <div className="sscx-film">
           {LIFE.map((l, i) => (
