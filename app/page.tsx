@@ -12,10 +12,10 @@ const CLOSER_IMG =
   'https://images.pexels.com/photos/30660768/pexels-photo-30660768.jpeg?auto=compress&cs=tinysrgb&w=2000';
 
 const EXPLORE: { k: string; t: string; d: string; href: string; c: string }[] = [
-  { k: 'GET FOUND', t: 'Why a website', d: 'How we get you found and make you look like the pro you are.', href: '/why-a-website', c: '#38bdf8' },
-  { k: 'RUN IT', t: 'How it works', d: 'How we run the front of your business, day to day.', href: '/how-it-works', c: '#22d3ee' },
-  { k: 'ENJOY LIFE', t: 'Long-term value', d: 'How a job becomes a business you can sell or pass on.', href: '/long-term', c: '#34d399' },
-  { k: 'THE NUMBERS', t: 'Pricing', d: 'The simple, honest ways to work with us.', href: '/pricing', c: '#e5e7eb' },
+  { k: 'THE PRODUCT', t: 'How it works', d: 'The website, the front office, the whole system, in one place.', href: '/how-it-works', c: '#38bdf8' },
+  { k: 'PROOF', t: 'See it live', d: 'Real businesses we run right now: Top Choice Electrical and XNL HR.', href: '/work', c: '#22d3ee' },
+  { k: 'PRICING', t: 'Pricing', d: 'The simple, honest ways to work with us.', href: '/pricing', c: '#34d399' },
+  { k: 'THE TEAM', t: 'About us', d: 'The two founders behind StayBookt, and why we built it.', href: '/founders', c: '#e5e7eb' },
 ];
 
 export const metadata = {
