@@ -44,12 +44,12 @@ const CSS = `
 .b1 .rw.tc .acts .bt.o{background:transparent;color:#0ea5e9;border:1px solid #0ea5e9;}
 .b1 .rw.tc .badge{font-size:10.5px;font-weight:700;color:#04150e;background:#0ea5e9;border-radius:999px;padding:5px 11px;opacity:0;transition:opacity .5s .7s;}
 .b1 .fc{position:absolute;left:0;right:0;bottom:0;text-align:center;font-size:14px;font-weight:600;color:#34d399;opacity:0;transform:translateY(6px);transition:opacity .5s 2.1s,transform .5s 2.1s;}
-.sscx-stage[data-beat="0"] .b1 .rw.tc{top:0;opacity:1;box-shadow:0 0 36px -6px rgba(14,165,233,.6);border-color:rgba(14,165,233,.6);background:rgba(14,165,233,.10);}
-.sscx-stage[data-beat="0"] .b1 .rw.a{top:78px;}
-.sscx-stage[data-beat="0"] .b1 .rw.b{top:156px;}
-.sscx-stage[data-beat="0"] .b1 .rw.c{top:234px;}
-.sscx-stage[data-beat="0"] .b1 .rw.tc .rvw,.sscx-stage[data-beat="0"] .b1 .rw.tc .acts,.sscx-stage[data-beat="0"] .b1 .rw.tc .badge{opacity:1;}
-.sscx-stage[data-beat="0"] .b1 .fc{opacity:1;transform:none;}
+.sscx-stage.armed[data-beat="0"] .b1 .rw.tc{top:0;opacity:1;box-shadow:0 0 36px -6px rgba(14,165,233,.6);border-color:rgba(14,165,233,.6);background:rgba(14,165,233,.10);}
+.sscx-stage.armed[data-beat="0"] .b1 .rw.a{top:78px;}
+.sscx-stage.armed[data-beat="0"] .b1 .rw.b{top:156px;}
+.sscx-stage.armed[data-beat="0"] .b1 .rw.c{top:234px;}
+.sscx-stage.armed[data-beat="0"] .b1 .rw.tc .rvw,.sscx-stage.armed[data-beat="0"] .b1 .rw.tc .acts,.sscx-stage.armed[data-beat="0"] .b1 .rw.tc .badge{opacity:1;}
+.sscx-stage.armed[data-beat="0"] .b1 .fc{opacity:1;transform:none;}
 
 /* beat 2 — busywork handed off (amber to-do -> teal handled) */
 .b2{width:min(690px,96%);}
@@ -117,8 +117,8 @@ const CSS = `
   .b1 .rw.tc .rvw{display:none;}
   .b1 .rw.tc .acts .bt{padding:6px 11px;font-size:11px;}
   .b1 .rw.a{top:0;}.b1 .rw.b{top:66px;}.b1 .rw.c{top:132px;}.b1 .rw.tc{top:220px;}
-  .sscx-stage[data-beat="0"] .b1 .rw.tc{top:0;}
-  .sscx-stage[data-beat="0"] .b1 .rw.a{top:66px;}.sscx-stage[data-beat="0"] .b1 .rw.b{top:132px;}.sscx-stage[data-beat="0"] .b1 .rw.c{top:198px;}
+  .sscx-stage.armed[data-beat="0"] .b1 .rw.tc{top:0;}
+  .sscx-stage.armed[data-beat="0"] .b1 .rw.a{top:66px;}.sscx-stage.armed[data-beat="0"] .b1 .rw.b{top:132px;}.sscx-stage.armed[data-beat="0"] .b1 .rw.c{top:198px;}
   .b2{width:100%;}
 }
 `;
@@ -136,6 +136,8 @@ export default function JourneyMap() {
   const trackRef = useRef<HTMLElement | null>(null);
   const [beat, setBeat] = useState(0);
   const [fills, setFills] = useState<[number, number, number]>([0, 0, 0]);
+  const stageRef = useRef<HTMLDivElement | null>(null);
+  const [armed, setArmed] = useState(false);
 
   useEffect(() => {
     const el = trackRef.current;
@@ -165,10 +167,28 @@ export default function JourneyMap() {
     };
   }, []);
 
+  useEffect(() => {
+    const el = stageRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            setArmed(true);
+            io.disconnect();
+          }
+        });
+      },
+      { threshold: 0.55 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
     <section ref={trackRef} className="sscx-track">
       <style>{CSS}</style>
-      <div className="sscx-stage" data-beat={beat}>
+      <div ref={stageRef} className={`sscx-stage${armed ? ' armed' : ''}`} data-beat={beat}>
         <div className="sscx-tint" />
 
         <div className="sscx-top">
