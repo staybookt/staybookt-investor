@@ -6,10 +6,12 @@ import { START_LINK } from '@/lib/site';
 /* The Secret Sauce: one scroll-pinned four-beat film, fully scroll-scrubbed.
  * Get Found -> StayBookt -> Enjoy Life -> Get Started.
  * NOTHING is on a timer. Every change is driven by scroll position only.
- * Beat 1's climb is continuous: --cp (0..1) drives the row positions as you scroll. */
+ * Enjoy Life gets a bigger share of the track so its four moments each breathe. */
+
+const B = [0, 0.22, 0.44, 0.8, 1]; // beat boundaries (Enjoy Life is the widest)
 
 const CSS = `
-.sscx-track{position:relative;height:520vh;background:#050506;}
+.sscx-track{position:relative;height:560vh;background:#050506;}
 .sscx-stage{position:sticky;top:0;height:100vh;min-height:600px;overflow:hidden;display:flex;flex-direction:column;color:#f5f5f7;--acc:#0ea5e9;--cp:0;}
 .sscx-stage[data-beat="1"]{--acc:#22d3ee;}
 .sscx-stage[data-beat="2"]{--acc:#ffd9a3;}
@@ -18,7 +20,7 @@ const CSS = `
 /* full-stage cinematic film for ENJOY LIFE (behind the text) */
 .sscx-film{position:absolute;inset:0;z-index:0;opacity:0;transition:opacity .7s ease;pointer-events:none;background:linear-gradient(160deg,#1b1408,#0a0f0c 70%);}
 .sscx-stage[data-beat="2"] .sscx-film{opacity:1;}
-.sscx-film .scene{position:absolute;inset:0;opacity:0;background-size:cover;background-position:center;transition:opacity .8s ease;transform:scale(1.02);}
+.sscx-film .scene{position:absolute;inset:0;opacity:0;background-size:cover;background-position:center;transition:opacity .6s ease;transform:scale(1.02);}
 .sscx-stage[data-beat="2"][data-life="0"] .sscx-film .e0,
 .sscx-stage[data-beat="2"][data-life="1"] .sscx-film .e1,
 .sscx-stage[data-beat="2"][data-life="2"] .sscx-film .e2,
@@ -44,13 +46,15 @@ const CSS = `
 .sscx-mid{position:relative;z-index:3;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(10px,2vh,20px);padding:1vh 24px;}
 .sscx-phase{font-size:13px;font-weight:700;letter-spacing:.2em;color:var(--acc);text-align:center;transition:color .8s ease;text-shadow:0 1px 18px rgba(0,0,0,.5);}
 .sscx-headwrap{position:relative;text-align:center;width:100%;min-height:2.4em;font-size:clamp(30px,4.8vw,60px);line-height:1.04;}
+.sscx-stage[data-beat="3"] .sscx-headwrap{display:none;}
 .sscx-head{position:absolute;left:0;right:0;top:50%;padding:0 24px;font-size:inherit;font-weight:600;letter-spacing:-.03em;line-height:inherit;opacity:0;transform:translateY(calc(-50% + 12px));transition:opacity .5s ease,transform .5s ease;}
-.sscx-stage[data-beat="0"] .h0,.sscx-stage[data-beat="1"] .h1,.sscx-stage[data-beat="3"] .h3,.sscx-head.on{opacity:1;transform:translateY(-50%);}
+.sscx-stage[data-beat="0"] .h0,.sscx-stage[data-beat="1"] .h1,.sscx-head.on{opacity:1;transform:translateY(-50%);}
 .sscx-stage[data-beat="2"] .sscx-head{text-shadow:0 2px 40px rgba(0,0,0,.8);}
 .sscx-panels{position:relative;width:100%;height:clamp(320px,44vh,460px);}
+.sscx-stage[data-beat="3"] .sscx-panels{height:auto;}
 .sscx-p{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(.975);transition:opacity .55s ease,transform .55s ease;pointer-events:none;}
 .sscx-stage[data-beat="0"] .p0,.sscx-stage[data-beat="1"] .p1,.sscx-stage[data-beat="3"] .p3{opacity:1;transform:none;pointer-events:auto;}
-.sscx-p.p3{align-items:flex-start;padding-top:4px;}
+.sscx-stage[data-beat="3"] .p3{position:relative;}
 
 /* enjoy-life sub-progress dots */
 .sscx-life{position:absolute;left:0;right:0;bottom:13.5%;z-index:3;display:flex;gap:10px;justify-content:center;opacity:0;transition:opacity .5s ease;pointer-events:none;}
@@ -92,12 +96,17 @@ const CSS = `
 .b2 .flg .pipA,.b2 .flg .lbP{opacity:0;}
 .b2 .flg .pipT,.b2 .flg .lbH{opacity:1;}
 
-/* beat 4 — GET STARTED (the CTA card): reveal on scroll (data-s3) */
+/* beat 4 — GET STARTED: a self-contained, tightly-centered CTA card */
 .b4{width:min(600px,92%);text-align:center;}
-.b4 .cta-sub{font-size:clamp(15px,1.7vw,18px);color:#d7dce4;line-height:1.55;max-width:46ch;margin:0 auto;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;}
-.b4 .cta-btn{display:inline-block;margin-top:30px;background:#f5f5f7;color:#050506;font-size:16px;font-weight:600;border-radius:999px;padding:16px 38px;text-decoration:none;box-shadow:0 22px 54px -18px rgba(0,0,0,.65);opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;}
-.b4 .cta-btn:hover{transform:translateY(-1px);}
-.sscx-stage[data-s3="1"] .b4 .cta-sub,.sscx-stage[data-s3="1"] .b4 .cta-btn{opacity:1;transform:none;}
+.b4 .cta-h{font-size:clamp(40px,6.4vw,80px);font-weight:600;letter-spacing:-.04em;line-height:1;color:#f5f5f7;opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease;}
+.b4 .cta-sub{margin:22px auto 0;font-size:clamp(15px,1.7vw,18px);color:#d7dce4;line-height:1.55;max-width:44ch;opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease;}
+.b4 .cta-btn{display:inline-flex;align-items:center;gap:9px;margin-top:34px;background:#f5f5f7;color:#050506;font-size:16px;font-weight:600;border-radius:999px;padding:16px 30px;text-decoration:none;box-shadow:0 22px 54px -18px rgba(0,0,0,.65);opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .35s ease,box-shadow .35s ease;}
+.b4 .cta-btn .ci{transition:transform .35s ease;}
+.b4 .cta-btn:hover{transform:translateY(-2px);box-shadow:0 30px 66px -18px rgba(0,0,0,.72);}
+.b4 .cta-btn:hover .ci{transform:translateX(3px);}
+.sscx-stage[data-beat="3"] .b4 .cta-h{opacity:1;transform:none;transition-delay:.1s;}
+.sscx-stage[data-beat="3"] .b4 .cta-sub{opacity:1;transform:none;transition-delay:.28s;}
+.sscx-stage[data-beat="3"] .b4 .cta-btn{opacity:1;transform:none;transition-delay:.46s;}
 
 /* dots */
 .sscx-dots{position:relative;z-index:3;display:flex;gap:24px;justify-content:center;padding:14px 20px 28px;flex-wrap:wrap;}
@@ -151,13 +160,13 @@ export default function JourneyMap() {
   const [s0, setS0] = useState(0);
   const [flipped, setFlipped] = useState(0);
   const [life, setLife] = useState(0);
-  const [s3, setS3] = useState(0);
   const [fills, setFills] = useState<[number, number, number, number]>([0, 0, 0, 0]);
 
   useEffect(() => {
     const el = trackRef.current;
     if (!el) return;
     let raf = 0;
+    const clamp = (v: number) => Math.min(Math.max(v, 0), 1);
     const onScroll = () => {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
@@ -166,16 +175,15 @@ export default function JourneyMap() {
         const total = el.offsetHeight - vh;
         const scrolled = Math.min(Math.max(-r.top, 0), total);
         const p = total > 0 ? scrolled / total : 0;
-        const b = p < 0.25 ? 0 : p < 0.5 ? 1 : p < 0.75 ? 2 : 3;
-        const lp = Math.min(Math.max((p - b * 0.25) / 0.25, 0), 0.9999);
-        const climb = b === 0 ? Math.min(Math.max((lp - 0.1) / 0.55, 0), 1) : 1;
+        const b = p < B[1] ? 0 : p < B[2] ? 1 : p < B[3] ? 2 : 3;
+        const lp = Math.min(Math.max((p - B[b]) / (B[b + 1] - B[b]), 0), 0.9999);
+        const climb = b === 0 ? clamp((lp - 0.1) / 0.55) : 1;
         setBeat(b);
         setCp(climb);
         setS0(climb > 0.98 ? 2 : climb > 0.7 ? 1 : 0);
         setFlipped(b < 1 ? 0 : b > 1 ? 6 : Math.min(6, Math.floor(lp * 7)));
         setLife(b < 2 ? 0 : b > 2 ? 3 : Math.min(3, Math.floor(lp * 4)));
-        setS3(b === 3 && lp > 0.12 ? 1 : 0);
-        const seg = (i: number) => Math.min(Math.max((p - i * 0.25) / 0.25, 0), 1) * 100;
+        const seg = (i: number) => clamp((p - B[i]) / (B[i + 1] - B[i])) * 100;
         setFills([seg(0), seg(1), seg(2), seg(3)]);
       });
     };
@@ -192,7 +200,7 @@ export default function JourneyMap() {
   return (
     <section ref={trackRef} className="sscx-track">
       <style>{CSS}</style>
-      <div className="sscx-stage" style={stageStyle} data-beat={beat} data-s0={s0} data-life={life} data-s3={s3}>
+      <div className="sscx-stage" style={stageStyle} data-beat={beat} data-s0={s0} data-life={life}>
         {/* ENJOY LIFE — full-stage cinematic film, behind everything */}
         <div className="sscx-film">
           {LIFE.map((l, i) => (
@@ -231,7 +239,6 @@ export default function JourneyMap() {
             {LIFE.map((l, i) => (
               <div key={l.cap} className={`sscx-head lc${beat === 2 && life === i ? ' on' : ''}`}>{l.cap}</div>
             ))}
-            <div className="sscx-head h3">Get Started.</div>
           </div>
 
           <div className="sscx-panels">
@@ -285,12 +292,16 @@ export default function JourneyMap() {
             {/* BEAT 4 — GET STARTED */}
             <div className="sscx-p p3">
               <div className="b4">
+                <div className="cta-h">Get Started.</div>
                 <p className="cta-sub">
                   A free 30 minutes with a founder, not a sales rep. We show you where the calls,
-                  quotes, and jobs are slipping through, and what it is costing you. The read is
-                  yours to keep, whether you hire us or not.
+                  quotes, and jobs are slipping through, and what it is costing you. Yours to keep,
+                  whether you hire us or not.
                 </p>
-                <a className="cta-btn" href={START_LINK}>Pick a time</a>
+                <a className="cta-btn" href={START_LINK}>
+                  Pick a time
+                  <svg className="ci" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4}><path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" /></svg>
+                </a>
               </div>
             </div>
           </div>
