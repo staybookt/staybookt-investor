@@ -93,12 +93,19 @@ const CSS = `
 .b2 .sc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:clamp(10px,1.6vh,16px);opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease;pointer-events:none;}
 .sscx-stage[data-beat="1"][data-sc="0"] .b2 .sc0,
 .sscx-stage[data-beat="1"][data-sc="1"] .b2 .sc1,
-.sscx-stage[data-beat="1"][data-sc="2"] .b2 .sc2{opacity:1;transform:none;}
+.sscx-stage[data-beat="1"][data-sc="2"] .b2 .sc2,
+.sscx-stage[data-beat="1"][data-sc="3"] .b2 .sc3{opacity:1;transform:none;}
 .b2 .sc-k{font-size:14px;font-weight:600;letter-spacing:.01em;color:#7f8593;}
 .b2 .sc-pain{font-size:clamp(24px,3.4vw,40px);font-weight:600;letter-spacing:-.03em;line-height:1.08;color:#f5f5f7;max-width:20ch;}
 .b2 .sc-cost{font-size:clamp(15px,1.8vw,18px);color:#e0a86b;max-width:34ch;line-height:1.45;}
 .b2 .sc-fix{display:inline-flex;align-items:center;gap:10px;margin-top:4px;font-size:clamp(14.5px,1.7vw,17px);font-weight:600;color:#5fe3b0;background:rgba(16,185,129,.1);border:1px solid rgba(52,211,153,.3);border-radius:14px;padding:12px 18px;max-width:42ch;line-height:1.35;text-align:left;}
 .b2 .sc-fix svg{flex:0 0 auto;margin-top:1px;}
+.b2 .roster{gap:clamp(18px,2.6vh,28px);}
+.b2 .ros-h{font-size:clamp(21px,2.6vw,30px);font-weight:600;letter-spacing:-.02em;line-height:1.15;color:#f5f5f7;max-width:22ch;}
+.b2 .ros-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px 26px;text-align:left;}
+.b2 .ros-item{display:flex;align-items:center;gap:10px;font-size:clamp(14px,1.6vw,16px);color:#d4d9e2;}
+.b2 .ros-item svg{flex:0 0 auto;}
+@media(max-width:640px){.b2 .ros-grid{grid-template-columns:1fr;gap:11px;}}
 
 /* beat 4 — GET STARTED: a self-contained, tightly-centered CTA card */
 .b4{width:min(600px,92%);text-align:center;}
@@ -163,6 +170,15 @@ const SCENARIOS: { k: string; pain: string; cost: string; fix: string }[] = [
   },
 ];
 
+const ROSTER: string[] = [
+  'Every call and text, answered 24/7',
+  'Every lead captured and booked',
+  'Quotes chased until they close',
+  'Past customers followed up',
+  'Reviews asked for, every time',
+  'Your daily brief, ready each morning',
+];
+
 const LIFE: { img: string; cap: string }[] = [
   { img: '13727103', cap: 'Golf with your mates.' },
   { img: '8623946', cap: 'Away with the family.' },
@@ -206,7 +222,7 @@ export default function JourneyMap() {
         setBeat(b);
         setCp(climb);
         setS0(climb > 0.98 ? 2 : climb > 0.7 ? 1 : 0);
-        setSc(b < 1 ? 0 : b > 1 ? 2 : Math.min(2, Math.floor(lp * 3)));
+        setSc(b < 1 ? 0 : b > 1 ? 3 : Math.min(3, Math.floor(lp * 4)));
         setLife(b < 2 ? 0 : b > 2 ? 3 : Math.min(3, Math.floor(lp * 4)));
         const seg = (i: number) => clamp((p - B[i]) / (B[i + 1] - B[i])) * 100;
         setFills([seg(0), seg(1), seg(2), seg(3)]);
@@ -301,6 +317,14 @@ export default function JourneyMap() {
                     <div className="sc-fix"><Check /> {s.fix}</div>
                   </div>
                 ))}
+                <div className="sc sc3 roster">
+                  <div className="ros-h">And the rest of the front office? Handled.</div>
+                  <div className="ros-grid">
+                    {ROSTER.map((r) => (
+                      <div key={r} className="ros-item"><Check /> {r}</div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -324,7 +348,7 @@ export default function JourneyMap() {
 
         {/* StayBookt scenario dots */}
         <div className="sscx-sub sub-sc">
-          {SCENARIOS.map((s, i) => (
+          {[0, 1, 2, 3].map((i) => (
             <span key={i} className={sc === i ? 'a' : ''} />
           ))}
         </div>
