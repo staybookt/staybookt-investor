@@ -10,24 +10,46 @@ const CSS = `
 .sscx-track{position:relative;height:440vh;background:#050506;}
 .sscx-stage{position:sticky;top:0;height:100vh;min-height:600px;overflow:hidden;display:flex;flex-direction:column;color:#f5f5f7;--acc:#0ea5e9;}
 .sscx-stage[data-beat="1"]{--acc:#22d3ee;}
-.sscx-stage[data-beat="2"]{--acc:#34d399;}
+.sscx-stage[data-beat="2"]{--acc:#ffd9a3;}
 .sscx-stage[data-beat="3"]{--acc:#f5f5f7;}
-.sscx-tint{position:absolute;inset:0;transition:background 1s ease;pointer-events:none;background:radial-gradient(80% 55% at 78% 0%,rgba(14,165,233,.16),transparent 60%);}
-.sscx-stage[data-beat="1"] .sscx-tint{background:radial-gradient(80% 60% at 50% 6%,rgba(6,182,212,.15),transparent 60%);}
-.sscx-stage[data-beat="2"] .sscx-tint{background:radial-gradient(90% 75% at 50% 0%,rgba(16,185,129,.16),transparent 62%);}
+
+/* full-stage cinematic film for ENJOY LIFE (behind the text) */
+.sscx-film{position:absolute;inset:0;z-index:0;opacity:0;transition:opacity 1s ease;pointer-events:none;background:linear-gradient(160deg,#1b1408,#0a0f0c 70%);}
+.sscx-stage[data-beat="2"] .sscx-film{opacity:1;}
+.sscx-film .scene{position:absolute;inset:0;opacity:0;background-size:cover;background-position:center;animation:sscxkb 15s ease-in-out infinite alternate;}
+.sscx-stage[data-beat="2"] .sscx-film .scene{animation:sscxkb 15s ease-in-out infinite alternate, sscxfade 15s ease-in-out infinite;}
+.sscx-film .e0{animation-delay:0s;}
+.sscx-film .e1{animation-delay:3.75s;}
+.sscx-film .e2{animation-delay:7.5s;}
+.sscx-film .e3{animation-delay:11.25s;}
+.sscx-film .grain{position:absolute;inset:0;width:100%;height:100%;mix-blend-mode:overlay;opacity:.08;}
+.sscx-film .vig{position:absolute;inset:0;background:radial-gradient(120% 100% at 50% 40%,transparent 44%,rgba(0,0,0,.62));}
+.sscx-film .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,6,8,.5),rgba(0,0,0,.18) 42%,rgba(4,8,6,.82));}
+.sscx-film .cap{position:absolute;left:0;right:0;bottom:20%;text-align:center;padding:0 30px;font-size:clamp(21px,3vw,38px);font-weight:600;letter-spacing:-.02em;color:#fff;text-shadow:0 2px 34px rgba(0,0,0,.75);opacity:0;}
+.sscx-stage[data-beat="2"] .sscx-film .cap{animation:sscxfade 15s ease-in-out infinite;}
+.sscx-film .cap0{animation-delay:0s;}.sscx-film .cap1{animation-delay:3.75s;}.sscx-film .cap2{animation-delay:7.5s;}.sscx-film .cap3{animation-delay:11.25s;}
+.sscx-film .whisper{position:absolute;bottom:9%;left:0;right:0;text-align:center;font-size:13px;color:#d7e3d9;text-shadow:0 1px 20px rgba(0,0,0,.7);opacity:0;transition:opacity 1s ease 1.4s;}
+.sscx-stage[data-beat="2"] .sscx-film .whisper{opacity:1;}
+
+.sscx-tint{position:absolute;inset:0;z-index:1;transition:opacity .8s ease,background 1s ease;pointer-events:none;background:radial-gradient(80% 55% at 78% 0%,rgba(14,165,233,.16),transparent 60%);}
+.sscx-stage[data-beat="1"] .sscx-tint{background:radial-gradient(90% 75% at 50% 0%,rgba(16,185,129,.16),transparent 62%);}
+.sscx-stage[data-beat="2"] .sscx-tint{opacity:0;}
 .sscx-stage[data-beat="3"] .sscx-tint{background:radial-gradient(80% 60% at 50% 0%,rgba(255,255,255,.06),transparent 62%);}
+
 .sscx-top{position:relative;z-index:3;display:flex;align-items:center;justify-content:center;padding:22px 32px 0;}
 .sscx-bars{display:flex;gap:6px;width:100%;max-width:320px;}
-.sscx-seg{flex:1;height:2.5px;border-radius:2px;background:rgba(255,255,255,.12);overflow:hidden;}
+.sscx-seg{flex:1;height:2.5px;border-radius:2px;background:rgba(255,255,255,.14);overflow:hidden;}
 .sscx-seg i{display:block;height:100%;width:0;background:var(--acc);transition:background .8s;}
-.sscx-mid{position:relative;z-index:3;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(12px,2.4vh,30px);padding:1vh 24px;}
-.sscx-phase{font-size:13px;font-weight:700;letter-spacing:.2em;color:var(--acc);text-align:center;transition:color .8s ease;}
-.sscx-headwrap{position:relative;text-align:center;width:100%;min-height:2.15em;font-size:clamp(30px,4.8vw,62px);line-height:1.03;}
+.sscx-mid{position:relative;z-index:3;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(10px,2vh,20px);padding:1vh 24px;}
+.sscx-phase{font-size:13px;font-weight:700;letter-spacing:.2em;color:var(--acc);text-align:center;transition:color .8s ease;text-shadow:0 1px 18px rgba(0,0,0,.4);}
+.sscx-headwrap{position:relative;text-align:center;width:100%;min-height:2.15em;font-size:clamp(30px,4.8vw,60px);line-height:1.03;}
 .sscx-head{position:absolute;left:0;right:0;top:50%;padding:0 20px;font-size:inherit;font-weight:600;letter-spacing:-.03em;line-height:inherit;opacity:0;transform:translateY(calc(-50% + 14px));transition:opacity .6s ease,transform .6s ease;}
 .sscx-stage[data-beat="0"] .h0,.sscx-stage[data-beat="1"] .h1,.sscx-stage[data-beat="2"] .h2,.sscx-stage[data-beat="3"] .h3{opacity:1;transform:translateY(-50%);}
-.sscx-panels{position:relative;width:100%;height:clamp(360px,56vh,620px);}
+.sscx-stage[data-beat="2"] .sscx-head{text-shadow:0 2px 34px rgba(0,0,0,.7);}
+.sscx-panels{position:relative;width:100%;height:clamp(320px,44vh,460px);}
 .sscx-p{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(.965);transition:opacity .7s ease,transform .7s ease;pointer-events:none;}
-.sscx-stage[data-beat="0"] .p0,.sscx-stage[data-beat="1"] .p1,.sscx-stage[data-beat="2"] .p2,.sscx-stage[data-beat="3"] .p3{opacity:1;transform:none;pointer-events:auto;}
+.sscx-stage[data-beat="0"] .p0,.sscx-stage[data-beat="1"] .p1,.sscx-stage[data-beat="3"] .p3{opacity:1;transform:none;pointer-events:auto;}
+.sscx-p.p3{align-items:flex-start;padding-top:4px;}
 
 /* beat 1 — climb from the bottom to #1 */
 .b1{width:min(600px,94%);}
@@ -70,23 +92,6 @@ const CSS = `
 .sscx-stage[data-beat="1"] .b2 .jc4,.sscx-stage[data-beat="1"] .b2 .jp4,.sscx-stage[data-beat="1"] .b2 .jh4{transition-delay:2.8s;}
 .sscx-stage[data-beat="1"] .b2 .jc5,.sscx-stage[data-beat="1"] .b2 .jp5,.sscx-stage[data-beat="1"] .b2 .jh5{transition-delay:3.4s;}
 
-/* beat 3 — enjoy life: real moments + captions, cross-dissolving */
-.b3{position:absolute;inset:0;overflow:hidden;border-radius:24px;}
-.b3 .scene{position:absolute;inset:0;opacity:0;background-size:cover;background-position:center;animation:sscxkb 14s ease-in-out infinite alternate;}
-.sscx-stage[data-beat="2"] .b3 .scene{animation:sscxkb 14s ease-in-out infinite alternate, sscxfade 14s ease-in-out infinite;}
-.b3 .e0{animation-delay:0s;}
-.b3 .e1{animation-delay:3.5s;}
-.b3 .e2{animation-delay:7s;}
-.b3 .e3{animation-delay:10.5s;}
-.b3 .grain{position:absolute;inset:0;width:100%;height:100%;mix-blend-mode:overlay;opacity:.1;}
-.b3 .vig{position:absolute;inset:0;background:radial-gradient(120% 100% at 50% 45%,transparent 42%,rgba(0,0,0,.6));}
-.b3 .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.32),rgba(0,0,0,.14) 45%,rgba(4,8,6,.82));}
-.b3 .cap{position:absolute;left:0;right:0;bottom:16%;text-align:center;padding:0 30px;font-size:clamp(20px,2.7vw,34px);font-weight:600;letter-spacing:-.02em;color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.7);opacity:0;}
-.sscx-stage[data-beat="2"] .b3 .cap{animation:sscxfade 14s ease-in-out infinite;}
-.b3 .cap0{animation-delay:0s;}.b3 .cap1{animation-delay:3.5s;}.b3 .cap2{animation-delay:7s;}.b3 .cap3{animation-delay:10.5s;}
-.b3 .whisper{position:absolute;bottom:7%;left:0;right:0;text-align:center;font-size:12.5px;color:#cfe0d5;opacity:0;transition:opacity 1s ease 1.6s;}
-.sscx-stage[data-beat="2"] .b3 .whisper{opacity:1;}
-
 /* beat 4 — get started (the first step) */
 .b4{width:min(560px,92%);text-align:center;}
 .b4 .cta-btn{display:inline-block;background:#f5f5f7;color:#050506;font-size:16px;font-weight:600;border-radius:999px;padding:15px 34px;text-decoration:none;opacity:0;transform:translateY(10px);transition:opacity .6s ease,transform .6s ease;}
@@ -102,7 +107,7 @@ const CSS = `
 
 /* dots */
 .sscx-dots{position:relative;z-index:3;display:flex;gap:24px;justify-content:center;padding:14px 20px 28px;flex-wrap:wrap;}
-.sscx-dots span{font-size:12px;font-weight:600;color:#f5f5f7;opacity:.4;transition:opacity .4s;}
+.sscx-dots span{font-size:12px;font-weight:600;color:#f5f5f7;opacity:.4;transition:opacity .4s;text-shadow:0 1px 14px rgba(0,0,0,.5);}
 .sscx-stage[data-beat="0"] .sscx-dots .d0,.sscx-stage[data-beat="1"] .sscx-dots .d1,.sscx-stage[data-beat="2"] .sscx-dots .d2,.sscx-stage[data-beat="3"] .sscx-dots .d3{opacity:1;}
 
 @keyframes sscxspin{to{transform:rotate(360deg);}}
@@ -115,7 +120,7 @@ const CSS = `
   .b1 .rw.a{top:78px !important;}.b1 .rw.b{top:156px !important;}.b1 .rw.c{top:234px !important;}
   .b1 .rw.tc .rvw,.b1 .rw.tc .acts,.b1 .rw.tc .badge,.b1 .fc{opacity:1 !important;transform:none !important;}
   .b2 .pipT,.b2 .lbH{opacity:1 !important;}.b2 .pipA,.b2 .lbP{opacity:0 !important;}
-  .b3 .e0,.b3 .cap0{opacity:1 !important;}.b3 .whisper{opacity:1 !important;}
+  .sscx-film .e0,.sscx-film .cap0{opacity:1 !important;}.sscx-film .whisper{opacity:1 !important;}
   .b4 .cta-btn,.b4 .step,.b4 .cta-sub{opacity:1 !important;transform:none !important;}
   .sscx-head{transition:none !important;}
 }
@@ -123,7 +128,7 @@ const CSS = `
   .sscx-top{padding:16px 18px 0;}
   .sscx-dots{gap:14px;}
   .sscx-headwrap{min-height:3.2em;}
-  .sscx-panels{height:clamp(320px,46vh,480px);}
+  .sscx-panels{height:clamp(300px,44vh,470px);}
   .b1 .sb{padding:12px 18px;}
   .b1 .sb span{font-size:14px;}
   .b1 .pack{height:300px;}
@@ -209,6 +214,24 @@ export default function JourneyMap() {
     <section ref={trackRef} className="sscx-track">
       <style>{CSS}</style>
       <div ref={stageRef} className={`sscx-stage${armed ? ' armed' : ''}`} data-beat={beat}>
+        {/* ENJOY LIFE — full-stage cinematic film, behind everything */}
+        <div className="sscx-film">
+          {LIFE.map((l, i) => (
+            <div
+              key={l.img}
+              className={`scene e${i}`}
+              style={{ backgroundImage: `url(https://images.pexels.com/photos/${l.img}/pexels-photo-${l.img}.jpeg?auto=compress&cs=tinysrgb&w=1600)` }}
+            />
+          ))}
+          <svg className="grain"><filter id="sscxG"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves={2} stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#sscxG)" /></svg>
+          <div className="vig" />
+          <div className="scrim" />
+          {LIFE.map((l, i) => (
+            <div key={l.cap} className={`cap cap${i}`}>{l.cap}</div>
+          ))}
+          <div className="whisper">Meanwhile: the business runs on, worth more than ever.</div>
+        </div>
+
         <div className="sscx-tint" />
 
         <div className="sscx-top">
@@ -277,21 +300,6 @@ export default function JourneyMap() {
                     </g>
                   ))}
                 </svg>
-              </div>
-            </div>
-
-            {/* BEAT 3 — ENJOY LIFE */}
-            <div className="sscx-p p2">
-              <div className="b3">
-                {LIFE.map((l, i) => (
-                  <div key={l.img} className={`scene e${i}`} style={{ backgroundImage: `url(https://images.pexels.com/photos/${l.img}/pexels-photo-${l.img}.jpeg?auto=compress&cs=tinysrgb&w=1600)` }} />
-                ))}
-                <svg className="grain"><filter id="sscxG"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves={2} stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#sscxG)" /></svg>
-                <div className="vig" /><div className="scrim" />
-                {LIFE.map((l, i) => (
-                  <div key={l.cap} className={`cap cap${i}`}>{l.cap}</div>
-                ))}
-                <div className="whisper">Meanwhile: the business runs on, worth more than ever.</div>
               </div>
             </div>
 
