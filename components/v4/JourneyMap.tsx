@@ -1,29 +1,33 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { START_LINK } from '@/lib/site';
 
-/* The Secret Sauce, as one scroll-pinned three-beat film. */
+/* The Secret Sauce, as one scroll-pinned four-beat film:
+ * Get Found -> StayBookt -> Enjoy Life -> Get Started. */
 
 const CSS = `
-.sscx-track{position:relative;height:340vh;background:#050506;}
+.sscx-track{position:relative;height:440vh;background:#050506;}
 .sscx-stage{position:sticky;top:0;height:100vh;min-height:600px;overflow:hidden;display:flex;flex-direction:column;color:#f5f5f7;--acc:#0ea5e9;}
 .sscx-stage[data-beat="1"]{--acc:#22d3ee;}
 .sscx-stage[data-beat="2"]{--acc:#34d399;}
+.sscx-stage[data-beat="3"]{--acc:#f5f5f7;}
 .sscx-tint{position:absolute;inset:0;transition:background 1s ease;pointer-events:none;background:radial-gradient(80% 55% at 78% 0%,rgba(14,165,233,.16),transparent 60%);}
 .sscx-stage[data-beat="1"] .sscx-tint{background:radial-gradient(80% 60% at 50% 6%,rgba(6,182,212,.15),transparent 60%);}
 .sscx-stage[data-beat="2"] .sscx-tint{background:radial-gradient(90% 75% at 50% 0%,rgba(16,185,129,.16),transparent 62%);}
+.sscx-stage[data-beat="3"] .sscx-tint{background:radial-gradient(80% 60% at 50% 0%,rgba(255,255,255,.06),transparent 62%);}
 .sscx-top{position:relative;z-index:3;display:flex;align-items:center;justify-content:center;padding:22px 32px 0;}
-.sscx-bars{display:flex;gap:6px;width:100%;max-width:280px;}
+.sscx-bars{display:flex;gap:6px;width:100%;max-width:320px;}
 .sscx-seg{flex:1;height:2.5px;border-radius:2px;background:rgba(255,255,255,.12);overflow:hidden;}
 .sscx-seg i{display:block;height:100%;width:0;background:var(--acc);transition:background .8s;}
 .sscx-mid{position:relative;z-index:3;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(12px,2.4vh,30px);padding:1vh 24px;}
 .sscx-phase{font-size:13px;font-weight:700;letter-spacing:.2em;color:var(--acc);text-align:center;transition:color .8s ease;}
 .sscx-headwrap{position:relative;text-align:center;width:100%;min-height:2.15em;font-size:clamp(30px,4.8vw,62px);line-height:1.03;}
 .sscx-head{position:absolute;left:0;right:0;top:50%;padding:0 20px;font-size:inherit;font-weight:600;letter-spacing:-.03em;line-height:inherit;opacity:0;transform:translateY(calc(-50% + 14px));transition:opacity .6s ease,transform .6s ease;}
-.sscx-stage[data-beat="0"] .h0,.sscx-stage[data-beat="1"] .h1,.sscx-stage[data-beat="2"] .h2{opacity:1;transform:translateY(-50%);}
+.sscx-stage[data-beat="0"] .h0,.sscx-stage[data-beat="1"] .h1,.sscx-stage[data-beat="2"] .h2,.sscx-stage[data-beat="3"] .h3{opacity:1;transform:translateY(-50%);}
 .sscx-panels{position:relative;width:100%;height:clamp(360px,56vh,620px);}
 .sscx-p{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(.965);transition:opacity .7s ease,transform .7s ease;pointer-events:none;}
-.sscx-stage[data-beat="0"] .p0,.sscx-stage[data-beat="1"] .p1,.sscx-stage[data-beat="2"] .p2{opacity:1;transform:none;}
+.sscx-stage[data-beat="0"] .p0,.sscx-stage[data-beat="1"] .p1,.sscx-stage[data-beat="2"] .p2,.sscx-stage[data-beat="3"] .p3{opacity:1;transform:none;pointer-events:auto;}
 
 /* beat 1 — climb from the bottom to #1 */
 .b1{width:min(600px,94%);}
@@ -66,34 +70,44 @@ const CSS = `
 .sscx-stage[data-beat="1"] .b2 .jc4,.sscx-stage[data-beat="1"] .b2 .jp4,.sscx-stage[data-beat="1"] .b2 .jh4{transition-delay:2.8s;}
 .sscx-stage[data-beat="1"] .b2 .jc5,.sscx-stage[data-beat="1"] .b2 .jp5,.sscx-stage[data-beat="1"] .b2 .jh5{transition-delay:3.4s;}
 
-/* beat 3 — enjoy life: real moments cross-dissolving in the stage */
+/* beat 3 — enjoy life: real moments + captions, cross-dissolving */
 .b3{position:absolute;inset:0;overflow:hidden;border-radius:24px;}
-.b3 .scene{position:absolute;inset:0;opacity:0;background-size:cover;background-position:center;animation:sscxkb 13s ease-in-out infinite alternate;}
-.sscx-stage[data-beat="2"] .b3 .scene{animation:sscxkb 13s ease-in-out infinite alternate, sscxfade 12s ease-in-out infinite;}
+.b3 .scene{position:absolute;inset:0;opacity:0;background-size:cover;background-position:center;animation:sscxkb 14s ease-in-out infinite alternate;}
+.sscx-stage[data-beat="2"] .b3 .scene{animation:sscxkb 14s ease-in-out infinite alternate, sscxfade 14s ease-in-out infinite;}
 .b3 .e0{animation-delay:0s;}
-.b3 .e1{animation-delay:3s;}
-.b3 .e2{animation-delay:6s;}
-.b3 .e3{animation-delay:9s;}
+.b3 .e1{animation-delay:3.5s;}
+.b3 .e2{animation-delay:7s;}
+.b3 .e3{animation-delay:10.5s;}
 .b3 .grain{position:absolute;inset:0;width:100%;height:100%;mix-blend-mode:overlay;opacity:.1;}
-.b3 .vig{position:absolute;inset:0;background:radial-gradient(120% 100% at 50% 45%,transparent 45%,rgba(0,0,0,.55));}
-.b3 .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.14) 46%,rgba(4,8,6,.78));}
-.b3 .bloom{position:absolute;top:44%;left:50%;width:170px;height:170px;border-radius:50%;transform:translate(-50%,-50%) scale(.15);opacity:0;background:radial-gradient(closest-side,rgba(255,236,196,.95),rgba(255,196,120,.3) 45%,transparent 72%);}
-.sscx-stage[data-beat="2"] .b3 .bloom{animation:sscxbloom 1.7s ease forwards;}
-.b3 .life{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 30px;}
-.b3 .promise{opacity:0;font-size:clamp(18px,2.4vw,27px);color:#fff;font-weight:600;text-shadow:0 2px 30px rgba(0,0,0,.6);transition:opacity 1.1s ease 1.1s;}
-.sscx-stage[data-beat="2"] .b3 .promise{opacity:1;}
+.b3 .vig{position:absolute;inset:0;background:radial-gradient(120% 100% at 50% 45%,transparent 42%,rgba(0,0,0,.6));}
+.b3 .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.32),rgba(0,0,0,.14) 45%,rgba(4,8,6,.82));}
+.b3 .cap{position:absolute;left:0;right:0;bottom:16%;text-align:center;padding:0 30px;font-size:clamp(20px,2.7vw,34px);font-weight:600;letter-spacing:-.02em;color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.7);opacity:0;}
+.sscx-stage[data-beat="2"] .b3 .cap{animation:sscxfade 14s ease-in-out infinite;}
+.b3 .cap0{animation-delay:0s;}.b3 .cap1{animation-delay:3.5s;}.b3 .cap2{animation-delay:7s;}.b3 .cap3{animation-delay:10.5s;}
 .b3 .whisper{position:absolute;bottom:7%;left:0;right:0;text-align:center;font-size:12.5px;color:#cfe0d5;opacity:0;transition:opacity 1s ease 1.6s;}
 .sscx-stage[data-beat="2"] .b3 .whisper{opacity:1;}
 
+/* beat 4 — get started (the first step) */
+.b4{width:min(560px,92%);text-align:center;}
+.b4 .cta-btn{display:inline-block;background:#f5f5f7;color:#050506;font-size:16px;font-weight:600;border-radius:999px;padding:15px 34px;text-decoration:none;opacity:0;transform:translateY(10px);transition:opacity .6s ease,transform .6s ease;}
+.b4 .cta-steps{display:flex;gap:12px;justify-content:center;margin-top:26px;flex-wrap:wrap;}
+.b4 .step{font-size:13.5px;color:#c7ccd6;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 16px;opacity:0;transform:translateY(10px);transition:opacity .6s ease,transform .6s ease;}
+.b4 .cta-sub{margin-top:22px;font-size:14.5px;color:#86868b;line-height:1.5;opacity:0;transform:translateY(10px);transition:opacity .6s ease,transform .6s ease;}
+.sscx-stage[data-beat="3"] .b4 .cta-btn{opacity:1;transform:none;transition-delay:.2s;}
+.sscx-stage[data-beat="3"] .b4 .step{opacity:1;transform:none;}
+.sscx-stage[data-beat="3"] .b4 .step.s1{transition-delay:.5s;}
+.sscx-stage[data-beat="3"] .b4 .step.s2{transition-delay:.7s;}
+.sscx-stage[data-beat="3"] .b4 .step.s3{transition-delay:.9s;}
+.sscx-stage[data-beat="3"] .b4 .cta-sub{opacity:1;transform:none;transition-delay:1.1s;}
+
 /* dots */
-.sscx-dots{position:relative;z-index:3;display:flex;gap:26px;justify-content:center;padding:14px 20px 28px;}
+.sscx-dots{position:relative;z-index:3;display:flex;gap:24px;justify-content:center;padding:14px 20px 28px;flex-wrap:wrap;}
 .sscx-dots span{font-size:12px;font-weight:600;color:#f5f5f7;opacity:.4;transition:opacity .4s;}
-.sscx-stage[data-beat="0"] .sscx-dots .d0,.sscx-stage[data-beat="1"] .sscx-dots .d1,.sscx-stage[data-beat="2"] .sscx-dots .d2{opacity:1;}
+.sscx-stage[data-beat="0"] .sscx-dots .d0,.sscx-stage[data-beat="1"] .sscx-dots .d1,.sscx-stage[data-beat="2"] .sscx-dots .d2,.sscx-stage[data-beat="3"] .sscx-dots .d3{opacity:1;}
 
 @keyframes sscxspin{to{transform:rotate(360deg);}}
-@keyframes sscxkb{from{transform:scale(1.04);}to{transform:scale(1.12);}}
-@keyframes sscxfade{0%{opacity:0;}3%{opacity:1;}22%{opacity:1;}27%{opacity:0;}100%{opacity:0;}}
-@keyframes sscxbloom{0%{transform:translate(-50%,-50%) scale(.15);opacity:0;}40%{opacity:.95;}100%{transform:translate(-50%,-50%) scale(3.4);opacity:0;}}
+@keyframes sscxkb{from{transform:scale(1.04);}to{transform:scale(1.13);}}
+@keyframes sscxfade{0%{opacity:0;}3%{opacity:1;}22%{opacity:1;}26%{opacity:0;}100%{opacity:0;}}
 
 @media (prefers-reduced-motion: reduce){
   .sscx-stage *{animation:none !important;transition:none !important;}
@@ -101,12 +115,13 @@ const CSS = `
   .b1 .rw.a{top:78px !important;}.b1 .rw.b{top:156px !important;}.b1 .rw.c{top:234px !important;}
   .b1 .rw.tc .rvw,.b1 .rw.tc .acts,.b1 .rw.tc .badge,.b1 .fc{opacity:1 !important;transform:none !important;}
   .b2 .pipT,.b2 .lbH{opacity:1 !important;}.b2 .pipA,.b2 .lbP{opacity:0 !important;}
-  .b3 .e0{opacity:1 !important;}.b3 .promise,.b3 .whisper{opacity:1 !important;}
+  .b3 .e0,.b3 .cap0{opacity:1 !important;}.b3 .whisper{opacity:1 !important;}
+  .b4 .cta-btn,.b4 .step,.b4 .cta-sub{opacity:1 !important;transform:none !important;}
   .sscx-head{transition:none !important;}
 }
 @media (max-width:640px){
   .sscx-top{padding:16px 18px 0;}
-  .sscx-dots{gap:16px;}
+  .sscx-dots{gap:14px;}
   .sscx-headwrap{min-height:3.2em;}
   .sscx-panels{height:clamp(320px,46vh,480px);}
   .b1 .sb{padding:12px 18px;}
@@ -127,16 +142,23 @@ const JOBS: { t: string; p: string; lx: number; ly: number; dx: number; dy: numb
   { t: 'Calls answered', p: 'Missed call', lx: 230, ly: 22, dx: 230, dy: 42, a: 'middle' },
   { t: 'Quotes chased', p: 'Quote to send', lx: 356, ly: 105, dx: 332, dy: 101, a: 'start' },
   { t: 'Reviews earned', p: 'Review to chase', lx: 356, ly: 223, dx: 332, dy: 219, a: 'start' },
-  { t: 'Daily brief', p: 'What’s on today?', lx: 230, ly: 306, dx: 230, dy: 278, a: 'middle' },
+  { t: 'Daily brief', p: 'What is on today?', lx: 230, ly: 306, dx: 230, dy: 278, a: 'middle' },
   { t: 'Records kept', p: 'Log the job', lx: 104, ly: 223, dx: 128, dy: 219, a: 'end' },
   { t: 'Jobs scheduled', p: 'Book the visit', lx: 104, ly: 105, dx: 128, dy: 101, a: 'end' },
 ];
 
+const LIFE: { img: string; cap: string }[] = [
+  { img: '13727103', cap: 'Golf with your mates.' },
+  { img: '8623946', cap: 'Away with the family.' },
+  { img: '5086620', cap: 'A night out, just the two of you.' },
+  { img: '4835776', cap: 'A day that is finally yours.' },
+];
+
 export default function JourneyMap() {
   const trackRef = useRef<HTMLElement | null>(null);
-  const [beat, setBeat] = useState(0);
-  const [fills, setFills] = useState<[number, number, number]>([0, 0, 0]);
   const stageRef = useRef<HTMLDivElement | null>(null);
+  const [beat, setBeat] = useState(0);
+  const [fills, setFills] = useState<[number, number, number, number]>([0, 0, 0, 0]);
   const [armed, setArmed] = useState(false);
 
   useEffect(() => {
@@ -151,12 +173,10 @@ export default function JourneyMap() {
         const total = el.offsetHeight - vh;
         const scrolled = Math.min(Math.max(-r.top, 0), total);
         const p = total > 0 ? scrolled / total : 0;
-        const BOUNDS = [0, 0.32, 0.62, 1];
-        const b = p < BOUNDS[1] ? 0 : p < BOUNDS[2] ? 1 : 2;
+        const b = p < 0.25 ? 0 : p < 0.5 ? 1 : p < 0.75 ? 2 : 3;
         setBeat(b);
-        const seg = (i: number) =>
-          Math.min(Math.max((p - BOUNDS[i]) / (BOUNDS[i + 1] - BOUNDS[i]), 0), 1) * 100;
-        setFills([seg(0), seg(1), seg(2)]);
+        const seg = (i: number) => Math.min(Math.max((p - i * 0.25) / 0.25, 0), 1) * 100;
+        setFills([seg(0), seg(1), seg(2), seg(3)]);
       });
     };
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -201,17 +221,18 @@ export default function JourneyMap() {
 
         <div className="sscx-mid">
           <div className="sscx-phase">
-            {beat === 0 ? 'GET FOUND' : beat === 1 ? 'STAYBOOKT' : 'ENJOY LIFE'}
+            {beat === 0 ? 'GET FOUND' : beat === 1 ? 'STAYBOOKT' : beat === 2 ? 'ENJOY LIFE' : 'GET STARTED'}
           </div>
 
           <div className="sscx-headwrap">
             <div className="sscx-head h0">Be the one they call.</div>
             <div className="sscx-head h1">You run the business. We run the busywork.</div>
             <div className="sscx-head h2">Now go enjoy it.</div>
+            <div className="sscx-head h3">Ready when you are.</div>
           </div>
 
           <div className="sscx-panels">
-            {/* BEAT 1 — GET FOUND: climb from the bottom to #1 */}
+            {/* BEAT 1 — GET FOUND */}
             <div className="sscx-p p0">
               <div className="b1">
                 <div className="sb">
@@ -234,7 +255,7 @@ export default function JourneyMap() {
               </div>
             </div>
 
-            {/* BEAT 2 */}
+            {/* BEAT 2 — STAYBOOKT */}
             <div className="sscx-p p1">
               <div className="b2">
                 <svg width="460" height="320" viewBox="0 0 460 320" fill="none">
@@ -259,20 +280,31 @@ export default function JourneyMap() {
               </div>
             </div>
 
-            {/* BEAT 3 — ENJOY LIFE: real moments */}
+            {/* BEAT 3 — ENJOY LIFE */}
             <div className="sscx-p p2">
               <div className="b3">
-                <div className="scene e0" style={{ backgroundImage: 'url(https://images.pexels.com/photos/13727103/pexels-photo-13727103.jpeg?auto=compress&cs=tinysrgb&w=1600)' }} />
-                <div className="scene e1" style={{ backgroundImage: 'url(https://images.pexels.com/photos/12932171/pexels-photo-12932171.jpeg?auto=compress&cs=tinysrgb&w=1600)' }} />
-                <div className="scene e2" style={{ backgroundImage: 'url(https://images.pexels.com/photos/8623946/pexels-photo-8623946.jpeg?auto=compress&cs=tinysrgb&w=1600)' }} />
-                <div className="scene e3" style={{ backgroundImage: 'url(https://images.pexels.com/photos/4835776/pexels-photo-4835776.jpeg?auto=compress&cs=tinysrgb&w=1600)' }} />
+                {LIFE.map((l, i) => (
+                  <div key={l.img} className={`scene e${i}`} style={{ backgroundImage: `url(https://images.pexels.com/photos/${l.img}/pexels-photo-${l.img}.jpeg?auto=compress&cs=tinysrgb&w=1600)` }} />
+                ))}
                 <svg className="grain"><filter id="sscxG"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves={2} stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#sscxG)" /></svg>
                 <div className="vig" /><div className="scrim" />
-                <div className="bloom" />
-                <div className="life">
-                  <div className="promise">You built your business to enjoy your life.</div>
+                {LIFE.map((l, i) => (
+                  <div key={l.cap} className={`cap cap${i}`}>{l.cap}</div>
+                ))}
+                <div className="whisper">Meanwhile: the business runs on, worth more than ever.</div>
+              </div>
+            </div>
+
+            {/* BEAT 4 — GET STARTED */}
+            <div className="sscx-p p3">
+              <div className="b4">
+                <a className="cta-btn" href={START_LINK}>Get Started</a>
+                <div className="cta-steps">
+                  <span className="step s1">1 &nbsp; A 30-min call</span>
+                  <span className="step s2">2 &nbsp; We show you the leaks</span>
+                  <span className="step s3">3 &nbsp; We go run it</span>
                 </div>
-                <div className="whisper">Meanwhile: handled, and worth more than ever.</div>
+                <div className="cta-sub">A straight read on where the work is slipping through. No pitch. No lock-in.</div>
               </div>
             </div>
           </div>
@@ -282,6 +314,7 @@ export default function JourneyMap() {
           <span className="d0">Get Found</span>
           <span className="d1">StayBookt</span>
           <span className="d2">Enjoy Life</span>
+          <span className="d3">Get Started</span>
         </div>
       </div>
     </section>
