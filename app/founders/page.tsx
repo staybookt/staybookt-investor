@@ -11,28 +11,13 @@ export const metadata = {
   alternates: { canonical: '/founders' },
 };
 
-const AVATAR_BG = {
-  background: 'linear-gradient(135deg,#06b6d4,#10b981 55%,#4f46e5)',
-  color: '#fff',
-  borderRadius: '50%',
-  width: 64,
-  height: 64,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  fontWeight: 700,
-  fontSize: 20,
-  letterSpacing: '-.02em',
-  flexShrink: 0,
-} as const;
-
 function FounderCard({
-  initials,
+  photo,
   name,
   role,
   children,
 }: {
-  initials: string;
+  photo: string;
   name: string;
   role: string;
   children: ReactNode;
@@ -40,9 +25,21 @@ function FounderCard({
   return (
     <div className="card-soft" style={{ padding: 'clamp(28px,4vw,40px)' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
-        <div style={AVATAR_BG} aria-hidden>
-          {initials}
-        </div>
+        <img
+          src={photo}
+          alt={name}
+          width={76}
+          height={76}
+          style={{
+            width: 76,
+            height: 76,
+            borderRadius: '50%',
+            objectFit: 'cover',
+            objectPosition: 'center 18%',
+            flexShrink: 0,
+            boxShadow: '0 1px 0 rgba(0,0,0,.06), 0 0 0 1px rgba(0,0,0,.05)',
+          }}
+        />
         <div>
           <h3 style={{ fontSize: 24, letterSpacing: '-.03em' }}>{name}</h3>
           <p style={{ marginTop: 4, fontSize: 14, fontWeight: 600, color: 'var(--hp-muted)' }}>
@@ -82,7 +79,7 @@ export default function FoundersPage() {
           <div className="feat grid" style={{ alignItems: 'stretch' }}>
             <Reveal>
               <FounderCard
-                initials="JC"
+                photo="/photos/jacob.jpg"
                 name="Jacob Charendoff"
                 role="Brand, product, and growth."
               >
@@ -93,7 +90,11 @@ export default function FoundersPage() {
               </FounderCard>
             </Reveal>
             <Reveal delay={1}>
-              <FounderCard initials="R" name="Richard" role="Operations, growth, and finance.">
+              <FounderCard
+                photo="/photos/richard.jpg"
+                name="Richard"
+                role="Operations, growth, and finance."
+              >
                 Two plus decades of executive-level leadership in high-growth service businesses at
                 scale. Responsible for multiple start-up efforts and leading significant growth at
                 Venterra from $15M to $500M+ in revenues. Deep understanding of the entire customer
