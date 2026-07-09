@@ -4,26 +4,26 @@ import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { START_LINK } from '@/lib/site';
 
 /* The Secret Sauce: one scroll-pinned four-beat film, fully scroll-scrubbed.
- * Get Found -> StayBookt -> Enjoy Life -> Get Started.
- * NOTHING is on a timer. Every change is driven by scroll position only. */
+ * Get Found (linear climb) -> StayBookt (wheel + blurbs) -> Enjoy Life (continuous
+ * cross-dissolve + push-in) -> Get Started (CTA card). Nothing on a timer. */
 
-const B = [0, 0.22, 0.46, 0.8, 1]; // beat boundaries (StayBookt + Enjoy Life get room)
+const B = [0, 0.24, 0.5, 0.8, 1]; // beat boundaries
 
 const CSS = `
-.sscx-track{position:relative;height:600vh;background:#050506;}
-.sscx-stage{position:sticky;top:0;height:100vh;min-height:600px;overflow:hidden;display:flex;flex-direction:column;color:#f5f5f7;--acc:#0ea5e9;--cp:0;}
+.sscx-track{position:relative;height:440vh;background:#050506;}
+.sscx-stage{position:sticky;top:0;height:100vh;min-height:600px;overflow:hidden;display:flex;flex-direction:column;color:#f5f5f7;--acc:#0ea5e9;--cp:0;--o0:1;--o1:0;--o2:0;--o3:0;--lz:0;}
 .sscx-stage[data-beat="1"]{--acc:#22d3ee;}
 .sscx-stage[data-beat="2"]{--acc:#ffd9a3;}
 .sscx-stage[data-beat="3"]{--acc:#f5f5f7;}
 
-/* full-stage cinematic film for ENJOY LIFE (behind the text) */
+/* ENJOY LIFE — full-stage film: continuous cross-dissolve (--oN) + push-in (--lz) */
 .sscx-film{position:absolute;inset:0;z-index:0;opacity:0;transition:opacity .7s ease;pointer-events:none;background:linear-gradient(160deg,#1b1408,#0a0f0c 70%);}
 .sscx-stage[data-beat="2"] .sscx-film{opacity:1;}
-.sscx-film .scene{position:absolute;inset:0;opacity:0;background-size:cover;background-position:center;transition:opacity .6s ease;transform:scale(1.02);}
-.sscx-stage[data-beat="2"][data-life="0"] .sscx-film .e0,
-.sscx-stage[data-beat="2"][data-life="1"] .sscx-film .e1,
-.sscx-stage[data-beat="2"][data-life="2"] .sscx-film .e2,
-.sscx-stage[data-beat="2"][data-life="3"] .sscx-film .e3{opacity:1;}
+.sscx-film .scene{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(calc(1.02 + .16 * var(--lz)));}
+.sscx-film .e0{opacity:var(--o0);}
+.sscx-film .e1{opacity:var(--o1);}
+.sscx-film .e2{opacity:var(--o2);}
+.sscx-film .e3{opacity:var(--o3);}
 .sscx-film .grain{position:absolute;inset:0;width:100%;height:100%;mix-blend-mode:overlay;opacity:.08;}
 .sscx-film .vig{position:absolute;inset:0;background:radial-gradient(120% 100% at 50% 42%,transparent 40%,rgba(0,0,0,.66));}
 .sscx-film .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,6,8,.55),rgba(0,0,0,.28) 40%,rgba(4,8,6,.9));}
@@ -32,7 +32,7 @@ const CSS = `
 .sscx-stage[data-beat="2"] .sscx-film .whisper{opacity:1;}
 
 .sscx-tint{position:absolute;inset:0;z-index:1;transition:opacity .7s ease,background .8s ease;pointer-events:none;background:radial-gradient(80% 55% at 78% 0%,rgba(14,165,233,.16),transparent 60%);}
-.sscx-stage[data-beat="1"] .sscx-tint{background:radial-gradient(90% 75% at 50% 0%,rgba(16,185,129,.16),transparent 62%);}
+.sscx-stage[data-beat="1"] .sscx-tint{background:radial-gradient(90% 75% at 50% 0%,rgba(34,211,238,.14),transparent 62%);}
 .sscx-stage[data-beat="2"] .sscx-tint{opacity:0;}
 .sscx-stage[data-beat="3"] .sscx-tint{background:radial-gradient(80% 60% at 50% 0%,rgba(255,255,255,.05),transparent 62%);}
 .sscx-ctabg{position:absolute;inset:0;z-index:0;opacity:0;transition:opacity .7s ease;pointer-events:none;background:radial-gradient(120% 95% at 50% 118%,rgba(16,185,129,.34),transparent 58%),radial-gradient(95% 70% at 50% -12%,rgba(14,165,233,.26),transparent 60%),linear-gradient(180deg,#071a22,#05130e);}
@@ -49,20 +49,20 @@ const CSS = `
 .sscx-head{position:absolute;left:0;right:0;top:50%;padding:0 24px;font-size:inherit;font-weight:600;letter-spacing:-.03em;line-height:inherit;opacity:0;transform:translateY(calc(-50% + 12px));transition:opacity .5s ease,transform .5s ease;}
 .sscx-stage[data-beat="0"] .h0,.sscx-stage[data-beat="1"] .h1,.sscx-head.on{opacity:1;transform:translateY(-50%);}
 .sscx-stage[data-beat="2"] .sscx-head{text-shadow:0 2px 40px rgba(0,0,0,.8);}
-.sscx-panels{position:relative;width:100%;height:clamp(320px,44vh,460px);}
+.sscx-panels{position:relative;width:100%;height:clamp(320px,46vh,470px);}
 .sscx-stage[data-beat="3"] .sscx-panels{height:auto;}
 .sscx-p{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(.975);transition:opacity .55s ease,transform .55s ease;pointer-events:none;}
 .sscx-stage[data-beat="0"] .p0,.sscx-stage[data-beat="1"] .p1,.sscx-stage[data-beat="3"] .p3{opacity:1;transform:none;pointer-events:auto;}
 .sscx-stage[data-beat="3"] .p3{position:relative;}
 
-/* sub-progress dots (Enjoy Life + StayBookt) */
-.sscx-sub{position:absolute;left:0;right:0;bottom:13.5%;z-index:3;display:flex;gap:10px;justify-content:center;opacity:0;transition:opacity .5s ease;pointer-events:none;}
+/* sub-progress dots */
+.sscx-sub{position:absolute;left:0;right:0;bottom:12%;z-index:3;display:flex;gap:9px;justify-content:center;opacity:0;transition:opacity .5s ease;pointer-events:none;}
 .sscx-stage[data-beat="1"] .sscx-sub.sub-sc,.sscx-stage[data-beat="2"] .sscx-sub.sub-life{opacity:1;}
-.sscx-sub span{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.32);transition:transform .3s ease,background .3s ease;}
-.sscx-sub.sub-life span.a{background:#ffd9a3;transform:scale(1.35);}
-.sscx-sub.sub-sc span.a{background:#22d3ee;transform:scale(1.35);}
+.sscx-sub span{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.3);transition:transform .3s ease,background .3s ease;}
+.sscx-sub.sub-life span.a{background:#ffd9a3;transform:scale(1.4);}
+.sscx-sub.sub-sc span.a{background:#22d3ee;transform:scale(1.4);}
 
-/* beat 1 — GET FOUND: climb rides scroll continuously via --cp (0..1) */
+/* beat 0 — GET FOUND: climb rides scroll continuously via --cp (0..1) */
 .b1{width:min(600px,94%);}
 .b1 .sb{display:flex;align-items:center;gap:12px;background:#111114;border:1px solid #26262c;border-radius:999px;padding:15px 22px;margin-bottom:18px;}
 .b1 .sb span{font-size:16px;color:#d4d4d8;}
@@ -88,26 +88,19 @@ const CSS = `
 .sscx-stage[data-s0="2"] .b1 .rw.tc .acts{opacity:1;}
 .sscx-stage[data-s0="2"] .b1 .fc{opacity:1;transform:none;}
 
-/* beat 2 — STAYBOOKT: scroll through real moments the work slips away, and how we catch it */
-.b2{position:relative;width:min(660px,94%);height:clamp(300px,40vh,380px);}
-.b2 .sc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:clamp(10px,1.6vh,16px);opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease;pointer-events:none;}
-.sscx-stage[data-beat="1"][data-sc="0"] .b2 .sc0,
-.sscx-stage[data-beat="1"][data-sc="1"] .b2 .sc1,
-.sscx-stage[data-beat="1"][data-sc="2"] .b2 .sc2,
-.sscx-stage[data-beat="1"][data-sc="3"] .b2 .sc3{opacity:1;transform:none;}
-.b2 .sc-k{font-size:14px;font-weight:600;letter-spacing:.01em;color:#7f8593;}
-.b2 .sc-pain{font-size:clamp(24px,3.4vw,40px);font-weight:600;letter-spacing:-.03em;line-height:1.08;color:#f5f5f7;max-width:20ch;}
-.b2 .sc-cost{font-size:clamp(15px,1.8vw,18px);color:#e0a86b;max-width:34ch;line-height:1.45;}
-.b2 .sc-fix{display:inline-flex;align-items:center;gap:10px;margin-top:4px;font-size:clamp(14.5px,1.7vw,17px);font-weight:600;color:#5fe3b0;background:rgba(16,185,129,.1);border:1px solid rgba(52,211,153,.3);border-radius:14px;padding:12px 18px;max-width:42ch;line-height:1.35;text-align:left;}
-.b2 .sc-fix svg{flex:0 0 auto;margin-top:1px;}
-.b2 .roster{gap:clamp(18px,2.6vh,28px);}
-.b2 .ros-h{font-size:clamp(21px,2.6vw,30px);font-weight:600;letter-spacing:-.02em;line-height:1.15;color:#f5f5f7;max-width:22ch;}
-.b2 .ros-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px 26px;text-align:left;}
-.b2 .ros-item{display:flex;align-items:center;gap:10px;font-size:clamp(14px,1.6vw,16px);color:#d4d9e2;}
-.b2 .ros-item svg{flex:0 0 auto;}
-@media(max-width:640px){.b2 .ros-grid{grid-template-columns:1fr;gap:11px;}}
+/* beat 1 — STAYBOOKT: the wheel (everything at a glance) + blurbs that pop on scroll */
+.b2{position:relative;width:min(680px,96%);display:flex;flex-direction:column;align-items:center;gap:clamp(14px,2.4vh,24px);}
+.b2 svg.orbit{display:block;width:min(430px,88%);height:auto;}
+.b2 .wbl{position:relative;width:100%;height:clamp(40px,6vh,52px);}
+.b2 .wb{position:absolute;left:0;right:0;top:0;text-align:center;font-size:clamp(15px,1.95vw,20px);font-weight:500;letter-spacing:-.01em;color:#d4dae4;opacity:0;transform:translateY(9px);transition:opacity .4s ease,transform .4s ease;}
+.sscx-stage[data-beat="1"][data-sc="0"] .b2 .wb0,
+.sscx-stage[data-beat="1"][data-sc="1"] .b2 .wb1,
+.sscx-stage[data-beat="1"][data-sc="2"] .b2 .wb2,
+.sscx-stage[data-beat="1"][data-sc="3"] .b2 .wb3,
+.sscx-stage[data-beat="1"][data-sc="4"] .b2 .wb4,
+.sscx-stage[data-beat="1"][data-sc="5"] .b2 .wb5{opacity:1;transform:none;}
 
-/* beat 4 — GET STARTED: a self-contained, tightly-centered CTA card */
+/* beat 3 — GET STARTED: a self-contained, tightly-centered CTA card */
 .b4{width:min(600px,92%);text-align:center;}
 .b4 .cta-h{font-size:clamp(40px,6.4vw,80px);font-weight:600;letter-spacing:-.04em;line-height:1;color:#f5f5f7;opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease;}
 .b4 .cta-sub{margin:22px auto 0;font-size:clamp(15px,1.7vw,18px);color:#d7dce4;line-height:1.55;max-width:44ch;opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease;}
@@ -131,8 +124,8 @@ const CSS = `
   .sscx-top{padding:16px 18px 0;}
   .sscx-dots{gap:14px;}
   .sscx-headwrap{min-height:3.4em;}
-  .sscx-panels{height:clamp(300px,44vh,470px);}
-  .sscx-sub{bottom:15%;}
+  .sscx-panels{height:clamp(300px,46vh,470px);}
+  .sscx-sub{bottom:13%;}
   .b1 .sb{padding:12px 18px;}
   .b1 .sb span{font-size:14px;}
   .b1 .pack{height:300px;}
@@ -144,39 +137,16 @@ const CSS = `
   .b1 .rw.b{top:calc(66px + 66px * var(--cp));}
   .b1 .rw.c{top:calc(132px + 66px * var(--cp));}
   .b1 .rw.tc{top:calc(220px * (1 - var(--cp)));}
-  .b2{width:100%;}
-  .b2 .sc-fix{font-size:14px;padding:11px 15px;}
 }
 `;
 
-const SCENARIOS: { k: string; pain: string; cost: string; fix: string }[] = [
-  {
-    k: '6:47 PM. You are under a sink.',
-    pain: 'The phone rings. You let it go.',
-    cost: 'That was an $1,850 job. It went to whoever picked up.',
-    fix: 'StayBookt answered it, and booked it for Tuesday at 9.',
-  },
-  {
-    k: 'Thursday. You sent the quote.',
-    pain: 'Then the week buried you.',
-    cost: 'Two weeks later, they hired someone else.',
-    fix: 'StayBookt chases every quote until it is won or dead.',
-  },
-  {
-    k: 'Best job you did all month.',
-    pain: 'You meant to ask for the review.',
-    cost: 'You forgot. So did they. You stayed on page two.',
-    fix: 'StayBookt asks every customer. That is how you reach #1.',
-  },
-];
-
-const ROSTER: string[] = [
-  'Every call and text, answered 24/7',
-  'Every lead captured and booked',
-  'Quotes chased until they close',
-  'Past customers followed up',
-  'Reviews asked for, every time',
-  'Your daily brief, ready each morning',
+const WHEEL: { lbl: string; blurb: string; dx: number; dy: number; lx: number; ly: number; a: 'start' | 'middle' | 'end' }[] = [
+  { lbl: 'Missed call', blurb: '6:47 PM, under a sink. We answered it.', dx: 230, dy: 42, lx: 230, ly: 20, a: 'middle' },
+  { lbl: 'Quote to send', blurb: 'Sent Thursday. We chased it until it closed.', dx: 332, dy: 101, lx: 356, ly: 105, a: 'start' },
+  { lbl: 'Review to chase', blurb: 'Your best job all month. We asked for the review.', dx: 332, dy: 219, lx: 356, ly: 223, a: 'start' },
+  { lbl: 'The day ahead', blurb: 'Your morning brief, before your first coffee.', dx: 230, dy: 278, lx: 230, ly: 306, a: 'middle' },
+  { lbl: 'Job to log', blurb: 'Every job on record, without you lifting a finger.', dx: 128, dy: 219, lx: 104, ly: 223, a: 'end' },
+  { lbl: 'Visit to book', blurb: 'Booked, confirmed, and on the calendar.', dx: 128, dy: 101, lx: 104, ly: 105, a: 'end' },
 ];
 
 const LIFE: { img: string; cap: string }[] = [
@@ -186,14 +156,6 @@ const LIFE: { img: string; cap: string }[] = [
   { img: '4835776', cap: 'A day that is finally yours.' },
 ];
 
-function Check() {
-  return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#34d399" strokeWidth={2.6}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M4 12l5 5L20 6" />
-    </svg>
-  );
-}
-
 export default function JourneyMap() {
   const trackRef = useRef<HTMLElement | null>(null);
   const [beat, setBeat] = useState(0);
@@ -201,6 +163,8 @@ export default function JourneyMap() {
   const [s0, setS0] = useState(0);
   const [sc, setSc] = useState(0);
   const [life, setLife] = useState(0);
+  const [lo, setLo] = useState<[number, number, number, number]>([1, 0, 0, 0]);
+  const [lz, setLz] = useState(0);
   const [fills, setFills] = useState<[number, number, number, number]>([0, 0, 0, 0]);
 
   useEffect(() => {
@@ -208,6 +172,7 @@ export default function JourneyMap() {
     if (!el) return;
     let raf = 0;
     const clamp = (v: number) => Math.min(Math.max(v, 0), 1);
+    const POS = [0, 1 / 3, 2 / 3, 1];
     const onScroll = () => {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
@@ -219,11 +184,14 @@ export default function JourneyMap() {
         const b = p < B[1] ? 0 : p < B[2] ? 1 : p < B[3] ? 2 : 3;
         const lp = Math.min(Math.max((p - B[b]) / (B[b + 1] - B[b]), 0), 0.9999);
         const climb = b === 0 ? clamp((lp - 0.1) / 0.55) : 1;
+        const lifeP = b === 2 ? lp : b < 2 ? 0 : 1;
         setBeat(b);
         setCp(climb);
         setS0(climb > 0.98 ? 2 : climb > 0.7 ? 1 : 0);
-        setSc(b < 1 ? 0 : b > 1 ? 3 : Math.min(3, Math.floor(lp * 4)));
+        setSc(b < 1 ? 0 : b > 1 ? 5 : Math.min(5, Math.floor(lp * 6)));
         setLife(b < 2 ? 0 : b > 2 ? 3 : Math.min(3, Math.floor(lp * 4)));
+        setLo(POS.map((pp) => clamp(1 - Math.abs(lifeP - pp) * 3)) as [number, number, number, number]);
+        setLz(lifeP);
         const seg = (i: number) => clamp((p - B[i]) / (B[i + 1] - B[i])) * 100;
         setFills([seg(0), seg(1), seg(2), seg(3)]);
       });
@@ -236,7 +204,14 @@ export default function JourneyMap() {
     };
   }, []);
 
-  const stageStyle = { '--cp': cp } as CSSProperties;
+  const stageStyle = {
+    '--cp': cp,
+    '--o0': lo[0],
+    '--o1': lo[1],
+    '--o2': lo[2],
+    '--o3': lo[3],
+    '--lz': lz,
+  } as CSSProperties;
 
   return (
     <section ref={trackRef} className="sscx-track">
@@ -283,7 +258,7 @@ export default function JourneyMap() {
           </div>
 
           <div className="sscx-panels">
-            {/* BEAT 1 — GET FOUND */}
+            {/* BEAT 0 — GET FOUND */}
             <div className="sscx-p p0">
               <div className="b1">
                 <div className="sb">
@@ -306,29 +281,40 @@ export default function JourneyMap() {
               </div>
             </div>
 
-            {/* BEAT 2 — STAYBOOKT (scroll through the moments work slips away) */}
+            {/* BEAT 1 — STAYBOOKT (the wheel + scroll blurbs) */}
             <div className="sscx-p p1">
               <div className="b2">
-                {SCENARIOS.map((s, i) => (
-                  <div key={i} className={`sc sc${i}`}>
-                    <div className="sc-k">{s.k}</div>
-                    <div className="sc-pain">{s.pain}</div>
-                    <div className="sc-cost">{s.cost}</div>
-                    <div className="sc-fix"><Check /> {s.fix}</div>
-                  </div>
-                ))}
-                <div className="sc sc3 roster">
-                  <div className="ros-h">And the rest of the front office? Handled.</div>
-                  <div className="ros-grid">
-                    {ROSTER.map((r) => (
-                      <div key={r} className="ros-item"><Check /> {r}</div>
+                <svg className="orbit" viewBox="0 0 460 320" fill="none">
+                  <g stroke="rgba(120,140,150,.16)" strokeWidth={1}>
+                    {WHEEL.map((w, i) => (
+                      <line key={i} x1="230" y1="160" x2={w.dx} y2={w.dy} />
                     ))}
-                  </div>
+                  </g>
+                  <circle cx="230" cy="160" r="118" stroke="rgba(255,255,255,.07)" strokeWidth={1} />
+                  <circle cx="230" cy="160" r="54" fill="rgba(16,185,129,.09)" stroke="rgba(52,211,153,.45)" strokeWidth={1.4} />
+                  <text x="230" y="156" textAnchor="middle" fill="#34d399" fontSize="16" fontWeight="600" fontFamily="-apple-system,sans-serif">You</text>
+                  <text x="230" y="174" textAnchor="middle" fill="#7c8a83" fontSize="11" fontFamily="-apple-system,sans-serif">in control</text>
+                  {WHEEL.map((w, i) => {
+                    const on = i <= sc;
+                    const act = i === sc;
+                    return (
+                      <g key={w.lbl}>
+                        {act && <circle cx={w.dx} cy={w.dy} r="13" fill="rgba(34,211,238,.18)" />}
+                        <circle cx={w.dx} cy={w.dy} r={act ? 6.5 : 5.5} fill={on ? '#22d3ee' : '#f59e0b'} style={{ transition: 'fill .4s ease' }} />
+                        <text x={w.lx} y={w.ly} textAnchor={w.a} fontSize="13.5" fontWeight="600" fontFamily="-apple-system,sans-serif" fill={on ? '#e2e7ef' : '#c99a4a'} style={{ transition: 'fill .4s ease' }}>{w.lbl}</text>
+                      </g>
+                    );
+                  })}
+                </svg>
+                <div className="wbl">
+                  {WHEEL.map((w, i) => (
+                    <div key={w.lbl} className={`wb wb${i}`}>{w.blurb}</div>
+                  ))}
                 </div>
               </div>
             </div>
 
-            {/* BEAT 4 — GET STARTED */}
+            {/* BEAT 3 — GET STARTED */}
             <div className="sscx-p p3">
               <div className="b4">
                 <div className="cta-h">Get Started.</div>
@@ -346,10 +332,10 @@ export default function JourneyMap() {
           </div>
         </div>
 
-        {/* StayBookt scenario dots */}
+        {/* StayBookt wheel dots */}
         <div className="sscx-sub sub-sc">
-          {[0, 1, 2, 3].map((i) => (
-            <span key={i} className={sc === i ? 'a' : ''} />
+          {WHEEL.map((w, i) => (
+            <span key={w.lbl} className={sc === i ? 'a' : ''} />
           ))}
         </div>
         {/* Enjoy Life moment dots */}
