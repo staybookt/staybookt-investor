@@ -246,7 +246,7 @@ export default function JourneyMap() {
 
         <div className="sscx-mid">
           <div className="sscx-phase">
-            {beat === 0 ? 'GET FOUND' : beat === 1 ? 'STAYBOOKT' : beat === 2 ? 'ENJOY LIFE' : 'NO PITCH · NO LOCK-IN'}
+            {beat === 0 ? 'GET FOUND' : beat === 1 ? 'STAYBOOKT' : beat === 2 ? 'ENJOY LIFE' : 'NO PITCH · NO PRESSURE'}
           </div>
 
           <div className="sscx-headwrap">

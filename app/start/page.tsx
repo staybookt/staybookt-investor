@@ -136,7 +136,7 @@ export default function StartPage() {
               }}
             >
               That is the whole idea in one call. We go do the work. You show up and get the picture.
-              Clarity now, your life back after. No pitch, no lock-in.
+              Clarity now, your life back after. No pitch, no pressure.
             </p>
           </Reveal>
           <Reveal>
