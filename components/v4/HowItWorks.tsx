@@ -1,26 +1,39 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { START_LINK } from '@/lib/site';
-import CloserLook from '@/components/v4/CloserLook';
 
-const CHAPTERS = [
-  { id: 'model', label: 'The model' },
-  { id: 'getfound', label: 'Get found' },
-  { id: 'runday', label: 'Run the day' },
-  { id: 'enjoy', label: 'Enjoy life' },
-  { id: 'start', label: 'Getting started' },
-  { id: 'included', label: "What's included" },
-];
-
-const YOU = ['The work itself', 'Your crew', 'Your customers', 'The calls worth taking', 'What to charge', 'Who to hire'];
-const WE = ['Answering the phone and texts', 'Booking the jobs', 'Sending and chasing quotes', 'Following up', 'Asking for reviews', 'Keeping the records', 'Your morning brief'];
-
-const TIMELINE: { n: string; h: string; b: string }[] = [
-  { n: '01', h: 'A 30-minute call.', b: 'Free. We look at where the work is slipping and what it is costing you. You keep that read whether you hire us or not.' },
-  { n: '02', h: 'Week one, we build.', b: 'Your new site and a rebuilt Google presence. You review, we launch.' },
-  { n: '03', h: 'Week two, we go live.', b: 'The receptionist, booking, and CRM switch on. We wire up your calls and texts so nothing gets missed again.' },
-  { n: '04', h: 'From then on, we run it.', b: 'Every morning you get one short brief. That is the only thing you have to read.' },
+const STEPS: { id: string; k: string; h: string; b: string; viz: 'map' | 'reception' | 'booking' | 'brief' | 'repeat' | 'none' }[] = [
+  {
+    id: 'found', k: '01 · Found', viz: 'map',
+    h: 'They search. You are the one they find.',
+    b: 'When someone nearby needs what you do, your rebuilt Google profile and fast site put you at the top, with the reviews that make them pick you over the next guy.',
+  },
+  {
+    id: 'answered', k: '02 · Answered', viz: 'reception',
+    h: 'They reach out at 8 PM. It gets answered.',
+    b: "Call or text, the receptionist replies in your business's voice, answers the question, and quotes on the spot. Meanwhile you are on a job, or asleep.",
+  },
+  {
+    id: 'booked', k: '03 · Booked', viz: 'booking',
+    h: 'It books itself into your calendar.',
+    b: 'The job drops into your real calendar, confirmed with the customer. No phone tag, no double-booking, nothing for you to type.',
+  },
+  {
+    id: 'brief', k: '04 · Your brief', viz: 'brief',
+    h: 'One 30-second read. Then your day is yours.',
+    b: 'Every job, customer, and conversation lands in one place. Each morning you get one short brief. That is the only screen you ever open.',
+  },
+  {
+    id: 'yours', k: '05 · Your part', viz: 'none',
+    h: 'This part stays yours.',
+    b: 'The craft. The crew. The customer. The call worth taking. You do the work you are great at, and we handle everything around it.',
+  },
+  {
+    id: 'repeat', k: '06 · Won back', viz: 'repeat',
+    h: 'After the job, it keeps paying you back.',
+    b: 'The review ask goes out on its own and your rating climbs. Months later, we bring that customer back on their own. The loop closes, and it compounds.',
+  },
 ];
 
 const SPEC: { group: string; items: string[] }[] = [
@@ -52,76 +65,49 @@ const CSS = `
 .hiw-btn.ghost{background:transparent;color:var(--v4-ink);border:1px solid rgba(0,0,0,.18);}
 
 /* hero */
-.hiw-hero{background:#fff;text-align:center;padding:clamp(110px,16vh,180px) 0 0;}
-.hiw-hero h1{margin-top:16px;font-size:clamp(44px,7vw,92px);line-height:1.02;}
-.hiw-hero p.lead{margin:24px auto 0;font-size:clamp(17px,2vw,21px);line-height:1.5;color:#52565e;max-width:44ch;}
+.hiw-hero{background:#fff;text-align:center;padding:clamp(110px,15vh,170px) 0 clamp(60px,8vw,90px);}
+.hiw-hero h1{margin-top:16px;font-size:clamp(42px,6.6vw,88px);line-height:1.02;max-width:15ch;margin-left:auto;margin-right:auto;}
+.hiw-hero p.lead{margin:24px auto 0;font-size:clamp(17px,2vw,21px);line-height:1.5;color:#52565e;max-width:46ch;}
 .hiw-hero .cta{margin-top:32px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
-.hiw-stage{position:relative;max-width:900px;margin:clamp(50px,7vw,96px) auto 0;padding-bottom:clamp(70px,9vw,120px);animation:hiwrise .9s cubic-bezier(.2,.7,.2,1) both;}
-.hiw-stage .browser{max-width:740px;margin:0 auto;}
-.hiw-stage .phone{position:absolute;left:1%;bottom:clamp(30px,5vw,70px);width:210px;z-index:2;}
-.hiw-stage .phone .screen{height:430px;}
+.hiw-hero .herophone{margin:clamp(48px,6vw,80px) auto 0;width:300px;max-width:82%;animation:hiwrise .9s cubic-bezier(.2,.7,.2,1) both;}
 @keyframes hiwrise{from{opacity:0;transform:translateY(26px);}to{opacity:1;transform:none;}}
-@media(max-width:760px){.hiw-stage .phone{display:none;}.hiw-stage{padding-bottom:40px;}}
 
 /* sticky chapter rail */
-.hiw-rail{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.8);backdrop-filter:saturate(180%) blur(16px);-webkit-backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid #ececec;}
-.hiw-rail .rail-in{display:flex;gap:clamp(14px,3vw,36px);justify-content:center;flex-wrap:wrap;padding:15px 20px;}
+.hiw-rail{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.82);backdrop-filter:saturate(180%) blur(16px);-webkit-backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid #ececec;}
+.hiw-rail .rail-in{display:flex;gap:clamp(14px,3vw,38px);justify-content:center;flex-wrap:wrap;padding:15px 20px;}
 .hiw-rail a{font-size:13.5px;font-weight:600;color:#8a8f98;text-decoration:none;transition:color .3s ease;white-space:nowrap;}
 .hiw-rail a.on{color:var(--v4-ink);}
 .hiw-rail a:hover{color:#52565e;}
 @media(max-width:640px){.hiw-rail .rail-in{justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap;}}
 
-/* sections */
-.hiw-sec{padding:clamp(78px,11vw,140px) 0;}
-.hiw-sec.cream{background:var(--v4-cream);}
-.hiw-ch{font-size:12.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;}
-.hiw-ch.cyan{color:#0284c7;}.hiw-ch.teal{color:#0891b2;}.hiw-ch.green{color:#059669;}
+/* the idea */
+.hiw-idea{padding:clamp(78px,11vw,130px) 0;text-align:center;}
+.hiw-idea h2{margin-top:14px;font-size:clamp(30px,4.6vw,58px);line-height:1.05;max-width:18ch;margin-left:auto;margin-right:auto;}
+.hiw-idea p{margin:24px auto 0;font-size:clamp(17px,2vw,21px);line-height:1.55;color:#52565e;max-width:50ch;}
 
-/* model */
-.hiw-model{text-align:center;}
-.hiw-model h2{font-size:clamp(32px,5vw,64px);line-height:1.05;max-width:20ch;margin:0 auto;}
-.hiw-model p{margin:26px auto 0;font-size:clamp(17px,2vw,21px);line-height:1.55;color:#52565e;max-width:52ch;}
+/* the flow */
+.hiw-flow{padding:clamp(40px,6vw,80px) 0 clamp(70px,10vw,130px);}
+.hiw-flow .flowhead{text-align:center;margin-bottom:clamp(30px,5vw,60px);}
+.hiw-flow .flowhead h2{margin-top:14px;font-size:clamp(30px,4.6vw,56px);line-height:1.05;}
+.hiw-flow .step{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,80px);align-items:center;padding:clamp(48px,7vw,96px) 0;}
+.hiw-flow .step:nth-child(even) .txt{order:2;}
+.hiw-flow .step .k{font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#0284c7;}
+.hiw-flow .step h3{margin-top:14px;font-size:clamp(28px,3.6vw,46px);line-height:1.05;max-width:15ch;}
+.hiw-flow .step p{margin-top:16px;font-size:clamp(16px,1.8vw,19px);line-height:1.55;color:#52565e;max-width:42ch;}
+.hiw-flow .viz{display:flex;justify-content:center;}
+.hiw-flow .step.solo{grid-template-columns:1fr;text-align:center;background:var(--v4-cream);border-radius:30px;padding:clamp(64px,9vw,120px) clamp(24px,5vw,60px);margin:clamp(30px,5vw,56px) 0;}
+.hiw-flow .step.solo .txt{order:0;}
+.hiw-flow .step.solo h3{max-width:20ch;margin-left:auto;margin-right:auto;}
+.hiw-flow .step.solo p{max-width:38ch;margin-left:auto;margin-right:auto;}
+@media(max-width:820px){.hiw-flow .step{grid-template-columns:1fr;gap:36px;}.hiw-flow .step:nth-child(even) .txt{order:0;}}
 
-/* you / we */
-.hiw-split h2{text-align:center;font-size:clamp(30px,4.6vw,56px);line-height:1.06;max-width:18ch;margin:0 auto;}
-.hiw-cols{margin-top:clamp(44px,6vw,72px);display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-.hiw-col{background:#fff;border:1px solid #ececea;border-radius:22px;padding:clamp(26px,3.4vw,40px);box-shadow:0 20px 50px -34px rgba(0,0,0,.28);}
-.hiw-col .lbl{font-size:12.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#8a8f98;}
-.hiw-col.we .lbl{color:#059669;}
-.hiw-col ul{list-style:none;margin:20px 0 0;padding:0;display:flex;flex-direction:column;gap:14px;}
-.hiw-col li{font-size:clamp(15px,1.7vw,18px);color:#33373e;display:flex;align-items:flex-start;gap:11px;line-height:1.4;}
-.hiw-col li::before{content:'';margin-top:8px;width:6px;height:6px;border-radius:50%;flex:0 0 auto;background:#c2c6cc;}
-.hiw-col.we li::before{background:#10b981;}
-.hiw-kick{text-align:center;margin-top:34px;font-size:clamp(16px,1.9vw,20px);color:#52565e;}
-@media(max-width:720px){.hiw-cols{grid-template-columns:1fr;}}
-
-/* get found chapter */
-.hiw-gf .blk{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,80px);align-items:center;margin-top:clamp(56px,7vw,96px);}
-.hiw-gf .blk:nth-child(even) .txt{order:2;}
-.hiw-gf .blk h3{font-size:clamp(26px,3.4vw,44px);line-height:1.08;max-width:16ch;}
-.hiw-gf .blk p{margin-top:16px;font-size:clamp(16px,1.8vw,19px);line-height:1.55;color:#52565e;max-width:40ch;}
-.hiw-gf .viz{display:flex;align-items:center;justify-content:center;}
-@media(max-width:820px){.hiw-gf .blk{grid-template-columns:1fr;}.hiw-gf .blk:nth-child(even) .txt{order:0;}}
-
-/* enjoy */
-.hiw-enjoy{text-align:center;}
-.hiw-enjoy h2{font-size:clamp(30px,4.6vw,56px);line-height:1.06;max-width:14ch;margin:0 auto;}
-.hiw-enjoy p{margin:24px auto 0;font-size:clamp(17px,2vw,21px);line-height:1.55;color:#52565e;max-width:50ch;}
-.hiw-enjoy .door{display:inline-block;margin-top:26px;color:#0284c7;font-weight:600;font-size:15px;text-decoration:none;}
-
-/* timeline */
-.hiw-tl{text-align:center;}
-.hiw-tl h2{font-size:clamp(30px,4.6vw,52px);line-height:1.06;max-width:18ch;margin:0 auto;}
-.hiw-steps{margin-top:clamp(48px,6vw,72px);display:grid;grid-template-columns:repeat(4,1fr);gap:18px;text-align:left;}
-.hiw-step{position:relative;padding-top:26px;}
-.hiw-step::before{content:'';position:absolute;top:5px;left:0;right:0;height:2px;background:linear-gradient(90deg,#0891b2,rgba(8,145,178,.12));}
-.hiw-step .n{font-size:12px;font-weight:700;letter-spacing:.14em;color:#0891b2;}
-.hiw-step h4{margin-top:12px;font-size:clamp(18px,2vw,22px);}
-.hiw-step p{margin-top:10px;font-size:14.5px;line-height:1.5;color:#6e7178;}
-@media(max-width:820px){.hiw-steps{grid-template-columns:1fr 1fr;}}
-@media(max-width:520px){.hiw-steps{grid-template-columns:1fr;}}
+/* proof strip */
+.hiw-proof{background:var(--v4-cream);text-align:center;padding:clamp(40px,6vw,64px) 0;}
+.hiw-proof p{font-size:clamp(16px,1.8vw,19px);color:#52565e;}
+.hiw-proof a{color:#0284c7;font-weight:600;text-decoration:none;}
 
 /* spec */
+.hiw-spec{padding:clamp(80px,11vw,140px) 0;}
 .hiw-spec h2{text-align:center;font-size:clamp(30px,4.6vw,52px);margin:0 auto;}
 .hiw-spec .sub{text-align:center;margin:16px auto 0;color:#8a8f98;font-size:16px;}
 .hiw-spec .cols{margin-top:clamp(44px,6vw,64px);display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(24px,3vw,40px);}
@@ -133,9 +119,10 @@ const CSS = `
 @media(max-width:560px){.hiw-spec .cols{grid-template-columns:1fr;}}
 
 /* faq */
+.hiw-faq{padding:clamp(80px,11vw,140px) 0;background:var(--v4-cream);}
 .hiw-faq h2{text-align:center;font-size:clamp(30px,4.6vw,52px);margin:0 auto clamp(40px,5vw,56px);}
 .hiw-faq .list{max-width:760px;margin:0 auto;}
-.hiw-q{border-bottom:1px solid #e5e5e2;}
+.hiw-q{border-bottom:1px solid #e2e2df;}
 .hiw-q button{width:100%;background:transparent;border:0;color:var(--v4-ink);font-family:inherit;font-size:clamp(16px,1.9vw,20px);font-weight:600;letter-spacing:-.01em;text-align:left;padding:22px 40px 22px 0;cursor:pointer;position:relative;}
 .hiw-q button .pl{position:absolute;right:2px;top:50%;transform:translateY(-50%);font-size:22px;font-weight:400;color:#9aa0a8;transition:transform .3s ease,color .3s ease;line-height:1;}
 .hiw-q.open button .pl{transform:translateY(-50%) rotate(45deg);color:#0284c7;}
@@ -144,7 +131,7 @@ const CSS = `
 .hiw-q .ans p{padding:0 0 22px;margin:0;font-size:16px;line-height:1.6;color:#52565e;max-width:62ch;}
 
 /* closer */
-.hiw-close{text-align:center;padding:clamp(96px,13vw,170px) 0;background:var(--v4-cream);}
+.hiw-close{text-align:center;padding:clamp(96px,13vw,170px) 0;background:#fff;}
 .hiw-close h2{font-size:clamp(34px,5.4vw,72px);line-height:1.03;max-width:16ch;margin:0 auto;}
 .hiw-close .price{margin:20px auto 0;font-size:clamp(16px,1.9vw,20px);color:#52565e;}
 .hiw-close .price a{color:#0284c7;text-decoration:none;font-weight:600;}
@@ -156,28 +143,6 @@ function Check() {
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth={2.6}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M4 12l5 5L20 6" />
     </svg>
-  );
-}
-
-function Dashboard() {
-  return (
-    <div className="sbwrap">
-      <div className="browser">
-        <div className="bz-bar"><span className="bz-dot" style={{ background: '#ff5f57' }} /><span className="bz-dot" style={{ background: '#febc2e' }} /><span className="bz-dot" style={{ background: '#28c840' }} /><span className="bz-url">staybookt.com/ops</span></div>
-        <div className="aw-body">
-          <div className="stats">
-            <div className="stat"><div className="lbl">Booked this week</div><div className="val">14</div></div>
-            <div className="stat"><div className="lbl">Revenue MTD</div><div className="val">$38.4k <small>▒12%</small></div></div>
-            <div className="stat"><div className="lbl">Quotes out</div><div className="val">6</div></div>
-            <div className="stat"><div className="lbl">Reviews</div><div className="val">9 <small>★</small></div></div>
-          </div>
-          <div style={{ marginTop: 14, display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <div className="card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}><div><div className="cn">Today · 3 jobs</div><div className="cm">First at 8:30 AM · all confirmed</div></div><span className="pill g">On track</span></div>
-            <div className="card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}><div><div className="cn">M. Lowe · 2–4 PM</div><div className="cm">Panel upgrade · Riverdale</div></div><span className="pill">Next up</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
   );
 }
 
@@ -198,8 +163,66 @@ function ReceptionistPhone() {
   );
 }
 
+function viz(kind: string): ReactNode {
+  if (kind === 'reception') {
+    return <div className="sbwrap"><ReceptionistPhone /></div>;
+  }
+  if (kind === 'map') {
+    return (
+      <div className="sbwrap"><div className="appwin" style={{ width: 360 }}>
+        <div className="aw-top"><span className="aw-ic" />electrician near me</div>
+        <div className="aw-body" style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <div className="gbiz first"><span className="rank">#1</span><div className="bn">Top Choice Electrical</div><div className="stars">★★★★★ <span>4.9 · Open now</span></div></div>
+          <div className="gbiz dim"><div className="bn">City Wide Electric</div><div className="stars">★★★★ <span>4.1</span></div></div>
+          <div className="gbiz dim"><div className="bn">Rapid Volt</div><div className="stars">★★★★ <span>4.0</span></div></div>
+        </div>
+      </div></div>
+    );
+  }
+  if (kind === 'booking') {
+    return (
+      <div className="sbwrap"><div className="appwin" style={{ width: 360 }}>
+        <div className="aw-top"><span className="aw-ic" />Book a visit</div>
+        <div className="aw-body">
+          <div className="bk-days"><div className="d">Mon<b>7</b></div><div className="d on">Tue<b>8</b></div><div className="d">Wed<b>9</b></div><div className="d">Thu<b>10</b></div><div className="d">Fri<b>11</b></div></div>
+          <div className="bk-slots"><div className="s x">8–10</div><div className="s">10–12</div><div className="s x">12–2</div><div className="s sel">2–4 PM</div><div className="s">4–6</div><div className="s">6–8</div></div>
+          <div className="bk-conf">Booked: Tue 2–4 PM. Added to your calendar and theirs.</div>
+        </div>
+      </div></div>
+    );
+  }
+  if (kind === 'brief') {
+    return (
+      <div className="sbwrap"><div className="appwin brief-l" style={{ width: 360 }}>
+        <div className="aw-top"><span className="aw-ic" />Your morning brief<span className="aw-r" style={{ color: '#86868b' }}>Tue, 7:00 AM</span></div>
+        <div className="aw-body">
+          <div className="bi"><span className="bic" style={{ background: '#0ea5e9' }} /><div><b>3 jobs today.</b> First at 8:30, all confirmed.</div></div>
+          <div className="bi"><span className="bic" style={{ background: '#06b6d4' }} /><div><b>2 quotes open.</b> We are chasing both.</div></div>
+          <div className="bi"><span className="bic" style={{ background: '#14b8a6' }} /><div><b>$4,200 collected</b> yesterday.</div></div>
+          <div className="bi"><span className="bic" style={{ background: '#10b981' }} /><div><b>New 5-star review</b> from Sandra M.</div></div>
+          <div className="sub" style={{ marginTop: 14 }}>That is it. Go run your day.</div>
+        </div>
+      </div></div>
+    );
+  }
+  if (kind === 'repeat') {
+    return (
+      <div className="sbwrap"><div className="appwin" style={{ width: 360 }}>
+        <div className="aw-top"><span className="aw-ic" />Bring them back</div>
+        <div className="aw-body">
+          <div className="rp-camp">Winter tune-up reminder</div>
+          <div className="rp-meta">Sent automatically to 214 past customers.</div>
+          <div className="rp-bar"><i /></div>
+          <div className="rp-res"><span className="sub">18 rebooked</span><span><b>$9,400</b> recovered</span></div>
+        </div>
+      </div></div>
+    );
+  }
+  return null;
+}
+
 export default function HowItWorks() {
-  const [active, setActive] = useState('model');
+  const [active, setActive] = useState('found');
   const [openF, setOpenF] = useState<number | null>(0);
 
   useEffect(() => {
@@ -207,7 +230,7 @@ export default function HowItWorks() {
       (entries) => entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id); }),
       { rootMargin: '-45% 0px -50% 0px', threshold: 0 },
     );
-    CHAPTERS.forEach((c) => { const el = document.getElementById(c.id); if (el) obs.observe(el); });
+    STEPS.forEach((s) => { const el = document.getElementById(s.id); if (el) obs.observe(el); });
     return () => obs.disconnect();
   }, []);
 
@@ -219,149 +242,66 @@ export default function HowItWorks() {
       <header className="hiw-hero">
         <div className="wrap">
           <div className="eyebrow">How it works</div>
-          <h1>How it all actually runs.</h1>
+          <h1>One job, from their search to your bank.</h1>
           <p className="lead">
-            Not a tool you have to learn. An operator that runs the front of your business, so you
-            can go do the work.
+            A customer needs you. Here is exactly what happens next, and the one small part that
+            stays yours.
           </p>
           <div className="cta">
             <a className="hiw-btn" href={START_LINK}>Pick a time</a>
-            <a className="hiw-btn ghost" href="#included">See what is included</a>
+            <a className="hiw-btn ghost" href="#found">Walk the flow</a>
           </div>
-          <div className="hiw-stage">
-            <Dashboard />
-            <ReceptionistPhone />
-          </div>
+          <div className="herophone"><ReceptionistPhone /></div>
         </div>
       </header>
 
-      {/* CHAPTER RAIL */}
+      {/* RAIL */}
       <nav className="hiw-rail">
         <div className="rail-in">
-          {CHAPTERS.map((c) => (
-            <a key={c.id} href={`#${c.id}`} className={active === c.id ? 'on' : ''}>{c.label}</a>
+          {STEPS.map((s) => (
+            <a key={s.id} href={`#${s.id}`} className={active === s.id ? 'on' : ''}>{s.k.split('· ')[1]}</a>
           ))}
         </div>
       </nav>
 
-      {/* MODEL */}
-      <section className="hiw-sec hiw-model" id="model">
+      {/* THE IDEA */}
+      <section className="hiw-idea">
         <div className="wrap">
-          <h2>StayBookt is not software you run. It is a team that runs it for you.</h2>
-          <p>Most tools hand you more work: another login, another thing to check at night. We do the opposite. The software does the job in the background. You get your time back, not a second job.</p>
+          <div className="eyebrow">The idea</div>
+          <h2>It runs in the background. You just show up.</h2>
+          <p>StayBookt is not another app to check. It is a team that runs the front of your business, so the only thing you open is a 30-second brief.</p>
         </div>
       </section>
 
-      {/* YOU / WE */}
-      <section className="hiw-sec cream hiw-split">
+      {/* THE FLOW */}
+      <section className="hiw-flow">
         <div className="wrap">
-          <h2>You keep the business. We take the busywork.</h2>
-          <div className="hiw-cols">
-            <div className="hiw-col you">
-              <div className="lbl">Still yours</div>
-              <ul>{YOU.map((x) => <li key={x}>{x}</li>)}</ul>
-            </div>
-            <div className="hiw-col we">
-              <div className="lbl">Off your plate</div>
-              <ul>{WE.map((x) => <li key={x}>{x}</li>)}</ul>
-            </div>
+          <div className="flowhead">
+            <div className="eyebrow">The flow</div>
+            <h2>Follow one job, start to finish.</h2>
           </div>
-          <p className="hiw-kick">You never signed up to answer the phone at 9 PM. So you do not.</p>
-        </div>
-      </section>
-
-      {/* GET FOUND */}
-      <section className="hiw-sec hiw-gf" id="getfound">
-        <div className="wrap">
-          <div className="hiw-ch cyan">Get found</div>
-
-          <div className="blk">
-            <div className="txt">
-              <h3>A site that makes you the obvious choice.</h3>
-              <p>Fast, built for mobile first, and made to turn a visitor into a booked job instead of a bounce. Tap-to-call and self-serve booking on every page.</p>
-            </div>
-            <div className="viz">
-              <div className="sbwrap"><div className="appwin" style={{ width: 360 }}>
-                <div className="site-hero">
-                  <div className="sh-nav"><b>Top Choice Electrical</b><span>Services · Reviews · Book</span></div>
-                  <h5>Licensed electricians.<br />Same-day service.</h5>
-                  <p>Panel upgrades, EV chargers, emergency calls.</p>
-                  <div className="sh-row"><span className="sh-btn">Book now</span><span className="sh-stars">★★★★★ 4.9 · 312 reviews</span></div>
-                </div>
-              </div></div>
-            </div>
-          </div>
-
-          <div className="blk">
-            <div className="txt">
-              <h3>When someone nearby searches, you are who they find.</h3>
-              <p>We rebuild your Google Business Profile, then make your name, address, and number match everywhere, so Google trusts you and puts you in the local map pack.</p>
-            </div>
-            <div className="viz">
-              <div className="sbwrap"><div className="appwin" style={{ width: 360 }}>
-                <div className="aw-top"><span className="aw-ic" />electrician near me</div>
-                <div className="aw-body" style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                  <div className="gbiz first"><span className="rank">#1</span><div className="bn">Top Choice Electrical</div><div className="stars">★★★★★ <span>4.9 · Open now</span></div></div>
-                  <div className="gbiz dim"><div className="bn">City Wide Electric</div><div className="stars">★★★★ <span>4.1</span></div></div>
-                  <div className="gbiz dim"><div className="bn">Rapid Volt</div><div className="stars">★★★★ <span>4.0</span></div></div>
-                </div>
-              </div></div>
-            </div>
-          </div>
-
-          <div className="blk">
-            <div className="txt">
-              <h3>Every finished job becomes a five-star review.</h3>
-              <p>The review ask goes out on its own after each job, replies get handled, and your rating climbs. That rating is what wins the next call.</p>
-            </div>
-            <div className="viz">
-              <div className="sbwrap"><div className="appwin" style={{ width: 360 }}>
-                <div className="aw-top"><span className="aw-ic" />Reputation<span className="aw-r">+9 this month</span></div>
-                <div className="aw-body">
-                  <div className="rv-big"><b>4.9</b> <span className="st">★★★★★</span> · 312 reviews</div>
-                  <div className="rv-item"><span className="st">★★★★★</span> Booked online at 9 PM, fixed by noon. Unreal.<div className="who">— Sandra M.</div></div>
-                  <div className="rv-item"><span className="st">★★★★★</span> Texted me a quote in minutes. No chasing.<div className="who">— R. Okafor</div></div>
-                </div>
-              </div></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* RUN THE DAY — live product tour */}
-      <div id="runday">
-        <CloserLook />
-      </div>
-
-      {/* ENJOY LIFE */}
-      <section className="hiw-sec cream hiw-enjoy" id="enjoy">
-        <div className="wrap">
-          <div className="hiw-ch green">Enjoy life</div>
-          <h2 style={{ marginTop: 14 }}>The point of all of it.</h2>
-          <p>When the front office runs itself, two things happen. You get your nights and weekends back. And the business becomes something you can sell or hand down, because it no longer lives only in your head.</p>
-          <a className="door" href="/long-term">See how it becomes an asset →</a>
-        </div>
-      </section>
-
-      {/* GETTING STARTED */}
-      <section className="hiw-sec hiw-tl" id="start">
-        <div className="wrap">
-          <div className="eyebrow">Getting started</div>
-          <h2 style={{ marginTop: 14 }}>Live in about two weeks. Here is the path.</h2>
-          <div className="hiw-steps">
-            {TIMELINE.map((s) => (
-              <div className="hiw-step" key={s.n}>
-                <div className="n">{s.n}</div>
-                <h4>{s.h}</h4>
+          {STEPS.map((s) => (
+            <div className={`step${s.viz === 'none' ? ' solo' : ''}`} id={s.id} key={s.id}>
+              <div className="txt">
+                <div className="k">{s.k}</div>
+                <h3>{s.h}</h3>
                 <p>{s.b}</p>
               </div>
-            ))}
-          </div>
+              {s.viz !== 'none' && <div className="viz">{viz(s.viz)}</div>}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* PROOF */}
+      <section className="hiw-proof">
+        <div className="wrap">
+          <p>We run this exact flow ourselves. <a href="/work">Top Choice Electrical and XNL HR, live now →</a></p>
         </div>
       </section>
 
       {/* INCLUDED */}
-      <section className="hiw-sec cream hiw-spec" id="included">
+      <section className="hiw-spec" id="included">
         <div className="wrap">
           <h2>Everything included.</h2>
           <p className="sub">All of it, run for you. No add-ons, no upsells.</p>
@@ -377,7 +317,7 @@ export default function HowItWorks() {
       </section>
 
       {/* FAQ */}
-      <section className="hiw-sec hiw-faq">
+      <section className="hiw-faq">
         <div className="wrap">
           <h2>Questions, answered.</h2>
           <div className="list">
