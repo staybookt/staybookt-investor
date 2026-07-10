@@ -7,7 +7,7 @@ export const metadata = {
   title: 'Pricing',
   alternates: { canonical: '/pricing' },
   description:
-    'Get Found: your visibility, built, one-time. StayBookt: the front office, run for you, monthly. Enjoy Life: an invite-only partnership for owners building toward an exit or succession. Low to start, and the upside is shared only on the partnership tier.',
+    'One monthly plan gets you found and runs your whole front office: your website, an AI receptionist with a real person behind it, booking, quotes, reviews, and a daily brief. Enjoy Life is an invite-only partnership earned after your first year.',
 };
 
 type PriceTier = {
@@ -21,42 +21,31 @@ type PriceTier = {
 
 const TIERS: PriceTier[] = [
   {
-    nm: 'Get Found',
-    pr: '$1,750',
-    u: 'one-time',
-    ds: 'A site that gets you found, and it is yours to keep.',
-    dark: false,
-    points: [
-      'Custom, mobile-first website',
-      'Google Business Profile rebuilt',
-      'Search and reviews foundation',
-      'Tap-to-call and booking wired in',
-    ],
-  },
-  {
-    nm: 'StayBookt',
-    pr: '$199',
-    u: 'per month',
-    ds: 'The whole front office, run for you.',
+    nm: 'Get Found + StayBookt',
+    pr: '$299',
+    u: 'per month · 12-month term',
+    ds: 'Everything. We get you found, then run the whole front office for you.',
     dark: true,
     points: [
-      'Everything in Get Found',
-      'We answer your phone and texts, 24/7',
-      'We capture every lead and book the jobs',
-      'We chase quotes, follow-ups, and past customers',
+      'A fast website, built and hosted, yours to keep',
+      'Google Business Profile rebuilt, ranked locally, reviews building',
+      'We answer every call and text, 24/7, in your voice',
+      'We book the jobs and chase every quote until it closes',
+      'We bring past customers back for repeat work',
+      'One short brief each morning. No software to learn',
     ],
   },
   {
     nm: 'Enjoy Life',
     pr: 'By invitation',
-    u: ' ',
-    ds: 'A partnership that turns the business into something you can sell.',
+    u: 'after your first year',
+    ds: 'The partnership you earn once the systems, reputation, and revenue are built. It turns the business into something you can keep, pass on, or sell.',
     dark: false,
     points: [
-      'Everything in StayBookt',
+      'Everything in the plan',
       'Systems built for a clean exit or a family handoff',
-      'We turn a job into a sellable, inheritable asset',
-      'We share the upside: 5% of the new business we generate',
+      'We turn the work into a sellable, inheritable asset',
+      'Shared upside, only on the new business we generate',
     ],
   },
 ];
@@ -72,18 +61,18 @@ export default function PricingPage() {
         <div className="wrap subhero-in">
           <div className="eyebrow on-dark reveal">Pricing</div>
           <h1 className="reveal d1">
-            Start small. <span className="grad">Grow into the rest.</span>
+            One plan. <span className="grad">Everything you need.</span>
           </h1>
           <p className="lead reveal d2">
-            A ladder, not a menu. Get found first, then let us run the whole front office. And for a
-            select few, a partnership that turns the business into an asset you can walk away from.
+            No setup fee, no menu. One simple monthly plan gets you found and runs your whole front
+            office. Enjoy Life is the partnership you earn after your first year.
           </p>
         </div>
       </section>
 
       <section className="price" id="price">
         <div className="wrap">
-          <div className="tiers">
+          <div className="tiers" style={{ gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', maxWidth: 800, marginLeft: 'auto', marginRight: 'auto' }}>
             {TIERS.map((t, i) => (
               <Reveal
                 key={t.nm}

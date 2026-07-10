@@ -4,23 +4,23 @@
 const FAQ: [string, string][] = [
   [
     'What if I want to cancel?',
-    'You cancel any month. We hand you the website code, the Google Business Profile login, the customer list, and the review request keys. No locked-in dependencies.',
+    'The plan runs on a 12-month term, then continues month to month. Whenever you leave, you keep everything that matters: the website code, the Google Business Profile login, the customer list, and the review tools. No locked-in dependencies.',
   ],
   [
     'What if you go out of business?',
     'Your domain is registered to you. Your website lives under your own account. Your Google Business Profile is yours. Your customer list is yours. If we vanish, you keep everything that matters.',
   ],
   [
-    'Can I just buy the website without the monthly?',
-    'You can, but a site without care drifts. The profile goes stale, review requests stop, page speed slips. After a year, an unmaintained site is about as useful as no site. The monthly is what stops that.',
+    'Is it just a website, or do you run it too?',
+    'Both, together, in one plan. We build your website and then run the whole front office around it: answering calls, booking jobs, chasing quotes, and keeping your reputation growing. A site nobody maintains goes stale within a year. Running it is the point.',
   ],
   [
     'How exactly do you count new business?',
     'Form fills tagged at the source. Calls tracked through your Google Business Profile. New customers reconciled against your existing pipeline so we never double-count. The report goes out every month before the invoice.',
   ],
   [
-    'What about the back-office platform you mention?',
-    'It is on the roadmap, rolling out through 2026 for our first clients. Booking, follow-up, review flow, the Monday brief. Pricing for each layer gets set as it ships. The website is what you pay for today.',
+    'What is included in the plan?',
+    'Getting found and running it, together: your website and Google presence, an AI receptionist with a real person behind it, booking, quote follow-up, reviews, and a short daily brief. One simple monthly plan, rolling out to clients through 2026.',
   ],
 ];
 
@@ -33,7 +33,7 @@ export default function StructuredData() {
       url: 'https://www.staybookt.com',
       email: 'info@staybookt.com',
       description:
-        'StayBookt builds and runs websites for service businesses up to $5M across North America. We get you found, book the work, and keep the calendar full. Paid for by the results.',
+        'StayBookt gets service businesses found and runs their whole front office: website, an AI receptionist with a real person behind it, booking, quotes, reviews, and a daily brief. One simple monthly plan.',
       areaServed: [{ '@type': 'Country', name: 'Canada' }, { '@type': 'Country', name: 'United States' }],
       founder: [
         { '@type': 'Person', name: 'Jacob Charendoff' },
