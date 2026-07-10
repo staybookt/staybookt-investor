@@ -22,7 +22,7 @@ const PHASES: Phase[] = [
   {
     id: 'found', label: 'Phase one · Get found', promise: 'Be the one they call.', accent: '#0ea5e9', viz: 'map',
     means: 'When someone nearby needs your trade, you are the name they find first, and the one they call. Not the other guy down the road.',
-    offer: 'One-time setup · $1,750',
+    offer: 'Part of your monthly plan',
     steps: [
       { t: 'We build you a proper website.', b: 'Fast, works on a phone, and made to turn a visitor into a call. Built and hosted for you, nothing to manage.' },
       { t: 'We fix your Google listing.', b: 'The thing that pops up when someone searches your trade. We fill it out, keep it current, and get Google to trust it.' },
@@ -34,7 +34,7 @@ const PHASES: Phase[] = [
   {
     id: 'run', label: 'Phase two · StayBookt', promise: 'We run the busywork.', accent: '#10b981', viz: 'reception', rev: true,
     means: 'Every call, quote, and booking handled for you, in your voice. You stop living on your phone, and you stay in control the whole time.',
-    offer: '$199 a month · cancel anytime',
+    offer: 'Part of your monthly plan',
     steps: [
       { t: 'We answer every call and text.', b: 'Day or night, mid-job or asleep, answered in your voice and quoted on the spot. AI handles the everyday ones. A real person on our team steps in on anything unusual, before it reaches your customer.' },
       { t: 'We book the job.', b: 'Straight onto your calendar, confirmed with the customer, with reminders so they actually show up.' },
@@ -45,8 +45,8 @@ const PHASES: Phase[] = [
   },
   {
     id: 'free', label: 'Phase three · Enjoy life', promise: 'Go enjoy the life you built it for.', accent: '#f59e0b', viz: 'repeat',
-    means: 'Your time back now, and a business worth more later. The reason you started this in the first place.',
-    offer: 'Invite-only · a share of new business only',
+    means: 'Your time back, and a business worth more. It is what your first year with us builds toward, and it comes by invitation.',
+    offer: 'By invitation, after your first year',
     steps: [
       { t: 'We bring old customers back.', b: 'Months after a job, we reach out so past customers rebook you instead of googling someone else. Repeat work, on its own.' },
       { t: 'Your reputation keeps compounding.', b: 'Reviews keep coming, your ranking keeps climbing, and new work keeps arriving without you chasing it.' },
@@ -66,9 +66,9 @@ const FAQ: { q: string; a: string }[] = [
   { q: 'What if I already have a website?', a: 'We will look at it. If it is doing the job, we build around it. If it is holding you back, we replace it. You are not stuck with something that does not convert.' },
   { q: 'Do I keep my phone number?', a: 'Yes. Your number stays yours. We make sure the calls and texts you cannot pick up still get answered and booked.' },
   { q: 'Who owns the website and domain?', a: 'The site is yours to keep. If you already own your domain it stays in your name. If we set one up for you, we walk through the handover on the call. Nothing holds you hostage.' },
-  { q: 'How long until I am live?', a: 'About two weeks from the first call.' },
-  { q: 'Is there a contract?', a: 'No lock-in. Cancel any time, and the site is yours to keep.' },
-  { q: 'Do you take a cut of my jobs?', a: 'No. StayBookt is a flat $199 a month to run everything. The only place we ever share upside is the invite-only Enjoy Life tier, and that is only on brand-new business we generate for you.' },
+  { q: 'How long until I am live?', a: 'About 30 days from the first call.' },
+  { q: 'Is there a contract?', a: 'We keep the terms simple and walk you through them on the call. Whatever happens, the website is always yours to keep.' },
+  { q: 'Do you take a cut of my jobs?', a: 'No. It is one simple monthly plan to run everything. The only place we ever share upside is the invite-only Enjoy Life tier, and that comes later, once we have a track record together.' },
 ];
 
 const CSS = `
@@ -96,6 +96,8 @@ const CSS = `
 .hiw-journey .jcard .jt{margin-top:10px;font-size:clamp(20px,2.4vw,27px);font-weight:600;letter-spacing:-.02em;line-height:1.1;}
 .hiw-journey .jcard .js{margin-top:8px;font-size:14.5px;line-height:1.35;color:#7b7f88;}
 .hiw-journey .jarr{flex:0 0 30px;display:flex;align-items:center;justify-content:center;color:#c4c8ce;}
+.hiw-journey .jnote{margin:24px auto 0;text-align:center;font-size:15px;line-height:1.55;color:#6b7079;max-width:56ch;}
+.hiw-journey .jnote b{color:var(--v4-ink);font-weight:600;}
 @media(max-width:760px){.hiw-journey .row{flex-direction:column;}.hiw-journey .jarr{flex:0 0 26px;transform:rotate(90deg);}}
 
 /* sticky chapter rail */
@@ -308,6 +310,7 @@ export default function HowItWorks() {
           </div>
           <div className="hiw-journey">
             <div className="row">{journeyNodes}</div>
+            <p className="jnote"><b>Get Found and StayBookt come together as one simple monthly plan.</b> Enjoy Life is the invitation you earn, once we have built the systems, the reputation, and the revenue over your first year.</p>
           </div>
         </div>
       </header>
@@ -381,7 +384,7 @@ export default function HowItWorks() {
       <section className="hiw-close">
         <div className="wrap">
           <h2>You do the work. We will run the rest.</h2>
-          <p className="price">$1,750 to get found. $199 a month to run it. No lock-in. <a href="/pricing">See full pricing</a></p>
+          <p className="price">One simple monthly plan gets you found and runs your business. <a href="/pricing">See the pricing</a></p>
           <div className="cta"><a className="hiw-btn" href={START_LINK}>Pick a time</a></div>
         </div>
       </section>
