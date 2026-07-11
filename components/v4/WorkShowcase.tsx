@@ -24,11 +24,12 @@ const CSS = `
 .wk-btn:hover{transform:translateY(-1px);}
 
 /* hero */
-.wk-hero{text-align:center;padding:clamp(120px,16vh,180px) 0 clamp(30px,5vw,56px);position:relative;overflow:hidden;}
-.wk-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(52% 42% at 50% 4%,rgba(6,182,212,.08),transparent 60%);pointer-events:none;}
+.wk-hero{text-align:center;padding:clamp(140px,18vh,210px) 0 clamp(48px,6vw,72px);position:relative;overflow:hidden;background:#050506;}
+.wk-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(62% 52% at 50% 0%,rgba(14,165,233,.16),transparent 62%);pointer-events:none;}
 .wk-hero .wrap{position:relative;}
-.wk-hero h1{margin-top:18px;font-size:clamp(46px,7.4vw,104px);line-height:.98;}
-.wk-hero p.lead{margin:26px auto 0;font-size:clamp(18px,2.1vw,23px);line-height:1.45;color:#52565e;max-width:40ch;}
+.wk-hero .eyebrow{color:#c9cdd6;}
+.wk-hero h1{margin-top:18px;font-size:clamp(46px,7.4vw,104px);line-height:.98;color:#f5f5f7;}
+.wk-hero p.lead{margin:26px auto 0;font-size:clamp(18px,2.1vw,23px);line-height:1.45;color:#aeb4c0;max-width:40ch;}
 
 /* compare */
 .wk-compare{padding:clamp(24px,4vw,52px) 0 clamp(70px,9vw,120px);}

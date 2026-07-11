@@ -81,12 +81,15 @@ const CSS = `
 .hiw-btn.ghost{background:transparent;color:var(--v4-ink);border:1px solid rgba(0,0,0,.18);}
 
 /* hero */
-.hiw-hero{position:relative;background:#fff;text-align:center;padding:clamp(120px,16vh,180px) 0 clamp(50px,7vw,80px);overflow:hidden;}
-.hiw-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(52% 42% at 50% 6%,rgba(6,182,212,.08),transparent 60%);pointer-events:none;}
+.hiw-hero{position:relative;background:#050506;text-align:center;padding:clamp(140px,18vh,210px) 0 clamp(64px,8vw,96px);overflow:hidden;}
+.hiw-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(62% 52% at 50% 0%,rgba(14,165,233,.16),transparent 62%);pointer-events:none;}
 .hiw-hero .wrap{position:relative;}
-.hiw-hero h1{margin-top:18px;font-size:clamp(42px,6.6vw,88px);line-height:1.0;max-width:15ch;margin-left:auto;margin-right:auto;}
-.hiw-hero p.lead{margin:26px auto 0;font-size:clamp(18px,2.1vw,23px);line-height:1.45;color:#52565e;max-width:46ch;}
+.hiw-hero .eyebrow{color:#c9cdd6;}
+.hiw-hero h1{margin-top:18px;font-size:clamp(42px,6.6vw,88px);line-height:1.0;max-width:15ch;margin-left:auto;margin-right:auto;color:#f5f5f7;}
+.hiw-hero p.lead{margin:26px auto 0;font-size:clamp(18px,2.1vw,23px);line-height:1.45;color:#aeb4c0;max-width:46ch;}
 .hiw-hero .cta{margin-top:34px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.hiw-hero .hiw-btn{background:#f5f5f7;color:#050506;}
+.hiw-hero .hiw-btn.ghost{background:transparent;color:#f5f5f7;border-color:rgba(255,255,255,.3);}
 
 /* hero journey (3 phases) */
 .hiw-journey{margin:clamp(56px,7vw,92px) auto 0;max-width:960px;}
@@ -96,8 +99,8 @@ const CSS = `
 .hiw-journey .jcard .jt{margin-top:10px;font-size:clamp(20px,2.4vw,27px);font-weight:600;letter-spacing:-.02em;line-height:1.1;}
 .hiw-journey .jcard .js{margin-top:8px;font-size:14.5px;line-height:1.35;color:#7b7f88;}
 .hiw-journey .jarr{flex:0 0 30px;display:flex;align-items:center;justify-content:center;color:#c4c8ce;}
-.hiw-journey .jnote{margin:24px auto 0;text-align:center;font-size:15px;line-height:1.55;color:#6b7079;max-width:56ch;}
-.hiw-journey .jnote b{color:var(--v4-ink);font-weight:600;}
+.hiw-journey .jnote{margin:24px auto 0;text-align:center;font-size:15px;line-height:1.55;color:#aeb4c0;max-width:56ch;}
+.hiw-journey .jnote b{color:#f5f5f7;font-weight:600;}
 @media(max-width:760px){.hiw-journey .row{flex-direction:column;}.hiw-journey .jarr{flex:0 0 26px;transform:rotate(90deg);}}
 
 /* sticky chapter rail */
