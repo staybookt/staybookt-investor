@@ -1,64 +1,65 @@
 'use client';
 
-import { useEffect, useState, type ReactNode, type CSSProperties } from 'react';
+import { useEffect, useRef, useState, type ReactNode, type CSSProperties } from 'react';
 import { START_LINK } from '@/lib/site';
 import Receptionist from './Receptionist';
-import Dashboard from './Dashboard';
 import PlayOnView from './PlayOnView';
-import Reveal from './Reveal';
 
 const HERO_H = 'You run the business. We run the busywork.';
-const HERO_SUB = 'It happens in three moves. We get you found, we run the day to day, and you get your life back. Watch the whole journey below.';
-
-const JOURNEY: { k: string; t: string; s: string; c: string }[] = [
-  { k: 'Phase one', t: 'Get Found', s: 'Be the one they call', c: '#0ea5e9' },
-  { k: 'Phase two', t: 'StayBookt', s: 'We run the busywork', c: '#10b981' },
-  { k: 'Phase three', t: 'Enjoy Life', s: 'Get your life back', c: '#f59e0b' },
-];
+const HERO_SUB = 'One guided journey, three milestones. Follow the path and watch what StayBookt does at every stop.';
+const JNOTE = 'Get Found and StayBookt come together as one simple monthly plan. Enjoy Life is the invitation you earn, once your first year has built the systems, the reputation, and the revenue.';
 
 const LEARN_H = 'First, we learn your business.';
-const LEARN_P = 'Before any of it goes live, we sit down and learn how you actually work. What you charge. Which jobs you take and which you pass on. Your service area. How you talk to a customer. That becomes the playbook everything else runs on, so when we answer, it sounds like you, not a call center.';
+const LEARN_P = 'Before the journey starts, we sit down and learn how you actually work. What you charge. Which jobs you take and which you pass on. Your service area. How you talk to a customer. That becomes the playbook everything else runs on, so when we answer, it sounds like you, not a call center.';
 const LEARN_ROWS = ['What you charge, job by job', 'The jobs you take and the ones you pass', 'Your service area and your hours', 'How you talk to a customer'];
 
-type Phase = {
-  id: string; label: string; promise: string; means: string; accent: string;
-  surface: 'map' | 'receptionist' | 'dashboard'; caption: string; alt: boolean;
-  steps: { t: string; b: string }[];
+type Stop = {
+  id: string; n: string; label: string; promise: string; accent: string; accentD: string;
+  beats: string[]; result: string; hero: boolean; steps: { t: string; b: string }[];
 };
-const PHASES: Phase[] = [
+const STOPS: Stop[] = [
   {
-    id: 'found', label: 'Phase one · Get found', promise: 'Be the one they call.', accent: '#0ea5e9', surface: 'map', alt: false,
-    means: 'A homeowner searches. Your profile, your site, and your reviews put you first, so they call you, not the other guy down the road.',
-    caption: 'What the customer sees when they search',
+    id: 'found', n: '1', label: 'Get found', promise: 'Impossible to miss.', accent: '#0ea5e9', accentD: '#0284c7', hero: false,
+    beats: [
+      'We build your website and analyze your numbers to find where work is leaking.',
+      'We get you found on search, the map, and the new one that matters: AI recommendations.',
+    ],
+    result: 'Inbox full, texts flowing, phone ringing.',
     steps: [
       { t: 'We build you a proper website.', b: 'Fast, works on a phone, and made to turn a visitor into a call. Built and hosted for you, nothing to manage.' },
       { t: 'We fix your Google listing.', b: 'The thing that pops up when someone searches your trade. We fill it out, keep it current, and get Google to trust it.' },
-      { t: 'We get you ranked locally.', b: 'Your name, address, and number match everywhere online. That is what pushes you up the map results, above the competition.' },
+      { t: 'We get you ranked, and recommended.', b: 'Your details match everywhere online so you climb the map results, and you show up when someone asks an AI assistant for your trade nearby.' },
       { t: 'We build your reviews.', b: 'Every finished job becomes a five-star review. More reviews means you climb higher and get picked more often.' },
-      { t: 'We make it one tap to reach you.', b: 'Every page has a big call button and a way to book on the spot, so a ready customer never slips away.' },
     ],
   },
   {
-    id: 'run', label: 'Phase two · StayBookt', promise: 'We run the busywork.', accent: '#10b981', surface: 'receptionist', alt: true,
-    means: 'It is 2 AM and a furnace just died. The call gets answered in your voice, the job gets quoted and dispatched, and you sleep right through it.',
-    caption: 'A real lead, answered and dispatched. Live, in your voice',
+    id: 'run', n: '2', label: 'StayBookt', promise: 'Every lead, maximized.', accent: '#10b981', accentD: '#059669', hero: true,
+    beats: [
+      'We catch the missed calls, engage the customer, and book the job. Reminders and confirmations so they show up.',
+      'We send the quote, chase what is unpaid, and turn happy jobs into reviews and referrals.',
+      'We suggest the right add-on, then schedule the maintenance and rebook the second job when it counts.',
+    ],
+    result: 'Nothing leaks. Every customer worth everything they are worth.',
     steps: [
-      { t: 'We answer every call and text.', b: 'Day or night, mid-job or asleep, answered in your voice and quoted on the spot. AI handles the everyday ones. A real person on our team steps in on anything unusual, before it reaches your customer.' },
-      { t: 'We book the job.', b: 'Straight onto your calendar, confirmed with the customer, with reminders so they actually show up.' },
-      { t: 'We send and chase your quotes.', b: 'Every quote goes out and gets followed up until you get a yes or a no. No job lost because you were too busy to call back.' },
-      { t: 'We keep it all in one place.', b: 'Every customer, job, and conversation on record, without you typing a thing. Off your personal phone and email.' },
+      { t: 'We answer every call and text.', b: 'Day or night, mid-job or asleep, answered in your voice. AI handles the everyday ones. A real person steps in on anything unusual, before it reaches your customer.' },
+      { t: 'We book, confirm, and remind.', b: 'Straight onto your calendar, confirmed with the customer, with reminders so they actually show up.' },
+      { t: 'We quote and chase.', b: 'Every quote goes out and gets followed up until you get a yes or a no. We chase unpaid invoices so the money actually lands.' },
+      { t: 'We grow every customer.', b: 'Reviews and referrals from the happy ones. The right upsell and cross-sell. Follow-up maintenance booked before they drift.' },
       { t: 'We hand you one short brief a day.', b: 'What is booked, what needs a decision, what came in. Thirty seconds, then go run your day. No software to learn.' },
     ],
   },
   {
-    id: 'free', label: 'Phase three · Enjoy life', promise: 'Go enjoy the life you built it for.', accent: '#f59e0b', surface: 'dashboard', alt: false,
-    means: 'Every customer makes the business stronger. Revenue climbs, reviews compound, and the whole thing runs without you glued to it. Now it is worth more.',
-    caption: 'Your week, running itself',
+    id: 'free', n: '3', label: 'Enjoy life', promise: 'You choose.', accent: '#f59e0b', accentD: '#b45309', hero: false,
+    beats: [
+      'After 12 months, once the leaks are closed and the operation runs with discipline, we run a real valuation of your business.',
+      'Not just the dollar figure, but how well it gives you your time back and can run and grow on its own.',
+    ],
+    result: 'Sell it, hand it to family, or just do the part you love.',
     steps: [
-      { t: 'We bring old customers back.', b: 'Months after a job, we reach out so past customers rebook you instead of googling someone else. Repeat work, on its own.' },
-      { t: 'Your reputation keeps compounding.', b: 'Reviews keep coming, your ranking keeps climbing, and new work keeps arriving without you chasing it.' },
-      { t: 'The business stops depending on you.', b: 'Because the finding, answering, and booking all run without you in the middle, you get your evenings and weekends back.' },
-      { t: 'And it is worth more.', b: 'A business that runs without the owner glued to it is one you can actually keep, pass on, or sell.' },
+      { t: 'We build toward a number.', b: 'Everything in the first year is engineered so the business is worth more, and provable, by the time we value it.' },
+      { t: 'We value what matters.', b: 'The financials, and the freedom: how much the business depends on you, and how well it runs and grows without you in the middle.' },
+      { t: 'You take the driver seat.', b: 'Sell to a buyer, hand it to a family member, or step back to the part of the work you actually love. Your call.' },
+      { t: 'It was always the point.', b: 'You built this business to enjoy your life. This is where that finally happens.' },
     ],
   },
 ];
@@ -75,7 +76,7 @@ const FAQ: { q: string; a: string }[] = [
   { q: 'Who owns the website and domain?', a: 'The site is yours to keep. If you already own your domain it stays in your name. If we set one up for you, we walk through the handover on the call. Nothing holds you hostage.' },
   { q: 'How long until I am live?', a: 'About 30 days from the first call.' },
   { q: 'Is there a contract?', a: 'We keep the terms simple and walk you through them on the call. Whatever happens, the website is always yours to keep.' },
-  { q: 'Do you take a cut of my jobs?', a: 'No. It is one simple monthly plan to run everything. The only place we ever share upside is the invite-only Enjoy Life tier, and that comes later, once we have a track record together.' },
+  { q: 'What is the valuation at the end?', a: 'After your first year, we value the business on two axes: what it is worth in dollars, and how well it runs and grows without you glued to it. Then you decide what to do with it. There is no obligation to sell.' },
 ];
 
 const CSS = `
@@ -88,7 +89,7 @@ const CSS = `
 .hiw-btn.ghost{background:transparent;color:var(--v4-ink);border:1px solid rgba(0,0,0,.18);}
 
 /* hero */
-.hiw-hero{position:relative;background:#050506;text-align:center;padding:clamp(140px,18vh,210px) 0 clamp(64px,8vw,96px);overflow:hidden;}
+.hiw-hero{position:relative;background:#050506;text-align:center;padding:clamp(140px,18vh,210px) 0 clamp(70px,9vw,110px);overflow:hidden;}
 .hiw-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(62% 52% at 50% 0%,rgba(14,165,233,.16),transparent 62%);pointer-events:none;}
 .hiw-hero .wrap{position:relative;}
 .hiw-hero .eyebrow{color:#c9cdd6;}
@@ -97,29 +98,9 @@ const CSS = `
 .hiw-hero .cta{margin-top:34px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
 .hiw-hero .hiw-btn{background:#f5f5f7;color:#050506;}
 .hiw-hero .hiw-btn.ghost{background:transparent;color:#f5f5f7;border-color:rgba(255,255,255,.3);}
+.hiw-hero .jnote{margin:36px auto 0;font-size:14.5px;line-height:1.55;color:#8f97a4;max-width:58ch;}
 
-/* hero journey (3 phases) */
-.hiw-journey{margin:clamp(56px,7vw,92px) auto 0;max-width:960px;}
-.hiw-journey .row{display:flex;align-items:stretch;justify-content:center;gap:0;flex-wrap:nowrap;}
-.hiw-journey .jcard{flex:1 1 0;min-width:0;background:#fff;border:1px solid #ececec;border-radius:22px;padding:26px 22px;text-align:left;box-shadow:0 22px 46px -30px rgba(6,12,20,.25);border-top:3px solid var(--jc);}
-.hiw-journey .jcard .jk{font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--jc);}
-.hiw-journey .jcard .jt{margin-top:10px;font-size:clamp(20px,2.4vw,27px);font-weight:600;letter-spacing:-.02em;line-height:1.1;}
-.hiw-journey .jcard .js{margin-top:8px;font-size:14.5px;line-height:1.35;color:#7b7f88;}
-.hiw-journey .jarr{flex:0 0 30px;display:flex;align-items:center;justify-content:center;color:#c4c8ce;}
-.hiw-journey .jnote{margin:24px auto 0;text-align:center;font-size:15px;line-height:1.55;color:#aeb4c0;max-width:56ch;}
-.hiw-journey .jnote b{color:#f5f5f7;font-weight:600;}
-@media(max-width:760px){.hiw-journey .row{flex-direction:column;}.hiw-journey .jarr{flex:0 0 26px;transform:rotate(90deg);}}
-
-/* sticky journey rail */
-.hiw-rail{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.82);backdrop-filter:saturate(180%) blur(16px);-webkit-backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid #ececec;}
-.hiw-rail .rail-in{display:flex;gap:clamp(14px,3vw,38px);justify-content:center;flex-wrap:wrap;padding:15px 20px;}
-.hiw-rail a{font-size:13.5px;font-weight:600;color:#9298a1;text-decoration:none;transition:color .3s ease;white-space:nowrap;display:flex;align-items:center;gap:8px;}
-.hiw-rail a .d{width:7px;height:7px;border-radius:50%;background:#d4d7dd;transition:background .3s ease,transform .3s ease;}
-.hiw-rail a.on{color:var(--v4-ink);}
-.hiw-rail a.on .d{background:var(--v4-ink);transform:scale(1.25);}
-@media(max-width:640px){.hiw-rail .rail-in{justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap;}}
-
-/* learn (precursor) */
+/* learn */
 .hiw-learn{padding:clamp(80px,11vw,140px) 0;background:var(--v4-cream);}
 .hiw-learn .grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,80px);align-items:center;}
 .hiw-learn h2{font-size:clamp(32px,4.6vw,60px);line-height:1.02;max-width:12ch;}
@@ -133,33 +114,51 @@ const CSS = `
 .learncard li svg{flex:0 0 auto;}
 @media(max-width:820px){.hiw-learn .grid{grid-template-columns:1fr;gap:40px;}.hiw-learn h2{max-width:18ch;}}
 
-/* phase moment (visual-forward) */
-.hiw-phase{padding:clamp(90px,12vw,150px) 0;overflow:hidden;}
-.hiw-phase.alt{background:var(--v4-cream);}
-.hiw-phase .ph-head{text-align:center;max-width:720px;margin:0 auto;}
-.hiw-phase .plabel{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);}
-.hiw-phase .promise{margin-top:14px;font-weight:600;font-size:clamp(34px,5.4vw,70px);line-height:1.0;letter-spacing:-.035em;}
-.hiw-phase .means{margin:20px auto 0;font-size:clamp(18px,2vw,22px);line-height:1.5;color:#52565e;max-width:42ch;}
-.hiw-phase .offer{display:inline-flex;align-items:center;margin-top:22px;font-size:13px;font-weight:600;padding:8px 15px;border-radius:999px;border:1px solid var(--acc);color:var(--acc);}
-.hiw-phase .stage{position:relative;margin:clamp(48px,6vw,74px) auto 0;display:flex;justify-content:center;}
-.hiw-phase .stage::before{content:'';position:absolute;inset:-8% -6% 4%;background:radial-gradient(52% 60% at 50% 42%,color-mix(in srgb,var(--acc) 20%,transparent),transparent 72%);filter:blur(40px);z-index:0;}
-.hiw-phase .stage>*{position:relative;z-index:1;}
-.hiw-phase .stage .appwin{width:min(440px,100%);}
-.hiw-phase .cap{margin:22px auto 0;text-align:center;font-size:13px;letter-spacing:.02em;color:#9298a1;}
-.hiw-phase .detail{max-width:840px;margin:clamp(40px,5vw,58px) auto 0;text-align:center;}
-.hiw-phase .toggle{display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid #e2e2df;color:var(--v4-ink);font-family:inherit;font-size:14.5px;font-weight:600;border-radius:999px;padding:12px 22px;cursor:pointer;transition:border-color .25s ease;}
-.hiw-phase.alt .toggle{background:#fff;}
-.hiw-phase .toggle:hover{border-color:var(--acc);}
-.hiw-phase .toggle .pl{font-size:18px;line-height:1;color:var(--acc);transition:transform .3s ease;}
-.hiw-phase .detail.open .toggle .pl{transform:rotate(45deg);}
-.hiw-phase .steps{max-height:0;overflow:hidden;transition:max-height .55s cubic-bezier(.16,1,.3,1),margin .4s ease;text-align:left;}
-.hiw-phase .detail.open .steps{max-height:1400px;margin-top:34px;}
-.hiw-phase .steps ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,2.4vw,30px) clamp(32px,5vw,64px);}
-.hiw-phase .steps li{display:grid;grid-template-columns:32px 1fr;gap:14px;align-items:start;}
-.hiw-phase .steps .num{width:32px;height:32px;border-radius:50%;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex:0 0 auto;}
-.hiw-phase .steps .sc{font-size:15.5px;line-height:1.5;color:#33373e;}
-.hiw-phase .steps .sc b{color:var(--v4-ink);font-weight:600;}
-@media(max-width:720px){.hiw-phase .steps ol{grid-template-columns:1fr;}}
+/* ===== THE JOURNEY MAP (drawing trail) ===== */
+.hiw-jrny{background:#fff;padding:clamp(56px,7vw,96px) 0 clamp(70px,9vw,120px);}
+.hiw-jrny .jhead{text-align:center;max-width:640px;margin:0 auto clamp(30px,4vw,52px);}
+.hiw-jrny .jhead h2{font-size:clamp(30px,4.4vw,54px);line-height:1.05;margin-top:14px;}
+.hiw-jrny .jhead p{margin-top:16px;font-size:clamp(16px,1.8vw,19px);color:#7a828f;line-height:1.5;}
+.jmap{position:relative;max-width:920px;margin:0 auto;}
+.jmap .rail{position:absolute;left:29px;top:14px;bottom:44px;width:3px;background:#e9e9ee;border-radius:2px;}
+.jmap .fill{position:absolute;left:29px;top:14px;width:3px;height:calc(var(--p,0) * (100% - 58px));background:linear-gradient(180deg,#0ea5e9,#10b981 55%,#f59e0b);border-radius:2px;}
+.jmap .marker{position:absolute;left:23px;top:calc(14px + var(--p,0) * (100% - 58px));width:15px;height:15px;border-radius:50%;background:#fff;border:3px solid var(--v4-ink);box-shadow:0 3px 12px rgba(0,0,0,.28);transform:translateY(-50%);z-index:3;}
+.jstart{display:grid;grid-template-columns:60px 1fr;gap:clamp(14px,2.5vw,28px);align-items:center;padding-bottom:clamp(24px,3vw,34px);}
+.jstart .sdot{width:16px;height:16px;border-radius:50%;background:var(--v4-ink);margin:0 auto;position:relative;z-index:2;}
+.jstart .st{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#9298a1;}
+.jstart .sh{margin-top:3px;font-size:clamp(17px,2vw,20px);font-weight:600;color:var(--v4-ink);}
+.jstop{display:grid;grid-template-columns:60px 1fr;gap:clamp(14px,2.5vw,28px);align-items:start;padding:clamp(30px,4.5vw,54px) 0;opacity:.5;transition:opacity .55s ease;}
+.jstop.on{opacity:1;}
+.jstop .node{width:44px;height:44px;border-radius:50%;background:#e6e8ec;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;margin:0 auto;border:4px solid #fff;position:relative;z-index:2;transition:background .5s ease,box-shadow .5s ease;box-shadow:0 0 0 0 var(--acc);}
+.jstop.on .node{background:var(--acc);box-shadow:0 10px 24px -8px var(--acc);}
+.jstop .plabel{font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--acd);}
+.jstop .promise{margin-top:8px;font-size:clamp(28px,4vw,50px);font-weight:600;line-height:1.02;letter-spacing:-.03em;}
+.jstop .beats{list-style:none;margin:22px 0 0;padding:0;display:flex;flex-direction:column;gap:13px;max-width:52ch;}
+.jstop .beats li{display:grid;grid-template-columns:9px 1fr;gap:13px;align-items:start;font-size:clamp(16px,1.7vw,18px);line-height:1.5;color:#42474f;}
+.jstop .beats .b{width:9px;height:9px;border-radius:50%;background:var(--acc);margin-top:8px;}
+.jstop .result{display:inline-block;margin-top:22px;font-size:15px;font-weight:600;color:var(--acd);}
+.jstop .stophero{position:relative;margin:32px 0 6px;display:flex;justify-content:flex-start;}
+.jstop .stophero::before{content:'';position:absolute;inset:-8% -6% 2% -6%;background:radial-gradient(50% 55% at 40% 45%,color-mix(in srgb,var(--acc) 22%,transparent),transparent 72%);filter:blur(38px);z-index:0;}
+.jstop .stophero>*{position:relative;z-index:1;}
+.jstop .detail{margin-top:26px;}
+.jstop .toggle{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid #e2e2df;color:var(--v4-ink);font-family:inherit;font-size:14px;font-weight:600;border-radius:999px;padding:10px 18px;cursor:pointer;transition:border-color .25s ease;}
+.jstop .toggle:hover{border-color:var(--acc);}
+.jstop .toggle .pl{font-size:17px;line-height:1;color:var(--acc);transition:transform .3s ease;}
+.jstop .detail.open .toggle .pl{transform:rotate(45deg);}
+.jstop .steps{max-height:0;overflow:hidden;transition:max-height .55s cubic-bezier(.16,1,.3,1),margin .4s ease;}
+.jstop .detail.open .steps{max-height:1200px;margin-top:24px;}
+.jstop .steps ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px;max-width:60ch;}
+.jstop .steps li{display:grid;grid-template-columns:30px 1fr;gap:13px;align-items:start;}
+.jstop .steps .num{width:30px;height:30px;border-radius:50%;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13.5px;font-weight:700;flex:0 0 auto;}
+.jstop .steps .sc{font-size:15px;line-height:1.5;color:#42474f;}
+.jstop .steps .sc b{color:var(--v4-ink);font-weight:600;}
+@media(max-width:640px){
+  .jmap .rail,.jmap .fill{left:19px;}
+  .jmap .marker{left:13px;}
+  .jstop,.jstart{grid-template-columns:40px 1fr;gap:16px;}
+  .jstop .node{width:36px;height:36px;font-size:15px;}
+  .jstop .stophero{justify-content:center;}
+}
 
 /* proof */
 .hiw-proof{background:#0b0f14;text-align:center;padding:clamp(60px,8vw,90px) 0;}
@@ -200,90 +199,74 @@ function Check() {
     </svg>
   );
 }
-function ArrowIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
-    </svg>
-  );
-}
 
-function MapSurface() {
+function StopBlock({ s, open, onToggle, obsRef }: { s: Stop; open: boolean; onToggle: () => void; obsRef: (el: HTMLDivElement | null) => void }) {
   return (
-    <div className="sbwrap"><div className="appwin">
-      <div className="aw-top"><span className="aw-ic" />electrician near me</div>
-      <div className="aw-body" style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-        <div className="gbiz first"><span className="rank">#1</span><div className="bn">Top Choice Electrical</div><div className="stars">&#9733;&#9733;&#9733;&#9733;&#9733; <span>4.9 &middot; Open now</span></div></div>
-        <div className="gbiz dim"><div className="bn">City Wide Electric</div><div className="stars">&#9733;&#9733;&#9733;&#9733; <span>4.1</span></div></div>
-        <div className="gbiz dim"><div className="bn">Rapid Volt</div><div className="stars">&#9733;&#9733;&#9733;&#9733; <span>4.0</span></div></div>
-      </div>
-    </div></div>
-  );
-}
+    <div className="jstop" id={s.id} ref={obsRef} style={{ '--acc': s.accent, '--acd': s.accentD } as CSSProperties}>
+      <div className="node">{s.n}</div>
+      <div className="body">
+        <div className="plabel">Milestone {s.n} · {s.label}</div>
+        <div className="promise">{s.promise}</div>
+        <ul className="beats">
+          {s.beats.map((b) => <li key={b}><span className="b" /><span>{b}</span></li>)}
+        </ul>
+        <div className="result">&rarr; {s.result}</div>
 
-function PhaseBlock({ p, open, onToggle }: { p: Phase; open: boolean; onToggle: () => void }) {
-  return (
-    <section className={`hiw-phase${p.alt ? ' alt' : ''}`} id={p.id} style={{ '--acc': p.accent } as CSSProperties}>
-      <div className="wrap">
-        <div className="ph-head">
-          <div className="plabel">{p.label}</div>
-          <div className="promise">{p.promise}</div>
-          <div className="means">{p.means}</div>
-        </div>
-
-        <div className="stage">
-          {p.surface === 'map' && <Reveal><MapSurface /></Reveal>}
-          {p.surface === 'receptionist' && <PlayOnView><Receptionist /></PlayOnView>}
-          {p.surface === 'dashboard' && <PlayOnView><Dashboard /></PlayOnView>}
-        </div>
-        <div className="cap">{p.caption}</div>
+        {s.hero && (
+          <div className="stophero"><PlayOnView><Receptionist /></PlayOnView></div>
+        )}
 
         <div className={`detail${open ? ' open' : ''}`}>
           <button type="button" className="toggle" onClick={onToggle}>
-            See exactly how it works <span className="pl">+</span>
+            See exactly how we do it <span className="pl">+</span>
           </button>
           <div className="steps">
             <ol>
-              {p.steps.map((s, i) => (
-                <li key={s.t}>
-                  <span className="num">{i + 1}</span>
-                  <span className="sc"><b>{s.t}</b> {s.b}</span>
-                </li>
+              {s.steps.map((st, i) => (
+                <li key={st.t}><span className="num">{i + 1}</span><span className="sc"><b>{st.t}</b> {st.b}</span></li>
               ))}
             </ol>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }
 
 export default function HowItWorks() {
-  const [active, setActive] = useState('learn');
   const [openF, setOpenF] = useState<number | null>(0);
-  const [openPhase, setOpenPhase] = useState<string | null>(null);
+  const [openStop, setOpenStop] = useState<string | null>(null);
+  const mapRef = useRef<HTMLDivElement | null>(null);
+  const stopEls = useRef<Record<string, HTMLDivElement | null>>({});
 
+  // Draw the trail: set --p (0..1) on the map as it scrolls through the viewport.
   useEffect(() => {
-    const ids = ['learn', 'found', 'run', 'free', 'start'];
-    const obs = new IntersectionObserver(
-      (entries) => entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id); }),
-      { rootMargin: '-45% 0px -50% 0px', threshold: 0 },
-    );
-    ids.forEach((id) => { const el = document.getElementById(id); if (el) obs.observe(el); });
-    return () => obs.disconnect();
+    const el = mapRef.current;
+    if (!el) return;
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const r = el.getBoundingClientRect();
+        const vh = window.innerHeight;
+        const p = Math.min(Math.max((vh * 0.55 - r.top) / r.height, 0), 1);
+        el.style.setProperty('--p', String(p));
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => { window.removeEventListener('scroll', onScroll); cancelAnimationFrame(raf); };
   }, []);
 
-  const journeyNodes: ReactNode[] = [];
-  JOURNEY.forEach((c, i) => {
-    journeyNodes.push(
-      <div key={c.t} className="jcard" style={{ '--jc': c.c } as CSSProperties}>
-        <div className="jk">{c.k}</div>
-        <div className="jt">{c.t}</div>
-        <div className="js">{c.s}</div>
-      </div>,
+  // Light up each stop as it enters view (stays lit once passed).
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('on'); }),
+      { rootMargin: '-30% 0px -45% 0px', threshold: 0 },
     );
-    if (i < JOURNEY.length - 1) journeyNodes.push(<div key={`a${i}`} className="jarr"><ArrowIcon /></div>);
-  });
+    Object.values(stopEls.current).forEach((el) => { if (el) obs.observe(el); });
+    return () => obs.disconnect();
+  }, []);
 
   return (
     <div className="hiw">
@@ -297,30 +280,18 @@ export default function HowItWorks() {
           <p className="lead">{HERO_SUB}</p>
           <div className="cta">
             <a className="hiw-btn" href={START_LINK}>Pick a time</a>
-            <a className="hiw-btn ghost" href="#learn">Walk the journey</a>
+            <a className="hiw-btn ghost" href="#found">Start the journey</a>
           </div>
-          <div className="hiw-journey">
-            <div className="row">{journeyNodes}</div>
-            <p className="jnote"><b>Get Found and StayBookt come together as one simple monthly plan.</b> Enjoy Life is the invitation you earn, once we have built the systems, the reputation, and the revenue over your first year.</p>
-          </div>
+          <p className="jnote">{JNOTE}</p>
         </div>
       </header>
 
-      {/* RAIL */}
-      <nav className="hiw-rail">
-        <div className="rail-in">
-          {[{ id: 'learn', l: 'Learns you' }, { id: 'found', l: 'Get found' }, { id: 'run', l: 'StayBookt' }, { id: 'free', l: 'Enjoy life' }, { id: 'start', l: 'Get started' }].map((c) => (
-            <a key={c.id} href={`#${c.id}`} className={active === c.id ? 'on' : ''}><span className="d" />{c.l}</a>
-          ))}
-        </div>
-      </nav>
-
-      {/* LEARN (precursor) */}
+      {/* LEARN */}
       <section className="hiw-learn" id="learn">
         <div className="wrap">
           <div className="grid">
             <div>
-              <div className="eyebrow">Before any of it</div>
+              <div className="eyebrow">Before the journey</div>
               <h2 style={{ marginTop: 14 }}>{LEARN_H}</h2>
               <p>{LEARN_P}</p>
             </div>
@@ -333,10 +304,37 @@ export default function HowItWorks() {
         </div>
       </section>
 
-      {/* THREE PHASE MOMENTS */}
-      {PHASES.map((p) => (
-        <PhaseBlock key={p.id} p={p} open={openPhase === p.id} onToggle={() => setOpenPhase(openPhase === p.id ? null : p.id)} />
-      ))}
+      {/* THE JOURNEY MAP */}
+      <section className="hiw-jrny">
+        <div className="wrap">
+          <div className="jhead">
+            <div className="eyebrow">The journey</div>
+            <h2>Follow the path.</h2>
+            <p>Every customer, and your whole business, travels this route. Here is what happens at each stop.</p>
+          </div>
+          <div className="jmap" ref={mapRef}>
+            <div className="rail" />
+            <div className="fill" />
+            <div className="marker" />
+            <div className="jstart">
+              <div className="sdot" />
+              <div>
+                <div className="st">Day one · You are here</div>
+                <div className="sh">The phone barely rings.</div>
+              </div>
+            </div>
+            {STOPS.map((s) => (
+              <StopBlock
+                key={s.id}
+                s={s}
+                open={openStop === s.id}
+                onToggle={() => setOpenStop(openStop === s.id ? null : s.id)}
+                obsRef={(el) => { stopEls.current[s.id] = el; }}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* PROOF */}
       <section className="hiw-proof">
