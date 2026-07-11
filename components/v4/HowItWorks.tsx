@@ -216,12 +216,6 @@ const CSS = `
 .leak .lk-val{font-size:clamp(24px,3.4vw,32px);font-weight:700;letter-spacing:-.02em;color:#059669;}
 .leak .lk-note{margin-top:6px;font-size:11.5px;color:#9298a1;}
 
-/* proof */
-.hiw-proof{background:#0b0f14;text-align:center;padding:clamp(60px,8vw,90px) 0;}
-.hiw-proof p{font-size:clamp(18px,2.1vw,24px);color:#e8eaee;font-weight:600;letter-spacing:-.02em;max-width:24ch;margin:0 auto;line-height:1.25;}
-.hiw-proof a{color:#5eead4;font-weight:600;text-decoration:none;}
-.hiw-proof .sub{margin-top:14px;font-size:15px;color:#9aa0ab;font-weight:400;letter-spacing:0;}
-
 /* get started */
 .hiw-start{text-align:center;padding:clamp(90px,13vw,160px) 0;background:#fff;}
 .hiw-start h2{margin-top:16px;font-size:clamp(34px,5.4vw,72px);line-height:1.0;max-width:16ch;margin-left:auto;margin-right:auto;}
@@ -519,14 +513,6 @@ export default function HowItWorks() {
               />
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* PROOF */}
-      <section className="hiw-proof">
-        <div className="wrap">
-          <p>We run this exact journey ourselves.</p>
-          <div className="sub"><a href="/work">Top Choice Electrical and XNL, live right now &rarr;</a></div>
         </div>
       </section>
 
