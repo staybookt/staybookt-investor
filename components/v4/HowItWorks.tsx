@@ -2,11 +2,14 @@
 
 import { useEffect, useState, type ReactNode, type CSSProperties } from 'react';
 import { START_LINK } from '@/lib/site';
+import Receptionist from './Receptionist';
+import Dashboard from './Dashboard';
+import PlayOnView from './PlayOnView';
+import Reveal from './Reveal';
 
 const HERO_H = 'You run the business. We run the busywork.';
-const HERO_SUB = 'It happens in three moves. We get you found, we run the day to day, and you get your life back. Here is exactly how each one works.';
+const HERO_SUB = 'It happens in three moves. We get you found, we run the day to day, and you get your life back. Watch the whole journey below.';
 
-// hero journey (mirrors the homepage: Get Found -> StayBookt -> Enjoy Life)
 const JOURNEY: { k: string; t: string; s: string; c: string }[] = [
   { k: 'Phase one', t: 'Get Found', s: 'Be the one they call', c: '#0ea5e9' },
   { k: 'Phase two', t: 'StayBookt', s: 'We run the busywork', c: '#10b981' },
@@ -17,12 +20,16 @@ const LEARN_H = 'First, we learn your business.';
 const LEARN_P = 'Before any of it goes live, we sit down and learn how you actually work. What you charge. Which jobs you take and which you pass on. Your service area. How you talk to a customer. That becomes the playbook everything else runs on, so when we answer, it sounds like you, not a call center.';
 const LEARN_ROWS = ['What you charge, job by job', 'The jobs you take and the ones you pass', 'Your service area and your hours', 'How you talk to a customer'];
 
-type Phase = { id: string; label: string; promise: string; means: string; offer: string; accent: string; viz: 'map' | 'reception' | 'repeat'; rev?: boolean; steps: { t: string; b: string }[] };
+type Phase = {
+  id: string; label: string; promise: string; means: string; accent: string;
+  surface: 'map' | 'receptionist' | 'dashboard'; caption: string; alt: boolean;
+  steps: { t: string; b: string }[];
+};
 const PHASES: Phase[] = [
   {
-    id: 'found', label: 'Phase one · Get found', promise: 'Be the one they call.', accent: '#0ea5e9', viz: 'map',
-    means: 'When someone nearby needs your trade, you are the name they find first, and the one they call. Not the other guy down the road.',
-    offer: 'Part of your monthly plan',
+    id: 'found', label: 'Phase one · Get found', promise: 'Be the one they call.', accent: '#0ea5e9', surface: 'map', alt: false,
+    means: 'A homeowner searches. Your profile, your site, and your reviews put you first, so they call you, not the other guy down the road.',
+    caption: 'What the customer sees when they search',
     steps: [
       { t: 'We build you a proper website.', b: 'Fast, works on a phone, and made to turn a visitor into a call. Built and hosted for you, nothing to manage.' },
       { t: 'We fix your Google listing.', b: 'The thing that pops up when someone searches your trade. We fill it out, keep it current, and get Google to trust it.' },
@@ -32,9 +39,9 @@ const PHASES: Phase[] = [
     ],
   },
   {
-    id: 'run', label: 'Phase two · StayBookt', promise: 'We run the busywork.', accent: '#10b981', viz: 'reception', rev: true,
-    means: 'Every call, quote, and booking handled for you, in your voice. You stop living on your phone, and you stay in control the whole time.',
-    offer: 'Part of your monthly plan',
+    id: 'run', label: 'Phase two · StayBookt', promise: 'We run the busywork.', accent: '#10b981', surface: 'receptionist', alt: true,
+    means: 'It is 2 AM and a furnace just died. The call gets answered in your voice, the job gets quoted and dispatched, and you sleep right through it.',
+    caption: 'A real lead, answered and dispatched. Live, in your voice',
     steps: [
       { t: 'We answer every call and text.', b: 'Day or night, mid-job or asleep, answered in your voice and quoted on the spot. AI handles the everyday ones. A real person on our team steps in on anything unusual, before it reaches your customer.' },
       { t: 'We book the job.', b: 'Straight onto your calendar, confirmed with the customer, with reminders so they actually show up.' },
@@ -44,9 +51,9 @@ const PHASES: Phase[] = [
     ],
   },
   {
-    id: 'free', label: 'Phase three · Enjoy life', promise: 'Go enjoy the life you built it for.', accent: '#f59e0b', viz: 'repeat',
-    means: 'Your time back, and a business worth more. It is what your first year with us builds toward, and it comes by invitation.',
-    offer: 'By invitation, after your first year',
+    id: 'free', label: 'Phase three · Enjoy life', promise: 'Go enjoy the life you built it for.', accent: '#f59e0b', surface: 'dashboard', alt: false,
+    means: 'Every customer makes the business stronger. Revenue climbs, reviews compound, and the whole thing runs without you glued to it. Now it is worth more.',
+    caption: 'Your week, running itself',
     steps: [
       { t: 'We bring old customers back.', b: 'Months after a job, we reach out so past customers rebook you instead of googling someone else. Repeat work, on its own.' },
       { t: 'Your reputation keeps compounding.', b: 'Reviews keep coming, your ranking keeps climbing, and new work keeps arriving without you chasing it.' },
@@ -86,7 +93,7 @@ const CSS = `
 .hiw-hero .wrap{position:relative;}
 .hiw-hero .eyebrow{color:#c9cdd6;}
 .hiw-hero h1{margin-top:18px;font-size:clamp(42px,6.6vw,88px);line-height:1.0;max-width:15ch;margin-left:auto;margin-right:auto;color:#f5f5f7;}
-.hiw-hero p.lead{margin:26px auto 0;font-size:clamp(18px,2.1vw,23px);line-height:1.45;color:#aeb4c0;max-width:46ch;}
+.hiw-hero p.lead{margin:26px auto 0;font-size:clamp(18px,2.1vw,23px);line-height:1.45;color:#aeb4c0;max-width:44ch;}
 .hiw-hero .cta{margin-top:34px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
 .hiw-hero .hiw-btn{background:#f5f5f7;color:#050506;}
 .hiw-hero .hiw-btn.ghost{background:transparent;color:#f5f5f7;border-color:rgba(255,255,255,.3);}
@@ -103,12 +110,13 @@ const CSS = `
 .hiw-journey .jnote b{color:#f5f5f7;font-weight:600;}
 @media(max-width:760px){.hiw-journey .row{flex-direction:column;}.hiw-journey .jarr{flex:0 0 26px;transform:rotate(90deg);}}
 
-/* sticky chapter rail */
+/* sticky journey rail */
 .hiw-rail{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.82);backdrop-filter:saturate(180%) blur(16px);-webkit-backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid #ececec;}
 .hiw-rail .rail-in{display:flex;gap:clamp(14px,3vw,38px);justify-content:center;flex-wrap:wrap;padding:15px 20px;}
-.hiw-rail a{font-size:13.5px;font-weight:600;color:#9298a1;text-decoration:none;transition:color .3s ease;white-space:nowrap;}
+.hiw-rail a{font-size:13.5px;font-weight:600;color:#9298a1;text-decoration:none;transition:color .3s ease;white-space:nowrap;display:flex;align-items:center;gap:8px;}
+.hiw-rail a .d{width:7px;height:7px;border-radius:50%;background:#d4d7dd;transition:background .3s ease,transform .3s ease;}
 .hiw-rail a.on{color:var(--v4-ink);}
-.hiw-rail a:hover{color:#52565e;}
+.hiw-rail a.on .d{background:var(--v4-ink);transform:scale(1.25);}
 @media(max-width:640px){.hiw-rail .rail-in{justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap;}}
 
 /* learn (precursor) */
@@ -125,27 +133,33 @@ const CSS = `
 .learncard li svg{flex:0 0 auto;}
 @media(max-width:820px){.hiw-learn .grid{grid-template-columns:1fr;gap:40px;}.hiw-learn h2{max-width:18ch;}}
 
-/* phase chapter */
-.hiw-phase{padding:clamp(84px,11vw,150px) 0;}
+/* phase moment (visual-forward) */
+.hiw-phase{padding:clamp(90px,12vw,150px) 0;overflow:hidden;}
 .hiw-phase.alt{background:var(--v4-cream);}
+.hiw-phase .ph-head{text-align:center;max-width:720px;margin:0 auto;}
 .hiw-phase .plabel{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);}
-.hiw-phase .promise{margin-top:14px;font-weight:600;font-size:clamp(32px,5.2vw,66px);line-height:1.0;letter-spacing:-.035em;max-width:15ch;}
-.hiw-phase .means{margin-top:20px;font-size:clamp(18px,2vw,22px);line-height:1.5;color:#52565e;max-width:44ch;}
+.hiw-phase .promise{margin-top:14px;font-weight:600;font-size:clamp(34px,5.4vw,70px);line-height:1.0;letter-spacing:-.035em;}
+.hiw-phase .means{margin:20px auto 0;font-size:clamp(18px,2vw,22px);line-height:1.5;color:#52565e;max-width:42ch;}
 .hiw-phase .offer{display:inline-flex;align-items:center;margin-top:22px;font-size:13px;font-weight:600;padding:8px 15px;border-radius:999px;border:1px solid var(--acc);color:var(--acc);}
-.hiw-phase .body{margin-top:clamp(44px,5vw,68px);display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(38px,6vw,84px);align-items:center;}
-.hiw-phase.rev .body .steps{order:2;}
-.hiw-phase .how{font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#9298a1;margin-bottom:22px;}
-.hiw-steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:clamp(20px,2.4vw,28px);}
-.hiw-steps li{display:grid;grid-template-columns:34px 1fr;gap:16px;align-items:start;}
-.hiw-steps .num{width:34px;height:34px;border-radius:50%;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;flex:0 0 auto;box-shadow:0 8px 18px -8px var(--acc);}
-.hiw-steps .sc{font-size:clamp(16px,1.75vw,18px);line-height:1.5;color:#33373e;}
-.hiw-steps .sc b{color:var(--v4-ink);font-weight:600;}
-.hiw-phase .viz{position:relative;display:flex;justify-content:center;}
-.hiw-phase .viz::before{content:'';position:absolute;inset:-10% -8%;background:radial-gradient(58% 58% at 50% 45%,color-mix(in srgb,var(--acc) 16%,transparent),transparent 70%);filter:blur(26px);z-index:0;}
-.hiw-phase .viz>*{position:relative;z-index:1;}
-.hiw-phase .viz .appwin{width:min(420px,100%);}
-.hiw-phase .illus{margin-top:16px;text-align:center;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:#b3b7be;position:relative;z-index:1;}
-@media(max-width:860px){.hiw-phase .body{grid-template-columns:1fr;gap:44px;}.hiw-phase.rev .body .steps{order:0;}}
+.hiw-phase .stage{position:relative;margin:clamp(48px,6vw,74px) auto 0;display:flex;justify-content:center;}
+.hiw-phase .stage::before{content:'';position:absolute;inset:-8% -6% 4%;background:radial-gradient(52% 60% at 50% 42%,color-mix(in srgb,var(--acc) 20%,transparent),transparent 72%);filter:blur(40px);z-index:0;}
+.hiw-phase .stage>*{position:relative;z-index:1;}
+.hiw-phase .stage .appwin{width:min(440px,100%);}
+.hiw-phase .cap{margin:22px auto 0;text-align:center;font-size:13px;letter-spacing:.02em;color:#9298a1;}
+.hiw-phase .detail{max-width:840px;margin:clamp(40px,5vw,58px) auto 0;text-align:center;}
+.hiw-phase .toggle{display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid #e2e2df;color:var(--v4-ink);font-family:inherit;font-size:14.5px;font-weight:600;border-radius:999px;padding:12px 22px;cursor:pointer;transition:border-color .25s ease;}
+.hiw-phase.alt .toggle{background:#fff;}
+.hiw-phase .toggle:hover{border-color:var(--acc);}
+.hiw-phase .toggle .pl{font-size:18px;line-height:1;color:var(--acc);transition:transform .3s ease;}
+.hiw-phase .detail.open .toggle .pl{transform:rotate(45deg);}
+.hiw-phase .steps{max-height:0;overflow:hidden;transition:max-height .55s cubic-bezier(.16,1,.3,1),margin .4s ease;text-align:left;}
+.hiw-phase .detail.open .steps{max-height:1400px;margin-top:34px;}
+.hiw-phase .steps ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,2.4vw,30px) clamp(32px,5vw,64px);}
+.hiw-phase .steps li{display:grid;grid-template-columns:32px 1fr;gap:14px;align-items:start;}
+.hiw-phase .steps .num{width:32px;height:32px;border-radius:50%;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex:0 0 auto;}
+.hiw-phase .steps .sc{font-size:15.5px;line-height:1.5;color:#33373e;}
+.hiw-phase .steps .sc b{color:var(--v4-ink);font-weight:600;}
+@media(max-width:720px){.hiw-phase .steps ol{grid-template-columns:1fr;}}
 
 /* proof */
 .hiw-proof{background:#0b0f14;text-align:center;padding:clamp(60px,8vw,90px) 0;}
@@ -194,76 +208,49 @@ function ArrowIcon() {
   );
 }
 
-function ReceptionistPhone() {
+function MapSurface() {
   return (
-    <div className="phone"><div className="notch" /><div className="screen">
-      <div className="ph-bar"><div className="ph-ava">TC</div><div><div className="ph-name">Top Choice</div><div className="ph-sub">StayBookt receptionist</div></div></div>
-      <div className="ph-body">
-        <div className="bub sys">Missed call &middot; 6:47 PM</div>
-        <div className="bub us">Hi, this is Top Choice. Sorry we missed you! What can we help with?</div>
-        <div className="bub them">Panel keeps tripping. Someone today?</div>
-        <div className="bub us">2 to 4 PM is open. Book it?</div>
-        <div className="bub them">Yes please</div>
-        <div className="bub us ok">Booked. We will text on the way.</div>
+    <div className="sbwrap"><div className="appwin">
+      <div className="aw-top"><span className="aw-ic" />electrician near me</div>
+      <div className="aw-body" style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <div className="gbiz first"><span className="rank">#1</span><div className="bn">Top Choice Electrical</div><div className="stars">&#9733;&#9733;&#9733;&#9733;&#9733; <span>4.9 &middot; Open now</span></div></div>
+        <div className="gbiz dim"><div className="bn">City Wide Electric</div><div className="stars">&#9733;&#9733;&#9733;&#9733; <span>4.1</span></div></div>
+        <div className="gbiz dim"><div className="bn">Rapid Volt</div><div className="stars">&#9733;&#9733;&#9733;&#9733; <span>4.0</span></div></div>
       </div>
-      <div className="ph-tag">Answered &middot; booked &middot; hands-free</div>
     </div></div>
   );
 }
 
-function viz(kind: string): ReactNode {
-  if (kind === 'reception') return <div className="sbwrap"><ReceptionistPhone /></div>;
-  if (kind === 'map') {
-    return (
-      <div className="sbwrap"><div className="appwin">
-        <div className="aw-top"><span className="aw-ic" />electrician near me</div>
-        <div className="aw-body" style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          <div className="gbiz first"><span className="rank">#1</span><div className="bn">Top Choice Electrical</div><div className="stars">&#9733;&#9733;&#9733;&#9733;&#9733; <span>4.9 &middot; Open now</span></div></div>
-          <div className="gbiz dim"><div className="bn">City Wide Electric</div><div className="stars">&#9733;&#9733;&#9733;&#9733; <span>4.1</span></div></div>
-          <div className="gbiz dim"><div className="bn">Rapid Volt</div><div className="stars">&#9733;&#9733;&#9733;&#9733; <span>4.0</span></div></div>
-        </div>
-      </div></div>
-    );
-  }
-  if (kind === 'repeat') {
-    return (
-      <div className="sbwrap"><div className="appwin">
-        <div className="aw-top"><span className="aw-ic" />Bring them back</div>
-        <div className="aw-body">
-          <div className="rp-camp">Winter tune-up reminder</div>
-          <div className="rp-meta">Sent automatically to 214 past customers.</div>
-          <div className="rp-bar"><i /></div>
-          <div className="rp-res"><span className="sub">18 rebooked</span><span><b>$9,400</b> in repeat work</span></div>
-        </div>
-      </div></div>
-    );
-  }
-  return null;
-}
-
-function PhaseBlock({ p, alt }: { p: Phase; alt: boolean }) {
+function PhaseBlock({ p, open, onToggle }: { p: Phase; open: boolean; onToggle: () => void }) {
   return (
-    <section className={`hiw-phase${alt ? ' alt' : ''}${p.rev ? ' rev' : ''}`} id={p.id} style={{ '--acc': p.accent } as CSSProperties}>
+    <section className={`hiw-phase${p.alt ? ' alt' : ''}`} id={p.id} style={{ '--acc': p.accent } as CSSProperties}>
       <div className="wrap">
-        <div className="plabel">{p.label}</div>
-        <div className="promise">{p.promise}</div>
-        <div className="means">{p.means}</div>
-        <div className="offer">{p.offer}</div>
-        <div className="body">
+        <div className="ph-head">
+          <div className="plabel">{p.label}</div>
+          <div className="promise">{p.promise}</div>
+          <div className="means">{p.means}</div>
+        </div>
+
+        <div className="stage">
+          {p.surface === 'map' && <Reveal><MapSurface /></Reveal>}
+          {p.surface === 'receptionist' && <PlayOnView><Receptionist /></PlayOnView>}
+          {p.surface === 'dashboard' && <PlayOnView><Dashboard /></PlayOnView>}
+        </div>
+        <div className="cap">{p.caption}</div>
+
+        <div className={`detail${open ? ' open' : ''}`}>
+          <button type="button" className="toggle" onClick={onToggle}>
+            See exactly how it works <span className="pl">+</span>
+          </button>
           <div className="steps">
-            <div className="how">How we do it</div>
-            <ul className="hiw-steps">
+            <ol>
               {p.steps.map((s, i) => (
                 <li key={s.t}>
                   <span className="num">{i + 1}</span>
                   <span className="sc"><b>{s.t}</b> {s.b}</span>
                 </li>
               ))}
-            </ul>
-          </div>
-          <div>
-            <div className="viz">{viz(p.viz)}</div>
-            <div className="illus">Illustration</div>
+            </ol>
           </div>
         </div>
       </div>
@@ -274,6 +261,7 @@ function PhaseBlock({ p, alt }: { p: Phase; alt: boolean }) {
 export default function HowItWorks() {
   const [active, setActive] = useState('learn');
   const [openF, setOpenF] = useState<number | null>(0);
+  const [openPhase, setOpenPhase] = useState<string | null>(null);
 
   useEffect(() => {
     const ids = ['learn', 'found', 'run', 'free', 'start'];
@@ -322,7 +310,7 @@ export default function HowItWorks() {
       <nav className="hiw-rail">
         <div className="rail-in">
           {[{ id: 'learn', l: 'Learns you' }, { id: 'found', l: 'Get found' }, { id: 'run', l: 'StayBookt' }, { id: 'free', l: 'Enjoy life' }, { id: 'start', l: 'Get started' }].map((c) => (
-            <a key={c.id} href={`#${c.id}`} className={active === c.id ? 'on' : ''}>{c.l}</a>
+            <a key={c.id} href={`#${c.id}`} className={active === c.id ? 'on' : ''}><span className="d" />{c.l}</a>
           ))}
         </div>
       </nav>
@@ -345,8 +333,10 @@ export default function HowItWorks() {
         </div>
       </section>
 
-      {/* THREE PHASES */}
-      {PHASES.map((p, i) => <PhaseBlock key={p.id} p={p} alt={i % 2 === 1} />)}
+      {/* THREE PHASE MOMENTS */}
+      {PHASES.map((p) => (
+        <PhaseBlock key={p.id} p={p} open={openPhase === p.id} onToggle={() => setOpenPhase(openPhase === p.id ? null : p.id)} />
+      ))}
 
       {/* PROOF */}
       <section className="hiw-proof">
