@@ -41,7 +41,7 @@ const CSS = `
 .cmp-bar .spacer{width:46px;}
 .cmp{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;cursor:ew-resize;touch-action:none;user-select:none;background:#0b0b0d;}
 .cmp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;display:block;pointer-events:none;-webkit-user-drag:none;}
-.cmp .after{clip-path:inset(0 calc(100% - var(--x)) 0 0);}
+.cmp .after{clip-path:inset(0 0 0 var(--x));}
 .cmp .lab{position:absolute;top:16px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.5);padding:6px 12px;border-radius:999px;backdrop-filter:blur(6px);z-index:4;transition:opacity .3s;}
 .cmp .lab.b{left:16px;}
 .cmp .lab.a{right:16px;background:rgba(2,132,199,.85);}
@@ -100,7 +100,7 @@ function Compare() {
             if (reduce) { setX(55); return; }
             const start = performance.now();
             const dur = 1600;
-            const from = 12, mid = 88, end = 52;
+            const from = 85, mid = 15, end = 44;
             const tick = (now: number) => {
               const t = Math.min(1, (now - start) / dur);
               const ease = 1 - Math.pow(1 - t, 3);
