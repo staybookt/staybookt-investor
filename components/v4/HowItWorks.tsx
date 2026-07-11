@@ -14,51 +14,44 @@ const LEARN_P = 'Before the journey starts, we sit down and learn how you actual
 const LEARN_ROWS = ['What you charge, job by job', 'The jobs you take and the ones you pass', 'Your service area and your hours', 'How you talk to a customer'];
 
 type Stop = {
-  id: string; n: string; label: string; promise: string; accent: string; accentD: string;
-  beats: string[]; result: string; hero: boolean; steps: { t: string; b: string }[];
+  id: string; n: string; label: string; promise: string; voice: string; accent: string; accentD: string;
+  surface: 'getfound' | 'staybookt' | 'enjoy'; beat: string; result: string; steps: { t: string; b: string }[];
 };
 const STOPS: Stop[] = [
   {
-    id: 'found', n: '1', label: 'Get found', promise: 'Impossible to miss.', accent: '#0ea5e9', accentD: '#0284c7', hero: false,
-    beats: [
-      'We build your website and analyze your numbers to find where work is leaking.',
-      'We get you found on search, the map, and the new one that matters: AI recommendations.',
-    ],
+    id: 'found', n: '1', label: 'Get found', promise: 'Impossible to miss.', voice: 'Finally. The phone is ringing again.',
+    accent: '#0ea5e9', accentD: '#0284c7', surface: 'getfound',
+    beat: 'We build your site, analyze your numbers, and get you found on search, the map, and AI recommendations.',
     result: 'Inbox full, texts flowing, phone ringing.',
     steps: [
-      { t: 'We build you a proper website.', b: 'Fast, works on a phone, and made to turn a visitor into a call. Built and hosted for you, nothing to manage.' },
+      { t: 'We build you a proper website.', b: 'Fast, works on a phone, made to turn a visitor into a call. Built and hosted for you, nothing to manage.' },
       { t: 'We fix your Google listing.', b: 'The thing that pops up when someone searches your trade. We fill it out, keep it current, and get Google to trust it.' },
-      { t: 'We get you ranked, and recommended.', b: 'Your details match everywhere online so you climb the map results, and you show up when someone asks an AI assistant for your trade nearby.' },
+      { t: 'We get you ranked, and recommended.', b: 'Your details match everywhere so you climb the map, and you show up when someone asks an AI assistant for your trade nearby.' },
       { t: 'We build your reviews.', b: 'Every finished job becomes a five-star review. More reviews means you climb higher and get picked more often.' },
     ],
   },
   {
-    id: 'run', n: '2', label: 'StayBookt', promise: 'Every lead, maximized.', accent: '#10b981', accentD: '#059669', hero: true,
-    beats: [
-      'We catch the missed calls, engage the customer, and book the job. Reminders and confirmations so they show up.',
-      'We send the quote, chase what is unpaid, and turn happy jobs into reviews and referrals.',
-      'We suggest the right add-on, then schedule the maintenance and rebook the second job when it counts.',
-    ],
+    id: 'run', n: '2', label: 'StayBookt', promise: 'Every lead, maximized.', voice: 'It is 2 a.m. I am asleep. It is handled.',
+    accent: '#10b981', accentD: '#059669', surface: 'staybookt',
+    beat: 'We catch the missed call, book the job, chase the quote, win the review, and rebook the second job.',
     result: 'Nothing leaks. Every customer worth everything they are worth.',
     steps: [
-      { t: 'We answer every call and text.', b: 'Day or night, mid-job or asleep, answered in your voice. AI handles the everyday ones. A real person steps in on anything unusual, before it reaches your customer.' },
+      { t: 'We answer every call and text.', b: 'Day or night, in your voice. AI handles the everyday ones. A real person steps in on anything unusual, before it reaches your customer.' },
       { t: 'We book, confirm, and remind.', b: 'Straight onto your calendar, confirmed with the customer, with reminders so they actually show up.' },
-      { t: 'We quote and chase.', b: 'Every quote goes out and gets followed up until you get a yes or a no. We chase unpaid invoices so the money actually lands.' },
-      { t: 'We grow every customer.', b: 'Reviews and referrals from the happy ones. The right upsell and cross-sell. Follow-up maintenance booked before they drift.' },
-      { t: 'We hand you one short brief a day.', b: 'What is booked, what needs a decision, what came in. Thirty seconds, then go run your day. No software to learn.' },
+      { t: 'We quote and chase.', b: 'Every quote goes out and gets followed up until you get a yes or a no. We chase unpaid invoices so the money lands.' },
+      { t: 'We grow every customer.', b: 'Reviews and referrals from the happy ones. The right upsell. Follow-up maintenance booked before they drift.' },
+      { t: 'We hand you one short brief a day.', b: 'What is booked, what needs a decision, what came in. Thirty seconds, then go run your day.' },
     ],
   },
   {
-    id: 'free', n: '3', label: 'Enjoy life', promise: 'You choose.', accent: '#f59e0b', accentD: '#b45309', hero: false,
-    beats: [
-      'After 12 months, once the leaks are closed and the operation runs with discipline, we run a real valuation of your business.',
-      'Not just the dollar figure, but how well it gives you your time back and can run and grow on its own.',
-    ],
+    id: 'free', n: '3', label: 'Enjoy life', promise: 'You choose.', voice: 'I could actually sell this. Or not. My call.',
+    accent: '#f59e0b', accentD: '#b45309', surface: 'enjoy',
+    beat: 'After 12 months, we run a real valuation, in dollars and in freedom. Then you decide what to do with it.',
     result: 'Sell it, hand it to family, or just do the part you love.',
     steps: [
       { t: 'We build toward a number.', b: 'Everything in the first year is engineered so the business is worth more, and provable, by the time we value it.' },
-      { t: 'We value what matters.', b: 'The financials, and the freedom: how much the business depends on you, and how well it runs and grows without you in the middle.' },
-      { t: 'You take the driver seat.', b: 'Sell to a buyer, hand it to a family member, or step back to the part of the work you actually love. Your call.' },
+      { t: 'We value what matters.', b: 'The financials, and the freedom: how much the business depends on you, and how well it runs without you.' },
+      { t: 'You take the driver seat.', b: 'Sell to a buyer, hand it to a family member, or step back to the part of the work you actually love.' },
       { t: 'It was always the point.', b: 'You built this business to enjoy your life. This is where that finally happens.' },
     ],
   },
@@ -114,32 +107,33 @@ const CSS = `
 .learncard li svg{flex:0 0 auto;}
 @media(max-width:820px){.hiw-learn .grid{grid-template-columns:1fr;gap:40px;}.hiw-learn h2{max-width:18ch;}}
 
-/* ===== THE JOURNEY MAP (drawing trail) ===== */
-.hiw-jrny{background:#fff;padding:clamp(56px,7vw,96px) 0 clamp(70px,9vw,120px);}
+/* ===== JOURNEY MAP (drawing trail, warming arc) ===== */
+.hiw-jrny{padding:clamp(56px,7vw,96px) 0 clamp(70px,9vw,120px);background:linear-gradient(180deg,#f6f8fb 0%,#f9faf7 42%,#fdf7ee 100%);}
 .hiw-jrny .jhead{text-align:center;max-width:640px;margin:0 auto clamp(30px,4vw,52px);}
 .hiw-jrny .jhead h2{font-size:clamp(30px,4.4vw,54px);line-height:1.05;margin-top:14px;}
 .hiw-jrny .jhead p{margin-top:16px;font-size:clamp(16px,1.8vw,19px);color:#7a828f;line-height:1.5;}
 .jmap{position:relative;max-width:920px;margin:0 auto;}
-.jmap .rail{position:absolute;left:29px;top:14px;bottom:44px;width:3px;background:#e9e9ee;border-radius:2px;}
+.jmap .rail{position:absolute;left:29px;top:14px;bottom:44px;width:3px;background:rgba(10,14,26,.1);border-radius:2px;}
 .jmap .fill{position:absolute;left:29px;top:14px;width:3px;height:calc(var(--p,0) * (100% - 58px));background:linear-gradient(180deg,#0ea5e9,#10b981 55%,#f59e0b);border-radius:2px;}
-.jmap .marker{position:absolute;left:23px;top:calc(14px + var(--p,0) * (100% - 58px));width:15px;height:15px;border-radius:50%;background:#fff;border:3px solid var(--v4-ink);box-shadow:0 3px 12px rgba(0,0,0,.28);transform:translateY(-50%);z-index:3;}
+.jmap .marker{position:absolute;left:22px;top:calc(14px + var(--p,0) * (100% - 58px));width:17px;height:17px;border-radius:50%;background:#fff;border:3px solid #10b981;box-shadow:0 0 0 6px rgba(16,185,129,.14),0 3px 14px rgba(16,185,129,.5);transform:translateY(-50%);z-index:3;}
 .jstart{display:grid;grid-template-columns:60px 1fr;gap:clamp(14px,2.5vw,28px);align-items:center;padding-bottom:clamp(24px,3vw,34px);}
 .jstart .sdot{width:16px;height:16px;border-radius:50%;background:var(--v4-ink);margin:0 auto;position:relative;z-index:2;}
 .jstart .st{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#9298a1;}
 .jstart .sh{margin-top:3px;font-size:clamp(17px,2vw,20px);font-weight:600;color:var(--v4-ink);}
-.jstop{display:grid;grid-template-columns:60px 1fr;gap:clamp(14px,2.5vw,28px);align-items:start;padding:clamp(30px,4.5vw,54px) 0;opacity:.5;transition:opacity .55s ease;}
-.jstop.on{opacity:1;}
-.jstop .node{width:44px;height:44px;border-radius:50%;background:#e6e8ec;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;margin:0 auto;border:4px solid #fff;position:relative;z-index:2;transition:background .5s ease,box-shadow .5s ease;box-shadow:0 0 0 0 var(--acc);}
-.jstop.on .node{background:var(--acc);box-shadow:0 10px 24px -8px var(--acc);}
+.jstop{display:grid;grid-template-columns:60px 1fr;gap:clamp(14px,2.5vw,28px);align-items:start;padding:clamp(34px,5vw,60px) 0;opacity:.45;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease;}
+.jstop.on{opacity:1;transform:none;}
+.jstop .node{width:44px;height:44px;border-radius:50%;background:#e6e8ec;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;margin:0 auto;border:4px solid #fff;position:relative;z-index:2;transition:background .5s ease;}
+.jstop.on .node{background:var(--acc);animation:jpulse 1.4s ease-out .1s 1;}
+@keyframes jpulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--acc) 55%,transparent);}100%{box-shadow:0 0 0 22px rgba(0,0,0,0);}}
+@media(prefers-reduced-motion:reduce){.jstop{opacity:1;transform:none;}.jstop.on .node{animation:none;}}
 .jstop .plabel{font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--acd);}
 .jstop .promise{margin-top:8px;font-size:clamp(28px,4vw,50px);font-weight:600;line-height:1.02;letter-spacing:-.03em;}
-.jstop .beats{list-style:none;margin:22px 0 0;padding:0;display:flex;flex-direction:column;gap:13px;max-width:52ch;}
-.jstop .beats li{display:grid;grid-template-columns:9px 1fr;gap:13px;align-items:start;font-size:clamp(16px,1.7vw,18px);line-height:1.5;color:#42474f;}
-.jstop .beats .b{width:9px;height:9px;border-radius:50%;background:var(--acc);margin-top:8px;}
-.jstop .result{display:inline-block;margin-top:22px;font-size:15px;font-weight:600;color:var(--acd);}
-.jstop .stophero{position:relative;margin:32px 0 6px;display:flex;justify-content:flex-start;}
-.jstop .stophero::before{content:'';position:absolute;inset:-8% -6% 2% -6%;background:radial-gradient(50% 55% at 40% 45%,color-mix(in srgb,var(--acc) 22%,transparent),transparent 72%);filter:blur(38px);z-index:0;}
-.jstop .stophero>*{position:relative;z-index:1;}
+.jstop .voice{margin-top:14px;font-size:clamp(16px,1.9vw,20px);font-style:italic;color:#5b616b;max-width:34ch;}
+.jstop .beat{margin-top:16px;font-size:clamp(15px,1.6vw,17px);line-height:1.5;color:#6b7280;max-width:48ch;}
+.jstop .result{display:inline-block;margin-top:16px;font-size:14.5px;font-weight:600;color:var(--acd);}
+.jstop .stage{position:relative;margin:30px 0 6px;display:flex;justify-content:flex-start;}
+.jstop .stage::before{content:'';position:absolute;inset:-8% -6% 2% -6%;background:radial-gradient(50% 55% at 42% 45%,color-mix(in srgb,var(--acc) 20%,transparent),transparent 72%);filter:blur(40px);z-index:0;}
+.jstop .stage>*{position:relative;z-index:1;}
 .jstop .detail{margin-top:26px;}
 .jstop .toggle{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid #e2e2df;color:var(--v4-ink);font-family:inherit;font-size:14px;font-weight:600;border-radius:999px;padding:10px 18px;cursor:pointer;transition:border-color .25s ease;}
 .jstop .toggle:hover{border-color:var(--acc);}
@@ -153,12 +147,74 @@ const CSS = `
 .jstop .steps .sc{font-size:15px;line-height:1.5;color:#42474f;}
 .jstop .steps .sc b{color:var(--v4-ink);font-weight:600;}
 @media(max-width:640px){
-  .jmap .rail,.jmap .fill{left:19px;}
-  .jmap .marker{left:13px;}
+  .jmap .rail,.jmap .fill{left:19px;}.jmap .marker{left:12px;}
   .jstop,.jstart{grid-template-columns:40px 1fr;gap:16px;}
-  .jstop .node{width:36px;height:36px;font-size:15px;}
-  .jstop .stophero{justify-content:center;}
+  .jstop .node{width:36px;height:36px;font-size:15px;}.jstop .stage{justify-content:center;}
 }
+
+/* corner mini-map HUD */
+.jhud{position:fixed;right:22px;bottom:22px;z-index:30;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border:1px solid #ececf0;border-radius:16px;padding:14px 16px 14px 14px;box-shadow:0 20px 50px -24px rgba(6,12,20,.4);display:flex;gap:12px;align-items:stretch;opacity:0;transform:translateY(10px);transition:opacity .4s ease,transform .4s ease;pointer-events:none;}
+.jhud.show{opacity:1;transform:none;}
+.jhud .track{position:relative;width:4px;border-radius:2px;background:#e6e8ec;}
+.jhud .track i{position:absolute;left:0;top:0;width:4px;border-radius:2px;height:calc(var(--p,0)*100%);background:linear-gradient(180deg,#0ea5e9,#10b981 55%,#f59e0b);}
+.jhud .track .dot{position:absolute;left:-4px;top:calc(var(--p,0)*100%);width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid var(--v4-ink);transform:translateY(-50%);box-shadow:0 2px 6px rgba(0,0,0,.25);}
+.jhud .labs{display:flex;flex-direction:column;justify-content:space-between;font-size:11px;font-weight:600;}
+.jhud .labs span{color:#9298a1;transition:color .3s;}
+.jhud .labs span.on{color:var(--v4-ink);}
+@media(max-width:720px){.jhud{display:none;}}
+
+/* ===== SCENE: Get Found (search climb) ===== */
+.gf{width:min(430px,100%);}
+.gf .gfwin{background:#fff;border-radius:18px;border:1px solid #ececf0;box-shadow:0 44px 90px -44px rgba(0,0,0,.4);overflow:hidden;}
+.gf .gftop{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid #f1f1f4;font-size:13.5px;color:#42474f;}
+.gf .gftop .q{flex:1;background:#f4f5f7;border-radius:999px;padding:8px 14px;color:#42474f;font-weight:500;}
+.gf .gflist{position:relative;height:296px;margin:14px;}
+.gf .srow{position:absolute;left:0;right:0;height:64px;border-radius:14px;border:1px solid #ececf0;background:#fff;display:flex;align-items:center;gap:12px;padding:0 15px;transition:top .9s cubic-bezier(.16,1,.3,1),box-shadow .6s ease,border-color .6s ease,opacity .6s ease;box-shadow:0 4px 14px -12px rgba(0,0,0,.2);}
+.gf .srow .pin{width:9px;height:9px;border-radius:50%;background:#c4c8ce;flex:0 0 auto;}
+.gf .srow .nm{font-size:14.5px;font-weight:600;color:var(--v4-ink);white-space:nowrap;}
+.gf .srow .rt{margin-left:auto;font-size:12px;color:#9298a1;white-space:nowrap;}
+.gf .srow .badge{position:absolute;top:-8px;left:14px;background:#0ea5e9;color:#fff;font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:999px;opacity:0;transition:opacity .5s .8s;}
+.gf .srow.tc{top:222px;}.gf.on .srow.tc{top:0;border-color:rgba(14,165,233,.5);box-shadow:0 16px 34px -12px rgba(14,165,233,.45);}
+.gf.on .srow.tc .pin{background:#0ea5e9;}.gf.on .srow.tc .badge{opacity:1;}
+.gf .srow.r1{top:0;}.gf.on .srow.r1{top:74px;opacity:.6;}
+.gf .srow.r2{top:74px;}.gf.on .srow.r2{top:148px;opacity:.6;}
+.gf .srow.r3{top:148px;}.gf.on .srow.r3{top:222px;opacity:.6;}
+.gf .ai{margin-top:14px;background:#0b0f14;border-radius:16px;padding:14px 16px;opacity:0;transform:translateY(8px);transition:opacity .6s 1s ease,transform .6s 1s ease;}
+.gf.on .ai{opacity:1;transform:none;}
+.gf .ai .k{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#5eead4;}
+.gf .ai .q2{margin-top:7px;font-size:13.5px;color:#c7ccd6;}
+.gf .ai .a2{margin-top:8px;font-size:14.5px;color:#fff;font-weight:500;line-height:1.4;}
+.gf .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+.gf .chip{font-size:11.5px;font-weight:600;color:#059669;background:rgba(16,185,129,.12);border-radius:999px;padding:6px 12px;opacity:0;transform:translateY(6px);transition:opacity .5s ease,transform .5s ease;}
+.gf.on .chip{opacity:1;transform:none;}
+.gf.on .chip:nth-child(1){transition-delay:1.1s;}.gf.on .chip:nth-child(2){transition-delay:1.25s;}
+
+/* ===== SCENE: Enjoy Life (valuation) ===== */
+.el{width:min(470px,100%);}
+.el .valcard{background:#0b0f14;color:#fff;border-radius:20px;padding:26px 26px 24px;box-shadow:0 50px 100px -44px rgba(0,0,0,.6);}
+.el .valcard .k{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#9aa0ab;}
+.el .valcard .num{margin-top:8px;font-size:clamp(40px,7vw,58px);font-weight:700;letter-spacing:-.03em;line-height:1;background:linear-gradient(100deg,#f59e0b,#fbbf24 60%,#fde68a);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.el .valcard .ns{margin-top:6px;font-size:13px;color:#9aa0ab;}
+.el .valcard .meterlab{display:flex;justify-content:space-between;margin-top:22px;font-size:12.5px;color:#c7ccd6;}
+.el .valcard .meter{margin-top:8px;height:9px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden;}
+.el .valcard .meter i{display:block;height:100%;width:var(--m,0%);border-radius:999px;background:linear-gradient(90deg,#10b981,#f59e0b);transition:width 1.4s cubic-bezier(.16,1,.3,1) .3s;}
+.el .choices{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;}
+.el .choice{background:#fff;border:1px solid #ececf0;border-radius:16px;padding:16px 14px;text-align:left;cursor:pointer;font-family:inherit;transition:border-color .25s ease,transform .25s ease,box-shadow .25s ease;}
+.el .choice:hover,.el .choice.on{border-color:#f59e0b;transform:translateY(-3px);box-shadow:0 18px 34px -18px rgba(245,158,11,.4);}
+.el .choice .ci{width:30px;height:30px;border-radius:9px;background:rgba(245,158,11,.14);display:flex;align-items:center;justify-content:center;color:#b45309;}
+.el .choice .cl{margin-top:11px;font-size:15px;font-weight:600;color:var(--v4-ink);}
+.el .choice .cd{max-height:0;overflow:hidden;font-size:12.5px;line-height:1.4;color:#6b7280;transition:max-height .35s ease,margin .35s ease;}
+.el .choice:hover .cd,.el .choice.on .cd{max-height:80px;margin-top:7px;}
+@media(max-width:520px){.el .choices{grid-template-columns:1fr;}.el .choice .cd{max-height:80px;margin-top:7px;}}
+
+/* ===== interactive leak slider ===== */
+.leak{margin-top:26px;background:#fff;border:1px solid #ececf0;border-radius:18px;padding:20px 22px;max-width:460px;box-shadow:0 20px 44px -30px rgba(6,12,20,.3);}
+.leak .lk-top{font-size:13px;font-weight:600;color:#42474f;}
+.leak input[type=range]{width:100%;margin:16px 0 4px;accent-color:#10b981;height:6px;}
+.leak .lk-row{display:flex;justify-content:space-between;align-items:baseline;}
+.leak .lk-calls{font-size:13px;color:#6b7280;}
+.leak .lk-val{font-size:clamp(24px,3.4vw,32px);font-weight:700;letter-spacing:-.02em;color:#059669;}
+.leak .lk-note{margin-top:6px;font-size:11.5px;color:#9298a1;}
 
 /* proof */
 .hiw-proof{background:#0b0f14;text-align:center;padding:clamp(60px,8vw,90px) 0;}
@@ -200,6 +256,116 @@ function Check() {
   );
 }
 
+/* Get Found scene: results climb, you land at #1, an AI assistant names you. */
+function GetFoundScene() {
+  const ref = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) el.classList.add('on'); }), { threshold: 0.4 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return (
+    <div className="gf" ref={ref}>
+      <div className="gfwin">
+        <div className="gftop">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9298a1" strokeWidth={2}><circle cx="11" cy="11" r="7" /><line x1="21" y1="21" x2="16.5" y2="16.5" /></svg>
+          <span className="q">electrician near me</span>
+        </div>
+        <div className="gflist">
+          <div className="srow r1"><span className="pin" /><span className="nm">City Wide Electric</span><span className="rt">&#9733; 4.1</span></div>
+          <div className="srow r2"><span className="pin" /><span className="nm">Sparky &amp; Sons</span><span className="rt">&#9733; 3.8</span></div>
+          <div className="srow r3"><span className="pin" /><span className="nm">Rapid Volt</span><span className="rt">&#9733; 4.0</span></div>
+          <div className="srow tc"><span className="badge">#1</span><span className="pin" /><span className="nm">Top Choice Electrical</span><span className="rt">&#9733; 4.9 &middot; Open now</span></div>
+        </div>
+      </div>
+      <div className="ai">
+        <div className="k">Asked an AI assistant</div>
+        <div className="q2">&ldquo;Who is a good electrician near me?&rdquo;</div>
+        <div className="a2">Top Choice Electrical &mdash; 4.9 stars, open now, and one tap to call.</div>
+      </div>
+      <div className="chips">
+        <span className="chip">New text &middot; booked</span>
+        <span className="chip">Missed call &middot; caught</span>
+      </div>
+    </div>
+  );
+}
+
+/* Enjoy Life scene: valuation counts up, then you choose your path. */
+function EnjoyLifeScene() {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [val, setVal] = useState(0);
+  const [choice, setChoice] = useState(0);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let played = false;
+    const obs = new IntersectionObserver((es) => es.forEach((e) => {
+      if (e.isIntersecting && !played) {
+        played = true;
+        el.classList.add('on');
+        const target = 420000;
+        if (reduce) { setVal(target); return; }
+        const start = performance.now();
+        const tick = (now: number) => {
+          const t = Math.min(1, (now - start) / 1600);
+          const ease = 1 - Math.pow(1 - t, 3);
+          setVal(Math.round(target * ease));
+          if (t < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      }
+    }), { threshold: 0.45 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  const CH = [
+    { l: 'Sell it', d: 'A business that runs on its own is one a buyer actually wants.', icon: 'M12 3v18M5 10l7-7 7 7' },
+    { l: 'Hand it off', d: 'Pass a clean, self-running operation to a family member.', icon: 'M17 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2M9 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6' },
+    { l: 'Just enjoy it', d: 'Step back to the part of the work you actually love.', icon: 'M12 21s-7-4.5-7-10a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 5.5-7 10-7 10z' },
+  ];
+  return (
+    <div className="el" ref={ref} style={{ '--m': '78%' } as CSSProperties}>
+      <div className="valcard">
+        <div className="k">Your business, valued</div>
+        <div className="num">${val.toLocaleString()}</div>
+        <div className="ns">Up from a business that could not run without you.</div>
+        <div className="meterlab"><span>Time back in your week</span><span>12 hrs</span></div>
+        <div className="meter"><i /></div>
+      </div>
+      <div className="choices">
+        {CH.map((c, i) => (
+          <button key={c.l} type="button" className={`choice${choice === i ? ' on' : ''}`} onMouseEnter={() => setChoice(i)} onClick={() => setChoice(i)}>
+            <span className="ci"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d={c.icon} /></svg></span>
+            <div className="cl">{c.l}</div>
+            <div className="cd">{c.d}</div>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* Interactive: how much are missed calls costing you */
+function LeakSlider() {
+  const [calls, setCalls] = useState(8);
+  const monthly = Math.round((calls * 4.3 * 250 * 0.7) / 10) * 10;
+  return (
+    <div className="leak">
+      <div className="lk-top">How many calls do you miss in a week?</div>
+      <input type="range" min={0} max={20} value={calls} onChange={(e) => setCalls(Number(e.target.value))} />
+      <div className="lk-row">
+        <span className="lk-calls">{calls} missed / week</span>
+        <span className="lk-val">${monthly.toLocaleString()}/mo</span>
+      </div>
+      <div className="lk-note">Roughly what we would recover, at an average job of $250. A real number comes from your data.</div>
+    </div>
+  );
+}
+
 function StopBlock({ s, open, onToggle, obsRef }: { s: Stop; open: boolean; onToggle: () => void; obsRef: (el: HTMLDivElement | null) => void }) {
   return (
     <div className="jstop" id={s.id} ref={obsRef} style={{ '--acc': s.accent, '--acd': s.accentD } as CSSProperties}>
@@ -207,14 +373,17 @@ function StopBlock({ s, open, onToggle, obsRef }: { s: Stop; open: boolean; onTo
       <div className="body">
         <div className="plabel">Milestone {s.n} · {s.label}</div>
         <div className="promise">{s.promise}</div>
-        <ul className="beats">
-          {s.beats.map((b) => <li key={b}><span className="b" /><span>{b}</span></li>)}
-        </ul>
+        <div className="voice">&ldquo;{s.voice}&rdquo;</div>
+        <div className="beat">{s.beat}</div>
         <div className="result">&rarr; {s.result}</div>
 
-        {s.hero && (
-          <div className="stophero"><PlayOnView><Receptionist /></PlayOnView></div>
-        )}
+        <div className="stage">
+          {s.surface === 'getfound' && <GetFoundScene />}
+          {s.surface === 'staybookt' && <PlayOnView><Receptionist /></PlayOnView>}
+          {s.surface === 'enjoy' && <EnjoyLifeScene />}
+        </div>
+
+        {s.surface === 'staybookt' && <LeakSlider />}
 
         <div className={`detail${open ? ' open' : ''}`}>
           <button type="button" className="toggle" onClick={onToggle}>
@@ -236,13 +405,16 @@ function StopBlock({ s, open, onToggle, obsRef }: { s: Stop; open: boolean; onTo
 export default function HowItWorks() {
   const [openF, setOpenF] = useState<number | null>(0);
   const [openStop, setOpenStop] = useState<string | null>(null);
+  const [active, setActive] = useState(0);
+  const [hudOn, setHudOn] = useState(false);
+  const rootRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<HTMLDivElement | null>(null);
   const stopEls = useRef<Record<string, HTMLDivElement | null>>({});
 
-  // Draw the trail: set --p (0..1) on the map as it scrolls through the viewport.
   useEffect(() => {
     const el = mapRef.current;
-    if (!el) return;
+    const root = rootRef.current;
+    if (!el || !root) return;
     let raf = 0;
     const onScroll = () => {
       cancelAnimationFrame(raf);
@@ -250,7 +422,8 @@ export default function HowItWorks() {
         const r = el.getBoundingClientRect();
         const vh = window.innerHeight;
         const p = Math.min(Math.max((vh * 0.55 - r.top) / r.height, 0), 1);
-        el.style.setProperty('--p', String(p));
+        root.style.setProperty('--p', String(p));
+        setHudOn(r.top < vh * 0.5 && r.bottom > vh * 0.4);
       });
     };
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -258,10 +431,15 @@ export default function HowItWorks() {
     return () => { window.removeEventListener('scroll', onScroll); cancelAnimationFrame(raf); };
   }, []);
 
-  // Light up each stop as it enters view (stays lit once passed).
   useEffect(() => {
     const obs = new IntersectionObserver(
-      (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('on'); }),
+      (entries) => entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('on');
+          const idx = STOPS.findIndex((s) => s.id === (e.target as HTMLElement).id);
+          if (idx >= 0) setActive(idx);
+        }
+      }),
       { rootMargin: '-30% 0px -45% 0px', threshold: 0 },
     );
     Object.values(stopEls.current).forEach((el) => { if (el) obs.observe(el); });
@@ -269,8 +447,16 @@ export default function HowItWorks() {
   }, []);
 
   return (
-    <div className="hiw">
+    <div className="hiw" ref={rootRef}>
       <style>{CSS}</style>
+
+      {/* HUD */}
+      <div className={`jhud${hudOn ? ' show' : ''}`} aria-hidden="true">
+        <div className="track"><i /><span className="dot" /></div>
+        <div className="labs">
+          {STOPS.map((s, i) => <span key={s.id} className={active >= i ? 'on' : ''}>{s.label}</span>)}
+        </div>
+      </div>
 
       {/* HERO */}
       <header className="hiw-hero">
