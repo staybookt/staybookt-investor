@@ -3,12 +3,11 @@
 import { useEffect, useState } from 'react';
 import { START_LINK } from '@/lib/site';
 
+// Header mirrors the homepage "Go deeper" tabs.
 const LINKS = [
-  { href: '/why-a-website', label: 'Why a website' },
   { href: '/how-it-works', label: 'How it works' },
   { href: '/pricing', label: 'Pricing' },
-  { href: '/long-term', label: 'Long-term value' },
-  { href: '/founders', label: 'Founders' },
+  { href: '/founders', label: 'About us' },
 ];
 
 /* Fixed dark nav that solidifies (blur + border) once the user scrolls past
@@ -26,10 +25,10 @@ export default function Nav() {
   return (
     <nav className={`v4-nav${solid ? ' solid' : ''}`}>
       <div className="wrap nav-in">
-        <div className="mark">
+        <a href="/" className="mark" aria-label="StayBookt home" style={{ textDecoration: 'none' }}>
           Stay<span className="bk">Bookt</span>
           <span className="dot">.</span>
-        </div>
+        </a>
         <div className="nav-links">
           {LINKS.map((l) => (
             <a key={l.href} href={l.href}>

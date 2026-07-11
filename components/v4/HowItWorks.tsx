@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState, type ReactNode, type CSSProperties } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
 import { START_LINK } from '@/lib/site';
 import Receptionist from './Receptionist';
 import PlayOnView from './PlayOnView';
@@ -15,12 +15,12 @@ const LEARN_ROWS = ['What you charge, job by job', 'The jobs you take and the on
 
 type Stop = {
   id: string; n: string; label: string; promise: string; voice: string; accent: string; accentD: string;
-  surface: 'getfound' | 'staybookt' | 'enjoy'; beat: string; result: string; steps: { t: string; b: string }[];
+  side: 'left' | 'right'; surface: 'getfound' | 'staybookt' | 'enjoy'; beat: string; result: string; steps: { t: string; b: string }[];
 };
 const STOPS: Stop[] = [
   {
     id: 'found', n: '1', label: 'Get found', promise: 'Impossible to miss.', voice: 'Finally. The phone is ringing again.',
-    accent: '#0ea5e9', accentD: '#0284c7', surface: 'getfound',
+    accent: '#0ea5e9', accentD: '#0284c7', side: 'left', surface: 'getfound',
     beat: 'We build your site, analyze your numbers, and get you found on search, the map, and AI recommendations.',
     result: 'Inbox full, texts flowing, phone ringing.',
     steps: [
@@ -32,7 +32,7 @@ const STOPS: Stop[] = [
   },
   {
     id: 'run', n: '2', label: 'StayBookt', promise: 'Every lead, maximized.', voice: 'It is 2 a.m. I am asleep. It is handled.',
-    accent: '#10b981', accentD: '#059669', surface: 'staybookt',
+    accent: '#10b981', accentD: '#059669', side: 'right', surface: 'staybookt',
     beat: 'We catch the missed call, book the job, chase the quote, win the review, and rebook the second job.',
     result: 'Nothing leaks. Every customer worth everything they are worth.',
     steps: [
@@ -45,7 +45,7 @@ const STOPS: Stop[] = [
   },
   {
     id: 'free', n: '3', label: 'Enjoy life', promise: 'You choose.', voice: 'I could actually sell this. Or not. My call.',
-    accent: '#f59e0b', accentD: '#b45309', surface: 'enjoy',
+    accent: '#f59e0b', accentD: '#b45309', side: 'left', surface: 'enjoy',
     beat: 'After 12 months, we run a real valuation, in dollars and in freedom. Then you decide what to do with it.',
     result: 'Sell it, hand it to family, or just do the part you love.',
     steps: [
@@ -107,22 +107,35 @@ const CSS = `
 .learncard li svg{flex:0 0 auto;}
 @media(max-width:820px){.hiw-learn .grid{grid-template-columns:1fr;gap:40px;}.hiw-learn h2{max-width:18ch;}}
 
-/* ===== JOURNEY MAP (drawing trail, warming arc) ===== */
+/* ===== JOURNEY MAP (weaving SVG trail, warming arc) ===== */
 .hiw-jrny{padding:clamp(56px,7vw,96px) 0 clamp(70px,9vw,120px);background:linear-gradient(180deg,#f6f8fb 0%,#f9faf7 42%,#fdf7ee 100%);}
 .hiw-jrny .jhead{text-align:center;max-width:640px;margin:0 auto clamp(30px,4vw,52px);}
 .hiw-jrny .jhead h2{font-size:clamp(30px,4.4vw,54px);line-height:1.05;margin-top:14px;}
 .hiw-jrny .jhead p{margin-top:16px;font-size:clamp(16px,1.8vw,19px);color:#7a828f;line-height:1.5;}
-.jmap{position:relative;max-width:920px;margin:0 auto;}
-.jmap .rail{position:absolute;left:29px;top:14px;bottom:44px;width:3px;background:rgba(10,14,26,.1);border-radius:2px;}
-.jmap .fill{position:absolute;left:29px;top:14px;width:3px;height:calc(var(--p,0) * (100% - 58px));background:linear-gradient(180deg,#0ea5e9,#10b981 55%,#f59e0b);border-radius:2px;}
-.jmap .marker{position:absolute;left:22px;top:calc(14px + var(--p,0) * (100% - 58px));width:17px;height:17px;border-radius:50%;background:#fff;border:3px solid #10b981;box-shadow:0 0 0 6px rgba(16,185,129,.14),0 3px 14px rgba(16,185,129,.5);transform:translateY(-50%);z-index:3;}
-.jstart{display:grid;grid-template-columns:60px 1fr;gap:clamp(14px,2.5vw,28px);align-items:center;padding-bottom:clamp(24px,3vw,34px);}
-.jstart .sdot{width:16px;height:16px;border-radius:50%;background:var(--v4-ink);margin:0 auto;position:relative;z-index:2;}
+.jmap{position:relative;max-width:940px;margin:0 auto;}
+.jsvg{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:visible;}
+.jsvg .bg{fill:none;stroke:rgba(10,14,26,.1);stroke-width:2.5;stroke-linecap:round;}
+.jsvg .tr{fill:none;stroke:url(#jgrad);stroke-width:3.4;stroke-linecap:round;}
+.jsvg .jdot{fill:#fff;stroke:#10b981;stroke-width:3;filter:drop-shadow(0 3px 10px rgba(16,185,129,.5));}
+.jrows{position:relative;z-index:1;}
+@media(prefers-reduced-motion:reduce){.jsvg .tr{stroke-dashoffset:0 !important;}}
+
+.jstart,.jend{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;}
+.jstart{padding-bottom:clamp(26px,4vw,44px);}
+.jend{padding-top:clamp(30px,5vw,52px);}
+.jstart .sdot{width:16px;height:16px;border-radius:50%;background:var(--v4-ink);position:relative;z-index:2;}
+.jend .edot{width:20px;height:20px;border-radius:50%;background:#f59e0b;position:relative;z-index:2;box-shadow:0 0 0 6px rgba(245,158,11,.16);}
 .jstart .st{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#9298a1;}
 .jstart .sh{margin-top:3px;font-size:clamp(17px,2vw,20px);font-weight:600;color:var(--v4-ink);}
-.jstop{display:grid;grid-template-columns:60px 1fr;gap:clamp(14px,2.5vw,28px);align-items:start;padding:clamp(34px,5vw,60px) 0;opacity:.45;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease;}
+.jend .eh{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02em;color:var(--v4-ink);max-width:16ch;}
+
+.jstop{display:grid;gap:clamp(16px,3vw,40px);align-items:start;padding:clamp(30px,5vw,54px) 0;opacity:.45;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease;}
+.jstop.left{grid-template-columns:56px minmax(0,1fr);}
+.jstop.right{grid-template-columns:minmax(0,1fr) 56px;}
+.jstop.right .node{order:2;}
+.jstop.right .body{order:1;}
 .jstop.on{opacity:1;transform:none;}
-.jstop .node{width:44px;height:44px;border-radius:50%;background:#e6e8ec;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;margin:0 auto;border:4px solid #fff;position:relative;z-index:2;transition:background .5s ease;}
+.jstop .node{width:46px;height:46px;border-radius:50%;background:#e6e8ec;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;margin:0 auto;border:4px solid #fff;position:relative;z-index:2;transition:background .5s ease;box-shadow:0 4px 16px -6px rgba(6,12,20,.3);}
 .jstop.on .node{background:var(--acc);animation:jpulse 1.4s ease-out .1s 1;}
 @keyframes jpulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--acc) 55%,transparent);}100%{box-shadow:0 0 0 22px rgba(0,0,0,0);}}
 @media(prefers-reduced-motion:reduce){.jstop{opacity:1;transform:none;}.jstop.on .node{animation:none;}}
@@ -132,9 +145,14 @@ const CSS = `
 .jstop .beat{margin-top:16px;font-size:clamp(15px,1.6vw,17px);line-height:1.5;color:#6b7280;max-width:48ch;}
 .jstop .result{display:inline-block;margin-top:16px;font-size:14.5px;font-weight:600;color:var(--acd);}
 .jstop .stage{position:relative;margin:30px 0 6px;display:flex;justify-content:flex-start;}
+.jstop.right .stage{justify-content:flex-end;}
+.jstop.right .body{text-align:right;}
+.jstop.right .voice,.jstop.right .beat{margin-left:auto;}
+.jstop.right .steps ol{margin-left:auto;}
 .jstop .stage::before{content:'';position:absolute;inset:-8% -6% 2% -6%;background:radial-gradient(50% 55% at 42% 45%,color-mix(in srgb,var(--acc) 20%,transparent),transparent 72%);filter:blur(40px);z-index:0;}
 .jstop .stage>*{position:relative;z-index:1;}
 .jstop .detail{margin-top:26px;}
+.jstop.right .detail{display:flex;flex-direction:column;align-items:flex-end;}
 .jstop .toggle{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid #e2e2df;color:var(--v4-ink);font-family:inherit;font-size:14px;font-weight:600;border-radius:999px;padding:10px 18px;cursor:pointer;transition:border-color .25s ease;}
 .jstop .toggle:hover{border-color:var(--acc);}
 .jstop .toggle .pl{font-size:17px;line-height:1;color:var(--acc);transition:transform .3s ease;}
@@ -142,14 +160,16 @@ const CSS = `
 .jstop .steps{max-height:0;overflow:hidden;transition:max-height .55s cubic-bezier(.16,1,.3,1),margin .4s ease;}
 .jstop .detail.open .steps{max-height:1200px;margin-top:24px;}
 .jstop .steps ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px;max-width:60ch;}
-.jstop .steps li{display:grid;grid-template-columns:30px 1fr;gap:13px;align-items:start;}
+.jstop .steps li{display:grid;grid-template-columns:30px 1fr;gap:13px;align-items:start;text-align:left;}
 .jstop .steps .num{width:30px;height:30px;border-radius:50%;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13.5px;font-weight:700;flex:0 0 auto;}
 .jstop .steps .sc{font-size:15px;line-height:1.5;color:#42474f;}
 .jstop .steps .sc b{color:var(--v4-ink);font-weight:600;}
 @media(max-width:640px){
-  .jmap .rail,.jmap .fill{left:19px;}.jmap .marker{left:12px;}
-  .jstop,.jstart{grid-template-columns:40px 1fr;gap:16px;}
-  .jstop .node{width:36px;height:36px;font-size:15px;}.jstop .stage{justify-content:center;}
+  .jstop.left,.jstop.right{grid-template-columns:40px minmax(0,1fr);gap:16px;}
+  .jstop.right .node{order:0;}.jstop.right .body{order:0;text-align:left;}
+  .jstop.right .stage{justify-content:center;}.jstop.right .detail{align-items:flex-start;}
+  .jstop.right .voice,.jstop.right .beat,.jstop.right .steps ol{margin-left:0;}
+  .jstop .node{width:38px;height:38px;font-size:15px;}.jstop .stage{justify-content:center;}
 }
 
 /* corner mini-map HUD */
@@ -191,7 +211,7 @@ const CSS = `
 
 /* ===== SCENE: Enjoy Life (valuation) ===== */
 .el{width:min(470px,100%);}
-.el .valcard{background:#0b0f14;color:#fff;border-radius:20px;padding:26px 26px 24px;box-shadow:0 50px 100px -44px rgba(0,0,0,.6);}
+.el .valcard{background:#0b0f14;color:#fff;border-radius:20px;padding:26px 26px 24px;box-shadow:0 50px 100px -44px rgba(0,0,0,.6);text-align:left;}
 .el .valcard .k{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#9aa0ab;}
 .el .valcard .num{margin-top:8px;font-size:clamp(40px,7vw,58px);font-weight:700;letter-spacing:-.03em;line-height:1;background:linear-gradient(100deg,#f59e0b,#fbbf24 60%,#fde68a);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .el .valcard .ns{margin-top:6px;font-size:13px;color:#9aa0ab;}
@@ -208,7 +228,8 @@ const CSS = `
 @media(max-width:520px){.el .choices{grid-template-columns:1fr;}.el .choice .cd{max-height:80px;margin-top:7px;}}
 
 /* ===== interactive leak slider ===== */
-.leak{margin-top:26px;background:#fff;border:1px solid #ececf0;border-radius:18px;padding:20px 22px;max-width:460px;box-shadow:0 20px 44px -30px rgba(6,12,20,.3);}
+.leak{margin-top:26px;background:#fff;border:1px solid #ececf0;border-radius:18px;padding:20px 22px;max-width:460px;box-shadow:0 20px 44px -30px rgba(6,12,20,.3);text-align:left;}
+.jstop.right .leak{margin-left:auto;}
 .leak .lk-top{font-size:13px;font-weight:600;color:#42474f;}
 .leak input[type=range]{width:100%;margin:16px 0 4px;accent-color:#10b981;height:6px;}
 .leak .lk-row{display:flex;justify-content:space-between;align-items:baseline;}
@@ -360,12 +381,12 @@ function LeakSlider() {
   );
 }
 
-function StopBlock({ s, open, onToggle, obsRef }: { s: Stop; open: boolean; onToggle: () => void; obsRef: (el: HTMLDivElement | null) => void }) {
+function StopBlock({ s, open, onToggle, obsRef, pointRef }: { s: Stop; open: boolean; onToggle: () => void; obsRef: (el: HTMLDivElement | null) => void; pointRef: (el: HTMLDivElement | null) => void }) {
   return (
-    <div className="jstop" id={s.id} ref={obsRef} style={{ '--acc': s.accent, '--acd': s.accentD } as CSSProperties}>
-      <div className="node">{s.n}</div>
+    <div className={`jstop ${s.side}`} id={s.id} ref={obsRef} style={{ '--acc': s.accent, '--acd': s.accentD } as CSSProperties}>
+      <div className="node" ref={pointRef}>{s.n}</div>
       <div className="body">
-        <div className="plabel">Milestone {s.n} · {s.label}</div>
+        <div className="plabel">Milestone {s.n} &middot; {s.label}</div>
         <div className="promise">{s.promise}</div>
         <div className="voice">&ldquo;{s.voice}&rdquo;</div>
         <div className="beat">{s.beat}</div>
@@ -403,12 +424,75 @@ export default function HowItWorks() {
   const [hudOn, setHudOn] = useState(false);
   const rootRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<HTMLDivElement | null>(null);
+  const svgRef = useRef<SVGSVGElement | null>(null);
+  const bgRef = useRef<SVGPathElement | null>(null);
+  const trailRef = useRef<SVGPathElement | null>(null);
+  const dotRef = useRef<SVGCircleElement | null>(null);
+  const lenRef = useRef(0);
+  const pRef = useRef(0);
+  const pts = useRef<Record<string, HTMLElement | null>>({});
   const stopEls = useRef<Record<string, HTMLDivElement | null>>({});
+
+  const apply = (p: number) => {
+    const trail = trailRef.current, dot = dotRef.current, L = lenRef.current;
+    if (!trail || !L) return;
+    trail.style.strokeDashoffset = String(L * (1 - p));
+    if (dot) {
+      const pt = trail.getPointAtLength(L * Math.max(0, Math.min(1, p)));
+      dot.setAttribute('cx', String(pt.x));
+      dot.setAttribute('cy', String(pt.y));
+    }
+  };
+
+  const build = () => {
+    const map = mapRef.current, svg = svgRef.current, trail = trailRef.current, bg = bgRef.current;
+    if (!map || !svg || !trail || !bg) return;
+    const mr = map.getBoundingClientRect();
+    const W = map.clientWidth, H = map.clientHeight;
+    const order = ['start', 'found', 'run', 'free', 'end'];
+    const P = order.map((k) => {
+      const el = pts.current[k];
+      if (!el) return null;
+      const r = el.getBoundingClientRect();
+      return { x: r.left + r.width / 2 - mr.left, y: r.top + r.height / 2 - mr.top };
+    }).filter(Boolean) as { x: number; y: number }[];
+    if (P.length < 2) return;
+    let d = `M ${P[0].x.toFixed(1)} ${P[0].y.toFixed(1)}`;
+    for (let i = 1; i < P.length; i++) {
+      const a = P[i - 1], b = P[i];
+      const my = (a.y + b.y) / 2;
+      d += ` C ${a.x.toFixed(1)} ${my.toFixed(1)}, ${b.x.toFixed(1)} ${my.toFixed(1)}, ${b.x.toFixed(1)} ${b.y.toFixed(1)}`;
+    }
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    bg.setAttribute('d', d);
+    trail.setAttribute('d', d);
+    const L = trail.getTotalLength();
+    lenRef.current = L;
+    trail.style.strokeDasharray = String(L);
+    apply(pRef.current);
+  };
+
+  useLayoutEffect(() => {
+    build();
+    const t1 = setTimeout(build, 300);
+    const t2 = setTimeout(build, 1200);
+    const ro = new ResizeObserver(() => build());
+    if (mapRef.current) ro.observe(mapRef.current);
+    window.addEventListener('resize', build);
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      pRef.current = 1;
+      apply(1);
+    }
+    return () => { clearTimeout(t1); clearTimeout(t2); ro.disconnect(); window.removeEventListener('resize', build); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const el = mapRef.current;
     const root = rootRef.current;
     if (!el || !root) return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) { root.style.setProperty('--p', '1'); return; }
     let raf = 0;
     const onScroll = () => {
       cancelAnimationFrame(raf);
@@ -416,13 +500,16 @@ export default function HowItWorks() {
         const r = el.getBoundingClientRect();
         const vh = window.innerHeight;
         const p = Math.min(Math.max((vh * 0.55 - r.top) / r.height, 0), 1);
+        pRef.current = p;
         root.style.setProperty('--p', String(p));
+        apply(p);
         setHudOn(r.top < vh * 0.5 && r.bottom > vh * 0.4);
       });
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
     return () => { window.removeEventListener('scroll', onScroll); cancelAnimationFrame(raf); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -493,25 +580,44 @@ export default function HowItWorks() {
             <p>Every customer, and your whole business, travels this route. Here is what happens at each stop.</p>
           </div>
           <div className="jmap" ref={mapRef}>
-            <div className="rail" />
-            <div className="fill" />
-            <div className="marker" />
-            <div className="jstart">
-              <div className="sdot" />
-              <div>
-                <div className="st">Day one · You are here</div>
-                <div className="sh">The phone barely rings.</div>
+            <svg className="jsvg" ref={svgRef} preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="jgrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stopColor="#0ea5e9" />
+                  <stop offset="0.55" stopColor="#10b981" />
+                  <stop offset="1" stopColor="#f59e0b" />
+                </linearGradient>
+              </defs>
+              <path className="bg" ref={bgRef} d="" />
+              <path className="tr" ref={trailRef} d="" />
+              <circle className="jdot" ref={dotRef} r="8.5" cx="-10" cy="-10" />
+            </svg>
+
+            <div className="jrows">
+              <div className="jstart">
+                <span className="sdot" ref={(el) => { pts.current.start = el; }} />
+                <div>
+                  <div className="st">Day one &middot; You are here</div>
+                  <div className="sh">The phone barely rings.</div>
+                </div>
+              </div>
+
+              {STOPS.map((s) => (
+                <StopBlock
+                  key={s.id}
+                  s={s}
+                  open={openStop === s.id}
+                  onToggle={() => setOpenStop(openStop === s.id ? null : s.id)}
+                  obsRef={(el) => { stopEls.current[s.id] = el; }}
+                  pointRef={(el) => { pts.current[s.id] = el; }}
+                />
+              ))}
+
+              <div className="jend">
+                <span className="edot" ref={(el) => { pts.current.end = el; }} />
+                <div className="eh">Go enjoy the life you built it for.</div>
               </div>
             </div>
-            {STOPS.map((s) => (
-              <StopBlock
-                key={s.id}
-                s={s}
-                open={openStop === s.id}
-                onToggle={() => setOpenStop(openStop === s.id ? null : s.id)}
-                obsRef={(el) => { stopEls.current[s.id] = el; }}
-              />
-            ))}
           </div>
         </div>
       </section>

@@ -4,13 +4,11 @@ import Link from 'next/link';
 import Wordmark from './Wordmark';
 import { START_LINK } from '@/lib/site';
 
+// Header mirrors the homepage "Go deeper" tabs.
 const NAV = [
-  { href: '/why-a-website', label: 'Why a website' },
   { href: '/how-it-works', label: 'How it works' },
   { href: '/pricing', label: 'Pricing' },
-  { href: '/long-term', label: 'Long-term value' },
-  { href: '/enjoy-life', label: 'Enjoy Life' },
-  { href: '/founders', label: 'Founders' },
+  { href: '/founders', label: 'About us' },
 ];
 
 export function TopNav({ active }: { active?: string }) {

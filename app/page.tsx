@@ -13,7 +13,6 @@ const CLOSER_IMG =
 
 const EXPLORE: { k: string; t: string; d: string; href: string; c: string }[] = [
   { k: 'THE PRODUCT', t: 'How it works', d: 'The website, the front office, the whole system, in one place.', href: '/how-it-works', c: '#38bdf8' },
-  { k: 'PROOF', t: 'See it live', d: 'Real businesses we run right now: Top Choice Electrical and XNL HR.', href: '/work', c: '#22d3ee' },
   { k: 'PRICING', t: 'Pricing', d: 'The simple, honest ways to work with us.', href: '/pricing', c: '#34d399' },
   { k: 'THE TEAM', t: 'About us', d: 'The two founders behind StayBookt, and why we built it.', href: '/founders', c: '#e5e7eb' },
 ];
@@ -231,7 +230,8 @@ const PAGE_CSS = `
 .v4 .explore{background:#050506;padding:clamp(78px,10vw,128px) 0 clamp(64px,8vw,104px);text-align:center;}
 .v4 .explore .eyebrow{color:#86868b;}
 .v4 .explore h2{margin-top:14px;font-size:clamp(26px,3.4vw,42px);letter-spacing:-.03em;color:#f5f5f7;font-weight:600;}
-.v4 .explore .xgrid{margin:clamp(38px,5vw,58px) auto 0;display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:940px;text-align:left;}
+.v4 .explore .xgrid{margin:clamp(38px,5vw,58px) auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1040px;text-align:left;}
+@media(max-width:920px){.v4 .explore .xgrid{grid-template-columns:1fr 1fr;}}
 .v4 .explore .xcard{display:block;height:100%;text-decoration:none;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.018));border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:clamp(24px,3vw,34px);transition:border-color .3s ease,transform .3s ease,background .3s ease;}
 .v4 .explore .xcard:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.22);background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.02));}
 .v4 .explore .xk{font-size:12px;font-weight:700;letter-spacing:.16em;}
