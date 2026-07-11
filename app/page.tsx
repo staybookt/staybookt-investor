@@ -188,6 +188,10 @@ const PAGE_CSS = `
 .v4 .sbwrap .brief-l .bi{display:flex;gap:12px;padding:11px 0;border-top:1px solid #f1f1f4;align-items:flex-start;font-size:14px;color:#2b2b30;}
 .v4 .sbwrap .brief-l .bi:first-of-type{border-top:0;}
 .v4 .sbwrap .brief-l .bic{width:8px;height:8px;border-radius:50%;margin-top:6px;flex:0 0 auto;}
+/* proof line */
+.v4 .proofline{background:var(--v4-ink);padding:0 0 clamp(64px,9vw,104px);text-align:center;}
+.v4 .proofline p{font-size:15px;color:#86868b;}
+.v4 .proofline a{color:#38bdf8;font-weight:600;text-decoration:none;}
 /* LADDER */
 .v4 .price h2{font-weight:600;letter-spacing:-.025em;}
 .v4 .price .seefull a{color:#0891b2;}
@@ -202,7 +206,7 @@ const PAGE_CSS = `
 .v4 .whyus .learn{color:#38bdf8;}
 .v4 .learn{display:inline-block;margin-top:22px;color:#0891b2;font-weight:600;font-size:15px;text-decoration:none;}
 /* ===== ALL-DARK CINEMATIC CONSISTENCY PASS ===== */
-.v4{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;background:#050506;}
+.v4{font-family:var(--font-display),'Inter Tight','Helvetica Neue',Arial,sans-serif;background:#050506;}
 .v4 p,.v4 a,.v4 span,.v4 div,.v4 li,.v4 blockquote,.v4 cite,.v4 button{font-family:inherit;}
 .v4 .seam{background:linear-gradient(180deg,rgba(5,5,6,0) 0%,rgba(5,5,6,.55) 45%,#050506 88%) !important;}
 .v4 .sb-clook{background:#050506;}
@@ -221,6 +225,8 @@ const PAGE_CSS = `
 .v4 .price .pill-ink{background:#f5f5f7;color:#050506;}
 .v4 .price{text-align:center;}
 .v4 .price .priceline{font-size:clamp(18px,2.2vw,25px);color:#c7ccd6;margin:18px auto 0;max-width:38ch;line-height:1.42;}
+/* WHY US supporting line */
+.v4 .whyus .qsub{margin:22px auto 0;font-weight:400;line-height:1.55;color:#aeb4c0;}
 /* GO DEEPER / explore navigation */
 .v4 .explore{background:#050506;padding:clamp(78px,10vw,128px) 0 clamp(64px,8vw,104px);text-align:center;}
 .v4 .explore .eyebrow{color:#86868b;}
@@ -318,7 +324,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4 — GO DEEPER (navigation) */}
+      {/* 5 — GO DEEPER (navigation) */}
       <section className="explore">
         <div className="wrap">
           <Reveal className="eyebrow" as="div">Go deeper</Reveal>
@@ -341,7 +347,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5 — CLOSER */}
+      {/* 6 — CLOSER */}
       <section className="scene closer">
         <img src={CLOSER_IMG} alt="" loading="lazy" decoding="async" />
         <div className="grad-ov" />

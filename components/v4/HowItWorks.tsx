@@ -129,7 +129,7 @@ const CSS = `
 .hiw-phase{padding:clamp(84px,11vw,150px) 0;}
 .hiw-phase.alt{background:var(--v4-cream);}
 .hiw-phase .plabel{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);}
-.hiw-phase .promise{margin-top:14px;font-size:clamp(32px,5.2vw,66px);line-height:1.0;letter-spacing:-.035em;max-width:15ch;}
+.hiw-phase .promise{margin-top:14px;font-weight:600;font-size:clamp(32px,5.2vw,66px);line-height:1.0;letter-spacing:-.035em;max-width:15ch;}
 .hiw-phase .means{margin-top:20px;font-size:clamp(18px,2vw,22px);line-height:1.5;color:#52565e;max-width:44ch;}
 .hiw-phase .offer{display:inline-flex;align-items:center;margin-top:22px;font-size:13px;font-weight:600;padding:8px 15px;border-radius:999px;border:1px solid var(--acc);color:var(--acc);}
 .hiw-phase .body{margin-top:clamp(44px,5vw,68px);display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(38px,6vw,84px);align-items:center;}
