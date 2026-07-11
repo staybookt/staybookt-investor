@@ -65,7 +65,7 @@
 html, body {
   background: var(--paper);
   color: var(--ink);
-  font-family: 'Helvetica Neue', Helvetica, Arial, system-ui, sans-serif;
+  font-family: var(--font-display), 'Inter Tight', 'Helvetica Neue', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
@@ -210,7 +210,7 @@ section[id] { scroll-margin-top: 5rem; }
   --hp-cyan:#06b6d4; --hp-emerald:#10b981; --hp-indigo:#4f46e5; --hp-violet:#7c3aed;
   --hp-maxw:1160px;
   color:var(--hp-text); background:var(--hp-paper);
-  font-family:-apple-system,"SF Pro Display","SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family:var(--font-display),'Inter Tight','Helvetica Neue',Arial,sans-serif;
   line-height:1.5;
 }
 .hpv2 .wrap{max-width:var(--hp-maxw); margin:0 auto; padding:0 28px;}
@@ -438,7 +438,7 @@ section[id] { scroll-margin-top: 5rem; }
   --v4-green:#10b981;--v4-green-d:#047857;--v4-violet:#7c3aed;--v4-cyan:#06b6d4;--v4-indigo:#4f46e5;
   --v4-grad:linear-gradient(100deg,#06b6d4 0%,#10b981 50%,#4f46e5 100%);
   color:var(--v4-ink);background:var(--v4-paper);
-  font-family:-apple-system,"SF Pro Display","SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family:var(--font-display),'Inter Tight','Helvetica Neue',Arial,sans-serif;
   -webkit-font-smoothing:antialiased;line-height:1.5;}
 .v4 .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
 .v4 h1,.v4 h2,.v4 h3{font-weight:700;letter-spacing:-.045em;line-height:.98;}
