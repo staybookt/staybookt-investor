@@ -9,7 +9,9 @@ import { EMAIL } from '@/lib/site';
  * Meta both refuse to run traffic to a site without a real privacy policy.
  *
  * NOT reviewed by a lawyer. Do that before the first paying client, and re-check
- * the third-party list below whenever the stack changes. */
+ * the third-party list below whenever the stack changes.
+ *
+ * NO JARGON. "Mystery shop" is our internal word, not a word a customer uses. */
 
 export const metadata = {
   title: 'Privacy policy',
@@ -80,10 +82,11 @@ const SECTIONS: Section[] = [
           search.
         </p>
         <p>
-          <b>We also mystery-shop you.</b> We call your business line, text your listing and try to
-          book a job, as an ordinary customer would, so we can show you what actually happens. We use
-          that only to prepare for your call and to show you the result. We do not publish it, share
-          it, or sell it, and if you ask us to delete it, we delete it.
+          <b>We also try to hire you.</b> Before the call we contact your business the way an
+          ordinary customer would: we call your line, we text your listing, and we try to book a job.
+          We do it so we can show you what actually happens when someone tries to give you money. We
+          use it only to prepare for your call and to show you the result. We do not publish it,
+          share it, or sell it, and if you ask us to delete it, we delete it.
         </p>
       </>
     ),
