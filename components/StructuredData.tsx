@@ -1,14 +1,14 @@
 /* JSON-LD structured data: Organization + FAQPage. Helps Google understand
- * the company and surface FAQ rich results. Keep answers in sync with the page.
+ * the company and surface FAQ rich results.
  *
- * NOTE: no 12-month term anywhere. The only commitment promise we make in public
- * is the ninety-day money-back guarantee. This file is what Google actually reads,
- * so it has to say the same thing the page says. */
+ * NOTE: the 12-month term and the 90-day money-back guarantee are ALWAYS stated
+ * together, never one without the other. This file is what Google actually reads,
+ * so it has to say the same thing the pages say. */
 
 const FAQ: [string, string][] = [
   [
     'What if I want to cancel?',
-    'You get ninety days to change your mind. If we have not delivered, tell us and we refund every month you paid. No forms, no argument. Whenever you leave, you keep everything that matters: the website code, the Google Business Profile login, the customer list, and the review tools. No locked-in dependencies.',
+    'The plan runs on a 12-month term, because we build your website and run your front office before you pay us anything. You get ninety days to change your mind: if we have not delivered, tell us and we refund every month you paid. No forms, no argument. Whenever you leave, you keep everything that matters: the website code, the Google Business Profile login, the customer list, and the review tools. No locked-in dependencies.',
   ],
   [
     'What if you go out of business?',
@@ -24,7 +24,7 @@ const FAQ: [string, string][] = [
   ],
   [
     'What is included in the plan?',
-    'Getting found and running it, together: your website and Google presence, an AI receptionist with a real person behind it, booking, quote follow-up, reviews, and a short daily brief. One plan, $199 a month, nothing upfront, and ninety days to change your mind.',
+    'Getting found and running it, together: your website and Google presence, an AI receptionist with a real person behind it, booking, quote follow-up, reviews, and a short daily brief. One plan, $199 a month, nothing upfront, on a 12-month term, with ninety days to change your mind.',
   ],
 ];
 
@@ -37,7 +37,7 @@ export default function StructuredData() {
       url: 'https://www.staybookt.com',
       email: 'info@staybookt.com',
       description:
-        'StayBookt gets service businesses found and runs their whole front office: website, an AI receptionist with a real person behind it, booking, quotes, reviews, and a daily brief. One plan, $199 a month, nothing upfront, ninety days to change your mind.',
+        'StayBookt answers the phone, books the jobs and chases the quotes for owner-operated service businesses. We build and run your website and Google presence, answer every call and text 24/7, and hand you one short brief each morning. One plan, $199 a month, nothing upfront.',
       areaServed: [{ '@type': 'Country', name: 'Canada' }, { '@type': 'Country', name: 'United States' }],
       founder: [
         { '@type': 'Person', name: 'Jacob Charendoff' },
