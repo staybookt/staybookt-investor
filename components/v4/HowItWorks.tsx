@@ -2,9 +2,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
 import { START_LINK } from '@/lib/site';
-import Receptionist from './Receptionist';
-import PlayOnView from './PlayOnView';
-import { AccountBrain, Arrival } from './HiwScenes';
+import { AccountBrain, NightShift, Arrival } from './HiwScenes';
 
 /* Hero backdrop: a still, not a film. The homepage owns the one video moment,
  * and this page already runs a scroll-driven SVG trail. A slow drift on a still
@@ -170,6 +168,8 @@ const CSS = `
   .jstop .node{width:38px;height:38px;font-size:15px;}.jstop .stage{justify-content:center;}
 }
 
+.jfine{margin:clamp(34px,4vw,48px) auto 0;text-align:center;font-size:12.5px;line-height:1.5;color:#9aa0a8;max-width:56ch;}
+
 /* corner mini-map HUD */
 .jhud{position:fixed;right:22px;bottom:22px;z-index:30;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border:1px solid #ececf0;border-radius:16px;padding:14px 16px 14px 14px;box-shadow:0 20px 50px -24px rgba(6,12,20,.4);display:flex;gap:12px;align-items:stretch;opacity:0;transform:translateY(10px);transition:opacity .4s ease,transform .4s ease;pointer-events:none;}
 .jhud.show{opacity:1;transform:none;}
@@ -224,16 +224,6 @@ const CSS = `
 .el .choice .cd{max-height:0;overflow:hidden;font-size:12.5px;line-height:1.4;color:#6b7280;transition:max-height .35s ease,margin .35s ease;}
 .el .choice:hover .cd,.el .choice.on .cd{max-height:80px;margin-top:7px;}
 @media(max-width:520px){.el .choices{grid-template-columns:1fr;}.el .choice .cd{max-height:80px;margin-top:7px;}}
-
-/* ===== interactive leak slider ===== */
-.leak{margin-top:26px;background:#fff;border:1px solid #ececf0;border-radius:18px;padding:20px 22px;max-width:460px;box-shadow:0 20px 44px -30px rgba(6,12,20,.3);text-align:left;}
-.jstop.right .leak{margin-left:auto;}
-.leak .lk-top{font-size:13px;font-weight:600;color:#42474f;}
-.leak input[type=range]{width:100%;margin:16px 0 4px;accent-color:#10b981;height:6px;}
-.leak .lk-row{display:flex;justify-content:space-between;align-items:baseline;}
-.leak .lk-calls{font-size:13px;color:#6b7280;}
-.leak .lk-val{font-size:clamp(24px,3.4vw,32px);font-weight:700;letter-spacing:-.02em;color:#059669;}
-.leak .lk-note{margin-top:6px;font-size:11.5px;color:#9298a1;}
 
 /* ===== FAQ — two columns, sticky ask on the left, cards on the right ===== */
 .hiw-faq{padding:clamp(90px,12vw,150px) 0;background:var(--v4-cream);}
@@ -362,23 +352,6 @@ function EnjoyLifeScene() {
   );
 }
 
-/* Interactive: how much are missed calls costing you */
-function LeakSlider() {
-  const [calls, setCalls] = useState(8);
-  const monthly = Math.round((calls * 4.3 * 250 * 0.7) / 10) * 10;
-  return (
-    <div className="leak">
-      <div className="lk-top">How many calls do you miss in a week?</div>
-      <input type="range" min={0} max={20} value={calls} onChange={(e) => setCalls(Number(e.target.value))} />
-      <div className="lk-row">
-        <span className="lk-calls">{calls} missed / week</span>
-        <span className="lk-val">${monthly.toLocaleString()}/mo</span>
-      </div>
-      <div className="lk-note">Roughly what we would recover, at an average job of $250. A real number comes from your data.</div>
-    </div>
-  );
-}
-
 function StopBlock({ s, open, onToggle, obsRef, pointRef }: { s: Stop; open: boolean; onToggle: () => void; obsRef: (el: HTMLDivElement | null) => void; pointRef: (el: HTMLDivElement | null) => void }) {
   return (
     <div className={`jstop ${s.side}`} id={s.id} ref={obsRef} style={{ '--acc': s.accent, '--acd': s.accentD } as CSSProperties}>
@@ -392,11 +365,9 @@ function StopBlock({ s, open, onToggle, obsRef, pointRef }: { s: Stop; open: boo
 
         <div className="stage">
           {s.surface === 'getfound' && <GetFoundScene />}
-          {s.surface === 'staybookt' && <PlayOnView><Receptionist /></PlayOnView>}
+          {s.surface === 'staybookt' && <NightShift />}
           {s.surface === 'enjoy' && <EnjoyLifeScene />}
         </div>
-
-        {s.surface === 'staybookt' && <LeakSlider />}
 
         <div className={`detail${open ? ' open' : ''}`}>
           <button type="button" className="toggle" onClick={onToggle}>
@@ -613,16 +584,20 @@ export default function HowItWorks() {
               </div>
             </div>
           </div>
+
+          {/* One honest line covering every rendered surface on this page. We
+              illustrate what the service does. We never invent a result. */}
+          <p className="jfine">
+            Screens shown are illustrations of the service, not screenshots of a customer&apos;s account.
+          </p>
         </div>
       </section>
 
       {/* THE ARRIVAL — the pinnacle of the journey, and where the CTA lives.
-          The old StartCard sat here and repeated the same ask on the same screen.
           One peak, one button. */}
       <Arrival />
 
-      {/* FAQ — the last word. The old centered closer that used to sit below this
-          repeated the same CTA the arrival already carries, so it is gone. */}
+      {/* FAQ — the last word. */}
       <section className="hiw-faq">
         <div className="wrap">
           <div className="fgrid">
