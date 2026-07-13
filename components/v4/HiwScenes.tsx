@@ -3,21 +3,19 @@
 import { useEffect, useRef, useState } from 'react';
 import { START_LINK } from '@/lib/site';
 
-/* Three set pieces for /how-it-works.
+/* Set pieces for /how-it-works.
  *
  * 1. AccountBrain  — the intake becoming an answer. Replaces a static checklist.
- * 2. Arrival       — the pinnacle of the journey. Full-bleed, cinematic.
- * 3. StartCard     — the CTA, as a hero card with the offer written on it.
+ * 2. Arrival       — the pinnacle of the journey. Full-bleed, cinematic, and the
+ *                    only place on the page that asks for anything.
  *
- * All three are IntersectionObserver play-once. No scroll-scrubbing:
- * it was removed from this codebase for desktop lag. */
+ * IntersectionObserver play-once. No scroll-scrubbing: it was removed from this
+ * codebase for desktop lag. */
 
 const px = (id: string, w = 2000) =>
   `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=${w}`;
 
-/* Already live elsewhere on the site, so these are known-good. */
 const ARRIVE_IMG = px('30660768');
-const START_IMG = px('3846255', 1600);
 
 function useOnView<T extends HTMLElement>(threshold = 0.35) {
   const ref = useRef<T | null>(null);
@@ -71,7 +69,6 @@ export function AccountBrain() {
             setStep(FACTS.length + 1);
             return;
           }
-          // learn each fact, then compose the answer
           for (let i = 0; i <= FACTS.length + 1; i++) {
             timers.push(setTimeout(() => setStep(i), 380 + i * 620));
           }
@@ -205,7 +202,7 @@ const AB_CSS = `
 
 /* ============================================================
  * 2. THE ARRIVAL
- * The map ends. This is what it was all for.
+ * The map ends. This is what it was all for, and the only ask.
  * ========================================================== */
 export function Arrival() {
   const ref = useOnView<HTMLElement>(0.25);
@@ -227,6 +224,10 @@ export function Arrival() {
           longer needs you standing in the middle of it.
         </p>
         <div className="arr-f">That was always the point.</div>
+        <div className="arr-cta">
+          <a href={START_LINK}>Start the journey</a>
+          <span className="arr-note">Thirty minutes with a founder. Free, and yours to keep.</span>
+        </div>
       </div>
     </section>
   );
@@ -245,56 +246,10 @@ const ARR_CSS = `
 .arr h2{margin-top:16px;font-size:clamp(40px,7.4vw,104px);font-weight:600;letter-spacing:-.04em;line-height:.98;color:#fff;text-shadow:0 4px 44px rgba(0,0,0,.5);opacity:0;transform:translateY(20px);transition:opacity 1s ease .5s,transform 1s cubic-bezier(.16,1,.3,1) .5s;}
 .arr p{margin:26px auto 0;font-size:clamp(17px,2.1vw,23px);line-height:1.5;color:#e6e9ee;max-width:44ch;text-shadow:0 2px 26px rgba(0,0,0,.6);opacity:0;transform:translateY(16px);transition:opacity 1s ease .75s,transform 1s cubic-bezier(.16,1,.3,1) .75s;}
 .arr-f{margin-top:30px;font-size:clamp(18px,2.2vw,26px);font-weight:600;letter-spacing:-.02em;color:#f5c877;opacity:0;transform:translateY(14px);transition:opacity 1s ease 1s,transform 1s cubic-bezier(.16,1,.3,1) 1s;}
-.arr.on .arr-k,.arr.on h2,.arr.on p,.arr.on .arr-f{opacity:1;transform:none;}
+.arr-cta{margin-top:clamp(30px,4vw,42px);display:flex;flex-direction:column;align-items:center;gap:14px;opacity:0;transform:translateY(14px);transition:opacity 1s ease 1.25s,transform 1s cubic-bezier(.16,1,.3,1) 1.25s;}
+.arr-cta a{display:inline-flex;align-items:center;background:#fff;color:#050506;font-size:15px;font-weight:600;border-radius:999px;padding:16px 34px;text-decoration:none;box-shadow:0 20px 44px -22px rgba(0,0,0,.8);transition:transform .3s ease;}
+.arr-cta a:hover{transform:translateY(-2px);}
+.arr-note{font-size:14.5px;color:#c3c8d0;text-shadow:0 1px 18px rgba(0,0,0,.7);}
+.arr.on .arr-k,.arr.on h2,.arr.on p,.arr.on .arr-f,.arr.on .arr-cta{opacity:1;transform:none;}
 @media(prefers-reduced-motion:reduce){.arr *{transition:none !important;animation:none !important;opacity:1 !important;transform:none !important;}}
-`;
-
-/* ============================================================
- * 3. THE START CARD
- * The CTA, as a card you can see. The offer is the mystery shop.
- * ========================================================== */
-export function StartCard() {
-  const ref = useOnView<HTMLElement>(0.2);
-  return (
-    <section className="stc" id="start" ref={ref}>
-      <style>{STC_CSS}</style>
-      <div className="wrap">
-        <div className="stc-card">
-          <img src={START_IMG} alt="" loading="lazy" decoding="async" />
-          <div className="stc-ov" />
-          <div className="stc-in">
-            <div className="stc-k">Free &middot; no pitch</div>
-            <h2>We tried to hire you.</h2>
-            <p>
-              Before we ever meet, we call your line, text your listing, search for you the way a
-              customer does, and try to book a job. Then we spend thirty minutes showing you exactly
-              what happened. Yours to keep, whether you hire us or not.
-            </p>
-            <div className="stc-cta">
-              <a href={START_LINK}>Pick a time</a>
-              <span className="stc-note">30 minutes, with a founder.</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-const STC_CSS = `
-.stc{padding:clamp(70px,10vw,130px) 0;background:#fff;}
-.stc .wrap{width:100%;max-width:1180px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
-.stc-card{position:relative;border-radius:clamp(24px,3vw,36px);overflow:hidden;min-height:min(78vh,620px);display:flex;align-items:flex-end;box-shadow:0 60px 120px -60px rgba(6,12,20,.7);}
-.stc-card>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.1);transition:transform 2.8s cubic-bezier(.16,1,.3,1);}
-.stc.on .stc-card>img{transform:scale(1);}
-.stc-ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,6,.15) 0%,rgba(5,5,6,.45) 45%,rgba(5,5,6,.9) 100%);}
-.stc-in{position:relative;z-index:1;padding:clamp(30px,5vw,64px);max-width:720px;}
-.stc-k{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#9ff0d0;}
-.stc h2{margin-top:14px;font-size:clamp(34px,5.4vw,72px);font-weight:600;letter-spacing:-.038em;line-height:1.0;color:#fff;}
-.stc p{margin-top:20px;font-size:clamp(16px,1.85vw,20px);line-height:1.55;color:#dfe3e9;max-width:52ch;}
-.stc-cta{margin-top:30px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
-.stc-cta a{display:inline-flex;align-items:center;background:#fff;color:#050506;font-size:15px;font-weight:600;border-radius:999px;padding:15px 32px;text-decoration:none;transition:transform .3s ease;}
-.stc-cta a:hover{transform:translateY(-1px);}
-.stc-note{font-size:14.5px;color:#b8bec7;}
-@media(prefers-reduced-motion:reduce){.stc-card>img{transition:none;transform:none;}}
 `;
