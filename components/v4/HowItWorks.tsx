@@ -67,7 +67,7 @@ const FAQ: { k: string; c: string; q: string; a: string }[] = [
   { k: 'What is yours', c: '#10b981', q: 'What if I already have a website?', a: 'We will look at it. If it is doing the job, we build around it. If it is holding you back, we replace it. You are not stuck with something that does not convert.' },
   { k: 'What is yours', c: '#10b981', q: 'Do I keep my phone number?', a: 'Yes. Your number stays yours. We make sure the calls and texts you cannot pick up still get answered and booked.' },
   { k: 'What is yours', c: '#10b981', q: 'Who owns the website and domain?', a: 'The site is yours to keep. If you already own your domain it stays in your name. If we set one up for you, we walk through the handover on the call. Nothing holds you hostage.' },
-  { k: 'The money', c: '#4f46e5', q: 'What does it cost, and is there a contract?', a: 'One plan, $199 a month, with nothing upfront. No build fee, no setup fee, no menu. You get ninety days to change your mind: if we have not delivered, say the word and we refund every month you paid. No forms, no argument. The website is yours to keep either way.' },
+  { k: 'The money', c: '#4f46e5', q: 'What does it cost, and is there a contract?', a: 'One plan, $199 a month, with nothing upfront. No build fee, no setup fee, no menu. It runs on a 12-month term, and we will tell you exactly why rather than bury it: we build your website and run your front office before you have paid us a dollar, so the year is what makes that possible. The protection running the other way is real too. You get ninety days to change your mind: if we have not delivered, say the word and we refund every month you paid. No forms, no argument. The website is yours to keep either way.' },
   { k: 'The money', c: '#4f46e5', q: 'How long until I am live?', a: 'About 30 days from the first call.' },
   { k: 'The payoff', c: '#f59e0b', q: 'What is the valuation at the end?', a: 'After your first year, we value the business on two axes: what it is worth in dollars, and how well it runs and grows without you glued to it. Then you decide what to do with it. There is no obligation to sell.' },
 ];
@@ -254,7 +254,7 @@ const CSS = `
 .hiw-q:hover .pl{border-color:var(--fc);color:var(--fc);}
 .hiw-q.open .pl{transform:rotate(45deg);background:var(--fc);border-color:transparent;color:#fff;box-shadow:0 8px 20px -8px var(--fc);}
 .hiw-q .ans{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.16,1,.3,1);}
-.hiw-q.open .ans{max-height:340px;}
+.hiw-q.open .ans{max-height:420px;}
 .hiw-q .ans p{margin:0 clamp(16px,2vw,22px) clamp(22px,2.4vw,26px);padding-left:16px;border-left:2px solid var(--fc);font-size:16.5px;line-height:1.62;color:#52565e;max-width:60ch;}
 @media(prefers-reduced-motion:reduce){.hiw-q,.hiw-q .pl,.hiw-q .ans{transition:none;}}
 `;
@@ -607,8 +607,8 @@ export default function HowItWorks() {
                 Questions, <span className="g">answered.</span>
               </h2>
               <p className="fa-p">
-                $199 a month, nothing upfront, ninety days to change your mind. Everything else is
-                below, in plain English.
+                $199 a month, nothing upfront, 12-month term, ninety days to change your mind.
+                Everything else is below, in plain English.
               </p>
               <a className="fa-cta" href={START_LINK}>
                 Ask a founder directly <span aria-hidden>&rarr;</span>
