@@ -1,11 +1,12 @@
 import Nav from '@/components/v4/Nav';
 import SiteFooter from '@/components/SiteFooter';
-import { OrgChart, Converge } from '@/components/v4/AboutScenes';
-import { TheDay, BigDay, FixedDay } from '@/components/v4/TheDay';
+import { OrgChart } from '@/components/v4/AboutScenes';
+import { TheDay } from '@/components/v4/TheDay';
+import { ThreeTuesdays, Statement } from '@/components/v4/ThreeTuesdays';
 import { START_LINK } from '@/lib/site';
 
 const SHARE =
-  'An owner-operator is the best person in their business at the work, and the worst-placed person to run the front of it. The difference between their Tuesday and a big company’s Tuesday was never talent. It was five salaries.';
+  'The difference between an owner-operator’s Tuesday and a big company’s Tuesday was never talent. It was five salaries. StayBookt is the bridge.';
 
 export const metadata = {
   title: 'About us',
@@ -25,19 +26,19 @@ export const metadata = {
 const BELIEFS = [
   {
     h: 'We are operators, not a software company.',
-    p: 'We do not hand you a dashboard and wish you luck. We do the work. If you ever feel like you are operating software, we have built the wrong thing.',
+    p: 'We do not hand you a dashboard and wish you luck. If you ever feel like you are operating software, we have built the wrong thing.',
   },
   {
     h: 'The owner stays in charge.',
-    p: 'We take the busywork, not the business. Your prices, your standards, your name, your customers. We run the front so you can run the thing you actually own.',
+    p: 'We take the busywork, not the business. Your prices, your standards, your name, your customers.',
   },
   {
     h: 'We would rather lose the sale.',
-    p: 'If the honest answer is that you do not need us, we will say so on the call. Selling an owner-operator something they do not need is not a business, it is a favour we take back later.',
+    p: 'If the honest answer is that you do not need us, we will say so on the call.',
   },
   {
     h: 'We only get properly paid if you get free.',
-    p: 'The monthly keeps the lights on. The real money comes from the value we create in your business, and only when you cash it in. If the number does not move, we do not get paid.',
+    p: 'The real money comes from the value we create in your business, and only when you cash it in. If the number does not move, we do not get paid.',
   },
 ];
 
@@ -58,13 +59,12 @@ const CSS = `
 .abt-hero h1{margin-top:18px;font-size:clamp(40px,6.2vw,84px);line-height:1.01;max-width:17ch;margin-left:auto;margin-right:auto;color:#f5f5f7;}
 .abt-hero p{margin:26px auto 0;font-size:clamp(18px,2.1vw,23px);line-height:1.5;color:#aeb4c0;max-width:52ch;}
 
-/* the problem */
-.abt-prob{padding:clamp(80px,11vw,150px) 0;background:#fff;}
+/* the diagnosis — the only prose on the page. Give it air. */
+.abt-prob{padding:clamp(90px,12vw,160px) 0;background:#fff;}
 .abt-prob h2{font-size:clamp(32px,5vw,66px);line-height:1.02;max-width:15ch;}
-.abt-prob .p{margin-top:26px;font-size:clamp(18px,2vw,22px);line-height:1.6;color:#42474f;max-width:62ch;}
-.abt-prob .p + .p{margin-top:22px;}
+.abt-prob .p{margin-top:28px;font-size:clamp(18px,2.05vw,23px);line-height:1.6;color:#42474f;max-width:60ch;}
 .abt-prob .p b{font-weight:600;color:var(--v4-ink);}
-.abt-prob .pull{margin:clamp(38px,5vw,56px) 0;padding-left:clamp(20px,3vw,30px);border-left:3px solid #10b981;font-size:clamp(22px,2.8vw,34px);font-weight:600;letter-spacing:-.02em;line-height:1.2;color:var(--v4-ink);max-width:24ch;}
+.abt-prob .pull{margin-top:clamp(40px,5vw,58px);padding-left:clamp(20px,3vw,30px);border-left:3px solid #10b981;font-size:clamp(24px,3.2vw,40px);font-weight:600;letter-spacing:-.025em;line-height:1.16;color:var(--v4-ink);max-width:22ch;}
 
 /* ===== THE ORG CHART ===== */
 .abt-five{background:var(--v4-cream);padding:clamp(80px,11vw,140px) 0;}
@@ -106,70 +106,37 @@ const CSS = `
 @media(prefers-reduced-motion:reduce){.orgc *{transition:none !important;}}
 
 /* founders */
-.abt-us{padding:clamp(80px,11vw,140px) 0;}
-.abt-us .us-lead{max-width:660px;margin:0 0 clamp(40px,6vw,66px);}
+.abt-us{padding:clamp(90px,12vw,150px) 0;}
+.abt-us .us-lead{max-width:660px;margin:0 0 clamp(44px,6vw,70px);}
 .abt-us .us-lead h2{margin-top:14px;font-size:clamp(28px,4.2vw,54px);line-height:1.04;}
 .abt-us .us-lead p{margin-top:14px;font-size:clamp(17px,1.9vw,20px);line-height:1.6;color:#6b7280;}
-.f{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(32px,6vw,72px);align-items:start;padding:clamp(40px,6vw,72px) 0;border-top:1px solid #ececf0;}
+.f{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(32px,6vw,72px);align-items:start;padding:clamp(44px,6vw,76px) 0;border-top:1px solid #ececf0;}
 .f:first-of-type{border-top:0;padding-top:0;}
-.f .who{position:relative;}
 .f .who img{width:100%;max-width:280px;aspect-ratio:1/1;object-fit:cover;border-radius:24px;display:block;box-shadow:0 34px 70px -40px rgba(6,12,20,.55);transition:transform .5s cubic-bezier(.16,1,.3,1);}
 .f .who:hover img{transform:translateY(-4px) scale(1.01);}
 .f .who .nm{margin-top:20px;font-size:24px;font-weight:600;letter-spacing:-.03em;color:var(--v4-ink);}
 .f .who .ro{margin-top:5px;font-size:14px;font-weight:600;letter-spacing:.02em;color:#059669;}
 .f .lens{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#9298a1;}
-.f blockquote{margin:12px 0 0;font-size:clamp(21px,2.5vw,30px);font-weight:600;letter-spacing:-.025em;line-height:1.3;color:var(--v4-ink);}
-.f .bio{margin-top:26px;font-size:16.5px;line-height:1.65;color:#52565e;}
-.f .bio + .bio{margin-top:16px;}
+.f blockquote{margin:12px 0 0;font-size:clamp(22px,2.7vw,33px);font-weight:600;letter-spacing:-.028em;line-height:1.26;color:var(--v4-ink);}
+/* the CV is support, not the lead. Demote it. */
+.f .bio{margin-top:28px;font-size:15px;line-height:1.7;color:#7a808a;}
+.f .bio + .bio{margin-top:14px;}
 @media(max-width:820px){.f{grid-template-columns:1fr;gap:26px;}.f .who img{max-width:200px;}}
 
-/* ===== CONVERGE (dark) ===== */
-.abt-tog{background:#050506;color:#f5f5f7;padding:clamp(90px,12vw,160px) 0;text-align:center;position:relative;overflow:hidden;}
-.abt-tog::before{content:'';position:absolute;inset:0;background:radial-gradient(55% 60% at 20% 0%,rgba(6,182,212,.14),transparent 60%),radial-gradient(55% 60% at 85% 110%,rgba(16,185,129,.14),transparent 60%);pointer-events:none;}
-.abt-tog .wrap{position:relative;}
-.abt-tog .eyebrow{color:#86868b;}
-.abt-tog h2{margin-top:16px;color:#f5f5f7;font-size:clamp(30px,4.6vw,60px);line-height:1.05;max-width:20ch;margin-left:auto;margin-right:auto;}
-.abt-tog p{margin:24px auto 0;font-size:clamp(17px,2vw,21px);line-height:1.6;color:#aeb4c0;max-width:52ch;}
-.abt-tog .spread{margin-top:30px;font-size:clamp(17px,2vw,21px);font-weight:600;color:#5eead4;}
-.cvg{max-width:900px;margin:clamp(26px,4vw,40px) auto 0;}
-.cvg svg{width:100%;height:auto;display:block;overflow:visible;}
-.cvg .p{fill:none;stroke-width:2.5;stroke-linecap:round;stroke-dasharray:640;stroke-dashoffset:640;transition:stroke-dashoffset 1.7s cubic-bezier(.16,1,.3,1);}
-.cvg.on .pa{stroke-dashoffset:0;}
-.cvg.on .pb{stroke-dashoffset:0;transition-delay:.25s;}
-.cvg .node{fill:#050506;stroke:#10b981;stroke-width:3;opacity:0;transition:opacity .5s 1.6s;}
-.cvg.on .node{opacity:1;}
-.cvg .halo{fill:none;stroke:#10b981;stroke-width:2;opacity:0;transform-box:fill-box;transform-origin:center;}
-.cvg.on .halo{animation:cvgh 1.8s ease-out 1.8s 2;}
-@keyframes cvgh{0%{opacity:.7;transform:scale(1);}100%{opacity:0;transform:scale(2.8);}}
-.cvg .lab{font-size:11.5px;font-weight:700;letter-spacing:.16em;fill:#8f97a4;}
-.cvg .sub{font-size:17px;font-weight:600;fill:#f5f5f7;letter-spacing:-.02em;}
-.cvg .la,.cvg .lb{opacity:0;transition:opacity .7s .3s;}
-.cvg.on .la{opacity:1;}
-.cvg.on .lb{opacity:1;transition-delay:.55s;}
-.cvg-out{margin-top:6px;font-size:clamp(20px,2.6vw,30px);font-weight:600;letter-spacing:-.025em;color:#f5f5f7;opacity:0;transform:translateY(8px);transition:opacity .6s 2.1s,transform .6s 2.1s;}
-.cvg.on .cvg-out{opacity:1;transform:none;}
-@media(prefers-reduced-motion:reduce){
-  .cvg .p{stroke-dashoffset:0;}
-  .cvg .node,.cvg .la,.cvg .lb,.cvg-out{opacity:1;transform:none;}
-  .cvg .halo{animation:none;}
-}
-@media(max-width:640px){.cvg .sub{font-size:13px;}.cvg .lab{font-size:9.5px;}}
-
-/* beliefs */
-.abt-bel{padding:clamp(80px,11vw,140px) 0;background:var(--v4-cream);}
-.abt-bel .hd{text-align:center;max-width:600px;margin:0 auto clamp(40px,5vw,58px);}
-.abt-bel .hd h2{margin-top:14px;font-size:clamp(30px,4.2vw,52px);line-height:1.05;}
-.abt-bel .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
-.abt-bel .c{background:#fff;border:1px solid #e9e9e5;border-radius:22px;padding:clamp(26px,3.2vw,36px);box-shadow:0 26px 54px -44px rgba(6,12,20,.4);transition:transform .35s ease,box-shadow .35s ease;}
-.abt-bel .c:hover{transform:translateY(-3px);box-shadow:0 34px 64px -40px rgba(6,12,20,.45);}
-.abt-bel .c h3{font-size:20px;line-height:1.25;}
-.abt-bel .c p{margin-top:12px;font-size:15.5px;line-height:1.6;color:#6b7280;}
-@media(max-width:820px){.abt-bel .grid{grid-template-columns:1fr;}}
+/* beliefs — typography, not cards */
+.abt-bel{padding:clamp(90px,12vw,150px) 0;background:var(--v4-cream);}
+.abt-bel h2{font-size:clamp(30px,4.4vw,56px);line-height:1.04;max-width:14ch;}
+.abt-bel ol{list-style:none;margin:clamp(40px,5vw,60px) 0 0;padding:0;max-width:760px;}
+.abt-bel li{display:grid;grid-template-columns:38px minmax(0,1fr);gap:16px;padding:26px 0;border-top:1px solid #e2e2dc;}
+.abt-bel li .n{font-size:13px;font-weight:700;letter-spacing:.1em;color:#c0c4c8;padding-top:6px;}
+.abt-bel li h3{font-size:clamp(19px,2.2vw,26px);line-height:1.25;}
+.abt-bel li p{margin-top:10px;font-size:16px;line-height:1.65;color:#6b7280;max-width:52ch;}
 
 /* closer */
 .abt-close{text-align:center;padding:clamp(100px,14vw,180px) 0;background:#fff;}
 .abt-close h2{font-size:clamp(34px,5.4vw,72px);line-height:1.0;max-width:16ch;margin:0 auto;}
-.abt-close p{margin:24px auto 0;font-size:clamp(17px,2vw,21px);line-height:1.55;color:#52565e;max-width:44ch;}
+.abt-close p{margin:24px auto 0;font-size:clamp(17px,2vw,21px);line-height:1.55;color:#52565e;max-width:46ch;}
+.abt-close .spread{margin-top:14px;font-size:15px;color:#8a8f98;}
 .abt-close .cta{margin-top:34px;}
 `;
 
@@ -191,15 +158,14 @@ export default function AboutPage() {
         </div>
       </header>
 
-      {/* TUESDAY ONE: YOURS */}
+      {/* 1. THE DAY — pinned, selectable, plays out */}
       <TheDay />
 
-      {/* THE DIAGNOSIS */}
+      {/* 2. THE DIAGNOSIS — the only prose on the page */}
       <section className="abt-prob">
         <div className="wrap narrow">
           <div className="eyebrow">The problem worth solving</div>
           <h2 style={{ marginTop: 14 }}>Nobody is minding the front.</h2>
-
           <p className="p">
             An owner-operator is the best person in the business at the actual work, and the
             worst-placed person in the world to run the front of it. <b>You cannot answer the phone
@@ -207,27 +173,17 @@ export default function AboutPage() {
             the same sentence whether you run a plumbing van, a cleaning crew, a landscaping outfit,
             or a consulting practice.
           </p>
-
           <div className="pull">None of that is a failure of skill. It is a failure of coverage.</div>
-
-          <p className="p">
-            A company with a hundred people does not have that Tuesday, because it hired its way out
-            of it. It has a person answering the phone, a person putting jobs on the calendar, a
-            person chasing the quotes, a person building the reputation, and a person reading the
-            numbers back to the boss.
-          </p>
-          <p className="p">
-            An owner-operator cannot afford one of those hires, let alone five. So they do all five
-            jobs themselves, badly, at nine o&apos;clock at night, after a full day of the work they
-            are actually good at. And then they wonder why the business feels the same every year.
-          </p>
         </div>
       </section>
 
-      {/* TUESDAY TWO: THEIRS. The hinge, and the reason we exist. */}
-      <BigDay />
+      {/* 3. THREE TUESDAYS — one board, three worlds */}
+      <ThreeTuesdays />
 
-      {/* THE TWO OF US */}
+      {/* 4. THE SENTENCE */}
+      <Statement />
+
+      {/* 5. WHO WE ARE */}
       <section className="abt-us">
         <div className="wrap">
           <div className="us-lead">
@@ -261,12 +217,6 @@ export default function AboutPage() {
                 journey and all aspects of delivering world-class revenue performance. A CPA who has
                 a passion for operations and leveraging technology to deliver tangible results.
               </p>
-              <p className="bio">
-                Richard has spent his career doing, at scale, the exact thing an owner-operator never
-                gets to do: measure every customer touchpoint, find every leak, and turn every job
-                into the next one. That discipline is what a big company takes for granted. It is
-                what StayBookt hands to a business with one truck, or one desk.
-              </p>
             </div>
           </div>
 
@@ -286,29 +236,24 @@ export default function AboutPage() {
               <p className="bio">
                 A decade spent standing next to service business owners across health, hospitality,
                 software, retail, and the trades. Different industries, same conversation, every
-                time. The owner is excellent. The work is excellent. And the business quietly leaks
-                customers between the phone call and the booked job.
-              </p>
-              <p className="bio">
-                Jacob runs the outside game: making a business impossible to miss and effortless to
-                hire, then turning that first impression into a system the owner can finally hand
-                off. If the front of your business feels like it belongs to someone twice your size,
-                that is the point.
+                time. He runs the outside game: making a business impossible to miss and effortless
+                to hire, then turning that first impression into a system the owner can finally hand
+                off.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* THE FIVE PEOPLE — the bridge, made concrete */}
+      {/* 6. THE FIVE PEOPLE — the bridge, made concrete */}
       <section className="abt-five">
         <div className="wrap narrow">
           <div className="hd">
             <div className="eyebrow">The bridge, made concrete</div>
             <h2>The five people you cannot hire.</h2>
             <p>
-              That is the whole difference between the two Tuesdays. Five seats in a front office.
-              You are already doing all five jobs, on your phone, between calls. Flip it and see.
+              That is the whole difference between the Tuesdays. Five seats in a front office. You
+              are already doing all five jobs, on your phone, between calls. Flip it and see.
             </p>
           </div>
 
@@ -321,45 +266,26 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* TUESDAY THREE: YOURS, FIXED */}
-      <FixedDay />
-
-      {/* TOGETHER — converge */}
-      <section className="abt-tog">
-        <div className="wrap">
-          <div className="eyebrow">Why the two of us</div>
-          <Converge />
-          <h2 style={{ marginTop: 'clamp(28px,4vw,44px)' }}>
-            One builds the demand. One builds the operation.
-          </h2>
-          <p>
-            We kept describing the same broken thing from opposite ends of the room. Owners running
-            smart businesses, leaving real money on the table, with no path to the kind of operating
-            discipline a corporation takes for granted. So we stopped talking about it and built it.
-          </p>
-          <p className="spread">Executive results you can actually afford. Two trucks or two laptops.</p>
-        </div>
-      </section>
-
-      {/* WHAT WE BELIEVE */}
+      {/* 7. WHAT YOU CAN HOLD US TO */}
       <section className="abt-bel">
         <div className="wrap">
-          <div className="hd">
-            <div className="eyebrow">How we work</div>
-            <h2>What you can hold us to.</h2>
-          </div>
-          <div className="grid">
-            {BELIEFS.map((b) => (
-              <div className="c" key={b.h}>
-                <h3>{b.h}</h3>
-                <p>{b.p}</p>
-              </div>
+          <div className="eyebrow">How we work</div>
+          <h2 style={{ marginTop: 14 }}>What you can hold us to.</h2>
+          <ol>
+            {BELIEFS.map((b, i) => (
+              <li key={b.h}>
+                <span className="n">{String(i + 1).padStart(2, '0')}</span>
+                <div>
+                  <h3>{b.h}</h3>
+                  <p>{b.p}</p>
+                </div>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
-      {/* CLOSER */}
+      {/* 8. CLOSER */}
       <section className="abt-close">
         <div className="wrap">
           <h2>You do the work. We will run the rest.</h2>
@@ -367,6 +293,7 @@ export default function AboutPage() {
             Thirty minutes with one of us. Not a sales rep, not a pitch deck. We will tell you
             straight whether this is a fit.
           </p>
+          <p className="spread">Executive results you can actually afford. Two trucks or two laptops.</p>
           <div className="cta">
             <a className="abt-btn" href={START_LINK}>
               Pick a time
