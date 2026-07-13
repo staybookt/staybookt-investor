@@ -1,6 +1,7 @@
 import Nav from '@/components/v4/Nav';
 import SiteFooter from '@/components/SiteFooter';
-import { MissedCall, OrgChart, Converge } from '@/components/v4/AboutScenes';
+import { OrgChart, Converge } from '@/components/v4/AboutScenes';
+import { TheDay, FixedDay } from '@/components/v4/TheDay';
 import { START_LINK } from '@/lib/site';
 
 const SHARE =
@@ -65,7 +66,7 @@ const CSS = `
 .abt-prob .p b{font-weight:600;color:var(--v4-ink);}
 .abt-prob .pull{margin:clamp(38px,5vw,56px) 0;padding-left:clamp(20px,3vw,30px);border-left:3px solid #10b981;font-size:clamp(22px,2.8vw,34px);font-weight:600;letter-spacing:-.02em;line-height:1.2;color:var(--v4-ink);max-width:24ch;}
 
-/* ===== SCENE 1: THE MISSED CALL ===== */
+/* ===== SCENE: THE MISSED CALL (kept for reuse) ===== */
 .mc{display:grid;grid-template-columns:minmax(0,290px) minmax(0,1fr);gap:clamp(24px,4vw,50px);align-items:center;margin:clamp(44px,6vw,70px) 0;}
 @media(max-width:760px){.mc{grid-template-columns:1fr;}}
 .mc-phone{background:#0b0f14;border:1px solid rgba(255,255,255,.08);border-radius:30px;padding:20px 20px 16px;box-shadow:0 50px 100px -46px rgba(0,0,0,.75);}
@@ -108,7 +109,7 @@ const CSS = `
   .mc .mc-acts{opacity:0;}.mc .mc-missed{opacity:1;}
 }
 
-/* ===== SCENE 2: THE ORG CHART ===== */
+/* ===== THE ORG CHART ===== */
 .abt-five{background:var(--v4-cream);padding:clamp(80px,11vw,140px) 0;}
 .abt-five .hd{max-width:640px;}
 .abt-five .hd h2{margin-top:14px;font-size:clamp(28px,4vw,52px);line-height:1.05;}
@@ -149,6 +150,9 @@ const CSS = `
 
 /* founders */
 .abt-us{padding:clamp(80px,11vw,140px) 0;}
+.abt-us .us-lead{max-width:660px;margin:0 0 clamp(40px,6vw,66px);}
+.abt-us .us-lead h2{margin-top:14px;font-size:clamp(28px,4.2vw,54px);line-height:1.04;}
+.abt-us .us-lead p{margin-top:14px;font-size:clamp(17px,1.9vw,20px);line-height:1.6;color:#6b7280;}
 .f{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(32px,6vw,72px);align-items:start;padding:clamp(40px,6vw,72px) 0;border-top:1px solid #ececf0;}
 .f:first-of-type{border-top:0;padding-top:0;}
 .f .who{position:relative;}
@@ -162,7 +166,7 @@ const CSS = `
 .f .bio + .bio{margin-top:16px;}
 @media(max-width:820px){.f{grid-template-columns:1fr;gap:26px;}.f .who img{max-width:200px;}}
 
-/* ===== SCENE 3: CONVERGE (dark) ===== */
+/* ===== CONVERGE (dark) ===== */
 .abt-tog{background:#050506;color:#f5f5f7;padding:clamp(90px,12vw,160px) 0;text-align:center;position:relative;overflow:hidden;}
 .abt-tog::before{content:'';position:absolute;inset:0;background:radial-gradient(55% 60% at 20% 0%,rgba(6,182,212,.14),transparent 60%),radial-gradient(55% 60% at 85% 110%,rgba(16,185,129,.14),transparent 60%);pointer-events:none;}
 .abt-tog .wrap{position:relative;}
@@ -229,7 +233,10 @@ export default function AboutPage() {
         </div>
       </header>
 
-      {/* THE PROBLEM WORTH SOLVING */}
+      {/* THE EXPERIENCE: A TUESDAY */}
+      <TheDay />
+
+      {/* THE DIAGNOSIS */}
       <section className="abt-prob">
         <div className="wrap narrow">
           <div className="eyebrow">The problem worth solving</div>
@@ -241,12 +248,10 @@ export default function AboutPage() {
             from under a sink.</b> You cannot chase a quote from the top of a ladder.
           </p>
 
-          <MissedCall />
-
           <div className="pull">None of that is a failure of skill. It is a failure of coverage.</div>
 
           <p className="p">
-            A company with a hundred people does not have this problem, because it hired its way out
+            A company with a hundred people does not have that Tuesday, because it hired its way out
             of it. It has a person answering the phone, a person putting jobs on the calendar, a
             person chasing the quotes, a person building the reputation, and a person reading the
             numbers back to the boss.
@@ -280,9 +285,18 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* THE SAME TUESDAY, FIXED */}
+      <FixedDay />
+
       {/* THE TWO OF US */}
       <section className="abt-us">
         <div className="wrap">
+          <div className="us-lead">
+            <div className="eyebrow">Where this came from</div>
+            <h2>We did not invent that Tuesday. We watched it happen.</h2>
+            <p>From two completely different sides of the room.</p>
+          </div>
+
           <div className="f">
             <div className="who">
               <img src="/photos/richard.jpg" alt="Richard Roos, co-founder of StayBookt" width={280} height={280} />
