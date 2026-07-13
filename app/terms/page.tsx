@@ -4,9 +4,9 @@ import { LegalPage, type Section } from '@/components/v4/Legal';
 import { EMAIL } from '@/lib/site';
 
 /* DRAFT. Written in plain English on purpose: a service business owner has to be
- * able to read this without a lawyer. It reflects what we have actually promised
- * elsewhere on the site (nothing upfront, $199/mo, 90-day refund, you own your
- * stuff) so the marketing and the contract cannot drift apart.
+ * able to read this without a lawyer. It reflects what we promise everywhere else
+ * on the site (nothing upfront, $199/mo, 12-month term, 90-day refund, you own
+ * your stuff) so the marketing and the contract cannot drift apart.
  *
  * NOT reviewed by a lawyer. Do that before the first paying client. */
 
@@ -87,14 +87,21 @@ const SECTIONS: Section[] = [
   },
   {
     id: 'fees',
-    h: 'Fees and billing',
+    h: 'Fees, billing and the term',
     body: (
       <>
         <p>
-          The plan is <b>$199 CAD per month</b>. There is nothing to pay upfront: no build fee, no
-          setup fee. Billing starts when your service goes live and runs monthly in advance. Taxes
-          are extra where they apply.
+          The plan is <b>$199 CAD per month</b> on a <b>12-month term</b>. There is nothing to pay
+          upfront: no build fee, no setup fee. Billing starts when your service goes live and runs
+          monthly in advance. Taxes are extra where they apply.
         </p>
+        <p>
+          The term exists for one reason, and we will say it plainly rather than bury it: we build
+          your website and run your front office <b>before you have paid us a dollar</b>. Without a
+          term, that is a free website and a walk-away. The ninety-day guarantee below is the
+          protection that runs the other way, and it is a real one.
+        </p>
+        <p>After the first year the plan continues month to month unless you tell us otherwise.</p>
         <p>
           Third-party costs that are genuinely yours, such as your domain registration or paid
           advertising you ask us to run, are passed through at cost and always agreed with you
@@ -128,14 +135,15 @@ const SECTIONS: Section[] = [
     body: (
       <>
         <p>
-          You can cancel by emailing us. We will confirm in writing, stop the next month&rsquo;s
-          billing, and run a proper handover: your website, your domain, your Google Business
-          Profile, your customer list and your reviews all go with you.
+          Inside the first ninety days, cancel for any reason and get every month back. See above.
         </p>
         <p>
-          We do not refund months already served outside the ninety-day guarantee, and we do not
-          charge an exit fee.
+          After that, the 12-month term runs its course, and then the plan continues month to month
+          and you can cancel any time by emailing us. We will confirm in writing, stop the next
+          month&rsquo;s billing, and run a proper handover: your website, your domain, your Google
+          Business Profile, your customer list and your reviews all go with you.
         </p>
+        <p>We do not charge an exit fee, and we do not hold your business hostage to keep you.</p>
       </>
     ),
   },
