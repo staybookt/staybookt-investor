@@ -56,7 +56,7 @@ const CSS = `
 .abt-hero .wrap{position:relative;}
 .abt-hero .eyebrow{color:#c9cdd6;}
 .abt-hero h1{margin-top:18px;font-size:clamp(40px,6.2vw,84px);line-height:1.01;max-width:17ch;margin-left:auto;margin-right:auto;color:#f5f5f7;}
-.abt-hero p{margin:26px auto 0;font-size:clamp(18px,2.1vw,23px);line-height:1.5;color:#aeb4c0;max-width:50ch;}
+.abt-hero p{margin:26px auto 0;font-size:clamp(18px,2.1vw,23px);line-height:1.5;color:#aeb4c0;max-width:52ch;}
 
 /* the problem */
 .abt-prob{padding:clamp(80px,11vw,150px) 0;background:#fff;}
@@ -227,8 +227,9 @@ export default function AboutPage() {
           <div className="eyebrow">About us</div>
           <h1>We built this for the person we kept meeting.</h1>
           <p>
-            One of us saw the problem from the outside, standing next to owners. One of us saw it
-            from the inside, running the operation at scale. It was the same problem.
+            One of us saw the problem from the outside, standing next to owners across half a dozen
+            industries. One of us saw it from the inside, running the operation at scale. It was the
+            same problem every single time.
           </p>
         </div>
       </header>
@@ -245,7 +246,9 @@ export default function AboutPage() {
           <p className="p">
             An owner-operator is the best person in the business at the actual work, and the
             worst-placed person in the world to run the front of it. <b>You cannot answer the phone
-            from under a sink.</b> You cannot chase a quote from the top of a ladder.
+            while you are doing the work.</b> That is the entire problem in one sentence, and it is
+            the same sentence whether you run a plumbing van, a cleaning crew, a landscaping outfit,
+            or a consulting practice.
           </p>
 
           <div className="pull">None of that is a failure of skill. It is a failure of coverage.</div>
@@ -272,7 +275,8 @@ export default function AboutPage() {
             <h2>The five people you cannot hire.</h2>
             <p>
               This is the front office of a real company. It is also the exact list of jobs you are
-              doing on your phone, in the truck, between calls. Flip it and see the difference.
+              doing on your phone, between calls, whatever business you are in. Flip it and see the
+              difference.
             </p>
           </div>
 
@@ -323,7 +327,7 @@ export default function AboutPage() {
                 Richard has spent his career doing, at scale, the exact thing an owner-operator never
                 gets to do: measure every customer touchpoint, find every leak, and turn every job
                 into the next one. That discipline is what a big company takes for granted. It is
-                what StayBookt hands to a business with one truck.
+                what StayBookt hands to a business with one truck, or one desk.
               </p>
             </div>
           </div>
