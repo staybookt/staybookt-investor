@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Wordmark from '@/components/Wordmark';
-import { START_LINK, EMAIL } from '@/lib/site';
+import { START_LINK, EMAIL, PHONE_DISPLAY, PHONE_HREF } from '@/lib/site';
 
 /* The footer used to link three pages that no longer exist (/why-a-website,
  * /enjoy-life, /long-term). Now it links only what is real, and it carries the
@@ -43,6 +43,13 @@ export default function SiteFooter() {
               style={{ color: '#c7ccd6' }}
             >
               {EMAIL}
+            </a>
+            <a
+              href={PHONE_HREF}
+              className="text-sm transition-colors hover:text-white"
+              style={{ color: '#c7ccd6' }}
+            >
+              {PHONE_DISPLAY}
             </a>
           </div>
         </div>

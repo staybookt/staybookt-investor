@@ -6,13 +6,17 @@ export const CAL_LINK = 'https://cal.com/team/staybookt/talk-to-a-founder';
 export const START_LINK = '/start';
 export const EMAIL = 'info@staybookt.com';
 
-// Phone: a Twilio number for call + text. Not provisioned yet, so we leave it
-// null and render nothing rather than ship a fake number.
+// Phone. The single NAP number for StayBookt: it must be byte-identical here, in
+// the JSON-LD, on the Google Business Profile, and in every directory listing.
+// Do not reformat it in one place and not the others.
 //
-// WORTH FIXING: we are a company whose entire pitch is "we answer the phone" and
-// we do not publish a phone number. A cold prospect notices that.
-export const PHONE_DISPLAY: string | null = null;
-export const PHONE_HREF: string | null = null;
+// July 13 2026: this is Richard's cell, standing in as the business line until a
+// real number is provisioned. Swap the three constants below when that happens.
+// Nothing else in the codebase needs to change.
+export const PHONE_DISPLAY = '(905) 717-8264';
+export const PHONE_HREF = 'tel:+19057178264';
+// E.164, for schema.org and anywhere a machine reads it rather than a human.
+export const PHONE_E164 = '+1-905-717-8264';
 
 // Confirmed public pricing. ONE plan: Get Found + StayBookt bundled at $199/mo,
 // nothing upfront, 12-MONTH TERM, 90-day money-back guarantee.

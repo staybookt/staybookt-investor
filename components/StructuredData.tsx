@@ -3,7 +3,13 @@
  *
  * NOTE: the 12-month term and the 90-day money-back guarantee are ALWAYS stated
  * together, never one without the other. This file is what Google actually reads,
- * so it has to say the same thing the pages say. */
+ * so it has to say the same thing the pages say.
+ *
+ * NAP: the name, phone and email here must match the site, the Google Business
+ * Profile and every directory listing exactly. Both read from lib/site so there
+ * is one source of truth and nothing drifts. */
+
+import { EMAIL, PHONE_E164 } from '@/lib/site';
 
 const FAQ: [string, string][] = [
   [
@@ -35,10 +41,21 @@ export default function StructuredData() {
       '@type': 'Organization',
       name: 'StayBookt',
       url: 'https://www.staybookt.com',
-      email: 'info@staybookt.com',
+      email: EMAIL,
+      telephone: PHONE_E164,
       description:
         'StayBookt answers the phone, books the jobs and chases the quotes for owner-operated service businesses. We build and run your website and Google presence, answer every call and text 24/7, and hand you one short brief each morning. One plan, $199 a month, nothing upfront.',
       areaServed: [{ '@type': 'Country', name: 'Canada' }, { '@type': 'Country', name: 'United States' }],
+      contactPoint: [
+        {
+          '@type': 'ContactPoint',
+          contactType: 'sales',
+          telephone: PHONE_E164,
+          email: EMAIL,
+          areaServed: ['CA', 'US'],
+          availableLanguage: ['English'],
+        },
+      ],
       founder: [
         { '@type': 'Person', name: 'Jacob Charendoff' },
         { '@type': 'Person', name: 'Richard Roos' },
