@@ -46,13 +46,13 @@ const STOPS: Stop[] = [
   {
     id: 'free', n: '3', label: 'Enjoy life', promise: 'You choose.', voice: 'I could actually sell this. Or not. My call.',
     accent: '#f59e0b', accentD: '#b45309', side: 'left', surface: 'enjoy',
-    beat: 'After 12 months, we run a real valuation, in dollars and in freedom. Then you decide what to do with it.',
-    result: 'Sell it, hand it to family, or just do the part you love.',
+    beat: 'After 12 months, we run a real valuation, in dollars and in freedom. Then you decide what to do with it. Most owners do not want out. They want the good half of the job back.',
+    result: 'Do the part you love, hand it to family, or sell it.',
     steps: [
       { t: 'We build toward a number.', b: 'Everything in the first year is engineered so the business is worth more, and provable, by the time we value it.' },
       { t: 'We value what matters.', b: 'The financials, and the freedom: how much the business depends on you, and how well it runs without you.' },
-      { t: 'You take the driver seat.', b: 'Sell to a buyer, hand it to a family member, or step back to the part of the work you actually love.' },
-      { t: 'It was always the point.', b: 'You built this business to enjoy your life. This is where that finally happens.' },
+      { t: 'You take the driver seat.', b: 'Keep it and go back to the work you love, hand it to a family member, or sell it. You never have to use the last door. You just get to have it.' },
+      { t: 'It was always the point.', b: 'You built this business to enjoy your life. This is where that finally happens, whether you stay or go.' },
     ],
   },
 ];
@@ -224,8 +224,8 @@ const CSS = `
 .el .choice .ci{width:30px;height:30px;border-radius:9px;background:rgba(245,158,11,.14);display:flex;align-items:center;justify-content:center;color:#b45309;}
 .el .choice .cl{margin-top:11px;font-size:15px;font-weight:600;color:var(--v4-ink);}
 .el .choice .cd{max-height:0;overflow:hidden;font-size:12.5px;line-height:1.4;color:#6b7280;transition:max-height .35s ease,margin .35s ease;}
-.el .choice:hover .cd,.el .choice.on .cd{max-height:80px;margin-top:7px;}
-@media(max-width:520px){.el .choices{grid-template-columns:1fr;}.el .choice .cd{max-height:80px;margin-top:7px;}}
+.el .choice:hover .cd,.el .choice.on .cd{max-height:90px;margin-top:7px;}
+@media(max-width:520px){.el .choices{grid-template-columns:1fr;}.el .choice .cd{max-height:90px;margin-top:7px;}}
 
 /* ===== interactive leak slider ===== */
 .leak{margin-top:26px;background:#fff;border:1px solid #ececf0;border-radius:18px;padding:20px 22px;max-width:460px;box-shadow:0 20px 44px -30px rgba(6,12,20,.3);text-align:left;}
@@ -308,7 +308,9 @@ function GetFoundScene() {
   );
 }
 
-/* Enjoy Life scene: valuation counts up, then you choose your path. */
+/* Enjoy Life scene: valuation counts up, then you choose your path.
+ * Keeping the business and loving it again comes FIRST. Selling is the door
+ * you never have to use. */
 function EnjoyLifeScene() {
   const ref = useRef<HTMLDivElement | null>(null);
   const [val, setVal] = useState(0);
@@ -338,9 +340,9 @@ function EnjoyLifeScene() {
     return () => obs.disconnect();
   }, []);
   const CH = [
+    { l: 'Keep it, and love it', d: 'Go back to the part of the work you actually enjoy. Most owners pick this one.', icon: 'M12 21s-7-4.5-7-10a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 5.5-7 10-7 10z' },
+    { l: 'Hand it off', d: 'Pass a clean, self-running operation to a family member or your crew.', icon: 'M17 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2M9 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6' },
     { l: 'Sell it', d: 'A business that runs on its own is one a buyer actually wants.', icon: 'M12 3v18M5 10l7-7 7 7' },
-    { l: 'Hand it off', d: 'Pass a clean, self-running operation to a family member.', icon: 'M17 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2M9 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6' },
-    { l: 'Just enjoy it', d: 'Step back to the part of the work you actually love.', icon: 'M12 21s-7-4.5-7-10a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 5.5-7 10-7 10z' },
   ];
   return (
     <div className="el" ref={ref} style={{ '--m': '78%' } as CSSProperties}>
