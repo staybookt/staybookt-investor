@@ -8,15 +8,22 @@ import { useEffect, useRef, useState } from 'react';
  *
  * The homepage is a film. How it works is a map. This is a DAY.
  *
- * CRITICAL: our ICP is owner-operated SERVICE businesses under $5M,
- * not just the trades. So the day is SELECTABLE. The times, the leaks
- * and the ledger are identical across every trade. Only the texture
- * changes. That is the whole argument: change the business, and the
- * day does not change.
+ * THREE Tuesdays, in order:
+ *   1. YOURS      (TheDay)   scroll-pinned, selectable by trade. The pain.
+ *   2. THEIRS     (BigDay)   the same day inside a 100-person company, where
+ *                            every call is caught and nobody thinks it is
+ *                            remarkable. This is the hinge: Richard RAN that
+ *                            Tuesday, Jacob WATCHED the other one. The gap
+ *                            between them was never talent, it was five salaries.
+ *   3. YOURS,     (FixedDay) the third Tuesday, handed to a business with one
+ *      FIXED                 truck or one desk.
  *
- * Driven by a direct, position-based scroll listener (same proven
- * pattern as JourneyMap) rather than a scroll-scrub library, which
- * lagged on desktop and was removed from this codebase.
+ * CRITICAL: our ICP is owner-operated SERVICE businesses under $5M, not just the
+ * trades. So day 1 is SELECTABLE. The times, the leaks and the ledger are
+ * identical across every business. Only the texture changes. That is the point.
+ *
+ * Driven by a direct, position-based scroll listener (same proven pattern as
+ * JourneyMap) rather than a scroll-scrub library, which lagged on desktop.
  * ========================================================== */
 
 /* The skeleton is shared. This is the point of the whole section. */
@@ -122,6 +129,20 @@ const TRADES: { id: string; label: string; lines: Line[] }[] = [
   },
 ];
 
+/* THE THIRD TUESDAY: the same day, inside a company with a hundred people.
+ * This is the hinge of the whole About page. Richard lived this Tuesday for two
+ * decades. Jacob watched the other one. StayBookt is the bridge. */
+const BIGCO: { t: string; h: string; by: string }[] = [
+  { t: '6:10 AM', h: 'The owner has a coffee and reads the numbers.', by: 'Nothing to catch' },
+  { t: '8:30 AM', h: 'The call is answered on the second ring. Booked.', by: 'Reception' },
+  { t: '11:15 AM', h: 'The quote goes out that afternoon. Then it gets chased.', by: 'Sales' },
+  { t: '1:40 PM', h: 'The review is asked for while she is still delighted.', by: 'Customer care' },
+  { t: '3:20 PM', h: 'Both calls answered. Both booked. Nobody notices.', by: 'Reception' },
+  { t: '6:47 PM', h: 'After hours. Answered anyway. Booked for Thursday.', by: 'The service' },
+  { t: '9:00 PM', h: 'Nobody is working. The office closed at five.', by: 'Nobody' },
+  { t: '11:10 PM', h: 'The owner is asleep. The business is fine without him.', by: 'The system' },
+];
+
 /* The same Tuesday, run again. Deliberately industry-neutral: this is what
  * WE do, and it is identical whichever business you picked. */
 const FIXED: { t: string; h: string }[] = [
@@ -214,6 +235,32 @@ const CSS = `
   .day-tally{position:static;opacity:1;background:none;padding:40px 0 0;}
   .day-beats{min-height:0;}
 }
+
+/* ===== THE THIRD TUESDAY: inside a big company ===== */
+.big{background:#050506;color:#f5f5f7;padding:clamp(80px,11vw,150px) 0;position:relative;overflow:hidden;}
+.big::before{content:'';position:absolute;inset:0;background:radial-gradient(58% 55% at 78% 0%,rgba(56,189,248,.12),transparent 62%);pointer-events:none;}
+.big .wrap{position:relative;}
+.big .hd{max-width:700px;}
+.big .hd .eyebrow{color:#86868b;}
+.big .hd h2{margin-top:14px;font-size:clamp(30px,4.4vw,58px);line-height:1.04;letter-spacing:-.035em;font-weight:600;color:#f5f5f7;}
+.big .hd p{margin-top:18px;font-size:clamp(16px,1.9vw,20px);line-height:1.6;color:#aeb4c0;max-width:52ch;}
+.big ol{list-style:none;margin:clamp(38px,5vw,56px) 0 0;padding:0;}
+.big li{display:grid;grid-template-columns:92px minmax(0,1fr) auto;gap:16px;align-items:center;padding:17px 0;border-top:1px solid rgba(255,255,255,.08);opacity:0;transform:translateY(10px);transition:opacity .6s ease,transform .6s ease;}
+.big.on li{opacity:1;transform:none;}
+.big li .tm{font-size:12.5px;font-weight:700;letter-spacing:.08em;color:#6f7681;}
+.big li .h{font-size:clamp(15.5px,1.85vw,20px);font-weight:600;letter-spacing:-.015em;color:#f5f5f7;}
+.big li .by{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#5eead4;background:rgba(94,234,212,.1);border-radius:999px;padding:5px 11px;white-space:nowrap;}
+.big li .by[data-none="1"]{color:#6f7681;background:rgba(255,255,255,.05);}
+.big .kick{margin-top:clamp(34px,4vw,50px);font-size:clamp(19px,2.4vw,30px);font-weight:600;letter-spacing:-.025em;line-height:1.3;color:#f5f5f7;max-width:30ch;}
+.big .kick .g{color:#f59e0b;}
+.big .bridge{margin-top:clamp(30px,4vw,44px);padding-top:clamp(28px,3.5vw,38px);border-top:1px solid rgba(255,255,255,.09);font-size:clamp(16px,1.9vw,20px);line-height:1.65;color:#aeb4c0;max-width:58ch;}
+.big .bridge b{color:#f5f5f7;font-weight:600;}
+.big .bridge .em{color:#5eead4;font-weight:600;}
+@media(max-width:760px){
+  .big li{grid-template-columns:74px minmax(0,1fr);gap:10px;}
+  .big li .by{grid-column:1 / -1;justify-self:start;margin-top:6px;}
+}
+@media(prefers-reduced-motion:reduce){.big li{opacity:1;transform:none;}}
 
 /* ===== THE SAME TUESDAY, FIXED ===== */
 .fix{background:var(--v4-cream);padding:clamp(80px,11vw,140px) 0;}
@@ -376,6 +423,65 @@ export function TheDay() {
   );
 }
 
+/* THE THIRD TUESDAY.
+ * The same day, inside a company big enough to have hired its way out of it.
+ * This is where the About page actually answers "who are you and why". */
+export function BigDay() {
+  const ref = useRef<HTMLElement | null>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      (es) => es.forEach((e) => { if (e.isIntersecting) el.classList.add('on'); }),
+      { threshold: 0.2 },
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  return (
+    <section className="big" ref={ref}>
+      <div className="wrap narrow">
+        <div className="hd">
+          <div className="eyebrow">There is a third Tuesday</div>
+          <h2>The same day, inside a company with a hundred people.</h2>
+          <p>
+            Same calls. Same customers. Same 6:47 in the evening. Watch what happens to it when
+            somebody is there to catch it.
+          </p>
+        </div>
+        <ol>
+          {BIGCO.map((b, n) => (
+            <li key={b.t} style={{ transitionDelay: `${n * 80}ms` }}>
+              <span className="tm">{b.t}</span>
+              <span className="h">{b.h}</span>
+              <span className="by" data-none={b.by === 'Nobody' || b.by === 'Nothing to catch' ? '1' : '0'}>
+                {b.by}
+              </span>
+            </li>
+          ))}
+        </ol>
+
+        <p className="kick">
+          Nobody in that building thinks any of this is remarkable.{' '}
+          <span className="g">It is just Tuesday.</span>
+        </p>
+
+        <p className="bridge">
+          <b>Richard spent two decades inside that building</b>, running the operation that made that
+          Tuesday ordinary. <b>Jacob spent a decade in the room where the other Tuesday was
+          happening</b>, standing next to owners who were better at the work than anyone on that
+          org chart, and watching the 6:47 call ring out anyway.
+          <br />
+          <br />
+          The difference between those two Tuesdays was never talent. It was five salaries.{' '}
+          <span className="em">StayBookt is the bridge.</span>
+        </p>
+      </div>
+    </section>
+  );
+}
+
 /* The same Tuesday, run again, with us in the front. */
 export function FixedDay() {
   const ref = useRef<HTMLElement | null>(null);
@@ -415,7 +521,7 @@ export function FixedDay() {
           ))}
         </ol>
         <p className="out">
-          Different trade. Same Tuesday. <span className="g">Same fix.</span>
+          That is the third Tuesday. <span className="g">Now it is yours.</span>
         </p>
       </div>
     </section>
