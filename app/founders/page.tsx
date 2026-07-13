@@ -1,11 +1,11 @@
 import Nav from '@/components/v4/Nav';
 import SiteFooter from '@/components/SiteFooter';
 import { OrgChart, Converge } from '@/components/v4/AboutScenes';
-import { TheDay, FixedDay } from '@/components/v4/TheDay';
+import { TheDay, BigDay, FixedDay } from '@/components/v4/TheDay';
 import { START_LINK } from '@/lib/site';
 
 const SHARE =
-  'An owner-operator is the best person in their business at the work, and the worst-placed person to run the front of it. That gap is the reason StayBookt exists.';
+  'An owner-operator is the best person in their business at the work, and the worst-placed person to run the front of it. The difference between their Tuesday and a big company’s Tuesday was never talent. It was five salaries.';
 
 export const metadata = {
   title: 'About us',
@@ -65,49 +65,6 @@ const CSS = `
 .abt-prob .p + .p{margin-top:22px;}
 .abt-prob .p b{font-weight:600;color:var(--v4-ink);}
 .abt-prob .pull{margin:clamp(38px,5vw,56px) 0;padding-left:clamp(20px,3vw,30px);border-left:3px solid #10b981;font-size:clamp(22px,2.8vw,34px);font-weight:600;letter-spacing:-.02em;line-height:1.2;color:var(--v4-ink);max-width:24ch;}
-
-/* ===== SCENE: THE MISSED CALL (kept for reuse) ===== */
-.mc{display:grid;grid-template-columns:minmax(0,290px) minmax(0,1fr);gap:clamp(24px,4vw,50px);align-items:center;margin:clamp(44px,6vw,70px) 0;}
-@media(max-width:760px){.mc{grid-template-columns:1fr;}}
-.mc-phone{background:#0b0f14;border:1px solid rgba(255,255,255,.08);border-radius:30px;padding:20px 20px 16px;box-shadow:0 50px 100px -46px rgba(0,0,0,.75);}
-.mc-top{display:flex;justify-content:space-between;align-items:flex-end;font-size:11.5px;color:#8f97a4;}
-.mc-sig{display:flex;gap:2px;align-items:flex-end;}
-.mc-sig i{width:3px;border-radius:1px;background:#5b626c;}
-.mc-sig i:nth-child(1){height:4px;}.mc-sig i:nth-child(2){height:6px;}.mc-sig i:nth-child(3){height:8px;}.mc-sig i:nth-child(4){height:10px;background:#2c3138;}
-.mc-body{position:relative;text-align:center;padding:30px 0 78px;}
-.mc-ring{position:relative;width:84px;height:84px;margin:0 auto;}
-.mc-ring span[class^="r"]{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(245,158,11,.55);opacity:0;}
-.mc.on .mc-ring .r1{animation:mcr 1.6s ease-out 0s 2;}
-.mc.on .mc-ring .r2{animation:mcr 1.6s ease-out .35s 2;}
-.mc.on .mc-ring .r3{animation:mcr 1.6s ease-out .7s 2;}
-@keyframes mcr{0%{opacity:.9;transform:scale(.7);}100%{opacity:0;transform:scale(1.55);}}
-.mc-av{position:absolute;inset:14px;border-radius:50%;background:#2a2f37;color:#c7ccd6;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:600;}
-.mc-who{margin-top:18px;font-size:19px;font-weight:600;color:#f5f5f7;}
-.mc-sub{margin-top:4px;font-size:12.5px;color:#8f97a4;}
-.mc-acts{position:absolute;left:0;right:0;bottom:18px;display:flex;justify-content:center;gap:34px;transition:opacity .5s 2.4s;}
-.mc.on .mc-acts{opacity:0;}
-.mc-b{width:44px;height:44px;border-radius:50%;}
-.mc-b.red{background:#ef4444;}
-.mc-b.green{background:#22c55e;}
-.mc-missed{position:absolute;left:0;right:0;bottom:30px;font-size:15px;font-weight:700;letter-spacing:.02em;color:#ef4444;opacity:0;transition:opacity .5s 2.75s;}
-.mc.on .mc-missed{opacity:1;}
-.mc-hand{text-align:center;font-size:12px;color:#6f7681;}
-.mc-nlabel{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#9298a1;}
-.mc-row{display:grid;grid-template-columns:10px minmax(0,1fr) auto;gap:12px;align-items:center;background:#fff;border:1px solid #ececf0;border-radius:14px;padding:16px 18px;margin-top:12px;opacity:0;transform:translateY(8px);transition:opacity .5s,transform .5s,border-color .5s,box-shadow .5s;}
-.mc.on .mc-row.dim{opacity:.55;transform:none;transition-delay:3.2s;}
-.mc.on .mc-row.hit{opacity:1;transform:none;transition-delay:3.9s;border-color:rgba(16,185,129,.45);box-shadow:0 16px 34px -18px rgba(16,185,129,.45);}
-.mc-row .d{width:9px;height:9px;border-radius:50%;background:#c4c8ce;}
-.mc-row.hit .d{background:#10b981;}
-.mc-row .n{font-size:15.5px;font-weight:600;color:var(--v4-ink);}
-.mc-row .t{font-size:12.5px;font-weight:600;color:#9298a1;white-space:nowrap;}
-.mc-row.hit .t{color:#059669;}
-.mc-out{margin-top:20px;font-size:clamp(18px,2.1vw,23px);font-weight:600;letter-spacing:-.02em;color:var(--v4-ink);opacity:0;transform:translateY(6px);transition:opacity .6s 4.6s,transform .6s 4.6s;}
-.mc.on .mc-out{opacity:1;transform:none;}
-@media(prefers-reduced-motion:reduce){
-  .mc *{animation:none !important;transition:none !important;}
-  .mc .mc-row,.mc .mc-out{opacity:1;transform:none;}
-  .mc .mc-acts{opacity:0;}.mc .mc-missed{opacity:1;}
-}
 
 /* ===== THE ORG CHART ===== */
 .abt-five{background:var(--v4-cream);padding:clamp(80px,11vw,140px) 0;}
@@ -234,7 +191,7 @@ export default function AboutPage() {
         </div>
       </header>
 
-      {/* THE EXPERIENCE: A TUESDAY */}
+      {/* TUESDAY ONE: YOURS */}
       <TheDay />
 
       {/* THE DIAGNOSIS */}
@@ -267,38 +224,19 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* THE FIVE PEOPLE — interactive org chart */}
-      <section className="abt-five">
-        <div className="wrap narrow">
-          <div className="hd">
-            <div className="eyebrow">What it would take</div>
-            <h2>The five people you cannot hire.</h2>
-            <p>
-              This is the front office of a real company. It is also the exact list of jobs you are
-              doing on your phone, between calls, whatever business you are in. Flip it and see the
-              difference.
-            </p>
-          </div>
-
-          <OrgChart />
-
-          <p className="kick">
-            StayBookt is not a tool for doing those five jobs faster.{' '}
-            <span className="g">It is the five people.</span>
-          </p>
-        </div>
-      </section>
-
-      {/* THE SAME TUESDAY, FIXED */}
-      <FixedDay />
+      {/* TUESDAY TWO: THEIRS. The hinge, and the reason we exist. */}
+      <BigDay />
 
       {/* THE TWO OF US */}
       <section className="abt-us">
         <div className="wrap">
           <div className="us-lead">
-            <div className="eyebrow">Where this came from</div>
-            <h2>We did not invent that Tuesday. We watched it happen.</h2>
-            <p>From two completely different sides of the room.</p>
+            <div className="eyebrow">Who we are</div>
+            <h2>Between us, we have lived both Tuesdays.</h2>
+            <p>
+              That is the entire qualification. One of us ran the day where nothing gets dropped.
+              One of us stood in the room where everything does.
+            </p>
           </div>
 
           <div className="f">
@@ -308,7 +246,7 @@ export default function AboutPage() {
               <div className="ro">Operations, growth, and finance</div>
             </div>
             <div>
-              <div className="lens">The view from the inside</div>
+              <div className="lens">He ran the Tuesday where nothing gets dropped</div>
               <blockquote>
                 &ldquo;In talking to entrepreneurs, one theme kept coming up: they didn&apos;t have
                 enough time to grow their business and enjoy the rewards they&apos;d hoped for.
@@ -339,7 +277,7 @@ export default function AboutPage() {
               <div className="ro">Brand, product, and growth</div>
             </div>
             <div>
-              <div className="lens">The view from the outside</div>
+              <div className="lens">He stood in the room where everything does</div>
               <blockquote>
                 &ldquo;I kept meeting people who were brilliant at the work and losing money at
                 everything around it. Not because they were careless. Because there was nobody there
@@ -361,6 +299,30 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* THE FIVE PEOPLE — the bridge, made concrete */}
+      <section className="abt-five">
+        <div className="wrap narrow">
+          <div className="hd">
+            <div className="eyebrow">The bridge, made concrete</div>
+            <h2>The five people you cannot hire.</h2>
+            <p>
+              That is the whole difference between the two Tuesdays. Five seats in a front office.
+              You are already doing all five jobs, on your phone, between calls. Flip it and see.
+            </p>
+          </div>
+
+          <OrgChart />
+
+          <p className="kick">
+            StayBookt is not a tool for doing those five jobs faster.{' '}
+            <span className="g">It is the five people.</span>
+          </p>
+        </div>
+      </section>
+
+      {/* TUESDAY THREE: YOURS, FIXED */}
+      <FixedDay />
 
       {/* TOGETHER — converge */}
       <section className="abt-tog">
