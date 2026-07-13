@@ -255,7 +255,10 @@ export default function HomePage() {
 
       {/* 1 — HERO */}
       <header className="scene">
-        <video autoPlay muted loop playsInline poster="/hero-poster.jpg" src="/hero-loop.mp4" />
+        {/* ?v=2 busts the CDN + browser cache. The file at /hero-loop.mp4 was
+            re-cut to 12.4s to drop the dough and laptop clips, but the old copy
+            was still being served from cache under the identical URL. */}
+        <video autoPlay muted loop playsInline poster="/hero-poster.jpg" src="/hero-loop.mp4?v=2" />
         <div className="grad-ov" />
         <div className="wrap inner">
           <Reveal className="eyebrow" as="div">For owner-operated service businesses</Reveal>
