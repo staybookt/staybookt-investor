@@ -1,8 +1,11 @@
 import Nav from '@/components/v4/Nav';
 import SiteFooter from '@/components/SiteFooter';
 import { OrgChart } from '@/components/v4/AboutScenes';
-import { TheDay } from '@/components/v4/TheDay';
 import { ThreeTuesdays, Statement } from '@/components/v4/ThreeTuesdays';
+/* TheDay (the 800vh pinned clock) used to sit above ThreeTuesdays. It walked
+ * through the exact same leaking Tuesday that ThreeTuesdays then replays as its
+ * first tab. Two movies, one story, and the actual "about us" buried under both.
+ * One mechanic now. */
 import { START_LINK } from '@/lib/site';
 
 const SHARE =
@@ -158,10 +161,7 @@ export default function AboutPage() {
         </div>
       </header>
 
-      {/* 1. THE DAY — pinned, selectable, plays out */}
-      <TheDay />
-
-      {/* 2. THE DIAGNOSIS — the only prose on the page */}
+      {/* 1. THE DIAGNOSIS — the only prose on the page, and the setup for the board */}
       <section className="abt-prob">
         <div className="wrap narrow">
           <div className="eyebrow">The problem worth solving</div>
@@ -177,13 +177,13 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 3. THREE TUESDAYS — one board, three worlds */}
+      {/* 2. THREE TUESDAYS — one board, three worlds. The whole argument, once. */}
       <ThreeTuesdays />
 
-      {/* 4. THE SENTENCE */}
+      {/* 3. THE SENTENCE */}
       <Statement />
 
-      {/* 5. WHO WE ARE */}
+      {/* 4. WHO WE ARE — the actual about us, now that the argument is made */}
       <section className="abt-us">
         <div className="wrap">
           <div className="us-lead">
@@ -245,7 +245,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 6. THE FIVE PEOPLE — the bridge, made concrete */}
+      {/* 5. THE FIVE PEOPLE — the bridge, made concrete */}
       <section className="abt-five">
         <div className="wrap narrow">
           <div className="hd">
@@ -266,7 +266,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 7. WHAT YOU CAN HOLD US TO */}
+      {/* 6. WHAT YOU CAN HOLD US TO */}
       <section className="abt-bel">
         <div className="wrap">
           <div className="eyebrow">How we work</div>
@@ -285,7 +285,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 8. CLOSER */}
+      {/* 7. CLOSER */}
       <section className="abt-close">
         <div className="wrap">
           <h2>You do the work. We will run the rest.</h2>
