@@ -1,5 +1,6 @@
 import Nav from '@/components/v4/Nav';
 import SiteFooter from '@/components/SiteFooter';
+import { MissedCall, OrgChart, Converge } from '@/components/v4/AboutScenes';
 import { START_LINK } from '@/lib/site';
 
 const SHARE =
@@ -19,16 +20,6 @@ export const metadata = {
   },
   twitter: { card: 'summary_large_image', title: 'About us · StayBookt', description: SHARE },
 };
-
-/* The five people a big company hires to cover the front of the business, and
- * that an owner-operator cannot hire even one of. */
-const FIVE = [
-  { r: 'A receptionist', d: 'So the phone never rings out.' },
-  { r: 'A dispatcher', d: 'So the job lands on the calendar and the customer knows you are coming.' },
-  { r: 'Someone to chase the quotes', d: 'So a maybe turns into a yes or a no, not into silence.' },
-  { r: 'Someone to build the reputation', d: 'So the reviews and referrals actually get asked for.' },
-  { r: 'Someone to tell you what is working', d: 'So you are not guessing where the work comes from.' },
-];
 
 const BELIEFS = [
   {
@@ -52,7 +43,7 @@ const BELIEFS = [
 const CSS = `
 .abt{background:#fff;color:var(--v4-ink);}
 .abt .wrap{width:100%;max-width:1080px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
-.abt .narrow{max-width:760px;margin:0 auto;}
+.abt .narrow{max-width:800px;margin:0 auto;}
 .abt .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#8a8f98;}
 .abt h1,.abt h2,.abt h3{font-weight:600;letter-spacing:-.035em;color:var(--v4-ink);}
 .abt-btn{display:inline-flex;align-items:center;gap:8px;background:var(--v4-ink);color:#fff;font-size:15px;font-weight:600;border-radius:999px;padding:15px 30px;text-decoration:none;transition:transform .3s ease;}
@@ -74,24 +65,95 @@ const CSS = `
 .abt-prob .p b{font-weight:600;color:var(--v4-ink);}
 .abt-prob .pull{margin:clamp(38px,5vw,56px) 0;padding-left:clamp(20px,3vw,30px);border-left:3px solid #10b981;font-size:clamp(22px,2.8vw,34px);font-weight:600;letter-spacing:-.02em;line-height:1.2;color:var(--v4-ink);max-width:24ch;}
 
-/* the five */
+/* ===== SCENE 1: THE MISSED CALL ===== */
+.mc{display:grid;grid-template-columns:minmax(0,290px) minmax(0,1fr);gap:clamp(24px,4vw,50px);align-items:center;margin:clamp(44px,6vw,70px) 0;}
+@media(max-width:760px){.mc{grid-template-columns:1fr;}}
+.mc-phone{background:#0b0f14;border:1px solid rgba(255,255,255,.08);border-radius:30px;padding:20px 20px 16px;box-shadow:0 50px 100px -46px rgba(0,0,0,.75);}
+.mc-top{display:flex;justify-content:space-between;align-items:flex-end;font-size:11.5px;color:#8f97a4;}
+.mc-sig{display:flex;gap:2px;align-items:flex-end;}
+.mc-sig i{width:3px;border-radius:1px;background:#5b626c;}
+.mc-sig i:nth-child(1){height:4px;}.mc-sig i:nth-child(2){height:6px;}.mc-sig i:nth-child(3){height:8px;}.mc-sig i:nth-child(4){height:10px;background:#2c3138;}
+.mc-body{position:relative;text-align:center;padding:30px 0 78px;}
+.mc-ring{position:relative;width:84px;height:84px;margin:0 auto;}
+.mc-ring span[class^="r"]{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(245,158,11,.55);opacity:0;}
+.mc.on .mc-ring .r1{animation:mcr 1.6s ease-out 0s 2;}
+.mc.on .mc-ring .r2{animation:mcr 1.6s ease-out .35s 2;}
+.mc.on .mc-ring .r3{animation:mcr 1.6s ease-out .7s 2;}
+@keyframes mcr{0%{opacity:.9;transform:scale(.7);}100%{opacity:0;transform:scale(1.55);}}
+.mc-av{position:absolute;inset:14px;border-radius:50%;background:#2a2f37;color:#c7ccd6;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:600;}
+.mc-who{margin-top:18px;font-size:19px;font-weight:600;color:#f5f5f7;}
+.mc-sub{margin-top:4px;font-size:12.5px;color:#8f97a4;}
+.mc-acts{position:absolute;left:0;right:0;bottom:18px;display:flex;justify-content:center;gap:34px;transition:opacity .5s 2.4s;}
+.mc.on .mc-acts{opacity:0;}
+.mc-b{width:44px;height:44px;border-radius:50%;}
+.mc-b.red{background:#ef4444;}
+.mc-b.green{background:#22c55e;}
+.mc-missed{position:absolute;left:0;right:0;bottom:30px;font-size:15px;font-weight:700;letter-spacing:.02em;color:#ef4444;opacity:0;transition:opacity .5s 2.75s;}
+.mc.on .mc-missed{opacity:1;}
+.mc-hand{text-align:center;font-size:12px;color:#6f7681;}
+.mc-nlabel{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#9298a1;}
+.mc-row{display:grid;grid-template-columns:10px minmax(0,1fr) auto;gap:12px;align-items:center;background:#fff;border:1px solid #ececf0;border-radius:14px;padding:16px 18px;margin-top:12px;opacity:0;transform:translateY(8px);transition:opacity .5s,transform .5s,border-color .5s,box-shadow .5s;}
+.mc.on .mc-row.dim{opacity:.55;transform:none;transition-delay:3.2s;}
+.mc.on .mc-row.hit{opacity:1;transform:none;transition-delay:3.9s;border-color:rgba(16,185,129,.45);box-shadow:0 16px 34px -18px rgba(16,185,129,.45);}
+.mc-row .d{width:9px;height:9px;border-radius:50%;background:#c4c8ce;}
+.mc-row.hit .d{background:#10b981;}
+.mc-row .n{font-size:15.5px;font-weight:600;color:var(--v4-ink);}
+.mc-row .t{font-size:12.5px;font-weight:600;color:#9298a1;white-space:nowrap;}
+.mc-row.hit .t{color:#059669;}
+.mc-out{margin-top:20px;font-size:clamp(18px,2.1vw,23px);font-weight:600;letter-spacing:-.02em;color:var(--v4-ink);opacity:0;transform:translateY(6px);transition:opacity .6s 4.6s,transform .6s 4.6s;}
+.mc.on .mc-out{opacity:1;transform:none;}
+@media(prefers-reduced-motion:reduce){
+  .mc *{animation:none !important;transition:none !important;}
+  .mc .mc-row,.mc .mc-out{opacity:1;transform:none;}
+  .mc .mc-acts{opacity:0;}.mc .mc-missed{opacity:1;}
+}
+
+/* ===== SCENE 2: THE ORG CHART ===== */
 .abt-five{background:var(--v4-cream);padding:clamp(80px,11vw,140px) 0;}
 .abt-five .hd{max-width:640px;}
 .abt-five .hd h2{margin-top:14px;font-size:clamp(28px,4vw,52px);line-height:1.05;}
 .abt-five .hd p{margin-top:16px;font-size:17px;line-height:1.6;color:#6b7280;}
-.abt-five ol{list-style:none;margin:clamp(36px,5vw,54px) 0 0;padding:0;}
-.abt-five li{display:grid;grid-template-columns:34px 1fr;gap:16px;align-items:baseline;padding:20px 0;border-top:1px solid #e6e6e1;}
-.abt-five li .n{font-size:13px;font-weight:700;color:#c0c4c8;}
-.abt-five li .r{font-size:clamp(19px,2.2vw,26px);font-weight:600;letter-spacing:-.02em;color:var(--v4-ink);}
-.abt-five li .d{margin-top:5px;font-size:16px;line-height:1.55;color:#6b7280;}
-.abt-five .kick{margin-top:clamp(34px,4vw,48px);font-size:clamp(19px,2.3vw,27px);font-weight:600;letter-spacing:-.02em;line-height:1.3;color:var(--v4-ink);max-width:34ch;}
+.orgc{margin-top:clamp(34px,5vw,52px);}
+.orgc-toggle{display:inline-flex;background:#fff;border:1px solid #e2e2df;border-radius:999px;padding:4px;gap:4px;}
+.orgc-toggle button{font-family:inherit;font-size:14px;font-weight:600;border:0;border-radius:999px;padding:10px 18px;background:transparent;color:#6b7280;cursor:pointer;transition:background .25s,color .25s;}
+.orgc-toggle button.on{background:var(--v4-ink);color:#fff;}
+.orgc-stage{margin-top:22px;background:#fff;border:1px solid #e9e9e5;border-radius:26px;padding:clamp(22px,3vw,34px);box-shadow:0 34px 68px -48px rgba(6,12,20,.5);}
+.orgc-head{text-align:center;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#9298a1;padding-bottom:18px;border-bottom:1px solid #f1f1f4;}
+.orgc-seats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:22px;}
+@media(max-width:900px){.orgc-seats{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:460px){.orgc-seats{grid-template-columns:1fr;}}
+.seat{border:1px solid #ececf0;border-radius:16px;padding:16px 12px 14px;text-align:center;transition:border-color .5s,background .5s,box-shadow .5s,transform .5s;}
+.orgc.sb .seat{border-color:rgba(16,185,129,.42);background:rgba(16,185,129,.05);box-shadow:0 16px 32px -22px rgba(16,185,129,.55);transform:translateY(-3px);}
+.seat .av{position:relative;width:44px;height:44px;margin:0 auto;transform-style:preserve-3d;transition:transform .65s cubic-bezier(.16,1,.3,1);}
+.orgc.sb .seat .av{transform:rotateY(180deg);}
+.seat .face{position:absolute;inset:0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;backface-visibility:hidden;-webkit-backface-visibility:hidden;}
+.seat .face.you{background:rgba(245,158,11,.16);color:#b45309;}
+.seat .face.sbm{background:#10b981;color:#fff;transform:rotateY(180deg);}
+.seat .rl{margin-top:12px;font-size:15px;font-weight:600;color:var(--v4-ink);}
+.seat .dd{margin-top:4px;font-size:12.5px;line-height:1.4;color:#9298a1;}
+.seat .when{display:inline-block;margin-top:10px;font-size:10.5px;font-weight:600;color:#b45309;background:rgba(245,158,11,.13);border-radius:999px;padding:3px 9px;transition:opacity .4s;}
+.orgc.sb .seat .when{opacity:0;}
+.orgc-you{margin-top:20px;padding-top:20px;border-top:1px solid #f1f1f4;display:flex;align-items:center;justify-content:center;gap:14px;opacity:0;transform:translateY(8px);transition:opacity .5s .3s,transform .5s .3s;}
+.orgc.sb .orgc-you{opacity:1;transform:none;}
+.oy-av{width:44px;height:44px;border-radius:50%;background:var(--v4-ink);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;flex:0 0 auto;}
+.oy-t b{display:block;font-size:16px;font-weight:600;color:var(--v4-ink);}
+.oy-t span{display:block;margin-top:2px;font-size:13.5px;color:#6b7280;}
+.orgc-cap{position:relative;margin-top:24px;min-height:4.4em;font-size:clamp(18px,2.1vw,23px);font-weight:600;letter-spacing:-.02em;line-height:1.35;color:var(--v4-ink);max-width:42ch;}
+.orgc-cap span{position:absolute;left:0;top:0;transition:opacity .4s;}
+.orgc-cap .c-sb{opacity:0;}
+.orgc.sb .orgc-cap .c-today{opacity:0;}
+.orgc.sb .orgc-cap .c-sb{opacity:1;}
+.abt-five .kick{margin-top:clamp(30px,4vw,42px);font-size:clamp(19px,2.3vw,27px);font-weight:600;letter-spacing:-.02em;line-height:1.3;color:var(--v4-ink);max-width:34ch;}
 .abt-five .kick .g{background:linear-gradient(100deg,#06b6d4,#10b981 55%,#4f46e5);-webkit-background-clip:text;background-clip:text;color:transparent;}
+@media(prefers-reduced-motion:reduce){.orgc *{transition:none !important;}}
 
 /* founders */
 .abt-us{padding:clamp(80px,11vw,140px) 0;}
 .f{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(32px,6vw,72px);align-items:start;padding:clamp(40px,6vw,72px) 0;border-top:1px solid #ececf0;}
 .f:first-of-type{border-top:0;padding-top:0;}
-.f .who img{width:100%;max-width:280px;aspect-ratio:1/1;object-fit:cover;border-radius:24px;display:block;box-shadow:0 34px 70px -40px rgba(6,12,20,.55);}
+.f .who{position:relative;}
+.f .who img{width:100%;max-width:280px;aspect-ratio:1/1;object-fit:cover;border-radius:24px;display:block;box-shadow:0 34px 70px -40px rgba(6,12,20,.55);transition:transform .5s cubic-bezier(.16,1,.3,1);}
+.f .who:hover img{transform:translateY(-4px) scale(1.01);}
 .f .who .nm{margin-top:20px;font-size:24px;font-weight:600;letter-spacing:-.03em;color:var(--v4-ink);}
 .f .who .ro{margin-top:5px;font-size:14px;font-weight:600;letter-spacing:.02em;color:#059669;}
 .f .lens{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#9298a1;}
@@ -100,7 +162,7 @@ const CSS = `
 .f .bio + .bio{margin-top:16px;}
 @media(max-width:820px){.f{grid-template-columns:1fr;gap:26px;}.f .who img{max-width:200px;}}
 
-/* together */
+/* ===== SCENE 3: CONVERGE (dark) ===== */
 .abt-tog{background:#050506;color:#f5f5f7;padding:clamp(90px,12vw,160px) 0;text-align:center;position:relative;overflow:hidden;}
 .abt-tog::before{content:'';position:absolute;inset:0;background:radial-gradient(55% 60% at 20% 0%,rgba(6,182,212,.14),transparent 60%),radial-gradient(55% 60% at 85% 110%,rgba(16,185,129,.14),transparent 60%);pointer-events:none;}
 .abt-tog .wrap{position:relative;}
@@ -108,13 +170,37 @@ const CSS = `
 .abt-tog h2{margin-top:16px;color:#f5f5f7;font-size:clamp(30px,4.6vw,60px);line-height:1.05;max-width:20ch;margin-left:auto;margin-right:auto;}
 .abt-tog p{margin:24px auto 0;font-size:clamp(17px,2vw,21px);line-height:1.6;color:#aeb4c0;max-width:52ch;}
 .abt-tog .spread{margin-top:30px;font-size:clamp(17px,2vw,21px);font-weight:600;color:#5eead4;}
+.cvg{max-width:900px;margin:clamp(26px,4vw,40px) auto 0;}
+.cvg svg{width:100%;height:auto;display:block;overflow:visible;}
+.cvg .p{fill:none;stroke-width:2.5;stroke-linecap:round;stroke-dasharray:640;stroke-dashoffset:640;transition:stroke-dashoffset 1.7s cubic-bezier(.16,1,.3,1);}
+.cvg.on .pa{stroke-dashoffset:0;}
+.cvg.on .pb{stroke-dashoffset:0;transition-delay:.25s;}
+.cvg .node{fill:#050506;stroke:#10b981;stroke-width:3;opacity:0;transition:opacity .5s 1.6s;}
+.cvg.on .node{opacity:1;}
+.cvg .halo{fill:none;stroke:#10b981;stroke-width:2;opacity:0;transform-box:fill-box;transform-origin:center;}
+.cvg.on .halo{animation:cvgh 1.8s ease-out 1.8s 2;}
+@keyframes cvgh{0%{opacity:.7;transform:scale(1);}100%{opacity:0;transform:scale(2.8);}}
+.cvg .lab{font-size:11.5px;font-weight:700;letter-spacing:.16em;fill:#8f97a4;}
+.cvg .sub{font-size:17px;font-weight:600;fill:#f5f5f7;letter-spacing:-.02em;}
+.cvg .la,.cvg .lb{opacity:0;transition:opacity .7s .3s;}
+.cvg.on .la{opacity:1;}
+.cvg.on .lb{opacity:1;transition-delay:.55s;}
+.cvg-out{margin-top:6px;font-size:clamp(20px,2.6vw,30px);font-weight:600;letter-spacing:-.025em;color:#f5f5f7;opacity:0;transform:translateY(8px);transition:opacity .6s 2.1s,transform .6s 2.1s;}
+.cvg.on .cvg-out{opacity:1;transform:none;}
+@media(prefers-reduced-motion:reduce){
+  .cvg .p{stroke-dashoffset:0;}
+  .cvg .node,.cvg .la,.cvg .lb,.cvg-out{opacity:1;transform:none;}
+  .cvg .halo{animation:none;}
+}
+@media(max-width:640px){.cvg .sub{font-size:13px;}.cvg .lab{font-size:9.5px;}}
 
 /* beliefs */
 .abt-bel{padding:clamp(80px,11vw,140px) 0;background:var(--v4-cream);}
 .abt-bel .hd{text-align:center;max-width:600px;margin:0 auto clamp(40px,5vw,58px);}
 .abt-bel .hd h2{margin-top:14px;font-size:clamp(30px,4.2vw,52px);line-height:1.05;}
 .abt-bel .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
-.abt-bel .c{background:#fff;border:1px solid #e9e9e5;border-radius:22px;padding:clamp(26px,3.2vw,36px);box-shadow:0 26px 54px -44px rgba(6,12,20,.4);}
+.abt-bel .c{background:#fff;border:1px solid #e9e9e5;border-radius:22px;padding:clamp(26px,3.2vw,36px);box-shadow:0 26px 54px -44px rgba(6,12,20,.4);transition:transform .35s ease,box-shadow .35s ease;}
+.abt-bel .c:hover{transform:translateY(-3px);box-shadow:0 34px 64px -40px rgba(6,12,20,.45);}
 .abt-bel .c h3{font-size:20px;line-height:1.25;}
 .abt-bel .c p{margin-top:12px;font-size:15.5px;line-height:1.6;color:#6b7280;}
 @media(max-width:820px){.abt-bel .grid{grid-template-columns:1fr;}}
@@ -154,12 +240,8 @@ export default function AboutPage() {
             worst-placed person in the world to run the front of it. <b>You cannot answer the phone
             from under a sink.</b> You cannot chase a quote from the top of a ladder.
           </p>
-          <p className="p">
-            So the call rings out at 6:47 on a Tuesday, and the person on the other end simply calls
-            the next name on the list. The quote you sent on Thursday goes quiet, and you never find
-            out why. The customer you did a beautiful job for forgets your name in eighteen months.
-            Every one of those is money that was already yours, walking out the door.
-          </p>
+
+          <MissedCall />
 
           <div className="pull">None of that is a failure of skill. It is a failure of coverage.</div>
 
@@ -177,30 +259,20 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* THE FIVE */}
+      {/* THE FIVE PEOPLE — interactive org chart */}
       <section className="abt-five">
         <div className="wrap narrow">
           <div className="hd">
             <div className="eyebrow">What it would take</div>
             <h2>The five people you cannot hire.</h2>
             <p>
-              This is the front office of a real company. It is also the exact list of jobs an
-              owner-operator is doing on their phone, in the truck, between calls.
+              This is the front office of a real company. It is also the exact list of jobs you are
+              doing on your phone, in the truck, between calls. Flip it and see the difference.
             </p>
           </div>
-          <ol>
-            {FIVE.map((f, i) => (
-              <li key={f.r}>
-                <span className="n">{String(i + 1).padStart(2, '0')}</span>
-                <span>
-                  <span className="r">{f.r}</span>
-                  <span className="d" style={{ display: 'block' }}>
-                    {f.d}
-                  </span>
-                </span>
-              </li>
-            ))}
-          </ol>
+
+          <OrgChart />
+
           <p className="kick">
             StayBookt is not a tool for doing those five jobs faster.{' '}
             <span className="g">It is the five people.</span>
@@ -211,7 +283,6 @@ export default function AboutPage() {
       {/* THE TWO OF US */}
       <section className="abt-us">
         <div className="wrap">
-          {/* RICHARD */}
           <div className="f">
             <div className="who">
               <img src="/photos/richard.jpg" alt="Richard Roos, co-founder of StayBookt" width={280} height={280} />
@@ -243,7 +314,6 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* JACOB */}
           <div className="f">
             <div className="who">
               <img src="/photos/jacob.jpg" alt="Jacob Charendoff, co-founder of StayBookt" width={280} height={280} />
@@ -274,11 +344,14 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* TOGETHER */}
+      {/* TOGETHER — converge */}
       <section className="abt-tog">
         <div className="wrap">
           <div className="eyebrow">Why the two of us</div>
-          <h2>One builds the demand. One builds the operation.</h2>
+          <Converge />
+          <h2 style={{ marginTop: 'clamp(28px,4vw,44px)' }}>
+            One builds the demand. One builds the operation.
+          </h2>
           <p>
             We kept describing the same broken thing from opposite ends of the room. Owners running
             smart businesses, leaving real money on the table, with no path to the kind of operating
