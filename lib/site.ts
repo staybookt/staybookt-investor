@@ -2,7 +2,7 @@
 
 // Live booking page. Every "Book a call" CTA across the site routes here.
 export const CAL_LINK = 'https://cal.com/team/staybookt/talk-to-a-founder';
-// Internal landing page that explains the Pulse read and embeds the calendar.
+// Internal landing page that explains the mystery shop and embeds the calendar.
 export const START_LINK = '/start';
 export const EMAIL = 'info@staybookt.com';
 
@@ -12,21 +12,25 @@ export const PHONE_DISPLAY: string | null = null;
 export const PHONE_HREF: string | null = null;
 
 // Confirmed public pricing (July 13 2026). ONE plan: Get Found + StayBookt bundled
-// at $199/mo, nothing upfront, 12-month term, 90-day money-back guarantee.
-// Enjoy Life stays invite-only after year one, and is a VALUE share, not a revenue share.
-// Numbers live here so nothing drifts.
+// at $199/mo, nothing upfront, 90-day money-back guarantee.
+//
+// The 12-month term is GONE from all public copy (Jacob, July 13). We do not
+// advertise a lock-in anywhere. The only commitment promise on the site is the
+// ninety days. If a term ever exists it lives in the agreement, not the marketing.
+//
+// Enjoy Life stays invite-only after year one, and it is a 20% VALUE share on the
+// increase above an agreed baseline. It is not 5% of revenue. That number is dead.
 export const PRICING = {
   monthly: '$199',
   upfront: 'Nothing upfront',
-  term: '12-month term',
   guarantee: '90-day money-back',
   // Enjoy Life is a VALUE share, not a revenue share. We take 20% of the increase
   // in enterprise value above an agreed baseline, paid only on a sale/handoff/settle.
   valueShare: '20% of the increase in value above baseline',
 } as const;
 
-// The two ways to work with us. Single source of truth: every page reads from here,
-// so numbers never drift.
+// The two ways to work with us. Single source of truth: every page reads this,
+// so the numbers never drift.
 export type Tier = {
   name: string;
   scope: string;
@@ -49,7 +53,7 @@ export const TIERS: Tier[] = [
     upfrontNote: 'no build fee, no setup fee',
     recurring: '$199/mo',
     commission: null,
-    terms: '12-month term. Ninety days to change your mind, or we refund every month you paid.',
+    terms: 'Ninety days to change your mind, or we refund every month you paid.',
     recommended: true,
     points: [
       'A fast website, built and hosted, yours to keep',
