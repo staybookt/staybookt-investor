@@ -92,6 +92,9 @@ const CSS = `
 .hiw-hero .hiw-btn{background:#f5f5f7;color:#050506;}
 .hiw-hero .hiw-btn.ghost{background:transparent;color:#f5f5f7;border-color:rgba(255,255,255,.3);}
 .hiw-hero .jnote{margin:36px auto 0;font-size:14.5px;line-height:1.55;color:#8f97a4;max-width:58ch;}
+.hiw-hero .jlink{margin:16px auto 0;font-size:14.5px;color:#8f97a4;}
+.hiw-hero .jlink a{color:#5eead4;text-decoration:none;font-weight:600;}
+.hiw-hero .jlink a:hover{text-decoration:underline;}
 
 /* learn */
 .hiw-learn{padding:clamp(80px,11vw,140px) 0;background:var(--v4-cream);}
@@ -552,6 +555,9 @@ export default function HowItWorks() {
             <a className="hiw-btn ghost" href="#found">Start the journey</a>
           </div>
           <p className="jnote">{JNOTE}</p>
+          <p className="jlink">
+            Want the full list instead of the story? <a href="/whats-included">See everything that is included</a>
+          </p>
         </div>
       </header>
 
