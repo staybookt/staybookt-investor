@@ -6,7 +6,7 @@ import SiteFooter from '@/components/SiteFooter';
 import { START_LINK } from '@/lib/site';
 
 const SHARE_DESCRIPTION =
-  'StayBookt finds the revenue you are missing, runs your business day to day, and builds lasting value in what you have made. You built your business to enjoy your life.';
+  'StayBookt answers your phone, books your jobs and chases your quotes. You do the work. We run everything around it. $199 a month, nothing upfront.';
 
 const CLOSER_IMG =
   'https://images.pexels.com/photos/30660768/pexels-photo-30660768.jpeg?auto=compress&cs=tinysrgb&w=2000';
@@ -242,6 +242,38 @@ const PAGE_CSS = `
 .v4 .explore .xcard:hover .xt .ar{transform:translate(3px,-3px);}
 .v4 .explore .xd{margin-top:10px;font-size:15px;line-height:1.5;color:#9aa0ab;max-width:36ch;}
 @media(max-width:720px){.v4 .explore .xgrid{grid-template-columns:1fr;}}
+
+/* ===== THE ANSWER BAND =====
+   A cold visitor gives us about eight seconds and asks three questions in this
+   order: what do you do, what do I have to do, and can I afford it. This band
+   answers all three before the story starts. The price lives here and not a
+   click away, because anything that hides its price is assumed to be expensive. */
+.v4 .answer{background:#050506;padding:clamp(80px,10vw,130px) 0 clamp(70px,9vw,110px);position:relative;}
+.v4 .answer::before{content:'';position:absolute;inset:0;background:radial-gradient(52% 44% at 50% 0%,rgba(16,185,129,.1),transparent 66%);pointer-events:none;}
+.v4 .answer .wrap{position:relative;z-index:1;}
+.v4 .answer .eyebrow{color:#86868b;}
+.v4 .answer h2{margin-top:14px;font-size:clamp(28px,4.2vw,52px);letter-spacing:-.035em;line-height:1.04;color:#f5f5f7;max-width:20ch;font-weight:600;}
+.v4 .acols{margin-top:clamp(44px,5.5vw,64px);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,3vw,40px);align-items:start;}
+@media(max-width:900px){.v4 .acols{grid-template-columns:1fr;gap:34px;}}
+.v4 .acol{padding-top:22px;border-top:1px solid rgba(255,255,255,.14);}
+.v4 .acol.price{border-top-color:rgba(16,185,129,.55);}
+.v4 .acol .ak{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#8b93a5;}
+.v4 .acol.price .ak{color:#5eead4;}
+.v4 .acol ul{list-style:none;margin:16px 0 0;padding:0;}
+.v4 .acol li{position:relative;padding:9px 0 9px 20px;font-size:15.5px;line-height:1.5;color:#dfe3e9;}
+.v4 .acol li::before{content:'';position:absolute;left:0;top:17px;width:6px;height:6px;border-radius:50%;background:#10b981;}
+.v4 .acol li b{color:#fff;font-weight:600;}
+.v4 .acol .anote{margin-top:16px;font-size:14px;line-height:1.55;color:#8b93a5;}
+.v4 .acol .anum{display:flex;align-items:flex-start;gap:2px;margin-top:12px;color:#fff;font-weight:700;letter-spacing:-.045em;line-height:.9;font-size:clamp(52px,6.4vw,80px);font-variant-numeric:tabular-nums;}
+.v4 .acol .anum .d{font-size:.42em;font-weight:600;margin-top:.16em;color:#9aa0ab;}
+.v4 .acol .anum .per{align-self:flex-end;margin-bottom:.14em;margin-left:6px;font-size:.22em;font-weight:600;letter-spacing:0;color:#9aa0ab;}
+.v4 .acol .alink{display:inline-block;margin-top:18px;font-size:14.5px;font-weight:600;color:#5eead4;text-decoration:none;}
+.v4 .acol .alink:hover{text-decoration:underline;}
+
+/* honesty footnote */
+.v4 .illus{background:#050506;padding:0 0 clamp(50px,6vw,74px);}
+.v4 .illus .wrap{text-align:center;font-size:12.5px;line-height:1.5;color:#5c6470;max-width:60ch;}
+
 /* CLOSER promise headline */
 .v4 .closer .close-h{font-size:clamp(34px,5.4vw,74px);font-weight:600;letter-spacing:-.035em;line-height:1.03;color:#fff;max-width:15ch;margin:0 auto;text-shadow:0 2px 34px rgba(0,0,0,.55);}
 .v4 .closer .close-sub{margin:20px auto 0;font-size:clamp(16px,1.9vw,20px);line-height:1.5;color:#eef1f5;max-width:38ch;text-shadow:0 1px 22px rgba(0,0,0,.6);}
@@ -266,9 +298,11 @@ export default function HomePage() {
             <h1>You built your business to enjoy your life.</h1>
           </Reveal>
           <Reveal>
+            {/* The old sub said we "turn the work into something you can keep, pass on,
+                or sell", which reads like a business broker to a stranger. Say the job. */}
             <p className="sub">
-              We get you found, run the day to day, and turn the work into something you can keep,
-              pass on, or sell.
+              We answer your phone, book your jobs, and chase your quotes. You do the work. We run
+              everything around it.
             </p>
           </Reveal>
           <Reveal>
@@ -282,10 +316,57 @@ export default function HomePage() {
 
       <div className="seam seam-dark-to-cream" aria-hidden="true" />
 
-      {/* 2 — THE SECRET SAUCE (the story, straight after the hero) */}
+      {/* 2 — THE ANSWER. What we do, what you do, what it costs. */}
+      <section className="answer">
+        <div className="wrap">
+          <Reveal className="eyebrow" as="div">In plain English</Reveal>
+          <Reveal>
+            <h2>We are the front office you could never afford to hire.</h2>
+          </Reveal>
+
+          <div className="acols">
+            <Reveal className="acol">
+              <div className="ak">What we do</div>
+              <ul>
+                <li>Answer every call and text, 24/7, in your voice</li>
+                <li>Book the jobs straight onto your calendar</li>
+                <li>Send the quotes and chase them until yes or no</li>
+                <li>Build your reviews and bring past customers back</li>
+                <li>Build and run your website and your Google listing</li>
+              </ul>
+            </Reveal>
+
+            <Reveal className="acol">
+              <div className="ak">What you do</div>
+              <ul>
+                <li>The work. The part you are actually good at.</li>
+                <li>Read one short brief each morning. Thirty seconds.</li>
+              </ul>
+              <p className="anote">
+                No software to learn. No dashboard to live in. Nothing new on your plate, ever.
+              </p>
+            </Reveal>
+
+            <Reveal className="acol price">
+              <div className="ak">What it costs</div>
+              <div className="anum">
+                <span className="d">$</span>199<span className="per">/mo</span>
+              </div>
+              <ul>
+                <li><b>Nothing upfront.</b> No build fee, no setup fee.</li>
+                <li>12-month term, because we build it all before you pay us a dollar.</li>
+                <li><b>90 days to change your mind</b>, and we refund every month you paid.</li>
+              </ul>
+              <a className="alink" href="/pricing">See the pricing &rarr;</a>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* 3 — THE SECRET SAUCE (the story) */}
       <JourneyMap />
 
-      {/* 3 — WHY WE BUILT THIS */}
+      {/* 4 — WHY WE BUILT THIS */}
       <section className="whyus">
         <div className="wrap">
           <Reveal as="div">
@@ -329,7 +410,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5 — GO DEEPER (navigation) */}
+      {/* 5 — ILLUSTRATION FOOTNOTE. The homepage carries the most convincing mockups
+             we own and was the one page not admitting they are illustrations. */}
+      <div className="illus">
+        <div className="wrap">
+          Screens shown are illustrations of the service, not screenshots of a customer&apos;s account.
+        </div>
+      </div>
+
+      {/* 6 — GO DEEPER (navigation) */}
       <section className="explore">
         <div className="wrap">
           <Reveal className="eyebrow" as="div">Go deeper</Reveal>
@@ -352,7 +441,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 6 — CLOSER */}
+      {/* 7 — CLOSER */}
       <section className="scene closer">
         <img src={CLOSER_IMG} alt="" loading="lazy" decoding="async" />
         <div className="grad-ov" />
