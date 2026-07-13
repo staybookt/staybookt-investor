@@ -39,7 +39,7 @@ const SEE: { n: string; nm: string; p: string }[] = [
   {
     n: '03',
     nm: 'Where you stand',
-    p: 'How you show up against the other trucks in your area: reviews, ranking, response time. Who is winning the jobs you are not, and the demand in your market you are not capturing yet, in dollars.',
+    p: 'What your customers see when they go looking: your reviews, your ranking, how fast you answer. Who is winning the jobs you are not, and the demand in your area you are not capturing yet, in dollars.',
   },
   {
     n: '04',
@@ -51,7 +51,12 @@ const SEE: { n: string; nm: string; p: string }[] = [
 export default function StartPage() {
   return (
     <main className="v4">
-      <style>{`.v4 .start-see{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,4vw,56px) clamp(40px,6vw,96px);margin-top:clamp(52px,7vw,84px);}.v4 .start-see .start-see-item p{max-width:38ch;}@media(max-width:760px){.v4 .start-see{grid-template-columns:1fr;}}`}</style>
+      <style>{`.v4 .start-see{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,4vw,56px) clamp(40px,6vw,96px);margin-top:clamp(52px,7vw,84px);}.v4 .start-see .start-see-item p{max-width:38ch;}@media(max-width:760px){.v4 .start-see{grid-template-columns:1fr;}}
+.v4 .startfacts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:34px;max-width:820px;}
+.v4 .startfacts .sf{border-left:2px solid rgba(255,255,255,.18);padding:4px 0 4px 16px;}
+.v4 .startfacts .sf-k{font-size:15px;font-weight:600;color:#fff;letter-spacing:-.01em;}
+.v4 .startfacts .sf-v{margin-top:5px;font-size:14px;line-height:1.45;color:#98a0ae;}
+@media(max-width:760px){.v4 .startfacts{grid-template-columns:1fr;gap:12px;}}`}</style>
       <Nav />
 
       {/* HERO */}
@@ -81,6 +86,22 @@ export default function StartPage() {
               it is costing you. Built from your real numbers and your market. Yours to keep,
               whether you hire us or not.
             </p>
+          </Reveal>
+          <Reveal>
+            <div className="startfacts">
+              <div className="sf">
+                <div className="sf-k">30 minutes</div>
+                <div className="sf-v">That is the whole ask.</div>
+              </div>
+              <div className="sf">
+                <div className="sf-k">With a founder</div>
+                <div className="sf-v">Not a sales rep. Bring your questions.</div>
+              </div>
+              <div className="sf">
+                <div className="sf-k">No pitch, no pressure</div>
+                <div className="sf-v">You keep the read either way.</div>
+              </div>
+            </div>
           </Reveal>
           <Reveal>
             <div style={{ marginTop: 34 }}>
@@ -125,30 +146,20 @@ export default function StartPage() {
       <section className="dark" id="book" style={{ paddingTop: 'clamp(96px,13vw,160px)' }}>
         <div className="wrap">
           <Reveal>
-            <p
-              style={{
-                fontSize: 'clamp(24px,3vw,40px)',
-                fontWeight: 600,
-                letterSpacing: '-.02em',
-                lineHeight: 1.25,
-                color: '#fff',
-                maxWidth: '20ch',
-              }}
-            >
-              That is the whole idea in one call. We go do the work. You show up and get the picture.
-              Clarity now, your life back after. No pitch, no pressure.
-            </p>
+            <div className="eyebrow" style={{ color: '#8b93a5' }}>
+              Pick a time
+            </div>
           </Reveal>
           <Reveal>
-            <div style={{ marginTop: 'clamp(40px,6vw,72px)' }}>
-              <div className="eyebrow" style={{ color: '#8b93a5' }}>
-                Pick a time
-              </div>
-              <h2 style={{ marginTop: 12, fontSize: 'clamp(32px,4.4vw,60px)', color: '#fff' }}>
-                30 minutes with a founder.
-              </h2>
-              <p style={{ marginTop: 14, fontSize: 17, color: '#aeb4c0' }}>Not a sales rep. Bring your questions.</p>
-            </div>
+            <h2 style={{ marginTop: 12, fontSize: 'clamp(32px,4.4vw,60px)', color: '#fff' }}>
+              30 minutes with a founder.
+            </h2>
+          </Reveal>
+          <Reveal>
+            <p style={{ marginTop: 16, fontSize: 'clamp(17px,1.9vw,20px)', lineHeight: 1.5, color: '#aeb4c0', maxWidth: '46ch' }}>
+              We do the work before the call. You show up and get the picture. No pitch, no pressure,
+              and the read is yours to keep either way.
+            </p>
           </Reveal>
           <Reveal>
             <div
