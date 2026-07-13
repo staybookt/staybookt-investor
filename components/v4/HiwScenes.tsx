@@ -7,8 +7,7 @@ import { START_LINK } from '@/lib/site';
  *
  * 1. AccountBrain — the intake becoming an answer.
  * 2. NightShift   — the machine working while the owner sleeps. This is the one
- *                   thing they actually buy, and it was the least cinematic
- *                   moment on the site until this existed.
+ *                   thing they actually buy.
  * 3. Arrival      — the pinnacle of the journey, and the only ask on the page.
  *
  * IntersectionObserver play-once. No scroll-scrubbing: it was removed from this
@@ -232,118 +231,135 @@ const AB_CSS = `
 
 /* ============================================================
  * 2. THE NIGHT SHIFT
- * 6:47 PM to 6:02 AM. The phone gets answered, the job gets
- * booked, the quote goes out, the emergency gets triaged. The
- * owner is asleep for all of it. This is the thing they buy.
+ *
+ * This is the owner's phone. He is asleep. The green bubbles are
+ * going out from his line and he did not send a single one.
+ *
+ * Two things it had to fix. It did not read as a phone, and it was
+ * over before you finished scrolling past it, which made the most
+ * important object on the site the easiest one to miss. So: a real
+ * iMessage thread, and it pins while it plays.
+ *
+ * One phone. Nothing else. Everything that happened overnight is in
+ * the thread, because everything that happened overnight WAS the thread.
  * ========================================================== */
-type Beat = {
-  t: string;
-  kind: 'in' | 'out' | 'done' | 'call';
-  who?: string;
-  msg: string;
-  tag?: string;
-};
 
-const NIGHT: Beat[] = [
-  { t: '6:47 PM', kind: 'in', who: 'Unknown number', msg: 'Hey, kitchen outlet is dead. Can someone come out?' },
-  { t: '6:47 PM', kind: 'out', msg: 'It’s $180 for the visit and you’re in our area. I can do Thursday 8:30 AM.', tag: 'Answered in 9 seconds' },
-  { t: '6:52 PM', kind: 'done', msg: 'Booked. Thursday, 8:30 AM. Confirmation and reminder sent.' },
-  { t: '9:15 PM', kind: 'out', msg: 'Quote for the Aldridge panel upgrade sent. Follow-up set for Monday.', tag: 'Quote out' },
-  { t: '11:52 PM', kind: 'out', msg: 'Review request sent to today’s three finished jobs.', tag: 'Reputation' },
-  { t: '2:14 AM', kind: 'call', who: 'Incoming call', msg: 'No power to half the house. Triaged: not an emergency. Booked first thing, 7:00 AM.', tag: 'Nobody woke you' },
+type Msg = { side: 'them' | 'us' | 'sys'; text: string; tag?: string };
+
+const THREAD: Msg[] = [
+  { side: 'them', text: 'Hey, kitchen outlet is dead. Can someone come out?' },
+  { side: 'us', text: 'It’s $180 for the visit and you’re well inside our area. I can do Thursday 8:30 AM.', tag: 'Sent by StayBookt · 9 seconds' },
+  { side: 'them', text: 'That works. Please book it.' },
+  { side: 'us', text: 'Done. Thursday 8:30 AM. You’ll get a confirmation and a reminder the night before.' },
+  { side: 'sys', text: '2:14 AM · Call answered. Triaged, not an emergency. Booked 7:00 AM.' },
 ];
 
 export function NightShift() {
-  const { ref, step } = useSequence(NIGHT.length + 1, 780, 250);
-  const brief = step > NIGHT.length;
+  const { ref, step } = useSequence(THREAD.length, 900, 500);
+  const shown = Math.min(Math.max(step, 0), THREAD.length);
+  const typing = step >= 0 && step < THREAD.length && THREAD[shown]?.side === 'us';
+  const done = step >= THREAD.length;
 
   return (
-    <div className="ns" ref={ref}>
+    <div className="ns-hold" ref={ref}>
       <style>{NS_CSS}</style>
 
-      <div className="ns-top">
-        <span className="ns-moon" aria-hidden>
-          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth={1.9}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
-          </svg>
-        </span>
-        <span className="ns-t">The night shift</span>
-        <span className="ns-r">6:47 PM &rarr; 6:02 AM</span>
-      </div>
-
-      <div className="ns-feed">
-        {NIGHT.map((b, i) => (
-          <div className={`nb ${b.kind}${i < step ? ' in' : ''}`} key={b.t + b.msg}>
-            <span className="nb-t">{b.t}</span>
-            <div className="nb-body">
-              {b.who && <div className="nb-who">{b.who}</div>}
-              <div className="nb-msg">{b.msg}</div>
-              {b.tag && <div className="nb-tag">{b.tag}</div>}
+      <div className="ns">
+        <div className="nsp">
+          <div className="nsp-notch" aria-hidden />
+          <div className="nsp-screen">
+            <div className="nsp-bar">
+              <span className="nsp-back" aria-hidden>&#8249;</span>
+              <span className="nsp-av" aria-hidden>?</span>
+              <span className="nsp-who">
+                <b>Unknown Number</b>
+                <i>+1 (905) 555-0147</i>
+              </span>
             </div>
+
+            <div className="nsp-body">
+              <div className="nsp-day">Tuesday 6:47 PM</div>
+
+              {THREAD.map((m, i) => (
+                <div className={`nsb ${m.side}${i < shown ? ' in' : ''}`} key={m.text}>
+                  {m.side === 'sys' ? (
+                    <span className="nsb-sys">{m.text}</span>
+                  ) : (
+                    <>
+                      <span className="nsb-b">{m.text}</span>
+                      {m.tag && <span className="nsb-tag">{m.tag}</span>}
+                    </>
+                  )}
+                </div>
+              ))}
+
+              {typing && (
+                <div className="nsb us in">
+                  <span className="nsb-b typing"><i /><i /><i /></span>
+                </div>
+              )}
+            </div>
+
+            <div className="nsp-foot">You never picked up your phone.</div>
           </div>
-        ))}
-      </div>
-
-      <div className={`ns-brief${brief ? ' in' : ''}`}>
-        <div className="nsb-top">
-          <span className="nsb-k">6:02 AM &middot; Your morning brief</span>
         </div>
-        <div className="nsb-rows">
-          <div><b>3</b><span>jobs booked</span></div>
-          <div><b>1</b><span>quote out</span></div>
-          <div><b>0</b><span>things need you</span></div>
+
+        <div className={`ns-foot${done ? ' in' : ''}`}>
+          You were asleep for <span className="g">all of it.</span>
         </div>
-        <div className="nsb-line">Go make coffee. It is handled.</div>
-      </div>
 
-      <div className={`ns-foot${brief ? ' in' : ''}`}>
-        You were asleep for <span className="g">all of it.</span>
+        <p className="ns-fine">
+          Illustration of the service. Not a screenshot of a customer&apos;s account.
+        </p>
       </div>
-
-      <p className="ns-fine">
-        Illustration of the service. Not a screenshot of a customer&apos;s account.
-      </p>
     </div>
   );
 }
 
 const NS_CSS = `
-.ns{width:min(470px,100%);background:#0b0f14;border:1px solid rgba(255,255,255,.08);border-radius:24px;padding:clamp(18px,2.4vw,24px);box-shadow:0 60px 110px -50px rgba(0,0,0,.75);}
-.ns-top{display:flex;align-items:center;gap:9px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.08);}
-.ns-moon{width:26px;height:26px;border-radius:50%;background:rgba(99,102,241,.16);color:#a5b4fc;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
-.ns-t{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#c7ccd6;}
-.ns-r{margin-left:auto;font-size:12px;color:#6b7280;font-variant-numeric:tabular-nums;}
+/* The hold gives the phone room to pin. Without it the whole sequence played
+   out behind you while you were already reading something else. */
+.ns-hold{width:min(360px,100%);min-height:135vh;}
+.ns{position:sticky;top:clamp(80px,11vh,120px);}
+@media(max-width:640px){.ns-hold{min-height:0;}.ns{position:static;}}
 
-.ns-feed{padding-top:6px;}
-.nb{display:grid;grid-template-columns:62px minmax(0,1fr);gap:12px;align-items:start;padding:12px 0;opacity:0;transform:translateY(10px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1);}
-.nb.in{opacity:1;transform:none;}
-.nb-t{font-size:11.5px;font-weight:600;color:#5b6270;padding-top:9px;font-variant-numeric:tabular-nums;}
-.nb-body{border-radius:14px;padding:10px 13px;font-size:13.5px;line-height:1.45;}
-.nb.in .nb-body{background:rgba(255,255,255,.06);}
-.nb.out .nb-body{background:rgba(16,185,129,.14);border:1px solid rgba(16,185,129,.28);}
-.nb.done .nb-body{background:transparent;border:1px dashed rgba(16,185,129,.35);}
-.nb.call .nb-body{background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);}
-.nb-who{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8b93a5;margin-bottom:5px;}
-.nb-msg{color:#e6e9ee;}
-.nb.out .nb-msg,.nb.done .nb-msg{color:#d7f5e9;}
-.nb.call .nb-msg{color:#fbe6c4;}
-.nb-tag{margin-top:7px;font-size:11.5px;font-weight:600;color:#5eead4;}
-.nb.call .nb-tag{color:#fbbf24;}
+.nsp{position:relative;width:100%;background:#0a0a0c;border-radius:46px;padding:11px;box-shadow:0 60px 110px -45px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.06);}
+.nsp-notch{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:118px;height:27px;background:#0a0a0c;border-radius:0 0 17px 17px;z-index:3;}
+.nsp-screen{background:#f2f2f7;border-radius:36px;overflow:hidden;display:flex;flex-direction:column;height:500px;}
 
-.ns-brief{margin-top:14px;border-radius:18px;padding:16px 18px;background:linear-gradient(140deg,rgba(6,182,212,.16),rgba(16,185,129,.14) 55%,rgba(79,70,229,.16));border:1px solid rgba(16,185,129,.3);opacity:0;transform:translateY(12px) scale(.98);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
-.ns-brief.in{opacity:1;transform:none;}
-.nsb-k{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#a7f3d0;}
-.nsb-rows{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px;}
-.nsb-rows>div{text-align:center;}
-.nsb-rows b{display:block;font-size:26px;font-weight:700;letter-spacing:-.03em;color:#fff;}
-.nsb-rows span{display:block;margin-top:2px;font-size:11.5px;line-height:1.3;color:#b9c4d0;}
-.nsb-line{margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.12);font-size:13.5px;font-weight:600;color:#fff;text-align:center;}
+.nsp-bar{background:rgba(247,247,250,.94);backdrop-filter:blur(12px);padding:32px 14px 9px;display:flex;align-items:center;gap:9px;border-bottom:1px solid #d9d9de;}
+.nsp-back{color:#0a84ff;font-size:25px;line-height:1;font-weight:300;}
+.nsp-av{width:30px;height:30px;border-radius:50%;background:#c7c7cc;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex:0 0 auto;}
+.nsp-who b{display:block;font-size:13.5px;font-weight:600;color:#000;letter-spacing:-.01em;}
+.nsp-who i{display:block;font-style:normal;font-size:11px;color:#8e8e93;margin-top:1px;}
 
-.ns-foot{margin-top:18px;text-align:center;font-size:clamp(17px,2vw,21px);font-weight:600;letter-spacing:-.02em;color:#fff;opacity:0;transition:opacity .9s ease .3s;}
+.nsp-body{flex:1;padding:12px 12px 8px;display:flex;flex-direction:column;overflow:hidden;}
+.nsp-day{text-align:center;font-size:10.5px;font-weight:600;color:#8e8e93;padding:2px 0 10px;}
+
+.nsb{display:flex;flex-direction:column;max-width:84%;margin-bottom:8px;opacity:0;transform:translateY(10px) scale(.95);transition:opacity .45s cubic-bezier(.16,1,.3,1),transform .45s cubic-bezier(.16,1,.3,1);}
+.nsb.in{opacity:1;transform:none;}
+.nsb.them{align-self:flex-start;align-items:flex-start;}
+.nsb.us{align-self:flex-end;align-items:flex-end;}
+.nsb.sys{align-self:center;align-items:center;max-width:96%;margin-top:6px;}
+.nsb-b{display:inline-block;padding:8px 13px;border-radius:19px;font-size:13.5px;line-height:1.35;}
+.nsb.them .nsb-b{background:#e9e9eb;color:#000;border-bottom-left-radius:5px;}
+/* SMS green, because a stranger texting a business line is not on iMessage. */
+.nsb.us .nsb-b{background:#34c759;color:#fff;border-bottom-right-radius:5px;}
+.nsb-tag{margin-top:4px;font-size:9.5px;font-weight:700;color:#059669;letter-spacing:.02em;}
+.nsb-sys{display:block;text-align:center;font-size:10.5px;line-height:1.45;font-weight:600;color:#8e8e93;padding:0 10px;}
+.nsb-b.typing{display:flex;gap:3px;align-items:center;padding:11px 14px;background:#34c759;}
+.nsb-b.typing i{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.9);animation:nstype 1.1s ease-in-out infinite;}
+.nsb-b.typing i:nth-child(2){animation-delay:.15s;}
+.nsb-b.typing i:nth-child(3){animation-delay:.3s;}
+@keyframes nstype{0%,60%,100%{opacity:.35;transform:translateY(0);}30%{opacity:1;transform:translateY(-2px);}}
+
+.nsp-foot{background:rgba(247,247,250,.94);border-top:1px solid #d9d9de;padding:12px 14px 16px;text-align:center;font-size:11px;font-weight:600;color:#8e8e93;}
+
+.ns-foot{margin-top:22px;text-align:center;font-size:clamp(18px,2.1vw,23px);font-weight:600;letter-spacing:-.025em;color:var(--v4-ink);opacity:0;transition:opacity .9s ease .2s;}
 .ns-foot.in{opacity:1;}
-.ns-foot .g{background:linear-gradient(100deg,#06b6d4,#10b981 55%,#818cf8);-webkit-background-clip:text;background-clip:text;color:transparent;}
-.ns-fine{margin:14px 0 0;text-align:center;font-size:11.5px;line-height:1.5;color:#5b6270;}
-@media(prefers-reduced-motion:reduce){.ns *{transition:none !important;}.nb{opacity:1;transform:none;}.ns-brief,.ns-foot{opacity:1;transform:none;}}
+.ns-foot .g{background:linear-gradient(100deg,#06b6d4,#10b981 55%,#4f46e5);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.ns-fine{margin:12px 0 0;text-align:center;font-size:11.5px;line-height:1.5;color:#9aa0a8;}
+@media(prefers-reduced-motion:reduce){.ns *{transition:none !important;animation:none !important;}.nsb,.ns-foot{opacity:1;transform:none;}}
 `;
 
 /* ============================================================
