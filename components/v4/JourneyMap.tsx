@@ -316,14 +316,17 @@ export default function JourneyMap() {
               </div>
             </div>
 
-            {/* BEAT 3 — GET STARTED */}
+            {/* BEAT 3 — GET STARTED.
+                This used to describe the OLD offer ("we show you where the calls, quotes
+                and jobs are slipping through") while /start described the new one. Two
+                different offers on the same website. */}
             <div className="sscx-p p3">
               <div className="b4">
                 <div className="cta-h">Get Started.</div>
                 <p className="cta-sub">
-                  A free 30 minutes with a founder, not a sales rep. We show you where the calls,
-                  quotes, and jobs are slipping through, and what it is costing you. Yours to keep,
-                  whether you hire us or not.
+                  Before we meet, we try to hire you. We call your line, we text your listing, and we
+                  try to book a job. Then we spend thirty minutes showing you exactly what happened.
+                  Free, no pitch, and yours to keep whether you hire us or not.
                 </p>
                 <a className="cta-btn" href={START_LINK}>
                   Pick a time
