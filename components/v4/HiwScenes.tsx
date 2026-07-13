@@ -5,12 +5,18 @@ import { START_LINK } from '@/lib/site';
 
 /* Set pieces for /how-it-works.
  *
- * 1. AccountBrain  — the intake becoming an answer. Replaces a static checklist.
- * 2. Arrival       — the pinnacle of the journey. Full-bleed, cinematic, and the
- *                    only place on the page that asks for anything.
+ * 1. AccountBrain — the intake becoming an answer.
+ * 2. NightShift   — the machine working while the owner sleeps. This is the one
+ *                   thing they actually buy, and it was the least cinematic
+ *                   moment on the site until this existed.
+ * 3. Arrival      — the pinnacle of the journey, and the only ask on the page.
  *
  * IntersectionObserver play-once. No scroll-scrubbing: it was removed from this
- * codebase for desktop lag. */
+ * codebase for desktop lag.
+ *
+ * HONESTY RULE: these are illustrations of the service, not screenshots of a
+ * customer's account, and the page says so. We illustrate what the service does.
+ * We never invent a result it produced. */
 
 const px = (id: string, w = 2000) =>
   `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=${w}`;
@@ -36,6 +42,39 @@ function useOnView<T extends HTMLElement>(threshold = 0.35) {
     return () => obs.disconnect();
   }, [threshold]);
   return ref;
+}
+
+/* Play a sequence of steps once, on view. Returns the current step index. */
+function useSequence(steps: number, gap = 700, delay = 300) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [step, setStep] = useState(-1);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    const obs = new IntersectionObserver(
+      (es) =>
+        es.forEach((e) => {
+          if (!e.isIntersecting) return;
+          obs.disconnect();
+          if (reduce) {
+            setStep(steps);
+            return;
+          }
+          for (let i = 0; i <= steps; i++) {
+            timers.push(setTimeout(() => setStep(i), delay + i * gap));
+          }
+        }),
+      { threshold: 0.3 },
+    );
+    obs.observe(el);
+    return () => {
+      obs.disconnect();
+      timers.forEach(clearTimeout);
+    };
+  }, [steps, gap, delay]);
+  return { ref, step };
 }
 
 /* ============================================================
@@ -91,7 +130,6 @@ export function AccountBrain() {
     <div className={`ab${answered ? ' done' : ''}`} ref={ref}>
       <style>{AB_CSS}</style>
 
-      {/* the intake */}
       <div className="ab-col ab-facts">
         <div className="ab-lbl">What we learn</div>
         {FACTS.map((f, i) => (
@@ -107,7 +145,6 @@ export function AccountBrain() {
         ))}
       </div>
 
-      {/* the brain */}
       <div className="ab-col ab-core">
         <div className={`ab-node${answering ? ' hot' : ''}`} aria-hidden>
           <span className="r r1" />
@@ -122,7 +159,6 @@ export function AccountBrain() {
         <div className="ab-core-s">Everything we do runs on this.</div>
       </div>
 
-      {/* the proof */}
       <div className="ab-col ab-phone">
         <div className="ab-lbl">Two weeks later, 9:14 PM</div>
         <div className="abp">
@@ -154,8 +190,6 @@ const AB_CSS = `
 .ab{display:grid;grid-template-columns:minmax(0,1fr) 168px minmax(0,1fr);gap:clamp(20px,3vw,40px);align-items:center;margin-top:clamp(40px,5vw,64px);}
 @media(max-width:940px){.ab{grid-template-columns:1fr;gap:32px;}.ab-core{order:-1;}}
 .ab-lbl{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#9298a1;margin-bottom:14px;}
-
-/* facts */
 .abf{position:relative;display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:12px;align-items:center;padding:15px 14px;border-radius:14px;border:1px solid #e9e9e5;background:#fff;margin-bottom:10px;opacity:.42;transform:translateY(6px);transition:opacity .5s ease,transform .5s ease,border-color .5s ease,box-shadow .5s ease;overflow:hidden;}
 .abf.on{opacity:1;transform:none;border-color:rgba(16,185,129,.4);box-shadow:0 14px 30px -22px rgba(16,185,129,.55);}
 .abf.now::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(16,185,129,.16),transparent);animation:abscan 1s ease-out;pointer-events:none;}
@@ -166,8 +200,6 @@ const AB_CSS = `
 .abf-v{font-size:13.5px;font-weight:600;color:#059669;background:rgba(16,185,129,.1);border-radius:999px;padding:4px 11px;white-space:nowrap;opacity:0;transition:opacity .5s ease .15s;}
 .abf.on .abf-v{opacity:1;}
 @media(max-width:520px){.abf{grid-template-columns:22px minmax(0,1fr);}.abf-v{grid-column:2;justify-self:start;margin-top:6px;}}
-
-/* core */
 .ab-core{text-align:center;}
 .ab-node{position:relative;width:104px;height:104px;margin:0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#06b6d4,#10b981 55%,#4f46e5);box-shadow:0 22px 44px -20px rgba(16,185,129,.65);transition:transform .6s cubic-bezier(.16,1,.3,1);}
 .ab-node.hot{transform:scale(1.06);}
@@ -180,8 +212,6 @@ const AB_CSS = `
 .ab-inner i{font-style:normal;font-size:14px;opacity:.75;}
 .ab-core-t{margin-top:18px;font-size:17px;font-weight:600;letter-spacing:-.02em;color:var(--v4-ink);}
 .ab-core-s{margin-top:5px;font-size:13.5px;line-height:1.45;color:#9298a1;}
-
-/* phone */
 .abp{background:#f2f2f5;border:1px solid #e9e9e5;border-radius:20px;padding:16px 14px;display:flex;flex-direction:column;gap:9px;min-height:238px;}
 .abb{max-width:88%;padding:10px 14px;border-radius:18px;font-size:14px;line-height:1.4;opacity:0;transform:translateY(8px);}
 .abb.in{animation:abpop .45s cubic-bezier(.16,1,.3,1) forwards;}
@@ -201,7 +231,123 @@ const AB_CSS = `
 `;
 
 /* ============================================================
- * 2. THE ARRIVAL
+ * 2. THE NIGHT SHIFT
+ * 6:47 PM to 6:02 AM. The phone gets answered, the job gets
+ * booked, the quote goes out, the emergency gets triaged. The
+ * owner is asleep for all of it. This is the thing they buy.
+ * ========================================================== */
+type Beat = {
+  t: string;
+  kind: 'in' | 'out' | 'done' | 'call';
+  who?: string;
+  msg: string;
+  tag?: string;
+};
+
+const NIGHT: Beat[] = [
+  { t: '6:47 PM', kind: 'in', who: 'Unknown number', msg: 'Hey, kitchen outlet is dead. Can someone come out?' },
+  { t: '6:47 PM', kind: 'out', msg: 'It’s $180 for the visit and you’re in our area. I can do Thursday 8:30 AM.', tag: 'Answered in 9 seconds' },
+  { t: '6:52 PM', kind: 'done', msg: 'Booked. Thursday, 8:30 AM. Confirmation and reminder sent.' },
+  { t: '9:15 PM', kind: 'out', msg: 'Quote for the Aldridge panel upgrade sent. Follow-up set for Monday.', tag: 'Quote out' },
+  { t: '11:52 PM', kind: 'out', msg: 'Review request sent to today’s three finished jobs.', tag: 'Reputation' },
+  { t: '2:14 AM', kind: 'call', who: 'Incoming call', msg: 'No power to half the house. Triaged: not an emergency. Booked first thing, 7:00 AM.', tag: 'Nobody woke you' },
+];
+
+export function NightShift() {
+  const { ref, step } = useSequence(NIGHT.length + 1, 780, 250);
+  const brief = step > NIGHT.length;
+
+  return (
+    <div className="ns" ref={ref}>
+      <style>{NS_CSS}</style>
+
+      <div className="ns-top">
+        <span className="ns-moon" aria-hidden>
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth={1.9}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+          </svg>
+        </span>
+        <span className="ns-t">The night shift</span>
+        <span className="ns-r">6:47 PM &rarr; 6:02 AM</span>
+      </div>
+
+      <div className="ns-feed">
+        {NIGHT.map((b, i) => (
+          <div className={`nb ${b.kind}${i < step ? ' in' : ''}`} key={b.t + b.msg}>
+            <span className="nb-t">{b.t}</span>
+            <div className="nb-body">
+              {b.who && <div className="nb-who">{b.who}</div>}
+              <div className="nb-msg">{b.msg}</div>
+              {b.tag && <div className="nb-tag">{b.tag}</div>}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className={`ns-brief${brief ? ' in' : ''}`}>
+        <div className="nsb-top">
+          <span className="nsb-k">6:02 AM &middot; Your morning brief</span>
+        </div>
+        <div className="nsb-rows">
+          <div><b>3</b><span>jobs booked</span></div>
+          <div><b>1</b><span>quote out</span></div>
+          <div><b>0</b><span>things need you</span></div>
+        </div>
+        <div className="nsb-line">Go make coffee. It is handled.</div>
+      </div>
+
+      <div className={`ns-foot${brief ? ' in' : ''}`}>
+        You were asleep for <span className="g">all of it.</span>
+      </div>
+
+      <p className="ns-fine">
+        Illustration of the service. Not a screenshot of a customer&apos;s account.
+      </p>
+    </div>
+  );
+}
+
+const NS_CSS = `
+.ns{width:min(470px,100%);background:#0b0f14;border:1px solid rgba(255,255,255,.08);border-radius:24px;padding:clamp(18px,2.4vw,24px);box-shadow:0 60px 110px -50px rgba(0,0,0,.75);}
+.ns-top{display:flex;align-items:center;gap:9px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.08);}
+.ns-moon{width:26px;height:26px;border-radius:50%;background:rgba(99,102,241,.16);color:#a5b4fc;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+.ns-t{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#c7ccd6;}
+.ns-r{margin-left:auto;font-size:12px;color:#6b7280;font-variant-numeric:tabular-nums;}
+
+.ns-feed{padding-top:6px;}
+.nb{display:grid;grid-template-columns:62px minmax(0,1fr);gap:12px;align-items:start;padding:12px 0;opacity:0;transform:translateY(10px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1);}
+.nb.in{opacity:1;transform:none;}
+.nb-t{font-size:11.5px;font-weight:600;color:#5b6270;padding-top:9px;font-variant-numeric:tabular-nums;}
+.nb-body{border-radius:14px;padding:10px 13px;font-size:13.5px;line-height:1.45;}
+.nb.in .nb-body{background:rgba(255,255,255,.06);}
+.nb.out .nb-body{background:rgba(16,185,129,.14);border:1px solid rgba(16,185,129,.28);}
+.nb.done .nb-body{background:transparent;border:1px dashed rgba(16,185,129,.35);}
+.nb.call .nb-body{background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);}
+.nb-who{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8b93a5;margin-bottom:5px;}
+.nb-msg{color:#e6e9ee;}
+.nb.out .nb-msg,.nb.done .nb-msg{color:#d7f5e9;}
+.nb.call .nb-msg{color:#fbe6c4;}
+.nb-tag{margin-top:7px;font-size:11.5px;font-weight:600;color:#5eead4;}
+.nb.call .nb-tag{color:#fbbf24;}
+
+.ns-brief{margin-top:14px;border-radius:18px;padding:16px 18px;background:linear-gradient(140deg,rgba(6,182,212,.16),rgba(16,185,129,.14) 55%,rgba(79,70,229,.16));border:1px solid rgba(16,185,129,.3);opacity:0;transform:translateY(12px) scale(.98);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
+.ns-brief.in{opacity:1;transform:none;}
+.nsb-k{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#a7f3d0;}
+.nsb-rows{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px;}
+.nsb-rows>div{text-align:center;}
+.nsb-rows b{display:block;font-size:26px;font-weight:700;letter-spacing:-.03em;color:#fff;}
+.nsb-rows span{display:block;margin-top:2px;font-size:11.5px;line-height:1.3;color:#b9c4d0;}
+.nsb-line{margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.12);font-size:13.5px;font-weight:600;color:#fff;text-align:center;}
+
+.ns-foot{margin-top:18px;text-align:center;font-size:clamp(17px,2vw,21px);font-weight:600;letter-spacing:-.02em;color:#fff;opacity:0;transition:opacity .9s ease .3s;}
+.ns-foot.in{opacity:1;}
+.ns-foot .g{background:linear-gradient(100deg,#06b6d4,#10b981 55%,#818cf8);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.ns-fine{margin:14px 0 0;text-align:center;font-size:11.5px;line-height:1.5;color:#5b6270;}
+@media(prefers-reduced-motion:reduce){.ns *{transition:none !important;}.nb{opacity:1;transform:none;}.ns-brief,.ns-foot{opacity:1;transform:none;}}
+`;
+
+/* ============================================================
+ * 3. THE ARRIVAL
  * The map ends. This is what it was all for, and the only ask.
  * ========================================================== */
 export function Arrival() {
