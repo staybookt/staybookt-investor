@@ -188,14 +188,16 @@ const PAGE_CSS = `
 .v4 .sbwrap .brief-l .bi:first-of-type{border-top:0;}
 .v4 .sbwrap .brief-l .bic{width:8px;height:8px;border-radius:50%;margin-top:6px;flex:0 0 auto;}
 /* proof line */
-.v4 .proofline{background:var(--v4-ink);padding:0 0 clamp(64px,9vw,104px);text-align:center;}
+.v4 .proofline{background:#050506;padding:0 0 clamp(64px,9vw,104px);text-align:center;}
 .v4 .proofline p{font-size:15px;color:#86868b;}
 .v4 .proofline a{color:#38bdf8;font-weight:600;text-decoration:none;}
 /* LADDER */
 .v4 .price h2{font-weight:600;letter-spacing:-.025em;}
 .v4 .price .seefull a{color:#0891b2;}
 /* WHY US */
-.v4 .whyus{background:var(--v4-ink);padding:clamp(84px,11vw,140px) 0;text-align:center;position:relative;overflow:hidden;}
+/* One black. This band used to render as var(--v4-ink) (#06080d) between two
+   #050506 sections, which read as a stray black rectangle sitting on the page. */
+.v4 .whyus{background:#050506;padding:clamp(84px,11vw,140px) 0;text-align:center;position:relative;overflow:hidden;}
 .v4 .whyus::before{content:'';position:absolute;inset:0;background:radial-gradient(50% 60% at 20% 0%,rgba(6,182,212,.12),transparent 60%),radial-gradient(50% 60% at 85% 110%,rgba(16,185,129,.12),transparent 60%);pointer-events:none;}
 .v4 .whyus .wrap{position:relative;z-index:1;}
 .v4 .whyus .eyebrow{color:#86868b;}

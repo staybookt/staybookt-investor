@@ -38,8 +38,8 @@ const TIERS: PriceTier[] = [
   {
     nm: 'Enjoy Life',
     pr: 'By invitation',
-    u: 'after your first year · no extra monthly',
-    ds: 'The partnership you earn once the systems, reputation, and revenue are built. We turn the business into an asset you can sell, hand on, or step back from. It costs you nothing extra. We take a share of the value we create, and only when you cash it in.',
+    u: 'after your first year · nothing extra per month',
+    ds: 'Not a status. A threshold. Once the systems, the reputation, and the repeat revenue are built, we turn the business into an asset you can sell, hand on, or step back from. It costs you nothing extra. We take a share of the value we create, and only when you cash it in.',
     dark: false,
     points: [
       'Everything in the plan. No extra monthly fee, ever',
@@ -130,6 +130,94 @@ export default function PricingPage() {
               </Reveal>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Richard: "By invitation" reads as velvet-rope marketing and nobody knows
+          what it means. It is a threshold, not a status. Say so plainly. */}
+      <section className="section">
+        <div className="wrap-narrow prose">
+          <Reveal>
+            <div className="eyebrow" style={{ marginBottom: 14 }}>
+              The invitation
+            </div>
+          </Reveal>
+          <Reveal delay={1}>
+            <h3
+              style={{
+                margin: 0,
+                fontSize: 'clamp(26px,3.4vw,42px)',
+                fontWeight: 600,
+                letterSpacing: '-.03em',
+                lineHeight: 1.08,
+                maxWidth: '20ch',
+              }}
+            >
+              &ldquo;By invitation&rdquo; is not a velvet rope.
+            </h3>
+          </Reveal>
+          <Reveal delay={2}>
+            <p style={{ marginTop: 20 }}>
+              It is a threshold. Enjoy Life only works when there is actually something worth
+              selling, and after a year of us running your front office there usually is. We are the
+              ones who have to earn it. Here is what has to be true before we will raise it with you.
+            </p>
+          </Reveal>
+
+          <ul
+            style={{
+              listStyle: 'none',
+              padding: 0,
+              margin: '28px 0 0',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 18,
+            }}
+          >
+            {[
+              {
+                h: 'The business can run a week without you.',
+                p: 'Calls answered, jobs booked, quotes chased, whether you are on the tools, on a beach, or in a hospital bed. This is the one that actually moves the number.',
+              },
+              {
+                h: 'The revenue repeats.',
+                p: 'Service agreements and returning customers, not a pile of one-off jobs. A buyer pays a premium for revenue that shows up again next year.',
+              },
+              {
+                h: 'You want it.',
+                p: 'Plenty of owners never want to sell or step back, and that is a perfectly good answer. The plan stays exactly the same, at exactly the same price.',
+              },
+            ].map((c, i) => (
+              <Reveal key={c.h} delay={i === 0 ? 1 : 2}>
+                <div style={{ display: 'flex', gap: 14 }}>
+                  <span
+                    aria-hidden
+                    style={{
+                      marginTop: 9,
+                      width: 7,
+                      height: 7,
+                      borderRadius: '50%',
+                      flex: 'none',
+                      background: 'var(--hp-emerald)',
+                    }}
+                  />
+                  <div>
+                    <div style={{ fontSize: 'clamp(18px,2vw,22px)', fontWeight: 600, letterSpacing: '-.02em' }}>
+                      {c.h}
+                    </div>
+                    <p style={{ marginTop: 7 }}>{c.p}</p>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </ul>
+
+          <Reveal delay={2}>
+            <p style={{ marginTop: 28, fontWeight: 600, color: 'var(--hp-text)' }}>
+              You will never have to ask for it. If you get there, we will bring it up. If the year
+              does not get you there, we will tell you that too.
+            </p>
+          </Reveal>
         </div>
       </section>
 
