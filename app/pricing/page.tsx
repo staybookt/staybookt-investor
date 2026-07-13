@@ -38,14 +38,16 @@ const TIERS: PriceTier[] = [
   {
     nm: 'Enjoy Life',
     pr: 'By invitation',
-    u: 'after your first year',
-    ds: 'The partnership you earn once the systems, reputation, and revenue are built. It turns the business into something you can keep, pass on, or sell.',
+    u: 'after your first year · no extra monthly',
+    ds: 'The partnership you earn once the systems, reputation, and revenue are built. We turn the business into an asset you can sell, hand on, or step back from. It costs you nothing extra. We take a share of the value we create, and only when you cash it in.',
     dark: false,
     points: [
-      'Everything in the plan',
-      'Systems built for a clean exit or a family handoff',
-      'We turn the work into a sellable, inheritable asset',
-      'Shared upside, only on the new business we generate',
+      'Everything in the plan. No extra monthly fee, ever',
+      'We build the recurring service work buyers pay a premium for',
+      'We get the business running without you, which is what moves the number',
+      'We clean the books and add the crew to grow into',
+      'We run the sale or the family handoff. No broker fee',
+      'We take 20% of the increase in value. No sale, no fee',
     ],
   },
 ];
@@ -163,14 +165,38 @@ export default function PricingPage() {
         <div className="wrap-narrow prose" style={{ textAlign: 'center' }}>
           <Reveal>
             <div className="eyebrow" style={{ marginBottom: 14 }}>
-              How we count new business
+              How the value share works
             </div>
           </Reveal>
           <Reveal delay={1}>
-            <p style={{ margin: '0 auto', textAlign: 'center' }}>
-              Form fills tagged at the source. Calls tracked through your Google Business Profile.
-              New customers reconciled against your existing book so we never double-count. You see
-              exactly what we count, and the report goes out every month before the invoice.
+            <h3
+              style={{
+                margin: '0 auto',
+                fontSize: 'clamp(24px,3vw,38px)',
+                fontWeight: 600,
+                letterSpacing: '-.03em',
+                lineHeight: 1.1,
+                maxWidth: '20ch',
+              }}
+            >
+              We only get paid if you actually get free.
+            </h3>
+          </Reveal>
+          <Reveal delay={2}>
+            <p style={{ margin: '20px auto 0', textAlign: 'center' }}>
+              On day one we agree what the business is worth, independently and in writing. That is
+              the baseline. Then we go to work on the things that actually move the number: recurring
+              service agreements, an operation that runs without you, books a buyer can trust, and
+              the crew to grow into. When you sell, hand it on, or settle up, we take twenty percent
+              of the increase above that baseline. You keep the rest, and you keep every dollar the
+              business was already worth. If the number does not move, we do not get paid.
+            </p>
+          </Reveal>
+          <Reveal delay={2}>
+            <p style={{ margin: '20px auto 0', textAlign: 'center', fontSize: 15, color: 'var(--hp-muted)' }}>
+              For context: a broker takes eight to twelve percent of your entire sale price for
+              showing up at the end. A franchise takes six percent of every dollar you earn, forever,
+              and your name with it. We take a fifth of the upside we create, and nothing else.
             </p>
           </Reveal>
         </div>

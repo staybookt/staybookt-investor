@@ -19,8 +19,8 @@ const FAQ: [string, string][] = [
     'Both, together, in one plan. We build your website and then run the whole front office around it: answering calls, booking jobs, chasing quotes, and keeping your reputation growing. A site nobody maintains goes stale within a year. Running it is the point.',
   ],
   [
-    'How exactly do you count new business?',
-    'Form fills tagged at the source. Calls tracked through your Google Business Profile. New customers reconciled against your existing pipeline so we never double-count. The report goes out every month before the invoice.',
+    'What is Enjoy Life, and what does it cost?',
+    'Enjoy Life is an invite-only partnership offered after your first year. It costs no extra monthly fee. We agree what the business is worth up front, then we build the recurring service work, get the operation running without you, clean the books, and run the eventual sale or family handoff with no broker fee. When you cash out, we take 20% of the increase in value above that starting number. If the number does not move, we are not paid.',
   ],
   [
     'What is included in the plan?',

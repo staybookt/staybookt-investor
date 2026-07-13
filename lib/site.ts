@@ -13,18 +13,20 @@ export const PHONE_HREF: string | null = null;
 
 // Confirmed public pricing (July 13 2026). ONE plan: Get Found + StayBookt bundled
 // at $199/mo, nothing upfront, 12-month term, 90-day money-back guarantee.
-// Enjoy Life stays invite-only (5% of NEW business only) after year one.
+// Enjoy Life stays invite-only after year one, and is a VALUE share, not a revenue share.
 // Numbers live here so nothing drifts.
 export const PRICING = {
   monthly: '$199',
   upfront: 'Nothing upfront',
   term: '12-month term',
   guarantee: '90-day money-back',
-  performance: '5%',
+  // Enjoy Life is a VALUE share, not a revenue share. We take 20% of the increase
+  // in enterprise value above an agreed baseline, paid only on a sale/handoff/settle.
+  valueShare: '20% of the increase in value above baseline',
 } as const;
 
-// The three ways to work with us, ranked by how much of the business we run.
-// Single source of truth: home + pricing page both read this, so numbers never drift.
+// The two ways to work with us. Single source of truth: every page reads from here,
+// so numbers never drift.
 export type Tier = {
   name: string;
   scope: string;
@@ -64,14 +66,17 @@ export const TIERS: Tier[] = [
     tagline: 'We turn the business into an asset you can keep, pass on, or sell.',
     upfront: 'By invitation',
     upfrontNote: 'after your first year',
-    recurring: null,
-    commission: '5%',
-    terms: 'Invite-only. The 5% is only on the new business we generate.',
+    recurring: 'No extra monthly',
+    commission: '20% of the increase in value',
+    terms:
+      'Invite-only. We agree a baseline valuation up front and take 20% of the increase above it, paid only when you sell, hand it on, or settle up. No sale, no fee. No broker fee either.',
     points: [
-      'Everything in the plan',
-      'Systems built for a clean exit or a family handoff',
-      'We turn a job into a sellable, inheritable asset',
-      'We share the upside: 5% of the new business we generate',
+      'Everything in the plan. No extra monthly fee, ever',
+      'We build the recurring service work buyers pay a premium for',
+      'We get the business running without you, which is what moves the number',
+      'We clean the books and add the crew to grow into',
+      'We run the sale or the family handoff, with no broker fee',
+      'We take 20% of the increase in value. No sale, no fee',
     ],
   },
 ];

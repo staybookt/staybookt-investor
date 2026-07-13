@@ -99,6 +99,50 @@ export default function EnjoyLifePage() {
         </div>
       </section>
 
+      {/* What it costs — the value share */}
+      <section className="section center">
+        <div className="wrap-narrow prose" style={{ textAlign: 'center' }}>
+          <Reveal>
+            <div className="eyebrow" style={{ marginBottom: 14 }}>
+              What it costs
+            </div>
+          </Reveal>
+          <Reveal delay={1}>
+            <h2
+              className="big"
+              style={{
+                margin: '0 auto',
+                fontSize: 'clamp(26px,3.6vw,46px)',
+                letterSpacing: '-.03em',
+                lineHeight: 1.08,
+                maxWidth: '20ch',
+              }}
+            >
+              <span className="grad">Nothing extra. We get paid out of what we build.</span>
+            </h2>
+          </Reveal>
+          <Reveal delay={2}>
+            <p style={{ margin: '22px auto 0', textAlign: 'center' }}>
+              Enjoy Life adds nothing to your monthly bill. On day one we agree what the business is
+              worth today, independently and in writing. Then we go to work on the things that move
+              that number: recurring service agreements, an operation that runs without you, books a
+              buyer can trust, and the crew to grow into. When you sell, hand it on, or settle up, we
+              take twenty percent of the increase above that starting number. You keep the rest, and
+              you keep every dollar the business was already worth. If the number does not move, we
+              do not get paid.
+            </p>
+          </Reveal>
+          <Reveal delay={2}>
+            <p style={{ margin: '22px auto 0', textAlign: 'center', fontSize: 15, color: 'var(--hp-muted)' }}>
+              A broker takes eight to twelve percent of your whole sale price for showing up at the
+              end. A franchise takes six percent of every dollar you earn, forever, and your name with
+              it. We take a fifth of the upside we create, and nothing else. When it is time to sell,
+              we run the sale ourselves. No broker fee.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
       {/* Closer */}
       <section className="closer">
         <div className="aura" />
