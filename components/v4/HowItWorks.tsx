@@ -4,14 +4,19 @@ import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from
 import { START_LINK } from '@/lib/site';
 import Receptionist from './Receptionist';
 import PlayOnView from './PlayOnView';
+import { AccountBrain, Arrival, StartCard } from './HiwScenes';
+
+/* Hero backdrop: a still, not a film. The homepage owns the one video moment,
+ * and this page already runs a scroll-driven SVG trail. A slow drift on a still
+ * gives it life without a second mp4 or a second frame budget. */
+const HERO_IMG =
+  'https://images.pexels.com/photos/38293529/pexels-photo-38293529.jpeg?auto=compress&cs=tinysrgb&w=2000';
 
 const HERO_H = 'You run the business. We run the busywork.';
-const HERO_SUB = 'One guided journey, three milestones. Follow the path and watch what StayBookt does at every stop.';
-const JNOTE = 'Get Found and StayBookt come together as one plan: $199 a month, nothing upfront, and ninety days to change your mind. Enjoy Life is the invitation you earn, once your first year has built the systems, the reputation, and the revenue.';
+const HERO_SUB = 'One journey. Three milestones. Here is what happens at every stop.';
 
 const LEARN_H = 'First, we learn your business.';
-const LEARN_P = 'Before the journey starts, we sit down and learn how you actually work. What you charge. Which jobs you take and which you pass on. Your service area. How you talk to a customer. That becomes the playbook everything else runs on, so when we answer, it sounds like you, not a call center.';
-const LEARN_ROWS = ['What you charge, job by job', 'The jobs you take and the ones you pass', 'Your service area and your hours', 'How you talk to a customer'];
+const LEARN_P = 'Before anything else, we sit down and learn how you actually work. What you charge. Which jobs you take. Where you go. How you talk to a customer. That becomes the playbook everything runs on, so when we answer, it sounds like you, not a call center.';
 
 type Stop = {
   id: string; n: string; label: string; promise: string; voice: string; accent: string; accentD: string;
@@ -57,18 +62,15 @@ const STOPS: Stop[] = [
   },
 ];
 
-const START_H = 'See where you are leaking. Free.';
-const START_P = 'A free 30 minutes with a founder, not a sales rep. We show you where the calls, quotes, and jobs are slipping through, and what it is costing you. Yours to keep, whether you hire us or not.';
-
 const FAQ: { q: string; a: string }[] = [
   { q: 'Is it AI or a real person answering?', a: 'Both, on purpose. AI handles the everyday calls, texts, and bookings so nothing gets missed. When something is unusual or high-stakes, a real person on our team steps in before it reaches your customer. You are never the one picking up the slack.' },
-  { q: 'What does it cost, and is there a contract?', a: 'One plan, $199 a month, with nothing upfront. It runs on a 12-month term, because that is how long it takes to build something worth keeping. You get ninety days to change your mind: if we have not delivered, we refund every month you paid. The website is yours to keep either way.' },
   { q: 'How does it know how to talk about my business?', a: 'That is what the first couple of weeks are for. We learn your prices, your service area, the jobs you take, and how you talk to a customer. Everything after that runs on your playbook, not a generic script.' },
   { q: 'Do I have to learn any software?', a: 'No. That is the whole point. We run it. You get a short brief each morning and approve the occasional thing. There is no app you are forced to live in.' },
   { q: 'What if I already have a website?', a: 'We will look at it. If it is doing the job, we build around it. If it is holding you back, we replace it. You are not stuck with something that does not convert.' },
   { q: 'Do I keep my phone number?', a: 'Yes. Your number stays yours. We make sure the calls and texts you cannot pick up still get answered and booked.' },
   { q: 'Who owns the website and domain?', a: 'The site is yours to keep. If you already own your domain it stays in your name. If we set one up for you, we walk through the handover on the call. Nothing holds you hostage.' },
   { q: 'How long until I am live?', a: 'About 30 days from the first call.' },
+  { q: 'What does it cost, and is there a contract?', a: 'One plan, $199 a month, with nothing upfront. It runs on a 12-month term, because that is how long it takes to build something worth keeping. You get ninety days to change your mind: if we have not delivered, we refund every month you paid. The website is yours to keep either way.' },
   { q: 'What is the valuation at the end?', a: 'After your first year, we value the business on two axes: what it is worth in dollars, and how well it runs and grows without you glued to it. Then you decide what to do with it. There is no obligation to sell.' },
 ];
 
@@ -81,34 +83,27 @@ const CSS = `
 .hiw-btn:hover{transform:translateY(-1px);}
 .hiw-btn.ghost{background:transparent;color:var(--v4-ink);border:1px solid rgba(0,0,0,.18);}
 
-/* hero */
-.hiw-hero{position:relative;background:#050506;text-align:center;padding:clamp(140px,18vh,210px) 0 clamp(70px,9vw,110px);overflow:hidden;}
-.hiw-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(62% 52% at 50% 0%,rgba(14,165,233,.16),transparent 62%);pointer-events:none;}
-.hiw-hero .wrap{position:relative;}
+/* hero — full-bleed still, slow drift, dark grade */
+.hiw-hero{position:relative;background:#050506;text-align:center;display:flex;align-items:center;justify-content:center;min-height:min(88vh,820px);padding:clamp(120px,15vh,170px) 0 clamp(70px,9vw,110px);overflow:hidden;}
+.hiw-hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 42%;transform:scale(1.08);animation:hdrift 26s ease-in-out infinite alternate;}
+@keyframes hdrift{from{transform:scale(1.08) translate3d(0,0,0);}to{transform:scale(1.16) translate3d(-1.4%,-1.2%,0);}}
+.hiw-hero .hov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,6,.82) 0%,rgba(5,5,6,.52) 40%,rgba(5,5,6,.66) 74%,rgba(5,5,6,.95) 100%);}
+.hiw-hero .hov::after{content:'';position:absolute;inset:0;background:radial-gradient(62% 52% at 50% 6%,rgba(14,165,233,.18),transparent 64%);}
+.hiw-hero .wrap{position:relative;z-index:1;}
 .hiw-hero .eyebrow{color:#c9cdd6;}
-.hiw-hero h1{margin-top:18px;font-size:clamp(42px,6.6vw,88px);line-height:1.0;max-width:15ch;margin-left:auto;margin-right:auto;color:#f5f5f7;}
-.hiw-hero p.lead{margin:26px auto 0;font-size:clamp(18px,2.1vw,23px);line-height:1.45;color:#aeb4c0;max-width:44ch;}
+.hiw-hero h1{margin-top:18px;font-size:clamp(42px,6.8vw,92px);line-height:.99;max-width:15ch;margin-left:auto;margin-right:auto;color:#fff;text-shadow:0 4px 40px rgba(0,0,0,.5);}
+.hiw-hero p.lead{margin:24px auto 0;font-size:clamp(18px,2.1vw,23px);line-height:1.45;color:#c6cbd3;max-width:36ch;text-shadow:0 2px 24px rgba(0,0,0,.55);}
 .hiw-hero .cta{margin-top:34px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
 .hiw-hero .hiw-btn{background:#f5f5f7;color:#050506;}
-.hiw-hero .hiw-btn.ghost{background:transparent;color:#f5f5f7;border-color:rgba(255,255,255,.3);}
-.hiw-hero .jnote{margin:36px auto 0;font-size:14.5px;line-height:1.55;color:#8f97a4;max-width:58ch;}
-.hiw-hero .jlink{margin:16px auto 0;font-size:14.5px;color:#8f97a4;}
-.hiw-hero .jlink a{color:#5eead4;text-decoration:none;font-weight:600;}
-.hiw-hero .jlink a:hover{text-decoration:underline;}
+.hiw-hero .hiw-btn.ghost{background:rgba(255,255,255,.08);color:#f5f5f7;border-color:rgba(255,255,255,.34);backdrop-filter:saturate(160%) blur(10px);-webkit-backdrop-filter:saturate(160%) blur(10px);}
+@media(prefers-reduced-motion:reduce){.hiw-hero>img{animation:none;}}
 
 /* learn */
 .hiw-learn{padding:clamp(80px,11vw,140px) 0;background:var(--v4-cream);}
-.hiw-learn .grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,80px);align-items:center;}
+.hiw-learn .lhead{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,64px);align-items:end;}
 .hiw-learn h2{font-size:clamp(32px,4.6vw,60px);line-height:1.02;max-width:12ch;}
-.hiw-learn p{margin-top:22px;font-size:clamp(17px,1.9vw,21px);line-height:1.5;color:#52565e;max-width:40ch;}
-.learncard{background:#fff;border:1px solid #e9e9e5;border-radius:24px;padding:clamp(24px,3vw,34px);box-shadow:0 30px 60px -40px rgba(6,12,20,.35);}
-.learncard .lc-top{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#0284c7;}
-.learncard .lc-h{margin-top:6px;font-size:20px;font-weight:600;letter-spacing:-.02em;color:var(--v4-ink);}
-.learncard ul{list-style:none;margin:20px 0 0;padding:0;display:flex;flex-direction:column;gap:0;}
-.learncard li{display:flex;gap:12px;align-items:center;padding:15px 0;border-top:1px solid #f0f0ec;font-size:15.5px;color:#33373e;}
-.learncard li:first-child{border-top:0;}
-.learncard li svg{flex:0 0 auto;}
-@media(max-width:820px){.hiw-learn .grid{grid-template-columns:1fr;gap:40px;}.hiw-learn h2{max-width:18ch;}}
+.hiw-learn p{font-size:clamp(16px,1.8vw,19px);line-height:1.55;color:#52565e;max-width:46ch;}
+@media(max-width:820px){.hiw-learn .lhead{grid-template-columns:1fr;gap:20px;align-items:start;}.hiw-learn h2{max-width:18ch;}}
 
 /* ===== JOURNEY MAP (weaving SVG trail, warming arc) ===== */
 .hiw-jrny{padding:clamp(56px,7vw,96px) 0 clamp(70px,9vw,120px);background:linear-gradient(180deg,#f6f8fb 0%,#f9faf7 42%,#fdf7ee 100%);}
@@ -227,8 +222,8 @@ const CSS = `
 .el .choice .ci{width:30px;height:30px;border-radius:9px;background:rgba(245,158,11,.14);display:flex;align-items:center;justify-content:center;color:#b45309;}
 .el .choice .cl{margin-top:11px;font-size:15px;font-weight:600;color:var(--v4-ink);}
 .el .choice .cd{max-height:0;overflow:hidden;font-size:12.5px;line-height:1.4;color:#6b7280;transition:max-height .35s ease,margin .35s ease;}
-.el .choice:hover .cd,.el .choice.on .cd{max-height:90px;margin-top:7px;}
-@media(max-width:520px){.el .choices{grid-template-columns:1fr;}.el .choice .cd{max-height:90px;margin-top:7px;}}
+.el .choice:hover .cd,.el .choice.on .cd{max-height:80px;margin-top:7px;}
+@media(max-width:520px){.el .choices{grid-template-columns:1fr;}.el .choice .cd{max-height:80px;margin-top:7px;}}
 
 /* ===== interactive leak slider ===== */
 .leak{margin-top:26px;background:#fff;border:1px solid #ececf0;border-radius:18px;padding:20px 22px;max-width:460px;box-shadow:0 20px 44px -30px rgba(6,12,20,.3);text-align:left;}
@@ -240,12 +235,6 @@ const CSS = `
 .leak .lk-val{font-size:clamp(24px,3.4vw,32px);font-weight:700;letter-spacing:-.02em;color:#059669;}
 .leak .lk-note{margin-top:6px;font-size:11.5px;color:#9298a1;}
 
-/* get started */
-.hiw-start{text-align:center;padding:clamp(90px,13vw,160px) 0;background:#fff;}
-.hiw-start h2{margin-top:16px;font-size:clamp(34px,5.4vw,72px);line-height:1.0;max-width:16ch;margin-left:auto;margin-right:auto;}
-.hiw-start p{margin:26px auto 0;font-size:clamp(18px,2.1vw,22px);line-height:1.55;color:#52565e;max-width:48ch;}
-.hiw-start .cta{margin-top:34px;}
-
 /* faq */
 .hiw-faq{padding:clamp(90px,12vw,150px) 0;background:var(--v4-cream);}
 .hiw-faq h2{text-align:center;font-size:clamp(34px,5vw,60px);margin:0 auto clamp(44px,5vw,60px);}
@@ -255,7 +244,7 @@ const CSS = `
 .hiw-q button .pl{position:absolute;right:2px;top:50%;transform:translateY(-50%);font-size:24px;font-weight:300;color:#9aa0a8;transition:transform .3s ease,color .3s ease;line-height:1;}
 .hiw-q.open button .pl{transform:translateY(-50%) rotate(45deg);color:#0284c7;}
 .hiw-q .ans{max-height:0;overflow:hidden;transition:max-height .35s ease;}
-.hiw-q.open .ans{max-height:320px;}
+.hiw-q.open .ans{max-height:280px;}
 .hiw-q .ans p{padding:0 0 24px;margin:0;font-size:16.5px;line-height:1.6;color:#52565e;max-width:64ch;}
 
 /* closer */
@@ -265,14 +254,6 @@ const CSS = `
 .hiw-close .price a{color:#0284c7;text-decoration:none;font-weight:600;}
 .hiw-close .cta{margin-top:36px;}
 `;
-
-function Check() {
-  return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth={2.6}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M4 12l5 5L20 6" />
-    </svg>
-  );
-}
 
 /* Get Found scene: results climb, you land at #1, an AI assistant names you. */
 function GetFoundScene() {
@@ -311,9 +292,7 @@ function GetFoundScene() {
   );
 }
 
-/* Enjoy Life scene: valuation counts up, then you choose your path.
- * Keeping the business and loving it again comes FIRST. Selling is the door
- * you never have to use. */
+/* Enjoy Life scene: valuation counts up, then you choose your path. */
 function EnjoyLifeScene() {
   const ref = useRef<HTMLDivElement | null>(null);
   const [val, setVal] = useState(0);
@@ -546,36 +525,30 @@ export default function HowItWorks() {
 
       {/* HERO */}
       <header className="hiw-hero">
+        <img src={HERO_IMG} alt="" fetchPriority="high" decoding="async" />
+        <div className="hov" />
         <div className="wrap">
           <div className="eyebrow">How it works</div>
           <h1>{HERO_H}</h1>
           <p className="lead">{HERO_SUB}</p>
           <div className="cta">
-            <a className="hiw-btn" href={START_LINK}>Pick a time</a>
             <a className="hiw-btn ghost" href="#found">Start the journey</a>
+            <a className="hiw-btn" href={START_LINK}>Pick a time</a>
           </div>
-          <p className="jnote">{JNOTE}</p>
-          <p className="jlink">
-            Want the full list instead of the story? <a href="/whats-included">See everything that is included</a>
-          </p>
         </div>
       </header>
 
-      {/* LEARN */}
+      {/* LEARN — the account brain */}
       <section className="hiw-learn" id="learn">
         <div className="wrap">
-          <div className="grid">
+          <div className="lhead">
             <div>
               <div className="eyebrow">Before the journey</div>
               <h2 style={{ marginTop: 14 }}>{LEARN_H}</h2>
-              <p>{LEARN_P}</p>
             </div>
-            <div className="learncard">
-              <div className="lc-top">Your business, learned</div>
-              <div className="lc-h">The playbook everything runs on</div>
-              <ul>{LEARN_ROWS.map((r) => <li key={r}><Check /> {r}</li>)}</ul>
-            </div>
+            <p>{LEARN_P}</p>
           </div>
+          <AccountBrain />
         </div>
       </section>
 
@@ -623,22 +596,18 @@ export default function HowItWorks() {
 
               <div className="jend">
                 <span className="edot" ref={(el) => { pts.current.end = el; }} />
-                <div className="eh">Go enjoy the life you built it for.</div>
+                <div className="eh">Twelve months later.</div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* GET STARTED */}
-      <section className="hiw-start" id="start">
-        <div className="wrap">
-          <div className="eyebrow">Get started</div>
-          <h2>{START_H}</h2>
-          <p>{START_P}</p>
-          <div className="cta"><a className="hiw-btn" href={START_LINK}>Pick a time</a></div>
-        </div>
-      </section>
+      {/* THE ARRIVAL — the pinnacle of the journey */}
+      <Arrival />
+
+      {/* GET STARTED — the offer, on a card you can see */}
+      <StartCard />
 
       {/* FAQ */}
       <section className="hiw-faq">
@@ -662,6 +631,7 @@ export default function HowItWorks() {
         <div className="wrap">
           <h2>You do the work. We will run the rest.</h2>
           <p className="price">$199 a month, nothing upfront, ninety days to change your mind. <a href="/pricing">See the pricing</a></p>
+          <p className="price">Want the full list instead of the story? <a href="/whats-included">See everything that is included</a></p>
           <div className="cta"><a className="hiw-btn" href={START_LINK}>Pick a time</a></div>
         </div>
       </section>
