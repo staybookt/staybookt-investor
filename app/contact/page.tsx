@@ -1,6 +1,6 @@
 import Nav from '@/components/v4/Nav';
 import SiteFooter from '@/components/SiteFooter';
-import { START_LINK, EMAIL } from '@/lib/site';
+import { START_LINK, EMAIL, PHONE_DISPLAY, PHONE_HREF } from '@/lib/site';
 
 /* No contact form. A form implies a queue, a ticket and a "we'll get back to
  * you", which is exactly the experience we say we exist to abolish. There are
@@ -61,9 +61,10 @@ const CSS = `
 .way.dark .btn{background:#fff;color:#050506;}
 .way .sub{margin-top:14px;font-size:13.5px;color:#9298a1;}
 .way.dark .sub{color:#6b7280;}
-.way .mail{font-size:clamp(18px,2.2vw,26px);font-weight:600;letter-spacing:-.02em;color:var(--v4-ink);text-decoration:none;
+.way .mail{display:inline-block;font-size:clamp(18px,2.2vw,26px);font-weight:600;letter-spacing:-.02em;color:var(--v4-ink);text-decoration:none;
   border-bottom:2px solid rgba(16,185,129,.35);padding-bottom:3px;transition:border-color .3s ease;}
 .way .mail:hover{border-color:#10b981;}
+.way .mail.tel{margin-top:24px;}
 
 /* the promise */
 .ct-prom{background:var(--v4-cream);padding:clamp(80px,10vw,130px) 0;}
@@ -75,8 +76,9 @@ const CSS = `
 
 /* where we are */
 .ct-where{background:#050506;padding:clamp(70px,9vw,110px) 0;}
-.ct-where .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,3vw,40px);}
-@media(max-width:760px){.ct-where .grid{grid-template-columns:1fr;gap:26px;}}
+.ct-where .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(18px,2.6vw,34px);}
+@media(max-width:980px){.ct-where .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:30px;}}
+@media(max-width:560px){.ct-where .grid{grid-template-columns:1fr;gap:26px;}}
 .ct-where .k{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#5c6470;}
 .ct-where .v{margin-top:10px;font-size:17px;line-height:1.55;color:#e6e9ee;font-weight:500;}
 .ct-where .v a{color:#5eead4;text-decoration:none;}
@@ -142,7 +144,7 @@ export default function ContactPage() {
 
             <div className="way">
               <span className="ic"><MailIcon /></span>
-              <h2>Or just email us.</h2>
+              <h2>Or reach us direct.</h2>
               <p>
                 Ask anything. Whether we are a fit, what we would actually do for you, or something
                 awkward you would rather ask before you book a call.
@@ -150,6 +152,8 @@ export default function ContactPage() {
               <div className="go">
                 <a className="mail" href={`mailto:${EMAIL}`}>{EMAIL}</a>
                 <div className="sub">Goes to both founders. One of us replies.</div>
+                <a className="mail tel" href={PHONE_HREF}>{PHONE_DISPLAY}</a>
+                <div className="sub">Call it or text it. A founder picks up.</div>
               </div>
             </div>
           </div>
@@ -178,6 +182,13 @@ export default function ContactPage() {
               <div className="v">
                 <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
                 <span>For everything. There is no second inbox.</span>
+              </div>
+            </div>
+            <div>
+              <div className="k">Call or text</div>
+              <div className="v">
+                <a href={PHONE_HREF}>{PHONE_DISPLAY}</a>
+                <span>The same number for both. It rings a founder, not a queue.</span>
               </div>
             </div>
             <div>
