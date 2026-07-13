@@ -8,7 +8,7 @@ export const metadata = {
   title: 'Enjoy Life',
   alternates: { canonical: '/enjoy-life' },
   description:
-    'The point was never the business. It was the life it was supposed to buy. A business that runs without you is an asset you can sell, pass on, or finally step back from.',
+    'Enjoy Life does not mean walking away. For most owners it means getting the good half of the job back: the craft, the tools, the customers. And then getting to choose what comes next.',
 };
 
 // Lifestyle still (Pexels, licensed). One-line swap to change it.
@@ -17,21 +17,23 @@ const LIFE_IMG =
 
 type Door = { k: string; h: string; b: string };
 
+/* The first door is the one most owners will actually walk through: they keep the
+ * business and get their life back inside it. Selling is an option, not the goal. */
 const DOORS: Door[] = [
   {
-    k: 'Sell it',
-    h: 'Build an asset, not a job.',
-    b: 'A business that runs without you is something a buyer actually wants and you can actually walk away from. The systems we build are what turn years of your work into a number on a term sheet.',
+    k: 'Keep it, and love it again',
+    h: 'Do the part you love.',
+    b: 'Most owners do not want out. They want the good half of the job back. The craft, the tools, the customers, the reason you started. You take the work you actually enjoy and hand us the rest: the phone that never stops, the quotes, the chasing, the paperwork that ate your evenings. Same business. The half of it you liked.',
   },
   {
     k: 'Pass it on',
     h: 'Hand it to your family.',
-    b: 'A business that does not live and die on your personal phone is one you can give to your kids or your crew, and trust that it keeps running the way you built it.',
+    b: 'A business that does not live and die on your personal phone is one you can hand to your kids or your crew, and trust that it keeps running the way you built it. That only works if the knowledge is in the system, not in your head.',
   },
   {
-    k: 'Get back to the work',
-    h: 'Do the part you love.',
-    b: 'Or keep it, and just get back to the craft, the tools, the customers, the reason you started, before the admin ate your evenings and your weekends.',
+    k: 'Sell it',
+    h: 'Build an asset, not a job.',
+    b: 'And if you ever do want out, a business that runs without you is something a buyer actually wants and you can actually walk away from. The systems we build are what turn years of your work into a number on a term sheet. You never have to use this door. You just get to have it.',
   },
 ];
 
@@ -53,8 +55,16 @@ export default function EnjoyLifePage() {
           </Reveal>
           <Reveal delay={1}>
             <p style={{ fontSize: 'clamp(20px,2.4vw,28px)', color: 'var(--hp-text)', maxWidth: '30ch', lineHeight: 1.4 }}>
-              It was the life it was supposed to buy. StayBookt runs the front office so the
-              business runs without you, and you finally get to go live it.
+              It was the life it was supposed to buy. Enjoy Life does not mean walking away. For
+              most owners it means getting the good half of the job back, and getting to choose what
+              comes next.
+            </p>
+          </Reveal>
+          <Reveal delay={2}>
+            <p style={{ marginTop: 22, maxWidth: '46ch', lineHeight: 1.7, color: 'var(--hp-muted)' }}>
+              Somewhere along the way the business stopped being the thing you loved and started
+              being the thing you answered to. We take the half you never wanted, so you can go back
+              to the half you did. What you do after that is your call.
             </p>
           </Reveal>
         </div>

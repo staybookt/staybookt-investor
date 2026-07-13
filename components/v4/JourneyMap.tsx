@@ -149,10 +149,12 @@ const WHEEL: { lbl: string; blurb: string; dx: number; dy: number; lx: number; l
   { lbl: 'Visit to book', blurb: 'Booked, confirmed, and on the calendar.', dx: 128, dy: 101, lx: 104, ly: 105, a: 'end' },
 ];
 
+/* Enjoy Life is not just about leaving the business. Two of these four beats are
+ * about the life you get back INSIDE the work: the part you actually love. */
 const LIFE: { img: string; cap: string }[] = [
-  { img: '13727103', cap: 'Golf with your mates.' },
-  { img: '8623946', cap: 'Away with the family.' },
-  { img: '5086620', cap: 'A night out, just the two of you.' },
+  { img: '38293529', cap: 'Back on the tools. Not the phone.' },
+  { img: '3846255', cap: 'Time to bring the next one up.' },
+  { img: '8623946', cap: 'Home in time for dinner.' },
   { img: '4835776', cap: 'A day that is finally yours.' },
 ];
 
@@ -230,7 +232,7 @@ export default function JourneyMap() {
           <div className="vig" />
           <div className="scrim" />
           <div className="scrim2" />
-          <div className="whisper">Meanwhile, the business runs on. Worth more than ever.</div>
+          <div className="whisper">The work you love. The life you built it for. And a business worth more than ever.</div>
         </div>
 
         <div className="sscx-tint" />
