@@ -145,7 +145,10 @@ const CSS = `
 
 export default function AboutPage() {
   return (
-    <main className="abt">
+    /* .v4 carries every design token (--v4-ink, --v4-cream, --v4-cyan...). Without
+       it the nav wordmark's gradient resolves to nothing and, because the rule also
+       sets color:transparent, the word "Bookt" simply disappears. */
+    <main className="abt v4">
       <style>{CSS}</style>
       <Nav />
 
