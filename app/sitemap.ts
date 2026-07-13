@@ -2,10 +2,20 @@ import type { MetadataRoute } from 'next';
 
 const BASE = 'https://www.staybookt.com';
 
-/* Only real, current pages. The eleven legacy routes now 308 to their live
- * replacements (see next.config.ts), so they must not appear here.
+/* Only real, current pages. The legacy routes 308 to their live replacements
+ * (see next.config.ts), so they must not appear here.
  * /work is deliberately excluded until it carries real proof. */
-const PATHS = ['/', '/how-it-works', '/pricing', '/founders', '/whats-included', '/enjoy-life', '/start'];
+const PATHS = [
+  '/',
+  '/how-it-works',
+  '/pricing',
+  '/founders',
+  '/whats-included',
+  '/start',
+  '/contact',
+  '/terms',
+  '/privacy',
+];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
