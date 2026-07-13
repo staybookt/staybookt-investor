@@ -7,7 +7,7 @@ import PlayOnView from './PlayOnView';
 
 const HERO_H = 'You run the business. We run the busywork.';
 const HERO_SUB = 'One guided journey, three milestones. Follow the path and watch what StayBookt does at every stop.';
-const JNOTE = 'Get Found and StayBookt come together as one simple monthly plan. Enjoy Life is the invitation you earn, once your first year has built the systems, the reputation, and the revenue.';
+const JNOTE = 'Get Found and StayBookt come together as one plan: $199 a month, nothing upfront, and ninety days to change your mind. Enjoy Life is the invitation you earn, once your first year has built the systems, the reputation, and the revenue.';
 
 const LEARN_H = 'First, we learn your business.';
 const LEARN_P = 'Before the journey starts, we sit down and learn how you actually work. What you charge. Which jobs you take and which you pass on. Your service area. How you talk to a customer. That becomes the playbook everything else runs on, so when we answer, it sounds like you, not a call center.';
@@ -62,13 +62,13 @@ const START_P = 'A free 30 minutes with a founder, not a sales rep. We show you 
 
 const FAQ: { q: string; a: string }[] = [
   { q: 'Is it AI or a real person answering?', a: 'Both, on purpose. AI handles the everyday calls, texts, and bookings so nothing gets missed. When something is unusual or high-stakes, a real person on our team steps in before it reaches your customer. You are never the one picking up the slack.' },
+  { q: 'What does it cost, and is there a contract?', a: 'One plan, $199 a month, with nothing upfront. It runs on a 12-month term, because that is how long it takes to build something worth keeping. You get ninety days to change your mind: if we have not delivered, we refund every month you paid. The website is yours to keep either way.' },
   { q: 'How does it know how to talk about my business?', a: 'That is what the first couple of weeks are for. We learn your prices, your service area, the jobs you take, and how you talk to a customer. Everything after that runs on your playbook, not a generic script.' },
   { q: 'Do I have to learn any software?', a: 'No. That is the whole point. We run it. You get a short brief each morning and approve the occasional thing. There is no app you are forced to live in.' },
   { q: 'What if I already have a website?', a: 'We will look at it. If it is doing the job, we build around it. If it is holding you back, we replace it. You are not stuck with something that does not convert.' },
   { q: 'Do I keep my phone number?', a: 'Yes. Your number stays yours. We make sure the calls and texts you cannot pick up still get answered and booked.' },
   { q: 'Who owns the website and domain?', a: 'The site is yours to keep. If you already own your domain it stays in your name. If we set one up for you, we walk through the handover on the call. Nothing holds you hostage.' },
   { q: 'How long until I am live?', a: 'About 30 days from the first call.' },
-  { q: 'Is there a contract?', a: 'We keep the terms simple and walk you through them on the call. Whatever happens, the website is always yours to keep.' },
   { q: 'What is the valuation at the end?', a: 'After your first year, we value the business on two axes: what it is worth in dollars, and how well it runs and grows without you glued to it. Then you decide what to do with it. There is no obligation to sell.' },
 ];
 
@@ -252,7 +252,7 @@ const CSS = `
 .hiw-q button .pl{position:absolute;right:2px;top:50%;transform:translateY(-50%);font-size:24px;font-weight:300;color:#9aa0a8;transition:transform .3s ease,color .3s ease;line-height:1;}
 .hiw-q.open button .pl{transform:translateY(-50%) rotate(45deg);color:#0284c7;}
 .hiw-q .ans{max-height:0;overflow:hidden;transition:max-height .35s ease;}
-.hiw-q.open .ans{max-height:280px;}
+.hiw-q.open .ans{max-height:320px;}
 .hiw-q .ans p{padding:0 0 24px;margin:0;font-size:16.5px;line-height:1.6;color:#52565e;max-width:64ch;}
 
 /* closer */
@@ -653,7 +653,7 @@ export default function HowItWorks() {
       <section className="hiw-close">
         <div className="wrap">
           <h2>You do the work. We will run the rest.</h2>
-          <p className="price">One simple monthly plan gets you found and runs your business. <a href="/pricing">See the pricing</a></p>
+          <p className="price">$199 a month, nothing upfront, ninety days to change your mind. <a href="/pricing">See the pricing</a></p>
           <div className="cta"><a className="hiw-btn" href={START_LINK}>Pick a time</a></div>
         </div>
       </section>
