@@ -7,7 +7,7 @@ export const metadata = {
   title: 'Pricing',
   alternates: { canonical: '/pricing' },
   description:
-    'One monthly plan gets you found and runs your whole front office: your website, an AI receptionist with a real person behind it, booking, quotes, reviews, and a daily brief. Enjoy Life is an invite-only partnership earned after your first year.',
+    'One plan. $199 a month, nothing upfront. We get you found and run your whole front office: your website, an AI receptionist with a real person behind it, booking, quotes, reviews, and a daily brief. Ninety days to change your mind, or we refund every month you paid.',
 };
 
 type PriceTier = {
@@ -22,9 +22,9 @@ type PriceTier = {
 const TIERS: PriceTier[] = [
   {
     nm: 'Get Found + StayBookt',
-    pr: '$299',
-    u: 'per month · 12-month term',
-    ds: 'Everything. We get you found, then run the whole front office for you.',
+    pr: '$199',
+    u: 'per month · 12-month term · nothing upfront',
+    ds: 'Everything. We get you found, then run the whole front office for you. No build fee, no setup fee, nothing to pay before we start.',
     dark: true,
     points: [
       'A fast website, built and hosted, yours to keep',
@@ -64,8 +64,9 @@ export default function PricingPage() {
             One plan. <span className="grad">Everything you need.</span>
           </h1>
           <p className="lead reveal d2">
-            No setup fee, no menu. One simple monthly plan gets you found and runs your whole front
-            office. Enjoy Life is the partnership you earn after your first year.
+            $199 a month. Nothing upfront, no setup fee, no menu. One plan gets you found and runs
+            your whole front office. Ninety days to change your mind. Enjoy Life is the partnership
+            you earn after your first year.
           </p>
         </div>
       </section>
@@ -122,6 +123,39 @@ export default function PricingPage() {
               </Reveal>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="section center">
+        <div className="wrap-narrow prose" style={{ textAlign: 'center' }}>
+          <Reveal>
+            <div className="eyebrow" style={{ marginBottom: 14 }}>
+              Our guarantee
+            </div>
+          </Reveal>
+          <Reveal delay={1}>
+            <h3
+              style={{
+                margin: '0 auto',
+                fontSize: 'clamp(26px,3.4vw,42px)',
+                fontWeight: 600,
+                letterSpacing: '-.03em',
+                lineHeight: 1.08,
+                maxWidth: '18ch',
+              }}
+            >
+              Ninety days to change your mind.
+            </h3>
+          </Reveal>
+          <Reveal delay={2}>
+            <p style={{ margin: '20px auto 0', textAlign: 'center' }}>
+              Give us ninety days. If we have not answered your calls, booked your jobs, and shown
+              you the work in black and white, say the word and we refund every month you paid. No
+              forms, no argument. The website is yours to keep either way. We ask for the year
+              because that is how long it takes to build something worth keeping, not because we
+              need you locked in.
+            </p>
+          </Reveal>
         </div>
       </section>
 

@@ -3,8 +3,12 @@
 
 const FAQ: [string, string][] = [
   [
+    'What does it cost?',
+    'One plan, $199 a month, with nothing upfront. No build fee and no setup fee. It runs on a 12-month term, and you get ninety days to change your mind.',
+  ],
+  [
     'What if I want to cancel?',
-    'The plan runs on a 12-month term, then continues month to month. Whenever you leave, you keep everything that matters: the website code, the Google Business Profile login, the customer list, and the review tools. No locked-in dependencies.',
+    'You get ninety days to change your mind. If we have not delivered, tell us and we refund every month you paid. After that the plan runs on a 12-month term, then continues month to month. Whenever you leave, you keep everything that matters: the website code, the Google Business Profile login, the customer list, and the review tools. No locked-in dependencies.',
   ],
   [
     'What if you go out of business?',
@@ -20,7 +24,7 @@ const FAQ: [string, string][] = [
   ],
   [
     'What is included in the plan?',
-    'Getting found and running it, together: your website and Google presence, an AI receptionist with a real person behind it, booking, quote follow-up, reviews, and a short daily brief. One simple monthly plan, rolling out to clients through 2026.',
+    'Getting found and running it, together: your website and Google presence, an AI receptionist with a real person behind it, booking, quote follow-up, reviews, and a short daily brief. One plan at $199 a month, rolling out to clients through 2026.',
   ],
 ];
 
@@ -33,7 +37,7 @@ export default function StructuredData() {
       url: 'https://www.staybookt.com',
       email: 'info@staybookt.com',
       description:
-        'StayBookt gets service businesses found and runs their whole front office: website, an AI receptionist with a real person behind it, booking, quotes, reviews, and a daily brief. One simple monthly plan.',
+        'StayBookt gets service businesses found and runs their whole front office: website, an AI receptionist with a real person behind it, booking, quotes, reviews, and a daily brief. One plan at $199 a month, nothing upfront.',
       areaServed: [{ '@type': 'Country', name: 'Canada' }, { '@type': 'Country', name: 'United States' }],
       founder: [
         { '@type': 'Person', name: 'Jacob Charendoff' },

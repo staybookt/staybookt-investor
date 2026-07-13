@@ -11,11 +11,15 @@ export const EMAIL = 'info@staybookt.com';
 export const PHONE_DISPLAY: string | null = null;
 export const PHONE_HREF: string | null = null;
 
-// Confirmed public ladder. Get Found (one-time) + StayBookt (monthly) +
-// Enjoy Life (invite-only, 5% of new business). Numbers live here so nothing drifts.
+// Confirmed public pricing (July 13 2026). ONE plan: Get Found + StayBookt bundled
+// at $199/mo, nothing upfront, 12-month term, 90-day money-back guarantee.
+// Enjoy Life stays invite-only (5% of NEW business only) after year one.
+// Numbers live here so nothing drifts.
 export const PRICING = {
-  build: '$1,750',
-  care: '$199',
+  monthly: '$199',
+  upfront: 'Nothing upfront',
+  term: '12-month term',
+  guarantee: '90-day money-back',
   performance: '5%',
 } as const;
 
@@ -36,49 +40,35 @@ export type Tier = {
 
 export const TIERS: Tier[] = [
   {
-    name: 'Get Found',
-    scope: 'The website',
-    tagline: 'A site that gets you found and makes you look like the pro you are.',
-    upfront: '$1,750',
-    upfrontNote: 'one-time',
-    recurring: null,
-    commission: null,
-    terms: 'Pay once. The site is yours to keep.',
-    points: [
-      'Custom, mobile-first website',
-      'Google Business Profile rebuilt',
-      'Search and reviews foundation',
-      'Tap-to-call and booking wired in',
-    ],
-  },
-  {
-    name: 'StayBookt',
-    scope: 'We run the front of your business',
-    tagline: 'We run the front of your business. You just do the work.',
-    upfront: '$1,750',
-    upfrontNote: 'to build',
+    name: 'Get Found + StayBookt',
+    scope: 'One plan. Everything you need.',
+    tagline: 'We get you found, then run the whole front office for you.',
+    upfront: 'Nothing upfront',
+    upfrontNote: 'no build fee, no setup fee',
     recurring: '$199/mo',
     commission: null,
-    terms: 'The front office, run for you. Cancel anytime.',
+    terms: '12-month term. Ninety days to change your mind, or we refund every month you paid.',
     recommended: true,
     points: [
-      'Everything in Get Found',
-      'We answer your phone and texts, 24/7',
-      'We capture every lead and book the jobs',
-      'We chase quotes, follow-ups, and past customers',
+      'A fast website, built and hosted, yours to keep',
+      'Google Business Profile rebuilt, ranked locally, reviews building',
+      'We answer every call and text, 24/7, in your voice',
+      'We book the jobs and chase every quote until it closes',
+      'We bring past customers back for repeat work',
+      'One short brief each morning. No software to learn',
     ],
   },
   {
     name: 'Enjoy Life',
     scope: 'A partnership, by invitation',
-    tagline: 'We turn the business into an asset you can walk away from.',
+    tagline: 'We turn the business into an asset you can keep, pass on, or sell.',
     upfront: 'By invitation',
-    upfrontNote: 'invite-only',
+    upfrontNote: 'after your first year',
     recurring: null,
     commission: '5%',
     terms: 'Invite-only. The 5% is only on the new business we generate.',
     points: [
-      'Everything in StayBookt',
+      'Everything in the plan',
       'Systems built for a clean exit or a family handoff',
       'We turn a job into a sellable, inheritable asset',
       'We share the upside: 5% of the new business we generate',
