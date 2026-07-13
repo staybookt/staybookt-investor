@@ -70,6 +70,11 @@ export default function PricingPage() {
             your whole front office. Ninety days to change your mind. Enjoy Life is the partnership
             you earn after your first year.
           </p>
+          <p className="lead reveal d2" style={{ marginTop: 18, fontSize: 16 }}>
+            <a href="/whats-included" style={{ color: '#38bdf8', textDecoration: 'none', fontWeight: 600 }}>
+              See everything that is included &rarr;
+            </a>
+          </p>
         </div>
       </section>
 
