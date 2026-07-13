@@ -293,7 +293,7 @@ export default function AboutPage() {
             Thirty minutes with one of us. Not a sales rep, not a pitch deck. We will tell you
             straight whether this is a fit.
           </p>
-          <p className="spread">Executive results you can actually afford. Two trucks or two laptops.</p>
+          <p className="spread">Executive results you can actually afford. Whether you run a crew or a practice.</p>
           <div className="cta">
             <a className="abt-btn" href={START_LINK}>
               Pick a time
