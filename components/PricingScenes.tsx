@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from 'react';
 
 /* Two set pieces for /pricing.
  *
- * 1. FiveSalaries — the ledger. What the front office actually costs to staff,
- *    counted out loud, against $199. This is the About page's sentence
- *    ("It was five salaries") finally shown as arithmetic.
+ * 1. FiveSalaries — the ledger. The five jobs the front office actually is, named
+ *    out loud, against $199. This is the About page's sentence ("It was five
+ *    salaries") shown as a thing rather than argued as a claim.
  * 2. ValueShare  — drag the slider, see who keeps what. Makes the 20% concrete,
  *    and makes it obvious the owner keeps the overwhelming majority.
  *
@@ -14,8 +14,17 @@ import { useEffect, useRef, useState } from 'react';
 
 type Seat = { r: string; d: string; low: number; high: number };
 
-/* Ballpark Canadian salary ranges for the roles an owner-operator is doing
- * himself. Deliberately conservative, and labelled as typical, not a claim. */
+/* THE FIVE JOBS. We used to price these roles out at ~$240,000 a year and set that
+ * against $2,388. That is the exact slide every marketing agency uses, and it
+ * backfires on the one buyer we want: the owner who has already been burned by one.
+ * Our own fine print conceded the number was theatre ("not claiming to replace five
+ * hires on day one"), which tells the reader not to trust it.
+ *
+ * So the dollars are gone. The ARGUMENT survives without them, and it is stronger
+ * naked: it was never software, it was five jobs, and they still have to get done.
+ * DO NOT put a salary total back on this page. */
+const fmt = (n: number) => '$' + Math.round(n).toLocaleString();
+
 const SEATS: Seat[] = [
   { r: 'Receptionist', d: 'Answers the phone, every time', low: 42000, high: 52000 },
   { r: 'Dispatcher', d: 'Books it, confirms it, reminds them', low: 48000, high: 60000 },
@@ -24,22 +33,15 @@ const SEATS: Seat[] = [
   { r: 'Bookkeeper', d: 'Chases the invoice, reads it back', low: 40000, high: 55000 },
 ];
 
-const LOW = SEATS.reduce((a, s) => a + s.low, 0);
-const SB_YEAR = 199 * 12;
-
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString();
-
 export function FiveSalaries() {
   const ref = useRef<HTMLDivElement | null>(null);
   const [step, setStep] = useState(-1);
-  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const timers: ReturnType<typeof setTimeout>[] = [];
-    let raf = 0;
 
     const obs = new IntersectionObserver(
       (es) =>
@@ -48,24 +50,11 @@ export function FiveSalaries() {
           obs.disconnect();
           if (reduce) {
             setStep(SEATS.length + 1);
-            setTotal(LOW);
             return;
           }
           for (let i = 0; i <= SEATS.length + 1; i++) {
             timers.push(setTimeout(() => setStep(i), 200 + i * 480));
           }
-          timers.push(
-            setTimeout(() => {
-              const t0 = performance.now();
-              const dur = SEATS.length * 480;
-              const tick = (now: number) => {
-                const t = Math.min(1, (now - t0) / dur);
-                setTotal(LOW * (1 - Math.pow(1 - t, 3)));
-                if (t < 1) raf = requestAnimationFrame(tick);
-              };
-              raf = requestAnimationFrame(tick);
-            }, 200),
-          );
         }),
       { threshold: 0.25 },
     );
@@ -73,7 +62,6 @@ export function FiveSalaries() {
     return () => {
       obs.disconnect();
       timers.forEach(clearTimeout);
-      cancelAnimationFrame(raf);
     };
   }, []);
 
@@ -86,7 +74,7 @@ export function FiveSalaries() {
 
       <div className="fs-head">
         <span className="fs-k">The front office you cannot afford</span>
-        <span className="fs-yr">Typical, per year</span>
+        <span className="fs-yr">Five jobs, every day</span>
       </div>
 
       <div className="fs-rows">
@@ -97,14 +85,13 @@ export function FiveSalaries() {
               <b>{s.r}</b>
               <i>{s.d}</i>
             </span>
-            <span className="fs-n">{fmt(s.low)}</span>
           </div>
         ))}
       </div>
 
       <div className="fs-total">
-        <span>Five people. One front office.</span>
-        <b>{fmt(total)}</b>
+        <span>Five jobs. One front office.</span>
+        <b>You</b>
       </div>
 
       <div className="fs-vs">
@@ -119,8 +106,8 @@ export function FiveSalaries() {
           <div className="fs-sb-t">All five jobs. Done.</div>
         </div>
         <div className="fs-sb-r">
-          <b>{fmt(SB_YEAR)}</b>
-          <span>$199 a month</span>
+          <b>$199</b>
+          <span>a month</span>
         </div>
       </div>
 
@@ -129,9 +116,9 @@ export function FiveSalaries() {
         buying the same outcome.</span>
       </p>
       <p className="fs-fine">
-        Salary figures are typical Canadian ranges for these roles, shown at the low end. We are not
-        claiming to replace five hires on day one. We are saying that is the work, and it still has
-        to get done.
+        We are not claiming to replace five hires on day one, and we are not going to put a big
+        scary salary number next to our price to make it look small. That is the work. It still has
+        to get done. Right now you are the one doing it, at nine at night.
       </p>
     </div>
   );
@@ -144,17 +131,16 @@ const FS_CSS = `
 .fs-k.g{background:var(--g);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .fs-yr{font-size:12.5px;color:#a9aeb8;}
 .fs-rows{padding-top:6px;}
-.fs-row{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid #f5f5f7;opacity:0;transform:translateY(10px);transition:opacity .55s cubic-bezier(.16,1,.3,1),transform .55s cubic-bezier(.16,1,.3,1),filter .6s ease;}
+.fs-row{display:grid;grid-template-columns:34px minmax(0,1fr);gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid #f5f5f7;opacity:0;transform:translateY(10px);transition:opacity .55s cubic-bezier(.16,1,.3,1),transform .55s cubic-bezier(.16,1,.3,1),filter .6s ease;}
 .fs-row.in{opacity:1;transform:none;}
 .fsal.settled .fs-row{opacity:.4;filter:saturate(.2);}
 .fs-av{width:34px;height:34px;border-radius:50%;background:rgba(245,158,11,.14);color:#b45309;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;}
 .fs-t b{display:block;font-size:15.5px;font-weight:600;color:var(--v4-ink,#06080d);}
 .fs-t i{display:block;margin-top:2px;font-style:normal;font-size:13px;color:#9298a1;}
-.fs-n{font-size:16px;font-weight:600;color:#42474f;font-variant-numeric:tabular-nums;}
 .fs-total{display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding:20px 0 4px;transition:opacity .6s ease,filter .6s ease;}
 .fsal.settled .fs-total{opacity:.4;filter:saturate(.2);}
 .fs-total span{font-size:15px;font-weight:600;color:#6b7280;}
-.fs-total b{font-size:clamp(30px,4.4vw,46px);font-weight:700;letter-spacing:-.03em;color:#b45309;font-variant-numeric:tabular-nums;}
+.fs-total b{font-size:clamp(26px,3.4vw,36px);font-weight:700;letter-spacing:-.03em;color:#b45309;}
 .fs-vs{display:flex;align-items:center;gap:16px;margin:22px 0;}
 .fs-vs span{flex:1;height:1px;background:#eaeaee;}
 .fs-vs em{font-style:normal;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#c0c4c8;}

@@ -4,7 +4,7 @@ import { FiveSalaries, ValueShare } from '@/components/PricingScenes';
 import { START_LINK } from '@/lib/site';
 
 const SHARE =
-  'Get Found and StayBookt. One plan, $199 a month, nothing upfront, ninety days to change your mind. It is not a discount on a receptionist. It is the five people you cannot hire.';
+  'Get Found and StayBookt. One plan, $199 a month, nothing upfront, no lock-in, ninety days to change your mind for any reason. It is not a discount on a receptionist. It is the five people you cannot hire.';
 
 export const metadata = {
   title: 'Pricing',
@@ -24,9 +24,13 @@ export const metadata = {
 /* THE OFFER, ON ONE SCREEN.
  * The page used to be seven sections and you had to assemble the deal yourself
  * out of pieces scattered down a scroll. Now the entire thing is stated once, in
- * the hero, and everything below it only answers "how can that be true." */
+ * the hero, and everything below it only answers "how can that be true."
+ *
+ * The terms paragraph is deliberately complete: tax, lock-in, refund, volume. Each
+ * one of those was a silence the reader had to phone us to fill, and a silence is
+ * where a burned buyer puts the catch he is already looking for. */
 const GETS = [
-  'A website that actually converts. Yours to keep.',
+  'A website that turns visitors into phone calls. Yours to keep.',
   'Found on Google, the map, and AI assistants.',
   'Every call and text answered, 24/7, in your voice.',
   'Jobs booked. Quotes chased until yes or no.',
@@ -63,6 +67,7 @@ const CSS = `
 .prnum .per{align-self:flex-end;margin-bottom:.18em;margin-left:10px;font-size:.15em;font-weight:600;letter-spacing:0;color:#9aa0ab;}
 .plan .terms{margin-top:18px;font-size:clamp(16px,1.9vw,20px);line-height:1.55;color:#aeb4c0;max-width:52ch;margin-left:auto;margin-right:auto;}
 .plan .terms b{color:#fff;font-weight:600;}
+.plan .terms + .terms{margin-top:12px;font-size:clamp(14px,1.5vw,16px);color:#8b93a5;}
 
 /* what you get, right here, not three sections away */
 .gets{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 40px;max-width:860px;margin:clamp(40px,5vw,56px) auto 0;}
@@ -136,8 +141,14 @@ export default function PricingPage() {
             </div>
 
             <p className="terms">
-              <b>Nothing upfront.</b> No build fee, no setup fee, no menu. <b>Ninety days to change
-              your mind</b>, and we refund every month you paid. The website is yours either way.
+              <b>Nothing upfront.</b> No build fee, no setup fee, no menu. Plus applicable taxes.{' '}
+              <b>No lock-in</b>: cancel any time on thirty days notice, with no penalty and no exit
+              fee. And for the first ninety days, <b>change your mind for any reason</b> and we
+              refund every month you paid. The website is yours either way.
+            </p>
+            <p className="terms">
+              Unlimited calls and texts. No per-minute billing and no overage, however busy the
+              season gets.
             </p>
 
             <div className="gets">
