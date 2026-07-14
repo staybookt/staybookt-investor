@@ -1,6 +1,7 @@
 import Nav from '@/components/v4/Nav';
 import SiteFooter from '@/components/SiteFooter';
 import Coming from '@/components/v4/Coming';
+import Matrix from '@/components/v4/Matrix';
 
 /* Hero backdrop. This page was the only one still sitting on a flat black gradient
  * while every other hero had something behind it (Jacob, July 14 2026). Same
@@ -31,133 +32,6 @@ export const metadata = {
   },
   twitter: { card: 'summary_large_image', title: "What's included · StayBookt", description: SHARE },
 };
-
-type Group = { n: string; k: string; h: string; p: string; items: string[] };
-
-const GROUPS: Group[] = [
-  {
-    n: '01',
-    k: 'Get found',
-    h: 'Your website',
-    p: 'Built for you, hosted for you, and yours to keep. Nothing for you to manage or update.',
-    items: [
-      'A custom website, built from scratch for your business',
-      'Fast, and built mobile first, because that is where your customers are',
-      'A tap-to-call button on every screen, so calling you takes one thumb',
-      'Online booking wired straight into your calendar',
-      'Your real work, your real reviews, your real service area',
-      'Hosting, security, and updates handled. You never touch it',
-      'Written in your voice, not marketing filler',
-    ],
-  },
-  {
-    n: '02',
-    k: 'Get found',
-    h: 'Showing up when they look',
-    p: 'The website is only half of it. Most of your customers find you on Google or by asking, so we work on both.',
-    items: [
-      'Your Google Business Profile rebuilt, filled out properly, and kept current',
-      'Photos, services, hours, and service area, all correct and consistent',
-      'Your name, address, and phone number made identical everywhere online, which is what Google actually trusts',
-      'Local search work so you climb the map for the searches that matter in your area',
-      'Set up so you show up when someone asks an AI assistant for what you do, nearby',
-      'Your listings on the directories that feed the search engines',
-    ],
-  },
-  {
-    n: '03',
-    k: 'StayBookt',
-    h: 'We answer. Every time.',
-    p: 'This is the part that changes your life. The phone gets answered whether you are on a job, driving to the next one, or asleep.',
-    items: [
-      'Every call answered, 24 hours a day, seven days a week',
-      'Every text answered, in your voice, using your prices and your rules',
-      'Website forms, Google messages, and emails, all caught in the same place',
-      'The caller gets a real answer, not a voicemail and not a promise to call back',
-      'Anything unusual goes to a real person on our team before it ever reaches your customer',
-      'Your number stays your number. Nothing about it changes for your customers',
-    ],
-  },
-  {
-    n: '04',
-    k: 'StayBookt',
-    h: 'We book the job.',
-    p: 'Answering is worth nothing if it does not end up on the calendar. So we take it all the way.',
-    items: [
-      'The job goes straight onto your calendar, in the slot that works',
-      'The customer gets a confirmation, so they know it is real',
-      'Reminders before the visit, so they are actually home when you get there',
-      'Reschedules and cancellations handled without you touching your phone',
-      'Emergency and after-hours calls sorted against the rules you set: what is urgent, what waits until morning, and what is worth waking you up for',
-    ],
-  },
-  {
-    n: '05',
-    k: 'StayBookt',
-    h: 'We chase the money.',
-    p: 'The quote you sent on Thursday and forgot about is the most expensive thing in your business. We do not forget.',
-    items: [
-      'Every quote goes out, in your format, at your prices',
-      'Every quote gets followed up until you have a yes or a no. Not a maybe',
-      'Unpaid invoices chased, politely and persistently, so the money actually lands',
-      'You see what is outstanding, what is won, and what went cold, without digging',
-    ],
-  },
-  {
-    n: '06',
-    k: 'StayBookt',
-    h: 'We grow the customers you already have.',
-    p: 'The cheapest job you will ever win is the second one from someone who already likes you.',
-    items: [
-      'A review asked for after every finished job, at the right moment',
-      'Referrals asked for from the customers who are happy',
-      'Past customers brought back for the work they are due',
-      'Follow-up maintenance booked before they drift to someone else',
-      'The right upsell suggested, only where it honestly makes sense',
-    ],
-  },
-  {
-    n: '07',
-    k: 'StayBookt',
-    h: 'One short brief a day.',
-    p: 'You are not logging into anything. You get thirty seconds of what matters, and then you go run your day.',
-    items: [
-      'What is booked today, and who is expecting you',
-      'Anything that needs a decision from you, and nothing that does not',
-      'What came in overnight and how it was handled',
-      'A monthly report of what actually happened: calls, bookings, quotes, reviews, revenue',
-      'No dashboard you are forced to live in. No software to learn',
-    ],
-  },
-
-  {
-    n: '08',
-    k: 'StayBookt',
-    h: 'Every customer, in one record.',
-    p: 'Not your phone, not your head, not QuickBooks. QuickBooks knows what you invoiced. It does not know that she has called three times.',
-    items: [
-      'Every customer, every job, every conversation, in one place',
-      'What they have spent with you, and what they are worth over time',
-      'Which quotes are open, which are cold, and which are about to close',
-      'Who has not been back in a year, and is about to be somebody else’s customer',
-      'What is owed, what is overdue, and who has quietly stopped paying',
-      'Nothing for you to enter. It fills itself in as we work',
-    ],
-  },
-  {
-    n: '09',
-    k: 'StayBookt',
-    h: 'An assistant you can just ask.',
-    p: 'Not a dashboard you have to learn. A conversation you already know how to have, from the driver seat, with one thumb.',
-    items: [
-      '“How did we do last week?” and it tells you, in a sentence',
-      '“Send Patricia her invoice” and it is sent',
-      '“Who has not paid me?” and it lists them, oldest first',
-      'Plain English. No menus, no fields, no training, no login',
-      'It answers, or it goes and does the thing. Usually both',
-    ],
-  },
-];
 
 const HUMAN = [
   {
@@ -253,18 +127,6 @@ const CSS = `
 .inc-hero p{margin:26px auto 0;font-size:clamp(18px,2.1vw,23px);line-height:1.45;color:#c6cbd3;max-width:46ch;text-shadow:0 2px 26px rgba(0,0,0,.7);}
 
 /* groups */
-.inc-list{padding:clamp(70px,9vw,120px) 0;}
-.grp{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(28px,5vw,72px);padding:clamp(38px,5vw,60px) 0;border-top:1px solid #ececf0;}
-.grp:first-child{border-top:0;padding-top:0;}
-.grp .lead .n{font-size:12.5px;font-weight:700;letter-spacing:.16em;color:#c4c9d0;}
-.grp .lead .k{margin-top:10px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#059669;}
-.grp .lead h2{margin-top:8px;font-size:clamp(26px,3.2vw,40px);line-height:1.06;}
-.grp .lead p{margin-top:14px;font-size:16px;line-height:1.6;color:#6b7280;max-width:34ch;}
-.grp ul{list-style:none;margin:0;padding:0;}
-.grp li{display:grid;grid-template-columns:20px 1fr;gap:13px;align-items:start;padding:13px 0;border-top:1px solid #f2f2f5;font-size:16px;line-height:1.55;color:#33373e;}
-.grp li:first-child{border-top:0;padding-top:0;}
-.grp li svg{margin-top:5px;}
-@media(max-width:860px){.grp{grid-template-columns:1fr;gap:24px;}.grp .lead p{max-width:46ch;}}
 
 /* human */
 .inc-human{background:var(--v4-cream);padding:clamp(80px,11vw,140px) 0;}
@@ -342,28 +204,12 @@ export default function WhatsIncludedPage() {
         </div>
       </header>
 
-      <section className="inc-list">
-        <div className="wrap">
-          {GROUPS.map((g) => (
-            <div className="grp" key={g.h}>
-              <div className="lead">
-                <div className="n">{g.n}</div>
-                <div className="k">{g.k}</div>
-                <h2>{g.h}</h2>
-                <p>{g.p}</p>
-              </div>
-              <ul>
-                {g.items.map((it) => (
-                  <li key={it}>
-                    <Tick />
-                    <span>{it}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* THE MATRIX replaced nine blocks of ticked bullets, about fifty lines, that
+          read as a laundry list. This page is the tech-specs page, not the product
+          film: by the time someone clicks here they are auditing, not discovering.
+          The fix was not fewer facts, it was something to compare them against. The
+          full detail is still here, it just lives inside the rows. */}
+      <Matrix />
 
       {/* THE PLATFORM. It sits with the things we DO, because as of July 14 2026 it
           is one of them. It used to be a fenced roadmap block after "what we do not

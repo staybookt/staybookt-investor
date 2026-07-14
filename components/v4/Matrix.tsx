@@ -1,0 +1,320 @@
+'use client';
+
+import { useState } from 'react';
+
+/* WHAT'S INCLUDED — the comparison matrix.
+ *
+ * This replaced nine blocks of ticked bullets, about fifty lines, that read as a
+ * laundry list (Jacob, July 14 2026).
+ *
+ * WHY THIS PAGE IS NOT A FILM, AND MUST NOT BECOME ONE. The homepage is the film.
+ * How-it-works is the mechanism. By the time somebody clicks What's included they
+ * have already bought the story and switched modes: they are not discovering, they
+ * are AUDITING. They want to know exactly what $199 buys before they call. Making
+ * an auditor scroll through theatre to reach a fact is the most annoying thing a
+ * website can do. This is the tech-specs page, not the product film. A previous
+ * attempt to turn it into a narrative tanked for exactly this reason. Do not retry.
+ *
+ * THE FIX WAS NOT "FEWER FACTS", IT WAS "SOMETHING TO COMPARE THEM AGAINST." A
+ * matrix does three things a bullet list cannot:
+ *
+ *  1. It answers the objection the buyer actually has, which is never "what do you
+ *     do", it is "why don't I just get an answering service, or a web guy."
+ *  2. It turns completeness into a weapon instead of a wall. You see, without
+ *     reading a word, that one column fills up and the others do not.
+ *  3. The "You, today" column is ticked all the way down, in amber, and that is the
+ *     whole argument: it is not that this work is not getting done. It is that YOU
+ *     are the one doing it, at nine at night.
+ *
+ * HONESTY RULE, NON-NEGOTIABLE: nothing in the competitor columns is invented. Every
+ * blank is true BY DEFINITION of what that business is. An answering service answers
+ * the phone; it does not quote, chase or sell, because that is not the product. An
+ * agency builds the site; it never picks up the phone. That is not a slur, it is the
+ * job description, and it is said out loud in the footnote. A strawman would not
+ * survive the one buyer we want, who has already been burned by both.
+ *
+ * The exhaustive detail did not die, it moved: every row opens to the full list of
+ * what we actually do for that job. Richard gets his complete list. The reader does
+ * not get hit with it. */
+
+type Cell = 'you' | 'yes' | 'no';
+type Row = { job: string; you: Cell; svc: Cell; agy: Cell; sb: Cell; detail: string[] };
+
+const ROWS: Row[] = [
+  {
+    job: 'Answer every call and text, 24/7',
+    you: 'you', svc: 'yes', agy: 'no', sb: 'yes',
+    detail: [
+      'Every call answered, 24 hours a day, seven days a week',
+      'Every text answered, in your voice, using your prices and your rules',
+      'Website forms, Google messages and emails all caught in the same place',
+      'The caller gets a real answer, not a voicemail and not a promise to call back',
+      'Anything unusual goes to a real person before it reaches your customer',
+      'Your number stays your number. Nothing changes for your customers',
+    ],
+  },
+  {
+    job: 'Sort the emergency from the one that can wait',
+    you: 'you', svc: 'no', agy: 'no', sb: 'yes',
+    detail: [
+      'Emergency and after-hours calls sorted against the rules you set',
+      'What is urgent, what waits until morning, and what is worth waking you for',
+      'You decide the rules once. We hold the line at 2am',
+    ],
+  },
+  {
+    job: 'Book the job onto your calendar',
+    you: 'you', svc: 'no', agy: 'no', sb: 'yes',
+    detail: [
+      'The job goes straight onto your calendar, in the slot that works',
+      'The customer gets a confirmation, so they know it is real',
+      'Reminders before the visit, so they are actually home when you get there',
+      'Reschedules and cancellations handled without you touching your phone',
+    ],
+  },
+  {
+    job: 'Send the quote',
+    you: 'you', svc: 'no', agy: 'no', sb: 'yes',
+    detail: [
+      'Every quote goes out, in your format, at your prices',
+      'Priced from your playbook, not invented',
+      'Anything unusual or high-stakes comes to you before it goes out',
+    ],
+  },
+  {
+    job: 'Chase the quote until you get a yes or a no',
+    you: 'you', svc: 'no', agy: 'no', sb: 'yes',
+    detail: [
+      'Every quote followed up until you have a yes or a no. Not a maybe',
+      'The quote you sent on Thursday and forgot about is the most expensive thing in your business',
+      'You see what is outstanding, what is won and what went cold, without digging',
+    ],
+  },
+  {
+    job: 'Chase the invoice nobody chased',
+    you: 'you', svc: 'no', agy: 'no', sb: 'yes',
+    detail: [
+      'Unpaid invoices chased, politely and persistently, so the money actually lands',
+      'You see what is owed and what is overdue without going looking for it',
+      'We are not your bookkeeper. We chase what is owed and show you what came in',
+    ],
+  },
+  {
+    job: 'Ask for the review, every single time',
+    you: 'you', svc: 'no', agy: 'no', sb: 'yes',
+    detail: [
+      'A review asked for after every finished job, at the right moment',
+      'While the work is still fresh, which is the only time it works',
+      'Referrals asked for from the customers who are happy',
+      'Real reviews only. We never write one for you',
+    ],
+  },
+  {
+    job: 'Bring past customers back before they drift',
+    you: 'you', svc: 'no', agy: 'no', sb: 'yes',
+    detail: [
+      'Past customers brought back for the work they are due',
+      'Follow-up maintenance booked before they drift to someone else',
+      'The right upsell suggested, only where it honestly makes sense',
+      'The cheapest job you will ever win is the second one from someone who already likes you',
+    ],
+  },
+  {
+    job: 'Build and host the website',
+    you: 'you', svc: 'no', agy: 'yes', sb: 'yes',
+    detail: [
+      'A custom website, built from scratch for your business. Yours to keep',
+      'Fast, and built mobile first, because that is where your customers are',
+      'A tap-to-call button on every screen, so calling you takes one thumb',
+      'Online booking wired straight into your calendar',
+      'Hosting, security and updates handled. You never touch it',
+      'Written in your voice, not marketing filler',
+    ],
+  },
+  {
+    job: 'Run the Google listing and get you found',
+    you: 'you', svc: 'no', agy: 'yes', sb: 'yes',
+    detail: [
+      'Your Google Business Profile rebuilt, filled out properly and kept current',
+      'Photos, services, hours and service area, all correct and consistent',
+      'Your name, address and phone made identical everywhere, which is what Google trusts',
+      'Local search work so you climb the map for the searches that matter near you',
+      'Set up so you show up when someone asks an AI assistant for what you do',
+    ],
+  },
+  {
+    job: 'Keep every customer, job and dollar in one record',
+    you: 'you', svc: 'no', agy: 'no', sb: 'yes',
+    detail: [
+      'Every customer, every job, every conversation, in one place',
+      'What they have spent with you, and what they are worth over time',
+      'Which quotes are open, which are cold, and which are about to close',
+      'Who has not been back in a year and is about to be somebody else’s customer',
+      'Nothing for you to enter. It fills itself in as we work',
+      'QuickBooks knows what you invoiced. It does not know she has called three times',
+    ],
+  },
+  {
+    job: 'Hand you one short brief each morning',
+    you: 'you', svc: 'no', agy: 'no', sb: 'yes',
+    detail: [
+      'What is booked today, and who is expecting you',
+      'Anything that needs a decision from you, and nothing that does not',
+      'What came in overnight and how it was handled',
+      'A monthly report of what actually happened: calls, bookings, quotes, reviews, revenue',
+      'Thirty seconds. No dashboard you are forced to live in',
+    ],
+  },
+];
+
+const COLS: { k: keyof Pick<Row, 'you' | 'svc' | 'agy' | 'sb'>; label: string; sub: string }[] = [
+  { k: 'you', label: 'You, today', sub: 'at nine at night' },
+  { k: 'svc', label: 'Answering service', sub: '~$400/mo' },
+  { k: 'agy', label: 'Web agency', sub: '$1,000+/mo' },
+  { k: 'sb', label: 'StayBookt', sub: '$199/mo' },
+];
+
+function Mark({ v }: { v: Cell }) {
+  if (v === 'yes')
+    return (
+      <svg className="mk yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} aria-label="yes">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4 12l5 5L20 6" />
+      </svg>
+    );
+  if (v === 'you') return <span className="mk youtag">You</span>;
+  return <span className="mk no" aria-label="no" />;
+}
+
+export default function Matrix() {
+  const [open, setOpen] = useState<number | null>(null);
+
+  return (
+    <section className="mx">
+      <style>{CSS}</style>
+      <div className="wrap">
+        <div className="mx-head">
+          <div className="eyebrow">What&apos;s included</div>
+          <h2>
+            It is not that the work is not getting done. <span className="g">It is that you are the one doing it.</span>
+          </h2>
+          <p>
+            Every job below has to happen for the business to run. Here is who is doing each one today,
+            what the usual alternatives actually cover, and what we cover. Open any row for exactly what
+            we do.
+          </p>
+        </div>
+
+        <div className="mx-scroll">
+          <div className="mx-grid" role="table">
+            <div className="mx-r mx-hd" role="row">
+              <div className="mx-j" role="columnheader" />
+              {COLS.map((c) => (
+                <div className={`mx-c${c.k === 'sb' ? ' us' : ''}`} key={c.k} role="columnheader">
+                  <b>{c.label}</b>
+                  <i>{c.sub}</i>
+                </div>
+              ))}
+            </div>
+
+            {ROWS.map((r, i) => (
+              <div key={r.job} className={`mx-row${open === i ? ' open' : ''}`}>
+                <button
+                  type="button"
+                  className="mx-r"
+                  onClick={() => setOpen(open === i ? null : i)}
+                  aria-expanded={open === i}
+                >
+                  <span className="mx-j">
+                    <span className="jt">{r.job}</span>
+                    <span className="pl" aria-hidden>+</span>
+                  </span>
+                  {COLS.map((c) => (
+                    <span className={`mx-c${c.k === 'sb' ? ' us' : ''}`} key={c.k}>
+                      <Mark v={r[c.k]} />
+                    </span>
+                  ))}
+                </button>
+
+                <div className="mx-body">
+                  <ul>
+                    {r.detail.map((d) => (
+                      <li key={d}>{d}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <p className="mx-foot">
+          Not a slur on anybody. An answering service answers the phone: it does not quote, chase or
+          sell, because that is not what it is. An agency builds you a website and never picks up the
+          phone. Both do their job. Neither does the rest of yours.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+const CSS = `
+.mx{background:#050506;color:#f5f5f7;padding:clamp(80px,10vw,130px) 0;}
+.mx .wrap{width:100%;max-width:1080px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
+.mx .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#86868b;}
+.mx-head{max-width:64ch;}
+.mx-head h2{margin-top:14px;font-size:clamp(28px,4vw,50px);font-weight:600;letter-spacing:-.035em;line-height:1.05;color:#f5f5f7;max-width:20ch;}
+.mx-head h2 .g{background:linear-gradient(100deg,#06b6d4,#10b981 52%,#818cf8);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.mx-head p{margin-top:20px;font-size:clamp(16px,1.75vw,18px);line-height:1.62;color:#8b93a5;max-width:58ch;}
+
+.mx-scroll{margin-top:clamp(40px,5vw,58px);overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.mx-grid{min-width:720px;}
+
+.mx-r{display:grid;grid-template-columns:minmax(0,1.55fr) repeat(4,minmax(88px,.62fr));align-items:center;width:100%;
+  background:transparent;border:0;padding:0;font-family:inherit;color:inherit;text-align:left;}
+
+/* header row */
+.mx-hd{padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.14);}
+.mx-hd .mx-c{display:flex;flex-direction:column;align-items:center;gap:3px;padding:0 6px;}
+.mx-hd .mx-c b{font-size:12.5px;font-weight:700;letter-spacing:.04em;color:#c7ccd6;text-align:center;line-height:1.25;}
+.mx-hd .mx-c i{font-style:normal;font-size:11px;color:#5c6470;}
+.mx-hd .mx-c.us b{color:#5eead4;}
+.mx-hd .mx-c.us i{color:#34d399;font-weight:600;}
+
+/* body rows */
+.mx-row{border-bottom:1px solid rgba(255,255,255,.07);}
+.mx-row>button{cursor:pointer;padding:16px 0;transition:background .25s ease;}
+.mx-row>button:hover{background:rgba(255,255,255,.03);}
+.mx-j{display:flex;align-items:center;gap:10px;padding-right:16px;}
+.mx-j .jt{font-size:15.5px;line-height:1.4;color:#dfe3e9;}
+.mx-j .pl{width:20px;height:20px;flex:0 0 auto;border-radius:50%;border:1px solid rgba(255,255,255,.18);color:#6f7787;
+  display:flex;align-items:center;justify-content:center;font-size:13px;line-height:1;
+  transition:transform .4s cubic-bezier(.16,1,.3,1),background .3s ease,color .3s ease,border-color .3s ease;}
+.mx-row.open .pl{transform:rotate(45deg);background:#10b981;border-color:transparent;color:#fff;}
+.mx-row>button:hover .pl{border-color:rgba(255,255,255,.4);color:#c7ccd6;}
+.mx-c{display:flex;align-items:center;justify-content:center;}
+/* the one column that fills up */
+.mx-row .mx-c.us{background:linear-gradient(180deg,rgba(16,185,129,.08),rgba(16,185,129,.05));}
+.mx-hd .mx-c.us{background:linear-gradient(180deg,rgba(16,185,129,.12),rgba(16,185,129,.04));border-radius:12px 12px 0 0;padding-top:10px;padding-bottom:10px;}
+
+.mk{display:block;}
+.mk.yes{width:17px;height:17px;color:#34d399;}
+.mx-c.us .mk.yes{color:#5eead4;}
+.mk.no{width:16px;height:2px;border-radius:2px;background:rgba(255,255,255,.14);}
+.mk.youtag{font-size:11px;font-weight:700;letter-spacing:.06em;color:#f5c877;background:rgba(245,158,11,.13);
+  border:1px solid rgba(245,158,11,.32);border-radius:999px;padding:4px 10px;white-space:nowrap;}
+
+/* the detail, one tap away */
+.mx-body{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.16,1,.3,1);}
+.mx-row.open .mx-body{max-height:420px;}
+.mx-body ul{list-style:none;margin:0;padding:2px 0 22px;}
+.mx-body li{position:relative;padding:7px 0 7px 18px;font-size:14.5px;line-height:1.55;color:#8b93a5;max-width:70ch;}
+.mx-body li::before{content:'';position:absolute;left:0;top:15px;width:5px;height:5px;border-radius:50%;background:#10b981;}
+
+.mx-foot{margin-top:clamp(26px,3vw,34px);font-size:13.5px;line-height:1.6;color:#5c6470;max-width:70ch;}
+
+@media(max-width:760px){
+  .mx-grid{min-width:640px;}
+  .mx-j .jt{font-size:14.5px;}
+}
+@media(prefers-reduced-motion:reduce){.mx-body,.mx-j .pl{transition:none;}}
+`;
