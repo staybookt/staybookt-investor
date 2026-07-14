@@ -40,10 +40,15 @@ const PROMISES: Vow[] = [
     cost: 'It costs us hours of unpaid work on people who will never pay us, and it costs us the deals a sharper pitch would have closed. We will say “you are fine, do not hire us” on a call we have already spent a morning preparing for. That is the deal.',
   },
   {
+    /* This used to be "we only get properly paid if you actually get free", built on
+     * the 20% value share. The value share is dead (Richard, July 14 2026), so the
+     * promise it rested on had to go with it. This is what replaced it, and it has
+     * the same shape: a promise with a real price attached, and one we have already
+     * shipped rather than one we intend to keep. */
     n: '04',
-    h: 'We only get properly paid if you actually get free.',
-    p: 'The monthly fee keeps the lights on. The real money comes from the value we build in your business, and only when you cash it in. We agree what it is worth on day one, and we take a share of the increase, and nothing else.',
-    cost: 'It costs us certainty. If the business does not become more valuable, we are not paid for the part that matters, no matter how hard we worked or how good our excuses are. We carry that risk instead of handing it to you.',
+    h: 'We do not lock you in.',
+    p: 'No term. No contract to be trapped in. No exit fee. Cancel any time on thirty days notice. And for the first ninety days you can change your mind for any reason at all, and we refund every month you paid. You never have to prove we failed.',
+    cost: 'It costs us the safety net every subscription company is built on. We build your website and run your front office before you have paid us a dollar, and then we have to earn the next month, and the one after that, forever. The day we stop being worth two hundred dollars you are gone inside thirty days, and you leave with the website, the domain, the customer list and the reviews. We wrote that deal on purpose.',
   },
   {
     n: '05',

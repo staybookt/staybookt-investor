@@ -27,8 +27,8 @@ const FAQ: [string, string][] = [
     'Both, together, in one plan. We build your website and then run the whole front office around it: answering calls, booking jobs, chasing quotes, and keeping your reputation growing. A site nobody maintains goes stale within a year. Running it is the point.',
   ],
   [
-    'What is Enjoy Life, and what does it cost?',
-    'Enjoy Life is an invite-only partnership offered after your first year. It costs no extra monthly fee. We agree what the business is worth up front, then we build the recurring service work, get the operation running without you, clean the books, and run the eventual sale or family handoff with no broker fee. When you cash out, we take 20% of the increase in value above that starting number. If the number does not move, we are not paid.',
+    'Is $199 a month really all of it?',
+    'Yes. There is no build fee, no setup fee, no per-minute billing and no overage. We do not take a commission on your jobs, a share of your revenue, or a share of what your business is worth. $199 a month plus applicable taxes is the entire commercial relationship.',
   ],
   [
     'What is included in the plan?',

@@ -1,6 +1,6 @@
 import Nav from '@/components/v4/Nav';
 import SiteFooter from '@/components/SiteFooter';
-import { FiveSalaries, ValueShare } from '@/components/PricingScenes';
+import { FiveSalaries } from '@/components/PricingScenes';
 import { START_LINK } from '@/lib/site';
 
 const SHARE =
@@ -47,12 +47,6 @@ const GETS = [
   'One short brief each morning. No software to learn.',
 ];
 
-const THRESHOLDS = [
-  'The business can run a week without you.',
-  'The revenue repeats, instead of starting from zero.',
-  'You actually want it. Plenty of owners never do.',
-];
-
 const CSS = `
 .prc{background:#fff;color:var(--v4-ink);}
 .prc .wrap{width:100%;max-width:1080px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
@@ -95,23 +89,6 @@ const CSS = `
 .prc-led h2{margin-top:14px;font-size:clamp(30px,3.9vw,52px);line-height:1.02;max-width:13ch;}
 .prc-led p{margin-top:20px;font-size:clamp(16px,1.75vw,19px);line-height:1.6;color:#52565e;max-width:44ch;}
 
-/* ===== 3. YEAR TWO. The upside deal. ===== */
-.prc-vs{background:#050506;padding:clamp(90px,12vw,150px) 0;}
-.prc-vs .eyebrow{color:#86868b;}
-.prc-vs h2{margin-top:14px;font-size:clamp(30px,4.4vw,56px);line-height:1.03;color:#fff;max-width:16ch;}
-.prc-vs .p{margin-top:20px;font-size:clamp(16px,1.85vw,20px);line-height:1.6;color:#9ba2ae;max-width:58ch;}
-.prc-vs .thr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:clamp(30px,4vw,40px);}
-@media(max-width:760px){.prc-vs .thr{grid-template-columns:1fr;}}
-.prc-vs .thr div{border-left:2px solid rgba(245,158,11,.5);padding:2px 0 2px 14px;font-size:14.5px;line-height:1.5;color:#c7ccd6;}
-.prc-vs .stage{margin-top:clamp(38px,4.5vw,52px);}
-.prc-vs .cmp{margin-top:clamp(28px,3.4vw,38px);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;}
-@media(max-width:760px){.prc-vs .cmp{grid-template-columns:1fr;}}
-.prc-vs .cmp>div{border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:18px 20px;}
-.prc-vs .cmp .who{font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#86868b;}
-.prc-vs .cmp .amt{margin-top:7px;font-size:clamp(19px,2.2vw,24px);font-weight:700;letter-spacing:-.025em;color:#fff;}
-.prc-vs .cmp .of{margin-top:6px;font-size:13.5px;line-height:1.5;color:#9aa0ab;}
-.prc-vs .cmp .us{border-color:rgba(16,185,129,.45);background:rgba(16,185,129,.06);}
-.prc-vs .cmp .us .amt{color:#5eead4;}
 
 /* ===== 4. CLOSER ===== */
 .prc-close{background:#fff;text-align:center;padding:clamp(100px,14vw,180px) 0;}
@@ -198,49 +175,13 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* 3 — YEAR TWO: the upside deal, and the calculator */}
-      <section className="prc-vs">
-        <div className="wrap">
-          <div className="eyebrow">Year two &middot; Enjoy Life</div>
-          <h2>We only get paid if you actually get free.</h2>
-          <p className="p">
-            After your first year, if the business is worth selling, we help you sell it, hand it on,
-            or step back from it. It costs nothing extra. We agree what it is worth today, in
-            writing, then take twenty percent of the increase we create above that. Nothing else.
-            Nothing if the number does not move. It is by invitation because these three things have
-            to be true first:
-          </p>
-
-          <div className="thr">
-            {THRESHOLDS.map((t) => (
-              <div key={t}>{t}</div>
-            ))}
-          </div>
-
-          <div className="stage">
-            <ValueShare />
-          </div>
-
-          <div className="cmp">
-            <div>
-              <div className="who">A broker</div>
-              <div className="amt">8&ndash;12%</div>
-              <div className="of">Of your whole sale price, for showing up at the end.</div>
-            </div>
-            <div>
-              <div className="who">A franchise</div>
-              <div className="amt">6%</div>
-              <div className="of">Of every dollar you earn, forever. And your name with it.</div>
-            </div>
-            <div className="us">
-              <div className="who">StayBookt</div>
-              <div className="amt">20% of the increase</div>
-              <div className="of">Nothing if the number does not move. Your name stays yours.</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      {/* THE YEAR TWO / ENJOY LIFE SECTION IS GONE (Richard, July 14 2026).
+          It carried the 20% value share, the drag-to-compare calculator and the
+          broker-vs-franchise comparison. All of it is deleted, not hidden: we are
+          not asking for a share of the customer's business. It was confusing and it
+          was a barrier at the point of sale, and we do not need it to get going.
+          The price is $199. That is the entire commercial relationship.
+          Do not reintroduce a second number on this page. */}
       {/* 4 — CLOSER */}
       <section className="prc-close">
         <div className="wrap">

@@ -208,19 +208,19 @@ const SECTIONS: Section[] = [
   },
   {
     id: 'enjoy',
-    h: 'Enjoy Life',
+    h: 'We take no share of your business',
     body: (
       <>
         <p>
-          Enjoy Life is an invitation we may extend after your first year. It costs no extra monthly
-          fee. If you accept, we agree in writing what your business is worth at that point, and we
-          take a share of the increase in value above that baseline, payable only when you sell, hand
-          the business on, or otherwise settle up.
+          <b>The monthly fee is the entire commercial relationship.</b> We do not take a commission
+          on your jobs, a percentage of your revenue, a success fee, or any share of what your
+          business is worth, now or when you sell it. There is no equity, no earn-out and no claim
+          on the value of your company, and nothing on this website or in your plan creates one.
         </p>
         <p>
-          Enjoy Life is <b>governed by its own separate written agreement</b>. Nothing on this page
-          or on this website creates that arrangement, and there is never any obligation to accept
-          it, or to sell your business.
+          If we ever want to work with you on a different basis, that would be a separate
+          conversation and a separate written agreement that you would be entirely free to decline.
+          Until you sign such a thing, it does not exist.
         </p>
       </>
     ),

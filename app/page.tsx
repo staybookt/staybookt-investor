@@ -251,10 +251,11 @@ const PAGE_CSS = `
    answers all three before the story starts. The price lives here and not a
    click away, because anything that hides its price is assumed to be expensive.
 
-   The price column states the WHOLE deal, including the 20% value share. That
-   used to live one click away on /pricing, and a buyer who has been burned before
-   finds it by hunting, and a number you have to hunt for is a number he decides
-   you hid. Do not move it back. */
+   The price column states the WHOLE deal, and as of July 14 2026 the whole deal is
+   $199. The 20% value share is dead (Richard): confusing, and a barrier at the
+   point of sale. The last line exists to say so out loud, because a buyer who has
+   been burned before is scanning for the catch and needs to be told there isn't
+   one. Do not add a second number to this box. */
 .v4 .answer{background:#050506;padding:clamp(80px,10vw,130px) 0 clamp(70px,9vw,110px);position:relative;}
 .v4 .answer::before{content:'';position:absolute;inset:0;background:radial-gradient(52% 44% at 50% 0%,rgba(16,185,129,.1),transparent 66%);pointer-events:none;}
 .v4 .answer .wrap{position:relative;z-index:1;}
@@ -375,10 +376,7 @@ export default function HomePage() {
                 <li><b>No lock-in.</b> Cancel any time on thirty days notice.</li>
                 <li><b>90 days to change your mind</b>, for any reason, and we refund every month you paid.</li>
                 <li>Unlimited calls and texts. No per-minute billing, no overage.</li>
-                <li>
-                  Later, if we make the business worth more, we take <b>20% of the increase</b>, and
-                  only when you cash it in. Never a cut of your revenue.
-                </li>
+                <li>That is the whole price. No share of your revenue, no share of your business.</li>
               </ul>
               <a className="alink" href="/pricing">See the pricing &rarr;</a>
             </Reveal>

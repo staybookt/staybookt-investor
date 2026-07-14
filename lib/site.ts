@@ -33,8 +33,12 @@ export const PHONE_E164 = '+1-905-717-8264';
 // Volume is UNLIMITED: no per-minute billing, no overage. Say it, because every
 // answering service on earth bills per minute and the silence reads as a trap.
 //
-// Enjoy Life stays invite-only after year one, and it is a 20% VALUE share on the
-// increase above an agreed baseline. It is not 5% of revenue. That number is dead.
+// THE 20% VALUE SHARE IS DEAD (Richard, July 14 2026). We are not asking for a
+// share of the business's value. It was confusing, it was a barrier at the point
+// of sale, and we do not need it to get the company going. We can grow into that
+// conversation later, with clients who already trust us, or never.
+// Enjoy Life survives as the OUTCOME and the third rung of the ladder. It is what
+// the owner gets. It is not a fee, and there is no valuation attached to it.
 export const PRICING = {
   monthly: '$199',
   upfront: 'Nothing upfront',
@@ -42,9 +46,6 @@ export const PRICING = {
   tax: 'plus applicable taxes',
   volume: 'Unlimited calls and texts. No per-minute billing, no overage',
   guarantee: '90-day money-back, for any reason',
-  // Enjoy Life is a VALUE share, not a revenue share. We take 20% of the increase
-  // in enterprise value above an agreed baseline, paid only on a sale/handoff/settle.
-  valueShare: '20% of the increase in value above baseline',
 } as const;
 
 // The two ways to work with us. Single source of truth: every page reads this,
@@ -85,21 +86,21 @@ export const TIERS: Tier[] = [
   },
   {
     name: 'Enjoy Life',
-    scope: 'A partnership, by invitation',
-    tagline: 'We turn the business into an asset you can keep, pass on, or sell.',
-    upfront: 'By invitation',
-    upfrontNote: 'after your first year',
-    recurring: 'No extra monthly',
-    commission: '20% of the increase in value',
+    scope: 'The point of the whole thing',
+    tagline: 'A business that runs without you, and a life you actually get to have.',
+    upfront: 'No extra cost',
+    upfrontNote: 'it is what the plan is for',
+    recurring: 'Included',
+    commission: null,
     terms:
-      'Invite-only. We agree a baseline valuation up front and take 20% of the increase above it, paid only when you sell, hand it on, or settle up. No sale, no fee. No broker fee either.',
+      'Not a product and not a fee. It is what you end up with: a business that keeps booking and earning when you are not standing in the middle of it, and the choice of what to do next.',
     points: [
-      'Everything in the plan. No extra monthly fee, ever',
-      'We build the recurring service work buyers pay a premium for',
-      'We get the business running without you, which is what moves the number',
-      'We clean the books and add the crew to grow into',
-      'We run the sale or the family handoff, with no broker fee',
-      'We take 20% of the increase in value. No sale, no fee',
+      'The recurring work that makes the business steady, not seasonal',
+      'An operation that runs a week without you in it',
+      'Clean books and a record of every customer, job and dollar',
+      'Go back to the part of the work you actually like',
+      'Or hand it on, or sell it, entirely your call',
+      'No fee, no share, no obligation. It is just yours',
     ],
   },
 ];

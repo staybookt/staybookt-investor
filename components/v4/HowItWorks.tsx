@@ -49,13 +49,17 @@ const STOPS: Stop[] = [
   {
     id: 'free', n: '3', label: 'Enjoy life', promise: 'You choose.', voice: 'I could actually sell this. Or not. My call.',
     accent: '#f59e0b', accentD: '#b45309', side: 'left', surface: 'enjoy',
-    beat: 'After 12 months, we run a real valuation, in dollars and in freedom. Then you decide what to do with it. Most owners do not want out. They want the good half of the job back.',
+    /* This milestone used to end in a valuation, because a valuation was how we
+     * justified taking 20% of the increase in value. That fee is dead (Richard,
+     * July 14 2026), so the valuation framing goes with it. Enjoy Life is now
+     * purely the outcome: a business that runs without you, and no cut taken. */
+    beat: 'After a year of this, the business runs without you standing in the middle of it. What you do with that is entirely your call. Most owners do not want out. They want the good half of the job back.',
     result: 'Do the part you love, hand it to family, or sell it.',
     steps: [
-      { t: 'We build toward a number.', b: 'Everything in the first year is engineered so the business is worth more, and provable, by the time we value it.' },
-      { t: 'We value what matters.', b: 'The financials, and the freedom: how much the business depends on you, and how well it runs without you.' },
+      { t: 'We build something that runs without you.', b: 'Everything in the first year points at one thing: the phone gets answered, the jobs get booked and the money lands whether you are standing there or not.' },
+      { t: 'The work gets steady, not seasonal.', b: 'Recurring service work, and past customers coming back on their own, so the year stops starting from zero every January.' },
       { t: 'You take the driver seat.', b: 'Keep it and go back to the work you love, hand it to a family member, or sell it. You never have to use the last door. You just get to have it.' },
-      { t: 'It was always the point.', b: 'You built this business to enjoy your life. This is where that finally happens, whether you stay or go.' },
+      { t: 'And we take no cut of it.', b: 'No commission on your jobs, no share of your revenue, no share of what the business is worth when you sell. The monthly fee is the whole deal. What you built stays yours.' },
     ],
   },
 ];

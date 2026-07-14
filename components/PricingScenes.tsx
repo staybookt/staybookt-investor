@@ -2,17 +2,15 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-/* Two set pieces for /pricing.
+/* One set piece for /pricing.
  *
- * 1. FiveSalaries — the ledger. The five jobs the front office actually is, named
- *    out loud, against $199. This is the About page's sentence ("It was five
- *    salaries") shown as a thing rather than argued as a claim.
- * 2. ValueShare  — drag the slider, see who keeps what. Makes the 20% concrete,
- *    and makes it obvious the owner keeps the overwhelming majority.
+ * FiveSalaries — the ledger. The five jobs the front office actually is, named out
+ * loud, against $199. This is the About page's sentence ("It was five salaries")
+ * shown as a thing rather than argued as a claim.
  *
  * IntersectionObserver play-once. No scroll-scrubbing (removed for desktop lag). */
 
-type Seat = { r: string; d: string; low: number; high: number };
+type Seat = { r: string; d: string };
 
 /* THE FIVE JOBS. We used to price these roles out at ~$240,000 a year and set that
  * against $2,388. That is the exact slide every marketing agency uses, and it
@@ -23,14 +21,12 @@ type Seat = { r: string; d: string; low: number; high: number };
  * So the dollars are gone. The ARGUMENT survives without them, and it is stronger
  * naked: it was never software, it was five jobs, and they still have to get done.
  * DO NOT put a salary total back on this page. */
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString();
-
 const SEATS: Seat[] = [
-  { r: 'Receptionist', d: 'Answers the phone, every time', low: 42000, high: 52000 },
-  { r: 'Dispatcher', d: 'Books it, confirms it, reminds them', low: 48000, high: 60000 },
-  { r: 'Estimator', d: 'Sends the quote, chases the yes', low: 55000, high: 70000 },
-  { r: 'Marketer', d: 'Gets you found, builds the reviews', low: 55000, high: 75000 },
-  { r: 'Bookkeeper', d: 'Chases the invoice, reads it back', low: 40000, high: 55000 },
+  { r: 'Receptionist', d: 'Answers the phone, every time' },
+  { r: 'Dispatcher', d: 'Books it, confirms it, reminds them' },
+  { r: 'Estimator', d: 'Sends the quote, chases the yes' },
+  { r: 'Marketer', d: 'Gets you found, builds the reviews' },
+  { r: 'Bookkeeper', d: 'Chases the invoice, reads it back' },
 ];
 
 export function FiveSalaries() {
@@ -157,116 +153,7 @@ const FS_CSS = `
 @media(prefers-reduced-motion:reduce){.fsal *{transition:none !important;}.fs-row{opacity:1;transform:none;}.fs-sb{opacity:1;transform:none;}}
 `;
 
-/* ============================================================
- * 2. THE VALUE SHARE — drag it, see who keeps what.
- * ========================================================== */
-export function ValueShare() {
-  const [today, setToday] = useState(600000);
-  /* Illustrative only. A business that runs without the owner, with recurring
-   * revenue and clean books, is worth more than one that does not. We show a
-   * conservative 1.6x on the baseline as the built value. */
-  const built = Math.round(today * 1.6);
-  const increase = built - today;
-  const ours = Math.round(increase * 0.2);
-  const yours = built - ours;
-  const pctOurs = (ours / built) * 100;
-
-  return (
-    <div className="vsh">
-      <style>{VS_CSS}</style>
-
-      <div className="vsh-ctl">
-        <label htmlFor="vsh">What is the business worth today?</label>
-        <output>{fmt(today)}</output>
-        <input
-          id="vsh"
-          type="range"
-          min={250000}
-          max={2000000}
-          step={25000}
-          value={today}
-          onChange={(e) => setToday(Number(e.target.value))}
-        />
-        <div className="vsh-ends">
-          <span>$250K</span>
-          <span>$2M</span>
-        </div>
-      </div>
-
-      <div className="vsh-bars">
-        <div className="vsh-bar">
-          <div className="vsh-lab">
-            <span>Today</span>
-            <b>{fmt(today)}</b>
-          </div>
-          <div className="vsh-track">
-            <i className="base" style={{ width: `${(today / built) * 100}%` }} />
-          </div>
-        </div>
-
-        <div className="vsh-bar">
-          <div className="vsh-lab">
-            <span>After we build it</span>
-            <b>{fmt(built)}</b>
-          </div>
-          <div className="vsh-track">
-            <i className="base" style={{ width: `${(today / built) * 100}%` }} />
-            <i className="grow" style={{ left: `${(today / built) * 100}%`, width: `${(increase / built) * 100}%` }} />
-            <i className="ours" style={{ left: `${100 - pctOurs}%`, width: `${pctOurs}%` }} />
-          </div>
-        </div>
-      </div>
-
-      <div className="vsh-out">
-        <div className="vsh-you">
-          <span>You keep</span>
-          <b>{fmt(yours)}</b>
-          <i>Everything it was already worth, plus 80% of everything we added.</i>
-        </div>
-        <div className="vsh-us">
-          <span>We take</span>
-          <b>{fmt(ours)}</b>
-          <i>20% of the increase. Only when you cash it in.</i>
-        </div>
-      </div>
-
-      <p className="vsh-fine">
-        Illustrative. The uplift shown is a conservative 1.6x on the baseline, which is what tends to
-        happen when a business gains recurring revenue, clean books, and the ability to run without
-        its owner. Your real baseline gets agreed independently and in writing on day one. If the
-        number does not move, we do not get paid.
-      </p>
-    </div>
-  );
-}
-
-const VS_CSS = `
-.vsh{background:#fff;border:1px solid #e9e9e5;border-radius:26px;padding:clamp(22px,3vw,36px);box-shadow:0 50px 100px -60px rgba(6,12,20,.5);text-align:left;}
-.vsh-ctl label{display:block;font-size:13px;font-weight:600;color:#6b7280;}
-.vsh-ctl output{display:block;margin-top:6px;font-size:clamp(28px,3.6vw,40px);font-weight:700;letter-spacing:-.03em;color:var(--v4-ink,#06080d);font-variant-numeric:tabular-nums;}
-.vsh-ctl input[type=range]{width:100%;margin:18px 0 6px;accent-color:#10b981;height:6px;}
-.vsh-ends{display:flex;justify-content:space-between;font-size:12px;color:#a9aeb8;}
-
-.vsh-bars{margin-top:clamp(22px,3vw,30px);display:flex;flex-direction:column;gap:18px;}
-.vsh-lab{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:8px;}
-.vsh-lab span{font-size:13px;font-weight:600;color:#6b7280;}
-.vsh-lab b{font-size:16px;font-weight:700;color:var(--v4-ink,#06080d);font-variant-numeric:tabular-nums;}
-.vsh-track{position:relative;height:22px;border-radius:999px;background:#f1f1f4;overflow:hidden;}
-.vsh-track i{position:absolute;top:0;bottom:0;transition:width .35s cubic-bezier(.16,1,.3,1),left .35s cubic-bezier(.16,1,.3,1);}
-.vsh-track .base{left:0;background:#cbd2da;}
-.vsh-track .grow{background:linear-gradient(90deg,#10b981,#34d399);}
-.vsh-track .ours{background:repeating-linear-gradient(135deg,#4f46e5 0 6px,#6366f1 6px 12px);}
-
-.vsh-out{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:clamp(24px,3vw,32px);}
-@media(max-width:600px){.vsh-out{grid-template-columns:1fr;}}
-.vsh-out>div{border-radius:18px;padding:18px 20px;}
-.vsh-you{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.28);}
-.vsh-us{background:rgba(79,70,229,.06);border:1px solid rgba(79,70,229,.24);}
-.vsh-out span{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#6b7280;}
-.vsh-out b{display:block;margin-top:7px;font-size:clamp(24px,3vw,34px);font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums;}
-.vsh-you b{color:#047857;}
-.vsh-us b{color:#4338ca;}
-.vsh-out i{display:block;margin-top:8px;font-style:normal;font-size:13.5px;line-height:1.5;color:#6b7280;}
-.vsh-fine{margin:20px 0 0;font-size:13px;line-height:1.55;color:#9298a1;max-width:70ch;}
-@media(prefers-reduced-motion:reduce){.vsh-track i{transition:none;}}
-`;
+/* The ValueShare calculator lived here: drag a slider, see the owner keep 80% of
+ * the uplift and us take 20%. Deleted July 14 2026 with the value share itself
+ * (Richard). We do not take a share of the customer's business. If that decision
+ * is ever revisited, it is a pricing decision first and a component second. */
