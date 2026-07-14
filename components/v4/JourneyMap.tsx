@@ -238,7 +238,12 @@ export default function JourneyMap() {
         setLife(b < 2 ? 0 : b > 2 ? 3 : Math.min(3, Math.floor(lp * 4)));
         /* pj 0..4 = the jobs arriving · 5 = they collapse · 6 = the number has landed.
            Scroll position, not a timer, so the reader sets the pace. */
-        setPj(b < 3 ? 0 : Math.min(6, Math.floor(lp * 7.4)));
+        /* The multiplier is FRONT-LOADED on purpose. At 7.4 the number only landed
+           at 81% of the beat, which left roughly 190px of scroll with $199 on screen
+           before the track ran out: the entire payoff went past in less than a screen.
+           At 11 the five jobs are all in by ~36% and the number is up by ~55%, so it
+           holds for nearly half the beat. The reveal IS the point. Let it sit there. */
+        setPj(b < 3 ? 0 : Math.min(6, Math.floor(lp * 11)));
         setLo(POS.map((pp) => clamp(1 - Math.abs(lifeP - pp) * 3)) as [number, number, number, number]);
         setLz(lifeP);
         const seg = (i: number) => clamp((p - B[i]) / (B[i + 1] - B[i])) * 100;
