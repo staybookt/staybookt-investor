@@ -35,7 +35,11 @@ import { useState } from 'react';
  *
  * The exhaustive detail did not die, it moved: every row opens to the full list of
  * what we actually do for that job. Richard gets his complete list. The reader does
- * not get hit with it. */
+ * not get hit with it.
+ *
+ * LIGHT, not dark (Jacob, July 14 2026). A specs table is a document you read and
+ * study, and documents are dark-on-light. It also fixes the page rhythm: dark hero,
+ * light matrix, dark platform, cream, white, dark, white. */
 
 type Cell = 'you' | 'yes' | 'no';
 type Row = { job: string; you: Cell; svc: Cell; agy: Cell; sb: Cell; detail: string[] };
@@ -258,13 +262,13 @@ export default function Matrix() {
 }
 
 const CSS = `
-.mx{background:#050506;color:#f5f5f7;padding:clamp(80px,10vw,130px) 0;}
+.mx{background:#fff;color:var(--v4-ink,#06080d);padding:clamp(80px,10vw,130px) 0;}
 .mx .wrap{width:100%;max-width:1080px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
-.mx .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#86868b;}
+.mx .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#8a8f98;}
 .mx-head{max-width:64ch;}
-.mx-head h2{margin-top:14px;font-size:clamp(28px,4vw,50px);font-weight:600;letter-spacing:-.035em;line-height:1.05;color:#f5f5f7;max-width:20ch;}
-.mx-head h2 .g{background:linear-gradient(100deg,#06b6d4,#10b981 52%,#818cf8);-webkit-background-clip:text;background-clip:text;color:transparent;}
-.mx-head p{margin-top:20px;font-size:clamp(16px,1.75vw,18px);line-height:1.62;color:#8b93a5;max-width:58ch;}
+.mx-head h2{margin-top:14px;font-size:clamp(28px,4vw,50px);font-weight:600;letter-spacing:-.035em;line-height:1.05;color:var(--v4-ink,#06080d);max-width:20ch;}
+.mx-head h2 .g{background:linear-gradient(100deg,#0891b2,#059669 52%,#4f46e5);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.mx-head p{margin-top:20px;font-size:clamp(16px,1.75vw,18px);line-height:1.62;color:#6b7280;max-width:58ch;}
 
 .mx-scroll{margin-top:clamp(40px,5vw,58px);overflow-x:auto;-webkit-overflow-scrolling:touch;}
 .mx-grid{min-width:720px;}
@@ -273,44 +277,44 @@ const CSS = `
   background:transparent;border:0;padding:0;font-family:inherit;color:inherit;text-align:left;}
 
 /* header row */
-.mx-hd{padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.14);}
+.mx-hd{padding-bottom:14px;border-bottom:1px solid #e2e2dc;}
 .mx-hd .mx-c{display:flex;flex-direction:column;align-items:center;gap:3px;padding:0 6px;}
-.mx-hd .mx-c b{font-size:12.5px;font-weight:700;letter-spacing:.04em;color:#c7ccd6;text-align:center;line-height:1.25;}
-.mx-hd .mx-c i{font-style:normal;font-size:11px;color:#5c6470;}
-.mx-hd .mx-c.us b{color:#5eead4;}
-.mx-hd .mx-c.us i{color:#34d399;font-weight:600;}
+.mx-hd .mx-c b{font-size:12.5px;font-weight:700;letter-spacing:.04em;color:#52565e;text-align:center;line-height:1.25;}
+.mx-hd .mx-c i{font-style:normal;font-size:11px;color:#9298a1;}
+.mx-hd .mx-c.us b{color:#047857;}
+.mx-hd .mx-c.us i{color:#059669;font-weight:600;}
 
 /* body rows */
-.mx-row{border-bottom:1px solid rgba(255,255,255,.07);}
+.mx-row{border-bottom:1px solid #eeeef1;}
 .mx-row>button{cursor:pointer;padding:16px 0;transition:background .25s ease;}
-.mx-row>button:hover{background:rgba(255,255,255,.03);}
+.mx-row>button:hover{background:#fafafa;}
 .mx-j{display:flex;align-items:center;gap:10px;padding-right:16px;}
-.mx-j .jt{font-size:15.5px;line-height:1.4;color:#dfe3e9;}
-.mx-j .pl{width:20px;height:20px;flex:0 0 auto;border-radius:50%;border:1px solid rgba(255,255,255,.18);color:#6f7787;
+.mx-j .jt{font-size:15.5px;line-height:1.4;color:#26292f;}
+.mx-j .pl{width:20px;height:20px;flex:0 0 auto;border-radius:50%;border:1px solid #d8d8dd;color:#9298a1;
   display:flex;align-items:center;justify-content:center;font-size:13px;line-height:1;
   transition:transform .4s cubic-bezier(.16,1,.3,1),background .3s ease,color .3s ease,border-color .3s ease;}
 .mx-row.open .pl{transform:rotate(45deg);background:#10b981;border-color:transparent;color:#fff;}
-.mx-row>button:hover .pl{border-color:rgba(255,255,255,.4);color:#c7ccd6;}
+.mx-row>button:hover .pl{border-color:#a9aeb8;color:#6b7280;}
 .mx-c{display:flex;align-items:center;justify-content:center;}
 /* the one column that fills up */
-.mx-row .mx-c.us{background:linear-gradient(180deg,rgba(16,185,129,.08),rgba(16,185,129,.05));}
-.mx-hd .mx-c.us{background:linear-gradient(180deg,rgba(16,185,129,.12),rgba(16,185,129,.04));border-radius:12px 12px 0 0;padding-top:10px;padding-bottom:10px;}
+.mx-row .mx-c.us{background:linear-gradient(180deg,rgba(16,185,129,.09),rgba(16,185,129,.05));}
+.mx-hd .mx-c.us{background:linear-gradient(180deg,rgba(16,185,129,.16),rgba(16,185,129,.05));border-radius:12px 12px 0 0;padding-top:10px;padding-bottom:10px;}
 
 .mk{display:block;}
-.mk.yes{width:17px;height:17px;color:#34d399;}
-.mx-c.us .mk.yes{color:#5eead4;}
-.mk.no{width:16px;height:2px;border-radius:2px;background:rgba(255,255,255,.14);}
-.mk.youtag{font-size:11px;font-weight:700;letter-spacing:.06em;color:#f5c877;background:rgba(245,158,11,.13);
-  border:1px solid rgba(245,158,11,.32);border-radius:999px;padding:4px 10px;white-space:nowrap;}
+.mk.yes{width:17px;height:17px;color:#10b981;}
+.mx-c.us .mk.yes{color:#047857;}
+.mk.no{width:16px;height:2px;border-radius:2px;background:#dcdce1;}
+.mk.youtag{font-size:11px;font-weight:700;letter-spacing:.06em;color:#b45309;background:rgba(245,158,11,.14);
+  border:1px solid rgba(245,158,11,.42);border-radius:999px;padding:4px 10px;white-space:nowrap;}
 
 /* the detail, one tap away */
 .mx-body{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.16,1,.3,1);}
 .mx-row.open .mx-body{max-height:420px;}
 .mx-body ul{list-style:none;margin:0;padding:2px 0 22px;}
-.mx-body li{position:relative;padding:7px 0 7px 18px;font-size:14.5px;line-height:1.55;color:#8b93a5;max-width:70ch;}
+.mx-body li{position:relative;padding:7px 0 7px 18px;font-size:14.5px;line-height:1.55;color:#6b7280;max-width:70ch;}
 .mx-body li::before{content:'';position:absolute;left:0;top:15px;width:5px;height:5px;border-radius:50%;background:#10b981;}
 
-.mx-foot{margin-top:clamp(26px,3vw,34px);font-size:13.5px;line-height:1.6;color:#5c6470;max-width:70ch;}
+.mx-foot{margin-top:clamp(26px,3vw,34px);font-size:13.5px;line-height:1.6;color:#9298a1;max-width:70ch;}
 
 @media(max-width:760px){
   .mx-grid{min-width:640px;}
