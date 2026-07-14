@@ -15,7 +15,6 @@ import StartBanner from '@/components/v4/StartBanner';
  * register of this page: no asterisks, no fine print. */
 const HERO_IMG =
   'https://images.pexels.com/photos/7484157/pexels-photo-7484157.jpeg?auto=compress&cs=tinysrgb&w=2000';
-import { START_LINK } from '@/lib/site';
 
 const SHARE =
   'The whole list, in plain English. Everything $199 a month actually buys, what you still do, and the things we do not do.';
@@ -71,25 +70,13 @@ const CSS = `
 .inc-hero h1{margin-top:18px;font-size:clamp(42px,6.6vw,86px);line-height:1.0;max-width:14ch;margin-left:auto;margin-right:auto;color:#fff;text-shadow:0 4px 44px rgba(0,0,0,.6);}
 .inc-hero p{margin:26px auto 0;font-size:clamp(18px,2.1vw,23px);line-height:1.45;color:#c6cbd3;max-width:46ch;text-shadow:0 2px 26px rgba(0,0,0,.7);}
 
-/* groups */
 
-/* human */
 
-/* you / not */
 
-/* not-a-list (honest limits) */
 
-/* closer */
 `;
 
 
-function Dot() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9298a1" strokeWidth={2.4} aria-hidden="true">
-      <circle cx="12" cy="12" r="7" />
-    </svg>
-  );
-}
 
 export default function WhatsIncludedPage() {
   return (
