@@ -148,12 +148,20 @@ export default function PricingPage() {
           <div className="inner">
             <div className="eyebrow">Why it can be $199</div>
             <h2>It was never software. It was five salaries.</h2>
+            {/* THE FIVE ROLES MUST BE FIVE JOBS WE ACTUALLY DO. Two of them were not.
+                This used to name a DISPATCHER and a BOOKKEEPER, and /whats-included says,
+                in plain words, "Do you dispatch my crew? No" and "We are not your
+                bookkeeper." So forty percent of our own price justification retracted
+                itself two pages later, in front of the exact buyer who is scanning for
+                the catch.
+                The scheduler and the collections clerk are real salaries, and they are
+                jobs we genuinely do. Do not put the dispatcher or the bookkeeper back. */}
             <p>
-              A big company answers every call, books every job, chases every quote and reads the
-              numbers back to itself. Not because it is smarter than you. Because{' '}
-              <b>five people are paid to</b>: a receptionist, a dispatcher, an estimator, a marketer
-              and a bookkeeper. That is not a tool. That is a payroll, and it is the one thing you
-              have never been able to buy.
+              A big company answers every call, books every job, chases every quote and chases the
+              money. Not because it is smarter than you. Because{' '}
+              <b>five people are paid to</b>: a receptionist, a scheduler, an estimator, a collections
+              clerk and a marketer. That is not a tool. That is a payroll, and it is the one thing
+              you have never been able to buy.
             </p>
             <p>
               You are doing all five of those jobs yourself, at nine at night, after a full day of
