@@ -35,7 +35,7 @@ const CSS = `
 .ct-hero .wrap{position:relative;z-index:1;}
 .ct-hero .eyebrow{color:#c9cdd6;}
 .ct-hero h1{margin-top:16px;font-size:clamp(38px,5.8vw,76px);line-height:1.02;color:#fff;max-width:15ch;}
-.ct-hero h1 .g{background:linear-gradient(100deg,#06b6d4,#10b981 52%,#818cf8);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.ct-hero h1 .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .ct-hero p{margin-top:24px;font-size:clamp(17px,1.95vw,21px);line-height:1.6;color:#aeb4c0;max-width:50ch;}
 
 /* the two ways */

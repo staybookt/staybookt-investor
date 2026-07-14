@@ -44,7 +44,7 @@ const CSS = `
 .abt-hero .wrap{position:relative;z-index:1;}
 .abt-hero .eyebrow{color:#c9cdd6;}
 .abt-hero h1{margin-top:20px;font-size:clamp(38px,6vw,80px);line-height:1.02;max-width:19ch;color:#fff;}
-.abt-hero h1 .g{background:linear-gradient(100deg,#06b6d4,#10b981 52%,#818cf8);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.abt-hero h1 .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .abt-hero .sub{margin-top:28px;font-size:clamp(17px,2vw,22px);line-height:1.55;color:#aeb4c0;max-width:52ch;}
 
 
@@ -79,7 +79,7 @@ const CSS = `
 .abt-org h2{margin-top:14px;font-size:clamp(30px,4.4vw,56px);line-height:1.03;max-width:16ch;}
 .abt-org p{margin-top:26px;font-size:clamp(17px,2vw,21px);line-height:1.65;color:#42474f;max-width:60ch;}
 .abt-org .kick{margin-top:clamp(38px,4.6vw,52px);font-size:clamp(22px,2.9vw,36px);font-weight:600;letter-spacing:-.028em;line-height:1.2;color:var(--v4-ink);max-width:26ch;}
-.abt-org .kick .g{background:linear-gradient(100deg,#06b6d4,#10b981 55%,#4f46e5);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.abt-org .kick .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
 
 /* ===== 5. THE PROMISES. The one object on the page. ===== */
 .abt-prm{background:#050506;padding:clamp(90px,12vw,150px) 0;}

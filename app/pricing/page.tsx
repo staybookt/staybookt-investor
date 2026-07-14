@@ -71,7 +71,7 @@ const CSS = `
 
 .plan{margin-top:16px;text-align:center;}
 .plan .nm{font-size:clamp(24px,3.2vw,40px);font-weight:600;letter-spacing:-.03em;color:#fff;line-height:1.1;}
-.plan .nm .sb{background:linear-gradient(100deg,#06b6d4,#10b981 52%,#4f46e5);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.plan .nm .sb{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .prnum{display:flex;align-items:flex-start;justify-content:center;gap:4px;margin-top:14px;color:#fff;font-weight:700;letter-spacing:-.05em;line-height:.88;font-size:clamp(76px,13vw,164px);font-variant-numeric:tabular-nums;}
 .prnum .d{font-size:.4em;font-weight:600;margin-top:.15em;color:#9aa0ab;}
 .prnum .per{align-self:flex-end;margin-bottom:.18em;margin-left:10px;font-size:.15em;font-weight:600;letter-spacing:0;color:#9aa0ab;}
@@ -97,7 +97,7 @@ const CSS = `
 .prc-led p{margin-top:26px;font-size:clamp(17px,2vw,21px);line-height:1.65;color:#42474f;max-width:62ch;}
 .prc-led p b{font-weight:600;color:var(--v4-ink);}
 .prc-led .kick{margin-top:clamp(38px,4.6vw,52px);font-size:clamp(22px,2.9vw,36px);font-weight:600;letter-spacing:-.028em;line-height:1.2;color:var(--v4-ink);max-width:26ch;}
-.prc-led .kick .g{background:linear-gradient(100deg,#0891b2,#059669 55%,#4f46e5);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.prc-led .kick .g{background:var(--sb-grad-ink);-webkit-background-clip:text;background-clip:text;color:transparent;}
 `;
 
 export default function PricingPage() {
