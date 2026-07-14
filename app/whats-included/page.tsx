@@ -251,8 +251,6 @@ const CSS = `
 .inc-hero .eyebrow{color:#c9cdd6;}
 .inc-hero h1{margin-top:18px;font-size:clamp(42px,6.6vw,86px);line-height:1.0;max-width:14ch;margin-left:auto;margin-right:auto;color:#fff;text-shadow:0 4px 44px rgba(0,0,0,.6);}
 .inc-hero p{margin:26px auto 0;font-size:clamp(18px,2.1vw,23px);line-height:1.45;color:#c6cbd3;max-width:46ch;text-shadow:0 2px 26px rgba(0,0,0,.7);}
-.inc-hero .price{margin:30px auto 0;display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:11px 20px;font-size:14.5px;color:#e5e9ef;background:rgba(5,5,6,.5);backdrop-filter:saturate(150%) blur(10px);-webkit-backdrop-filter:saturate(150%) blur(10px);}
-.inc-hero .price b{font-weight:600;color:#fff;}
 
 /* groups */
 .inc-list{padding:clamp(70px,9vw,120px) 0;}
@@ -341,10 +339,6 @@ export default function WhatsIncludedPage() {
             The whole list. No asterisks, no fine print. Here is exactly what we do, what you still
             do, and the things we do not do.
           </p>
-          <div className="price">
-            <b>$199 a month</b>, plus applicable taxes. Nothing upfront. No lock-in, cancel on
-            thirty days notice. Ninety days to change your mind, for any reason.
-          </div>
         </div>
       </header>
 
