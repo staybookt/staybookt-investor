@@ -29,12 +29,21 @@ export const metadata = {
  * The terms paragraph is deliberately complete: tax, lock-in, refund, volume. Each
  * one of those was a silence the reader had to phone us to fill, and a silence is
  * where a burned buyer puts the catch he is already looking for. */
+/* R6, Richard: the short list undersold the thing. A buyer comparing us to an
+ * answering service, a web agency and a CRM needs to see that he is being quoted
+ * for all three and then some. Long enough to be complete, short enough to scan. */
 const GETS = [
   'A website that turns visitors into phone calls. Yours to keep.',
-  'Found on Google, the map, and AI assistants.',
+  'Found on Google, on the map, and when someone asks an AI.',
   'Every call and text answered, 24/7, in your voice.',
-  'Jobs booked. Quotes chased until yes or no.',
-  'Past customers brought back for repeat work.',
+  'Emergency and after-hours calls sorted against your rules.',
+  'Jobs booked, confirmed, and reminded, straight onto your calendar.',
+  'Every quote sent, and chased until you get a yes or a no.',
+  'Unpaid invoices chased, politely, until the money lands.',
+  'A review asked for after every finished job.',
+  'Past customers brought back before they drift somewhere else.',
+  'Every customer, job and dollar in one record. Not your phone and QuickBooks.',
+  'An assistant you can just ask, in plain English, from the truck.',
   'One short brief each morning. No software to learn.',
 ];
 

@@ -118,6 +118,34 @@ const GROUPS: Group[] = [
       'No dashboard you are forced to live in. No software to learn',
     ],
   },
+
+  {
+    n: '08',
+    k: 'StayBookt',
+    h: 'Every customer, in one record.',
+    p: 'Not your phone, not your head, not QuickBooks. QuickBooks knows what you invoiced. It does not know that she has called three times.',
+    items: [
+      'Every customer, every job, every conversation, in one place',
+      'What they have spent with you, and what they are worth over time',
+      'Which quotes are open, which are cold, and which are about to close',
+      'Who has not been back in a year, and is about to be somebody else’s customer',
+      'What is owed, what is overdue, and who has quietly stopped paying',
+      'Nothing for you to enter. It fills itself in as we work',
+    ],
+  },
+  {
+    n: '09',
+    k: 'StayBookt',
+    h: 'An assistant you can just ask.',
+    p: 'Not a dashboard you have to learn. A conversation you already know how to have, from the driver seat, with one thumb.',
+    items: [
+      '“How did we do last week?” and it tells you, in a sentence',
+      '“Send Patricia her invoice” and it is sent',
+      '“Who has not paid me?” and it lists them, oldest first',
+      'Plain English. No menus, no fields, no training, no login',
+      'It answers, or it goes and does the thing. Usually both',
+    ],
+  },
 ];
 
 const HUMAN = [
@@ -324,6 +352,11 @@ export default function WhatsIncludedPage() {
         </div>
       </section>
 
+      {/* THE PLATFORM. It sits with the things we DO, because as of July 14 2026 it
+          is one of them. It used to be a fenced roadmap block after "what we do not
+          do", chipped "not shipping today". Jacob confirmed the features are done. */}
+      <Coming />
+
       <section className="inc-human">
         <div className="wrap">
           <div className="hd">
@@ -401,12 +434,6 @@ export default function WhatsIncludedPage() {
           </div>
         </div>
       </section>
-
-      {/* WHERE THIS IS GOING. Fenced, dark, and explicitly not-yet. It sits AFTER
-          "what we do not do" on purpose: the list of what $199 buys today has to
-          stay clean. A roadmap mixed into that list reads as a bait-and-switch,
-          and we have watched a reader quit at exactly that moment. */}
-      <Coming />
 
       <section className="inc-close">
         <div className="wrap">

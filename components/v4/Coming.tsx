@@ -2,21 +2,21 @@
 
 import { useState } from 'react';
 
-/* WHERE THIS IS GOING.
+/* THE PLATFORM.
  *
- * Richard asked for three things: the CRM on What's included, the AI exec
- * assistant, and the old platform-tab visuals back, because they added
- * credibility and helped people understand the product. He is right on all three.
+ * Richard asked for the CRM, the assistant, and the old platform-tab visuals,
+ * because they add credibility and help people understand the product. All three
+ * live here.
  *
- * But NONE of it ships today, and there is hard evidence about what happens when
- * you put a roadmap in the wrong place. On the old homepage the roadmap block is
- * the exact point where an ICP reader quit: "you just told me most of the good
- * stuff isn't built, why did I scroll seven screens for that."
+ * Present tense, on Jacob's word that the features are done (July 14 2026). This
+ * section previously carried a "Not shipping today" chip and a roadmap frame; that
+ * is gone. If any of this cannot survive a client texting it in week one, it comes
+ * straight back out, because the site now promises an unconditional ninety-day
+ * refund and a claim we cannot deliver is a cheque we have already written.
  *
- * So the roadmap is FENCED. It sits after "what we do not do", it is dark against
- * a light page so the eye knows it is a different kind of claim, and it says out
- * loud that it is not here yet. It cannot leak into the list of what $199 buys
- * today. Do not move it up the page. */
+ * The illustration footnote STAYS. These are mockups, not screenshots of a real
+ * customer's account, and saying so costs us nothing. It is the reason a burned
+ * buyer believes the rest of the page. */
 
 type Screen = 'crm' | 'ea' | 'numbers';
 
@@ -25,13 +25,13 @@ const TABS: { k: Screen; n: string; h: string; p: string }[] = [
     k: 'crm',
     n: 'The customer record',
     h: 'Every customer, every job, every dollar. One place.',
-    p: 'Today it lives in your phone, your head, and QuickBooks. QuickBooks knows what you invoiced. It does not know that Patricia has called three times, that her quote has been open nine days, or that this is the third job you have done for the Okafors. We will.',
+    p: 'Most owners run this out of a phone, a notebook, and QuickBooks. QuickBooks knows what you invoiced. It does not know that Patricia has called three times, that her quote has been open nine days, or that this is the third job you have done for the Okafors. We do.',
   },
   {
     k: 'ea',
     n: 'The assistant',
     h: 'Ask it in plain English. It goes and does it.',
-    p: 'Not a dashboard you have to learn. A conversation you already know how to have. Ask it how last week went, tell it to send Patricia her invoice, ask who has not paid you. From the driver seat, with one thumb.',
+    p: 'Not a dashboard you have to learn. A conversation you already know how to have. Ask it how last week went. Tell it to send Patricia her invoice. Ask who has not paid you. From the driver seat, with one thumb.',
   },
   {
     k: 'numbers',
@@ -49,15 +49,14 @@ export default function Coming() {
       <style>{CSS}</style>
       <div className="wrap">
         <div className="soon-head">
-          <div className="eyebrow">Where this is going</div>
+          <div className="eyebrow">Under the hood</div>
           <h2>
-            The rest of it is being built. <span className="g">Your price does not move.</span>
+            And all of it lands <span className="g">in one place.</span>
           </h2>
           <p>
-            Everything above this line is live and running today. Everything below it is being built
-            through 2026 and rolls out to you as it ships, included, at no extra cost. We are showing
-            it to you now so you know what you are buying into. Not because we are pretending it is
-            here.
+            Every call, every job, every quote and every dollar, kept in one record instead of
+            scattered across your phone, your notebook and your books. You never have to open it,
+            because we are the ones running it. It is simply there on the day you want to look.
           </p>
         </div>
 
@@ -78,7 +77,6 @@ export default function Coming() {
           </div>
 
           <div className="soon-viz">
-            <div className="chip">Not shipping today</div>
             {on === 'crm' && <Crm />}
             {on === 'ea' && <Ea />}
             {on === 'numbers' && <Numbers />}
@@ -86,8 +84,8 @@ export default function Coming() {
         </div>
 
         <p className="soon-fine">
-          Illustrations of what we are building, not screenshots of a customer&apos;s account. If it
-          is not on the list above, do not pay us for it yet.
+          Illustrations of the service, not screenshots of a real customer&apos;s account. We do not
+          publish other people&apos;s numbers.
         </p>
       </div>
     </section>
@@ -224,8 +222,6 @@ const CSS = `
 .sm.on:hover .sm-h{color:#f5f5f7;}
 
 .soon-viz{position:relative;}
-.chip{position:absolute;top:-11px;right:14px;z-index:2;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-  color:#f5c877;background:#2a1f08;border:1px solid rgba(245,158,11,.45);border-radius:999px;padding:6px 12px;}
 
 .win{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 50px 100px -50px rgba(0,0,0,.85);border:1px solid rgba(255,255,255,.1);}
 .win-top{display:flex;align-items:center;gap:10px;padding:15px 18px;border-bottom:1px solid #f1f1f4;font-size:14.5px;font-weight:600;color:#06080d;}
