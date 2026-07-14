@@ -267,7 +267,7 @@ const CSS = `
 .mx .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#8a8f98;}
 .mx-head{max-width:64ch;}
 .mx-head h2{margin-top:14px;font-size:clamp(28px,4vw,50px);font-weight:600;letter-spacing:-.035em;line-height:1.05;color:var(--v4-ink,#06080d);max-width:20ch;}
-.mx-head h2 .g{background:linear-gradient(100deg,#0891b2,#059669 52%,#4f46e5);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.mx-head h2 .g{background:var(--sb-grad-ink);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .mx-head p{margin-top:20px;font-size:clamp(16px,1.75vw,18px);line-height:1.62;color:#6b7280;max-width:58ch;}
 
 .mx-scroll{margin-top:clamp(40px,5vw,58px);overflow-x:auto;-webkit-overflow-scrolling:touch;}
