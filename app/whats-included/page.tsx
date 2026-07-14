@@ -1,6 +1,17 @@
 import Nav from '@/components/v4/Nav';
 import SiteFooter from '@/components/SiteFooter';
 import Coming from '@/components/v4/Coming';
+
+/* Hero backdrop. This page was the only one still sitting on a flat black gradient
+ * while every other hero had something behind it (Jacob, July 14 2026). Same
+ * treatment as /how-it-works: a still, not a film, with a slow drift so it breathes
+ * without costing a second mp4.
+ *
+ * The image is one owner, alone, working in a real workshop with the windows blown
+ * out behind him. Not glossy, not staged, nobody smiling at a laptop. That is the
+ * register of this page: no asterisks, no fine print. */
+const HERO_IMG =
+  'https://images.pexels.com/photos/7484157/pexels-photo-7484157.jpeg?auto=compress&cs=tinysrgb&w=2000';
 import { START_LINK } from '@/lib/site';
 
 const SHARE =
@@ -229,12 +240,18 @@ const CSS = `
 
 /* hero */
 .inc-hero{position:relative;background:#050506;text-align:center;padding:clamp(140px,18vh,210px) 0 clamp(70px,9vw,110px);overflow:hidden;}
-.inc-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(62% 52% at 50% 0%,rgba(16,185,129,.15),transparent 62%);pointer-events:none;}
-.inc-hero .wrap{position:relative;}
+.inc-hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 46%;transform:scale(1.08);animation:idrift 28s ease-in-out infinite alternate;}
+@keyframes idrift{from{transform:scale(1.08) translate3d(0,0,0);}to{transform:scale(1.15) translate3d(1.4%,-1%,0);}}
+@media(prefers-reduced-motion:reduce){.inc-hero>img{animation:none;}}
+/* graded hard, because the windows in this shot are blown out and the copy has to
+   sit on top of them. Dark at the top for the nav, dark at the bottom for the seam. */
+.inc-hero .hov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,6,.9) 0%,rgba(5,5,6,.7) 34%,rgba(5,5,6,.74) 70%,rgba(5,5,6,.97) 100%);}
+.inc-hero .hov::after{content:'';position:absolute;inset:0;background:radial-gradient(62% 52% at 50% 2%,rgba(16,185,129,.16),transparent 62%);}
+.inc-hero .wrap{position:relative;z-index:1;}
 .inc-hero .eyebrow{color:#c9cdd6;}
-.inc-hero h1{margin-top:18px;font-size:clamp(42px,6.6vw,86px);line-height:1.0;max-width:14ch;margin-left:auto;margin-right:auto;color:#f5f5f7;}
-.inc-hero p{margin:26px auto 0;font-size:clamp(18px,2.1vw,23px);line-height:1.45;color:#aeb4c0;max-width:46ch;}
-.inc-hero .price{margin:30px auto 0;display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:11px 20px;font-size:14.5px;color:#e5e9ef;}
+.inc-hero h1{margin-top:18px;font-size:clamp(42px,6.6vw,86px);line-height:1.0;max-width:14ch;margin-left:auto;margin-right:auto;color:#fff;text-shadow:0 4px 44px rgba(0,0,0,.6);}
+.inc-hero p{margin:26px auto 0;font-size:clamp(18px,2.1vw,23px);line-height:1.45;color:#c6cbd3;max-width:46ch;text-shadow:0 2px 26px rgba(0,0,0,.7);}
+.inc-hero .price{margin:30px auto 0;display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:11px 20px;font-size:14.5px;color:#e5e9ef;background:rgba(5,5,6,.5);backdrop-filter:saturate(150%) blur(10px);-webkit-backdrop-filter:saturate(150%) blur(10px);}
 .inc-hero .price b{font-weight:600;color:#fff;}
 
 /* groups */
@@ -315,6 +332,8 @@ export default function WhatsIncludedPage() {
       <Nav />
 
       <header className="inc-hero">
+        <img src={HERO_IMG} alt="" fetchPriority="high" decoding="async" />
+        <div className="hov" />
         <div className="wrap">
           <div className="eyebrow">What&apos;s included</div>
           <h1>Everything, in plain English.</h1>
