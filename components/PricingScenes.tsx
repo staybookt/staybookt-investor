@@ -1,17 +1,11 @@
-/* SUPERSEDED. Do not use, do not import.
+/* NEUTRALISED. This file sold the offer we killed: the $4,000 Foundation, the
+ * $1,999 and $3,499 retainers, the performance fee, the 20% value share. Some of
+ * it also named a client and quoted him. It is imported by nothing.
  *
- * This held FiveSalaries (the ledger card) and ValueShare (the 20% calculator).
+ * It is emptied rather than deleted because the tooling that runs this repo can
+ * write files but cannot delete them. It is dead weight, not a live risk, and it
+ * should be `git rm`d along with the rest of the dead tree.
  *
- * ValueShare died with the value share itself (Richard, July 14 2026): we do not take
- * a share of the customer's business.
- *
- * FiveSalaries died on /pricing (Jacob, July 14 2026) for two reasons. It was BROKEN:
- * once the $240,000 salary column came out, the five role rows rendered at opacity 0
- * and the card was a large empty white box with three bits of text floating in it. And
- * it was REDUNDANT: "you are doing all five jobs at nine at night" is exactly what the
- * amber "You, today" column of the comparison matrix on /whats-included says, and the
- * matrix says it better, because it has three other columns to say it against.
- *
- * The ARGUMENT survives, in words, in the "Why it can be $199" section of /pricing.
- * The table does not. Do not rebuild it. */
+ * The live offer is $199 a month, nothing upfront, no lock-in, no back end.
+ * It has exactly one home: lib/site.ts. Do not restore this file. */
 export {};

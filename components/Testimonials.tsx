@@ -1,55 +1,11 @@
-// Testimonials — owner quotes. These are PLACEHOLDER quotes pending approval,
-// so each card carries an amber "PLACEHOLDER — pending approval" pill. Do not
-// present as verified. Server component: no client hooks, no motion.
-
-type Quote = {
-  quote: string;
-  attribution: string;
-};
-
-const QUOTES: Quote[] = [
-  {
-    quote:
-      'My old site never once sent me a lead. Now people show up to the first call already knowing who I am, and my calendar fills itself.',
-    attribution: 'Tim Ciszkowski, Top Choice Electrical',
-  },
-  {
-    quote:
-      'I used to answer the phone on a ladder. StayBookt picks up every call and books the job, so I can actually run the crew and get home for dinner.',
-    attribution: 'Evert, XNL',
-  },
-];
-
-export default function Testimonials() {
-  return (
-    <section className="bg-paper py-24 sm:py-32 px-6">
-      <div className="max-w-6xl mx-auto">
-        <p className="text-sm font-semibold uppercase tracking-wide text-hvac">
-          In their words
-        </p>
-        <h2 className="mt-4 font-display tracking-[-0.03em] text-ink text-3xl sm:text-4xl md:text-5xl">
-          The owners we build for.
-        </h2>
-
-        <div className="mt-14 grid gap-6 md:grid-cols-2">
-          {QUOTES.map((q) => (
-            <figure
-              key={q.attribution}
-              className="rounded-2xl border border-[#E5E7EB] p-8"
-            >
-              <span className="inline-flex text-[11px] font-semibold uppercase tracking-wide text-[#B45309] bg-[#FEF3C7] rounded-full px-2.5 py-1">
-                Placeholder — pending approval
-              </span>
-              <blockquote className="mt-5 text-lg text-ink leading-relaxed">
-                &ldquo;{q.quote}&rdquo;
-              </blockquote>
-              <figcaption className="mt-5 text-sm font-semibold text-mute">
-                {q.attribution}
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
+/* NEUTRALISED. This file sold the offer we killed: the $4,000 Foundation, the
+ * $1,999 and $3,499 retainers, the performance fee, the 20% value share. Some of
+ * it also named a client and quoted him. It is imported by nothing.
+ *
+ * It is emptied rather than deleted because the tooling that runs this repo can
+ * write files but cannot delete them. It is dead weight, not a live risk, and it
+ * should be `git rm`d along with the rest of the dead tree.
+ *
+ * The live offer is $199 a month, nothing upfront, no lock-in, no back end.
+ * It has exactly one home: lib/site.ts. Do not restore this file. */
+export {};
