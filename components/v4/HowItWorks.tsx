@@ -76,7 +76,12 @@ const FAQ: { k: string; c: string; q: string; a: string }[] = [
   { k: 'The money', c: '#4f46e5', q: 'Is there a limit on calls and texts?', a: 'No. Unlimited calls and texts, with no per-minute billing and no overage charges, however busy the season gets. Every answering service on earth bills you by the minute and we do not, because charging you more in your busiest month is a strange way to say we are on your side.' },
   { k: 'The service', c: '#0ea5e9', q: 'What if the AI gets a price wrong?', a: 'It quotes from your playbook: your prices, your jobs, your service area. Anything it is not sure about, anything unusual and anything high-stakes gets pulled by a real person on our team before it ever reaches your customer. If a wrong number does get out, we bring it straight to you, you decide what you want to honour, and we are the ones who go back to the customer and sort it out. You are never the one making that phone call, and you are never told about it after the fact.' },
   { k: 'The money', c: '#4f46e5', q: 'How long until I am live?', a: 'About 30 days from the first call.' },
-  { k: 'The payoff', c: '#f59e0b', q: 'What is the valuation at the end?', a: 'After your first year, we value the business on two axes: what it is worth in dollars, and how well it runs and grows without you glued to it. Then you decide what to do with it. There is no obligation to sell.' },
+  /* This used to be "What is the valuation at the end?", and it described valuing
+   * the business after year one. That only ever existed to justify the 20% value
+   * share, which is dead (Richard, July 14 2026). It was the last surviving piece
+   * of the fee anywhere on a live page. The honest question a reader actually has
+   * now is the opposite one, so we answer that instead. */
+  { k: 'The payoff', c: '#f59e0b', q: 'Do you take a cut of my business?', a: 'No. Not a commission on your jobs, not a share of your revenue, and not a share of what the business is worth if you ever sell it. The monthly fee is the entire commercial relationship. After a year of this you should have a business that runs without you standing in the middle of it, and what you do with that, whether you keep it, hand it to family, or sell it, is entirely your call and costs you nothing.' },
 ];
 
 const CSS = `
