@@ -48,7 +48,7 @@ const GROUPS: Group[] = [
       'Photos, services, hours, and service area, all correct and consistent',
       'Your name, address, and phone number made identical everywhere online, which is what Google actually trusts',
       'Local search work so you climb the map for the searches that matter in your area',
-      'Set up so you show up when someone asks an AI assistant for your trade nearby',
+      'Set up so you show up when someone asks an AI assistant for what you do, nearby',
       'Your listings on the directories that feed the search engines',
     ],
   },
@@ -56,13 +56,13 @@ const GROUPS: Group[] = [
     n: '03',
     k: 'StayBookt',
     h: 'We answer. Every time.',
-    p: 'This is the part that changes your life. The phone gets answered whether you are up a ladder, under a sink, or asleep.',
+    p: 'This is the part that changes your life. The phone gets answered whether you are on a job, driving to the next one, or asleep.',
     items: [
       'Every call answered, 24 hours a day, seven days a week',
       'Every text answered, in your voice, using your prices and your rules',
       'Website forms, Google messages, and emails, all caught in the same place',
       'The caller gets a real answer, not a voicemail and not a promise to call back',
-      'Anything unusual gets escalated to a real person on our team before it reaches your customer',
+      'Anything unusual goes to a real person on our team before it ever reaches your customer',
       'Your number stays your number. Nothing about it changes for your customers',
     ],
   },
@@ -76,7 +76,7 @@ const GROUPS: Group[] = [
       'The customer gets a confirmation, so they know it is real',
       'Reminders before the visit, so they are actually home when you get there',
       'Reschedules and cancellations handled without you touching your phone',
-      'Emergency and after-hours calls triaged against the rules you set',
+      'Emergency and after-hours calls sorted against the rules you set: what is urgent, what waits until morning, and what is worth waking you up for',
     ],
   },
   {
@@ -126,7 +126,7 @@ const HUMAN = [
   },
   {
     h: 'A person steps in on anything unusual.',
-    p: 'Every response gets a confidence score. Anything unusual, high-stakes, or off-script gets pulled by a real person on our team before it ever reaches your customer. That is the whole point of the safety net. You are never the one picking up the slack.',
+    p: 'The AI knows when it is out of its depth. Anything it is not sure about, anything unusual, and anything high-stakes gets pulled by a real person on our team before it ever reaches your customer. That is the whole point of the safety net. You are never the one picking up the slack.',
   },
   {
     h: 'And a couple of times a week, we ask you.',
@@ -161,6 +161,14 @@ const NOT = [
   {
     h: 'We do not promise you a number of leads.',
     p: 'Anyone who does is guessing. We promise that nothing that comes in gets dropped, and we show you the real numbers every month.',
+  },
+  {
+    h: 'We do not pretend we will never get one wrong.',
+    p: 'We answer in your voice, from your prices, and a person checks anything unusual before it reaches your customer. But if a wrong number ever does get out, we bring it straight to you, you decide what you want to honour, and we are the ones who go back to the customer and sort it out. You will hear it from us before you hear it from them, and you are never the one making that phone call.',
+  },
+  {
+    h: 'We do not lock you in.',
+    p: 'No term, no contract to be trapped in, no exit fee. Cancel any time on thirty days notice. We build the whole thing before you have paid us a dollar, which means the risk is ours, and it should be.',
   },
 ];
 
@@ -276,7 +284,8 @@ export default function WhatsIncludedPage() {
             do, and the things we do not do.
           </p>
           <div className="price">
-            <b>$199 a month.</b> Nothing upfront. Ninety days to change your mind.
+            <b>$199 a month</b>, plus applicable taxes. Nothing upfront. No lock-in, cancel on
+            thirty days notice. Ninety days to change your mind, for any reason.
           </div>
         </div>
       </header>

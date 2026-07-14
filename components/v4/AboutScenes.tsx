@@ -52,7 +52,7 @@ export function MissedCall() {
           </div>
           <div className="mc-missed">Missed call</div>
         </div>
-        <div className="mc-hand">You are under a sink.</div>
+        <div className="mc-hand">You are on a job. Both hands full.</div>
       </div>
 
       <div className="mc-next">

@@ -59,7 +59,7 @@ export default function OpenGraphImage() {
             position: 'relative',
           }}
         >
-          The operating layer for the trades
+          The front office for owner-operated service businesses
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', position: 'relative' }}>
