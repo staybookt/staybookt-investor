@@ -53,11 +53,9 @@ export default function Coming() {
           <h2>
             And all of it lands <span className="g">in one place.</span>
           </h2>
-          <p>
-            Every call, every job, every quote and every dollar, kept in one record instead of
-            scattered across your phone, your notebook and your books. You never have to open it,
-            because we are the ones running it. It is simply there on the day you want to look.
-          </p>
+          {/* Short on purpose. The matrix above already says WHAT this does. This
+              section's only job now is to SHOW it. Do not put the explanation back. */}
+          <p>You never have to open it. We run it. It is simply there on the day you want to look.</p>
         </div>
 
         <div className="soon-stage">
