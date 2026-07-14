@@ -56,7 +56,7 @@ const SECTIONS: Section[] = [
         </ul>
         <p>
           The exact scope for your business is agreed with you before we start, and it can change by
-          agreement. <b>We do not do the trade work itself</b> and we are not responsible for the
+          agreement. <b>We do not do the work itself</b> and we are not responsible for the
           quality, safety, licensing or insurance of the work you perform.
         </p>
       </>
@@ -178,7 +178,7 @@ const SECTIONS: Section[] = [
       <>
         <ul>
           <li>Accurate information about your prices, your service area and your availability.</li>
-          <li>The licences, certifications and insurance your trade requires.</li>
+          <li>The licences, certifications and insurance your work requires.</li>
           <li>The access we need to do the job: your listing, your calendar, your phone number.</li>
           <li>A reply when we ask you to approve something that only you can approve.</li>
         </ul>

@@ -133,7 +133,7 @@ function Compare() {
         onPointerUp={() => { dragging.current = false; }}
         onPointerCancel={() => { dragging.current = false; }}
       >
-        <img className="before" src="/photos/tce-before.png" alt="A tired, dated trades website before StayBookt" />
+        <img className="before" src="/photos/tce-before.png" alt="A tired, dated service-business website before StayBookt" />
         <img className="after" src="/photos/tce-after.png" alt="The same business, rebuilt by StayBookt" />
         <span className="lab b" style={{ opacity: x > 20 ? 1 : 0 }}>Before</span>
         <span className="lab a" style={{ opacity: x < 80 ? 1 : 0 }}>After</span>
