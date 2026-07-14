@@ -236,7 +236,7 @@ const CSS = `
 .hiw-faq .faside{position:sticky;top:clamp(96px,12vh,130px);}
 @media(max-width:900px){.hiw-faq .faside{position:static;}}
 .hiw-faq h2{font-size:clamp(34px,4.6vw,60px);line-height:1.0;margin:14px 0 0;max-width:9ch;}
-.hiw-faq h2 .g{background:linear-gradient(100deg,#06b6d4,#10b981 52%,#4f46e5);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.hiw-faq h2 .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .hiw-faq .fa-p{margin-top:20px;font-size:16.5px;line-height:1.6;color:#6b7280;max-width:30ch;}
 .hiw-faq .fa-cta{display:inline-flex;align-items:center;gap:9px;margin-top:26px;background:var(--v4-ink);color:#fff;font-size:15px;font-weight:600;border-radius:999px;padding:15px 28px;text-decoration:none;transition:gap .3s ease,transform .3s ease;}
 .hiw-faq .fa-cta:hover{gap:14px;transform:translateY(-1px);}
