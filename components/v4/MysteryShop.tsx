@@ -136,6 +136,6 @@ const CSS = `
 .ms-fill{flex:0 0 auto;width:18px;height:18px;margin-top:1px;border-radius:5px;border:1px dashed #cfd4dc;background:repeating-linear-gradient(135deg,rgba(16,185,129,.08) 0 5px,transparent 5px 10px);}
 
 .ms-kick{margin-top:clamp(26px,3.4vw,38px);font-size:clamp(20px,2.6vw,30px);font-weight:600;letter-spacing:-.025em;line-height:1.28;color:var(--v4-ink);max-width:30ch;}
-.ms-kick .g{background:linear-gradient(100deg,#06b6d4,#10b981 55%,#4f46e5);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.ms-kick .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
 @media(prefers-reduced-motion:reduce){.ms-row{opacity:1;transform:none;transition:none;}.ms-tag .rec{animation:none;}}
 `;

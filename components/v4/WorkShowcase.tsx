@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
-import { START_LINK } from '@/lib/site';
 
 const HERO_H = 'See the difference.';
 const HERO_SUB = 'Same owner. Same trade. Same phone number. What changed is everything a customer sees first, and that is what makes the phone ring.';
@@ -23,8 +22,6 @@ const CSS = `
 .wk .wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
 .wk .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#8a8f98;}
 .wk h1,.wk h2,.wk h3{font-weight:600;letter-spacing:-.035em;color:var(--v4-ink);}
-.wk-btn{display:inline-flex;align-items:center;gap:8px;background:var(--v4-ink);color:#fff;font-size:15px;font-weight:600;border-radius:999px;padding:15px 30px;text-decoration:none;transition:transform .3s ease;}
-.wk-btn:hover{transform:translateY(-1px);}
 
 /* hero */
 .wk-hero{text-align:center;padding:clamp(140px,18vh,210px) 0 clamp(48px,6vw,72px);position:relative;overflow:hidden;background:#050506;}
@@ -58,7 +55,7 @@ const CSS = `
 /* claim */
 .wk-claim{background:var(--v4-cream);text-align:center;padding:clamp(90px,13vw,160px) 0;}
 .wk-claim p{font-size:clamp(26px,3.8vw,50px);font-weight:600;letter-spacing:-.03em;line-height:1.14;color:var(--v4-ink);max-width:20ch;margin:0 auto;}
-.wk-claim p .g{background:linear-gradient(100deg,#06b6d4,#10b981 55%,#4f46e5);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.wk-claim p .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
 
 /* craft */
 .wk-craft{padding:clamp(90px,12vw,150px) 0;}
@@ -71,11 +68,6 @@ const CSS = `
 @media(max-width:720px){.wk-craft .grid{grid-template-columns:1fr;gap:32px;}}
 
 /* cta */
-.wk-cta{text-align:center;padding:clamp(110px,15vw,200px) 0;background:#0b0f14;}
-.wk-cta h2{font-size:clamp(38px,6vw,84px);line-height:1.0;color:#fff;max-width:14ch;margin:0 auto;}
-.wk-cta p{margin:22px auto 0;font-size:clamp(16px,1.9vw,20px);color:#9aa0ab;max-width:34ch;}
-.wk-cta .b{margin-top:34px;}
-.wk-cta .b a{background:#fff;color:#0b0f14;}
 `;
 
 function Compare() {
@@ -199,13 +191,13 @@ export default function WorkShowcase() {
         </div>
       </section>
 
-      <section className="wk-cta">
-        <div className="wrap">
-          <h2>Yours could look like this.</h2>
-          <p>We take on a small number of owners at a time. See if you are a fit.</p>
-          <div className="b"><a className="wk-btn" href={START_LINK}>Pick a time</a></div>
-        </div>
-      </section>
+      {/* THE BESPOKE CLOSING CARD IS GONE. It said "Yours could look like this" over a
+          white pill that said "Pick a time", on a #0b0f14 background that is not the
+          #050506 every other dark section uses. Three different CTA treatments across
+          six pages, and a button label that appeared nowhere else on the site.
+
+          The page closes on <StartBanner /> now, like every other page. Do not put a
+          second call to action in this component. */}
     </div>
   );
 }

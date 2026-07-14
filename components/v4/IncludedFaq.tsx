@@ -152,7 +152,7 @@ const CSS = `
 .ifq .faside{position:sticky;top:clamp(96px,12vh,130px);}
 @media(max-width:900px){.ifq .faside{position:static;}}
 .ifq h2{font-size:clamp(34px,4.6vw,60px);font-weight:600;letter-spacing:-.035em;line-height:1.0;margin:14px 0 0;max-width:9ch;}
-.ifq h2 .g{background:linear-gradient(100deg,#0891b2,#059669 52%,#4f46e5);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.ifq h2 .g{background:var(--sb-grad-ink);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .ifq .fa-p{margin-top:20px;font-size:16.5px;line-height:1.6;color:#6b7280;max-width:32ch;}
 .ifq .fa-cta{display:inline-flex;align-items:center;gap:9px;margin-top:26px;background:var(--v4-ink,#06080d);color:#fff;font-size:15px;font-weight:600;border-radius:999px;padding:15px 28px;text-decoration:none;transition:gap .3s ease,transform .3s ease;}
 .ifq .fa-cta:hover{gap:14px;transform:translateY(-1px);}
