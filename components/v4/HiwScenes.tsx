@@ -84,7 +84,7 @@ function useSequence(steps: number, gap = 700, delay = 300) {
  * ========================================================== */
 const FACTS = [
   { k: 'What you charge', v: '$180 for the visit' },
-  { k: 'Jobs you take', v: 'No panel swaps' },
+  { k: 'Jobs you take', v: 'No new construction' },
   { k: 'Where you go', v: 'Newmarket to Barrie' },
   { k: 'How you talk', v: 'Straight. No fluff.' },
 ];
@@ -165,7 +165,7 @@ export function AccountBrain() {
         <div className="ab-lbl">A month in, 9:14 PM</div>
         <div className="abp">
           <div className={`abb them${step >= 0 ? ' in' : ''}`}>
-            Hey, how much to look at a dead outlet in my kitchen?
+            Hey, how much to look at a leaking pipe under my sink?
           </div>
           {answering && !answered && (
             <div className="abb typing">
@@ -181,7 +181,7 @@ export function AccountBrain() {
           {answered && <div className="abb sys">Booked &middot; Thursday, 8:30 AM</div>}
         </div>
         <div className={`ab-cap${answered ? ' on' : ''}`}>
-          Your price. Your area. Your words. <b>You were on a roof.</b>
+          Your price. Your area. Your words. <b>You were on another job.</b>
         </div>
       </div>
     </div>
@@ -250,7 +250,7 @@ const AB_CSS = `
 type Msg = { side: 'them' | 'us' | 'sys'; text: string; tag?: string };
 
 const THREAD: Msg[] = [
-  { side: 'them', text: 'Hey, kitchen outlet is dead. Can someone come out?' },
+  { side: 'them', text: 'Hey, my kitchen sink is leaking everywhere. Can someone come out?' },
   { side: 'us', text: 'It’s $180 for the visit and you’re well inside our area. I can do Thursday 8:30 AM.', tag: 'Sent by StayBookt · 9 seconds' },
   { side: 'them', text: 'That works. Please book it.' },
   { side: 'us', text: 'Done. Thursday 8:30 AM. You’ll get a confirmation and a reminder the night before.' },
