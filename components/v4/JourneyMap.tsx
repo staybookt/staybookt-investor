@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 
 /* The Secret Sauce: one scroll-pinned four-beat film, fully scroll-scrubbed.
  * Get Found (linear climb) -> StayBookt (wheel + blurbs) -> Enjoy Life (continuous
@@ -33,13 +33,29 @@ const B = [0, 0.18, 0.38, 0.70, 1]; // beat boundaries
  * and /whats-included says in plain words that we do not dispatch a crew and are not
  * your bookkeeper. Scheduler and collections clerk are real salaries and are things
  * we genuinely do. Do not put the other two back. */
-const PJOBS: { r: string; d: string }[] = [
-  { r: 'Receptionist', d: 'Answers, every single time' },
-  { r: 'Scheduler', d: 'Books it, confirms it, reminds them' },
-  { r: 'Estimator', d: 'Sends the quote, chases the yes' },
-  { r: 'Collections', d: 'Chases the invoice until it is paid' },
-  { r: 'Marketer', d: 'Gets you found, asks for the reviews' },
+const PJOBS: { r: string; d: string; ic: string }[] = [
+  { r: 'Receptionist', d: 'Answers, every single time', ic: 'phone' },
+  { r: 'Scheduler', d: 'Books it, confirms it, reminds them', ic: 'cal' },
+  { r: 'Estimator', d: 'Sends the quote, chases the yes', ic: 'quote' },
+  { r: 'Collections', d: 'Chases the invoice until it is paid', ic: 'cash' },
+  { r: 'Marketer', d: 'Gets you found, asks for the reviews', ic: 'mega' },
 ];
+
+/* One small line-icon per role, so the five jobs read as a team and not a list.
+ * currentColor so the icon inherits the chip's tint. */
+function RoleIcon({ id }: { id: string }) {
+  const c = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.6, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const };
+  const paths: Record<string, ReactNode> = {
+    phone: <path {...c} d="M15.5 13.5c-1.6 1.6-4 .8-5.6-.8-1.6-1.6-2.4-4-.8-5.6l1-1-2.2-2.6-1.2 1.1c-1.9 1.9-1 5.6 1.9 8.5s6.6 3.8 8.5 1.9l1.1-1.2-2.6-2.2-1.1 1z" />,
+    cal: <><rect {...c} x="4" y="5" width="16" height="15" rx="2.2" /><path {...c} d="M4 9.5h16M8.5 3.5v3M15.5 3.5v3" /></>,
+    quote: <><path {...c} d="M13.5 4H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9.5z" /><path {...c} d="M13.5 4v5.5H19M9 13.5h6M9 16.5h4" /></>,
+    cash: <><rect {...c} x="3" y="7" width="18" height="10" rx="2" /><circle {...c} cx="12" cy="12" r="2.4" /><path {...c} d="M6.5 9.5v0M17.5 14.5v0" /></>,
+    mega: <><path {...c} d="M4 10.5v3a1 1 0 0 0 1 1h2l6 3.5V6L7 9.5H5a1 1 0 0 0-1 1z" /><path {...c} d="M17 9a4 4 0 0 1 0 6" /></>,
+  };
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">{paths[id]}</svg>
+  );
+}
 
 const CSS = `
 .sscx-track{position:relative;height:620vh;background:#050506;}
@@ -160,13 +176,17 @@ const CSS = `
 .pj-jobs{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(6px,1vw,12px);
   transition:opacity .9s ease,transform 1s cubic-bezier(.16,1,.3,1),filter .9s ease;}
 .sscx-stage[data-pj="5"] .pj-jobs,.sscx-stage[data-pj="6"] .pj-jobs{opacity:0;transform:scale(.9) translateY(8px);filter:blur(8px);}
-.pj-job{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
+.pj-job{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);
+  display:flex;align-items:center;gap:clamp(12px,1.6vw,18px);width:min(340px,86%);margin:0 auto;text-align:left;}
+.pj-ic{flex:0 0 auto;width:clamp(42px,4.4vw,52px);height:clamp(42px,4.4vw,52px);border-radius:14px;display:grid;place-items:center;
+  color:#5eead4;background:rgba(94,234,212,.08);border:1px solid rgba(94,234,212,.18);box-shadow:inset 0 1px 0 rgba(255,255,255,.06);}
+.pj-txt{display:flex;flex-direction:column;min-width:0;}
 .sscx-stage[data-pj="0"] .pj0,
 .sscx-stage[data-pj="1"] .pj0,.sscx-stage[data-pj="1"] .pj1,
 .sscx-stage[data-pj="2"] .pj0,.sscx-stage[data-pj="2"] .pj1,.sscx-stage[data-pj="2"] .pj2,
 .sscx-stage[data-pj="3"] .pj0,.sscx-stage[data-pj="3"] .pj1,.sscx-stage[data-pj="3"] .pj2,.sscx-stage[data-pj="3"] .pj3,
 .sscx-stage[data-pj="4"] .pj-job,.sscx-stage[data-pj="5"] .pj-job,.sscx-stage[data-pj="6"] .pj-job{opacity:1;transform:none;}
-.pj-r{display:block;font-size:clamp(22px,3vw,38px);font-weight:600;letter-spacing:-.035em;line-height:1.1;color:#f5f5f7;}
+.pj-r{display:block;font-size:clamp(20px,2.6vw,32px);font-weight:600;letter-spacing:-.035em;line-height:1.1;color:#f5f5f7;}
 .pj-d{display:block;margin-top:2px;font-size:clamp(12px,1.25vw,14px);color:#8b93a5;}
 
 .pj-num{position:relative;z-index:2;opacity:0;transform:translateY(22px) scale(.94);filter:blur(7px);pointer-events:none;
@@ -359,7 +379,7 @@ export default function JourneyMap() {
                   ? 'ENJOY LIFE'
                   : pj >= 6
                     ? 'WHAT IT COSTS'
-                    : 'THE TEAM YOU&rsquo;D HAVE TO HIRE'}
+                    : 'THE TEAM YOU’D HAVE TO HIRE'}
           </div>
 
           <div className="sscx-headwrap">
@@ -443,8 +463,11 @@ export default function JourneyMap() {
                 <div className="pj-jobs" aria-hidden={pj >= 6}>
                   {PJOBS.map((j, i) => (
                     <div className={`pj-job pj${i}`} key={j.r}>
-                      <span className="pj-r">{j.r}</span>
-                      <span className="pj-d">{j.d}</span>
+                      <span className="pj-ic"><RoleIcon id={j.ic} /></span>
+                      <span className="pj-txt">
+                        <span className="pj-r">{j.r}</span>
+                        <span className="pj-d">{j.d}</span>
+                      </span>
                     </div>
                   ))}
                 </div>

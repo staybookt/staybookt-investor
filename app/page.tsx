@@ -2,7 +2,6 @@ import type { ReactNode } from 'react';
 import Nav from '@/components/v4/Nav';
 import Reveal from '@/components/v4/Reveal';
 import JourneyMap from '@/components/v4/JourneyMap';
-import StartBanner from '@/components/v4/StartBanner';
 import HomeFaq from '@/components/v4/HomeFaq';
 import SiteFooter from '@/components/SiteFooter';
 import { START_LINK } from '@/lib/site';
@@ -287,13 +286,10 @@ export default function HomePage() {
               <a href={START_LINK} className="pill pill-white" style={{ padding: '14px 28px', fontSize: 15 }}>Get Started</a>
             </div>
           </Reveal>
-          {/* The button used to say "Get Started" and nothing else, which is the most
-              ignorable label in English, so the offer travels with it.
-
-              It is ONE LINE, not the whole paragraph. The full version is printed in the
-              StartBanner at the foot of this same page, and it was being said twice, word
-              for word, on one screen. A thing that appears everywhere stops being read
-              anywhere. Say the hook here. Let the banner do the selling. */}
+          {/* The mystery-shop hook, one line, under the hero button. This is now the
+              ONLY place the "before we meet, we try to hire you" line appears on the
+              homepage: the StartBanner card that used to repeat it at the foot of the
+              page is gone. Keep it to one line here. */}
           <Reveal>
             <p className="ctanote">
               Before we meet, we try to hire you. Free, and yours to keep either way.
@@ -314,12 +310,11 @@ export default function HomePage() {
       {/* 3 — THE SECRET SAUCE (the story) */}
       <JourneyMap />
 
-      {/* 4 — GET STARTED. A static banner, not a beat.
-             The price moved INTO the film as beat 3 (it played too fast as a timed
-             section below it; inside the film the reader scrubs it at their own pace).
-             Get Started came the other way: out of the film, into a wall you hit when
-             the story ends. The button is the brand gradient, not a white pill. */}
-      <StartBanner />
+      {/* The old "Before we meet" CTA card lived here and is gone (Jacob, live review,
+             July 2026). It read as an awkward text card competing with the image closer
+             below for the same job. The film now flows straight into the story, and the
+             single closing CTA is the sunset scene near the foot of the page. The card
+             component still closes the other pages; it was only redundant on home. */}
 
       {/* 5 — WHY WE BUILT THIS */}
       <section className="whyus">
@@ -396,11 +391,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 6.5 — FAQ. The front door has to answer the first questions without a
-             click-away. Curated cross-section only; the full sets live on the deep
-             pages (Jacob, live review, July 2026). */}
-      <HomeFaq />
-
       {/* 7 — CLOSER */}
       <section className="scene closer">
         <img src={CLOSER_IMG} alt="" loading="lazy" decoding="async" />
@@ -419,6 +409,11 @@ export default function HomePage() {
           </Reveal>
         </div>
       </section>
+
+      {/* FAQ — the last thing before the footer, in dark mode to match the page
+             (Jacob, live review, July 2026). A curated cross-section only; the full
+             sets live on the deep pages. */}
+      <HomeFaq />
 
       <SiteFooter />
     </main>
