@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import Nav from '@/components/v4/Nav';
 import Reveal from '@/components/v4/Reveal';
 import JourneyMap from '@/components/v4/JourneyMap';
+import PriceBeat from '@/components/v4/PriceBeat';
 import SiteFooter from '@/components/SiteFooter';
 import { START_LINK } from '@/lib/site';
 
@@ -245,40 +246,6 @@ const PAGE_CSS = `
 .v4 .explore .xd{margin-top:10px;font-size:15px;line-height:1.5;color:#9aa0ab;max-width:36ch;}
 @media(max-width:720px){.v4 .explore .xgrid{grid-template-columns:1fr;}}
 
-/* ===== THE ANSWER BAND =====
-   A cold visitor gives us about eight seconds and asks three questions in this
-   order: what do you do, what do I have to do, and can I afford it. This band
-   answers all three before the story starts. The price lives here and not a
-   click away, because anything that hides its price is assumed to be expensive.
-
-   The price column states the WHOLE deal, and as of July 14 2026 the whole deal is
-   $199. The 20% value share is dead (Richard): confusing, and a barrier at the
-   point of sale. The last line exists to say so out loud, because a buyer who has
-   been burned before is scanning for the catch and needs to be told there isn't
-   one. Do not add a second number to this box. */
-.v4 .answer{background:#050506;padding:clamp(80px,10vw,130px) 0 clamp(70px,9vw,110px);position:relative;}
-.v4 .answer::before{content:'';position:absolute;inset:0;background:radial-gradient(52% 44% at 50% 0%,rgba(16,185,129,.1),transparent 66%);pointer-events:none;}
-.v4 .answer .wrap{position:relative;z-index:1;}
-.v4 .answer .eyebrow{color:#86868b;}
-.v4 .answer h2{margin-top:14px;font-size:clamp(28px,4.2vw,52px);letter-spacing:-.035em;line-height:1.04;color:#f5f5f7;max-width:20ch;font-weight:600;}
-.v4 .acols{margin-top:clamp(44px,5.5vw,64px);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,3vw,40px);align-items:start;}
-@media(max-width:900px){.v4 .acols{grid-template-columns:1fr;gap:34px;}}
-.v4 .acol{padding-top:22px;border-top:1px solid rgba(255,255,255,.14);}
-.v4 .acol.price{border-top-color:rgba(16,185,129,.55);}
-.v4 .acol .ak{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#8b93a5;}
-.v4 .acol.price .ak{color:#5eead4;}
-.v4 .acol ul{list-style:none;margin:16px 0 0;padding:0;}
-.v4 .acol li{position:relative;padding:9px 0 9px 20px;font-size:15.5px;line-height:1.5;color:#dfe3e9;}
-.v4 .acol li::before{content:'';position:absolute;left:0;top:17px;width:6px;height:6px;border-radius:50%;background:#10b981;}
-.v4 .acol li b{color:#fff;font-weight:600;}
-.v4 .acol.price li{font-size:14.5px;}
-.v4 .acol .anote{margin-top:16px;font-size:14px;line-height:1.55;color:#8b93a5;}
-.v4 .acol .anum{display:flex;align-items:flex-start;gap:2px;margin-top:12px;color:#fff;font-weight:700;letter-spacing:-.045em;line-height:.9;font-size:clamp(52px,6.4vw,80px);font-variant-numeric:tabular-nums;}
-.v4 .acol .anum .d{font-size:.42em;font-weight:600;margin-top:.16em;color:#9aa0ab;}
-.v4 .acol .anum .per{align-self:flex-end;margin-bottom:.14em;margin-left:6px;font-size:.22em;font-weight:600;letter-spacing:0;color:#9aa0ab;}
-.v4 .acol .alink{display:inline-block;margin-top:18px;font-size:14.5px;font-weight:600;color:#5eead4;text-decoration:none;}
-.v4 .acol .alink:hover{text-decoration:underline;}
-
 /* honesty footnote */
 .v4 .illus{background:#050506;padding:0 0 clamp(50px,6vw,74px);}
 .v4 .illus .wrap{text-align:center;font-size:12.5px;line-height:1.5;color:#5c6470;max-width:60ch;}
@@ -333,61 +300,22 @@ export default function HomePage() {
         <div className="scrollcue">Scroll</div>
       </header>
 
-      <div className="seam seam-dark-to-cream" aria-hidden="true" />
-
-      {/* 2 — THE ANSWER. What we do, what you do, what it costs. */}
-      <section className="answer">
-        <div className="wrap">
-          <Reveal className="eyebrow" as="div">In plain English</Reveal>
-          <Reveal>
-            <h2>We are the front office you could never afford to hire.</h2>
-          </Reveal>
-
-          <div className="acols">
-            <Reveal className="acol">
-              <div className="ak">What we do</div>
-              <ul>
-                <li>Answer every call and text, 24/7, in your voice</li>
-                <li>Book the jobs straight onto your calendar</li>
-                <li>Send the quotes and chase them until yes or no</li>
-                <li>Build your reviews and bring past customers back</li>
-                <li>Build and run your website and your Google listing</li>
-              </ul>
-            </Reveal>
-
-            <Reveal className="acol">
-              <div className="ak">What you do</div>
-              <ul>
-                <li>The work. The part you are actually good at.</li>
-                <li>Read one short brief each morning. Thirty seconds.</li>
-              </ul>
-              <p className="anote">
-                No software to learn. No dashboard to live in. Nothing new on your plate, ever.
-              </p>
-            </Reveal>
-
-            <Reveal className="acol price">
-              <div className="ak">What it costs</div>
-              <div className="anum">
-                <span className="d">$</span>199<span className="per">/mo</span>
-              </div>
-              <ul>
-                <li><b>Nothing upfront.</b> No build fee, no setup fee. Plus applicable taxes.</li>
-                <li><b>No lock-in.</b> Cancel any time on thirty days notice.</li>
-                <li><b>90 days to change your mind</b>, for any reason, and we refund every month you paid.</li>
-                <li>Unlimited calls and texts. No per-minute billing, no overage.</li>
-                <li>That is the whole price. No share of your revenue, no share of your business.</li>
-              </ul>
-              <a className="alink" href="/pricing">See the pricing &rarr;</a>
-            </Reveal>
-          </div>
-        </div>
-      </section>
+      {/* THE "IN PLAIN ENGLISH" CARD IS GONE (Jacob, July 14 2026).
+          Three columns of bullets sat between the hero and the journey: the only
+          piece of UI on an otherwise cinematic page. It also said the plot out loud
+          and then the film below it showed the same plot. "What we do" is what the
+          beats ARE. "What you do" is the payoff, not a feature. "What it costs" got
+          its own screen, which is <PriceBeat/>, below the journey.
+          Do not put a card back here. */}
 
       {/* 3 — THE SECRET SAUCE (the story) */}
       <JourneyMap />
 
-      {/* 4 — WHY WE BUILT THIS */}
+      {/* 4 — THE PRICE. Its own screen. The five jobs you cannot hire rise, hold,
+             then collapse into one number. Earns the price instead of declaring it. */}
+      <PriceBeat />
+
+      {/* 5 — WHY WE BUILT THIS */}
       <section className="whyus">
         <div className="wrap">
           <Reveal as="div">
