@@ -49,7 +49,7 @@ export default function StartBanner() {
 }
 
 const CSS = `
-.sbn{--g:linear-gradient(100deg,#06b6d4,#10b981 52%,#4f46e5);
+.sbn{--g:var(--sb-grad);
   position:relative;background:#050506;padding:clamp(76px,10vw,120px) 0;overflow:hidden;}
 .sbn::before{content:'';position:absolute;inset:0;pointer-events:none;
   background:radial-gradient(70% 100% at 50% 0%,rgba(16,185,129,.12),transparent 62%),
