@@ -159,7 +159,10 @@ export function AccountBrain() {
       </div>
 
       <div className="ab-col ab-phone">
-        <div className="ab-lbl">Two weeks later, 9:14 PM</div>
+        {/* The FAQ on this same page says "About 30 days from the first call." The scene
+            used to say "Two weeks later", so the story contradicted the fact four screens
+            below it. The fact wins. */}
+        <div className="ab-lbl">A month in, 9:14 PM</div>
         <div className="abp">
           <div className={`abb them${step >= 0 ? ' in' : ''}`}>
             Hey, how much to look at a dead outlet in my kitchen?

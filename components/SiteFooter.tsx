@@ -6,10 +6,15 @@ import { START_LINK, EMAIL, PHONE_DISPLAY, PHONE_HREF } from '@/lib/site';
  * /enjoy-life, /long-term). Now it links only what is real, and it carries the
  * legal pages, which is where people actually look for them. */
 
+/* /work carried the only real artifact on the site, a genuine before-and-after of a
+ * build we actually shipped, and it was reachable from NOWHERE: zero links in the nav,
+ * zero in the footer. A proof page nobody can reach is not proof. The nav is full at
+ * four, so it lives here. */
 const SITE = [
   { href: '/how-it-works', label: 'How it works' },
   { href: '/pricing', label: 'Pricing' },
   { href: '/whats-included', label: "What's included" },
+  { href: '/work', label: 'The work' },
   { href: '/founders', label: 'About us' },
   { href: '/contact', label: 'Contact' },
 ];
