@@ -22,7 +22,9 @@ import { useEffect, useRef, useState, type CSSProperties } from 'react';
  * Beat 3 also gets a wider slice of the track than it did as a CTA, because five
  * things now have to arrive inside it and then resolve. */
 
-const B = [0, 0.21, 0.44, 0.68, 1]; // beat boundaries
+/* Enjoy Life (beat 2) was 24% of the track and went by too fast to read. It is now
+ * 32%, and the whole track is longer, so every beat has more room. */
+const B = [0, 0.18, 0.38, 0.70, 1]; // beat boundaries
 
 /* The five people you cannot hire. Same argument as the FiveSalaries ledger on
  * /pricing, but as a moment instead of a card: they arrive one at a time, hold,
@@ -36,8 +38,8 @@ const PJOBS: { r: string; d: string }[] = [
 ];
 
 const CSS = `
-.sscx-track{position:relative;height:540vh;background:#050506;}
-.sscx-stage{position:sticky;top:0;height:100vh;min-height:600px;overflow:hidden;display:flex;flex-direction:column;color:#f5f5f7;--acc:#0ea5e9;--cp:0;--o0:1;--o1:0;--o2:0;--o3:0;--lz:0;}
+.sscx-track{position:relative;height:620vh;background:#050506;}
+.sscx-stage{position:sticky;top:0;height:100vh;min-height:600px;overflow:hidden;display:flex;flex-direction:column;color:#f5f5f7;--acc:#0ea5e9;--cp:0;--o0:1;--o1:0;--o2:0;--lz:0;}
 .sscx-stage[data-beat="1"]{--acc:#22d3ee;}
 .sscx-stage[data-beat="2"]{--acc:#ffd9a3;}
 .sscx-stage[data-beat="3"]{--acc:#f5f5f7;}
@@ -49,7 +51,6 @@ const CSS = `
 .sscx-film .e0{opacity:var(--o0);}
 .sscx-film .e1{opacity:var(--o1);}
 .sscx-film .e2{opacity:var(--o2);}
-.sscx-film .e3{opacity:var(--o3);}
 .sscx-film .grain{position:absolute;inset:0;width:100%;height:100%;mix-blend-mode:overlay;opacity:.08;}
 .sscx-film .vig{position:absolute;inset:0;background:radial-gradient(120% 100% at 50% 42%,transparent 40%,rgba(0,0,0,.66));}
 .sscx-film .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,6,8,.55),rgba(0,0,0,.28) 40%,rgba(4,8,6,.9));}
@@ -77,6 +78,17 @@ const CSS = `
 .sscx-head{position:absolute;left:0;right:0;top:50%;padding:0 24px;font-size:inherit;font-weight:600;letter-spacing:-.03em;line-height:inherit;opacity:0;transform:translateY(calc(-50% + 12px));transition:opacity .5s ease,transform .5s ease;}
 .sscx-stage[data-beat="0"] .h0,.sscx-stage[data-beat="1"] .h1,.sscx-head.on{opacity:1;transform:translateY(-50%);}
 .sscx-stage[data-beat="2"] .sscx-head{text-shadow:0 2px 40px rgba(0,0,0,.8);}
+
+/* the line of context under an Enjoy Life caption. Same crossfade pattern as the
+   captions: all three are stacked and only the live one is shown. */
+.sscx-lifesub{position:relative;width:100%;min-height:3.4em;margin-top:14px;opacity:0;transition:opacity .6s ease;pointer-events:none;}
+.sscx-stage[data-beat="2"] .sscx-lifesub{opacity:1;}
+.sscx-lifesub p{position:absolute;left:0;right:0;top:0;margin:0 auto;padding:0 24px;max-width:46ch;
+  font-size:clamp(14.5px,1.5vw,17px);font-weight:400;line-height:1.5;color:#dbe2dd;
+  text-shadow:0 1px 20px rgba(0,0,0,.9);opacity:0;transform:translateY(8px);
+  transition:opacity .7s ease,transform .7s cubic-bezier(.16,1,.3,1);}
+.sscx-lifesub p.on{opacity:1;transform:none;}
+@media(max-width:760px){.sscx-lifesub{min-height:5em;}}
 .sscx-panels{position:relative;width:100%;height:clamp(320px,46vh,470px);}
 .sscx-stage[data-beat="3"] .sscx-panels{height:auto;}
 .sscx-p{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(.975);transition:opacity .55s ease,transform .55s ease;pointer-events:none;}
@@ -196,11 +208,31 @@ const WHEEL: { lbl: string; blurb: string; dx: number; dy: number; lx: number; l
 
 /* Enjoy Life is not just about leaving the business. Two of these four beats are
  * about the life you get back INSIDE the work: the part you actually love. */
-const LIFE: { img: string; cap: string }[] = [
-  { img: '38293529', cap: 'Back on the tools. Not the phone.' },
-  { img: '3846255', cap: 'Time to bring the next one up.' },
-  { img: '8623946', cap: 'Home in time for dinner.' },
-  { img: '4835776', cap: 'A day that is finally yours.' },
+/* ENJOY LIFE. Three scenes, not four (Jacob, July 14 2026).
+ *
+ * The fourth was a vertical crop of a man with a circular saw, with a product logo
+ * visible in it. It cover-cropped badly, it was the sloppiest frame in the film, and
+ * it was doing the same job as the craftsman shot. Gone.
+ *
+ * Each scene now carries a caption AND a line of context, because the captions on
+ * their own were pretty and vague. The caption is the feeling. The line underneath
+ * is what we actually did to make it possible. */
+const LIFE: { img: string; cap: string; sub: string }[] = [
+  {
+    img: '8623946',
+    cap: 'Take the two weeks.',
+    sub: 'The phone still gets answered. The jobs still get booked. You are not on call from a beach.',
+  },
+  {
+    img: '3846255',
+    cap: 'Back to the part you love.',
+    sub: 'The craft, the work, bringing the next one up. Not the paperwork at nine at night.',
+  },
+  {
+    img: '4835776',
+    cap: 'A day that is finally yours.',
+    sub: 'Nothing was dropped while you were gone. You read about it tomorrow, in thirty seconds.',
+  },
 ];
 
 export default function JourneyMap() {
@@ -210,7 +242,7 @@ export default function JourneyMap() {
   const [s0, setS0] = useState(0);
   const [sc, setSc] = useState(0);
   const [life, setLife] = useState(0);
-  const [lo, setLo] = useState<[number, number, number, number]>([1, 0, 0, 0]);
+  const [lo, setLo] = useState<[number, number, number]>([1, 0, 0]);
   const [lz, setLz] = useState(0);
   const [pj, setPj] = useState(0);
   const [fills, setFills] = useState<[number, number, number, number]>([0, 0, 0, 0]);
@@ -220,7 +252,7 @@ export default function JourneyMap() {
     if (!el) return;
     let raf = 0;
     const clamp = (v: number) => Math.min(Math.max(v, 0), 1);
-    const POS = [0, 1 / 3, 2 / 3, 1];
+    const POS = [0, 0.5, 1];
     const onScroll = () => {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
@@ -237,7 +269,7 @@ export default function JourneyMap() {
         setCp(climb);
         setS0(climb > 0.98 ? 2 : climb > 0.7 ? 1 : 0);
         setSc(b < 1 ? 0 : b > 1 ? 5 : Math.min(5, Math.floor(lp * 6)));
-        setLife(b < 2 ? 0 : b > 2 ? 3 : Math.min(3, Math.floor(lp * 4)));
+        setLife(b < 2 ? 0 : b > 2 ? 2 : Math.min(2, Math.floor(lp * 3)));
         /* pj 0..4 = the jobs arriving · 5 = they collapse · 6 = the number has landed.
            Scroll position, not a timer, so the reader sets the pace. */
         /* The multiplier is FRONT-LOADED on purpose. At 7.4 the number only landed
@@ -246,7 +278,9 @@ export default function JourneyMap() {
            At 11 the five jobs are all in by ~36% and the number is up by ~55%, so it
            holds for nearly half the beat. The reveal IS the point. Let it sit there. */
         setPj(b < 3 ? 0 : Math.min(6, Math.floor(lp * 11)));
-        setLo(POS.map((pp) => clamp(1 - Math.abs(lifeP - pp) * 3)) as [number, number, number, number]);
+        /* Falloff was 3, which made each scene snap in and out. At 1.9 the scenes
+           overlap for longer and genuinely dissolve into one another. */
+        setLo(POS.map((pp) => clamp(1 - Math.abs(lifeP - pp) * 1.9)) as [number, number, number]);
         setLz(lifeP);
         const seg = (i: number) => clamp((p - B[i]) / (B[i + 1] - B[i])) * 100;
         setFills([seg(0), seg(1), seg(2), seg(3)]);
@@ -265,7 +299,6 @@ export default function JourneyMap() {
     '--o0': lo[0],
     '--o1': lo[1],
     '--o2': lo[2],
-    '--o3': lo[3],
     '--lz': lz,
   } as CSSProperties;
 
@@ -324,6 +357,13 @@ export default function JourneyMap() {
             <div className="sscx-head h1">You run the business. We run the busywork.</div>
             {LIFE.map((l, i) => (
               <div key={l.cap} className={`sscx-head lc${beat === 2 && life === i ? ' on' : ''}`}>{l.cap}</div>
+            ))}
+          </div>
+
+          {/* the caption tells you the feeling. this tells you what we did. */}
+          <div className="sscx-lifesub" aria-hidden={beat !== 2}>
+            {LIFE.map((l, i) => (
+              <p key={l.sub} className={beat === 2 && life === i ? 'on' : ''}>{l.sub}</p>
             ))}
           </div>
 
