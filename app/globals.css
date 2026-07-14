@@ -483,7 +483,7 @@ section[id] { scroll-margin-top: 5rem; }
 .v4 .pill,.v4-nav .pill{display:inline-flex;align-items:center;border-radius:999px;font-weight:600;font-size:14px;padding:10px 20px;text-decoration:none;transition:.2s;}
 .v4 .pill-white,.v4-nav .pill-white{background:#fff;color:var(--v4-ink);}
 .v4 .pill-white:hover,.v4-nav .pill-white:hover{transform:translateY(-1px);}
-.v4 .pill-ink,.v4-nav .pill-ink{background:var(--v4-ink);color:#fff;}.v4 .pill-ink:hover{transform:translateY(-1px);}
+.v4 .pill-ink{background:var(--v4-ink);color:#fff;}.v4 .pill-ink:hover{transform:translateY(-1px);}
 @media(max-width:860px){.v4-nav .nav-links{display:none;}}
 
 /* full-bleed image moment */
