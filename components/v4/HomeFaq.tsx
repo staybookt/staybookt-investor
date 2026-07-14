@@ -60,9 +60,9 @@ export default function HomeFaq() {
       <div className="wrap">
         <div className="fgrid">
           <div className="faside">
-            <div className="eyebrow">Questions</div>
+            <div className="eyebrow">FAQ</div>
             <h2>
-              The short <span className="g">answers.</span>
+              Questions, <span className="g">answered.</span>
             </h2>
             <p className="fa-p">
               The first things everyone asks, answered here. The full sets live on the pages they

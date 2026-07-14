@@ -251,6 +251,10 @@ const PAGE_CSS = `
 .v4 .illus .wrap{text-align:center;font-size:12.5px;line-height:1.5;color:#5c6470;max-width:60ch;}
 
 /* CLOSER promise headline */
+.v4 .closer{margin-top:-1px;}
+/* the image emerges out of the film's black: solid at the very top, clearing to the
+   photo, then darkening again into the FAQ (#050506) below. This is the fade. */
+.v4 .closer .grad-ov{background:linear-gradient(180deg,#050506 0%,rgba(5,5,6,.72) 10%,rgba(5,5,6,.2) 34%,rgba(5,5,6,.5) 72%,#050506 100%);}
 .v4 .closer .close-h{font-size:clamp(34px,5.4vw,74px);font-weight:600;letter-spacing:-.035em;line-height:1.03;color:#fff;max-width:15ch;margin:0 auto;text-shadow:0 2px 34px rgba(0,0,0,.55);}
 .v4 .closer .close-sub{margin:20px auto 0;font-size:clamp(16px,1.9vw,20px);line-height:1.5;color:#eef1f5;max-width:38ch;text-shadow:0 1px 22px rgba(0,0,0,.6);}
 `;
@@ -310,11 +314,29 @@ export default function HomePage() {
       {/* 3 — THE SECRET SAUCE (the story) */}
       <JourneyMap />
 
-      {/* The old "Before we meet" CTA card lived here and is gone (Jacob, live review,
-             July 2026). It read as an awkward text card competing with the image closer
-             below for the same job. The film now flows straight into the story, and the
-             single closing CTA is the sunset scene near the foot of the page. The card
-             component still closes the other pages; it was only redundant on home. */}
+      {/* THE PAYOFF. The film ends on the $199 reveal, on black, and dissolves straight
+             into this scene: the life the whole thing is for (Jacob, live review, July
+             2026). The image emerges out of the film's black via the top of its own
+             gradient, so it reads as a fade, not a cut. This is the single closing CTA
+             on the homepage; the old "Before we meet" text card that used to sit here is
+             gone. Do not add a second CTA between the film and this. */}
+      <section className="scene closer">
+        <img src={CLOSER_IMG} alt="" loading="lazy" decoding="async" />
+        <div className="grad-ov" />
+        <div className="wrap inner">
+          <Reveal>
+            <h2 className="close-h">Go enjoy the life you built it for.</h2>
+          </Reveal>
+          <Reveal>
+            <p className="close-sub">We get you found and run the day to day. You get your time back.</p>
+          </Reveal>
+          <Reveal>
+            <div className="cta" style={{ marginTop: 36 }}>
+              <a href={START_LINK} className="pill pill-white" style={{ padding: '15px 30px', fontSize: 15 }}>Get Started</a>
+            </div>
+          </Reveal>
+        </div>
+      </section>
 
       {/* 5 — WHY WE BUILT THIS */}
       <section className="whyus">
@@ -388,25 +410,6 @@ export default function HomePage() {
               </Reveal>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* 7 — CLOSER */}
-      <section className="scene closer">
-        <img src={CLOSER_IMG} alt="" loading="lazy" decoding="async" />
-        <div className="grad-ov" />
-        <div className="wrap inner">
-          <Reveal>
-            <h2 className="close-h">Go enjoy the life you built it for.</h2>
-          </Reveal>
-          <Reveal>
-            <p className="close-sub">We get you found and run the day to day. You get your time back.</p>
-          </Reveal>
-          <Reveal>
-            <div className="cta" style={{ marginTop: 36 }}>
-              <a href={START_LINK} className="pill pill-white" style={{ padding: '15px 30px', fontSize: 15 }}>Get Started</a>
-            </div>
-          </Reveal>
         </div>
       </section>
 
