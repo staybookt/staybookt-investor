@@ -1,7 +1,7 @@
 import Nav from '@/components/v4/Nav';
 import SiteFooter from '@/components/SiteFooter';
+import StartBanner from '@/components/v4/StartBanner';
 import { Promises } from '@/components/v4/Promises';
-import { START_LINK } from '@/lib/site';
 
 /* WHAT THIS PAGE IS FOR.
  *
@@ -37,9 +37,6 @@ const CSS = `
 .abt .narrow{max-width:820px;margin:0 auto;}
 .abt .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#8a8f98;}
 .abt h1,.abt h2,.abt h3{font-weight:600;letter-spacing:-.035em;color:var(--v4-ink);}
-.abt-btn{display:inline-flex;align-items:center;gap:8px;background:var(--v4-ink);color:#fff;font-size:15px;font-weight:600;border-radius:999px;padding:16px 34px;text-decoration:none;transition:transform .3s ease;}
-.abt-btn:hover{transform:translateY(-1px);}
-.abt-btn.w{background:#fff;color:#050506;}
 
 /* ===== 1. THE BELIEF. The reason the company exists, said first. ===== */
 .abt-hero{position:relative;background:#050506;padding:clamp(150px,20vh,210px) 0 clamp(90px,11vw,130px);overflow:hidden;}
@@ -50,12 +47,6 @@ const CSS = `
 .abt-hero h1 .g{background:linear-gradient(100deg,#06b6d4,#10b981 52%,#818cf8);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .abt-hero .sub{margin-top:28px;font-size:clamp(17px,2vw,22px);line-height:1.55;color:#aeb4c0;max-width:52ch;}
 
-/* ===== 2. WHY WE EXIST ===== */
-.abt-why{padding:clamp(90px,12vw,150px) 0;background:#fff;}
-.abt-why h2{font-size:clamp(30px,4.4vw,56px);line-height:1.03;max-width:16ch;}
-.abt-why p{margin-top:26px;font-size:clamp(17px,2vw,22px);line-height:1.65;color:#42474f;max-width:62ch;}
-.abt-why p b{font-weight:600;color:var(--v4-ink);}
-.abt-why .pull{margin-top:clamp(40px,5vw,58px);padding-left:clamp(20px,3vw,30px);border-left:3px solid #10b981;font-size:clamp(23px,3vw,38px);font-weight:600;letter-spacing:-.025em;line-height:1.18;color:var(--v4-ink);max-width:24ch;}
 
 /* ===== 3. WHO WE ARE ===== */
 .abt-us{padding:clamp(90px,12vw,150px) 0;background:var(--v4-cream);}
@@ -73,8 +64,13 @@ const CSS = `
 .f .who .nm{margin-top:20px;font-size:24px;font-weight:600;letter-spacing:-.03em;color:var(--v4-ink);}
 .f .who .ro{margin-top:5px;font-size:14px;font-weight:600;letter-spacing:.02em;color:#059669;}
 .f .lens{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#9298a1;}
-.f blockquote{margin:12px 0 0;font-size:clamp(21px,2.6vw,31px);font-weight:600;letter-spacing:-.028em;line-height:1.27;color:var(--v4-ink);}
-.f .bio{margin-top:26px;font-size:15px;line-height:1.7;color:#7a808a;}
+/* THE QUOTES WERE SET AT HEADLINE SIZE. Richard's runs 35 words, and at 31px that
+   is not a pull-quote, it is a paragraph wearing a costume: it dwarfed the bio
+   underneath it, which is the genuinely impressive part (Venterra, $15M to $500M+,
+   CPA). The words are untouched. The type came down to a size a human reads. */
+.f blockquote{margin:12px 0 0;font-size:clamp(17px,1.9vw,21px);font-weight:500;letter-spacing:-.012em;line-height:1.5;color:#2b2f36;max-width:52ch;
+  border-left:3px solid rgba(16,185,129,.5);padding-left:clamp(14px,1.6vw,20px);}
+.f .bio{margin-top:22px;font-size:15.5px;line-height:1.7;color:#6b7280;max-width:56ch;}
 @media(max-width:820px){.f{grid-template-columns:1fr;gap:26px;}.f .who img{max-width:200px;}}
 
 /* ===== 4. WHY WE ARE DOING THIS ===== */
@@ -92,11 +88,6 @@ const CSS = `
 .abt-prm .lead{margin-top:24px;font-size:clamp(17px,1.95vw,21px);line-height:1.6;color:#9ba2ae;max-width:58ch;}
 .abt-prm .lead b{color:#fff;font-weight:600;}
 
-/* ===== 6. CLOSER ===== */
-.abt-close{text-align:center;padding:clamp(100px,14vw,180px) 0;background:#fff;}
-.abt-close h2{font-size:clamp(32px,5vw,66px);line-height:1.02;max-width:18ch;margin:0 auto;}
-.abt-close p{margin:24px auto 0;font-size:clamp(17px,2vw,21px);line-height:1.55;color:#52565e;max-width:48ch;}
-.abt-close .cta{margin-top:36px;}
 `;
 
 export default function AboutPage() {
@@ -123,42 +114,27 @@ export default function AboutPage() {
         </div>
       </header>
 
-      {/* 2 — WHY WE EXIST */}
-      <section className="abt-why">
-        <div className="wrap narrow">
-          <div className="eyebrow">Why we exist</div>
-          <h2 style={{ marginTop: 14 }}>The software was never the problem. Nobody had the time to run it.</h2>
-          <p>
-            Great tools have been available to small businesses for years. Just never{' '}
-            <b>practically</b>. To actually get the value out of them you have to vet the vendors,
-            pick the products, wire them together, and then keep the whole thing running, month
-            after month. That is not a purchase. That is a job.
-          </p>
-          <p>
-            At a bigger company it is somebody&rsquo;s full-time job. You do not have that person,
-            and you do not have the hours to be that person, because you are the one doing the work.
-            So <b>the opportunity gets missed even though you can see it perfectly clearly</b>. That
-            is the part that grinds. Not ignorance. Capacity.
-          </p>
-          <p>
-            A hundred-person company does not beat you on talent, and it does not beat you on tools.
-            It beats you on <b>coverage</b>. It has people paid to answer, to book, to chase, to
-            follow up, and to run the software somebody sold it. That team has always been for sale.
-            It has just never been for sale to <b>you</b>.
-          </p>
-          <div className="pull">So we decided to sell you the team. Not the software. The work, done.</div>
-        </div>
-      </section>
 
       {/* 3 — WHO WE ARE */}
+      {/* THE FACES COME FIRST NOW (Jacob, July 14 2026). This page's whole job is
+          trust, and it used to make you read a 300-word essay before it showed you a
+          human being. It also argued the same point three separate times: an essay,
+          a second essay, and then both founder quotes. One idea, three passes, six
+          screens. The two essays are now one, and it sits AFTER the faces.
+
+          There is no stock photo here on purpose. Every image search for "two people
+          talking" returns men in suits in boardrooms, which is the exact visual
+          language of the agency we tell people we are not. The image on this page is
+          the two of us. */}
       <section className="abt-us">
         <div className="wrap">
           <div className="us-lead">
             <div className="eyebrow">Who we are</div>
-            <h2>Two people. One of us saw it from the outside, one from the inside.</h2>
+            <h2>Two people. No layers.</h2>
             <p>
               That is the whole company, and it is the entire qualification. We are not a fund, a
-              franchise, or an agency with a hundred logos on the wall.
+              franchise, or an agency with a hundred logos on the wall. One of us saw this from the
+              outside. One of us saw it from the inside.
             </p>
           </div>
 
@@ -210,21 +186,28 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 4 — WHY WE ARE DOING THIS */}
+      {/* ONE ARGUMENT, ONCE. This merged "Why we exist" (three paragraphs) and "Why
+          we are doing this" (two more) into a single piece. They were making the same
+          case twice, in a row, in the same voice. Roughly 60% of the words are gone
+          and nothing was lost. Do not split them back apart. */}
       <section className="abt-org">
         <div className="wrap narrow">
-          <div className="eyebrow">Why we are doing this</div>
-          <h2>We kept having the same conversation in different rooms.</h2>
+          <div className="eyebrow">Why we exist</div>
+          <h2>The software was never the problem. Nobody had the time to run it.</h2>
           <p>
-            One of us was inside a company where nothing gets dropped, watching how much of that is
-            simply five people being paid to catch things. One of us was outside, sitting across from
-            owner after owner who was excellent at the work and quietly bleeding money at every point
-            around it. Different vantage points, same conclusion, for years.
+            Great tools have been available to small businesses for years. Just never{' '}
+            <b>practically</b>. To get the value out of them you have to vet the vendors, pick the
+            products, wire them together and keep the whole thing running, month after month. That is
+            not a purchase. That is a job, and at a bigger company it is somebody&rsquo;s full-time
+            one. You do not have that person, and you cannot be that person, because you are the one
+            doing the work.
           </p>
           <p>
-            Eventually the thing you keep noticing becomes the thing you are supposed to go and fix.
-            We could have built another dashboard. There are hundreds of those, and every one of them
-            hands the owner more work. So we built the other thing: we do the work ourselves.
+            So <b>the opportunity gets missed even though you can see it perfectly clearly</b>. That
+            is the part that grinds. Not ignorance. Capacity. A hundred-person company does not beat
+            you on talent and it does not beat you on tools. It beats you on <b>coverage</b>: people
+            paid to answer, to book, to chase, to follow up. That team has always been for sale. It
+            has just never been for sale to <b>you</b>.
           </p>
           <div className="kick">
             We are not selling a tool for the five jobs.{' '}
@@ -247,21 +230,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 6 — CLOSER */}
-      <section className="abt-close">
-        <div className="wrap">
-          <h2>You do the work. We will run the rest.</h2>
-          <p>
-            Thirty minutes with one of us. Not a sales rep, not a pitch deck. We will tell you
-            straight whether this is a fit, and we will tell you if it is not.
-          </p>
-          <div className="cta">
-            <a className="abt-btn" href={START_LINK}>
-              Pick a time
-            </a>
-          </div>
-        </div>
-      </section>
+      {/* Same CTA banner every other page lands on. */}
+      <StartBanner />
 
       <SiteFooter />
     </main>
