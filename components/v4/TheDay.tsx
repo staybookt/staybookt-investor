@@ -276,7 +276,7 @@ const CSS = `
 .fix li:last-child .tm{color:#059669;}
 .fix li:last-child .h{color:#059669;}
 .fix .out{margin-top:clamp(34px,4vw,48px);font-size:clamp(20px,2.6vw,32px);font-weight:600;letter-spacing:-.025em;line-height:1.25;color:var(--v4-ink);max-width:30ch;}
-.fix .out .g{background:linear-gradient(100deg,#06b6d4,#10b981 55%,#4f46e5);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.fix .out .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
 @media(max-width:640px){.fix li{grid-template-columns:74px 20px minmax(0,1fr);gap:10px;}}
 @media(prefers-reduced-motion:reduce){.fix li{opacity:1;transform:none;}}
 `;
