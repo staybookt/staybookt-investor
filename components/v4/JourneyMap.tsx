@@ -1,16 +1,42 @@
 'use client';
 
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
-import { START_LINK } from '@/lib/site';
 
 /* The Secret Sauce: one scroll-pinned four-beat film, fully scroll-scrubbed.
  * Get Found (linear climb) -> StayBookt (wheel + blurbs) -> Enjoy Life (continuous
- * cross-dissolve + push-in) -> Get Started (CTA card). Nothing on a timer. */
+ * cross-dissolve + push-in) -> What it costs (five jobs collapse into one number).
+ * Nothing on a timer.
+ *
+ * BEAT 3 USED TO BE THE GET STARTED CTA CARD. Two changes, July 14 2026 (Jacob):
+ *
+ * 1. The price moved INTO the film, after Enjoy Life. It briefly lived below the
+ *    film as its own timed section and it played too fast, because a timer decides
+ *    the pace instead of the reader. In here it is scroll-scrubbed like everything
+ *    else, so "too fast" is impossible by construction: the reader sets the pace
+ *    with the scroll wheel, and the five jobs arrive exactly as fast as they look.
+ *
+ * 2. Get Started came OUT of the film and is now a static banner under the track
+ *    (see StartBanner). A conversion block should not be a beat you have to scrub
+ *    through, and the film now ends on the number, which is the note to end on.
+ *
+ * Beat 3 also gets a wider slice of the track than it did as a CTA, because five
+ * things now have to arrive inside it and then resolve. */
 
-const B = [0, 0.24, 0.5, 0.8, 1]; // beat boundaries
+const B = [0, 0.21, 0.44, 0.68, 1]; // beat boundaries
+
+/* The five people you cannot hire. Same argument as the FiveSalaries ledger on
+ * /pricing, but as a moment instead of a card: they arrive one at a time, hold,
+ * then collapse into the one number that replaces all of them. */
+const PJOBS: { r: string; d: string }[] = [
+  { r: 'Receptionist', d: 'Answers, every single time' },
+  { r: 'Dispatcher', d: 'Books it, confirms it, reminds them' },
+  { r: 'Estimator', d: 'Sends the quote, chases the yes' },
+  { r: 'Marketer', d: 'Gets you found, builds the reviews' },
+  { r: 'Bookkeeper', d: 'Chases the invoice, reads it back' },
+];
 
 const CSS = `
-.sscx-track{position:relative;height:440vh;background:#050506;}
+.sscx-track{position:relative;height:540vh;background:#050506;}
 .sscx-stage{position:sticky;top:0;height:100vh;min-height:600px;overflow:hidden;display:flex;flex-direction:column;color:#f5f5f7;--acc:#0ea5e9;--cp:0;--o0:1;--o1:0;--o2:0;--o3:0;--lz:0;}
 .sscx-stage[data-beat="1"]{--acc:#22d3ee;}
 .sscx-stage[data-beat="2"]{--acc:#ffd9a3;}
@@ -100,17 +126,34 @@ const CSS = `
 .sscx-stage[data-beat="1"][data-sc="4"] .b2 .wb4,
 .sscx-stage[data-beat="1"][data-sc="5"] .b2 .wb5{opacity:1;transform:none;}
 
-/* beat 3 — GET STARTED: a self-contained, tightly-centered CTA card */
-.b4{width:min(600px,92%);text-align:center;}
-.b4 .cta-h{font-size:clamp(40px,6.4vw,80px);font-weight:600;letter-spacing:-.04em;line-height:1;color:#f5f5f7;opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease;}
-.b4 .cta-sub{margin:22px auto 0;font-size:clamp(15px,1.7vw,18px);color:#d7dce4;line-height:1.55;max-width:44ch;opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease;}
-.b4 .cta-btn{display:inline-flex;align-items:center;gap:9px;margin-top:34px;background:#f5f5f7;color:#050506;font-size:16px;font-weight:600;border-radius:999px;padding:16px 30px;text-decoration:none;box-shadow:0 22px 54px -18px rgba(0,0,0,.65);opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .35s ease,box-shadow .35s ease;}
-.b4 .cta-btn .ci{transition:transform .35s ease;}
-.b4 .cta-btn:hover{transform:translateY(-2px);box-shadow:0 30px 66px -18px rgba(0,0,0,.72);}
-.b4 .cta-btn:hover .ci{transform:translateX(3px);}
-.sscx-stage[data-beat="3"] .b4 .cta-h{opacity:1;transform:none;transition-delay:.1s;}
-.sscx-stage[data-beat="3"] .b4 .cta-sub{opacity:1;transform:none;transition-delay:.28s;}
-.sscx-stage[data-beat="3"] .b4 .cta-btn{opacity:1;transform:none;transition-delay:.46s;}
+/* beat 3 — WHAT IT COSTS. The five jobs and the number share ONE space, so the
+   number does not appear beside them, it REPLACES them. Driven by data-pj (0..6),
+   which is scroll position, not a clock. */
+.b4{position:relative;width:min(760px,94%);min-height:clamp(300px,42vh,420px);display:flex;align-items:center;justify-content:center;text-align:center;}
+
+.pj-jobs{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(8px,1.2vw,14px);
+  transition:opacity .9s ease,transform 1s cubic-bezier(.16,1,.3,1),filter .9s ease;}
+.sscx-stage[data-pj="5"] .pj-jobs,.sscx-stage[data-pj="6"] .pj-jobs{opacity:0;transform:scale(.9) translateY(8px);filter:blur(8px);}
+.pj-job{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
+.sscx-stage[data-pj="0"] .pj0,
+.sscx-stage[data-pj="1"] .pj0,.sscx-stage[data-pj="1"] .pj1,
+.sscx-stage[data-pj="2"] .pj0,.sscx-stage[data-pj="2"] .pj1,.sscx-stage[data-pj="2"] .pj2,
+.sscx-stage[data-pj="3"] .pj0,.sscx-stage[data-pj="3"] .pj1,.sscx-stage[data-pj="3"] .pj2,.sscx-stage[data-pj="3"] .pj3,
+.sscx-stage[data-pj="4"] .pj-job,.sscx-stage[data-pj="5"] .pj-job,.sscx-stage[data-pj="6"] .pj-job{opacity:1;transform:none;}
+.pj-r{display:block;font-size:clamp(24px,3.4vw,42px);font-weight:600;letter-spacing:-.035em;line-height:1.1;color:#f5f5f7;}
+.pj-d{display:block;margin-top:2px;font-size:clamp(12px,1.25vw,14px);color:#8b93a5;}
+
+.pj-num{position:relative;z-index:2;opacity:0;transform:translateY(22px) scale(.94);filter:blur(7px);pointer-events:none;
+  transition:opacity 1.1s cubic-bezier(.16,1,.3,1),transform 1.25s cubic-bezier(.16,1,.3,1),filter 1s ease;}
+.sscx-stage[data-pj="6"] .pj-num{opacity:1;transform:none;filter:none;pointer-events:auto;}
+.pj-fig{display:flex;align-items:flex-start;justify-content:center;gap:2px;color:#fff;font-weight:700;letter-spacing:-.055em;line-height:.88;
+  font-size:clamp(86px,14vw,180px);font-variant-numeric:tabular-nums;text-shadow:0 8px 60px rgba(0,0,0,.5);}
+.pj-dol{font-size:.34em;font-weight:600;margin-top:.16em;color:#8b93a5;}
+.pj-per{align-self:flex-end;margin-bottom:.2em;margin-left:8px;font-size:.13em;font-weight:600;letter-spacing:0;color:#8b93a5;}
+.pj-sub{margin:14px auto 0;font-size:clamp(16px,1.9vw,21px);font-weight:600;letter-spacing:-.02em;color:#d7dce4;}
+.pj-fine{margin:10px auto 0;font-size:13.5px;color:#8b93a5;}
+.pj-fine a{color:#5eead4;text-decoration:none;font-weight:600;}
+.pj-fine a:hover{text-decoration:underline;}
 
 /* dots */
 .sscx-dots{position:relative;z-index:3;display:flex;gap:24px;justify-content:center;padding:14px 20px 28px;flex-wrap:wrap;}
@@ -167,6 +210,7 @@ export default function JourneyMap() {
   const [life, setLife] = useState(0);
   const [lo, setLo] = useState<[number, number, number, number]>([1, 0, 0, 0]);
   const [lz, setLz] = useState(0);
+  const [pj, setPj] = useState(0);
   const [fills, setFills] = useState<[number, number, number, number]>([0, 0, 0, 0]);
 
   useEffect(() => {
@@ -192,6 +236,9 @@ export default function JourneyMap() {
         setS0(climb > 0.98 ? 2 : climb > 0.7 ? 1 : 0);
         setSc(b < 1 ? 0 : b > 1 ? 5 : Math.min(5, Math.floor(lp * 6)));
         setLife(b < 2 ? 0 : b > 2 ? 3 : Math.min(3, Math.floor(lp * 4)));
+        /* pj 0..4 = the jobs arriving · 5 = they collapse · 6 = the number has landed.
+           Scroll position, not a timer, so the reader sets the pace. */
+        setPj(b < 3 ? 0 : Math.min(6, Math.floor(lp * 7.4)));
         setLo(POS.map((pp) => clamp(1 - Math.abs(lifeP - pp) * 3)) as [number, number, number, number]);
         setLz(lifeP);
         const seg = (i: number) => clamp((p - B[i]) / (B[i + 1] - B[i])) * 100;
@@ -218,7 +265,7 @@ export default function JourneyMap() {
   return (
     <section ref={trackRef} className="sscx-track">
       <style>{CSS}</style>
-      <div className="sscx-stage" style={stageStyle} data-beat={beat} data-s0={s0} data-sc={sc} data-life={life}>
+      <div className="sscx-stage" style={stageStyle} data-beat={beat} data-s0={s0} data-sc={sc} data-life={life} data-pj={pj}>
         {/* ENJOY LIFE — full-stage cinematic film, behind everything */}
         <div className="sscx-film">
           {LIFE.map((l, i) => (
@@ -248,7 +295,7 @@ export default function JourneyMap() {
 
         <div className="sscx-mid">
           <div className="sscx-phase">
-            {beat === 0 ? 'GET FOUND' : beat === 1 ? 'STAYBOOKT' : beat === 2 ? 'ENJOY LIFE' : 'NO PITCH · NO PRESSURE'}
+            {beat === 0 ? 'GET FOUND' : beat === 1 ? 'STAYBOOKT' : beat === 2 ? 'ENJOY LIFE' : 'WHAT IT COSTS'}
           </div>
 
           <div className="sscx-headwrap">
@@ -316,22 +363,30 @@ export default function JourneyMap() {
               </div>
             </div>
 
-            {/* BEAT 3 — GET STARTED.
-                This used to describe the OLD offer ("we show you where the calls, quotes
-                and jobs are slipping through") while /start described the new one. Two
-                different offers on the same website. */}
+            {/* BEAT 3 — WHAT IT COSTS. The five people you cannot hire arrive one at
+                a time as you scroll, hold, then collapse into the one number that
+                replaces all of them. The Get Started CTA that used to live here is now
+                a static banner below the film. */}
             <div className="sscx-p p3">
               <div className="b4">
-                <div className="cta-h">Get Started.</div>
-                <p className="cta-sub">
-                  Before we meet, we try to hire you. We call your line, we text your listing, and we
-                  try to book a job. Then we spend thirty minutes showing you exactly what happened.
-                  Free, no pitch, and yours to keep whether you hire us or not.
-                </p>
-                <a className="cta-btn" href={START_LINK}>
-                  Pick a time
-                  <svg className="ci" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4}><path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" /></svg>
-                </a>
+                <div className="pj-jobs" aria-hidden={pj >= 6}>
+                  {PJOBS.map((j, i) => (
+                    <div className={`pj-job pj${i}`} key={j.r}>
+                      <span className="pj-r">{j.r}</span>
+                      <span className="pj-d">{j.d}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="pj-num">
+                  <div className="pj-fig">
+                    <span className="pj-dol">$</span>199<span className="pj-per">/mo</span>
+                  </div>
+                  <p className="pj-sub">Nothing upfront. Cancel any time.</p>
+                  <p className="pj-fine">
+                    All five jobs, done. <a href="/pricing">See the pricing &rarr;</a>
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -354,7 +409,7 @@ export default function JourneyMap() {
           <span className="d0">Get Found</span>
           <span className="d1">StayBookt</span>
           <span className="d2">Enjoy Life</span>
-          <span className="d3">Get Started</span>
+          <span className="d3">What it costs</span>
         </div>
       </div>
     </section>

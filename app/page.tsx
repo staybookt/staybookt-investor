@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import Nav from '@/components/v4/Nav';
 import Reveal from '@/components/v4/Reveal';
 import JourneyMap from '@/components/v4/JourneyMap';
-import PriceBeat from '@/components/v4/PriceBeat';
+import StartBanner from '@/components/v4/StartBanner';
 import SiteFooter from '@/components/SiteFooter';
 import { START_LINK } from '@/lib/site';
 
@@ -305,15 +305,18 @@ export default function HomePage() {
           piece of UI on an otherwise cinematic page. It also said the plot out loud
           and then the film below it showed the same plot. "What we do" is what the
           beats ARE. "What you do" is the payoff, not a feature. "What it costs" got
-          its own screen, which is <PriceBeat/>, below the journey.
+          its own screen, which is now beat 3 of the film itself.
           Do not put a card back here. */}
 
       {/* 3 — THE SECRET SAUCE (the story) */}
       <JourneyMap />
 
-      {/* 4 — THE PRICE. Its own screen. The five jobs you cannot hire rise, hold,
-             then collapse into one number. Earns the price instead of declaring it. */}
-      <PriceBeat />
+      {/* 4 — GET STARTED. A static banner, not a beat.
+             The price moved INTO the film as beat 3 (it played too fast as a timed
+             section below it; inside the film the reader scrubs it at their own pace).
+             Get Started came the other way: out of the film, into a wall you hit when
+             the story ends. The button is the brand gradient, not a white pill. */}
+      <StartBanner />
 
       {/* 5 — WHY WE BUILT THIS */}
       <section className="whyus">
