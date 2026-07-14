@@ -25,7 +25,13 @@ export default function Icon() {
             fontWeight: 800,
             letterSpacing: '-0.04em',
             fontFamily: 'Helvetica, Arial, sans-serif',
-            backgroundImage: 'linear-gradient(135deg, #06B6D4 0%, #10B981 55%, #7C3AED 100%)',
+          /* The favicon was the tenth gradient, and the worst one: 135deg, a 55% stop,
+             and it ended in VIOLET (#7C3AED) while the wordmark two inches away ended
+             in indigo (#4F46E5). The one mark a person sees in every browser tab did
+             not match the brand. It matches --sb-grad now. This is a literal and not
+             the token because it renders through ImageResponse, which cannot read CSS
+             custom properties. If --sb-grad changes, change this by hand. */
+            backgroundImage: 'linear-gradient(100deg, #06B6D4 0%, #10B981 52%, #4F46E5 100%)',
             backgroundClip: 'text',
             WebkitBackgroundClip: 'text',
             color: 'transparent',
