@@ -71,17 +71,13 @@ const FAQ: { k: string; c: string; q: string; a: string }[] = [
   { k: 'What is yours', c: '#10b981', q: 'What if I already have a website?', a: 'We will look at it. If it is doing the job, we build around it. If it is holding you back, we replace it. You are not stuck with something that never brings you a call.' },
   { k: 'What is yours', c: '#10b981', q: 'Do I keep my phone number?', a: 'Yes. Your number stays yours. We make sure the calls and texts you cannot pick up still get answered and booked.' },
   { k: 'What is yours', c: '#10b981', q: 'Who owns the website and domain?', a: 'The site is yours to keep. If you already own your domain it stays in your name. If we set one up for you, we walk through the handover on the call. Nothing holds you hostage.' },
-  { k: 'The money', c: '#4f46e5', q: 'What does it cost, and is there a contract?', a: 'One plan, $199 a month plus applicable taxes, with nothing upfront. No build fee, no setup fee, no menu. There is no lock-in and no contract to be trapped in: cancel any time on thirty days notice, with no penalty and no exit fee. On top of that, for the first ninety days you can change your mind for any reason at all, and we refund every month you paid. You do not have to prove we failed. You just have to say so.' },
-  { k: 'The money', c: '#4f46e5', q: 'What if I want out in month seven?', a: 'Then you are out in month seven. Thirty days notice, no penalty, no exit fee, and no argument. We build everything before you have paid us a dollar, so the honest answer is that the risk sits with us, not with you. Whenever you go, the website, the domain, your Google Business Profile, your customer list and your reviews all go with you.' },
-  { k: 'The money', c: '#4f46e5', q: 'Is there a limit on calls and texts?', a: 'No. Unlimited calls and texts, with no per-minute billing and no overage charges, however busy the season gets. Every answering service on earth bills you by the minute and we do not, because charging you more in your busiest month is a strange way to say we are on your side.' },
   { k: 'The service', c: '#0ea5e9', q: 'What if the AI gets a price wrong?', a: 'It quotes from your playbook: your prices, your jobs, your service area. Anything it is not sure about, anything unusual and anything high-stakes gets pulled by a real person on our team before it ever reaches your customer. If a wrong number does get out, we bring it straight to you, you decide what you want to honour, and we are the ones who go back to the customer and sort it out. You are never the one making that phone call, and you are never told about it after the fact.' },
-  { k: 'The money', c: '#4f46e5', q: 'How long until I am live?', a: 'About 30 days from the first call.' },
+  { k: 'The service', c: '#0ea5e9', q: 'How long until I am live?', a: 'About 30 days from the first call.' },
   /* This used to be "What is the valuation at the end?", and it described valuing
    * the business after year one. That only ever existed to justify the 20% value
    * share, which is dead (Richard, July 14 2026). It was the last surviving piece
    * of the fee anywhere on a live page. The honest question a reader actually has
    * now is the opposite one, so we answer that instead. */
-  { k: 'The payoff', c: '#f59e0b', q: 'Do you take a cut of my business?', a: 'No. Not a commission on your jobs, not a share of your revenue, and not a share of what the business is worth if you ever sell it. The monthly fee is the entire commercial relationship. After a year of this you should have a business that runs without you standing in the middle of it, and what you do with that, whether you keep it, hand it to family, or sell it, is entirely your call and costs you nothing.' },
 ];
 
 const CSS = `
@@ -619,8 +615,8 @@ export default function HowItWorks() {
                 Questions, <span className="g">answered.</span>
               </h2>
               <p className="fa-p">
-                $199 a month plus tax, nothing upfront, no lock-in, and ninety days to change your
-                mind for any reason. Everything else is below, in plain English.
+                How the thing actually runs, in plain English. The money questions live on the{' '}
+                <a href="/pricing">pricing page</a>, where they belong.
               </p>
               <a className="fa-cta" href={START_LINK}>
                 Ask a founder directly <span aria-hidden>&rarr;</span>
