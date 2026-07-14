@@ -129,9 +129,12 @@ const CSS = `
 /* beat 3 — WHAT IT COSTS. The five jobs and the number share ONE space, so the
    number does not appear beside them, it REPLACES them. Driven by data-pj (0..6),
    which is scroll position, not a clock. */
-.b4{position:relative;width:min(760px,94%);min-height:clamp(300px,42vh,420px);display:flex;align-items:center;justify-content:center;text-align:center;}
+/* The box has to be TALLER than the stack it holds. At 42vh the five jobs came to
+   roughly 415px inside a 300px box, so they overflowed top and bottom and
+   "Receptionist" collided with the WHAT IT COSTS label above it. */
+.b4{position:relative;width:min(760px,94%);min-height:clamp(390px,54vh,520px);display:flex;align-items:center;justify-content:center;text-align:center;}
 
-.pj-jobs{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(8px,1.2vw,14px);
+.pj-jobs{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(6px,1vw,12px);
   transition:opacity .9s ease,transform 1s cubic-bezier(.16,1,.3,1),filter .9s ease;}
 .sscx-stage[data-pj="5"] .pj-jobs,.sscx-stage[data-pj="6"] .pj-jobs{opacity:0;transform:scale(.9) translateY(8px);filter:blur(8px);}
 .pj-job{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
@@ -140,7 +143,7 @@ const CSS = `
 .sscx-stage[data-pj="2"] .pj0,.sscx-stage[data-pj="2"] .pj1,.sscx-stage[data-pj="2"] .pj2,
 .sscx-stage[data-pj="3"] .pj0,.sscx-stage[data-pj="3"] .pj1,.sscx-stage[data-pj="3"] .pj2,.sscx-stage[data-pj="3"] .pj3,
 .sscx-stage[data-pj="4"] .pj-job,.sscx-stage[data-pj="5"] .pj-job,.sscx-stage[data-pj="6"] .pj-job{opacity:1;transform:none;}
-.pj-r{display:block;font-size:clamp(24px,3.4vw,42px);font-weight:600;letter-spacing:-.035em;line-height:1.1;color:#f5f5f7;}
+.pj-r{display:block;font-size:clamp(22px,3vw,38px);font-weight:600;letter-spacing:-.035em;line-height:1.1;color:#f5f5f7;}
 .pj-d{display:block;margin-top:2px;font-size:clamp(12px,1.25vw,14px);color:#8b93a5;}
 
 .pj-num{position:relative;z-index:2;opacity:0;transform:translateY(22px) scale(.94);filter:blur(7px);pointer-events:none;
