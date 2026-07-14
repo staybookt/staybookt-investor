@@ -29,12 +29,16 @@ const B = [0, 0.18, 0.38, 0.70, 1]; // beat boundaries
 /* The five people you cannot hire. Same argument as the FiveSalaries ledger on
  * /pricing, but as a moment instead of a card: they arrive one at a time, hold,
  * then collapse into the one number that replaces all of them. */
+/* THESE FIVE MUST BE JOBS WE ACTUALLY DO. It used to say Dispatcher and Bookkeeper,
+ * and /whats-included says in plain words that we do not dispatch a crew and are not
+ * your bookkeeper. Scheduler and collections clerk are real salaries and are things
+ * we genuinely do. Do not put the other two back. */
 const PJOBS: { r: string; d: string }[] = [
   { r: 'Receptionist', d: 'Answers, every single time' },
-  { r: 'Dispatcher', d: 'Books it, confirms it, reminds them' },
+  { r: 'Scheduler', d: 'Books it, confirms it, reminds them' },
   { r: 'Estimator', d: 'Sends the quote, chases the yes' },
-  { r: 'Marketer', d: 'Gets you found, builds the reviews' },
-  { r: 'Bookkeeper', d: 'Chases the invoice, reads it back' },
+  { r: 'Collections', d: 'Chases the invoice until it is paid' },
+  { r: 'Marketer', d: 'Gets you found, asks for the reviews' },
 ];
 
 const CSS = `

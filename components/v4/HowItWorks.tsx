@@ -30,7 +30,7 @@ const STOPS: Stop[] = [
       { t: 'We build you a proper website.', b: 'Fast, works on a phone, made to turn a visitor into a call. Built and hosted for you, nothing to manage.' },
       { t: 'We fix your Google listing.', b: 'The thing that pops up when someone searches for what you do. We fill it out, keep it current, and get Google to trust it.' },
       { t: 'We get you ranked, and recommended.', b: 'Your details match everywhere so you climb the map, and you show up when someone asks an AI assistant for what you do, nearby.' },
-      { t: 'We build your reviews.', b: 'Every finished job becomes a five-star review. More reviews means you climb higher and get picked more often.' },
+      { t: 'We ask for the review.', b: 'Every finished job, at the moment the work is still fresh, which is the only time anyone actually says yes. More reviews means you climb higher and get picked more often.' },
     ],
   },
   {
@@ -219,11 +219,11 @@ const CSS = `
 .el{width:min(470px,100%);}
 .el .valcard{background:#0b0f14;color:#fff;border-radius:20px;padding:26px 26px 24px;box-shadow:0 50px 100px -44px rgba(0,0,0,.6);text-align:left;}
 .el .valcard .k{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#9aa0ab;}
-.el .valcard .num{margin-top:8px;font-size:clamp(40px,7vw,58px);font-weight:700;letter-spacing:-.03em;line-height:1;background:linear-gradient(100deg,#f59e0b,#fbbf24 60%,#fde68a);-webkit-background-clip:text;background-clip:text;color:transparent;}
-.el .valcard .ns{margin-top:6px;font-size:13px;color:#9aa0ab;}
-.el .valcard .meterlab{display:flex;justify-content:space-between;margin-top:22px;font-size:12.5px;color:#c7ccd6;}
-.el .valcard .meter{margin-top:8px;height:9px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden;}
-.el .valcard .meter i{display:block;height:100%;width:var(--m,0%);border-radius:999px;background:linear-gradient(90deg,#10b981,#f59e0b);transition:width 1.4s cubic-bezier(.16,1,.3,1) .3s;}
+/* .num, .meterlab and .meter are gone with the invented $420,000 valuation and the
+   invented "12 hrs back" meter. The card now says a true thing instead of a
+   fabricated number. Do not reintroduce a figure here. */
+.el .valcard .hd{margin-top:10px;font-size:clamp(20px,2.4vw,27px);font-weight:600;letter-spacing:-.025em;line-height:1.25;color:#fff;}
+.el .valcard .ns{margin-top:12px;font-size:13.5px;line-height:1.6;color:#9aa0ab;}
 .el .choices{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;}
 .el .choice{background:#fff;border:1px solid #ececf0;border-radius:16px;padding:16px 14px;text-align:left;cursor:pointer;font-family:inherit;transition:border-color .25s ease,transform .25s ease,box-shadow .25s ease;}
 .el .choice:hover,.el .choice.on{border-color:#f59e0b;transform:translateY(-3px);box-shadow:0 18px 34px -18px rgba(245,158,11,.4);}
@@ -307,29 +307,25 @@ function GetFoundScene() {
 /* Enjoy Life scene: valuation counts up, then you choose your path. */
 function EnjoyLifeScene() {
   const ref = useRef<HTMLDivElement | null>(null);
-  const [val, setVal] = useState(0);
+  /* THE INVENTED VALUATION IS GONE (July 14 2026). This used to animate a counter
+   * up to $420,000 and label it "Your business, valued", next to a "Time back in
+   * your week: 12 hrs" meter. Both numbers were made up, and they were rendered as
+   * though they were data.
+   *
+   * On a site whose entire position is that we never fake proof and never promise a
+   * number, that was the single most dishonest object we shipped. It was also
+   * residue from the 20% value share, which is dead: we do not value the customer's
+   * business, because we do not take a cut of it.
+   *
+   * Do not put a number back in this card. */
   const [choice, setChoice] = useState(0);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let played = false;
-    const obs = new IntersectionObserver((es) => es.forEach((e) => {
-      if (e.isIntersecting && !played) {
-        played = true;
-        el.classList.add('on');
-        const target = 420000;
-        if (reduce) { setVal(target); return; }
-        const start = performance.now();
-        const tick = (now: number) => {
-          const t = Math.min(1, (now - start) / 1600);
-          const ease = 1 - Math.pow(1 - t, 3);
-          setVal(Math.round(target * ease));
-          if (t < 1) requestAnimationFrame(tick);
-        };
-        requestAnimationFrame(tick);
-      }
-    }), { threshold: 0.45 });
+    const obs = new IntersectionObserver(
+      (es) => es.forEach((e) => { if (e.isIntersecting) el.classList.add('on'); }),
+      { threshold: 0.45 },
+    );
     obs.observe(el);
     return () => obs.disconnect();
   }, []);
@@ -341,11 +337,13 @@ function EnjoyLifeScene() {
   return (
     <div className="el" ref={ref} style={{ '--m': '78%' } as CSSProperties}>
       <div className="valcard">
-        <div className="k">Your business, valued</div>
-        <div className="num">${val.toLocaleString()}</div>
-        <div className="ns">Up from a business that could not run without you.</div>
-        <div className="meterlab"><span>Time back in your week</span><span>12 hrs</span></div>
-        <div className="meter"><i /></div>
+        <div className="k">After a year of this</div>
+        <div className="hd">The business keeps booking and earning when you are not standing in the middle of it.</div>
+        <div className="ns">
+          What you do with that is entirely your call, and it costs you nothing. We take no
+          commission on your jobs, no share of your revenue, and no share of what the business is
+          worth if you ever sell it.
+        </div>
       </div>
       <div className="choices">
         {CH.map((c, i) => (
