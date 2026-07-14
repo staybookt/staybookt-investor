@@ -3,9 +3,15 @@
 import { useEffect, useState } from 'react';
 import { START_LINK } from '@/lib/site';
 
-// Header mirrors the homepage "Go deeper" tabs.
+/* Header mirrors the homepage "Go deeper" tabs.
+ *
+ * What's included was reachable only from the footer and one link on /pricing,
+ * so a first-time reader never found the single page that says, in plain English,
+ * exactly what the $199 buys. Richard read the whole site and missed it. It is now
+ * in the nav (Richard, July 14 2026). */
 const LINKS = [
   { href: '/how-it-works', label: 'How it works' },
+  { href: '/whats-included', label: "What's included" },
   { href: '/pricing', label: 'Pricing' },
   { href: '/founders', label: 'About us' },
 ];

@@ -64,7 +64,11 @@ const CSS = `
 .abt-us .us-lead p{margin-top:16px;font-size:clamp(17px,1.9vw,20px);line-height:1.6;color:#6b7280;}
 .f{display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);gap:clamp(32px,6vw,72px);align-items:start;padding:clamp(44px,6vw,72px) 0;border-top:1px solid #e2e2dc;}
 .f:first-of-type{border-top:0;padding-top:0;}
-.f .who img{width:100%;max-width:280px;aspect-ratio:1/1;object-fit:cover;border-radius:24px;display:block;box-shadow:0 34px 70px -40px rgba(6,12,20,.55);transition:transform .5s cubic-bezier(.16,1,.3,1);}
+.f .who img{width:100%;max-width:280px;aspect-ratio:1/1;object-fit:cover;object-position:center 18%;border-radius:24px;display:block;box-shadow:0 34px 70px -40px rgba(6,12,20,.55);transition:transform .5s cubic-bezier(.16,1,.3,1);}
+/* The source portraits are 3:4. Cover-cropping them into a 1:1 card from the
+   default centre lands the crop window on the chest and takes the top of the head
+   off. Bias the window upward. Jacob's frame sits higher still, so he gets top. */
+.f .who img.hi{object-position:center top;}
 .f .who:hover img{transform:translateY(-4px) scale(1.01);}
 .f .who .nm{margin-top:20px;font-size:24px;font-weight:600;letter-spacing:-.03em;color:var(--v4-ink);}
 .f .who .ro{margin-top:5px;font-size:14px;font-weight:600;letter-spacing:.02em;color:#059669;}
@@ -123,20 +127,26 @@ export default function AboutPage() {
       <section className="abt-why">
         <div className="wrap narrow">
           <div className="eyebrow">Why we exist</div>
-          <h2 style={{ marginTop: 14 }}>The best businesses we know are the worst-served customers in the world.</h2>
+          <h2 style={{ marginTop: 14 }}>The software was never the problem. Nobody had the time to run it.</h2>
           <p>
-            An owner-operator is brilliant at the work and stranded at the front of it. Not because
-            they are disorganised. Because <b>you cannot answer the phone while you are under a
-            sink</b>, and nobody has ever sold them a real way out. The industry has spent twenty
-            years selling them software instead, and every tool they buy adds a job to the pile they
-            are already drowning in.
+            Great tools have been available to small businesses for years. Just never{' '}
+            <b>practically</b>. To actually get the value out of them you have to vet the vendors,
+            pick the products, wire them together, and then keep the whole thing running, month
+            after month. That is not a purchase. That is a job.
           </p>
           <p>
-            A hundred-person company does not beat them on talent. It beats them on coverage. It has
-            people paid to answer, to book, to chase, to follow up. That coverage has always been for
-            sale. It has just never been for sale to <b>them</b>.
+            At a bigger company it is somebody&rsquo;s full-time job. You do not have that person,
+            and you do not have the hours to be that person, because you are the one doing the work.
+            So <b>the opportunity gets missed even though you can see it perfectly clearly</b>. That
+            is the part that grinds. Not ignorance. Capacity.
           </p>
-          <div className="pull">So we decided to sell it to them. Not as software. As the work, done.</div>
+          <p>
+            A hundred-person company does not beat you on talent, and it does not beat you on tools.
+            It beats you on <b>coverage</b>. It has people paid to answer, to book, to chase, to
+            follow up, and to run the software somebody sold it. That team has always been for sale.
+            It has just never been for sale to <b>you</b>.
+          </p>
+          <div className="pull">So we decided to sell you the team. Not the software. The work, done.</div>
         </div>
       </section>
 
@@ -164,8 +174,7 @@ export default function AboutPage() {
                 &ldquo;In talking to entrepreneurs, one theme kept coming up: they didn&apos;t have
                 enough time to grow their business and enjoy the rewards they&apos;d hoped for.
                 StayBookt is our answer to &lsquo;not enough time.&rsquo; We get to build something
-                great while helping others realize their own dream, and get back time for the things
-                they love.&rdquo;
+                great while helping others realize their dreams and Enjoy Life more.&rdquo;
               </blockquote>
               <p className="bio">
                 Two decades of executive leadership inside high-growth service businesses at scale,
@@ -178,7 +187,7 @@ export default function AboutPage() {
 
           <div className="f">
             <div className="who">
-              <img src="/photos/jacob.jpg" alt="Jacob Charendoff, co-founder of StayBookt" width={280} height={280} />
+              <img className="hi" src="/photos/jacob.jpg" alt="Jacob Charendoff, co-founder of StayBookt" width={280} height={280} />
               <div className="nm">Jacob Charendoff</div>
               <div className="ro">Brand, product, and growth</div>
             </div>
