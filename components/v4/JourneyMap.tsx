@@ -156,9 +156,6 @@ const CSS = `
 .pj-dol{font-size:.34em;font-weight:600;margin-top:.16em;color:#8b93a5;}
 .pj-per{align-self:flex-end;margin-bottom:.2em;margin-left:8px;font-size:.13em;font-weight:600;letter-spacing:0;color:#8b93a5;}
 .pj-sub{margin:14px auto 0;font-size:clamp(16px,1.9vw,21px);font-weight:600;letter-spacing:-.02em;color:#d7dce4;}
-.pj-fine{margin:10px auto 0;font-size:13.5px;color:#8b93a5;}
-.pj-fine a{color:#5eead4;text-decoration:none;font-weight:600;}
-.pj-fine a:hover{text-decoration:underline;}
 
 /* dots */
 .sscx-dots{position:relative;z-index:3;display:flex;gap:24px;justify-content:center;padding:14px 20px 28px;flex-wrap:wrap;}
@@ -407,9 +404,6 @@ export default function JourneyMap() {
                     <span className="pj-dol">$</span>199<span className="pj-per">/mo</span>
                   </div>
                   <p className="pj-sub">Nothing upfront. Cancel any time.</p>
-                  <p className="pj-fine">
-                    All five jobs, done. <a href="/pricing">See the pricing &rarr;</a>
-                  </p>
                 </div>
               </div>
             </div>
