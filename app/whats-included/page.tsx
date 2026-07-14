@@ -1,5 +1,6 @@
 import Nav from '@/components/v4/Nav';
 import SiteFooter from '@/components/SiteFooter';
+import Coming from '@/components/v4/Coming';
 import { START_LINK } from '@/lib/site';
 
 const SHARE =
@@ -390,6 +391,12 @@ export default function WhatsIncludedPage() {
           </div>
         </div>
       </section>
+
+      {/* WHERE THIS IS GOING. Fenced, dark, and explicitly not-yet. It sits AFTER
+          "what we do not do" on purpose: the list of what $199 buys today has to
+          stay clean. A roadmap mixed into that list reads as a bait-and-switch,
+          and we have watched a reader quit at exactly that moment. */}
+      <Coming />
 
       <section className="inc-close">
         <div className="wrap">
