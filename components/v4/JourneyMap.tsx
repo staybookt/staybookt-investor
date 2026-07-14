@@ -75,8 +75,12 @@ const CSS = `
 .sscx-stage[data-pj="5"] .sscx-phase{opacity:.25;}
 .sscx-headwrap{position:relative;text-align:center;width:100%;min-height:2.4em;font-size:clamp(30px,4.8vw,60px);line-height:1.04;}
 .sscx-stage[data-beat="3"] .sscx-headwrap{display:none;}
-.sscx-head{position:absolute;left:0;right:0;top:50%;padding:0 24px;font-size:inherit;font-weight:600;letter-spacing:-.03em;line-height:inherit;opacity:0;transform:translateY(calc(-50% + 12px));transition:opacity .5s ease,transform .5s ease;}
-.sscx-stage[data-beat="0"] .h0,.sscx-stage[data-beat="1"] .h1,.sscx-head.on{opacity:1;transform:translateY(-50%);}
+/* THE HAND-OFF. Incoming and outgoing used to share one curve, so for half a second
+   both captions were on screen printed on top of each other. That is the sloppiness.
+   Now the outgoing caption LEAVES FAST (.24s) and the incoming one ARRIVES LATE
+   (.55s, delayed .2s), so the screen is briefly empty rather than briefly doubled. */
+.sscx-head{position:absolute;left:0;right:0;top:50%;padding:0 24px;font-size:inherit;font-weight:600;letter-spacing:-.03em;line-height:inherit;opacity:0;transform:translateY(calc(-50% + 12px));transition:opacity .24s ease,transform .24s ease;}
+.sscx-stage[data-beat="0"] .h0,.sscx-stage[data-beat="1"] .h1,.sscx-head.on{opacity:1;transform:translateY(-50%);transition:opacity .55s ease .2s,transform .7s cubic-bezier(.16,1,.3,1) .2s;}
 .sscx-stage[data-beat="2"] .sscx-head{text-shadow:0 2px 40px rgba(0,0,0,.8);}
 
 /* the line of context under an Enjoy Life caption. Same crossfade pattern as the
@@ -86,8 +90,9 @@ const CSS = `
 .sscx-lifesub p{position:absolute;left:0;right:0;top:0;margin:0 auto;padding:0 24px;max-width:46ch;
   font-size:clamp(14.5px,1.5vw,17px);font-weight:400;line-height:1.5;color:#dbe2dd;
   text-shadow:0 1px 20px rgba(0,0,0,.9);opacity:0;transform:translateY(8px);
-  transition:opacity .7s ease,transform .7s cubic-bezier(.16,1,.3,1);}
-.sscx-lifesub p.on{opacity:1;transform:none;}
+  transition:opacity .24s ease,transform .24s ease;}
+/* same hand-off as the caption, a beat behind it */
+.sscx-lifesub p.on{opacity:1;transform:none;transition:opacity .55s ease .32s,transform .7s cubic-bezier(.16,1,.3,1) .32s;}
 @media(max-width:760px){.sscx-lifesub{min-height:5em;}}
 .sscx-panels{position:relative;width:100%;height:clamp(320px,46vh,470px);}
 .sscx-stage[data-beat="3"] .sscx-panels{height:auto;}
