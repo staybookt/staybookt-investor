@@ -69,7 +69,9 @@ const CSS = `
 .sscx-seg{flex:1;height:2.5px;border-radius:2px;background:rgba(255,255,255,.14);overflow:hidden;}
 .sscx-seg i{display:block;height:100%;width:0;background:var(--acc);transition:background .8s;}
 .sscx-mid{position:relative;z-index:3;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(10px,2vh,20px);padding:1vh 24px;}
-.sscx-phase{font-size:13px;font-weight:700;letter-spacing:.2em;color:var(--acc);text-align:center;transition:color .8s ease;text-shadow:0 1px 18px rgba(0,0,0,.5);}
+.sscx-phase{font-size:13px;font-weight:700;letter-spacing:.2em;color:var(--acc);text-align:center;transition:color .8s ease,opacity .5s ease;text-shadow:0 1px 18px rgba(0,0,0,.5);}
+/* the beat-3 label changes mid-beat (problem -> price), so soften the swap */
+.sscx-stage[data-pj="5"] .sscx-phase{opacity:.25;}
 .sscx-headwrap{position:relative;text-align:center;width:100%;min-height:2.4em;font-size:clamp(30px,4.8vw,60px);line-height:1.04;}
 .sscx-stage[data-beat="3"] .sscx-headwrap{display:none;}
 .sscx-head{position:absolute;left:0;right:0;top:50%;padding:0 24px;font-size:inherit;font-weight:600;letter-spacing:-.03em;line-height:inherit;opacity:0;transform:translateY(calc(-50% + 12px));transition:opacity .5s ease,transform .5s ease;}
@@ -303,7 +305,21 @@ export default function JourneyMap() {
 
         <div className="sscx-mid">
           <div className="sscx-phase">
-            {beat === 0 ? 'GET FOUND' : beat === 1 ? 'STAYBOOKT' : beat === 2 ? 'ENJOY LIFE' : 'WHAT IT COSTS'}
+            {/* Beat 3's label FLIPS with the reveal. While the five job titles are
+                stacking up, the screen is not showing what it costs, it is showing the
+                problem: five people you would have to hire. Calling that "WHAT IT COSTS"
+                answers a question the reader has not been asked yet and spoils the turn.
+                So the label names the problem first, and becomes the answer at the exact
+                moment the number lands. The label is part of the payoff. */}
+            {beat === 0
+              ? 'GET FOUND'
+              : beat === 1
+                ? 'STAYBOOKT'
+                : beat === 2
+                  ? 'ENJOY LIFE'
+                  : pj >= 6
+                    ? 'WHAT IT COSTS'
+                    : 'THE FRONT OFFICE YOU CANNOT AFFORD'}
           </div>
 
           <div className="sscx-headwrap">
