@@ -6,7 +6,7 @@ import SiteFooter from '@/components/SiteFooter';
 import { START_LINK } from '@/lib/site';
 
 const SHARE_DESCRIPTION =
-  'StayBookt answers your phone, books your jobs and chases your quotes. You do the work. We run everything around it. $199 a month, nothing upfront.';
+  'StayBookt answers your phone, books your jobs and chases your quotes. You do the work. We run everything around it. $199 a month, nothing upfront, no lock-in.';
 
 const CLOSER_IMG =
   'https://images.pexels.com/photos/30660768/pexels-photo-30660768.jpeg?auto=compress&cs=tinysrgb&w=2000';
@@ -54,6 +54,8 @@ const PAGE_CSS = `
 .v4 header.scene h1{max-width:16ch;margin:20px auto 0;font-size:clamp(40px,6.6vw,88px);letter-spacing:-.03em;line-height:1.05;color:#f5f5f7;}
 .v4 header.scene p.sub{margin:24px auto 0;color:#e9e9ec;max-width:46ch;}
 .v4 header.scene .cta{justify-content:center;}
+.ctanote{margin:20px auto 0;max-width:52ch;text-align:center;font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.62);}
+@media(max-width:640px){.ctanote{font-size:13.5px;max-width:36ch;}}
 .v4 header.scene .eyebrow{color:#c9cdd6;}
 .v4 .kicker{font-size:14px;font-weight:600;letter-spacing:.02em;margin-bottom:14px;background:linear-gradient(90deg,#0ea5e9,#06b6d4 34%,#14b8a6 66%,#10b981);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .v4 .sbwrap,.v4 .sb-clook{--grad:linear-gradient(90deg,#0ea5e9,#06b6d4 34%,#14b8a6 66%,#10b981);}
@@ -247,7 +249,12 @@ const PAGE_CSS = `
    A cold visitor gives us about eight seconds and asks three questions in this
    order: what do you do, what do I have to do, and can I afford it. This band
    answers all three before the story starts. The price lives here and not a
-   click away, because anything that hides its price is assumed to be expensive. */
+   click away, because anything that hides its price is assumed to be expensive.
+
+   The price column states the WHOLE deal, including the 20% value share. That
+   used to live one click away on /pricing, and a buyer who has been burned before
+   finds it by hunting, and a number you have to hunt for is a number he decides
+   you hid. Do not move it back. */
 .v4 .answer{background:#050506;padding:clamp(80px,10vw,130px) 0 clamp(70px,9vw,110px);position:relative;}
 .v4 .answer::before{content:'';position:absolute;inset:0;background:radial-gradient(52% 44% at 50% 0%,rgba(16,185,129,.1),transparent 66%);pointer-events:none;}
 .v4 .answer .wrap{position:relative;z-index:1;}
@@ -263,6 +270,7 @@ const PAGE_CSS = `
 .v4 .acol li{position:relative;padding:9px 0 9px 20px;font-size:15.5px;line-height:1.5;color:#dfe3e9;}
 .v4 .acol li::before{content:'';position:absolute;left:0;top:17px;width:6px;height:6px;border-radius:50%;background:#10b981;}
 .v4 .acol li b{color:#fff;font-weight:600;}
+.v4 .acol.price li{font-size:14.5px;}
 .v4 .acol .anote{margin-top:16px;font-size:14px;line-height:1.55;color:#8b93a5;}
 .v4 .acol .anum{display:flex;align-items:flex-start;gap:2px;margin-top:12px;color:#fff;font-weight:700;letter-spacing:-.045em;line-height:.9;font-size:clamp(52px,6.4vw,80px);font-variant-numeric:tabular-nums;}
 .v4 .acol .anum .d{font-size:.42em;font-weight:600;margin-top:.16em;color:#9aa0ab;}
@@ -310,6 +318,16 @@ export default function HomePage() {
               <a href={START_LINK} className="pill pill-white" style={{ padding: '14px 28px', fontSize: 15 }}>Get Started</a>
             </div>
           </Reveal>
+          {/* The button used to say "Get Started" and nothing else, which is the most
+              ignorable label in English. The offer behind it is the best thing we own,
+              so it now travels with the button instead of sitting halfway down the page. */}
+          <Reveal>
+            <p className="ctanote">
+              Before we meet, we try to hire you. We call your line, we text your listing, and we
+              try to book a job. Then we show you exactly what happened. Free, and yours to keep
+              either way.
+            </p>
+          </Reveal>
         </div>
         <div className="scrollcue">Scroll</div>
       </header>
@@ -353,9 +371,14 @@ export default function HomePage() {
                 <span className="d">$</span>199<span className="per">/mo</span>
               </div>
               <ul>
-                <li><b>Nothing upfront.</b> No build fee, no setup fee.</li>
-                <li>12-month term, because we build it all before you pay us a dollar.</li>
-                <li><b>90 days to change your mind</b>, and we refund every month you paid.</li>
+                <li><b>Nothing upfront.</b> No build fee, no setup fee. Plus applicable taxes.</li>
+                <li><b>No lock-in.</b> Cancel any time on thirty days notice.</li>
+                <li><b>90 days to change your mind</b>, for any reason, and we refund every month you paid.</li>
+                <li>Unlimited calls and texts. No per-minute billing, no overage.</li>
+                <li>
+                  Later, if we make the business worth more, we take <b>20% of the increase</b>, and
+                  only when you cash it in. Never a cut of your revenue.
+                </li>
               </ul>
               <a className="alink" href="/pricing">See the pricing &rarr;</a>
             </Reveal>
