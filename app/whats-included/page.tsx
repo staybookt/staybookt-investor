@@ -182,6 +182,16 @@ const KEEP = [
 ];
 
 const CSS = `
+/* THE WORDMARK BUG.
+ * This page's <main> is className="inc" and every other page is "... v4". The
+ * --v4-* colour variables are declared on .v4, and <Nav> renders INSIDE <main>,
+ * so on this page alone the nav had no variables: the gradient on "Bookt" fell
+ * back to nothing, background-clip:text left it transparent, and the wordmark
+ * rendered as "Stay        ." with a hole in it. Nobody caught it because nothing
+ * linked here from the nav until today.
+ * Hand the nav the four variables it needs rather than bolting .v4 onto this page
+ * wholesale, which would drag in every .v4 rule and restyle the page. */
+.inc,.v4-nav{--v4-ink:#06080d;--v4-paper:#fff;--v4-cream:#f6f6f3;--v4-line:#e9e9e6;--v4-muted:#7a828f;--v4-green:#10b981;--v4-green-d:#047857;--v4-violet:#7c3aed;--v4-cyan:#06b6d4;--v4-indigo:#4f46e5;}
 .inc{background:#fff;color:var(--v4-ink);}
 .inc .wrap{width:100%;max-width:1080px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
 .inc .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#8a8f98;}
