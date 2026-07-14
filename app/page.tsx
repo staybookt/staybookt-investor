@@ -3,6 +3,7 @@ import Nav from '@/components/v4/Nav';
 import Reveal from '@/components/v4/Reveal';
 import JourneyMap from '@/components/v4/JourneyMap';
 import StartBanner from '@/components/v4/StartBanner';
+import HomeFaq from '@/components/v4/HomeFaq';
 import SiteFooter from '@/components/SiteFooter';
 import { START_LINK } from '@/lib/site';
 
@@ -394,6 +395,11 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* 6.5 — FAQ. The front door has to answer the first questions without a
+             click-away. Curated cross-section only; the full sets live on the deep
+             pages (Jacob, live review, July 2026). */}
+      <HomeFaq />
 
       {/* 7 — CLOSER */}
       <section className="scene closer">

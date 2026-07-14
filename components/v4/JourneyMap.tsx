@@ -348,7 +348,8 @@ export default function JourneyMap() {
                 stacking up, the screen is not showing what it costs, it is showing the
                 problem: five people you would have to hire. Calling that "WHAT IT COSTS"
                 answers a question the reader has not been asked yet and spoils the turn.
-                So the label names the problem first, and becomes the answer at the exact
+                So the label names the problem first (the five people you would otherwise hire),
+                and becomes the answer at the exact
                 moment the number lands. The label is part of the payoff. */}
             {beat === 0
               ? 'GET FOUND'
@@ -358,7 +359,7 @@ export default function JourneyMap() {
                   ? 'ENJOY LIFE'
                   : pj >= 6
                     ? 'WHAT IT COSTS'
-                    : 'THE FRONT OFFICE YOU CANNOT AFFORD'}
+                    : 'THE TEAM YOU&rsquo;D HAVE TO HIRE'}
           </div>
 
           <div className="sscx-headwrap">
