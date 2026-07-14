@@ -278,19 +278,19 @@ function GetFoundScene() {
       <div className="gfwin">
         <div className="gftop">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9298a1" strokeWidth={2}><circle cx="11" cy="11" r="7" /><line x1="21" y1="21" x2="16.5" y2="16.5" /></svg>
-          <span className="q">electrician near me</span>
+          <span className="q">plumber near me</span>
         </div>
         <div className="gflist">
-          <div className="srow r1"><span className="pin" /><span className="nm">City Wide Electric</span><span className="rt">&#9733; 4.1</span></div>
-          <div className="srow r2"><span className="pin" /><span className="nm">Sparky &amp; Sons</span><span className="rt">&#9733; 3.8</span></div>
-          <div className="srow r3"><span className="pin" /><span className="nm">Rapid Volt</span><span className="rt">&#9733; 4.0</span></div>
-          <div className="srow tc"><span className="badge">#1</span><span className="pin" /><span className="nm">Top Choice Electrical</span><span className="rt">&#9733; 4.9 &middot; Open now</span></div>
+          <div className="srow r1"><span className="pin" /><span className="nm">City Wide Plumbing</span><span className="rt">&#9733; 4.1</span></div>
+          <div className="srow r2"><span className="pin" /><span className="nm">Drain &amp; Sons</span><span className="rt">&#9733; 3.8</span></div>
+          <div className="srow r3"><span className="pin" /><span className="nm">Rapid Rooter</span><span className="rt">&#9733; 4.0</span></div>
+          <div className="srow tc"><span className="badge">#1</span><span className="pin" /><span className="nm">Redwater Plumbing</span><span className="rt">&#9733; 4.9 &middot; Open now</span></div>
         </div>
       </div>
       <div className="ai">
         <div className="k">Asked an AI assistant</div>
-        <div className="q2">&ldquo;Who is a good electrician near me?&rdquo;</div>
-        <div className="a2">Top Choice Electrical &mdash; 4.9 stars, open now, and one tap to call.</div>
+        <div className="q2">&ldquo;Who is a good plumber near me?&rdquo;</div>
+        <div className="a2">Redwater Plumbing &mdash; 4.9 stars, open now, and one tap to call.</div>
       </div>
       <div className="chips">
         <span className="chip">New text &middot; booked</span>

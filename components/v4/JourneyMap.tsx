@@ -382,15 +382,15 @@ export default function JourneyMap() {
               <div className="b1">
                 <div className="sb">
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8a8a90" strokeWidth={2}><circle cx="11" cy="11" r="7" /><line x1="21" y1="21" x2="16.5" y2="16.5" /></svg>
-                  <span>electrician near me</span>
+                  <span>plumber near me</span>
                 </div>
                 <div className="pack">
-                  <div className="rw a"><span className="d" /><span className="nm">City Wide Electric</span><span className="mini">★ 4.1</span></div>
-                  <div className="rw b"><span className="d" /><span className="nm">Sparky &amp; Sons</span><span className="mini">★ 3.8</span></div>
-                  <div className="rw c"><span className="d" /><span className="nm">Rapid Volt</span><span className="mini">★ 4.0</span></div>
+                  <div className="rw a"><span className="d" /><span className="nm">City Wide Plumbing</span><span className="mini">★ 4.1</span></div>
+                  <div className="rw b"><span className="d" /><span className="nm">Drain &amp; Sons</span><span className="mini">★ 3.8</span></div>
+                  <div className="rw c"><span className="d" /><span className="nm">Rapid Rooter</span><span className="mini">★ 4.0</span></div>
                   <div className="rw tc">
                     <span className="d" />
-                    <span className="nm">Top Choice Electrical</span>
+                    <span className="nm">Redwater Plumbing</span>
                     <span className="rvw">★ 4.9 · 312 reviews</span>
                     <span className="acts"><span className="bt">Call</span><span className="bt o">Book</span></span>
                     <span className="badge">#1</span>
