@@ -1,9 +1,11 @@
 /* JSON-LD structured data: Organization + FAQPage. Helps Google understand
  * the company and surface FAQ rich results.
  *
- * NOTE: the 12-month term and the 90-day money-back guarantee are ALWAYS stated
- * together, never one without the other. This file is what Google actually reads,
- * so it has to say the same thing the pages say.
+ * THE REFUND IS UNCONDITIONAL. This file used to carry the "if we have not
+ * delivered" version while three pages carried the unconditional one, which meant
+ * the single worst wording was the one Google indexed. Never reintroduce a
+ * condition here. There is also NO TERM: cancel any time on thirty days notice.
+ * This file is what Google actually reads, so it has to say what the pages say.
  *
  * NAP: the name, phone and email here must match the site, the Google Business
  * Profile and every directory listing exactly. Both read from lib/site so there
@@ -14,7 +16,7 @@ import { EMAIL, PHONE_E164 } from '@/lib/site';
 const FAQ: [string, string][] = [
   [
     'What if I want to cancel?',
-    'The plan runs on a 12-month term, because we build your website and run your front office before you pay us anything. You get ninety days to change your mind: if we have not delivered, tell us and we refund every month you paid. No forms, no argument. Whenever you leave, you keep everything that matters: the website code, the Google Business Profile login, the customer list, and the review tools. No locked-in dependencies.',
+    'There is no term and no lock-in. Cancel any time on thirty days notice, with no penalty and no exit fee. On top of that, for the first ninety days you can change your mind for any reason at all and we refund every month you paid. You do not have to prove we failed. Whenever you leave, you keep everything that matters: the website code, the domain, the Google Business Profile login, the customer list, and the review tools.',
   ],
   [
     'What if you go out of business?',
@@ -30,7 +32,15 @@ const FAQ: [string, string][] = [
   ],
   [
     'What is included in the plan?',
-    'Getting found and running it, together: your website and Google presence, an AI receptionist with a real person behind it, booking, quote follow-up, reviews, and a short daily brief. One plan, $199 a month, nothing upfront, on a 12-month term, with ninety days to change your mind.',
+    'Getting found and running it, together: your website and Google presence, an AI receptionist with a real person behind it, booking, quote follow-up, reviews, and a short daily brief. One plan, $199 a month plus applicable taxes, nothing upfront, no lock-in, with ninety days to change your mind for any reason.',
+  ],
+  [
+    'Is there a limit on calls and texts?',
+    'No. Calls and texts are unlimited, with no per-minute billing and no overage charges, however busy the season gets.',
+  ],
+  [
+    'What if the AI gets a price wrong?',
+    'It quotes from your playbook: your prices, your jobs, your service area. Anything it is not sure about, anything unusual and anything high-stakes gets pulled by a real person before it ever reaches your customer. If a wrong number does get out, we bring it straight to you, you decide what you want to honour, and we go back to the customer and sort it out. You are never the one making that call.',
   ],
 ];
 

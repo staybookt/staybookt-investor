@@ -19,21 +19,29 @@ export const PHONE_HREF = 'tel:+19057178264';
 export const PHONE_E164 = '+1-905-717-8264';
 
 // Confirmed public pricing. ONE plan: Get Found + StayBookt bundled at $199/mo,
-// nothing upfront, 12-MONTH TERM, 90-day money-back guarantee.
+// nothing upfront, NO LOCK-IN, 90-day money-back guarantee.
 //
-// The term is stated plainly and it is never hidden. It has to exist: we build the
-// website and run the front office before the client has paid a dollar, so without
-// a term that is a free website and a walk-away. The 90 days is the protection that
-// runs the other way. STATE BOTH, ALWAYS TOGETHER. One without the other is a lie
-// by omission in either direction.
+// THE 12-MONTH TERM IS DEAD (Jacob, July 13 2026). We had been advertising a year
+// lock-in AND a thirty-day exit, which cannot both be true. The exit won. We do not
+// advertise a term anywhere, in any copy, ever again. Cancel any time on thirty
+// days' notice, no penalty and no exit fee. The 90-day money-back sits on top of
+// that, and it is UNCONDITIONAL: any reason, no "if we have not delivered" test.
+// A conditional refund is a judgment call we make and the customer loses, which is
+// exactly the thing our buyer has been burned by before.
+//
+// Price is quoted PLUS applicable taxes, said out loud so month one is not a surprise.
+// Volume is UNLIMITED: no per-minute billing, no overage. Say it, because every
+// answering service on earth bills per minute and the silence reads as a trap.
 //
 // Enjoy Life stays invite-only after year one, and it is a 20% VALUE share on the
 // increase above an agreed baseline. It is not 5% of revenue. That number is dead.
 export const PRICING = {
   monthly: '$199',
   upfront: 'Nothing upfront',
-  term: '12-month term',
-  guarantee: '90-day money-back',
+  term: 'No lock-in. Cancel any time on thirty days notice',
+  tax: 'plus applicable taxes',
+  volume: 'Unlimited calls and texts. No per-minute billing, no overage',
+  guarantee: '90-day money-back, for any reason',
   // Enjoy Life is a VALUE share, not a revenue share. We take 20% of the increase
   // in enterprise value above an agreed baseline, paid only on a sale/handoff/settle.
   valueShare: '20% of the increase in value above baseline',
@@ -63,7 +71,8 @@ export const TIERS: Tier[] = [
     upfrontNote: 'no build fee, no setup fee',
     recurring: '$199/mo',
     commission: null,
-    terms: '12-month term. Ninety days to change your mind, or we refund every month you paid.',
+    terms:
+      'No lock-in. Cancel any time on thirty days notice, no penalty. And for the first ninety days, change your mind for any reason and we refund every month you paid.',
     recommended: true,
     points: [
       'A fast website, built and hosted, yours to keep',

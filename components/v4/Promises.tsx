@@ -8,8 +8,10 @@ import { useState } from 'react';
  * makes a promise mean anything is what it costs you to keep it, so every
  * promise here opens to show the price we pay for it.
  *
- * The last one is the important one: we have no testimonials on this site,
- * and that fact is the proof of the promise rather than a hole in it. */
+ * The fifth promise (never fake proof) used to close by announcing that this
+ * website has not got a single customer quote on it because we have not earned
+ * one. Killed, July 13 2026. The promise is the point. Telling a stranger we have
+ * no customers is not a flex, it is a reason to leave. Do not put it back. */
 
 type Vow = {
   n: string;
@@ -29,7 +31,7 @@ const PROMISES: Vow[] = [
     n: '02',
     h: 'The owner stays in charge.',
     p: 'We take the busywork, not the business. Your prices. Your standards. Your name on the van. Your customers, in your voice. We are staff, not a partner who quietly takes the wheel.',
-    cost: 'It costs us the easy optimisations. We will not raise your prices because the model says we can, or take jobs you would have turned down, or talk to your customers in a way you would not. Some of those things would make us more money. We do not get to do them.',
+    cost: 'It costs us the easy wins. We will not raise your prices because the model says we can, or take jobs you would have turned down, or talk to your customers in a way you would not. Some of those things would make us more money. We do not get to do them.',
   },
   {
     n: '03',
@@ -47,7 +49,7 @@ const PROMISES: Vow[] = [
     n: '05',
     h: 'We will never fake proof.',
     p: 'No invented testimonials. No borrowed logos. No screenshots of results we did not produce. Where we illustrate the service, we say so, in writing, on the page.',
-    cost: 'Look around this website. There is not a single customer quote on it, because we have not earned one yet. That absence is the most expensive thing on this site, and it is staying there until somebody real says something real.',
+    cost: 'It costs us the easy win. Every competitor you have looked at has a wall of five-star quotes, and we could have one by Friday. We would rather show you nothing than show you something we made up.',
   },
 ];
 
