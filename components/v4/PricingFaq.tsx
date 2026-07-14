@@ -47,7 +47,7 @@ const QS: Q[] = [
     k: 'The money',
     c: '#4f46e5',
     q: 'Is $199 really the whole number?',
-    a: 'Yes, plus applicable taxes. There is no build fee, no setup fee, no menu of add-ons, no per-minute billing and no overage. And there is no back end: no commission on your jobs, no share of your revenue, and no share of what the business is worth if you ever sell it. The monthly fee is the entire commercial relationship.',
+    a: 'Almost. It is $199 CAD a month plus applicable taxes, and the one thing that is not in it is your domain registration, which runs about twenty dollars a year, is passed through at cost, and is yours anyway. That is the entire list. There is no build fee, no setup fee, no menu of add-ons, no per-minute billing and no overage. And there is no back end: no commission on your jobs, no share of your revenue, and no share of what the business is worth if you ever sell it. We would rather tell you about twenty dollars now than have you find it on an invoice later.',
   },
   {
     k: 'The catch',

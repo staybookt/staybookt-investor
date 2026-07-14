@@ -25,7 +25,9 @@ const TABS: { k: Screen; n: string; h: string; p: string }[] = [
     k: 'crm',
     n: 'The customer record',
     h: 'Every customer, every job, every dollar. One place.',
-    p: 'Most owners run this out of a phone, a notebook, and QuickBooks. QuickBooks knows what you invoiced. It does not know that Patricia has called three times, that her quote has been open nine days, or that this is the third job you have done for the Okafors. We do.',
+    /* The QuickBooks line lives in the matrix row above. Telling the same joke twice
+       on one page is how a page stops being read. */
+    p: 'One place for every customer, every job, every quote and every dollar. Not your phone, your notebook and your books.',
   },
   {
     k: 'ea',

@@ -65,13 +65,9 @@ const STOPS: Stop[] = [
 ];
 
 const FAQ: { k: string; c: string; q: string; a: string }[] = [
-  { k: 'The service', c: '#0ea5e9', q: 'Is it AI or a real person answering?', a: 'Both, on purpose. AI handles the everyday calls, texts, and bookings so nothing gets missed. When something is unusual or high-stakes, a real person on our team steps in before it reaches your customer. You are never the one picking up the slack.' },
   { k: 'The service', c: '#0ea5e9', q: 'How does it know how to talk about my business?', a: 'That is what the first couple of weeks are for. We learn your prices, your service area, the jobs you take, and how you talk to a customer. Everything after that runs on your playbook, not a generic script.' },
-  { k: 'The service', c: '#0ea5e9', q: 'Do I have to learn any software?', a: 'No. That is the whole point. We run it. You get a short brief each morning and approve the occasional thing. There is no app you are forced to live in.' },
-  { k: 'What is yours', c: '#10b981', q: 'What if I already have a website?', a: 'We will look at it. If it is doing the job, we build around it. If it is holding you back, we replace it. You are not stuck with something that never brings you a call.' },
-  { k: 'What is yours', c: '#10b981', q: 'Do I keep my phone number?', a: 'Yes. Your number stays yours. We make sure the calls and texts you cannot pick up still get answered and booked.' },
-  { k: 'What is yours', c: '#10b981', q: 'Who owns the website and domain?', a: 'The site is yours to keep. If you already own your domain it stays in your name. If we set one up for you, we walk through the handover on the call. Nothing holds you hostage.' },
-  { k: 'The service', c: '#0ea5e9', q: 'What if the AI gets a price wrong?', a: 'It quotes from your playbook: your prices, your jobs, your service area. Anything it is not sure about, anything unusual and anything high-stakes gets pulled by a real person on our team before it ever reaches your customer. If a wrong number does get out, we bring it straight to you, you decide what you want to honour, and we are the ones who go back to the customer and sort it out. You are never the one making that phone call, and you are never told about it after the fact.' },
+  { k: 'The service', c: '#0ea5e9', q: 'What if I already have a website?', a: 'We will look at it. If it is doing the job, we build around it. If it is holding you back, we replace it. You are not stuck with something that never brings you a call.' },
+  { k: 'The service', c: '#0ea5e9', q: 'How does my phone actually get answered?', a: 'Your number stays your number, and nothing changes for the people who call it. You forward your existing line to us, which takes about five minutes with your carrier and which you can undo yourself at any time. We never take control of your number and we never make you move it. If you would rather we did not touch the phone at all and only handled texts, web forms and Google messages, we can do that too, and we will tell you honestly what you are giving up.' },
   { k: 'The service', c: '#0ea5e9', q: 'How long until I am live?', a: 'About 30 days from the first call.' },
   /* This used to be "What is the valuation at the end?", and it described valuing
    * the business after year one. That only ever existed to justify the 20% value
@@ -614,7 +610,8 @@ export default function HowItWorks() {
               </h2>
               <p className="fa-p">
                 How the thing actually runs, in plain English. The money questions live on the{' '}
-                <a href="/pricing">pricing page</a>, where they belong.
+                <a href="/pricing">pricing page</a>, and what you own lives on{' '}
+                <a href="/whats-included">what&rsquo;s included</a>. Every page answers one thing.
               </p>
               <a className="fa-cta" href={START_LINK}>
                 Ask a founder directly <span aria-hidden>&rarr;</span>

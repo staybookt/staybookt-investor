@@ -99,8 +99,10 @@ export default function IncludedFaq() {
         <div className="fgrid">
           <div className="faside">
             <div className="eyebrow">The rest of it</div>
+            {/* "Ask the awkward one." is the /pricing headline. Money is the awkward one.
+                This page's questions are about who does the work and what is yours. */}
             <h2>
-              Ask the <span className="g">awkward one.</span>
+              The questions <span className="g">behind the list.</span>
             </h2>
             <p className="fa-p">
               That is the whole list. If something on it is not what you need, tell us on the call

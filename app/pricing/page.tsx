@@ -48,7 +48,7 @@ export const metadata = {
  *   the price. They are four discrete facts. They are now four discrete facts. */
 
 const FACTS: { k: string; v: string }[] = [
-  { k: 'Nothing upfront', v: 'No build fee, no setup fee, no menu. Plus applicable taxes.' },
+  { k: 'Nothing upfront', v: 'No build fee, no setup fee, no menu. $199 CAD, plus applicable taxes.' },
   { k: 'No lock-in', v: 'Cancel any time on thirty days notice. No penalty, no exit fee.' },
   { k: 'Ninety days, any reason', v: 'Change your mind and we refund every month you paid.' },
   { k: 'Unlimited calls and texts', v: 'No per-minute billing and no overage, however busy it gets.' },

@@ -287,13 +287,15 @@ export default function HomePage() {
             </div>
           </Reveal>
           {/* The button used to say "Get Started" and nothing else, which is the most
-              ignorable label in English. The offer behind it is the best thing we own,
-              so it now travels with the button instead of sitting halfway down the page. */}
+              ignorable label in English, so the offer travels with it.
+
+              It is ONE LINE, not the whole paragraph. The full version is printed in the
+              StartBanner at the foot of this same page, and it was being said twice, word
+              for word, on one screen. A thing that appears everywhere stops being read
+              anywhere. Say the hook here. Let the banner do the selling. */}
           <Reveal>
             <p className="ctanote">
-              Before we meet, we try to hire you. We call your line, we text your listing, and we
-              try to book a job. Then we show you exactly what happened. Free, and yours to keep
-              either way.
+              Before we meet, we try to hire you. Free, and yours to keep either way.
             </p>
           </Reveal>
         </div>
