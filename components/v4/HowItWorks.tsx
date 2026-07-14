@@ -28,8 +28,8 @@ const STOPS: Stop[] = [
     result: 'Inbox full, texts flowing, phone ringing.',
     steps: [
       { t: 'We build you a proper website.', b: 'Fast, works on a phone, made to turn a visitor into a call. Built and hosted for you, nothing to manage.' },
-      { t: 'We fix your Google listing.', b: 'The thing that pops up when someone searches your trade. We fill it out, keep it current, and get Google to trust it.' },
-      { t: 'We get you ranked, and recommended.', b: 'Your details match everywhere so you climb the map, and you show up when someone asks an AI assistant for your trade nearby.' },
+      { t: 'We fix your Google listing.', b: 'The thing that pops up when someone searches for what you do. We fill it out, keep it current, and get Google to trust it.' },
+      { t: 'We get you ranked, and recommended.', b: 'Your details match everywhere so you climb the map, and you show up when someone asks an AI assistant for what you do, nearby.' },
       { t: 'We build your reviews.', b: 'Every finished job becomes a five-star review. More reviews means you climb higher and get picked more often.' },
     ],
   },
@@ -64,10 +64,13 @@ const FAQ: { k: string; c: string; q: string; a: string }[] = [
   { k: 'The service', c: '#0ea5e9', q: 'Is it AI or a real person answering?', a: 'Both, on purpose. AI handles the everyday calls, texts, and bookings so nothing gets missed. When something is unusual or high-stakes, a real person on our team steps in before it reaches your customer. You are never the one picking up the slack.' },
   { k: 'The service', c: '#0ea5e9', q: 'How does it know how to talk about my business?', a: 'That is what the first couple of weeks are for. We learn your prices, your service area, the jobs you take, and how you talk to a customer. Everything after that runs on your playbook, not a generic script.' },
   { k: 'The service', c: '#0ea5e9', q: 'Do I have to learn any software?', a: 'No. That is the whole point. We run it. You get a short brief each morning and approve the occasional thing. There is no app you are forced to live in.' },
-  { k: 'What is yours', c: '#10b981', q: 'What if I already have a website?', a: 'We will look at it. If it is doing the job, we build around it. If it is holding you back, we replace it. You are not stuck with something that does not convert.' },
+  { k: 'What is yours', c: '#10b981', q: 'What if I already have a website?', a: 'We will look at it. If it is doing the job, we build around it. If it is holding you back, we replace it. You are not stuck with something that never brings you a call.' },
   { k: 'What is yours', c: '#10b981', q: 'Do I keep my phone number?', a: 'Yes. Your number stays yours. We make sure the calls and texts you cannot pick up still get answered and booked.' },
   { k: 'What is yours', c: '#10b981', q: 'Who owns the website and domain?', a: 'The site is yours to keep. If you already own your domain it stays in your name. If we set one up for you, we walk through the handover on the call. Nothing holds you hostage.' },
-  { k: 'The money', c: '#4f46e5', q: 'What does it cost, and is there a contract?', a: 'One plan, $199 a month, with nothing upfront. No build fee, no setup fee, no menu. It runs on a 12-month term, and we will tell you exactly why rather than bury it: we build your website and run your front office before you have paid us a dollar, so the year is what makes that possible. The protection running the other way is real too. You get ninety days to change your mind: if we have not delivered, say the word and we refund every month you paid. No forms, no argument. The website is yours to keep either way.' },
+  { k: 'The money', c: '#4f46e5', q: 'What does it cost, and is there a contract?', a: 'One plan, $199 a month plus applicable taxes, with nothing upfront. No build fee, no setup fee, no menu. There is no lock-in and no contract to be trapped in: cancel any time on thirty days notice, with no penalty and no exit fee. On top of that, for the first ninety days you can change your mind for any reason at all, and we refund every month you paid. You do not have to prove we failed. You just have to say so.' },
+  { k: 'The money', c: '#4f46e5', q: 'What if I want out in month seven?', a: 'Then you are out in month seven. Thirty days notice, no penalty, no exit fee, and no argument. We build everything before you have paid us a dollar, so the honest answer is that the risk sits with us, not with you. Whenever you go, the website, the domain, your Google Business Profile, your customer list and your reviews all go with you.' },
+  { k: 'The money', c: '#4f46e5', q: 'Is there a limit on calls and texts?', a: 'No. Unlimited calls and texts, with no per-minute billing and no overage charges, however busy the season gets. Every answering service on earth bills you by the minute and we do not, because charging you more in your busiest month is a strange way to say we are on your side.' },
+  { k: 'The service', c: '#0ea5e9', q: 'What if the AI gets a price wrong?', a: 'It quotes from your playbook: your prices, your jobs, your service area. Anything it is not sure about, anything unusual and anything high-stakes gets pulled by a real person on our team before it ever reaches your customer. If a wrong number does get out, we bring it straight to you, you decide what you want to honour, and we are the ones who go back to the customer and sort it out. You are never the one making that phone call, and you are never told about it after the fact.' },
   { k: 'The money', c: '#4f46e5', q: 'How long until I am live?', a: 'About 30 days from the first call.' },
   { k: 'The payoff', c: '#f59e0b', q: 'What is the valuation at the end?', a: 'After your first year, we value the business on two axes: what it is worth in dollars, and how well it runs and grows without you glued to it. Then you decide what to do with it. There is no obligation to sell.' },
 ];
@@ -607,8 +610,8 @@ export default function HowItWorks() {
                 Questions, <span className="g">answered.</span>
               </h2>
               <p className="fa-p">
-                $199 a month, nothing upfront, 12-month term, ninety days to change your mind.
-                Everything else is below, in plain English.
+                $199 a month plus tax, nothing upfront, no lock-in, and ninety days to change your
+                mind for any reason. Everything else is below, in plain English.
               </p>
               <a className="fa-cta" href={START_LINK}>
                 Ask a founder directly <span aria-hidden>&rarr;</span>
