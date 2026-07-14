@@ -1,3 +1,24 @@
+
+/* ============================================================================
+   THE BRAND GRADIENT. There is one. There are two renderings of it.
+
+   It was NINE. Nine different literals across fourteen files, drifting on every
+   axis a gradient has: the angle (100deg here, 135deg there), the middle stop
+   (52% on one page, 55% on the next), and the endpoint (#4f46e5 in the wordmark,
+   #818cf8 three components over). Nobody chose any of that. It happened because
+   every new section was copied from the last one and nudged.
+
+   --sb-grad      on dark. The wordmark, buttons on #050506, headline highlights.
+   --sb-grad-ink  on light. Same three hues, darkened, because #06b6d4 on cream
+                  fails contrast and reads like a highlighter.
+
+   These are the only two gradients this company owns. If you are about to write
+   `linear-gradient(` with a brand colour in it, you are about to make a tenth one.
+   Use the token. ========================================================== */
+:root{
+  --sb-grad: var(--sb-grad);
+  --sb-grad-ink: var(--sb-grad-ink);
+}
 @import "tailwindcss";
 
 :root {
@@ -436,7 +457,7 @@ section[id] { scroll-margin-top: 5rem; }
 
 .v4{--v4-ink:#06080d;--v4-paper:#ffffff;--v4-cream:#f6f6f3;--v4-muted:#7a828f;--v4-line:#e9e9e6;
   --v4-green:#10b981;--v4-green-d:#047857;--v4-violet:#7c3aed;--v4-cyan:#06b6d4;--v4-indigo:#4f46e5;
-  --v4-grad:linear-gradient(100deg,#06b6d4 0%,#10b981 50%,#4f46e5 100%);
+  --v4-grad:var(--sb-grad);
   color:var(--v4-ink);background:var(--v4-paper);
   font-family:var(--font-display),'Inter Tight','Helvetica Neue',Arial,sans-serif;
   -webkit-font-smoothing:antialiased;line-height:1.5;}
@@ -462,7 +483,7 @@ section[id] { scroll-margin-top: 5rem; }
 .v4 .pill,.v4-nav .pill{display:inline-flex;align-items:center;border-radius:999px;font-weight:600;font-size:14px;padding:10px 20px;text-decoration:none;transition:.2s;}
 .v4 .pill-white,.v4-nav .pill-white{background:#fff;color:var(--v4-ink);}
 .v4 .pill-white:hover,.v4-nav .pill-white:hover{transform:translateY(-1px);}
-.v4 .pill-ink{background:var(--v4-ink);color:#fff;}.v4 .pill-ink:hover{transform:translateY(-1px);}
+.v4 .pill-ink,.v4-nav .pill-ink{background:var(--v4-ink);color:#fff;}.v4 .pill-ink:hover{transform:translateY(-1px);}
 @media(max-width:860px){.v4-nav .nav-links{display:none;}}
 
 /* full-bleed image moment */
