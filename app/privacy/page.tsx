@@ -120,7 +120,7 @@ const SECTIONS: Section[] = [
       <>
         <ul>
           <li>To answer your calls and texts and book your jobs. That is the service.</li>
-          <li>To send quotes, reminders and follow-ups on your behalf.</li>
+          <li>To send reminders and follow-ups on your behalf.</li>
           <li>To ask your customers for reviews, where they have consented to be contacted.</li>
           <li>To give you your morning brief and show you what happened.</li>
           <li>To bill you, and to keep the records the law requires us to keep.</li>

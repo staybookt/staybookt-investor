@@ -88,20 +88,24 @@ const ROWS: Row[] = [
       'Reschedules and cancellations handled without you touching your phone',
     ],
   },
-  {
-    job: 'Send the quote',
-    you: 'you', svc: 'no', agy: 'no', sb: 'yes',
-    detail: [
-      'Every quote goes out, in your format, at your prices',
-      'Priced from your playbook, not invented',
-      'Anything unusual or high-stakes comes to you before it goes out',
-    ],
-  },
+  /* THE "SEND THE QUOTE" ROW IS GONE (Richard asked whether we could actually do it;
+     Jacob: we cannot, bench it — July 2026).
+
+     It claimed "every quote goes out, in your format, at your prices". We cannot draft
+     and issue a quote document, so that was a feature we were selling and could not
+     deliver. Same category as the false cross we just took off the answering service:
+     a chart that lies in our favour is worth less than no chart.
+
+     What survives is what is true. We answer a price question from the playbook ("$180
+     for the visit"), and we chase the quote YOU sent until it closes. Stating a known
+     price and drafting a quote are not the same job.
+
+     When we can genuinely draft quotes, this row comes back. Not before. */
   {
     job: 'Chase the quote until you get a yes or a no',
     you: 'you', svc: 'no', agy: 'no', sb: 'yes',
     detail: [
-      'Every quote followed up until you have a yes or a no. Not a maybe',
+      'Every quote you send followed up until you have a yes or a no. Not a maybe',
       'The quote you sent on Thursday and forgot about is the most expensive thing in your business',
       'You see what is outstanding, what is won and what went cold, without digging',
     ],
@@ -266,8 +270,8 @@ export default function Matrix() {
         </div>
 
         <p className="mx-foot">
-          Not a slur on anybody. An answering service answers the phone: it does not quote, chase or
-          sell, because that is not what it is. An agency builds you a website and never picks up the
+          Not a slur on anybody. An answering service answers the phone: it does not chase or sell,
+          because that is not what it is. An agency builds you a website and never picks up the
           phone. Both do their job. Neither does the rest of yours.
         </p>
       </div>

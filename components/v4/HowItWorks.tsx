@@ -41,7 +41,7 @@ const STOPS: Stop[] = [
     steps: [
       { t: 'We answer every call and text.', b: 'Day or night, in your voice. AI handles the everyday ones. A real person steps in on anything unusual, before it reaches your customer.' },
       { t: 'We book, confirm, and remind.', b: 'Straight onto your calendar, confirmed with the customer, with reminders so they actually show up.' },
-      { t: 'We quote and chase.', b: 'Every quote goes out and gets followed up until you get a yes or a no. We chase unpaid invoices so the money lands.' },
+      { t: 'We chase what is owed.', b: 'Every quote you send gets followed up until you get a yes or a no, and we chase unpaid invoices so the money lands.' },
       { t: 'We grow every customer.', b: 'Reviews and referrals from the happy ones. The right upsell. Follow-up maintenance booked before they drift.' },
       { t: 'We hand you one short brief a day.', b: 'What is booked, what needs a decision, what came in. Thirty seconds, then go run your day.' },
     ],

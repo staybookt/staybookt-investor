@@ -50,7 +50,7 @@ const SECTIONS: Section[] = [
           <li>Set up and manage your Google Business Profile and other listings.</li>
           <li>Answer calls and texts to your business, using a mix of AI and real people.</li>
           <li>Book jobs onto your calendar, confirm them and send reminders.</li>
-          <li>Send quotes and follow them up until you get a yes or a no.</li>
+          <li>Follow up the quotes you send until you get a yes or a no.</li>
           <li>Ask your customers for reviews and bring past customers back.</li>
           <li>Send you a short brief each morning.</li>
         </ul>
@@ -69,13 +69,13 @@ const SECTIONS: Section[] = [
       <>
         <p>
           To do this job, we communicate with your customers as your business. You authorise us to
-          answer, text, email and quote on your behalf, using your name, your prices and your
-          service area, as agreed with you during setup.
+          answer, text and email on your behalf, and to tell your customers your prices, using your
+          name, your prices and your service area, as agreed with you during setup.
         </p>
         <p>
           You remain responsible for what your business promises. You must give us accurate pricing,
-          availability and service information, and tell us promptly when it changes. If we quote
-          something because you told us to quote it, that quote is yours.
+          availability and service information, and tell us promptly when it changes. If we tell a
+          customer a price because that is the price you gave us, that price is yours.
         </p>
         <p>
           We follow Canadian anti-spam law (CASL) and equivalent rules when we message on your
