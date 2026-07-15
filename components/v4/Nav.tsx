@@ -10,10 +10,19 @@ import { START_LINK } from '@/lib/site';
  * so a first-time reader never found the single page that says, in plain English,
  * exactly what the $199 buys. Richard read the whole site and missed it. It is now
  * in the nav (Richard, July 14 2026). */
+/* "The work" is in the nav now (Richard asked why it was footer-only; Jacob cleared Tim's
+ * before-and-after for use, July 2026).
+ *
+ * It was held back for one reason: it is the only page on this site carrying a real
+ * customer artifact, and we had not asked the customer. That reason is gone, so the one
+ * page with actual evidence on it should not be the hardest page to find.
+ *
+ * The footer mirrors this order. If you change one, change the other. */
 const LINKS = [
   { href: '/how-it-works', label: 'How it works' },
   { href: '/whats-included', label: "What's included" },
   { href: '/pricing', label: 'Pricing' },
+  { href: '/work', label: 'The work' },
   { href: '/founders', label: 'About us' },
 ];
 

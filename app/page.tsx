@@ -64,7 +64,22 @@ const PAGE_CSS = `
 .v4 header.scene .cta{justify-content:center;}
 .ctanote{margin:20px auto 0;max-width:52ch;text-align:center;font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.62);}
 @media(max-width:640px){.ctanote{font-size:13.5px;max-width:36ch;}}
-.v4 header.scene .eyebrow{color:#c9cdd6;}
+/* R1 (Richard): "Make 'For Owner-operated Service Businesses' more pronounced - key
+   qualifier." It was a plain eyebrow, styled identically to the label above every other
+   section on the site, so the one line that tells a stranger whether this is for them at
+   all had the same weight as the word "Pricing".
+
+   It is a badge now: bordered, brighter, with the brand dot, matching the treatment on
+   /start. An object rather than a caption. It is the first qualifying question a visitor
+   has and it should look like an answer. */
+.v4 header.scene .eyebrow{display:inline-flex;align-items:center;gap:9px;
+  font-size:12.5px;font-weight:700;letter-spacing:.15em;color:#eef1f6;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
+  border-radius:999px;padding:9px 18px 9px 13px;
+  backdrop-filter:saturate(160%) blur(12px);-webkit-backdrop-filter:saturate(160%) blur(12px);
+  box-shadow:0 8px 30px -12px rgba(0,0,0,.6);}
+.v4 header.scene .eyebrow::before{content:'';width:7px;height:7px;border-radius:50%;flex:0 0 auto;
+  background:var(--sb-grad);box-shadow:0 0 10px 1px rgba(16,185,129,.75);}
 .v4 .kicker{font-size:14px;font-weight:600;letter-spacing:.02em;margin-bottom:14px;background:linear-gradient(90deg,#0ea5e9,#06b6d4 34%,#14b8a6 66%,#10b981);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .v4 .sbwrap,.v4 .sb-clook{--grad:linear-gradient(90deg,#0ea5e9,#06b6d4 34%,#14b8a6 66%,#10b981);}
 .v4 .sb-clook{background:#fff;padding:clamp(80px,10vw,120px) 0;}
