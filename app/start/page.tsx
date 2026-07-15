@@ -51,66 +51,65 @@ const FACTS: { k: string; v: string }[] = [
 ];
 
 const CSS = `
-.st{background:#050506;color:#fff;}
+.st{background:var(--v4-cream,#f6f6f3);color:var(--v4-ink,#06080d);}
 .st .wrap{width:100%;max-width:1180px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
 
-.st-hero{position:relative;overflow:hidden;padding:clamp(108px,13vh,146px) 0 clamp(80px,10vw,120px);}
+/* DARK HERO, LIGHT BODY. This page was dark the whole way down, which is why the
+   calendar needed a white box to sit inside, and why that box read as a picture frame
+   around a dark photo (Jacob, live review, July 2026).
+
+   Every other page here is dark hero then light body: home, how-it-works, pricing,
+   what's included, about. /start was the only one fighting that, and it lost. Now it
+   matches, and the calendar sits on cream like every other piece of content on this
+   site, in the same white card the comparison chart uses. */
+.st-hero{position:relative;overflow:hidden;background:#050506;
+  padding:clamp(104px,13vh,140px) 0 clamp(56px,6vw,80px);}
 .st-hero::before{content:'';position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(58% 60% at 10% 0%,rgba(16,185,129,.15),transparent 62%),
-             radial-gradient(50% 60% at 92% 24%,rgba(79,70,229,.13),transparent 62%);}
+  background:radial-gradient(58% 70% at 12% 0%,rgba(16,185,129,.16),transparent 62%),
+             radial-gradient(52% 70% at 90% 10%,rgba(79,70,229,.14),transparent 62%);}
 .st-hero .wrap{position:relative;z-index:1;}
-
-/* THE CALENDAR IS FULL WIDTH, AND THAT IS NOT A STYLE CHOICE.
-   This was a two-column hero: copy left, calendar right in a ~486px column. Cal.com's
-   booker switches to its STACKED MOBILE LAYOUT below roughly 768px of container width:
-   the month grid, and then every single time slot in one long vertical list. It
-   rendered 1,735px tall next to 500px of copy, so the hero became a mile-high white
-   column beside an empty black one.
-
-   No amount of styling fixes that. The embed needs the width to use its side-by-side
-   desktop layout, and there is not 768px+ of room next to a column of text on an
-   1180px page. So the copy sits above it and the calendar gets the whole width, which
-   is what makes it compact. Do not put this back in a narrow column. */
 .st-copy{text-align:center;max-width:720px;margin:0 auto;}
 
 .st-k{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;
   letter-spacing:.2em;text-transform:uppercase;color:#9aa3b2;}
 .st-k .dot{width:6px;height:6px;border-radius:50%;background:var(--sb-grad);box-shadow:0 0 10px 1px rgba(16,185,129,.7);}
-.st-h{margin-top:16px;font-size:clamp(38px,5.2vw,70px);font-weight:600;letter-spacing:-.042em;
-  line-height:1.0;color:#fff;max-width:14ch;margin-left:auto;margin-right:auto;}
+.st-h{margin:16px auto 0;font-size:clamp(38px,5.2vw,68px);font-weight:600;letter-spacing:-.042em;
+  line-height:1.0;color:#fff;max-width:14ch;}
 .st-h .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
-.st-sub{margin:22px auto 0;font-size:clamp(16px,1.8vw,19px);line-height:1.6;color:#aeb6c4;max-width:48ch;}
+.st-sub{margin:20px auto 0;font-size:clamp(16px,1.8vw,19px);line-height:1.6;color:#aeb6c4;max-width:48ch;}
 
 .st-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2vw,24px);
-  margin:clamp(32px,3.8vw,44px) auto 0;max-width:720px;}
+  margin:clamp(30px,3.6vw,40px) auto 0;max-width:720px;}
 @media(max-width:640px){.st-facts{grid-template-columns:1fr;gap:12px;}}
 .st-f{text-align:left;padding-top:14px;border-top:1px solid rgba(255,255,255,.14);}
 .st-f:first-child{border-top-color:rgba(16,185,129,.6);}
 .st-f b{display:block;font-size:14.5px;font-weight:600;color:#fff;letter-spacing:-.01em;}
 .st-f span{display:block;margin-top:6px;font-size:13.5px;line-height:1.45;color:#98a0ae;}
 
-/* the calendar is the page. it is a real object, and it stays with you. */
-/* wide enough for cal.com's desktop layout, which is what keeps it short */
-.st-cal{background:#fff;border-radius:22px;padding:clamp(8px,1.2vw,14px);
-  max-width:1080px;margin:clamp(40px,5vw,60px) auto 0;
-  box-shadow:0 50px 110px -40px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.07);}
+/* THE CALENDAR. Cream section, white card, exactly like the comparison chart.
+   It must stay at least 768px wide: below that cal.com flips to its stacked mobile
+   layout and renders every time slot in one 1,700px list. */
+.st-book{padding:clamp(44px,5.5vw,70px) 0 clamp(70px,9vw,110px);}
+.st-cal{background:#fff;border:1px solid #e6e6e1;border-radius:24px;padding:clamp(10px,1.4vw,16px);
+  max-width:1080px;margin:0 auto;
+  box-shadow:0 40px 80px -46px rgba(6,12,20,.35),0 2px 6px -2px rgba(6,12,20,.06);}
 
-/* who is on the call. the only thing under the fold, because it is the only thing
-   a person still wonders about once the calendar is in front of them. */
-.st-who{border-top:1px solid rgba(255,255,255,.08);padding:clamp(60px,8vw,96px) 0 clamp(70px,9vw,110px);}
-.st-who .k{font-size:11.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#6f7787;}
-.st-who h2{margin-top:14px;font-size:clamp(24px,3vw,40px);font-weight:600;letter-spacing:-.035em;color:#fff;max-width:18ch;}
-.st-two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px);margin-top:clamp(32px,4vw,48px);max-width:900px;}
+/* who is on the call. the only thing under the calendar, because it is the only thing
+   a person still wonders about once the times are in front of them. */
+.st-who{border-top:1px solid #e6e6e1;padding:clamp(56px,7vw,90px) 0 clamp(70px,9vw,110px);}
+.st-who .k{font-size:11.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#8a8f98;}
+.st-who h2{margin-top:14px;font-size:clamp(24px,3vw,40px);font-weight:600;letter-spacing:-.035em;color:var(--v4-ink);max-width:18ch;}
+.st-two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px);margin-top:clamp(30px,3.6vw,44px);max-width:900px;}
 @media(max-width:760px){.st-two{grid-template-columns:1fr;gap:28px;}}
 .st-p{display:flex;gap:16px;align-items:flex-start;}
 .st-p img{width:76px;height:76px;flex:0 0 auto;border-radius:16px;object-fit:cover;object-position:center 18%;
-  box-shadow:0 24px 44px -28px rgba(0,0,0,.8);}
+  box-shadow:0 24px 44px -28px rgba(6,12,20,.5);}
 .st-p img.hi{object-position:center top;}
-.st-p .nm{font-size:17.5px;font-weight:600;letter-spacing:-.025em;color:#fff;}
-.st-p .ro{margin-top:3px;font-size:13px;font-weight:600;color:#5eead4;}
-.st-p .bi{margin-top:8px;font-size:14.5px;line-height:1.55;color:#98a0ae;max-width:34ch;}
-.st-note{margin-top:clamp(32px,4vw,44px);font-size:14.5px;color:#79808e;}
-.st-note a{color:#5eead4;text-decoration:none;font-weight:600;}
+.st-p .nm{font-size:17.5px;font-weight:600;letter-spacing:-.025em;color:var(--v4-ink);}
+.st-p .ro{margin-top:3px;font-size:13px;font-weight:600;color:#059669;}
+.st-p .bi{margin-top:8px;font-size:14.5px;line-height:1.55;color:#6b7280;max-width:34ch;}
+.st-note{margin-top:clamp(30px,3.6vw,42px);font-size:14.5px;color:#8a8f98;}
+.st-note a{color:#0284c7;text-decoration:none;font-weight:600;}
 .st-note a:hover{text-decoration:underline;}
 `;
 
@@ -148,7 +147,11 @@ export default function StartPage() {
               </div>
             </Reveal>
           </div>
+        </div>
+      </section>
 
+      <section className="st-book" id="book">
+        <div className="wrap">
           <div className="st-cal">
             <CalEmbed />
           </div>

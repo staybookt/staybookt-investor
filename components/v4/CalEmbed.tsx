@@ -50,9 +50,19 @@ export default function CalEmbed() {
     w.Cal.ns.talk('ui', {
       hideEventTypeDetails: false,
       layout: 'month_view',
+      /* PINNED TO LIGHT, DELIBERATELY. Left alone, cal.com follows the VISITOR'S system
+       * preference, so anyone browsing in dark mode got a dark calendar inside our white
+       * card: three themes arguing in one component, and it read as broken rather than
+       * intentional (Jacob, live review, July 2026).
+       *
+       * /start is dark hero then cream body, like every other page here, and the calendar
+       * sits in a white card on that cream. That only works if the embed is light for
+       * everybody, regardless of their OS setting. If you ever want it dark, the card in
+       * app/start/page.tsx has to change in the same commit. */
+      theme: 'light',
       cssVarsPerTheme: { light: { 'cal-brand': '#10b981' } },
     });
   }, []);
 
-  return <div id="cal-inline" style={{ width: '100%', minHeight: 640, overflow: 'hidden' }} />;
+  return <div id="cal-inline" style={{ width: '100%', minHeight: 640, overflow: 'hidden', background: '#fff', borderRadius: 14 }} />;
 }
