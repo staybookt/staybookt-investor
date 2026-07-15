@@ -165,6 +165,9 @@ const CSS = `
 /* beat 1 — STAYBOOKT: the wheel (everything at a glance) + blurbs that pop on scroll */
 .b2{position:relative;width:min(680px,96%);display:flex;flex-direction:column;align-items:center;gap:clamp(14px,2.4vh,24px);}
 .b2 svg.orbit{display:block;width:min(430px,88%);height:auto;}
+.b2 svg.orbit .ring{fill:none;stroke:#22d3ee;opacity:.75;stroke-dasharray:741.4;
+  stroke-dashoffset:calc(741.4 * (1 - var(--sp,0)));transition:stroke-dashoffset .12s linear;}
+@media(prefers-reduced-motion:reduce){.b2 svg.orbit .ring{transition:none;}}
 .b2 .wbl{position:relative;width:100%;height:clamp(40px,6vh,52px);}
 .b2 .wb{position:absolute;left:0;right:0;top:0;text-align:center;font-size:clamp(15px,1.95vw,20px);font-weight:500;letter-spacing:-.01em;color:#d4dae4;opacity:0;transform:translateY(9px);transition:opacity .4s ease,transform .4s ease;}
 .sscx-stage[data-beat="1"][data-sc="0"] .b2 .wb0,
@@ -279,6 +282,9 @@ export default function JourneyMap() {
   const [cp, setCp] = useState(0);
   const [s0, setS0] = useState(0);
   const [sc, setSc] = useState(0);
+  /* Continuous progress THROUGH beat 1. See the driver below: beat 1 was the only beat
+     with nothing continuous in it, so most arrow presses landed on nothing. */
+  const [sp, setSp] = useState(0);
   const [life, setLife] = useState(0);
   const [lo, setLo] = useState<[number, number, number]>([1, 0, 0]);
   const [lz, setLz] = useState(0);
@@ -306,6 +312,21 @@ export default function JourneyMap() {
         setBeat(b);
         setCp(climb);
         setS0(climb > 0.98 ? 2 : climb > 0.7 ? 1 : 0);
+        /* THE FILM FELT BROKEN IN BEAT 1 (Richard, review, July 2026: "you have to hit
+           down arrow 2x without anything happening which makes it seem like the page is
+           stuck or your keyboard is not working").
+
+           He was right, and it was measurable. Beat 1 is 742px of scroll and `sc` was the
+           ONLY thing it changed: six discrete steps, so one step every ~124px. A down
+           arrow is ~40px. Two presses out of every three moved the page and changed
+           nothing on screen, which reads as a dead page, not a slow one.
+
+           Every other beat already had something continuous: beat 0 has the climb, beat 2
+           crossfades the scenes, beat 3 counts the jobs in. Beat 1 had nothing. So it gets
+           `sp`, a continuous 0..1 through the beat, which fills the orbit ring. Now every
+           press moves something, and the six steps land on top of motion instead of
+           replacing it. */
+        setSp(b === 1 ? lp : b < 1 ? 0 : 1);
         setSc(b < 1 ? 0 : b > 1 ? 5 : Math.min(5, Math.floor(lp * 6)));
         setLife(b < 2 ? 0 : b > 2 ? 2 : Math.min(2, Math.floor(lp * 3)));
         /* pj 0..4 = the jobs arriving · 5 = they collapse · 6 = the number has landed.
@@ -334,6 +355,7 @@ export default function JourneyMap() {
 
   const stageStyle = {
     '--cp': cp,
+    '--sp': sp,
     '--o0': lo[0],
     '--o1': lo[1],
     '--o2': lo[2],
@@ -440,6 +462,10 @@ export default function JourneyMap() {
                     ))}
                   </g>
                   <circle cx="230" cy="160" r="118" stroke="rgba(255,255,255,.07)" strokeWidth={1} />
+                  {/* The one thing in this beat that moves on EVERY scroll tick. Circumference
+                      of r=118 is 741.4, so the dash offset is the beat's progress made visible.
+                      Do not remove it without giving this beat something else continuous. */}
+                  <circle className="ring" cx="230" cy="160" r="118" strokeWidth={2} strokeLinecap="round" transform="rotate(-90 230 160)" />
                   <circle cx="230" cy="160" r="54" fill="rgba(16,185,129,.09)" stroke="rgba(52,211,153,.45)" strokeWidth={1.4} />
                   <text x="230" y="156" textAnchor="middle" fill="#34d399" fontSize="16" fontWeight="600" fontFamily="-apple-system,sans-serif">You</text>
                   <text x="230" y="174" textAnchor="middle" fill="#7c8a83" fontSize="11" fontFamily="-apple-system,sans-serif">in control</text>
