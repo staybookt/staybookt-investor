@@ -126,8 +126,12 @@ const ROWS: Row[] = [
     ],
   },
   {
+    /* agy WAS 'no'. Reputation management and review generation are standard at
+       $1,000/mo. Third false cross found in this chart. The row still wins on
+       "every single time, at the right moment", which is the part they cannot do
+       because they are not the one who finished the job. */
     job: 'Ask for the review, every single time',
-    you: 'you', svc: 'no', agy: 'no', sb: 'yes',
+    you: 'you', svc: 'no', agy: 'yes', sb: 'yes',
     detail: [
       'A review asked for after every finished job, at the right moment',
       'While the work is still fresh, which is the only time it works',

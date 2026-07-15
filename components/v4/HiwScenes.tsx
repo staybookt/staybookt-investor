@@ -391,7 +391,7 @@ export function Arrival() {
         <div className="arr-f">That was always the point.</div>
         <div className="arr-cta">
           <a href={START_LINK}>Start the journey</a>
-          <span className="arr-note">Thirty minutes with a founder. Free, and yours to keep.</span>
+          <span className="arr-note">Thirty minutes with a founder. Never a sales rep.</span>
         </div>
       </div>
     </section>
