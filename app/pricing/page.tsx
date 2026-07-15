@@ -165,7 +165,7 @@ export default function PricingPage() {
             <p>
               A big company answers every call, books every job, chases every quote and chases the
               money. Not because it is smarter than you. Because{' '}
-              <b>five people are paid to</b>: a receptionist, a scheduler, an estimator, a collections
+              <b>five people are paid to</b>: a receptionist, a scheduler, an assistant, a collections
               clerk and a marketer. That is not a tool. That is a payroll, and it is the one thing
               you have never been able to buy.
             </p>

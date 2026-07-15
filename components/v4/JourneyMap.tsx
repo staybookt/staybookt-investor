@@ -36,7 +36,16 @@ const B = [0, 0.18, 0.38, 0.70, 1]; // beat boundaries
 const PJOBS: { r: string; d: string; ic: string }[] = [
   { r: 'Receptionist', d: 'Answers, every single time', ic: 'phone' },
   { r: 'Scheduler', d: 'Books it, confirms it, reminds them', ic: 'cal' },
-  { r: 'Estimator', d: 'Sends the quote, chases the yes', ic: 'quote' },
+  /* WAS "Estimator" (Richard, review, July 2026). We do not estimate. We facilitate:
+     the quote goes out at the owner's prices, from the owner's playbook, and anything
+     unusual goes to them before it is sent. Calling that an estimator claims a judgement
+     we do not make and would not want to make.
+
+     Assistant also absorbs the conversational aid, which Richard rightly spotted was
+     missing from the five, so it stays at FIVE. That number is not decoration: the whole
+     pricing argument on /pricing is "it was never software, it was five salaries." A
+     sixth role would quietly break the sentence the price rests on. */
+  { r: 'Assistant', d: 'Sends the quote, and answers when you ask', ic: 'quote' },
   { r: 'Collections', d: 'Chases the invoice until it is paid', ic: 'cash' },
   { r: 'Marketer', d: 'Gets you found, asks for the reviews', ic: 'mega' },
 ];

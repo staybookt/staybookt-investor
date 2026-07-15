@@ -81,13 +81,16 @@ const SECTIONS: Section[] = [
           about your business: your website, your Google listing, your reviews, and how you appear in
           search.
         </p>
-        <p>
-          <b>We also try to hire you.</b> Before the call we contact your business the way an
-          ordinary customer would: we call your line, we text your listing, and we try to book a job.
-          We do it so we can show you what actually happens when someone tries to give you money. We
-          use it only to prepare for your call and to show you the result. We do not publish it,
-          share it, or sell it, and if you ask us to delete it, we delete it.
-        </p>
+        {/* THE MYSTERY SHOP DISCLOSURE IS GONE BECAUSE THE PRACTICE IS (Jacob, July 2026).
+            This paragraph told people we would call their line and text their listing
+            pretending to be a customer, before the call. We do not do that any more, so
+            disclosing it would be describing a thing that does not happen.
+
+            The paragraph above it is the honest version of our prep and it stands on its
+            own: public information only. Website, Google listing, reviews, search.
+
+            If we ever start contacting businesses covertly again, this disclosure has to
+            come back BEFORE the first call, not after. */}
       </>
     ),
   },
