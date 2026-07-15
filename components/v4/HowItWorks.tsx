@@ -5,8 +5,8 @@ import { START_LINK } from '@/lib/site';
 import { AccountBrain, NightShift, Arrival } from './HiwScenes';
 
 /* Hero backdrop: a still, not a film. The homepage owns the one video moment,
- * and this page already runs a scroll-driven SVG trail. A slow drift on a still
- * gives it life without a second mp4 or a second frame budget. */
+   and this page already runs a scroll-driven SVG trail. A slow drift on a still
+   gives it life without a second mp4 or a second frame budget. */
 const HERO_IMG =
   'https://images.pexels.com/photos/37227005/pexels-photo-37227005.jpeg?auto=compress&cs=tinysrgb&w=2000';
 
@@ -155,6 +155,13 @@ const CSS = `
 .jstop .voice{margin-top:14px;font-size:clamp(16px,1.9vw,20px);font-style:italic;color:#5b616b;max-width:34ch;}
 .jstop .beat{margin-top:16px;font-size:clamp(15px,1.6vw,17px);line-height:1.5;color:#6b7280;max-width:48ch;}
 .jstop .result{display:inline-block;margin-top:16px;font-size:14.5px;font-weight:600;color:var(--acd);}
+.jstop .jgo{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:9px 16px;
+  border:1px solid rgba(6,12,20,.14);border-radius:999px;background:#fff;
+  font-size:14px;font-weight:600;color:var(--v4-ink,#06080d);text-decoration:none;
+  transition:border-color .25s ease,transform .25s ease,box-shadow .25s ease;}
+.jstop .jgo span{color:var(--acd);transition:transform .25s ease;}
+.jstop .jgo:hover{border-color:var(--acd);transform:translateY(-1px);box-shadow:0 12px 26px -18px rgba(6,12,20,.5);}
+.jstop .jgo:hover span{transform:translateX(3px);}
 .jstop .stage{position:relative;margin:30px 0 6px;display:flex;justify-content:flex-start;}
 .jstop.right .stage{justify-content:flex-end;}
 .jstop.right .body{text-align:right;}
@@ -375,6 +382,12 @@ function StopBlock({ s, open, onToggle, obsRef, pointRef }: { s: Stop; open: boo
         <div className="voice">&ldquo;{s.voice}&rdquo;</div>
         <div className="beat">{s.beat}</div>
         <div className="result">&rarr; {s.result}</div>
+        {/* Milestone 3 is the only one whose payoff needs an argument behind it, and the
+            argument is a whole page (/enjoy-life). This scene is the feeling; the page is
+            the reasoning. Do not paste the page's argument in here. */}
+        {s.id === 'free' && (
+          <a className="jgo" href="/enjoy-life">What Enjoy Life actually means <span>&rarr;</span></a>
+        )}
 
         <div className="stage">
           {s.surface === 'getfound' && <GetFoundScene />}
