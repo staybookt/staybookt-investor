@@ -21,7 +21,7 @@ const SHARE_DESCRIPTION =
 const EXPLORE: { k: string; t: string; d: string; href: string; c: string }[] = [
   { k: 'THE PRODUCT', t: 'How it works', d: 'The website, the front office, the whole system, in one place.', href: '/how-it-works', c: '#38bdf8' },
   { k: 'THE LIST', t: "What's included", d: 'Everything the $199 buys, what is still yours, and what we do not do.', href: '/whats-included', c: '#818cf8' },
-  { k: 'PRICING', t: 'Pricing', d: 'The simple, honest ways to work with us.', href: '/pricing', c: '#34d399' },
+  { k: 'PRICING', t: 'Pricing', d: 'One plan, one number, and what it does not cost you.', href: '/pricing', c: '#34d399' },
   { k: 'THE TEAM', t: 'About us', d: 'The two founders behind StayBookt, and why we built it.', href: '/founders', c: '#e5e7eb' },
 ];
 
