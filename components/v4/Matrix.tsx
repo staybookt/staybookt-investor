@@ -130,10 +130,16 @@ const ROWS: Row[] = [
     ],
   },
   {
+    /* EMAIL CAMPAIGNS WERE MISSING FROM THE WHOLE SITE (Richard, review, July 2026).
+       They live here rather than in a row of their own, because that is what they
+       honestly are: the mechanism for bringing past customers back, not a separate
+       product. We do not run cold campaigns at strangers. The plan is organic, which
+       every other page already says. */
     job: 'Bring past customers back before they drift',
     you: 'you', svc: 'no', agy: 'no', sb: 'yes',
     detail: [
       'Past customers brought back for the work they are due',
+      'The email campaigns you never get around to, written and sent for you',
       'Follow-up maintenance booked before they drift to someone else',
       'The right upsell suggested, only where it honestly makes sense',
       'The cheapest job you will ever win is the second one from someone who already likes you',
@@ -172,6 +178,23 @@ const ROWS: Row[] = [
       'Who has not been back in a year and is about to be somebody else’s customer',
       'Nothing for you to enter. It fills itself in as we work',
       'QuickBooks knows what you invoiced. It does not know she has called three times',
+    ],
+  },
+  {
+    /* THE ASSISTANT WAS NOWHERE IN THIS CHART (Richard: "What about the Assistant -
+       conversational AI as a feature?"). It was further down the page and not in the one
+       table a person actually reads.
+
+       It earns a row on the merits: it is the only line here no answering service and no
+       agency can tick, because neither of them holds your records. Every claim below
+       matches what the assistant panel further down this page already shows. */
+    job: 'Answer your questions about your own business',
+    you: 'you', svc: 'no', agy: 'no', sb: 'yes',
+    detail: [
+      'Ask in plain English: how did last week go, who has not paid, who has gone quiet',
+      'Tell it what to do and it does it. Send the invoice, chase the quote, book the visit',
+      'No dashboard to learn and nothing to log into. A conversation you already know how to have',
+      'It knows your customers because it is the thing that has been talking to them',
     ],
   },
   {
