@@ -53,19 +53,23 @@ const CSS = `
 .abt-us .us-lead{max-width:680px;margin:0 0 clamp(44px,6vw,70px);}
 .abt-us .us-lead h2{margin-top:14px;font-size:clamp(28px,4.2vw,54px);line-height:1.04;}
 .abt-us .us-lead p{margin-top:16px;font-size:clamp(17px,1.9vw,20px);line-height:1.6;color:#6b7280;}
-/* RICHARD'S QUOTE, OPENING THE PAGE. Editorial pull-quote, gradient rule on the
-   left so it is unmistakably ours and not a generic testimonial slab. */
+/* BOTH VOICES, OPENING THE PAGE. Two columns, Richard left and Jacob right, mirroring
+   the two founder cards below so the page reads as one company of two people rather
+   than two profiles. Gradient rule on each so they are unmistakably ours and not a
+   pair of generic testimonial slabs. */
 .abt-quote{padding:clamp(80px,10vw,130px) 0;background:#fff;}
-.abt-quote .wrap{max-width:900px;}
 .abt-quote .eyebrow{color:#8a8f98;}
-.abt-quote blockquote{margin:18px 0 0;padding-left:clamp(18px,2.4vw,28px);border-left:3px solid transparent;
+.abt-quote .q2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4.5vw,64px);align-items:start;margin-top:clamp(28px,3.6vw,44px);}
+@media(max-width:820px){.abt-quote .q2{grid-template-columns:1fr;gap:44px;}}
+.abt-quote .qq{margin:0;}
+.abt-quote .lens{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#9298a1;}
+.abt-quote blockquote{margin:14px 0 0;padding-left:clamp(16px,2vw,22px);border-left:3px solid transparent;
   border-image:var(--sb-grad-ink) 1;
-  font-size:clamp(21px,2.9vw,38px);font-weight:500;letter-spacing:-.024em;line-height:1.34;
-  color:var(--v4-ink);max-width:34ch;}
-.abt-quote cite{display:flex;flex-direction:column;gap:2px;margin-top:clamp(24px,3vw,32px);
-  padding-left:clamp(21px,2.4vw,31px);font-style:normal;}
-.abt-quote cite .cn{font-size:16px;font-weight:600;letter-spacing:-.01em;color:var(--v4-ink);}
-.abt-quote cite .cr{font-size:14px;font-weight:600;color:#059669;}
+  font-size:clamp(18px,2.1vw,26px);font-weight:500;letter-spacing:-.02em;line-height:1.42;color:var(--v4-ink);}
+.abt-quote figcaption{display:flex;flex-direction:column;gap:2px;margin-top:clamp(18px,2.2vw,24px);
+  padding-left:clamp(19px,2vw,25px);}
+.abt-quote figcaption .cn{font-size:15.5px;font-weight:600;letter-spacing:-.01em;color:var(--v4-ink);}
+.abt-quote figcaption .cr{font-size:13.5px;font-weight:600;color:#059669;}
 
 /* THE TWO FOUNDERS, SIDE BY SIDE. Richard left, Jacob right. Identical elements in
    each card so the grid stays even. */
@@ -77,8 +81,7 @@ const CSS = `
 .fcard:hover img{transform:translateY(-4px) scale(1.01);}
 .fcard .nm{margin-top:22px;font-size:clamp(20px,2.2vw,26px);font-weight:600;letter-spacing:-.03em;color:var(--v4-ink);}
 .fcard .ro{margin-top:5px;font-size:14px;font-weight:600;letter-spacing:.02em;color:#059669;}
-.fcard .lens{margin-top:18px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#9298a1;}
-.fcard .bio{margin-top:10px;font-size:15.5px;line-height:1.7;color:#6b7280;}
+.fcard .bio{margin-top:18px;font-size:15.5px;line-height:1.7;color:#6b7280;}
 
 /* The source portraits are 3:4. Cover-cropping them into a 1:1 card from the
    default centre lands the crop window on the chest and takes the top of the head
@@ -118,23 +121,49 @@ export default function AboutPage() {
         </div>
       </header>
 
-      {/* RICHARD'S QUOTE OPENS THE PAGE (Jacob, live review, July 2026). The homepage
-          runs an abbreviated version of it ("there was never enough time"). This is the
-          whole thing, in his words, and it is the reason the company exists. It used to
-          be buried two screens down inside his founder card. */}
+      {/* BOTH VOICES OPEN THE PAGE (Jacob, live review, July 2026). The section under
+          this one says "One of us saw this from the outside. One of us saw it from the
+          inside," and then the page never showed you those two people saying those two
+          things. Now it does, and it does it first.
+
+          Richard's is the full version of the line the homepage abbreviates to "there
+          was never enough time." Jacob's is the other half of the same problem: the
+          thing you bought to fix it made it worse. They are stronger together than
+          apart, which is why they are not split across two founder cards any more.
+
+          The lens labels live HERE, with the voices, not on the cards. Saying "the
+          inside lens" twice on one page is the exact redundancy this page was full of. */}
       <section className="abt-quote">
         <div className="wrap">
           <div className="eyebrow">Why we built this</div>
-          <blockquote>
-            &ldquo;In talking to entrepreneurs, one theme kept coming up: they didn&apos;t have
-            enough time to grow their business and enjoy the rewards they&apos;d hoped for.
-            StayBookt is our answer to &lsquo;not enough time.&rsquo; We get to build something
-            great while helping others realize their dreams and Enjoy Life more.&rdquo;
-          </blockquote>
-          <cite>
-            <span className="cn">Richard Roos</span>
-            <span className="cr">Co-founder</span>
-          </cite>
+          <div className="q2">
+            <figure className="qq">
+              <div className="lens">The inside lens</div>
+              <blockquote>
+                &ldquo;In talking to entrepreneurs, one theme kept coming up: they didn&apos;t have
+                enough time to grow their business and enjoy the rewards they&apos;d hoped for.
+                StayBookt is our answer to &lsquo;not enough time.&rsquo; We get to build something
+                great while helping others realize their dreams and Enjoy Life more.&rdquo;
+              </blockquote>
+              <figcaption>
+                <span className="cn">Richard Roos</span>
+                <span className="cr">Co-founder</span>
+              </figcaption>
+            </figure>
+
+            <figure className="qq">
+              <div className="lens">The outside lens</div>
+              <blockquote>
+                &ldquo;Every owner I worked with tried to buy their way out of it. Another tool,
+                another login, another thing that promised to fix it. None of them ever did the
+                work. They just handed you one more job.&rdquo;
+              </blockquote>
+              <figcaption>
+                <span className="cn">Jacob Charendoff</span>
+                <span className="cr">Co-founder</span>
+              </figcaption>
+            </figure>
+          </div>
         </div>
       </section>
 
@@ -168,13 +197,13 @@ export default function AboutPage() {
               of two people. Same elements in both cards, on purpose: the moment one card
               carries a quote and the other does not, the grid goes ragged.
 
-              Richard's quote is not in his card because it opens the page. */}
+              Both quotes moved to the top of the page, so the cards carry the credentials
+              and nothing else. */}
           <div className="fgrid">
             <article className="fcard">
               <img src="/photos/richard.jpg" alt="Richard Roos, co-founder of StayBookt" width={280} height={280} />
               <div className="nm">Richard Roos</div>
               <div className="ro">Operations, growth, and finance</div>
-              <div className="lens">The inside lens</div>
               <p className="bio">
                 Two decades of executive leadership inside high-growth service businesses at scale,
                 including leading the growth of Venterra from $15M to $500M+ in revenue. A CPA who
@@ -187,7 +216,6 @@ export default function AboutPage() {
               <img className="hi" src="/photos/jacob.jpg" alt="Jacob Charendoff, co-founder of StayBookt" width={280} height={280} />
               <div className="nm">Jacob Charendoff</div>
               <div className="ro">Brand, product, and growth</div>
-              <div className="lens">The outside lens</div>
               <p className="bio">
                 A decade spent standing next to service business owners across health, hospitality,
                 software, retail, and the trades. Different industries, the same conversation, every
