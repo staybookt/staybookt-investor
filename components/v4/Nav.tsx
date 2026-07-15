@@ -10,16 +10,17 @@ import { START_LINK } from '@/lib/site';
  * so a first-time reader never found the single page that says, in plain English,
  * exactly what the $199 buys. Richard read the whole site and missed it. It is now
  * in the nav (Richard, July 14 2026). */
-/* "The work" is in the nav now (Richard asked why it was footer-only; Jacob cleared Tim's
- * before-and-after for use, July 2026).
+/* "The work" IS NOT IN THIS LIST, and that is not an oversight (July 2026).
  *
- * It was held back for one reason: it is the only page on this site carrying a real
- * customer artifact, and we had not asked the customer. That reason is gone, so the one
- * page with actual evidence on it should not be the hardest page to find.
+ * It was added because it was "the only page carrying a real customer artifact". It was
+ * not. Both images in its drag-to-compare were fabricated mockups, on a page that said
+ * "This is a real build. Not a mockup, not a concept." The route is benched on a 307
+ * (see next.config.ts) until both panels are real screenshots. Put the link back when
+ * the page can survive being clicked.
  *
  * Enjoy Life is in the nav (Jacob, July 2026). It is the second half of the company's own
  * name and the whole reason a person would pay us, and it was reachable from nowhere. Six
- * items is the ceiling. The order is the argument, not the sitemap:
+ * items is the ceiling; we are at five while /work is benched. The order is the argument, not the sitemap:
  *   what it is → what you get → what it costs → why you'd bother → proof → who we are.
  *
  * The footer mirrors this order. If you change one, change the other. The homepage
@@ -29,7 +30,6 @@ const LINKS = [
   { href: '/whats-included', label: "What's included" },
   { href: '/pricing', label: 'Pricing' },
   { href: '/enjoy-life', label: 'Enjoy Life' },
-  { href: '/work', label: 'The work' },
   { href: '/founders', label: 'About us' },
 ];
 

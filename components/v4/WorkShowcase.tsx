@@ -1,5 +1,33 @@
 'use client';
 
+/* ============================================================================
+ * DO NOT PUT THIS PAGE BACK IN THE NAV UNTIL THE IMAGES ARE REAL.
+ *
+ * Benched July 2026. /photos/tce-before.png and /photos/tce-after.png were BOTH
+ * hand-built mockups, not screenshots of anything. The "after" contained a 555
+ * reserved fake phone number and an invented ESA licence number. Meanwhile this
+ * file said, in body copy, "This is a real build. Not a mockup, not a concept."
+ *
+ * How it survived an audit: the review read the words and never opened the pictures.
+ * You can watch it happen in the comments below, where unmeasured CLAIMS were
+ * carefully stripped ("loads in under a second", "turns a stranger into a booked
+ * job") while the fabricated IMAGES those claims sat under went untouched. Text
+ * greps. Images do not. Open the images.
+ *
+ * TO RESTORE, all four:
+ *   1. "after"  = a real screenshot of the live topchoiceelectrical.com (we built it).
+ *   2. "before" = a real capture of Tim's old site, off DreamHost.
+ *   3. The browser-chrome pill below says "your-business.com". On a page about one
+ *      named real customer, it should say the real domain or the chrome should go.
+ *   4. HERO_SUB says "Same phone number." Tim's real number is (416) 805-6676. If the
+ *      screenshots do not both show it, that sentence is not true and must come out.
+ *
+ * Promise 05: "No screenshots of results we did not produce. Where we illustrate the
+ * service, we say so, in writing, on the page." A fabricated before-and-after is the
+ * exact thing that promise exists to prevent. It is worse than a fake testimonial,
+ * because it looks like a document.
+ * ========================================================================= */
+
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
 
 const HERO_H = 'See the difference.';
