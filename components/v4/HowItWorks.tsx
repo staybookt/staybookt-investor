@@ -24,8 +24,16 @@ const STOPS: Stop[] = [
   {
     id: 'found', n: '1', label: 'Get found', promise: 'Impossible to miss.', voice: 'Finally. The phone is ringing again.',
     accent: '#0ea5e9', accentD: '#0284c7', side: 'left', surface: 'getfound',
-    beat: 'We build your site, analyze your numbers, and get you found on search, the map, and AI recommendations.',
-    result: 'Inbox full, texts flowing, phone ringing.',
+    /* "analyze your numbers" was Pulse residue. We are not the bookkeeper and there is no
+       analytics product described anywhere else on this site, so it promised a service
+       that does not exist.
+
+       "Inbox full, texts flowing, phone ringing" is a promised volume of leads, which our
+       own FAQ calls guessing: "Do you promise me a number of leads? No, and anyone who does
+       is guessing." The result is the mechanism now. We can promise to make you findable.
+       We cannot promise a full inbox. */
+    beat: 'We build your site, fix your Google listing, and get you found on search, the map, and AI recommendations.',
+    result: 'Found on search, the map, and AI answers.',
     steps: [
       { t: 'We build you a proper website.', b: 'Fast, works on a phone, made to turn a visitor into a call. Built and hosted for you, nothing to manage.' },
       { t: 'We fix your Google listing.', b: 'The thing that pops up when someone searches for what you do. We fill it out, keep it current, and get Google to trust it.' },
@@ -56,7 +64,10 @@ const STOPS: Stop[] = [
     beat: 'After a year of this, the business runs without you standing in the middle of it. What you do with that is entirely your call. Most owners do not want out. They want the good half of the job back.',
     result: 'Do the part you love, hand it to family, or sell it.',
     steps: [
-      { t: 'We build something that runs without you.', b: 'Everything in the first year points at one thing: the phone gets answered, the jobs get booked and the money lands whether you are standing there or not.' },
+      /* "runs without you" is banned language (see app/layout.tsx) and it survived here.
+         The whole control-preserving voice is "You run the business. We run the busywork"
+         and "we take the busywork, not the business". This one line sidelined the owner. */
+      { t: 'We build something that keeps running when you step away.', b: 'Everything in the first year points at one thing: the phone gets answered, the jobs get booked and the money lands whether you are standing there or not.' },
       { t: 'The work gets steady, not seasonal.', b: 'Recurring service work, and past customers coming back on their own, so the year stops starting from zero every January.' },
       { t: 'You take the driver seat.', b: 'Keep it and go back to the work you love, hand it to a family member, or sell it. You never have to use the last door. You just get to have it.' },
       { t: 'And we take no cut of it.', b: 'No commission on your jobs, no share of your revenue, no share of what the business is worth when you sell. The monthly fee is the whole deal. What you built stays yours.' },

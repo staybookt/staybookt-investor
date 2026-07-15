@@ -4,14 +4,14 @@ import CalEmbed from '@/components/v4/CalEmbed';
 import SiteFooter from '@/components/SiteFooter';
 
 const SHARE_DESCRIPTION =
-  'Thirty minutes with a founder. We will show you exactly where you are losing work, and what it would take to get your life back. No slides, no sales rep.';
+  'Thirty minutes with a founder. We will show you where the work is slipping, and what it would take to get your life back. No slides, no sales rep.';
 
 export const metadata = {
-  title: 'See where you are losing work',
+  title: 'See where the work is slipping',
   description: SHARE_DESCRIPTION,
   alternates: { canonical: '/start' },
   openGraph: {
-    title: 'See where you are losing work · StayBookt',
+    title: 'See where the work is slipping · StayBookt',
     description: SHARE_DESCRIPTION,
     url: 'https://www.staybookt.com/start',
     siteName: 'StayBookt',
@@ -20,7 +20,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'See where you are losing work · StayBookt',
+    title: 'See where the work is slipping · StayBookt',
     description: SHARE_DESCRIPTION,
   },
 };
@@ -146,14 +146,21 @@ export default function StartPage() {
                   This is lifted from our own cal.com description, which had the promise in
                   it the whole time: "we'll show you exactly where you're losing work and
                   what it would take to get your life back." */}
+              {/* WAS "See exactly where you are losing work" + "what it is costing you".
+                  Both promised a measured number. We could make that promise when the call
+                  came after a mystery shop; it does not any more. Privacy now says our prep
+                  is public information only: the website, the Google listing, the reviews,
+                  search. That is enough to show someone where the work is slipping. It is
+                  not enough to cost it out to the dollar, and the leak calculator was killed
+                  for exactly that overreach. */}
               <h1 className="st-h">
-                See exactly where you are <span className="g">losing work.</span>
+                See where the work is <span className="g">slipping.</span>
               </h1>
             </Reveal>
             <Reveal>
               <p className="st-sub">
                 Thirty minutes with a founder. No slides and no sales rep. We will show you what is
-                slipping, what it is costing you, and what it would take to get your life back.
+                slipping, and what it would take to get your life back.
               </p>
             </Reveal>
             <Reveal>

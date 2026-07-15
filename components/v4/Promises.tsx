@@ -55,7 +55,7 @@ const PROMISES: Vow[] = [
     n: '04',
     h: 'We do not lock you in.',
     p: 'No term. No contract to be trapped in. No exit fee. Cancel any time on thirty days notice. And for the first ninety days you can change your mind for any reason at all, and we refund every month you paid. You never have to prove we failed.',
-    cost: 'It costs us the safety net every subscription company is built on. We build your website before you have paid us a dollar, and then we have to earn the next month, and the one after that, forever. The day we stop being worth two hundred dollars you are gone inside thirty days, and you leave with the website, the domain, the customer list and the reviews. We wrote that deal on purpose.',
+    cost: 'It costs us the safety net every subscription company is built on. We build your website before you have paid us a dollar, and then we have to earn the next month, and the one after that, forever. The day we stop being worth $199 you are gone inside thirty days, and you leave with the website, the domain, the customer list and the reviews. We wrote that deal on purpose.',
   },
   {
     n: '05',

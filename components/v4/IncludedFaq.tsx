@@ -121,7 +121,9 @@ export default function IncludedFaq() {
               Get Started <span aria-hidden>&rarr;</span>
             </a>
             <div className="fa-links">
-              <a href="/how-it-works">What does it cost, and is there a contract?</a>
+              {/* Pointed at /how-it-works, where that question no longer lives: the money
+                  questions moved to /pricing, and /how-it-works says so out loud. */}
+              <a href="/pricing">What does it cost, and is there a contract?</a>
               <a href="/pricing">See the pricing</a>
             </div>
           </div>

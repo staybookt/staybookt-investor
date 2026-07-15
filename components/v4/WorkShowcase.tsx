@@ -5,14 +5,21 @@ import { useEffect, useRef, useState, type CSSProperties } from 'react';
 const HERO_H = 'See the difference.';
 const HERO_SUB = 'Same owner. Same trade. Same phone number. What changed is everything a customer sees first, and that is what makes the phone ring.';
 
-const CLAIM = 'A site that makes a 22-year operator look like the most established name in town, and turns a stranger searching at 9 PM into a booked job by morning.';
+/* "turns a stranger searching at 9 PM into a booked job by morning" claimed a RESULT, on
+   the one page carrying a real customer's real build, where it reads as that customer's
+   result. We never measured it. Promise 05 is literally "no screenshots of results we did
+   not produce".
+   It describes the build now. What it is FOR, not what it DID. */
+const CLAIM = 'A site that makes a 22-year operator look like the most established name in town, and lets a stranger searching at 9 PM book without having to call you.';
 
 const CRAFT: { t: string; b: string }[] = [
   /* These four used to restate the website bullets that /whats-included and
      /how-it-works already own, for a third time. This page's job is EVIDENCE, not
      another list. What is left is the two things only a real build can say. */
   { t: 'This is a real build.', b: 'Not a mockup, not a concept. A site we shipped for an owner-operator, and the one before it is what he actually had.' },
-  { t: 'Loads in under a second.', b: 'Fast on any phone, because a homeowner in a jam does not wait around for a slow site.' },
+  /* "Loads in under a second" is a number any of the twelve reviewers can check with one
+     Lighthouse run, and we have not measured it. Say the intent, not the benchmark. */
+  { t: 'Built to open fast.', b: 'Light on any phone, because a homeowner in a jam does not wait around for a slow site.' },
   { t: 'Every page, one tap from a call.', b: 'A big call button and self-serve booking everywhere, so a ready customer never slips away.' },
   { t: 'Yours to keep.', b: 'The site, the domain, the Google profile rebuilt to match. All in your name, always.' },
 ];

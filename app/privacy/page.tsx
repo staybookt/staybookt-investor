@@ -122,6 +122,11 @@ const SECTIONS: Section[] = [
           <li>To answer your calls and texts and book your jobs. That is the service.</li>
           <li>To send reminders and follow-ups on your behalf.</li>
           <li>To ask your customers for reviews, where they have consented to be contacted.</li>
+          {/* The campaigns line was missing. We sell "the email campaigns you never get
+              around to" on /whats-included and the terms invoke CASL for it, but this list,
+              which is the list that says what we USE the data for, did not mention
+              marketing at all. Same file the "to send quotes" claim hid in. */}
+          <li>To email your past customers on your behalf, where they have consented, to bring them back for work they are due.</li>
           <li>To give you your morning brief and show you what happened.</li>
           <li>To bill you, and to keep the records the law requires us to keep.</li>
         </ul>
