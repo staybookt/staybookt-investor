@@ -1,6 +1,5 @@
 import Nav from '@/components/v4/Nav';
 import SiteFooter from '@/components/SiteFooter';
-import Coming from '@/components/v4/Coming';
 import Matrix from '@/components/v4/Matrix';
 import IncludedFaq from '@/components/v4/IncludedFaq';
 import HeroCta from '@/components/v4/HeroCta';
@@ -107,7 +106,19 @@ export default function WhatsIncludedPage() {
       {/* THE PLATFORM. It sits with the things we DO, because as of July 14 2026 it
           is one of them. It used to be a fenced roadmap block after "what we do not
           do", chipped "not shipping today". Jacob confirmed the features are done. */}
-      <Coming />
+      {/* THE "UNDER THE HOOD" SECTION IS GONE (Richard, review, July 2026: "I don't think
+          the customer record section works. I would be inclined to just go with the top
+          chart and keep it simple. Don't think you gain enough from the extra
+          complexity.").
+
+          He is right, and it got cheaper to agree with him: the two things worth keeping
+          out of that section, the assistant and the one customer record, are now rows in
+          the chart itself. So the section was three mockups restating what the table above
+          them already said.
+
+          It takes the illustration disclaimer with it, and that is the correct way to lose
+          a disclaimer: by removing the illustrations, not by deciding the disclaimer is
+          clutter. Promise 5 still stands, and the homepage still carries its own. */}
 
       {/* THE THREE PROSE SECTIONS ARE GONE (Jacob, July 14 2026): "Is it AI or a real
           person" (three fat cards), "What you still do / What you own forever" (two

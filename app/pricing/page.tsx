@@ -152,7 +152,12 @@ export default function PricingPage() {
       <section className="prc-led">
         <div className="wrap">
           <div className="inner">
-            <div className="eyebrow">Why it can be $199</div>
+            {/* "Why it can be $199" (Richard: "I don't understand the lead in"). Neither did
+                anyone else. It is an insider's sentence: it assumes you have already
+                accepted the price and are curious about our cost base. Nobody arrives
+                there. They arrive at "what is the catch at $199", so that is the question
+                the section is now allowed to admit it is answering. */}
+            <div className="eyebrow">Why so cheap</div>
             <h2>It was never software. It was five salaries.</h2>
             {/* THE FIVE ROLES MUST BE FIVE JOBS WE ACTUALLY DO. Two of them were not.
                 This used to name a DISPATCHER and a BOOKKEEPER, and /whats-included says,

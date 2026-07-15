@@ -22,7 +22,18 @@ export default function HeroCta({ fromBlack = false }: { fromBlack?: boolean }) 
       <img src={HERO_IMG} alt="" loading="lazy" decoding="async" />
       <div className="hcta-ov" />
       <div className="hcta-in">
-        <h2>Go enjoy the life you built it for.</h2>
+        {/* WAS "Go enjoy the life you built it for." (Richard: "feels awkward. I have to
+            reread it to think I get it.")
+
+            He is right and the reason is grammatical, not tonal. "built it for" makes you
+            hunt for what "it" is: the business, mentioned nowhere in the sentence. That is
+            a garden-path sentence, and the hero on the homepage already says the same
+            thought cleanly: "You built your business to enjoy your life."
+
+            So the closer echoes the hero instead of fighting it, and it keeps Enjoy Life,
+            which is the brand. Not turned into a question: a question at the close invites
+            the answer "no". */}
+        <h2>You built the business. Now go enjoy the life.</h2>
         <p>We get you found and run the day to day. You get your time back.</p>
         <a className="hcta-btn" href={START_LINK}>Get Started</a>
         <div className="hcta-note">Thirty minutes with a founder. Never a sales rep.</div>
