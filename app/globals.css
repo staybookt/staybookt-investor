@@ -238,7 +238,6 @@ section[id] { scroll-margin-top: 5rem; }
    Exact hex values, clamp() sizes, and keyframes preserved from the mockup.
    ====================================================================== */
 
-
 .hpv2 { --hp-ink:#06080f; --hp-ink2:#0a0e1a; --hp-paper:#ffffff; --hp-cream:#f6f6f3;
   --hp-text:#0a0e1a; --hp-muted:#5b6675; --hp-line:#e7e8ec;
   --hp-cyan:#06b6d4; --hp-emerald:#10b981; --hp-indigo:#4f46e5; --hp-violet:#7c3aed;
