@@ -15,11 +15,23 @@
    These are the only two gradients this company owns. If you are about to write
    `linear-gradient(` with a brand colour in it, you are about to make a tenth one.
    Use the token. ========================================================== */
-:root{
-  --sb-grad: var(--sb-grad);
-  --sb-grad-ink: var(--sb-grad-ink);
-}
 @import "tailwindcss";
+
+:root{
+  /* THESE ARE LITERALS ON PURPOSE. A previous pass tokenised every brand gradient
+     in the codebase with a search-and-replace, and the replace also fired on the
+     two definitions below, turning them into `--sb-grad: var(--sb-grad)`. That is a
+     circular reference, which makes the variable INVALID, which makes every
+     `background:var(--sb-grad)` resolve to nothing, which makes every headline that
+     uses background-clip:text with color:transparent render COMPLETELY INVISIBLE.
+
+     Half the site's headlines silently lost their second half: "Questions, answered."
+     showed as "Questions,", "It was never software" lost its kick line, and the
+     pricing hero lost the word "StayBookt." Never write var(--sb-grad) inside these
+     two declarations. */
+  --sb-grad: linear-gradient(100deg,#06b6d4,#10b981 52%,#4f46e5);
+  --sb-grad-ink: linear-gradient(100deg,#0891b2,#059669 52%,#4f46e5);
+}
 
 :root {
   --ink: #0A0E1A;

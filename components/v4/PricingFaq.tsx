@@ -66,9 +66,14 @@ export default function PricingFaq() {
       <div className="wrap">
         <div className="fgrid">
           <div className="faside">
-            <div className="eyebrow">The money</div>
+            {/* Just say FAQ. Earlier versions of this tried to be clever ("The questions
+                behind the list", "Ask the awkward one", "The short answers") and every one
+                of them wrapped into a broken-looking fragment on screen and made a reader
+                stop and decode a section label. Every FAQ on this site now reads the same,
+                and reads plainly (Jacob, live review, July 2026). Do not make it cute again. */}
+            <div className="eyebrow">FAQ</div>
             <h2>
-              Ask the <span className="g">awkward one.</span>
+              Questions, <span className="g">answered.</span>
             </h2>
             <p className="fa-p">
               Every question a person asks before they hand somebody two hundred dollars a month,

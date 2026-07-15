@@ -98,11 +98,14 @@ export default function IncludedFaq() {
       <div className="wrap">
         <div className="fgrid">
           <div className="faside">
-            <div className="eyebrow">The rest of it</div>
-            {/* "Ask the awkward one." is the /pricing headline. Money is the awkward one.
-                This page's questions are about who does the work and what is yours. */}
+            {/* Just say FAQ. Earlier versions of this tried to be clever ("The questions
+                behind the list", "Ask the awkward one", "The short answers") and every one
+                of them wrapped into a broken-looking fragment on screen and made a reader
+                stop and decode a section label. Every FAQ on this site now reads the same,
+                and reads plainly (Jacob, live review, July 2026). Do not make it cute again. */}
+            <div className="eyebrow">FAQ</div>
             <h2>
-              The questions <span className="g">behind the list.</span>
+              Questions, <span className="g">answered.</span>
             </h2>
             <p className="fa-p">
               That is the whole list. If something on it is not what you need, tell us on the call
