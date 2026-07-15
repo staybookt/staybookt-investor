@@ -87,7 +87,11 @@ const CSS = `
 
 .el-doors{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.4vw,26px);margin-top:clamp(34px,4vw,48px);}
 @media(max-width:820px){.el-doors{grid-template-columns:1fr;}}
-.el-door{background:#fff;border:1px solid #e6e6e1;border-radius:20px;padding:clamp(22px,2.6vw,30px);
+/* Reveal renders a wrapper div, so the GRID ITEM is the .reveal, not the .el-door.
+   Without these two rules the cards size to their own copy and the row looks ragged.
+   Same fix as .xcard{height:100%} on the homepage. */
+.el-doors > .reveal{display:flex;}
+.el-door{flex:1;background:#fff;border:1px solid #e6e6e1;border-radius:20px;padding:clamp(22px,2.6vw,30px);
   box-shadow:0 30px 60px -44px rgba(6,12,20,.3);}
 .el-door .n{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#b45309;}
 .el-door .t{margin-top:12px;font-size:clamp(18px,2vw,23px);font-weight:600;letter-spacing:-.025em;color:var(--v4-ink);}
