@@ -43,7 +43,13 @@ const QS: Q[] = [
     k: 'Who does the work',
     c: '#0ea5e9',
     q: 'What if it gets a price wrong?',
-    a: 'It quotes from your playbook: your prices, your jobs, your service area, and anything outside that gets caught by a person before it goes out. If a wrong number ever does reach a customer, we bring it straight to you, you decide what you want to honour, and we are the ones who go back to them and sort it out. You will hear it from us before you hear it from them, and you are never the one making that phone call.',
+    /* MISSED IN THE DRAFT-QUOTES PURGE. This still said the AI quotes "before it goes
+     * out", which implies we draft and send a quote document. We do not, and we took
+     * that claim off six other surfaces (July 2026).
+     *
+     * What is true is narrower and worth saying precisely: the AI answers a price
+     * QUESTION from the owner's playbook. It does not write the quote. */
+    a: 'It answers price questions from your playbook: your prices, your jobs, your service area. Anything outside that gets caught by a person before it ever reaches your customer. If a wrong number ever does get through, we bring it straight to you, you decide what you want to honour, and we are the ones who go back to them and sort it out. You will hear it from us before you hear it from them, and you are never the one making that phone call.',
   },
   {
     k: 'Who does the work',
