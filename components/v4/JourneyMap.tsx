@@ -16,7 +16,7 @@ import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 
  *    with the scroll wheel, and the five jobs arrive exactly as fast as they look.
  *
  * 2. Get Started came OUT of the film and is now a static banner under the track
- *    (see StartBanner). A conversion block should not be a beat you have to scrub
+ *    (see HeroCta). A conversion block should not be a beat you have to scrub
  *    through, and the film now ends on the number, which is the note to end on.
  *
  * Beat 3 also gets a wider slice of the track than it did as a CTA, because five

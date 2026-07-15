@@ -1,6 +1,6 @@
 import Nav from '@/components/v4/Nav';
 import SiteFooter from '@/components/SiteFooter';
-import StartBanner from '@/components/v4/StartBanner';
+import HeroCta from '@/components/v4/HeroCta';
 import { Promises } from '@/components/v4/Promises';
 
 /* WHAT THIS PAGE IS FOR.
@@ -231,7 +231,7 @@ export default function AboutPage() {
       </section>
 
       {/* Same CTA banner every other page lands on. */}
-      <StartBanner />
+      <HeroCta />
 
       <SiteFooter />
     </main>

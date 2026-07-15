@@ -196,7 +196,7 @@ export default function WorkShowcase() {
           #050506 every other dark section uses. Three different CTA treatments across
           six pages, and a button label that appeared nowhere else on the site.
 
-          The page closes on <StartBanner /> now, like every other page. Do not put a
+          The page closes on <HeroCta /> now, like every other page. Do not put a
           second call to action in this component. */}
     </div>
   );

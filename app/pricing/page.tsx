@@ -1,7 +1,7 @@
 import Nav from '@/components/v4/Nav';
 import SiteFooter from '@/components/SiteFooter';
 import PricingFaq from '@/components/v4/PricingFaq';
-import StartBanner from '@/components/v4/StartBanner';
+import HeroCta from '@/components/v4/HeroCta';
 import { START_LINK } from '@/lib/site';
 
 const SHARE =
@@ -180,7 +180,7 @@ export default function PricingPage() {
       <PricingFaq />
 
       {/* 4 — THE CALL. Same banner every page lands on. */}
-      <StartBanner />
+      <HeroCta />
 
       <SiteFooter />
     </main>

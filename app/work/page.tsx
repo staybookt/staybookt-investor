@@ -1,7 +1,7 @@
 import Nav from '@/components/v4/Nav';
 import SiteFooter from '@/components/SiteFooter';
 import WorkShowcase from '@/components/v4/WorkShowcase';
-import StartBanner from '@/components/v4/StartBanner';
+import HeroCta from '@/components/v4/HeroCta';
 
 const SHARE =
   'See the difference. The same owner-operated business, before and after StayBookt: a tired, dated website rebuilt into one that makes the phone ring. Drag to compare.';
@@ -32,7 +32,7 @@ export default function WorkPage() {
           different button shape, and a button that said "Pick a time" when every
           other button on the site says "Get Started". Three CTA styles across six
           pages. Now there is one. */}
-      <StartBanner />
+      <HeroCta />
       <SiteFooter />
     </main>
   );

@@ -1,7 +1,7 @@
 import Nav from '@/components/v4/Nav';
 import SiteFooter from '@/components/SiteFooter';
 import HowItWorks from '@/components/v4/HowItWorks';
-import StartBanner from '@/components/v4/StartBanner';
+import HeroCta from '@/components/v4/HeroCta';
 
 const SHARE =
   'Not a tool you learn. An operator that runs the front of your business: your website, an AI receptionist, booking, quotes, reviews and a daily brief. Here is exactly how it runs, step by step.';
@@ -31,7 +31,7 @@ export default function HowItWorksPage() {
       <Nav />
       <HowItWorks />
       {/* Every page closes the same way. This one used to just stop. */}
-      <StartBanner />
+      <HeroCta />
       <SiteFooter />
     </main>
   );

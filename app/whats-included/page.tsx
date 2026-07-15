@@ -3,7 +3,7 @@ import SiteFooter from '@/components/SiteFooter';
 import Coming from '@/components/v4/Coming';
 import Matrix from '@/components/v4/Matrix';
 import IncludedFaq from '@/components/v4/IncludedFaq';
-import StartBanner from '@/components/v4/StartBanner';
+import HeroCta from '@/components/v4/HeroCta';
 
 /* Hero backdrop. This page was the only one still sitting on a flat black gradient
  * while every other hero had something behind it (Jacob, July 14 2026). Same
@@ -17,7 +17,7 @@ const HERO_IMG =
   'https://images.pexels.com/photos/7484157/pexels-photo-7484157.jpeg?auto=compress&cs=tinysrgb&w=2000';
 
 const SHARE =
-  'The whole list, in plain English. Everything $199 a month actually buys, what you still do, and the things we do not do.';
+  'The whole list. Everything $199 a month actually buys, what you still do, and the things we do not do.';
 
 export const metadata = {
   title: "What's included",
@@ -89,7 +89,7 @@ export default function WhatsIncludedPage() {
         <div className="hov" />
         <div className="wrap">
           <div className="eyebrow">What&apos;s included</div>
-          <h1>Everything, in plain English.</h1>
+          <h1>What you get for $199.</h1>
           <p>
             The whole list. No asterisks, no fine print. Here is exactly what we do, what you still
             do, and the things we do not do.
@@ -121,7 +121,7 @@ export default function WhatsIncludedPage() {
 
       {/* The closer used to be a bare headline and a button on white. It is now the
           same CTA banner the homepage ends on, so every page lands the same way. */}
-      <StartBanner />
+      <HeroCta />
 
       <SiteFooter />
     </main>
