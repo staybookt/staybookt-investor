@@ -73,7 +73,9 @@ const CSS = `
 .plan .nm{font-size:clamp(24px,3.2vw,40px);font-weight:600;letter-spacing:-.03em;color:#fff;line-height:1.1;}
 .plan .nm .sb{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .prnum{display:flex;align-items:flex-start;justify-content:center;gap:4px;margin-top:14px;color:#fff;font-weight:700;letter-spacing:-.05em;line-height:.88;font-size:clamp(76px,13vw,164px);font-variant-numeric:tabular-nums;}
-.prnum .d{font-size:.4em;font-weight:600;margin-top:.15em;color:#9aa0ab;}
+.prnum .amt{display:inline-flex;align-items:flex-start;background:var(--sb-grad);
+  -webkit-background-clip:text;background-clip:text;color:transparent;}
+.prnum .amt .d{font-size:.4em;font-weight:600;margin-top:.15em;color:transparent;}
 .prnum .per{align-self:flex-end;margin-bottom:.18em;margin-left:10px;font-size:.15em;font-weight:600;letter-spacing:0;color:#9aa0ab;}
 
 /* four facts. NOT a paragraph. */
@@ -117,7 +119,11 @@ export default function PricingPage() {
             </div>
 
             <div className="prnum">
-              <span className="d">$</span>199
+              {/* $199 is the whole argument of this page, and it was plain white on
+                  black: the one number we want remembered had no brand on it at all.
+                  It is the wordmark's own gradient now. "a month" stays grey so the
+                  number is the thing your eye lands on. */}
+              <span className="amt"><span className="d">$</span>199</span>
               <span className="per">a month</span>
             </div>
 

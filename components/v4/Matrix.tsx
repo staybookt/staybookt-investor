@@ -181,9 +181,11 @@ const COLS: { k: keyof Pick<Row, 'you' | 'svc' | 'agy' | 'sb'>; label: string; s
 function Mark({ v }: { v: Cell }) {
   if (v === 'yes')
     return (
-      <svg className="mk yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} aria-label="yes">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M4 12l5 5L20 6" />
-      </svg>
+      <span className="mk yes" aria-label="yes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3.2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M4 12l5 5L20 6" />
+        </svg>
+      </span>
     );
   if (v === 'you') return <span className="mk youtag">You</span>;
   return <span className="mk no" aria-label="no" />;
@@ -262,7 +264,16 @@ export default function Matrix() {
 }
 
 const CSS = `
-.mx{background:#fff;color:var(--v4-ink,#06080d);padding:clamp(80px,10vw,130px) 0;}
+/* MAKING IT POP, IN LIGHT MODE (Jacob, live review, July 2026).
+   The chart was white type on a white section with hairline rules: a spreadsheet, not
+   a designed comparison. Four moves, no dark mode needed:
+     1. the section goes cream so a white card can exist on it at all
+     2. the grid becomes that card: real border, real radius, real shadow
+     3. the StayBookt column becomes an actual column, tinted, bordered and capped,
+        instead of a 9%-opacity wash nobody could see
+     4. our checks become filled badges while the competitors stay flat and grey, so
+        the eye is told who wins before a single word is read */
+.mx{background:var(--v4-cream,#f6f6f3);color:var(--v4-ink,#06080d);padding:clamp(80px,10vw,130px) 0;}
 .mx .wrap{width:100%;max-width:1080px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
 .mx .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#8a8f98;}
 .mx-head{max-width:64ch;}
@@ -270,24 +281,27 @@ const CSS = `
 .mx-head h2 .g{background:var(--sb-grad-ink);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .mx-head p{margin-top:20px;font-size:clamp(16px,1.75vw,18px);line-height:1.62;color:#6b7280;max-width:58ch;}
 
-.mx-scroll{margin-top:clamp(40px,5vw,58px);overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.mx-scroll{margin-top:clamp(40px,5vw,58px);overflow-x:auto;-webkit-overflow-scrolling:touch;
+  background:#fff;border:1px solid #e6e6e1;border-radius:24px;
+  box-shadow:0 40px 80px -46px rgba(6,12,20,.35),0 2px 6px -2px rgba(6,12,20,.06);
+  padding:clamp(16px,2.2vw,28px) clamp(14px,2vw,24px) clamp(8px,1.2vw,14px);}
 .mx-grid{min-width:720px;}
 
 .mx-r{display:grid;grid-template-columns:minmax(0,1.55fr) repeat(4,minmax(88px,.62fr));align-items:center;width:100%;
   background:transparent;border:0;padding:0;font-family:inherit;color:inherit;text-align:left;}
 
 /* header row */
-.mx-hd{padding-bottom:14px;border-bottom:1px solid #e2e2dc;}
+.mx-hd{padding-bottom:14px;border-bottom:1px solid #dedeD6;}
 .mx-hd .mx-c{display:flex;flex-direction:column;align-items:center;gap:3px;padding:0 6px;}
-.mx-hd .mx-c b{font-size:12.5px;font-weight:700;letter-spacing:.04em;color:#52565e;text-align:center;line-height:1.25;}
+.mx-hd .mx-c b{font-size:12.5px;font-weight:700;letter-spacing:.04em;color:#6b7280;text-align:center;line-height:1.25;}
 .mx-hd .mx-c i{font-style:normal;font-size:11px;color:#9298a1;}
-.mx-hd .mx-c.us b{color:#047857;}
-.mx-hd .mx-c.us i{color:#059669;font-weight:600;}
+.mx-hd .mx-c.us b{font-size:14px;background:var(--sb-grad-ink);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.mx-hd .mx-c.us i{color:#047857;font-weight:700;font-size:12px;}
 
 /* body rows */
-.mx-row{border-bottom:1px solid #eeeef1;}
+.mx-row{border-bottom:1px solid #ededea;}
 .mx-row>button{cursor:pointer;padding:16px 0;transition:background .25s ease;}
-.mx-row>button:hover{background:#fafafa;}
+.mx-row>button:hover{background:#fbfbfa;}
 .mx-j{display:flex;align-items:center;gap:10px;padding-right:16px;}
 .mx-j .jt{font-size:15.5px;line-height:1.4;color:#26292f;}
 .mx-j .pl{width:20px;height:20px;flex:0 0 auto;border-radius:50%;border:1px solid #d8d8dd;color:#9298a1;
@@ -297,13 +311,20 @@ const CSS = `
 .mx-row>button:hover .pl{border-color:#a9aeb8;color:#6b7280;}
 .mx-c{display:flex;align-items:center;justify-content:center;}
 /* the one column that fills up */
-.mx-row .mx-c.us{background:linear-gradient(180deg,rgba(16,185,129,.09),rgba(16,185,129,.05));}
-.mx-hd .mx-c.us{background:linear-gradient(180deg,rgba(16,185,129,.16),rgba(16,185,129,.05));border-radius:12px 12px 0 0;padding-top:10px;padding-bottom:10px;}
+.mx-row .mx-c.us{background:rgba(16,185,129,.07);
+  border-left:1px solid rgba(16,185,129,.3);border-right:1px solid rgba(16,185,129,.3);}
+.mx-grid .mx-row:last-child .mx-c.us{border-bottom:1px solid rgba(16,185,129,.3);border-radius:0 0 14px 14px;}
+.mx-hd .mx-c.us{background:linear-gradient(180deg,rgba(16,185,129,.2),rgba(16,185,129,.08));
+  border:1px solid rgba(16,185,129,.3);border-bottom:0;border-radius:14px 14px 0 0;
+  padding-top:12px;padding-bottom:12px;box-shadow:0 -1px 0 rgba(16,185,129,.1) inset;}
 
 .mk{display:block;}
-.mk.yes{width:17px;height:17px;color:#10b981;}
-.mx-c.us .mk.yes{color:#047857;}
-.mk.no{width:16px;height:2px;border-radius:2px;background:#dcdce1;}
+.mk.yes{display:grid;place-items:center;width:19px;height:19px;color:#10b981;}
+.mk.yes svg{width:100%;height:100%;}
+/* ours is the only filled one on the row. that is the whole point of the chart. */
+.mx-c.us .mk.yes{width:26px;height:26px;border-radius:50%;background:#059669;color:#fff;padding:5px;
+  box-shadow:0 6px 14px -4px rgba(5,150,105,.65);}
+.mk.no{width:16px;height:2px;border-radius:2px;background:#d3d3d9;}
 .mk.youtag{font-size:11px;font-weight:700;letter-spacing:.06em;color:#b45309;background:rgba(245,158,11,.14);
   border:1px solid rgba(245,158,11,.42);border-radius:999px;padding:4px 10px;white-space:nowrap;}
 
