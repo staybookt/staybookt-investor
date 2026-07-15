@@ -58,8 +58,20 @@ const ROWS: Row[] = [
     ],
   },
   {
-    job: 'Sort the emergency from the one that can wait',
-    you: 'you', svc: 'no', agy: 'no', sb: 'yes',
+    /* THIS ROW USED TO CLAIM AN ANSWERING SERVICE CANNOT TRIAGE (Richard, review, July
+       2026). Sorting the urgent call from the one that can wait is the single thing an
+       answering service exists to do. We had it marked ✗.
+
+       On a site whose fifth published promise is that we will never fake proof, a false
+       mark against a competitor is the same category of lie as a fabricated testimonial,
+       and it is a worse one, because it is checkable in thirty seconds by anyone who has
+       ever hired one.
+
+       It costs us the row. Good. Handing a rival the point they have actually earned is
+       what makes the other eleven ✗s believable. Never mark a competitor down for
+       something they genuinely do. */
+    job: 'Sort the emergency call from the one that can wait',
+    you: 'you', svc: 'yes', agy: 'no', sb: 'yes',
     detail: [
       'Emergency and after-hours calls sorted against the rules you set',
       'What is urgent, what waits until morning, and what is worth waking you for',

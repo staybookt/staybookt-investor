@@ -476,7 +476,15 @@ export default function JourneyMap() {
                   <div className="pj-fig">
                     <span className="pj-dol">$</span>199<span className="pj-per">/mo</span>
                   </div>
-                  <p className="pj-sub">Nothing upfront. Cancel any time.</p>
+                  {/* SAID "Cancel any time." full stop. Every other surface on this site says "Cancel
+                      any time ON THIRTY DAYS NOTICE" (pricing, the promises, both FAQs, the
+                      schema). This was the one place we dropped the qualifier, and it was the
+                      loudest place on the site: the beat right under the price.
+
+                      Richard read it as us not really offering cancel-any-time. He was reading
+                      it correctly. The terms did not change; this line was overstating them.
+                      Do not shorten this again to make it fit. */}
+                  <p className="pj-sub">Nothing upfront. Cancel on thirty days notice.</p>
                 </div>
               </div>
             </div>
