@@ -53,33 +53,37 @@ const CSS = `
 .abt-us .us-lead{max-width:680px;margin:0 0 clamp(44px,6vw,70px);}
 .abt-us .us-lead h2{margin-top:14px;font-size:clamp(28px,4.2vw,54px);line-height:1.04;}
 .abt-us .us-lead p{margin-top:16px;font-size:clamp(17px,1.9vw,20px);line-height:1.6;color:#6b7280;}
-.f{display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);gap:clamp(32px,6vw,72px);align-items:start;padding:clamp(44px,6vw,72px) 0;border-top:1px solid #e2e2dc;}
-.f:first-of-type{border-top:0;padding-top:0;}
-.f .who img{width:100%;max-width:280px;aspect-ratio:1/1;object-fit:cover;object-position:center 18%;border-radius:24px;display:block;box-shadow:0 34px 70px -40px rgba(6,12,20,.55);transition:transform .5s cubic-bezier(.16,1,.3,1);}
+/* RICHARD'S QUOTE, OPENING THE PAGE. Editorial pull-quote, gradient rule on the
+   left so it is unmistakably ours and not a generic testimonial slab. */
+.abt-quote{padding:clamp(80px,10vw,130px) 0;background:#fff;}
+.abt-quote .wrap{max-width:900px;}
+.abt-quote .eyebrow{color:#8a8f98;}
+.abt-quote blockquote{margin:18px 0 0;padding-left:clamp(18px,2.4vw,28px);border-left:3px solid transparent;
+  border-image:var(--sb-grad-ink) 1;
+  font-size:clamp(21px,2.9vw,38px);font-weight:500;letter-spacing:-.024em;line-height:1.34;
+  color:var(--v4-ink);max-width:34ch;}
+.abt-quote cite{display:flex;flex-direction:column;gap:2px;margin-top:clamp(24px,3vw,32px);
+  padding-left:clamp(21px,2.4vw,31px);font-style:normal;}
+.abt-quote cite .cn{font-size:16px;font-weight:600;letter-spacing:-.01em;color:var(--v4-ink);}
+.abt-quote cite .cr{font-size:14px;font-weight:600;color:#059669;}
+
+/* THE TWO FOUNDERS, SIDE BY SIDE. Richard left, Jacob right. Identical elements in
+   each card so the grid stays even. */
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(26px,4vw,56px);align-items:start;}
+@media(max-width:820px){.fgrid{grid-template-columns:1fr;gap:48px;}}
+.fcard img{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:center 18%;border-radius:24px;display:block;
+  box-shadow:0 34px 70px -40px rgba(6,12,20,.55);transition:transform .5s cubic-bezier(.16,1,.3,1);}
+.fcard img.hi{object-position:center top;}
+.fcard:hover img{transform:translateY(-4px) scale(1.01);}
+.fcard .nm{margin-top:22px;font-size:clamp(20px,2.2vw,26px);font-weight:600;letter-spacing:-.03em;color:var(--v4-ink);}
+.fcard .ro{margin-top:5px;font-size:14px;font-weight:600;letter-spacing:.02em;color:#059669;}
+.fcard .lens{margin-top:18px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#9298a1;}
+.fcard .bio{margin-top:10px;font-size:15.5px;line-height:1.7;color:#6b7280;}
+
 /* The source portraits are 3:4. Cover-cropping them into a 1:1 card from the
    default centre lands the crop window on the chest and takes the top of the head
-   off. Bias the window upward. Jacob's frame sits higher still, so he gets top. */
-.f .who img.hi{object-position:center top;}
-.f .who:hover img{transform:translateY(-4px) scale(1.01);}
-.f .who .nm{margin-top:20px;font-size:24px;font-weight:600;letter-spacing:-.03em;color:var(--v4-ink);}
-.f .who .ro{margin-top:5px;font-size:14px;font-weight:600;letter-spacing:.02em;color:#059669;}
-.f .lens{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#9298a1;}
-/* THE QUOTES WERE SET AT HEADLINE SIZE. Richard's runs 35 words, and at 31px that
-   is not a pull-quote, it is a paragraph wearing a costume: it dwarfed the bio
-   underneath it, which is the genuinely impressive part (Venterra, $15M to $500M+,
-   CPA). The words are untouched. The type came down to a size a human reads. */
-.f blockquote{margin:12px 0 0;font-size:clamp(17px,1.9vw,21px);font-weight:500;letter-spacing:-.012em;line-height:1.5;color:#2b2f36;max-width:52ch;
-  border-left:3px solid rgba(16,185,129,.5);padding-left:clamp(14px,1.6vw,20px);}
-.f .bio{margin-top:22px;font-size:15.5px;line-height:1.7;color:#6b7280;max-width:56ch;}
-@media(max-width:820px){.f{grid-template-columns:1fr;gap:26px;}.f .who img{max-width:200px;}}
-
-/* ===== 4. WHY WE ARE DOING THIS ===== */
-.abt-org{padding:clamp(90px,12vw,150px) 0;background:#fff;}
-.abt-org .eyebrow{color:#8a8f98;}
-.abt-org h2{margin-top:14px;font-size:clamp(30px,4.4vw,56px);line-height:1.03;max-width:16ch;}
-.abt-org p{margin-top:26px;font-size:clamp(17px,2vw,21px);line-height:1.65;color:#42474f;max-width:60ch;}
-.abt-org .kick{margin-top:clamp(38px,4.6vw,52px);font-size:clamp(22px,2.9vw,36px);font-weight:600;letter-spacing:-.028em;line-height:1.2;color:var(--v4-ink);max-width:26ch;}
-.abt-org .kick .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+   off. .fcard img biases the window upward; Jacob's frame sits higher still, so he
+   gets .hi (center top). */
 
 /* ===== 5. THE PROMISES. The one object on the page. ===== */
 .abt-prm{background:#050506;padding:clamp(90px,12vw,150px) 0;}
@@ -114,6 +118,26 @@ export default function AboutPage() {
         </div>
       </header>
 
+      {/* RICHARD'S QUOTE OPENS THE PAGE (Jacob, live review, July 2026). The homepage
+          runs an abbreviated version of it ("there was never enough time"). This is the
+          whole thing, in his words, and it is the reason the company exists. It used to
+          be buried two screens down inside his founder card. */}
+      <section className="abt-quote">
+        <div className="wrap">
+          <div className="eyebrow">Why we built this</div>
+          <blockquote>
+            &ldquo;In talking to entrepreneurs, one theme kept coming up: they didn&apos;t have
+            enough time to grow their business and enjoy the rewards they&apos;d hoped for.
+            StayBookt is our answer to &lsquo;not enough time.&rsquo; We get to build something
+            great while helping others realize their dreams and Enjoy Life more.&rdquo;
+          </blockquote>
+          <cite>
+            <span className="cn">Richard Roos</span>
+            <span className="cr">Co-founder</span>
+          </cite>
+        </div>
+      </section>
+
 
       {/* 3 — WHO WE ARE */}
       {/* THE FACES COME FIRST NOW (Jacob, July 14 2026). This page's whole job is
@@ -138,42 +162,32 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="f">
-            <div className="who">
+          {/* SIDE BY SIDE. Richard left, Jacob right (Jacob, live review, July 2026).
+              These used to be two full-width rows stacked down the page, photo left and
+              a quote right, which read as two separate profiles rather than one company
+              of two people. Same elements in both cards, on purpose: the moment one card
+              carries a quote and the other does not, the grid goes ragged.
+
+              Richard's quote is not in his card because it opens the page. */}
+          <div className="fgrid">
+            <article className="fcard">
               <img src="/photos/richard.jpg" alt="Richard Roos, co-founder of StayBookt" width={280} height={280} />
               <div className="nm">Richard Roos</div>
               <div className="ro">Operations, growth, and finance</div>
-            </div>
-            <div>
               <div className="lens">The inside lens</div>
-              <blockquote>
-                &ldquo;In talking to entrepreneurs, one theme kept coming up: they didn&apos;t have
-                enough time to grow their business and enjoy the rewards they&apos;d hoped for.
-                StayBookt is our answer to &lsquo;not enough time.&rsquo; We get to build something
-                great while helping others realize their dreams and Enjoy Life more.&rdquo;
-              </blockquote>
               <p className="bio">
                 Two decades of executive leadership inside high-growth service businesses at scale,
                 including leading the growth of Venterra from $15M to $500M+ in revenue. A CPA who
                 spent his career building the machine that answers every call and misses nothing.
                 He has run the front office most owner-operators will never be able to hire.
               </p>
-            </div>
-          </div>
+            </article>
 
-          <div className="f">
-            <div className="who">
+            <article className="fcard">
               <img className="hi" src="/photos/jacob.jpg" alt="Jacob Charendoff, co-founder of StayBookt" width={280} height={280} />
               <div className="nm">Jacob Charendoff</div>
               <div className="ro">Brand, product, and growth</div>
-            </div>
-            <div>
               <div className="lens">The outside lens</div>
-              <blockquote>
-                &ldquo;I kept meeting people who were brilliant at the work and losing money at
-                everything around it. Not because they were careless. Because there was nobody there
-                to catch it.&rdquo;
-              </blockquote>
               <p className="bio">
                 A decade spent standing next to service business owners across health, hospitality,
                 software, retail, and the trades. Different industries, the same conversation, every
@@ -181,40 +195,16 @@ export default function AboutPage() {
                 effortless to hire, then turning that first impression into something the owner can
                 finally hand off.
               </p>
-            </div>
+            </article>
           </div>
         </div>
       </section>
 
-      {/* ONE ARGUMENT, ONCE. This merged "Why we exist" (three paragraphs) and "Why
-          we are doing this" (two more) into a single piece. They were making the same
-          case twice, in a row, in the same voice. Roughly 60% of the words are gone
-          and nothing was lost. Do not split them back apart. */}
-      <section className="abt-org">
-        <div className="wrap narrow">
-          <div className="eyebrow">Why we exist</div>
-          <h2>The software was never the problem. Nobody had the time to run it.</h2>
-          <p>
-            Great tools have been available to small businesses for years. Just never{' '}
-            <b>practically</b>. To get the value out of them you have to vet the vendors, pick the
-            products, wire them together and keep the whole thing running, month after month. That is
-            not a purchase. That is a job, and at a bigger company it is somebody&rsquo;s full-time
-            one. You do not have that person, and you cannot be that person, because you are the one
-            doing the work.
-          </p>
-          <p>
-            So <b>the opportunity gets missed even though you can see it perfectly clearly</b>. That
-            is the part that grinds. Not ignorance. Capacity. A hundred-person company does not beat
-            you on talent and it does not beat you on tools. It beats you on <b>coverage</b>: people
-            paid to answer, to book, to chase, to follow up. That team has always been for sale. It
-            has just never been for sale to <b>you</b>.
-          </p>
-          <div className="kick">
-            We are not selling a tool for the five jobs.{' '}
-            <span className="g">We are the five people.</span>
-          </div>
-        </div>
-      </section>
+      {/* THE PROSE WALL IS GONE (Jacob, live review, July 2026). Two more essays sat
+          here: "The software was never the problem" and the five-jobs kick. Five
+          paragraphs of argument on a page whose only job is trust. The homepage and
+          how-it-works are the standard for this site and neither of them makes you read
+          an essay. The faces and the promises do this work. Do not put an essay back. */}
 
       {/* 5 — THE PROMISES. The object. */}
       <section className="abt-prm">
