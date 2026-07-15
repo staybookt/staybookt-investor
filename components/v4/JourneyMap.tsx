@@ -379,7 +379,11 @@ export default function JourneyMap() {
           <div className="vig" />
           <div className="scrim" />
           <div className="scrim2" />
-          <div className="whisper">The work you love. The life you built it for. And a business worth more than ever.</div>
+          {/* "And a business worth more than ever" is an unprovable valuation claim, and the
+              last living piece of the 20% value-share framing. The $420,000 counter and the
+              "what is the valuation at the end" FAQ were both removed for exactly this. We
+              take no share of what the business is worth, so we do not get to promise it. */}
+          <div className="whisper">The work you love. The life you built it for.</div>
         </div>
 
         <div className="sscx-tint" />
@@ -443,7 +447,7 @@ export default function JourneyMap() {
                   <div className="rw tc">
                     <span className="d" />
                     <span className="nm">Redwater Plumbing</span>
-                    <span className="rvw">★ 4.9 · 312 reviews</span>
+                    <span className="rvw">★ 4.9 &middot; Open now</span>
                     <span className="acts"><span className="bt">Call</span><span className="bt o">Book</span></span>
                     <span className="badge">#1</span>
                   </div>
