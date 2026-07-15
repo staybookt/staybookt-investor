@@ -23,7 +23,7 @@ const QS: Q[] = [
     k: 'The money',
     c: '#4f46e5',
     q: 'Is there a contract?',
-    a: 'No. There is no term and nothing to be trapped in. Cancel any time on thirty days notice, with no penalty and no exit fee. We build your website and run your front office before you have paid us a dollar, so the risk of this sits with us, which is where it belongs. We have to earn the next month, and the one after that, forever.',
+    a: 'No. There is no term and nothing to be trapped in. Cancel any time on thirty days notice, with no penalty and no exit fee. We build your website before you have paid us a dollar, so the risk of this sits with us, which is where it belongs. We have to earn the next month, and the one after that, forever.',
   },
   {
     k: 'The money',

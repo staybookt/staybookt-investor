@@ -79,8 +79,14 @@ const ROWS: Row[] = [
     ],
   },
   {
+    /* svc WAS 'no'. An answering service books jobs onto a calendar: Ruby, Smith.ai and
+       AnswerConnect all advertise it on the front page. This is the same false cross
+       Richard caught one row above, and we left it sitting here.
+
+       Our own footnote never denied it either: it concedes they answer the phone and
+       only denies chase and sell. The chart was arguing with its own small print. */
     job: 'Book the job onto your calendar',
-    you: 'you', svc: 'no', agy: 'no', sb: 'yes',
+    you: 'you', svc: 'yes', agy: 'no', sb: 'yes',
     detail: [
       'The job goes straight onto your calendar, in the slot that works',
       'The customer gets a confirmation, so they know it is real',
@@ -130,13 +136,21 @@ const ROWS: Row[] = [
     ],
   },
   {
-    /* EMAIL CAMPAIGNS WERE MISSING FROM THE WHOLE SITE (Richard, review, July 2026).
+    /* agy WAS 'no' — added in the same commit that added the campaigns line below it,
+       which is precisely the thing a $1,000/mo agency does for a living. We marked a
+       competitor down for the one job this row is about. Fixed to 'yes'.
+
+       The row still wins, and wins honestly: an agency will send the campaign. It will
+       not book the follow-up visit that comes out of it, because it never touches the
+       phone or the calendar.
+
+       EMAIL CAMPAIGNS WERE MISSING FROM THE WHOLE SITE (Richard, review, July 2026).
        They live here rather than in a row of their own, because that is what they
        honestly are: the mechanism for bringing past customers back, not a separate
        product. We do not run cold campaigns at strangers. The plan is organic, which
        every other page already says. */
     job: 'Bring past customers back before they drift',
-    you: 'you', svc: 'no', agy: 'no', sb: 'yes',
+    you: 'you', svc: 'no', agy: 'yes', sb: 'yes',
     detail: [
       'Past customers brought back for the work they are due',
       'The email campaigns you never get around to, written and sent for you',
@@ -192,7 +206,7 @@ const ROWS: Row[] = [
     you: 'you', svc: 'no', agy: 'no', sb: 'yes',
     detail: [
       'Ask in plain English: how did last week go, who has not paid, who has gone quiet',
-      'Tell it what to do and it does it. Send the invoice, chase the quote, book the visit',
+      'Tell it what to do and it does it. Chase the quote, chase the invoice, book the visit',
       'No dashboard to learn and nothing to log into. A conversation you already know how to have',
       'It knows your customers because it is the thing that has been talking to them',
     ],

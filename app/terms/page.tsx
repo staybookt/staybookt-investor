@@ -96,9 +96,13 @@ const SECTIONS: Section[] = [
           monthly in advance.
         </p>
         <p>
+          {/* SAID "we build your website AND RUN YOUR FRONT OFFICE before you have paid us a
+              dollar". The clause directly above says billing runs monthly IN ADVANCE, so the
+              front office is paid for before it runs. Only the build precedes payment.
+              The claim was in three places. It is now true in all three. */}
           <b>There is no fixed term and no lock-in.</b> The plan runs month to month from the day it
           goes live. You may cancel at any time on <b>thirty days written notice</b>, with no
-          penalty and no exit fee. We build your website and run your front office{' '}
+          penalty and no exit fee. We build your website{' '}
           <b>before you have paid us a dollar</b>, so the risk of that sits with us, which is where
           it belongs.
         </p>
@@ -107,9 +111,13 @@ const SECTIONS: Section[] = [
           whatever your busiest month looks like.
         </p>
         <p>
-          Third-party costs that are genuinely yours, such as your domain registration or paid
-          advertising you ask us to run, are passed through at cost and always agreed with you
-          first. We do not spend your money without asking.
+          {/* "or paid advertising you ask us to run" is gone. /whats-included says "Do you
+              spend my money on ads? No", and /pricing says the domain is the entire list of
+              pass-throughs. The contract was granting a service two other pages refuse.
+              Third time the terms held the worst of it. */}
+          Third-party costs that are genuinely yours, such as your domain registration, are passed
+          through at cost and always agreed with you first. We do not spend your money without
+          asking.
         </p>
       </>
     ),

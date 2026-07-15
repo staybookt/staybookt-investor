@@ -197,7 +197,7 @@ export default function ContactPage() {
               <div className="k">Where we are</div>
               <div className="v">
                 Toronto, Ontario
-                <span>We work with service businesses across Canada and the United States.</span>
+                <span>We work with owner-operated service businesses across Canada.</span>
               </div>
             </div>
             <div>

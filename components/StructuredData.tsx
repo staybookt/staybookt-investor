@@ -16,7 +16,7 @@ import { EMAIL, PHONE_E164 } from '@/lib/site';
 const FAQ: [string, string][] = [
   [
     'What if I want to cancel?',
-    'There is no term and no lock-in. Cancel any time on thirty days notice, with no penalty and no exit fee. On top of that, for the first ninety days you can change your mind for any reason at all and we refund every month you paid. You do not have to prove we failed. Whenever you leave, you keep everything that matters: the website code, the domain, the Google Business Profile login, the customer list, and the review tools.',
+    'There is no term and no lock-in. Cancel any time on thirty days notice, with no penalty and no exit fee. On top of that, for the first ninety days you can change your mind for any reason at all and we refund every month you paid. You do not have to prove we failed. Whenever you leave, you keep everything that matters: the website code, the domain, the Google Business Profile login, the customer list, and your reviews.',
   ],
   [
     'What if you go out of business?',
@@ -55,14 +55,21 @@ export default function StructuredData() {
       telephone: PHONE_E164,
       description:
         'StayBookt answers the phone, books the jobs and chases the quotes for owner-operated service businesses. We build and run your website and Google presence, answer every call and text 24/7, and hand you one short brief each morning. One plan, $199 a month, nothing upfront.',
-      areaServed: [{ '@type': 'Country', name: 'Canada' }, { '@type': 'Country', name: 'United States' }],
+      /* WAS Canada + United States. We have one client, in Ontario. Prices are CAD, the
+         terms are governed by Ontario law and the consent language is CASL only. Claiming a
+         US practice in the schema is claiming a business we do not have. Add the US back the
+         day there is a US client. */
+      areaServed: [{ '@type': 'Country', name: 'Canada' }],
       contactPoint: [
         {
           '@type': 'ContactPoint',
           contactType: 'sales',
           telephone: PHONE_E164,
           email: EMAIL,
-          areaServed: ['CA', 'US'],
+          /* A SECOND US claim, on the contact point. The audit caught the one above and
+             missed this one; found by re-grepping after the fix instead of trusting it.
+             Same reason: one client, in Ontario. */
+          areaServed: ['CA'],
           availableLanguage: ['English'],
         },
       ],
