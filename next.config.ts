@@ -18,10 +18,10 @@ const GHOSTS: { source: string; destination: string }[] = [
   { source: '/is-this-for-me', destination: '/how-it-works' },
   { source: '/economics', destination: '/pricing' },
   { source: '/long-term', destination: '/pricing' },
-  // Enjoy Life is dead as a page. It was the last one in the old skin, and it told
-  // the same story a fourth time after milestone 3, the pricing Year Two section
-  // and About. The value-share calculator on /pricing carries it now.
-  { source: '/enjoy-life', destination: '/pricing' },
+  // /enjoy-life IS A REAL PAGE AGAIN (Jacob, July 2026) and is deliberately not in this
+  // list. The old one sold the 20% value share; Richard killed the share, so the page lost
+  // its spine and became a redirect. It has been rebuilt around taking nothing instead,
+  // which is a harder argument and a truer one. /economics and /long-term stay dead.
   { source: '/proof', destination: '/work' },
   // Investor-era pages. No investor surface right now, so they go home.
   { source: '/opportunity', destination: '/' },

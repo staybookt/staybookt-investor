@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { START_LINK } from '@/lib/site';
 
-/* Header mirrors the homepage "Go deeper" tabs.
+/* The site nav.
  *
  * What's included was reachable only from the footer and one link on /pricing,
  * so a first-time reader never found the single page that says, in plain English,
@@ -17,11 +17,18 @@ import { START_LINK } from '@/lib/site';
  * customer artifact, and we had not asked the customer. That reason is gone, so the one
  * page with actual evidence on it should not be the hardest page to find.
  *
- * The footer mirrors this order. If you change one, change the other. */
+ * Enjoy Life is in the nav (Jacob, July 2026). It is the second half of the company's own
+ * name and the whole reason a person would pay us, and it was reachable from nowhere. Six
+ * items is the ceiling. The order is the argument, not the sitemap:
+ *   what it is → what you get → what it costs → why you'd bother → proof → who we are.
+ *
+ * The footer mirrors this order. If you change one, change the other. The homepage
+ * "Go deeper" grid is deliberately NOT a mirror any more, it is a curated four. */
 const LINKS = [
   { href: '/how-it-works', label: 'How it works' },
   { href: '/whats-included', label: "What's included" },
   { href: '/pricing', label: 'Pricing' },
+  { href: '/enjoy-life', label: 'Enjoy Life' },
   { href: '/work', label: 'The work' },
   { href: '/founders', label: 'About us' },
 ];
