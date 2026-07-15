@@ -282,15 +282,12 @@ export default function HomePage() {
               <a href={START_LINK} className="pill pill-white" style={{ padding: '14px 28px', fontSize: 15 }}>Get Started</a>
             </div>
           </Reveal>
-          {/* The mystery-shop hook, one line, under the hero button. This is now the
-              ONLY place the "before we meet, we try to hire you" line appears on the
-              homepage: the StartBanner card that used to repeat it at the foot of the
-              page is gone. Keep it to one line here. */}
-          <Reveal>
-            <p className="ctanote">
-              Before we meet, we try to hire you. Free, and yours to keep either way.
-            </p>
-          </Reveal>
+          {/* THE MYSTERY-SHOP LINE IS GONE FROM THE WHOLE SITE (Jacob, July 2026).
+              It read as a gimmick: "before we meet, we try to hire you." Richard flagged it
+              as awkward on this page, and it is. The call is described by what the call
+              actually is now, not by a trick we do before it.
+
+              Do not put a second line under this button. The hero has one job. */}
         </div>
         <div className="scrollcue">Scroll</div>
       </header>

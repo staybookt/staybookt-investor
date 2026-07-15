@@ -36,8 +36,15 @@ const PROMISES: Vow[] = [
   {
     n: '03',
     h: 'We would rather lose the sale.',
-    p: 'Before we ever meet you, we do the work: we call your line, we text your listing, we search for you the way a customer does, and we try to book a job. Then we tell you what we found, straight, even when what we found is that you do not need us.',
-    cost: 'It costs us hours of unpaid work on people who will never pay us, and it costs us the deals a sharper pitch would have closed. We will say “you are fine, do not hire us” on a call we have already spent a morning preparing for. That is the deal.',
+    /* THE PROMISE SURVIVED. THE GIMMICK DID NOT. This used to describe the mystery
+     * shop, calling and texting the business before the call, as the proof of the
+     * promise. That framing is off the site now (Jacob, July 2026).
+     *
+     * The promise itself was never the trick. It is that we will say the unprofitable
+     * thing out loud. That still has a real price attached, which is the only thing
+     * that makes a promise worth publishing. */
+    p: 'We will tell you what we actually think on the call, even when what we think is that you do not need us. No pressure, no drip sequence afterwards, and no second call from somebody more persuasive.',
+    cost: 'It costs us the deals a sharper pitch would have closed. We will say “you are fine, do not hire us” to somebody who came to us ready to buy, and then we will not chase them. That is the deal.',
   },
   {
     /* This used to be "we only get properly paid if you actually get free", built on

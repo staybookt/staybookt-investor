@@ -130,15 +130,17 @@ export default function ContactPage() {
             <div className="way dark">
               <span className="ic"><CalIcon /></span>
               <h2>Book thirty minutes.</h2>
+              {/* Was the mystery-shop pitch. It is the call, described as the call, which is
+                  what our own cal.com booking page has said all along. */}
               <p>
-                The best way. Before we meet we try to hire you: we call your line, we text your
-                listing, and we try to book a job. Then we show you exactly what happened.
+                The best way. Thirty minutes with a founder. We will show you where you are
+                losing work, and what it would take to get your life back.
               </p>
               <div className="go">
                 <a className="btn" href={START_LINK}>
                   Pick a time <span aria-hidden>&rarr;</span>
                 </a>
-                <div className="sub">Free, no pitch, and yours to keep either way.</div>
+                <div className="sub">Free. No slides, and never a sales rep.</div>
               </div>
             </div>
 
