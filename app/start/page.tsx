@@ -108,6 +108,13 @@ const CSS = `
 .st-two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(22px,3.4vw,48px);margin-top:clamp(24px,2.8vw,34px);max-width:880px;}
 @media(max-width:760px){.st-two{grid-template-columns:1fr;gap:28px;}}
 .st-p{display:flex;gap:16px;align-items:flex-start;}
+/* R13 ON RICHARD'S LIST ("your photo is cutting off your head") WAS ALREADY FIXED by
+   the /start rebuild, which is what he was reviewing before. The old page had no
+   object-position at all, so an 800x1071 portrait cover-cropped into a 76px square from
+   the centre and took the top of Jacob's head off.
+   Verified from the pixels, not the CSS: his head starts at row 33 of 1071 and the crop
+   window shows rows 0-800. Richard's photo is already square (400x400) so the bias below
+   is a no-op for him and harmless. Do not remove these. */
 .st-p img{width:76px;height:76px;flex:0 0 auto;border-radius:16px;object-fit:cover;object-position:center 18%;
   box-shadow:0 24px 44px -28px rgba(6,12,20,.5);}
 .st-p img.hi{object-position:center top;}
@@ -198,8 +205,14 @@ export default function StartPage() {
             </Reveal>
           </div>
           <Reveal>
+            {/* "No handoff to a rep. No 'let me get you with someone.'" is gone (Richard,
+                review, July 2026). The facts at the top of this page already say "With a
+                founder. Richard or Jacob. Never a sales rep." Saying it twice on one short
+                page does not make it twice as true, it makes it sound like we are worried
+                nobody believed it the first time.
+
+                The link stays. It was the only part doing work. */}
             <p className="st-note">
-              No handoff to a rep. No &ldquo;let me get you with someone.&rdquo;{' '}
               <a href="/founders">More about us &rarr;</a>
             </p>
           </Reveal>
