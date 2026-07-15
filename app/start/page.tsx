@@ -4,14 +4,14 @@ import CalEmbed from '@/components/v4/CalEmbed';
 import SiteFooter from '@/components/SiteFooter';
 
 const SHARE_DESCRIPTION =
-  'Thirty minutes with a founder. No pitch, no slides, no sales rep. Tell us what is going on and we will tell you straight whether we can help.';
+  'Thirty minutes with a founder. We will show you exactly where you are losing work, and what it would take to get your life back. No slides, no sales rep.';
 
 export const metadata = {
-  title: 'Book a call',
+  title: 'See where you are losing work',
   description: SHARE_DESCRIPTION,
   alternates: { canonical: '/start' },
   openGraph: {
-    title: 'Book a call · StayBookt',
+    title: 'See where you are losing work · StayBookt',
     description: SHARE_DESCRIPTION,
     url: 'https://www.staybookt.com/start',
     siteName: 'StayBookt',
@@ -20,7 +20,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Book a call · StayBookt',
+    title: 'See where you are losing work · StayBookt',
     description: SHARE_DESCRIPTION,
   },
 };
@@ -126,14 +126,21 @@ export default function StartPage() {
               <div className="st-k"><span className="dot" aria-hidden />Free &middot; no pitch</div>
             </Reveal>
             <Reveal>
+              {/* Was "Thirty minutes with a founder." That is the logistics of the call, not
+                  the reason to take it, and the logistics already live in the three facts
+                  below (Jacob, live review, July 2026).
+
+                  This is lifted from our own cal.com description, which had the promise in
+                  it the whole time: "we'll show you exactly where you're losing work and
+                  what it would take to get your life back." */}
               <h1 className="st-h">
-                Thirty minutes with <span className="g">a founder.</span>
+                See exactly where you are <span className="g">losing work.</span>
               </h1>
             </Reveal>
             <Reveal>
               <p className="st-sub">
-                No slides and no sales rep. Tell us what is going on in the business, and we will
-                tell you straight whether we can help.
+                Thirty minutes with a founder. No slides and no sales rep. We will show you what is
+                slipping, what it is costing you, and what it would take to get your life back.
               </p>
             </Reveal>
             <Reveal>
