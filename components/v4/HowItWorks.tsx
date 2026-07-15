@@ -5,8 +5,8 @@ import { START_LINK } from '@/lib/site';
 import { AccountBrain, NightShift, Arrival } from './HiwScenes';
 
 /* Hero backdrop: a still, not a film. The homepage owns the one video moment,
-   and this page already runs a scroll-driven SVG trail. A slow drift on a still
-   gives it life without a second mp4 or a second frame budget. */
+ * and this page already runs a scroll-driven SVG trail. A slow drift on a still
+ * gives it life without a second mp4 or a second frame budget. */
 const HERO_IMG =
   'https://images.pexels.com/photos/37227005/pexels-photo-37227005.jpeg?auto=compress&cs=tinysrgb&w=2000';
 
