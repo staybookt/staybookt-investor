@@ -8,11 +8,11 @@ const SHARE_DESCRIPTION =
   'Before we meet, we try to hire you. We call, we text, we look you up, we try to book a job. Then we spend thirty minutes showing you exactly what happened. Free, no pitch, yours to keep.';
 
 export const metadata = {
-  title: 'We tried to hire you',
+  title: 'Let us try to hire you',
   description: SHARE_DESCRIPTION,
   alternates: { canonical: '/start' },
   openGraph: {
-    title: 'We tried to hire you · StayBookt',
+    title: 'Let us try to hire you · StayBookt',
     description: SHARE_DESCRIPTION,
     url: 'https://www.staybookt.com/start',
     siteName: 'StayBookt',
@@ -21,7 +21,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'We tried to hire you · StayBookt',
+    title: 'Let us try to hire you · StayBookt',
     description: SHARE_DESCRIPTION,
   },
 };
@@ -56,11 +56,36 @@ export default function StartPage() {
   return (
     <main className="v4">
       <style>{`
-.v4 .startfacts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:34px;max-width:820px;}
+/* THE HERO: the offer on the left, the calendar on the right. The action is the
+   first thing on the page, not the last. On narrow screens it stacks and the
+   calendar sits immediately under the facts, still above any selling. */
+.v4 .st-hero{background:#050506;position:relative;overflow:hidden;
+  padding:clamp(110px,14vh,150px) 0 clamp(80px,10vw,120px);}
+.v4 .st-hero::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(60% 60% at 12% 0%,rgba(16,185,129,.14),transparent 62%),
+             radial-gradient(50% 60% at 90% 20%,rgba(79,70,229,.12),transparent 62%);}
+.v4 .st-hero .wrap{position:relative;z-index:1;}
+.v4 .st-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,clamp(360px,38vw,500px));
+  gap:clamp(30px,4.5vw,70px);align-items:start;}
+@media(max-width:960px){.v4 .st-grid{grid-template-columns:1fr;gap:36px;}}
+.v4 .st-k{display:inline-flex;align-items:center;gap:8px;color:#9aa3b2;}
+.v4 .st-k .dot{width:6px;height:6px;border-radius:50%;background:var(--sb-grad);box-shadow:0 0 10px 1px rgba(16,185,129,.7);}
+.v4 .st-h{margin-top:16px;font-size:clamp(38px,5.4vw,74px);font-weight:600;letter-spacing:-.042em;
+  line-height:1.0;color:#fff;max-width:11ch;}
+.v4 .st-h .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.v4 .st-sub{margin-top:22px;font-size:clamp(16px,1.8vw,19px);line-height:1.6;color:#aeb6c4;max-width:46ch;}
+/* the calendar is the point of the page, so it is a real object, not an afterthought */
+.v4 .st-cal{background:#fff;border-radius:22px;padding:clamp(8px,1.2vw,14px);
+  box-shadow:0 50px 110px -40px rgba(0,0,0,.75),0 0 0 1px rgba(255,255,255,.06);
+  position:sticky;top:clamp(96px,12vh,120px);}
+@media(max-width:960px){.v4 .st-cal{position:static;}}
+
+.v4 .startfacts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:clamp(28px,3.4vw,38px);max-width:640px;}
 .v4 .startfacts .sf{border-left:2px solid rgba(255,255,255,.18);padding:4px 0 4px 16px;}
 .v4 .startfacts .sf-k{font-size:15px;font-weight:600;color:#fff;letter-spacing:-.01em;}
 .v4 .startfacts .sf-v{margin-top:5px;font-size:14px;line-height:1.45;color:#98a0ae;}
-@media(max-width:760px){.v4 .startfacts{grid-template-columns:1fr;gap:12px;}}
+@media(max-width:1100px) and (min-width:961px){.v4 .startfacts{grid-template-columns:1fr;gap:12px;}}
+@media(max-width:560px){.v4 .startfacts{grid-template-columns:1fr;gap:12px;}}
 
 /* the thirty minutes */
 .v4 .clock{margin-top:clamp(44px,6vw,68px);max-width:880px;}
@@ -81,61 +106,66 @@ export default function StartPage() {
 .v4 .wh-nm{font-size:19px;font-weight:600;letter-spacing:-.025em;color:var(--v4-ink);}
 .v4 .wh-ro{margin-top:3px;font-size:13.5px;font-weight:600;color:var(--v4-green-d);}
 .v4 .wh-p{margin-top:9px;font-size:15px;line-height:1.55;color:var(--v4-muted);max-width:32ch;}
+
+.v4 .st-back{margin-top:clamp(34px,4.4vw,48px);}
+.v4 .st-back .pill-dark{display:inline-flex;background:var(--v4-ink);color:#fff;font-size:15px;font-weight:600;border-radius:999px;padding:15px 30px;text-decoration:none;transition:transform .3s ease;}
+.v4 .st-back .pill-dark:hover{transform:translateY(-1px);}
 .v4 .whos-note{margin-top:clamp(32px,4vw,44px);font-size:clamp(18px,2.1vw,24px);font-weight:600;letter-spacing:-.02em;line-height:1.35;color:var(--v4-ink);max-width:34ch;}
       `}</style>
       <Nav />
 
-      {/* HERO */}
-      <section className="dark" style={{ paddingBottom: 'clamp(90px,12vw,150px)' }}>
+      {/* THE PAGE HAS ONE JOB (Jacob, live review, July 2026).
+          The calendar used to be the FIFTH section: hero, call sheet, the thirty
+          minutes, who is on the call, and only then, at the very bottom, the thing the
+          person clicked "Get Started" to do. They had already decided. We made them
+          scroll past four screens of selling to act on it.
+
+          It is beside the offer now, above the fold, and it is the only calendar on the
+          page. Everything below it is optional depth for whoever wants it. Do not put a
+          section between this and the top of the page. */}
+      <section className="st-hero" id="book">
         <div className="wrap">
-          <Reveal className="eyebrow" as="div">
-            <span style={{ color: '#8b93a5' }}>Free &middot; no pitch</span>
-          </Reveal>
-          <Reveal>
-            <h1
-              style={{
-                marginTop: 18,
-                fontSize: 'clamp(44px,7.4vw,104px)',
-                color: '#fff',
-                maxWidth: '13ch',
-                letterSpacing: '-.045em',
-                lineHeight: '.98',
-                fontWeight: 700,
-              }}
-            >
-              We tried to hire you.
-            </h1>
-          </Reveal>
-          <Reveal>
-            <p className="sub">
-              Before we ever meet, we become a customer. We call your line. We text your listing. We
-              search for you the way a stranger with a problem would. And we try to book a job. Then
-              we sit down for thirty minutes and show you exactly what happened.
-            </p>
-          </Reveal>
-          <Reveal>
-            <div className="startfacts">
-              <div className="sf">
-                <div className="sf-k">30 minutes</div>
-                <div className="sf-v">That is the whole ask.</div>
-              </div>
-              <div className="sf">
-                <div className="sf-k">With a founder</div>
-                <div className="sf-v">Richard or Jacob. Never a sales rep.</div>
-              </div>
-              <div className="sf">
-                <div className="sf-k">Yours to keep</div>
-                <div className="sf-v">Whether you hire us or not.</div>
-              </div>
+          <div className="st-grid">
+            <div className="st-copy">
+              <Reveal className="eyebrow" as="div">
+                <span className="st-k"><span className="dot" aria-hidden />Free &middot; no pitch</span>
+              </Reveal>
+              <Reveal>
+                {/* Was "We tried to hire you." Past tense, on the page where we have not
+                    tried yet, because nobody has booked anything. It is an invitation. */}
+                <h1 className="st-h">
+                  Let us try to <span className="g">hire you.</span>
+                </h1>
+              </Reveal>
+              <Reveal>
+                <p className="st-sub">
+                  Before we meet, we call your line, text your listing, and try to book a job, the
+                  way a stranger with a problem would. Then we spend thirty minutes showing you
+                  exactly what happened.
+                </p>
+              </Reveal>
+              <Reveal>
+                <div className="startfacts">
+                  <div className="sf">
+                    <div className="sf-k">30 minutes</div>
+                    <div className="sf-v">That is the whole ask.</div>
+                  </div>
+                  <div className="sf">
+                    <div className="sf-k">With a founder</div>
+                    <div className="sf-v">Richard or Jacob. Never a sales rep.</div>
+                  </div>
+                  <div className="sf">
+                    <div className="sf-k">Yours to keep</div>
+                    <div className="sf-v">Whether you hire us or not.</div>
+                  </div>
+                </div>
+              </Reveal>
             </div>
-          </Reveal>
-          <Reveal>
-            <div style={{ marginTop: 34 }}>
-              <a href="#book" className="pill pill-white" style={{ padding: '14px 28px', fontSize: 15 }}>
-                Pick a time
-              </a>
+
+            <div className="st-cal">
+              <CalEmbed />
             </div>
-          </Reveal>
+          </div>
         </div>
       </section>
 
@@ -287,45 +317,20 @@ export default function StartPage() {
               </a>
             </p>
           </Reveal>
-        </div>
-      </section>
 
-      <div className="seam seam-light-to-dark" aria-hidden="true" />
-
-      {/* BOOK */}
-      <section className="dark" id="book" style={{ paddingTop: 'clamp(96px,13vw,160px)' }}>
-        <div className="wrap">
+          {/* The page used to end on the calendar. It ends on the depth now, so the last
+              thing has to point back up to the one action. */}
           <Reveal>
-            <div className="eyebrow" style={{ color: '#8b93a5' }}>
-              Pick a time
-            </div>
-          </Reveal>
-          <Reveal>
-            <h2 style={{ marginTop: 12, fontSize: 'clamp(32px,4.4vw,60px)', color: '#fff' }}>
-              Let us try to hire you.
-            </h2>
-          </Reveal>
-          <Reveal>
-            <p style={{ marginTop: 16, fontSize: 'clamp(17px,1.9vw,20px)', lineHeight: 1.5, color: '#aeb4c0', maxWidth: '48ch' }}>
-              Book the half hour and we will go to work before it. Whatever we find is yours,
-              whether you ever pay us a dollar.
-            </p>
-          </Reveal>
-          <Reveal>
-            <div
-              style={{
-                marginTop: 40,
-                background: '#fff',
-                borderRadius: 20,
-                padding: 'clamp(10px,1.5vw,18px)',
-                boxShadow: '0 60px 120px -40px rgba(0,0,0,.6)',
-              }}
-            >
-              <CalEmbed />
+            <div className="st-back">
+              <a href="#book" className="pill pill-dark">Pick a time</a>
             </div>
           </Reveal>
         </div>
       </section>
+
+      {/* The BOOK section that used to sit here is gone. There is one calendar on this
+          page and it is at the top, where the person who clicked Get Started can reach it
+          without scrolling. Do not add a second one. */}
 
       <SiteFooter />
     </main>
