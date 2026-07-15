@@ -130,13 +130,27 @@ const ROWS: Row[] = [
        $1,000/mo. Third false cross found in this chart. The row still wins on
        "every single time, at the right moment", which is the part they cannot do
        because they are not the one who finished the job. */
-    job: 'Ask for the review, every single time',
+    /* ANSWERING REVIEWS WAS MISSING (Richard: "we should probably state that we will
+       respond to reviews automatically"). We do it, so it should be here.
+
+       NOT described as "automatic", deliberately. Everywhere else on this site the model
+       is AI for the everyday and a real person for anything high-stakes, and a public
+       one-star reply written under the owner's name, permanently, in front of every
+       future customer, is the most high-stakes text we will ever send. Promising it is
+       automatic promises the wrong thing.
+
+       And "we never write one for you" now has to be exact, because we DO write the
+       replies. Reply, never the review. Those two sit one line apart and a reader is
+       entitled to know which is which. */
+    job: 'Ask for the review, and answer every one',
     you: 'you', svc: 'no', agy: 'yes', sb: 'yes',
     detail: [
       'A review asked for after every finished job, at the right moment',
       'While the work is still fresh, which is the only time it works',
+      'Every review answered, good or bad, in your voice and under your name',
+      'A person writes the reply to an angry one before it goes anywhere near your listing',
       'Referrals asked for from the customers who are happy',
-      'Real reviews only. We never write one for you',
+      'Real reviews only. We write the reply. We never write the review',
     ],
   },
   {
