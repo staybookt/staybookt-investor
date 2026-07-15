@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { START_LINK } from '@/lib/site';
 
 /* Header mirrors the homepage "Go deeper" tabs.
@@ -19,6 +20,7 @@ const LINKS = [
 /* Fixed dark nav that solidifies (blur + border) once the user scrolls past
  * the hero fold, mirroring the v4 mockup. */
 export default function Nav() {
+  const onStart = usePathname() === '/start';
   const [solid, setSolid] = useState(false);
 
   useEffect(() => {
@@ -42,7 +44,10 @@ export default function Nav() {
             </a>
           ))}
         </div>
-        <a href={START_LINK} className="pill pill-white">
+        {/* ON /start THIS BUTTON WAS A DEAD CLICK. It pointed at /start from /start, so
+            the most prominent CTA on the booking page did nothing at all. There it
+            scrolls to the calendar instead. Everywhere else it goes to /start. */}
+        <a href={onStart ? '#book' : START_LINK} className="pill pill-white">
           Get Started
         </a>
       </div>

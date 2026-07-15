@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import Wordmark from '@/components/Wordmark';
 import { START_LINK, EMAIL, PHONE_DISPLAY, PHONE_HREF } from '@/lib/site';
 
@@ -25,6 +28,8 @@ const LEGAL = [
 ];
 
 export default function SiteFooter() {
+  /* Same dead-click fix as the nav: on /start this pointed at /start. */
+  const onStart = usePathname() === '/start';
   return (
     <footer className="px-6 py-16 sm:px-12" style={{ background: '#050506' }}>
       <div className="mx-auto max-w-6xl">
@@ -37,7 +42,7 @@ export default function SiteFooter() {
           </div>
           <div className="flex flex-col items-start gap-3 sm:items-end">
             <a
-              href={START_LINK}
+              href={onStart ? '#book' : START_LINK}
               className="text-sm font-semibold text-white transition-opacity hover:opacity-70"
             >
               Get Started
