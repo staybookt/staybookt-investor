@@ -13,12 +13,18 @@ import { START_LINK, EMAIL, PHONE_DISPLAY, PHONE_HREF } from '@/lib/site';
  * build we actually shipped, and it was reachable from NOWHERE: zero links in the nav,
  * zero in the footer. A proof page nobody can reach is not proof. The nav is full at
  * four, so it lives here. */
+/* THIS ORDER MIRRORS THE NAV, and it has to keep mirroring it (Richard, review, July
+ * 2026). It used to run How it works, Pricing, What's included — the nav runs How it
+ * works, What's included, Pricing. Two orderings of the same five links on one page is
+ * the kind of thing nobody can name but everybody feels.
+ *
+ * The work and Contact are footer-only, so they sit after the four the nav carries. */
 const SITE = [
   { href: '/how-it-works', label: 'How it works' },
-  { href: '/pricing', label: 'Pricing' },
   { href: '/whats-included', label: "What's included" },
-  { href: '/work', label: 'The work' },
+  { href: '/pricing', label: 'Pricing' },
   { href: '/founders', label: 'About us' },
+  { href: '/work', label: 'The work' },
   { href: '/contact', label: 'Contact' },
 ];
 

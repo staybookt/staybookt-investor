@@ -11,8 +11,16 @@ const SHARE_DESCRIPTION =
   'StayBookt answers your phone, books your jobs and chases your quotes. You do the work. We run everything around it. $199 a month, nothing upfront, no lock-in.';
 
 
+/* "What's included" was missing from here (Richard, review, July 2026). It is in the
+   nav, it is the page /pricing sends people to, and it is the only page that answers
+   "what do I actually get" — and the one place on the homepage that offers to take you
+   deeper did not list it.
+
+   The order mirrors the nav on purpose. A person should not have to learn a second
+   ordering halfway down the page. */
 const EXPLORE: { k: string; t: string; d: string; href: string; c: string }[] = [
   { k: 'THE PRODUCT', t: 'How it works', d: 'The website, the front office, the whole system, in one place.', href: '/how-it-works', c: '#38bdf8' },
+  { k: 'THE LIST', t: "What's included", d: 'Everything the $199 buys, what is still yours, and what we do not do.', href: '/whats-included', c: '#818cf8' },
   { k: 'PRICING', t: 'Pricing', d: 'The simple, honest ways to work with us.', href: '/pricing', c: '#34d399' },
   { k: 'THE TEAM', t: 'About us', d: 'The two founders behind StayBookt, and why we built it.', href: '/founders', c: '#e5e7eb' },
 ];
@@ -234,8 +242,8 @@ const PAGE_CSS = `
 .v4 .explore{background:#050506;padding:clamp(78px,10vw,128px) 0 clamp(64px,8vw,104px);text-align:center;}
 .v4 .explore .eyebrow{color:#86868b;}
 .v4 .explore h2{margin-top:14px;font-size:clamp(26px,3.4vw,42px);letter-spacing:-.03em;color:#f5f5f7;font-weight:600;}
-.v4 .explore .xgrid{margin:clamp(38px,5vw,58px) auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1040px;text-align:left;}
-@media(max-width:920px){.v4 .explore .xgrid{grid-template-columns:1fr 1fr;}}
+.v4 .explore .xgrid{margin:clamp(38px,5vw,58px) auto 0;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:1180px;text-align:left;}
+@media(max-width:1080px){.v4 .explore .xgrid{grid-template-columns:1fr 1fr;max-width:720px;}}
 .v4 .explore .xcard{display:block;height:100%;text-decoration:none;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.018));border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:clamp(24px,3vw,34px);transition:border-color .3s ease,transform .3s ease,background .3s ease;}
 .v4 .explore .xcard:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.22);background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.02));}
 .v4 .explore .xk{font-size:12px;font-weight:700;letter-spacing:.16em;}
@@ -289,7 +297,16 @@ export default function HomePage() {
 
               Do not put a second line under this button. The hero has one job. */}
         </div>
-        <div className="scrollcue">Scroll</div>
+        {/* THE "Scroll" CUE IS GONE (Richard, review, July 2026). It sat at the foot of the
+            hero, and the very next thing on the page is the film's first label, GET FOUND.
+            So you read "Scroll / GET FOUND" as one phrase and stopped to work out whether
+            it was an instruction or a heading.
+
+            The homepage does not need it. The hero is a playing video and the section under
+            it is a scroll-driven film. Nobody has ever failed to scroll a website.
+
+            /how-it-works keeps its cue: that hero is a still image with no motion at all,
+            which is the one place the hint earns its keep. */}
       </header>
 
       {/* THE "IN PLAIN ENGLISH" CARD IS GONE (Jacob, July 14 2026).
