@@ -1,6 +1,7 @@
 import Nav from '@/components/v4/Nav';
 import Reveal from '@/components/v4/Reveal';
 import HeroCta from '@/components/v4/HeroCta';
+import RemovalTest from '@/components/v4/RemovalTest';
 import SiteFooter from '@/components/SiteFooter';
 
 const SHARE =
@@ -48,43 +49,6 @@ export const metadata = {
  * never the number. The $420,000 counter and the valuation FAQ were both removed for this.
  */
 
-/* Richard's chart. Rows are the things that actually make one of these worth more than the
-   jobs it did this month. NOTHING here is a result: every "with StayBookt" cell is a
-   mechanism we perform, not an outcome we measured. If a row ever needs a number to make
-   its point, the row is wrong. */
-const DRIVERS: { d: string; you: string; sb: string }[] = [
-  {
-    d: 'It runs when you are not there',
-    you: 'Every call lands on your mobile. If you are up a ladder, it rings out.',
-    sb: 'Answered, booked and followed up whether you are on a roof or on a beach.',
-  },
-  {
-    d: 'Customers come back',
-    you: 'You mean to call them. You are on a job. You do not.',
-    sb: 'Past customers brought back for the work they are due, before they drift.',
-  },
-  {
-    d: 'The customer list is complete, and it is yours',
-    you: 'Your head, your phone, a notebook, and whatever the last guy left you.',
-    sb: 'Every customer, job and conversation in one record. Exported whenever you ask.',
-  },
-  {
-    d: 'Work arrives without you hunting it',
-    you: 'Word of mouth, and whoever happens to call.',
-    sb: 'Found on search, on the map, and when somebody asks an AI for your trade.',
-  },
-  {
-    d: 'The reputation compounds',
-    you: 'Four reviews. The newest one is from 2023.',
-    sb: 'A review asked for after every finished job, and every one answered.',
-  },
-  {
-    d: 'Somebody else could pick it up',
-    you: 'Only you know the prices, the rules, and which customers to watch.',
-    sb: 'Written down. That is what the playbook is, and it is yours.',
-  },
-];
-
 const CSS = `
 /* DESIGN SYSTEM NOTE. This page was hand-rolled and did not match the site: left-aligned
    where every interior page is centred, a 72px h1 against the standard 86-92px, a short hero
@@ -128,32 +92,6 @@ const CSS = `
   border-image:var(--sb-grad-ink) 1;font-size:clamp(20px,2.6vw,32px);font-weight:600;letter-spacing:-.025em;
   line-height:1.25;color:var(--v4-ink);max-width:24ch;}
 
-/* THE CHART (Richard's ask). Deliberately NOT a competitor chart: no answering service, no
-   agency, no crosses to get wrong — that other chart has carried six false crosses. This one
-   only claims things about us. Visual language matches Matrix: white card, hairline rows,
-   uppercase column heads, emerald for our column. */
-.lt-tbl{margin-top:clamp(36px,4.4vw,52px);border:1px solid #e6e6e1;border-radius:20px;overflow:hidden;background:#fff;
-  box-shadow:0 40px 80px -56px rgba(6,12,20,.34);}
-.lt-hd,.lt-row{display:grid;grid-template-columns:1.15fr 1fr 1.25fr;gap:clamp(12px,2vw,26px);
-  padding:clamp(16px,2vw,22px) clamp(16px,2.4vw,28px);align-items:start;}
-.lt-hd{background:#f2f2ee;border-bottom:1px solid #e6e6e1;}
-.lt-hd div{font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#8a8f98;}
-.lt-hd .sb{color:#059669;}
-.lt-row{border-top:1px solid #eeeeea;}
-.lt-row:first-of-type{border-top:0;}
-.lt-d{font-size:clamp(15.5px,1.7vw,18px);font-weight:600;letter-spacing:-.02em;color:var(--v4-ink);line-height:1.35;}
-.lt-you{font-size:14.5px;line-height:1.55;color:#9aa1ab;}
-.lt-sb{display:flex;gap:10px;font-size:14.5px;line-height:1.55;color:#42474f;}
-.lt-sb svg{width:17px;height:17px;flex:0 0 auto;margin-top:2px;color:#059669;}
-/* Mobile: the Matrix keeps a 640px track and pushes its own column off-screen. Do not repeat
-   that here — collapse to stacked rows with the column names inlined. */
-@media(max-width:820px){
-  .lt-hd{display:none;}
-  .lt-row{grid-template-columns:1fr;gap:8px;padding:20px clamp(16px,4vw,22px);}
-  .lt-you::before{content:'You, today: ';font-weight:600;color:#6b7280;}
-}
-.lt-fine{margin-top:22px;font-size:14px;line-height:1.6;color:#8a8f98;max-width:70ch;}
-
 .lt-none{background:#050506;padding:clamp(80px,11vw,140px) 0;}
 .lt-none .eyebrow{color:#8a8f98;}
 .lt-none h2{margin-top:14px;font-size:clamp(30px,4.4vw,56px);line-height:1.03;color:#fff;max-width:14ch;}
@@ -161,12 +99,6 @@ const CSS = `
 .lt-none p{margin-top:22px;font-size:clamp(16.5px,1.9vw,20px);line-height:1.65;color:#aeb6c4;max-width:60ch;}
 .lt-none p b{color:#fff;font-weight:600;}
 `;
-
-const Tick = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.6} aria-hidden="true">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M20 6 9 17l-5-5" />
-  </svg>
-);
 
 export default function LongTermPage() {
   return (
@@ -218,48 +150,17 @@ export default function LongTermPage() {
         </div>
       </section>
 
-      {/* RICHARD'S CHART. "I like a chart that highlights the things that create long-term
-          value and that StayBookt checks the box." */}
-      <section className="lt-sec">
-        <div className="wrap">
-          <Reveal className="eyebrow" as="div">What actually counts</Reveal>
-          <Reveal><h2>Six things make one of these worth more than the jobs it did this month.</h2></Reveal>
-          <Reveal>
-            <p>
-              None of them are the van, the tools, or how hard you work. They are all the same
-              question asked six ways: does this thing work without you in the middle of it?
-            </p>
-          </Reveal>
-
-          <div className="lt-tbl">
-            <div className="lt-hd">
-              <div>What counts</div>
-              <div>You, today</div>
-              <div className="sb">With StayBookt</div>
-            </div>
-            {DRIVERS.map((r) => (
-              <Reveal key={r.d}>
-                <div className="lt-row">
-                  <div className="lt-d">{r.d}</div>
-                  <div className="lt-you">{r.you}</div>
-                  <div className="lt-sb"><Tick />{r.sb}</div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-
-          {/* Says what the chart is NOT. Every right-hand cell is a mechanism we perform, not
-              a result we measured, and the page has to say so out loud or the chart reads as
-              a claim about outcomes. */}
-          <Reveal>
-            <p className="lt-fine">
-              Every line in that last column is something we do, not something we promise it earns
-              you. We have not measured what any of it is worth, and we are not going to guess on a
-              website.
-            </p>
-          </Reveal>
-        </div>
-      </section>
+      {/* THE CHART BECAME A FILM (Jacob, July 2026).
+          "The homepage and how it works have an immersive experience... they do a beautiful
+          job of showing and telling, engaging the user through the page instead of forcing
+          reading." He was right: this page was a memo sitting inside a cinematic site, and
+          the chart Richard asked for was the strongest thing on it, buried under three
+          sections of essay.
+          RemovalTest IS the chart. Same six drivers, same "checks the box" logic Richard
+          wanted, except the reader watches the lights go out instead of reading a table
+          column. The "You, today" copy was the best writing on the page and it was greyed
+          out in the quietest column; now it is what you see when the power goes off. */}
+      <RemovalTest />
 
       {/* THE ENGINE. Kept from the /enjoy-life version — Richard said he liked the messaging,
           and it is the mechanism that makes rows 2 and 5 of the chart actually happen. */}
