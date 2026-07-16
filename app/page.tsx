@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import Nav from '@/components/v4/Nav';
+import HeroMedia from '@/components/v4/HeroMedia';
 import Reveal from '@/components/v4/Reveal';
 import JourneyMap from '@/components/v4/JourneyMap';
 import HomeFaq from '@/components/v4/HomeFaq';
@@ -295,10 +296,9 @@ export default function HomePage() {
 
       {/* 1 — HERO */}
       <header className="scene">
-        {/* ?v=2 busts the CDN + browser cache. The file at /hero-loop.mp4 was
-            re-cut to 12.4s to drop the dough and laptop clips, but the old copy
-            was still being served from cache under the identical URL. */}
-        <video autoPlay muted loop playsInline poster="/hero-poster.jpg" src="/hero-loop.mp4?v=2" />
+        {/* Poster on a phone, film on a desktop. The video is 1.24MB and never played on
+            mobile before the visitor scrolled past it. See HeroMedia.tsx. */}
+        <HeroMedia />
         <div className="grad-ov" />
         <div className="wrap inner">
           <Reveal className="eyebrow" as="div">For owner-operated service businesses</Reveal>
