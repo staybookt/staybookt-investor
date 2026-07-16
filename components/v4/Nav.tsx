@@ -32,9 +32,15 @@ const LINKS = [
 
 /* Fixed dark nav that solidifies (blur + border) once the user scrolls past
  * the hero fold, mirroring the v4 mockup. */
+/* THERE WAS NO MOBILE MENU. globals.css hides .nav-links below 860px, and nothing replaced
+ * them: on a phone this site had a wordmark, a Get Started pill, and NO WAY TO REACH ANY OF
+ * THE SIX PAGES except by scrolling to the footer. Mobile is supposed to be the default
+ * viewport. It shipped like that for weeks because every review was done on a laptop.
+ * If you add a link to LINKS it appears in both the desktop row and this menu. */
 export default function Nav() {
   const onStart = usePathname() === '/start';
   const [solid, setSolid] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setSolid(window.scrollY > 60);
@@ -43,8 +49,24 @@ export default function Nav() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  /* Close on Escape, and never let the menu survive into a resize back to desktop, where
+     it would sit open and invisible over the page. */
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); };
+    const onResize = () => { if (window.innerWidth > 860) setOpen(false); };
+    window.addEventListener('keydown', onKey);
+    window.addEventListener('resize', onResize);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      window.removeEventListener('resize', onResize);
+      document.body.style.overflow = '';
+    };
+  }, [open]);
+
   return (
-    <nav className={`v4-nav${solid ? ' solid' : ''}`}>
+    <nav className={`v4-nav${solid || open ? ' solid' : ''}`}>
       <div className="wrap nav-in">
         <a href="/" className="mark" aria-label="StayBookt home" style={{ textDecoration: 'none' }}>
           Stay<span className="bk">Bookt</span>
@@ -57,12 +79,32 @@ export default function Nav() {
             </a>
           ))}
         </div>
-        {/* ON /start THIS BUTTON WAS A DEAD CLICK. It pointed at /start from /start, so
-            the most prominent CTA on the booking page did nothing at all. There it
-            scrolls to the calendar instead. Everywhere else it goes to /start. */}
-        <a href={onStart ? '#book' : START_LINK} className="pill pill-white">
-          Get Started
-        </a>
+        <div className="nav-right">
+          {/* ON /start THIS BUTTON WAS A DEAD CLICK. It pointed at /start from /start, so
+              the most prominent CTA on the booking page did nothing at all. There it
+              scrolls to the calendar instead. Everywhere else it goes to /start. */}
+          <a href={onStart ? '#book' : START_LINK} className="pill pill-white">
+            Get Started
+          </a>
+          <button
+            type="button"
+            className={`nav-burger${open ? ' on' : ''}`}
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-expanded={open}
+            aria-controls="nav-sheet"
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span /><span /><span />
+          </button>
+        </div>
+      </div>
+
+      <div id="nav-sheet" className={`nav-sheet${open ? ' open' : ''}`} hidden={!open}>
+        {LINKS.map((l) => (
+          <a key={l.href} href={l.href} onClick={() => setOpen(false)}>
+            {l.label}
+          </a>
+        ))}
       </div>
     </nav>
   );

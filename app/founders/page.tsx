@@ -21,6 +21,9 @@ export const metadata = {
   description: SHARE,
   alternates: { canonical: '/founders' },
   openGraph: {
+    /* Defining openGraph WITHOUT images suppresses the inherited app/opengraph-image.tsx,
+       so this page shared as a bare grey rectangle. Every page needs its own images line. */
+    images: ['/opengraph-image'],
     title: 'About us · StayBookt',
     description: SHARE,
     url: 'https://www.staybookt.com/founders',
@@ -28,7 +31,7 @@ export const metadata = {
     locale: 'en_CA',
     type: 'website',
   },
-  twitter: { card: 'summary_large_image', title: 'About us · StayBookt', description: SHARE },
+  twitter: { images: ['/twitter-image'], card: 'summary_large_image', title: 'About us · StayBookt', description: SHARE },
 };
 
 const CSS = `

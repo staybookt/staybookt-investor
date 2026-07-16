@@ -28,7 +28,12 @@ const FAQ: [string, string][] = [
   ],
   [
     'Is $199 a month really all of it?',
-    'Yes. There is no build fee, no setup fee, no per-minute billing and no overage. We do not take a commission on your jobs, a share of your revenue, or a share of what your business is worth. $199 a month plus applicable taxes is the entire commercial relationship.',
+    /* THIS SAID "Yes." /pricing and /terms were both changed to name TWO costs the day we
+       started taking payments, and this file was missed. It answered the same question with
+       the opposite word, in the one place that is eligible for a Google rich result: the
+       flat "Yes" could surface in search while the honest answer sat on the page. This file
+       is what Google actually reads, so it has to say what the pages say. */
+    'Almost. It is $199 CAD a month plus applicable taxes, and two things sit outside that. Your domain registration, about twenty dollars a year, passed through at cost and yours anyway. And if you take card payments, Stripe or Square charge their own fee, in the region of 2.9% plus thirty cents, which is theirs and not ours: we do not mark it up and we take no cut of it. That is the entire list. There is no build fee, no setup fee, no per-minute billing and no overage. We do not take a commission on your jobs, a share of your revenue, or a share of what your business is worth.',
   ],
   [
     'What is included in the plan?',

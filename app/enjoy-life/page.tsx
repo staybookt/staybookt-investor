@@ -11,6 +11,9 @@ export const metadata = {
   description: SHARE,
   alternates: { canonical: '/enjoy-life' },
   openGraph: {
+    /* Defining openGraph WITHOUT images suppresses the inherited app/opengraph-image.tsx,
+       so this page shared as a bare grey rectangle. Every page needs its own images line. */
+    images: ['/opengraph-image'],
     title: 'Enjoy Life · StayBookt',
     description: SHARE,
     url: 'https://www.staybookt.com/enjoy-life',
@@ -18,7 +21,7 @@ export const metadata = {
     locale: 'en_CA',
     type: 'website',
   },
-  twitter: { card: 'summary_large_image', title: 'Enjoy Life · StayBookt', description: SHARE },
+  twitter: { images: ['/twitter-image'], card: 'summary_large_image', title: 'Enjoy Life · StayBookt', description: SHARE },
 };
 
 /* THIS ROUTE WAS A GHOST AND IS DELIBERATELY BACK (Jacob, July 2026).
