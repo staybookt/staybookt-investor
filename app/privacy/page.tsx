@@ -268,7 +268,10 @@ export default function PrivacyPage() {
         eyebrow="Privacy policy"
         title="We do not sell your data. Ever."
         intro="This is a real privacy policy, not a wall of copied boilerplate. It says what we collect, why, who touches it, and how to make us delete it."
-        updated="13 July 2026"
+        /* Bumped 15 July 2026: Stripe/Square disclosed as a payment processor, and
+           "payment status" widened to "payment details and payment status". A privacy
+           policy that gains a processor and keeps its old date is worse than useless. */
+        updated="15 July 2026"
         sections={SECTIONS}
       />
       <SiteFooter />

@@ -339,7 +339,11 @@ export default function TermsPage() {
         eyebrow="Terms and conditions"
         title="The deal, in plain English."
         intro="You should not need a lawyer to understand what you are buying. This is the whole agreement, written the way we would explain it to you on the phone."
-        updated="13 July 2026"
+        /* BUMP THIS WHENEVER THE TERMS CHANGE. Section 13 promises "we will post the new
+           version here and update the date at the top", so a stale date here is the contract
+           breaking its own clause. Bumped for the "Money we handle for you" section and the
+           two-cost pass-through list (15 July 2026). */
+        updated="15 July 2026"
         sections={SECTIONS}
       />
       <SiteFooter />
