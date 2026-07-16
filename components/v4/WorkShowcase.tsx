@@ -1,185 +1,93 @@
-'use client';
+import Reveal from '@/components/v4/Reveal';
 
 /* ============================================================================
- * DO NOT PUT THIS PAGE BACK IN THE NAV UNTIL THE IMAGES ARE REAL.
+ * REBUILT July 2026. This page used to be a drag-to-compare before/after where
+ * BOTH panels were hand-built mockups. The "after" carried a 555 reserved fake
+ * phone number and an invented ESA licence number, under body copy that read
+ * "This is a real build. Not a mockup, not a concept." It was benched, and this
+ * is what replaced it.
  *
- * Benched July 2026. /photos/tce-before.png and /photos/tce-after.png were BOTH
- * hand-built mockups, not screenshots of anything. The "after" contained a 555
- * reserved fake phone number and an invented ESA licence number. Meanwhile this
- * file said, in body copy, "This is a real build. Not a mockup, not a concept."
+ * WHY NOT REBUILD THE BEFORE/AFTER: Tim's old site is recoverable (it is sitting
+ * on DreamHost at ~/topchoiceelectrical.com.OFF with its database intact), so we
+ * could have. We chose not to. A before/after asks the reader to trust OUR framing
+ * of the before. A live URL asks them to trust nothing: they click it, and either
+ * an electrician's website loads or it does not. That is the only kind of proof
+ * this company should be shipping, and it happens to be the kind we cannot fake.
  *
- * How it survived an audit: the review read the words and never opened the pictures.
- * You can watch it happen in the comments below, where unmeasured CLAIMS were
- * carefully stripped ("loads in under a second", "turns a stranger into a booked
- * job") while the fabricated IMAGES those claims sat under went untouched. Text
- * greps. Images do not. Open the images.
- *
- * TO RESTORE, all four:
- *   1. "after"  = a real screenshot of the live topchoiceelectrical.com (we built it).
- *   2. "before" = a real capture of Tim's old site, off DreamHost.
- *   3. The browser-chrome pill below says "your-business.com". On a page about one
- *      named real customer, it should say the real domain or the chrome should go.
- *   4. HERO_SUB says "Same phone number." Tim's real number is (416) 805-6676. If the
- *      screenshots do not both show it, that sentence is not true and must come out.
- *
- * Promise 05: "No screenshots of results we did not produce. Where we illustrate the
- * service, we say so, in writing, on the page." A fabricated before-and-after is the
- * exact thing that promise exists to prevent. It is worse than a fake testimonial,
- * because it looks like a document.
+ * THE ONLY RULE ON THIS PAGE: every sentence must be checkable in thirty seconds
+ * by a stranger with a browser. If a claim needs us to be believed, it does not
+ * belong here. Specifically:
+ *   - No results. No traffic, no leads, no rankings, no revenue. We have not
+ *     measured them and Tim's numbers are Tim's business.
+ *   - No "Tim answers in ten minutes" or similar. That is TCE's claim on TCE's
+ *     own site, not our evidence.
+ *   - NO PHONE CTA. Do not invite readers to call Tim to test us. He is a real
+ *     person running a real business, not a demo environment.
+ *   - The image is a real screenshot. If it is ever replaced with anything styled,
+ *     composited or reconstructed, this whole page goes back in the bin.
  * ========================================================================= */
 
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
+const SHOT = '/photos/tce-live.jpg';
+const SHOT_DATE = 'July 2026';
+const URL = 'https://www.topchoiceelectrical.com';
 
-const HERO_H = 'See the difference.';
-const HERO_SUB = 'Same owner. Same trade. Same phone number. What changed is everything a customer sees first, and that is what makes the phone ring.';
-
-/* "turns a stranger searching at 9 PM into a booked job by morning" claimed a RESULT, on
-   the one page carrying a real customer's real build, where it reads as that customer's
-   result. We never measured it. Promise 05 is literally "no screenshots of results we did
-   not produce".
-   It describes the build now. What it is FOR, not what it DID. */
-const CLAIM = 'A site that makes a 22-year operator look like the most established name in town, and lets a stranger searching at 9 PM book without having to call you.';
-
-const CRAFT: { t: string; b: string }[] = [
-  /* These four used to restate the website bullets that /whats-included and
-     /how-it-works already own, for a third time. This page's job is EVIDENCE, not
-     another list. What is left is the two things only a real build can say. */
-  { t: 'This is a real build.', b: 'Not a mockup, not a concept. A site we shipped for an owner-operator, and the one before it is what he actually had.' },
-  /* "Loads in under a second" is a number any of the twelve reviewers can check with one
-     Lighthouse run, and we have not measured it. Say the intent, not the benchmark. */
-  { t: 'Built to open fast.', b: 'Light on any phone, because a homeowner in a jam does not wait around for a slow site.' },
-  { t: 'Every page, one tap from a call.', b: 'A big call button and self-serve booking everywhere, so a ready customer never slips away.' },
-  { t: 'Yours to keep.', b: 'The site, the domain, the Google profile rebuilt to match. All in your name, always.' },
+/* Everything here is verifiable from the live site itself. Nothing is a result. */
+const TRUE_THINGS: { t: string; b: string }[] = [
+  { t: 'A real client, named.', b: 'Tim Davis runs Top Choice Electrical out of Newmarket, Ontario, covering York Region and Simcoe County. He is our first client. This is his site.' },
+  { t: 'It is live right now.', b: 'Not a staging link, not a concept board, not a deck slide. It is the site his customers land on when they search for an electrician at nine at night.' },
+  { t: 'Built to open fast on a phone.', b: 'A homeowner standing in a dark basement does not wait around. Open it on your phone and see how it behaves.' },
+  { t: 'His, not ours.', b: 'The site, the domain and the Google profile are in his name. If he left tomorrow he would take all of it with him.' },
 ];
 
 const CSS = `
-.wk{background:#fff;color:var(--v4-ink);}
+.wk{background:var(--v4-cream,#f6f6f3);color:var(--v4-ink,#06080d);}
 .wk .wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
 .wk .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#8a8f98;}
-.wk h1,.wk h2,.wk h3{font-weight:600;letter-spacing:-.035em;color:var(--v4-ink);}
+.wk h1,.wk h2,.wk h3{font-weight:600;letter-spacing:-.035em;}
 
-/* hero */
-.wk-hero{text-align:center;padding:clamp(140px,18vh,210px) 0 clamp(48px,6vw,72px);position:relative;overflow:hidden;background:#050506;}
-.wk-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(62% 52% at 50% 0%,rgba(14,165,233,.16),transparent 62%);pointer-events:none;}
-.wk-hero .wrap{position:relative;}
-.wk-hero .eyebrow{color:#c9cdd6;}
-.wk-hero h1{margin-top:18px;font-size:clamp(46px,7.4vw,104px);line-height:.98;color:#f5f5f7;}
-.wk-hero p.lead{margin:26px auto 0;font-size:clamp(18px,2.1vw,23px);line-height:1.45;color:#aeb4c0;max-width:40ch;}
+.wk-hero{position:relative;overflow:hidden;background:#050506;padding:clamp(104px,13vh,144px) 0 clamp(60px,7vw,88px);}
+.wk-hero::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(60% 70% at 18% 0%,rgba(14,165,233,.16),transparent 62%),
+             radial-gradient(50% 70% at 86% 8%,rgba(16,185,129,.10),transparent 62%);}
+.wk-hero .wrap{position:relative;z-index:1;}
+.wk-k{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:700;letter-spacing:.15em;
+  text-transform:uppercase;color:#eef1f6;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
+  border-radius:999px;padding:9px 18px 9px 13px;}
+.wk-k::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--sb-grad);
+  box-shadow:0 0 10px 1px rgba(16,185,129,.75);}
+.wk-hero h1{margin:20px 0 0;font-size:clamp(38px,5.4vw,72px);line-height:1.0;color:#fff;max-width:14ch;}
+.wk-hero h1 .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.wk-hero p{margin:24px 0 0;font-size:clamp(17px,2vw,21px);line-height:1.6;color:#aeb6c4;max-width:56ch;}
 
-/* compare */
-.wk-compare{padding:clamp(24px,4vw,52px) 0 clamp(70px,9vw,120px);}
-.wk-compare .tag{text-align:center;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#0284c7;margin-bottom:18px;}
-.cmp-frame{max-width:1040px;margin:0 auto;border-radius:18px;overflow:hidden;background:#0b0b0d;box-shadow:0 60px 130px -50px rgba(6,12,20,.55);border:1px solid rgba(0,0,0,.06);}
-.cmp-bar{display:flex;align-items:center;gap:7px;padding:12px 16px;background:#141418;}
-.cmp-bar .dot{width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,.16);}
-.cmp-bar .pill{margin:0 auto;display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:5px 16px;color:#8a8f98;font-size:11px;letter-spacing:.02em;}
-.cmp-bar .pill svg{width:11px;height:11px;}
-.cmp-bar .spacer{width:46px;}
-.cmp{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;cursor:ew-resize;touch-action:none;user-select:none;background:#0b0b0d;}
-.cmp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;display:block;pointer-events:none;-webkit-user-drag:none;}
-.cmp .after{clip-path:inset(0 0 0 var(--x));}
-.cmp .lab{position:absolute;top:16px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.5);padding:6px 12px;border-radius:999px;backdrop-filter:blur(6px);z-index:4;transition:opacity .3s;}
-.cmp .lab.b{left:16px;}
-.cmp .lab.a{right:16px;background:rgba(2,132,199,.85);}
-.cmp .div{position:absolute;top:0;bottom:0;left:var(--x);width:2px;background:#fff;transform:translateX(-1px);z-index:5;box-shadow:0 0 0 1px rgba(0,0,0,.12);}
-.cmp .handle{position:absolute;top:50%;left:var(--x);width:44px;height:44px;border-radius:50%;background:#fff;transform:translate(-50%,-50%);z-index:6;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px -8px rgba(0,0,0,.5);}
-.cmp .handle svg{width:20px;height:20px;color:#0b0b0d;}
-.wk-compare .hint{text-align:center;margin-top:18px;font-size:13.5px;color:#9298a1;}
-@media(prefers-reduced-motion:reduce){.cmp .lab{transition:none;}}
+/* the artifact */
+.wk-shot{background:#050506;padding:0 0 clamp(70px,8vw,104px);}
+.wk-frame{position:relative;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.14);
+  box-shadow:0 60px 120px -50px rgba(0,0,0,.9);background:#0b0d12;}
+.wk-bar{display:flex;align-items:center;gap:8px;padding:11px 14px;background:#15181f;border-bottom:1px solid rgba(255,255,255,.08);}
+.wk-bar .dot{width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,.16);flex:0 0 auto;}
+.wk-bar .pill{display:inline-flex;align-items:center;gap:7px;margin:0 auto;padding:5px 14px;border-radius:999px;
+  background:rgba(255,255,255,.07);color:#aeb6c4;font-size:12.5px;font-weight:500;letter-spacing:.01em;}
+.wk-bar .pill svg{width:12px;height:12px;flex:0 0 auto;}
+.wk-frame img{display:block;width:100%;height:auto;}
+.wk-cap{margin:18px auto 0;display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;}
+.wk-cap .txt{font-size:14px;line-height:1.6;color:#7d8592;max-width:60ch;}
+.wk-go{display:inline-flex;align-items:center;gap:9px;padding:13px 22px;border-radius:999px;background:#fff;color:#06080d;
+  font-size:15px;font-weight:600;text-decoration:none;transition:transform .25s ease,box-shadow .25s ease;white-space:nowrap;}
+.wk-go:hover{transform:translateY(-1px);box-shadow:0 18px 40px -20px rgba(255,255,255,.5);}
 
-/* claim */
-.wk-claim{background:var(--v4-cream);text-align:center;padding:clamp(90px,13vw,160px) 0;}
-.wk-claim p{font-size:clamp(26px,3.8vw,50px);font-weight:600;letter-spacing:-.03em;line-height:1.14;color:var(--v4-ink);max-width:20ch;margin:0 auto;}
-.wk-claim p .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
-
-/* craft */
-.wk-craft{padding:clamp(90px,12vw,150px) 0;}
-.wk-craft .head{text-align:center;margin-bottom:clamp(44px,6vw,68px);}
-.wk-craft .head h2{font-size:clamp(32px,5vw,60px);line-height:1.02;}
-.wk-craft .head p{margin:16px auto 0;font-size:clamp(17px,1.9vw,20px);color:#52565e;max-width:34ch;}
-.wk-craft .grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,56px) clamp(40px,6vw,90px);max-width:900px;margin:0 auto;}
-.wk-craft .item h3{font-size:clamp(19px,2vw,23px);letter-spacing:-.02em;}
-.wk-craft .item p{margin-top:10px;font-size:16px;line-height:1.55;color:#52565e;max-width:38ch;}
-@media(max-width:720px){.wk-craft .grid{grid-template-columns:1fr;gap:32px;}}
-
-/* cta */
+.wk-true{padding:clamp(76px,9vw,116px) 0;}
+.wk-true h2{font-size:clamp(28px,4vw,50px);line-height:1.05;max-width:16ch;margin-top:14px;}
+.wk-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,2.6vw,30px);margin-top:clamp(36px,4.4vw,52px);}
+@media(max-width:820px){.wk-grid{grid-template-columns:1fr;}}
+.wk-grid > .reveal{display:flex;}
+.wk-item{flex:1;background:#fff;border:1px solid #e6e6e1;border-radius:20px;padding:clamp(22px,2.6vw,30px);
+  box-shadow:0 30px 60px -46px rgba(6,12,20,.3);}
+.wk-item .t{font-size:clamp(17px,1.9vw,21px);font-weight:600;letter-spacing:-.02em;}
+.wk-item .b{margin-top:10px;font-size:15.5px;line-height:1.65;color:#6b7280;}
+.wk-note{margin-top:clamp(34px,4vw,48px);padding-left:clamp(16px,2vw,22px);border-left:3px solid transparent;
+  border-image:var(--sb-grad-ink) 1;font-size:clamp(16px,1.8vw,19px);line-height:1.6;color:#42474f;max-width:62ch;}
+.wk-note b{color:var(--v4-ink);font-weight:600;}
 `;
-
-function Compare() {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [x, setX] = useState(50);
-  const dragging = useRef(false);
-  const played = useRef(false);
-
-  const setFromClient = (clientX: number) => {
-    const el = ref.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    const pct = ((clientX - r.left) / r.width) * 100;
-    setX(Math.min(98, Math.max(2, pct)));
-  };
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting && !played.current) {
-            played.current = true;
-            if (reduce) { setX(55); return; }
-            const start = performance.now();
-            const dur = 1600;
-            const from = 85, mid = 15, end = 44;
-            const tick = (now: number) => {
-              const t = Math.min(1, (now - start) / dur);
-              const ease = 1 - Math.pow(1 - t, 3);
-              const val = t < 0.6 ? from + (mid - from) * (ease / 0.83) : mid + (end - mid) * ((t - 0.6) / 0.4);
-              setX(val);
-              if (t < 1) requestAnimationFrame(tick);
-            };
-            requestAnimationFrame(tick);
-          }
-        });
-      },
-      { threshold: 0.4 },
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
-  return (
-    <div className="cmp-frame">
-      <div className="cmp-bar">
-        <span className="dot" /><span className="dot" /><span className="dot" />
-        <span className="pill">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></svg>
-          your-business.com
-        </span>
-        <span className="spacer" />
-      </div>
-      <div
-        ref={ref}
-        className="cmp"
-        style={{ '--x': `${x}%` } as CSSProperties}
-        onPointerDown={(e) => { dragging.current = true; e.currentTarget.setPointerCapture(e.pointerId); setFromClient(e.clientX); }}
-        onPointerMove={(e) => { if (dragging.current) setFromClient(e.clientX); }}
-        onPointerUp={() => { dragging.current = false; }}
-        onPointerCancel={() => { dragging.current = false; }}
-      >
-        <img className="before" src="/photos/tce-before.png" alt="A tired, dated service-business website before StayBookt" />
-        <img className="after" src="/photos/tce-after.png" alt="The same business, rebuilt by StayBookt" />
-        <span className="lab b" style={{ opacity: x > 20 ? 1 : 0 }}>Before</span>
-        <span className="lab a" style={{ opacity: x < 80 ? 1 : 0 }}>After</span>
-        <span className="div" />
-        <span className="handle">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4}><path strokeLinecap="round" strokeLinejoin="round" d="M9 7l-5 5 5 5M15 7l5 5-5 5" /></svg>
-        </span>
-      </div>
-    </div>
-  );
-}
 
 export default function WorkShowcase() {
   return (
@@ -188,51 +96,84 @@ export default function WorkShowcase() {
 
       <header className="wk-hero">
         <div className="wrap">
-          <div className="eyebrow">The work</div>
-          <h1>{HERO_H}</h1>
-          <p className="lead">{HERO_SUB}</p>
+          <Reveal as="div"><div className="wk-k">The work</div></Reveal>
+          <Reveal>
+            <h1>Go look at it <span className="g">yourself.</span></h1>
+          </Reveal>
+          <Reveal>
+            <p>
+              This is not a case study. It is one real electrician, in one real town, with a site
+              you can open in the next ten seconds. We would rather you checked than believed us.
+            </p>
+          </Reveal>
         </div>
       </header>
 
-      <section className="wk-compare">
+      <section className="wk-shot">
         <div className="wrap">
-          <div className="tag">Electrician &middot; York Region</div>
-          <Compare />
-          <div className="hint">Drag to compare. What we started with, and what we built.</div>
-        </div>
-      </section>
-
-      <section className="wk-claim">
-        <div className="wrap">
-          <p>The kind of site that makes you the <span className="g">obvious call</span> in your town.</p>
-        </div>
-      </section>
-
-      <section className="wk-craft">
-        <div className="wrap">
-          <div className="head">
-            <div className="eyebrow">Under the hood</div>
-            <h2>Built to book work, not just to look good.</h2>
-            <p>{CLAIM}</p>
-          </div>
-          <div className="grid">
-            {CRAFT.map((c) => (
-              <div className="item" key={c.t}>
-                <h3>{c.t}</h3>
-                <p>{c.b}</p>
+          <Reveal>
+            <div className="wk-frame">
+              <div className="wk-bar">
+                <span className="dot" /><span className="dot" /><span className="dot" />
+                {/* The real domain. This said "your-business.com" on the fabricated version. */}
+                <span className="pill">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                    <rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" />
+                  </svg>
+                  topchoiceelectrical.com
+                </span>
+                <span style={{ width: 33 }} />
               </div>
+              <img
+                src={SHOT}
+                width={1568}
+                height={682}
+                alt="A screenshot of the live Top Choice Electrical homepage, built by StayBookt"
+              />
+            </div>
+          </Reveal>
+          <Reveal>
+            <div className="wk-cap">
+              <span className="txt">
+                An unedited screenshot of the live site, {SHOT_DATE}. Top Choice Electrical, Newmarket,
+                Ontario. Nothing on this page is styled, composited or reconstructed. If it looks
+                different when you open it, that is because he has kept working and we have not
+                re-shot it.
+              </span>
+              <a className="wk-go" href={URL} target="_blank" rel="noopener noreferrer">
+                Open the live site <span aria-hidden="true">&#8599;</span>
+              </a>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="wk-true">
+        <div className="wrap">
+          <Reveal className="eyebrow" as="div">What you can check</Reveal>
+          <Reveal><h2>Four things, all of them verifiable.</h2></Reveal>
+          <div className="wk-grid">
+            {TRUE_THINGS.map((x) => (
+              <Reveal key={x.t}>
+                <div className="wk-item">
+                  <div className="t">{x.t}</div>
+                  <div className="b">{x.b}</div>
+                </div>
+              </Reveal>
             ))}
           </div>
+          {/* Says what is NOT here, and why. The absence is the argument. */}
+          <Reveal>
+            <p className="wk-note">
+              You will notice there are no numbers on this page. <b>No traffic, no leads, no
+              rankings, no revenue.</b> We have not measured them, and Tim&rsquo;s numbers are
+              Tim&rsquo;s business, not our marketing. One client is not evidence of a pattern and we
+              are not going to dress it up as one. It is evidence that the thing is real, which is
+              all we are claiming today.
+            </p>
+          </Reveal>
         </div>
       </section>
-
-      {/* THE BESPOKE CLOSING CARD IS GONE. It said "Yours could look like this" over a
-          white pill that said "Pick a time", on a #0b0f14 background that is not the
-          #050506 every other dark section uses. Three different CTA treatments across
-          six pages, and a button label that appeared nowhere else on the site.
-
-          The page closes on <HeroCta /> now, like every other page. Do not put a
-          second call to action in this component. */}
     </div>
   );
 }

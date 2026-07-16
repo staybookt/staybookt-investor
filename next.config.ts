@@ -34,19 +34,14 @@ const GHOSTS: { source: string; destination: string }[] = [
  * the browser forever and tells Google to drop the URL. Use one on a page you intend to
  * restore and you have poisoned it for every visitor who saw it once.
  *
- * /work — BENCHED July 2026. Both images in the drag-to-compare were fabricated mockups,
- * not screenshots, while the page said in body copy "This is a real build. Not a mockup,
- * not a concept." The "after" carried a 555 fake phone number and an invented ESA licence
- * number. Promise 05 is "No screenshots of results we did not produce." This was the one
- * page we put in the nav BECAUSE it supposedly carried real evidence.
+ * /work was benched here for a few hours in July 2026 because both of its before/after
+ * images were fabricated mockups. It is UNBENCHED: the drag-to-compare is gone entirely and
+ * the page is now one real, unedited screenshot of the live topchoiceelectrical.com plus a
+ * link to it. Nothing on it needs us to be believed.
  *
- * It comes back when, and only when, both panels are real screenshots: the "after" from
- * the live topchoiceelectrical.com, the "before" from Tim's old site off DreamHost. When
- * it does: delete the entry below, restore the nav and footer links, and rewrite the
- * WorkShowcase copy that this page could not previously support. */
-const BENCHED: { source: string; destination: string }[] = [
-  { source: '/work', destination: '/how-it-works' },
-];
+ * The "before" was recoverable (Tim's old WordPress is intact on DreamHost). We chose not to
+ * use it. See the header of components/v4/WorkShowcase.tsx for why. */
+const BENCHED: { source: string; destination: string }[] = [];
 
 const nextConfig: NextConfig = {
   images: {

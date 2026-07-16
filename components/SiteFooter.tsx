@@ -24,7 +24,7 @@ const SITE = [
   { href: '/whats-included', label: "What's included" },
   { href: '/pricing', label: 'Pricing' },
   { href: '/enjoy-life', label: 'Enjoy Life' },
-  /* /work is benched on a 307 until its images are real. See next.config.ts. */
+  { href: '/work', label: 'The work' },
   { href: '/founders', label: 'About us' },
   { href: '/contact', label: 'Contact' },
 ];

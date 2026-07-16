@@ -3,8 +3,11 @@ import SiteFooter from '@/components/SiteFooter';
 import WorkShowcase from '@/components/v4/WorkShowcase';
 import HeroCta from '@/components/v4/HeroCta';
 
+/* This described the drag-to-compare, which is gone, and promised "makes the phone ring",
+ * which is a result we never measured. Both had to go. The share card is the one piece of
+ * copy nobody re-reads, which is exactly why it outlived the page it described. */
 const SHARE =
-  'See the difference. The same owner-operated business, before and after StayBookt: a tired, dated website rebuilt into one that makes the phone ring. Drag to compare.';
+  'One real electrician, in one real town, with a site you can open right now. Go look at it yourself.';
 
 /* Same bug as /how-it-works: no openGraph, so the one page that carries actual
  * evidence shared as the homepage. Fixed. */
@@ -28,10 +31,8 @@ export default function WorkPage() {
     <main id="top" className="v4">
       <Nav />
       <WorkShowcase />
-      {/* WorkShowcase used to end on its own bespoke card: a different headline, a
-          different button shape, and a button that said "Pick a time" when every
-          other button on the site says "Get Started". Three CTA styles across six
-          pages. Now there is one. */}
+      {/* One CTA site-wide. WorkShowcase used to end on its own bespoke card with a
+          different headline and a button that said "Pick a time". Now there is one. */}
       <HeroCta />
       <SiteFooter />
     </main>
