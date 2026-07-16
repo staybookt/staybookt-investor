@@ -161,8 +161,14 @@ main#top {
   font-weight: 700;
 }
 
+/* THE FOOTER WORDMARK WAS A DIFFERENT LOGO FROM THE NAV WORDMARK, on every page.
+   This was 90deg with FIVE stops, running through #14B8A6 (teal) and #2563EB (true blue) —
+   two hues that appear nowhere in the brand token. The nav ran emerald->indigo at 100deg;
+   this ran teal->blue->indigo at 90deg. Same word, same page, two identities.
+   One token. If a gradient needs to be a literal (the OG/Twitter routes, the favicon:
+   Satori cannot resolve CSS custom properties), copy the token's exact values. */
 .wordmark-gradient {
-  background: linear-gradient(90deg, #06B6D4 0%, #10B981 25%, #14B8A6 50%, #2563EB 75%, #4F46E5 100%);
+  background: var(--sb-grad);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -487,7 +493,9 @@ section[id] { scroll-margin-top: 5rem; }
 .v4-nav.solid{background:rgba(6,8,13,.8);backdrop-filter:saturate(160%) blur(16px);border-bottom-color:rgba(255,255,255,.08);}
 .v4-nav .nav-in{display:flex;align-items:center;justify-content:space-between;height:64px;}
 .v4 .mark,.v4-nav .mark{font-size:21px;font-weight:700;letter-spacing:-.03em;color:#fff;}
-.v4 .mark .bk,.v4-nav .mark .bk{background:linear-gradient(100deg,var(--v4-cyan),var(--v4-green) 45%,var(--v4-indigo));-webkit-background-clip:text;background-clip:text;color:transparent;}
+/* WAS a hand-rolled linear-gradient with a 45% midpoint — 7 points off the token's 52%.
+   One token. The wordmark is the last place that should improvise. */
+.v4 .mark .bk,.v4-nav .mark .bk{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .v4 .mark .dot,.v4-nav .mark .dot{color:var(--v4-violet);}
 .v4-nav .nav-links{display:flex;gap:30px;}
 .v4-nav .nav-links a{color:#cfd3da;text-decoration:none;font-size:14px;font-weight:500;}

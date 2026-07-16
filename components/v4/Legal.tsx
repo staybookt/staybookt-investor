@@ -86,11 +86,13 @@ export function LegalPage({
 }
 
 const CSS = `
-.lg-hero{position:relative;background:#050506;padding:clamp(140px,17vh,190px) 0 clamp(60px,7vw,90px);overflow:hidden;}
+/* Centred to match the standard. Five interior heroes were centred and four were left-
+   aligned, and hero alignment is the first thing anybody sees on a page. */
+.lg-hero{position:relative;background:#050506;padding:clamp(140px,17vh,190px) 0 clamp(60px,7vw,90px);overflow:hidden;text-align:center;}
 .lg-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(58% 46% at 22% 0%,rgba(16,185,129,.1),transparent 62%);pointer-events:none;}
 .lg-hero .wrap{position:relative;z-index:1;}
 .lg-hero .eyebrow{color:#c9cdd6;}
-.lg-hero h1{margin-top:16px;font-size:clamp(38px,5.6vw,72px);font-weight:600;letter-spacing:-.04em;line-height:1.02;color:#fff;max-width:16ch;}
+.lg-hero h1{margin:16px auto 0;font-size:clamp(42px,6.6vw,86px);font-weight:600;letter-spacing:-.035em;line-height:1.02;color:#fff;max-width:16ch;}
 .lg-intro{margin-top:24px;font-size:clamp(17px,1.95vw,21px);line-height:1.6;color:#aeb4c0;max-width:58ch;}
 .lg-upd{margin-top:28px;font-size:13px;font-weight:600;letter-spacing:.02em;color:#5c6470;}
 

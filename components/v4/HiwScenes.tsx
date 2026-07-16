@@ -256,7 +256,15 @@ const THREAD: Msg[] = [
      it does not cover "this is how fast we are". An illustration of an invented
      capability is still a claim. The scene's argument is that it happened at 6:47 PM
      while you were under a sink. The stopwatch added nothing. */
-    tag: 'Sent by StayBookt' },
+    /* WAS 'Sent by StayBookt'. This is the OWNER'S phone (see the header above) and the tag
+       is an annotation FOR HIM. But it sits exactly where iMessage puts "Delivered", so an
+       owner-operator read it as his CUSTOMER seeing our name on his message — and said so:
+       "so my customers see your name, not mine?" That contradicts what we promise in three
+       places ("Your number stays your number. Nothing changes for your customers").
+       We meant one thing; the label said another. This version cannot be misread, and it is
+       the scene's whole argument anyway: the green bubbles went out from his line and he did
+       not send one of them. */
+    tag: 'You did not send this' },
   { side: 'them', text: 'That works. Please book it.' },
   { side: 'us', text: 'Done. Thursday 8:30 AM. You’ll get a confirmation and a reminder the night before.' },
   { side: 'sys', text: '2:14 AM · Call answered. Triaged, not an emergency. Booked 7:00 AM.' },

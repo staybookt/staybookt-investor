@@ -117,9 +117,13 @@ export default function PricingPage() {
           <div className="eyebrow">One plan</div>
 
           <div className="plan">
-            <div className="nm">
+            {/* WAS a <div>. /pricing had NO h1 at all — its heading outline started at H2,
+                on the page the entire pricing argument rests on, while every other page in the
+                set has exactly one. "Get Found. StayBookt." is the page's title; it should be
+                marked up as one. Purely semantic: .plan .nm carries all the styling. */}
+            <h1 className="nm">
               Get Found. <span className="sb">StayBookt.</span>
-            </div>
+            </h1>
 
             <div className="prnum">
               {/* $199 is the whole argument of this page, and it was plain white on

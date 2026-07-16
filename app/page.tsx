@@ -261,6 +261,12 @@ const PAGE_CSS = `
 /* WHY US supporting line */
 .v4 .whyus .qsub{margin:22px auto 0;font-weight:400;line-height:1.55;color:#aeb4c0;}
 /* GO DEEPER / explore navigation */
+/* LEFT DARK ON PURPOSE. A design pass flagged that the homepage is the only page in the set
+   with no cream on it. True, but flipping this section is not the fix: every .xcard below is
+   built for dark (rgba(255,255,255,.045) fills, light text) and would go invisible on cream,
+   and the FAQ underneath is dark because Jacob asked for it dark. The homepage is a dark
+   cinematic page by decision, not by drift. If the cream ever comes back to this page, it
+   needs the cards restyled with it, not a one-line background swap. */
 .v4 .explore{background:#050506;padding:clamp(78px,10vw,128px) 0 clamp(64px,8vw,104px);text-align:center;}
 .v4 .explore .eyebrow{color:#86868b;}
 .v4 .explore h2{margin-top:14px;font-size:clamp(26px,3.4vw,42px);letter-spacing:-.03em;color:#f5f5f7;font-weight:600;}
@@ -346,7 +352,14 @@ export default function HomePage() {
              into this scene: the life the whole thing is for. fromBlack makes the image
              emerge out of the film's black instead of cutting to it. This is the same
              closing CTA every other page now ends on. */}
-      <HeroCta fromBlack />
+      {/* THE CLOSING CTA USED TO SIT HERE, at position 4 of 9, with 3,253px — 4.3 screens —
+             of unbroken black below it. It is a full-viewport photo scene with one button
+             that reads unmistakably as the ending, and then the page kept going: a founder
+             quote, a link grid, an FAQ accordion, a dark footer. HeroCta's own header claims
+             "Every page now ends on the same thing the homepage ends on." The homepage was
+             the one page where that was false.
+             Apple never asks you to scroll past the ending. It is now the last thing before
+             the footer, where it was always supposed to be. */}
 
       {/* 5 — WHY WE BUILT THIS */}
       <section className="whyus">
@@ -430,6 +443,9 @@ export default function HomePage() {
              (Jacob, live review, July 2026). A curated cross-section only; the full
              sets live on the deep pages. */}
       <HomeFaq />
+
+      {/* HomeFaq is #050506, so fromBlack still grades correctly out of it. */}
+      <HeroCta fromBlack />
 
       <SiteFooter />
     </main>

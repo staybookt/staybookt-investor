@@ -75,7 +75,11 @@ export default function OpenGraphImage() {
             <span style={{ color: 'white' }}>Stay</span>
             <span
               style={{
-                background: 'linear-gradient(90deg, #06B6D4 0%, #10B981 50%, #4F46E5 100%)',
+                /* MUST stay a literal: Satori/ImageResponse cannot resolve CSS custom properties, so
+                   var(--sb-grad) renders as nothing here. But a literal is only allowed if it MATCHES
+                   the token. This was 90deg/50%; the token is 100deg/52%. The share card was a
+                   slightly different logo from the site. Copy of app/icon.tsx, which was already right. */
+                background: 'linear-gradient(100deg, #06B6D4 0%, #10B981 52%, #4F46E5 100%)',
                 backgroundClip: 'text',
                 color: 'transparent',
               }}

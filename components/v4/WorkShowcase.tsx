@@ -45,19 +45,22 @@ const CSS = `
 .wk .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#8a8f98;}
 .wk h1,.wk h2,.wk h3{font-weight:600;letter-spacing:-.035em;}
 
-.wk-hero{position:relative;overflow:hidden;background:#050506;padding:clamp(104px,13vh,144px) 0 clamp(60px,7vw,88px);}
+/* Centred to match the standard. Five interior heroes were centred and four were left-
+   aligned, and hero alignment is the first thing anybody sees on a page. */
+.wk-hero{position:relative;overflow:hidden;background:#050506;padding:clamp(140px,17vh,190px) 0 clamp(70px,9vw,100px);text-align:center;}
 .wk-hero::before{content:'';position:absolute;inset:0;pointer-events:none;
   background:radial-gradient(60% 70% at 18% 0%,rgba(14,165,233,.16),transparent 62%),
              radial-gradient(50% 70% at 86% 8%,rgba(16,185,129,.10),transparent 62%);}
 .wk-hero .wrap{position:relative;z-index:1;}
-.wk-k{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:700;letter-spacing:.15em;
-  text-transform:uppercase;color:#eef1f6;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
-  border-radius:999px;padding:9px 18px 9px 13px;}
-.wk-k::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--sb-grad);
-  box-shadow:0 0 10px 1px rgba(16,185,129,.75);}
-.wk-hero h1{margin:20px 0 0;font-size:clamp(38px,5.4vw,72px);line-height:1.0;color:#fff;max-width:14ch;}
+/* WAS the homepage's pill badge, near-verbatim: inline-flex, rgba(255,255,255,.08) fill,
+   1px border, 999px radius, gradient dot ::before. /long-term's own header lists that exact
+   badge as one of the reasons it "looked like a different site" — the rule got written down
+   and the page that broke it never got fixed. Only the homepage hero gets the badge.
+   Interior pages use the plain eyebrow. */
+.wk-k{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#c9cdd6;}
+.wk-hero h1{margin:18px auto 0;font-size:clamp(42px,6.6vw,86px);line-height:1.0;color:#fff;max-width:14ch;}
 .wk-hero h1 .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
-.wk-hero p{margin:24px 0 0;font-size:clamp(17px,2vw,21px);line-height:1.6;color:#aeb6c4;max-width:56ch;}
+.wk-hero p{margin:26px auto 0;font-size:clamp(17px,2vw,21px);line-height:1.6;color:#aeb6c4;max-width:56ch;}
 
 /* the artifact */
 .wk-shot{background:#050506;padding:0 0 clamp(70px,8vw,104px);}

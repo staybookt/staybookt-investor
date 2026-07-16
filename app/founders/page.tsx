@@ -42,11 +42,13 @@ const CSS = `
 .abt h1,.abt h2,.abt h3{font-weight:600;letter-spacing:-.035em;color:var(--v4-ink);}
 
 /* ===== 1. THE BELIEF. The reason the company exists, said first. ===== */
-.abt-hero{position:relative;background:#050506;padding:clamp(150px,20vh,210px) 0 clamp(90px,11vw,130px);overflow:hidden;}
+/* Centred to match the standard. Five interior heroes were centred and four were left-
+   aligned, and hero alignment is the first thing anybody sees on a page. */
+.abt-hero{position:relative;background:#050506;padding:clamp(150px,20vh,210px) 0 clamp(90px,11vw,130px);overflow:hidden;text-align:center;}
 .abt-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(60% 50% at 22% 0%,rgba(16,185,129,.14),transparent 62%),radial-gradient(50% 46% at 88% 100%,rgba(79,70,229,.12),transparent 62%);pointer-events:none;}
 .abt-hero .wrap{position:relative;z-index:1;}
 .abt-hero .eyebrow{color:#c9cdd6;}
-.abt-hero h1{margin-top:20px;font-size:clamp(38px,6vw,80px);line-height:1.02;max-width:19ch;color:#fff;}
+.abt-hero h1{margin:20px auto 0;font-size:clamp(42px,6.6vw,86px);line-height:1.0;max-width:14ch;color:#fff;}
 .abt-hero h1 .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .abt-hero .sub{margin-top:28px;font-size:clamp(17px,2vw,22px);line-height:1.55;color:#aeb4c0;max-width:52ch;}
 
@@ -252,7 +254,8 @@ export default function AboutPage() {
       </section>
 
       {/* Same CTA banner every other page lands on. */}
-      <HeroCta />
+      {/* fromBlack: .abt-prm directly above is #050506. Same seam as /long-term. */}
+      <HeroCta fromBlack />
 
       <SiteFooter />
     </main>
