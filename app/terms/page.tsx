@@ -53,6 +53,7 @@ const SECTIONS: Section[] = [
           <li>Follow up the quotes you send until you get a yes or a no.</li>
           <li>Take payment from your customers on your behalf, into your own account.</li>
           <li>Ask your customers for reviews and bring past customers back.</li>
+          <li>Reply to your reviews publicly, in your name, including the bad ones.</li>
           <li>Send you a short brief each morning.</li>
         </ul>
         <p>
@@ -70,9 +71,21 @@ const SECTIONS: Section[] = [
       <>
         <p>
           To do this job, we communicate with your customers as your business. You authorise us to
-          answer, text and email on your behalf, to tell your customers your prices, and to take
-          payment from them on your behalf, using your name, your prices and your service area, as
-          agreed with you during setup.
+          answer, text and email on your behalf, to tell your customers your prices, to take payment
+          from them on your behalf, and to post public replies to your reviews under your name, using
+          your name, your prices and your service area, as agreed with you during setup.
+        </p>
+        <p>
+          {/* THE CONTRACT DID NOT COVER THE MOST PUBLIC THING WE DO. /whats-included sells
+              "Every review answered, good or bad, in your voice and under your name" and "a
+              person writes the reply to an angry one" — that is permanent public content, on a
+              listing you own, seen by every future customer. The terms authorised answering,
+              texting, emailing and taking payment, and stopped there. This is the same gap the
+              money section was written to close, reopened on higher-stakes content. */}
+          <b>On reviews specifically:</b> a real person writes every reply to a negative review
+          before it goes anywhere near your listing, and you can tell us at any time to stop
+          replying, to change how we reply, or to send anything to you first. We never write the
+          review itself and we never ask anyone to write one that is not true.
         </p>
         <p>
           You remain responsible for what your business promises. You must give us accurate pricing,

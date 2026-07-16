@@ -161,6 +161,11 @@ const SECTIONS: Section[] = [
               of who touches their customers' payment data, on a page headed "We do not sell
               your data. Ever." A reviewer who knows we take payments reads a gap as a cover-up. */}
           <li>Stripe or Square, to take payment from your customers on your behalf.</li>
+          {/* We sell "the email campaigns you never get around to, written and sent for you" and
+              the purposes list says we email past customers, but no email provider was ever
+              disclosed here. A purpose with no processor behind it is the same shape of gap the
+              Stripe line closed. */}
+          <li>An email delivery provider, to send the emails we send on your behalf.</li>
           <li>Google, for your Business Profile and search presence.</li>
         </ul>
         <p>
