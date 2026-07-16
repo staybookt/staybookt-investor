@@ -87,7 +87,7 @@ export const TIERS: Tier[] = [
   {
     name: 'Enjoy Life',
     scope: 'The point of the whole thing',
-    tagline: 'A business that runs without you, and a life you actually get to have.',
+    tagline: 'A business that keeps running when you step away, and a life you actually get to have.',
     upfront: 'No extra cost',
     upfrontNote: 'it is what the plan is for',
     recurring: 'Included',
@@ -96,7 +96,7 @@ export const TIERS: Tier[] = [
       'Not a product and not a fee. It is what you end up with: a business that keeps booking and earning when you are not standing in the middle of it, and the choice of what to do next.',
     points: [
       'The recurring work that makes the business steady, not seasonal',
-      'An operation that runs a week without you in it',
+      'An operation that holds for a week while you are somewhere else',
       'Clean books and a record of every customer, job and dollar',
       'Go back to the part of the work you actually like',
       'Or hand it on, or sell it, entirely your call',

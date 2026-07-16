@@ -133,8 +133,8 @@ export default function ContactPage() {
               {/* Was the mystery-shop pitch. It is the call, described as the call, which is
                   what our own cal.com booking page has said all along. */}
               <p>
-                The best way. Thirty minutes with a founder. We will show you where you are
-                losing work, and what it would take to get your life back.
+                The best way. Thirty minutes with a founder. We will show you where the work is
+                slipping, and what it would take to get your life back.
               </p>
               <div className="go">
                 <a className="btn" href={START_LINK}>
@@ -166,7 +166,7 @@ export default function ContactPage() {
       <section className="ct-prom">
         <div className="wrap">
           <div className="two">
-            <h2>We answer within one business day.</h2>
+            <h2>A founder answers. Usually the same day.</h2>
             <p>
               We built a company on the idea that <b>a business that does not answer is leaving money
               on the table</b>. It would be a strange look if we did not answer our own phone.
@@ -197,7 +197,7 @@ export default function ContactPage() {
               <div className="k">Where we are</div>
               <div className="v">
                 Toronto, Ontario
-                <span>We work with owner-operated service businesses across Canada.</span>
+                <span>We work with owner-operated service businesses. We are based in Toronto and we work across Canada.</span>
               </div>
             </div>
             <div>

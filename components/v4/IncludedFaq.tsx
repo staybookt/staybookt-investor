@@ -55,7 +55,7 @@ const QS: Q[] = [
     k: 'Who does the work',
     c: '#0ea5e9',
     q: 'What do I still have to do?',
-    a: 'Short list, on purpose. If it grows, we have built the wrong thing. The work itself: you show up, you do the job, you get paid directly. The big calls: your prices, new services, who you hire, where you work. A couple of edge cases a week where we ask what you would do. And thirty seconds on the morning brief. That is it.',
+    a: 'Short list, on purpose. If it grows, we have built the wrong thing. The work itself: you show up and you do the job. The big calls: your prices, new services, who you hire, where you work. A couple of edge cases a week where we ask what you would do. And thirty seconds on the morning brief. That is it.',
   },
   {
     k: 'What is yours',
@@ -67,7 +67,13 @@ const QS: Q[] = [
     k: 'What is yours',
     c: '#10b981',
     q: 'Do my customers become your customers?',
-    a: 'No. Your number stays your number, and nothing changes for the people who call it. We answer in your voice, under your name, using your prices. Your customers pay you directly, the way they always have. We never sit between you and your money, and we never sit between you and the people who pay you.',
+    /* THIS ANSWER USED TO DENY, EMPHATICALLY, THE THING WE ACTUALLY DO. It said "Your
+     customers pay you directly, the way they always have. We never sit between you and
+     your money." We take payment for the client (Jacob confirmed, July 2026), so that was
+     three false statements in one answer, under a heading about who owns the customer.
+     It is deliberately vague about WHERE the money settles, because that is a fact nobody
+     has written down yet. Do not add settlement mechanics here until terms says them. */
+    a: 'No. Your number stays your number, and nothing changes for the people who call it. We answer in your voice, under your name, using your prices. We take the payment for you, so nobody is chasing a card at the end of a job, but the customer is yours and the money is yours. We never take a cut of your work.',
   },
   {
     k: 'What we do not do',

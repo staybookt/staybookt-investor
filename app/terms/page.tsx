@@ -115,9 +115,9 @@ const SECTIONS: Section[] = [
               spend my money on ads? No", and /pricing says the domain is the entire list of
               pass-throughs. The contract was granting a service two other pages refuse.
               Third time the terms held the worst of it. */}
-          Third-party costs that are genuinely yours, such as your domain registration, are passed
-          through at cost and always agreed with you first. We do not spend your money without
-          asking.
+          Your domain registration, roughly twenty dollars a year, is passed through at cost. That is
+          the only third-party cost there is. If another one ever comes up, we agree it with you in
+          writing first, or we do not spend it.
         </p>
       </>
     ),
