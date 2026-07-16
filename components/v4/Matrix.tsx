@@ -340,7 +340,9 @@ export default function Matrix() {
                     <span className="pl" aria-hidden>+</span>
                   </span>
                   {COLS.map((c) => (
-                    <span className={`mx-c${c.k === 'sb' ? ' us' : ''}`} key={c.k}>
+                    /* data-lbl feeds the stacked mobile view: below 760px the header row is
+                       useless because there are no columns, so each cell names itself. */
+                    <span className={`mx-c${c.k === 'sb' ? ' us' : ''}`} key={c.k} data-lbl={c.label}>
                       <Mark v={r[c.k]} />
                     </span>
                   ))}
@@ -442,8 +444,30 @@ const CSS = `
 
 .mx-foot{margin-top:clamp(26px,3vw,34px);font-size:13.5px;line-height:1.6;color:#9298a1;max-width:70ch;}
 
+/* MOBILE: THE CHART USED TO HIDE ITS OWN PUNCHLINE.
+   .mx-grid was min-width:640px inside a ~322px content box, in an overflow-x:auto scroller.
+   Every row ran from x=35 to x=675, so 285px sat off-screen — and StayBookt is the LAST
+   column, so the one column the whole chart exists to show was the one you could not see.
+   The page never "broke", which is why it survived: the scroller swallowed the overflow and
+   nothing looked wrong unless you were actually holding a phone. Nobody was.
+   Below 760px there are no columns at all now. Each row becomes a card: the job, then the
+   four answers stacked, each naming itself from data-lbl. No sideways scrolling, and our
+   answer is always on screen. */
 @media(max-width:760px){
-  .mx-grid{min-width:640px;}
+  .mx-scroll{overflow-x:visible;padding:clamp(12px,3vw,18px) clamp(12px,3vw,16px);}
+  .mx-grid{min-width:0;}
+  .mx-hd{display:none;}
+  .mx-r{grid-template-columns:1fr;align-items:stretch;gap:0;}
+  .mx-j{padding:2px 0 10px;align-items:flex-start;justify-content:space-between;}
+  .mx-j .jt{font-size:16.5px;font-weight:600;letter-spacing:-.01em;}
+  .mx-row>button{padding:14px 0 10px;}
+  .mx-c{justify-content:space-between;padding:7px 10px;border-radius:8px;}
+  .mx-c::before{content:attr(data-lbl);font-size:12.5px;font-weight:600;color:#9298a1;letter-spacing:.01em;}
+  /* Our row stays tinted and gains its label colour, so the eye still lands on it first. */
+  .mx-row .mx-c.us{background:rgba(16,185,129,.09);border:0;border-radius:8px;margin-top:2px;}
+  .mx-row .mx-c.us::before{color:#047857;font-weight:700;}
+  .mx-grid .mx-row:last-child .mx-c.us{border:0;border-radius:8px;}
+  .mx-body{padding-left:0;}
   .mx-j .jt{font-size:14.5px;}
 }
 @media(prefers-reduced-motion:reduce){.mx-body,.mx-j .pl{transition:none;}}

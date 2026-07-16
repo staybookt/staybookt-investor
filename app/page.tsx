@@ -58,7 +58,14 @@ const PAGE_CSS = `
 .v4 header.scene .grad-ov{background:linear-gradient(180deg,rgba(5,5,6,.55) 0%,rgba(5,5,6,.12) 36%,rgba(5,5,6,.38) 68%,rgba(5,5,6,.86) 90%,#050506 100%);}
 .v4 header.scene .cta .pill{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.28);backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);}
 .v4 header.scene .cta .pill:hover{background:rgba(255,255,255,.22);transform:translateY(-1px);}
-.v4 header.scene .inner{padding:15vh 0 0;text-align:center;max-width:940px;margin:0 auto;}
+/* THE HOMEPAGE HERO HAD NO GUTTER ON A PHONE. This element is class="wrap inner".
+   .v4 .wrap gives it padding:0 32px, and this rule is more specific, so padding:15vh 0 0
+   silently wiped the horizontal half of it. On desktop you never see the bug: max-width:940
+   inside an 1180 container leaves gutters for free. At 390px there is nothing spare, so the
+   headline, the ICP badge and the sub-copy all ran flush to both edges.
+   Nobody caught it because nobody had opened this site at phone width. Keep the horizontal
+   padding here, or restate it if you ever change the vertical. */
+.v4 header.scene .inner{padding:15vh clamp(20px,4vw,32px) 0;text-align:center;max-width:940px;margin:0 auto;}
 .v4 header.scene h1{max-width:16ch;margin:20px auto 0;font-size:clamp(40px,6.6vw,88px);letter-spacing:-.03em;line-height:1.05;color:#f5f5f7;}
 .v4 header.scene p.sub{margin:24px auto 0;color:#e9e9ec;max-width:46ch;}
 .v4 header.scene .cta{justify-content:center;}
