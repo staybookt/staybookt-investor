@@ -71,7 +71,7 @@ const CSS = `
   background:radial-gradient(60% 50% at 50% 8%,rgba(79,70,229,.16),transparent 64%);}
 
 .rt-in{position:relative;z-index:2;width:min(1040px,94%);display:flex;flex-direction:column;align-items:center;gap:clamp(14px,2.4vh,28px);}
-.rt-svg{width:100%;height:auto;max-height:52vh;overflow:visible;}
+.rt-svg{width:100%;height:auto;max-height:46vh;overflow:visible;}
 
 /* WIRES. dashoffset is the whole trick: 0 = connected, full = retracted. Beat 0 runs a
    travelling pulse along them so the diagram is alive before anything has happened. */
@@ -89,10 +89,17 @@ const CSS = `
 .rt-lbl{font-size:13px;font-weight:600;font-family:-apple-system,sans-serif;transition:fill .45s ease;}
 
 /* THE HUB. Lifts and fades on beat 1, driven continuously by --lift so every press moves it. */
-.rt-hub{transform:translateY(calc(96px * var(--lift)));opacity:calc(1 - .82 * var(--lift));transition:none;}
+/* The hub translated 96px, which pushed it out of the SVG box and onto the copy below.
+   52px plus a faster fade: it is gone before it can collide. */
+.rt-hub{transform:translateY(calc(52px * var(--lift)));opacity:calc(1 - 1.15 * var(--lift));transition:none;}
 .rt-hub-r{fill:rgba(34,211,238,.14);stroke:#22d3ee;stroke-width:1.5;}
 .rt-hub-t{font-size:15px;font-weight:700;fill:#e2e7ef;font-family:-apple-system,sans-serif;}
-.rt-sb{opacity:var(--lift);transition:none;}
+/* WAS opacity:var(--lift), which meant StayBookt faded IN across beat 1 — visible behind
+   the owner while the lights were still going out, spoiling the only reveal this film has.
+   --lift belongs to the removal. Beat 2 has its own continuous var: --wire runs 1 -> 0 as
+   the wires redraw, so (1 - wire) is beat 2's own 0 -> 1. Keep these two separate. */
+.rt-sb{opacity:0;transition:none;}
+.rt-stage[data-beat="2"] .rt-sb{opacity:calc(1 - var(--wire));}
 .rt-sb-r{fill:rgba(52,211,153,.16);stroke:#34d399;stroke-width:1.5;}
 .rt-sb-t{font-size:14px;font-weight:700;fill:#d1fae5;font-family:-apple-system,sans-serif;}
 
