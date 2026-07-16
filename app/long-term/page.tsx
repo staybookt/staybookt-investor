@@ -86,28 +86,42 @@ const DRIVERS: { d: string; you: string; sb: string }[] = [
 ];
 
 const CSS = `
+/* DESIGN SYSTEM NOTE. This page was hand-rolled and did not match the site: left-aligned
+   where every interior page is centred, a 72px h1 against the standard 86-92px, a short hero
+   against min(88vh,820px), and a pill badge eyebrow that only the homepage is supposed to
+   have. It looked like a different site, because it was built off the old /enjoy-life, which
+   was itself a one-off. Copying a one-off is how the drift spreads.
+   The values below are lifted from /pricing and /how-it-works, which are the standard:
+     eyebrow   13px / 700 / .18em / uppercase / #8a8f98 (#c9cdd6 on dark)
+     headings  600 / letter-spacing -.035em
+     hero      centred, #050506, radial grade, clamp(140px,17vh,190px) top
+     h1        clamp(42px,6.6vw,86px), line-height 1.0, max 14ch, centred
+     lead      clamp(18px,2.1vw,23px) / 1.45 / #c6cbd3
+     h2        clamp(30px,4.4vw,56px), line-height 1.03
+     section   clamp(80px,11vw,140px)
+   /pricing is the model rather than /how-it-works because this is an argument page with no
+   photo. Do not add a photo hero here: the only three Pexels IDs in this codebase are all
+   spoken for, and HeroCta at the bottom of THIS page already uses one of them. */
 .lt{background:var(--v4-cream,#f6f6f3);color:var(--v4-ink,#06080d);}
 .lt .wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
 .lt .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#8a8f98;}
-.lt h1,.lt h2{font-weight:600;letter-spacing:-.035em;}
+.lt h1,.lt h2,.lt h3{font-weight:600;letter-spacing:-.035em;color:var(--v4-ink);}
 
-.lt-hero{position:relative;overflow:hidden;background:#050506;padding:clamp(104px,13vh,144px) 0 clamp(70px,8vw,100px);}
+/* HERO — the /pricing pattern exactly. */
+.lt-hero{position:relative;background:#050506;padding:clamp(140px,17vh,190px) 0 clamp(80px,10vw,120px);overflow:hidden;text-align:center;}
 .lt-hero::before{content:'';position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(58% 70% at 14% 0%,rgba(79,70,229,.16),transparent 62%),
-             radial-gradient(52% 70% at 88% 12%,rgba(16,185,129,.10),transparent 62%);}
+  background:radial-gradient(58% 46% at 50% 0%,rgba(79,70,229,.16),transparent 64%);}
 .lt-hero .wrap{position:relative;z-index:1;}
-.lt-k{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:700;letter-spacing:.15em;
-  text-transform:uppercase;color:#eef1f6;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
-  border-radius:999px;padding:9px 18px 9px 13px;}
-.lt-k::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--sb-grad);
-  box-shadow:0 0 10px 1px rgba(16,185,129,.75);}
-.lt-hero h1{margin:20px 0 0;font-size:clamp(38px,5.6vw,72px);line-height:1.0;color:#fff;max-width:16ch;}
+.lt-hero .eyebrow{color:#c9cdd6;}
+.lt-hero h1{margin-top:18px;font-size:clamp(42px,6.6vw,86px);line-height:1.0;max-width:14ch;
+  margin-left:auto;margin-right:auto;color:#fff;text-shadow:0 4px 44px rgba(0,0,0,.6);}
 .lt-hero h1 .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
-.lt-hero p{margin:24px 0 0;font-size:clamp(17px,2vw,21px);line-height:1.6;color:#aeb6c4;max-width:56ch;}
+.lt-hero p{margin:26px auto 0;font-size:clamp(18px,2.1vw,23px);line-height:1.45;color:#c6cbd3;max-width:46ch;}
 
-.lt-sec{padding:clamp(76px,9vw,116px) 0;border-top:1px solid #e6e6e1;}
+/* SECTIONS — clamp(80px,11vw,140px) is the gold rhythm. */
+.lt-sec{padding:clamp(80px,11vw,140px) 0;border-top:1px solid #e6e6e1;}
 .lt-sec:first-of-type{border-top:0;}
-.lt-sec h2{margin-top:14px;font-size:clamp(28px,4.2vw,52px);line-height:1.04;max-width:19ch;}
+.lt-sec h2{margin-top:14px;font-size:clamp(30px,4.4vw,56px);line-height:1.03;max-width:18ch;}
 .lt-sec p{margin-top:22px;font-size:clamp(16.5px,1.9vw,20px);line-height:1.65;color:#42474f;max-width:62ch;}
 .lt-sec p b{font-weight:600;color:var(--v4-ink);}
 .lt-kick{margin-top:clamp(34px,4vw,46px);padding-left:clamp(16px,2vw,22px);border-left:3px solid transparent;
@@ -115,8 +129,9 @@ const CSS = `
   line-height:1.25;color:var(--v4-ink);max-width:24ch;}
 
 /* THE CHART (Richard's ask). Deliberately NOT a competitor chart: no answering service, no
-   agency, no crosses to get wrong. Six rows have carried false crosses on the other chart
-   already. This one only claims things about us. */
+   agency, no crosses to get wrong — that other chart has carried six false crosses. This one
+   only claims things about us. Visual language matches Matrix: white card, hairline rows,
+   uppercase column heads, emerald for our column. */
 .lt-tbl{margin-top:clamp(36px,4.4vw,52px);border:1px solid #e6e6e1;border-radius:20px;overflow:hidden;background:#fff;
   box-shadow:0 40px 80px -56px rgba(6,12,20,.34);}
 .lt-hd,.lt-row{display:grid;grid-template-columns:1.15fr 1fr 1.25fr;gap:clamp(12px,2vw,26px);
@@ -130,17 +145,18 @@ const CSS = `
 .lt-you{font-size:14.5px;line-height:1.55;color:#9aa1ab;}
 .lt-sb{display:flex;gap:10px;font-size:14.5px;line-height:1.55;color:#42474f;}
 .lt-sb svg{width:17px;height:17px;flex:0 0 auto;margin-top:2px;color:#059669;}
+/* Mobile: the Matrix keeps a 640px track and pushes its own column off-screen. Do not repeat
+   that here — collapse to stacked rows with the column names inlined. */
 @media(max-width:820px){
   .lt-hd{display:none;}
   .lt-row{grid-template-columns:1fr;gap:8px;padding:20px clamp(16px,4vw,22px);}
   .lt-you::before{content:'You, today: ';font-weight:600;color:#6b7280;}
-  .lt-sb::before{content:'';}
 }
 .lt-fine{margin-top:22px;font-size:14px;line-height:1.6;color:#8a8f98;max-width:70ch;}
 
-.lt-none{background:#050506;padding:clamp(76px,9vw,116px) 0;}
+.lt-none{background:#050506;padding:clamp(80px,11vw,140px) 0;}
 .lt-none .eyebrow{color:#8a8f98;}
-.lt-none h2{margin-top:14px;font-size:clamp(30px,4.6vw,58px);color:#fff;max-width:14ch;}
+.lt-none h2{margin-top:14px;font-size:clamp(30px,4.4vw,56px);line-height:1.03;color:#fff;max-width:14ch;}
 .lt-none h2 .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .lt-none p{margin-top:22px;font-size:clamp(16.5px,1.9vw,20px);line-height:1.65;color:#aeb6c4;max-width:60ch;}
 .lt-none p b{color:#fff;font-weight:600;}
@@ -160,7 +176,7 @@ export default function LongTermPage() {
 
       <header className="lt-hero">
         <div className="wrap">
-          <Reveal as="div"><div className="lt-k">Long-term value</div></Reveal>
+          <Reveal className="eyebrow" as="div">Long-term value</Reveal>
           <Reveal>
             <h1>One day, this has to be <span className="g">worth something.</span></h1>
           </Reveal>
