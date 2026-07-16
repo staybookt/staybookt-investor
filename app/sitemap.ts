@@ -10,7 +10,7 @@ const PATHS = [
   '/',
   '/how-it-works',
   '/pricing',
-  '/enjoy-life',
+  '/long-term',
   '/work',
   '/founders',
   '/whats-included',

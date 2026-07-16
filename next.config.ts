@@ -17,11 +17,10 @@ const GHOSTS: { source: string; destination: string }[] = [
   { source: '/why-a-website', destination: '/how-it-works' },
   { source: '/is-this-for-me', destination: '/how-it-works' },
   { source: '/economics', destination: '/pricing' },
-  { source: '/long-term', destination: '/pricing' },
-  // /enjoy-life IS A REAL PAGE AGAIN (Jacob, July 2026) and is deliberately not in this
-  // list. The old one sold the 20% value share; Richard killed the share, so the page lost
-  // its spine and became a redirect. It has been rebuilt around taking nothing instead,
-  // which is a harder argument and a truer one. /economics and /long-term stay dead.
+  // /long-term IS A REAL PAGE (Richard, review round 2, July 2026). It was a ghost, then the
+  // same argument shipped at /enjoy-life, and Richard called that "the weakest part of the
+  // site" because the title promised a feeling while the page argued economics. It is back at
+  // the URL that always described it. /economics stays dead.
   { source: '/proof', destination: '/work' },
   // Investor-era pages. No investor surface right now, so they go home.
   { source: '/opportunity', destination: '/' },
@@ -41,7 +40,13 @@ const GHOSTS: { source: string; destination: string }[] = [
  *
  * The "before" was recoverable (Tim's old WordPress is intact on DreamHost). We chose not to
  * use it. See the header of components/v4/WorkShowcase.tsx for why. */
-const BENCHED: { source: string; destination: string }[] = [];
+/* /enjoy-life is 307 (TEMPORARY) on purpose. This route has been a ghost, then a real page,
+ * then renamed, all inside one day. A 308 is cached by the browser forever and tells Google
+ * to drop the URL; using one on a route this volatile poisons it for anyone who saw it once.
+ * The page moved to /long-term. If that name survives a month, this can become a 308. */
+const BENCHED: { source: string; destination: string }[] = [
+  { source: '/enjoy-life', destination: '/long-term' },
+];
 
 const nextConfig: NextConfig = {
   images: {

@@ -25,7 +25,11 @@ const LINKS = [
   { href: '/how-it-works', label: 'How it works' },
   { href: '/whats-included', label: "What's included" },
   { href: '/pricing', label: 'Pricing' },
-  { href: '/enjoy-life', label: 'Enjoy Life' },
+  /* WAS 'Enjoy Life'. Richard: "Enjoy Life has a different connotation than I think the page
+     is doing so it feels clunky... I would focus on long-term value as a stand alone." The
+     label is his words. It is longer than the others and that is fine: clarity beats
+     cleverness, which is the same argument we had about the closing tag. */
+  { href: '/long-term', label: 'Long-term value' },
   { href: '/work', label: 'The work' },
   { href: '/founders', label: 'About us' },
 ];

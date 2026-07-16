@@ -387,10 +387,10 @@ function StopBlock({ s, open, onToggle, obsRef, pointRef }: { s: Stop; open: boo
         <div className="beat">{s.beat}</div>
         <div className="result">&rarr; {s.result}</div>
         {/* Milestone 3 is the only one whose payoff needs an argument behind it, and the
-            argument is a whole page (/enjoy-life). This scene is the feeling; the page is
-            the reasoning. Do not paste the page's argument in here. */}
+            argument is a whole page (/long-term, formerly /enjoy-life). This scene is the
+            feeling; the page is the reasoning. Do not paste the page's argument in here. */}
         {s.id === 'free' && (
-          <a className="jgo" href="/enjoy-life">What Enjoy Life actually means <span>&rarr;</span></a>
+          <a className="jgo" href="/long-term">What it is worth later <span>&rarr;</span></a>
         )}
 
         <div className="stage">
