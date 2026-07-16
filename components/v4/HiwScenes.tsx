@@ -251,7 +251,12 @@ type Msg = { side: 'them' | 'us' | 'sys'; text: string; tag?: string };
 
 const THREAD: Msg[] = [
   { side: 'them', text: 'Hey, my kitchen sink is leaking everywhere. Can someone come out?' },
-  { side: 'us', text: 'It’s $180 for the visit and you’re well inside our area. I can do Thursday 8:30 AM.', tag: 'Sent by StayBookt · 9 seconds' },
+  { side: 'us', text: 'It’s $180 for the visit and you’re well inside our area. I can do Thursday 8:30 AM.', /* WAS 'Sent by StayBookt · 9 seconds'. We have never measured a response time. The
+     illustration disclaimer on this page covers "this is not a customer's screenshot";
+     it does not cover "this is how fast we are". An illustration of an invented
+     capability is still a claim. The scene's argument is that it happened at 6:47 PM
+     while you were under a sink. The stopwatch added nothing. */
+    tag: 'Sent by StayBookt' },
   { side: 'them', text: 'That works. Please book it.' },
   { side: 'us', text: 'Done. Thursday 8:30 AM. You’ll get a confirmation and a reminder the night before.' },
   { side: 'sys', text: '2:14 AM · Call answered. Triaged, not an emergency. Booked 7:00 AM.' },

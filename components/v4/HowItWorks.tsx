@@ -61,7 +61,9 @@ const STOPS: Stop[] = [
      * justified taking 20% of the increase in value. That fee is dead (Richard,
      * July 14 2026), so the valuation framing goes with it. Enjoy Life is now
      * purely the outcome: a business that runs without you, and no cut taken. */
-    beat: 'After a year of this, the business runs without you standing in the middle of it. What you do with that is entirely your call. Most owners do not want out. They want the good half of the job back.',
+    /* The banned phrase survived HERE, on the beat, which is the line that renders large,
+       while the fix landed on the step below. Check the line that ships, not the nearest one. */
+    beat: 'After a year of this, the business keeps booking and earning when you are not standing in the middle of it. What you do with that is entirely your call. Most owners do not want out. They want the good half of the job back.',
     result: 'Do the part you love, hand it to family, or sell it.',
     steps: [
       /* "runs without you" is banned language (see app/layout.tsx) and it survived here.
@@ -310,7 +312,7 @@ function GetFoundScene() {
       <div className="ai">
         <div className="k">Asked an AI assistant</div>
         <div className="q2">&ldquo;Who is a good plumber near me?&rdquo;</div>
-        <div className="a2">Redwater Plumbing &mdash; 4.9 stars, open now, and one tap to call.</div>
+        <div className="a2">Redwater Plumbing. 4.9 stars, open now, and one tap to call.</div>
       </div>
       <div className="chips">
         <span className="chip">New text &middot; booked</span>
@@ -347,8 +349,8 @@ function EnjoyLifeScene() {
   }, []);
   const CH = [
     { l: 'Keep it, and love it', d: 'Go back to the part of the work you actually enjoy. Most owners pick this one.', icon: 'M12 21s-7-4.5-7-10a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 5.5-7 10-7 10z' },
-    { l: 'Hand it off', d: 'Pass a clean, self-running operation to a family member or your crew.', icon: 'M17 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2M9 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6' },
-    { l: 'Sell it', d: 'A business that runs on its own is one a buyer actually wants.', icon: 'M12 3v18M5 10l7-7 7 7' },
+    { l: 'Hand it off', d: 'Pass over an operation that already works, instead of a job only you know how to do.', icon: 'M17 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2M9 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6' },
+    { l: 'Sell it', d: 'A business that keeps booking when you are not there is one a buyer actually wants.', icon: 'M12 3v18M5 10l7-7 7 7' },
   ];
   return (
     <div className="el" ref={ref} style={{ '--m': '78%' } as CSSProperties}>

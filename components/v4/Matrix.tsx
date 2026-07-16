@@ -117,6 +117,18 @@ const ROWS: Row[] = [
     ],
   },
   {
+    /* We take payment (Jacob confirmed, July 2026). Neither an answering service nor a web
+       agency does this, so the two 'no' marks here are earned, not manufactured. No claim
+       about where the money settles: that is not written down yet. */
+    job: 'Take the payment',
+    you: 'you', svc: 'no', agy: 'no', sb: 'yes',
+    detail: [
+      'The customer can pay when the job is done, not a fortnight after it',
+      'Nobody standing in a driveway asking for a cheque',
+      'The money is yours. We never take a cut of a job',
+    ],
+  },
+  {
     job: 'Chase the invoice nobody chased',
     you: 'you', svc: 'no', agy: 'no', sb: 'yes',
     detail: [
@@ -230,8 +242,13 @@ const ROWS: Row[] = [
     ],
   },
   {
+    /* svc was 'no'. It was wrong, and it is the fourth false cross this chart has carried.
+       Ruby, Smith.ai and AnswerConnect all send a daily call recap: the row LABEL is a
+       thing they genuinely do, and the label is all most people read. The win is in the
+       detail below, which needs the calendar they do not have. Never mark a competitor
+       down for something they genuinely do. */
     job: 'Hand you one short brief each morning',
-    you: 'you', svc: 'no', agy: 'no', sb: 'yes',
+    you: 'you', svc: 'yes', agy: 'no', sb: 'yes',
     detail: [
       'What is booked today, and who is expecting you',
       'Anything that needs a decision from you, and nothing that does not',
