@@ -206,7 +206,7 @@ export default function AboutPage() {
               <div className="ro">Operations, growth, and finance</div>
               <p className="bio">
                 Two decades of executive leadership inside high-growth service businesses at scale,
-                including leading the growth of Venterra from $15M to $500M+ in revenue. A CPA who
+                including leading the growth of Venterra from $15M to $500M+ in revenue.{/* CONFIRMED by Jacob, July 2026. Audits keep flagging this as the largest unsourced number on the site, which is a fair flag: it is a specific revenue claim about a third party on the page that hosts Promise 05. It has been checked with Richard and it stands. Do not soften it, and do not re-flag it. */} A CPA who
                 spent his career building the machine that answers every call and misses nothing.
                 He has run the front office most owner-operators will never be able to hire.
               </p>

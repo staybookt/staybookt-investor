@@ -102,7 +102,7 @@ const SECTIONS: Section[] = [
         <p>
           To run your front office we handle information about your business and about your
           customers, including names, phone numbers, email addresses, addresses, job details, call
-          recordings, message threads and payment status.
+          recordings, message threads, payment details and payment status.
         </p>
         <p>
           <b>Your customers&rsquo; data belongs to you, not to us.</b> We handle it on your behalf, to
@@ -128,6 +128,10 @@ const SECTIONS: Section[] = [
               marketing at all. Same file the "to send quotes" claim hid in. */}
           <li>To email your past customers on your behalf, where they have consented, to bring them back for work they are due.</li>
           <li>To give you your morning brief and show you what happened.</li>
+          {/* This list says what we USE the data for and did not mention the one thing that
+              touches money. We take payment for the client; "to bill you" is about our own
+              $199, not about their customers paying them. */}
+          <li>To take payment from your customers on your behalf, and get the money to you.</li>
           <li>To bill you, and to keep the records the law requires us to keep.</li>
         </ul>
         <p>
@@ -152,6 +156,11 @@ const SECTIONS: Section[] = [
           <li>Telephony and messaging providers, to carry the calls and texts.</li>
           <li>Website analytics.</li>
           <li>AI providers, to draft and handle everyday responses.</li>
+          {/* The processor list had no payment processor on it, while the page above said we
+              handle "payment status". Under PIPEDA that is a materially incomplete disclosure
+              of who touches their customers' payment data, on a page headed "We do not sell
+              your data. Ever." A reviewer who knows we take payments reads a gap as a cover-up. */}
+          <li>Stripe or Square, to take payment from your customers on your behalf.</li>
           <li>Google, for your Business Profile and search presence.</li>
         </ul>
         <p>

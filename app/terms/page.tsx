@@ -51,6 +51,7 @@ const SECTIONS: Section[] = [
           <li>Answer calls and texts to your business, using a mix of AI and real people.</li>
           <li>Book jobs onto your calendar, confirm them and send reminders.</li>
           <li>Follow up the quotes you send until you get a yes or a no.</li>
+          <li>Take payment from your customers on your behalf, into your own account.</li>
           <li>Ask your customers for reviews and bring past customers back.</li>
           <li>Send you a short brief each morning.</li>
         </ul>
@@ -69,8 +70,9 @@ const SECTIONS: Section[] = [
       <>
         <p>
           To do this job, we communicate with your customers as your business. You authorise us to
-          answer, text and email on your behalf, and to tell your customers your prices, using your
-          name, your prices and your service area, as agreed with you during setup.
+          answer, text and email on your behalf, to tell your customers your prices, and to take
+          payment from them on your behalf, using your name, your prices and your service area, as
+          agreed with you during setup.
         </p>
         <p>
           You remain responsible for what your business promises. You must give us accurate pricing,
@@ -111,13 +113,64 @@ const SECTIONS: Section[] = [
           whatever your busiest month looks like.
         </p>
         <p>
-          {/* "or paid advertising you ask us to run" is gone. /whats-included says "Do you
-              spend my money on ads? No", and /pricing says the domain is the entire list of
-              pass-throughs. The contract was granting a service two other pages refuse.
-              Third time the terms held the worst of it. */}
-          Your domain registration, roughly twenty dollars a year, is passed through at cost. That is
-          the only third-party cost there is. If another one ever comes up, we agree it with you in
-          writing first, or we do not spend it.
+          {/* "or paid advertising you ask us to run" is gone: /whats-included says "Do you
+              spend my money on ads? No", so the contract was granting a service two other
+              pages refuse. Third time the terms held the worst of it.
+              THEN this clause said the domain was "the only third-party cost there is",
+              which went false the day we started taking payments and the client started
+              absorbing the card fee. It is TWO costs now. This list, the /pricing FAQ and
+              the "Money we handle for you" section must agree. If you change one, change
+              all three. */}
+          {/* This said "the only third-party cost there is" until Jacob confirmed the client
+              absorbs card processing fees. That made it false the moment we started taking
+              payments. Two costs, named, or the sentence is a lie. */}
+          Two things sit outside the $199, and this is the whole list. Your domain registration,
+          roughly twenty dollars a year, passed through at cost and yours anyway. And the fee Stripe
+          or Square charge on card payments, which is theirs, not ours, and which we do not mark up.
+          If a third ever comes up, we agree it with you in writing first, or we do not spend it.
+        </p>
+      </>
+    ),
+  },
+  {
+    /* THIS SECTION DID NOT EXIST, and its absence was the single worst thing in the terms.
+     * We take payment from customers, and the contract authorised us to "answer, text and
+     * email" and nothing else. It said nothing about whose money it is, where it settles,
+     * who bears a chargeback, or what happens to money in flight at cancellation. That is
+     * the third time the terms held the worst of it.
+     *
+     * Every fact below was confirmed by Jacob, July 2026. Do not soften or embroider it:
+     *   - funds settle to the CLIENT'S OWN account. We never hold their money.
+     *   - the client absorbs the processor's fee. We do not mark it up and take no cut.
+     *   - the client bears refunds and chargebacks, because it is their sale.
+     * If any of those three change, this section and the /pricing FAQ both change. */
+    id: 'money',
+    h: 'Money we handle for you',
+    body: (
+      <>
+        <p>
+          We take payment from your customers so you are not the one chasing a card at the end of a
+          job. <b>The money is yours and it goes straight to you.</b> It lands in a payment account
+          in your name, with Stripe or Square. It never passes through a StayBookt account and we
+          never hold it, not for a day.
+        </p>
+        <p>
+          That account is yours. We help you set it up and we run it as part of the service, but it
+          is in your name, and if you leave you keep it, along with anything in flight. There is
+          nothing for us to release.
+        </p>
+        <p>
+          <b>Stripe and Square charge their own fee on card payments</b>, in the region of 2.9% plus
+          thirty cents, set by them and not by us. That fee is theirs. It comes out of what you
+          collect, the same as it would with any card processing, <b>we do not mark it up, and we
+          take no share of it and no cut of the job</b>.
+        </p>
+        <p>
+          Refunds and chargebacks are yours: it is your sale, your work and your call, so you decide
+          what to refund and you bear a disputed charge. The one exception is our own mistake. If a
+          dispute traces back to something we got wrong, a price we quoted you did not give us or a
+          job we booked you did not agree to, we tell you before your customer does, you decide what
+          you want to honour, and we are the ones who go back to them and sort it out.
         </p>
       </>
     ),
