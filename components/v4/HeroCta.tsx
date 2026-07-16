@@ -33,7 +33,19 @@ export default function HeroCta({ fromBlack = false }: { fromBlack?: boolean }) 
             So the closer echoes the hero instead of fighting it, and it keeps Enjoy Life,
             which is the brand. Not turned into a question: a question at the close invites
             the answer "no". */}
-        <h2>You built the business. Now go enjoy the life.</h2>
+        {/* THE CLOSING TAG, LOCKED (Jacob + Richard, July 2026).
+            It was "You built the business. Now go enjoy the life." Richard twice: "I have to
+            reread it to think I get it... I don't like the tag as I think it is not clear. I
+            wouldn't use it anywhere." When a reviewer says the same thing twice, the line is
+            the problem, not the reviewer.
+            He wanted a question ("Are you ready to do more meaningful work and Enjoy Life
+            more?"). We pushed back on the format only: a question at the close can be
+            answered "no" in the reader's head for free, right where we want a click. He took
+            the alternative. Declarative, instantly clear, no rereading.
+            NOTE: the footer used to say "You do the work. We run the rest." — near-identical,
+            200px below this, on every page. It now says "Enjoy Life." If you ever change this
+            line back, check the footer again. */}
+        <h2>Do the work you love. We&rsquo;ll run the rest.</h2>
         <p>We get you found and run the day to day. You get your time back.</p>
         <a className="hcta-btn" href={START_LINK}>Get Started</a>
         <div className="hcta-note">Thirty minutes with a founder. Never a sales rep.</div>

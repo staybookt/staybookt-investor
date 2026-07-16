@@ -44,7 +44,12 @@ export default function SiteFooter() {
           <div>
             <Wordmark onDark period />
             <p className="mt-3 max-w-md text-sm leading-relaxed" style={{ color: '#7e8698' }}>
-              You do the work. We run the rest.
+              {/* WAS "You do the work. We run the rest." The closing CTA directly above this
+                  now says "Do the work you love. We'll run the rest." — the same sentence,
+                  twice, a screen apart. This is the other half of the wordmark and the actual
+                  brand slogan (the homepage title is "StayBookt. Enjoy Life."), so the footer
+                  now closes the name instead of echoing the CTA. */}
+              Enjoy Life.
             </p>
           </div>
           <div className="flex flex-col items-start gap-3 sm:items-end">
