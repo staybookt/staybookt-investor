@@ -16,6 +16,9 @@ export const metadata = {
   description: SHARE,
   alternates: { canonical: '/work' },
   openGraph: {
+    /* Defining openGraph WITHOUT images suppresses the inherited app/opengraph-image.tsx,
+       so this page shared as a bare grey rectangle. Every page needs its own images line. */
+    images: ['/opengraph-image'],
     title: 'The work · StayBookt',
     description: SHARE,
     url: 'https://www.staybookt.com/work',
@@ -23,7 +26,7 @@ export const metadata = {
     locale: 'en_CA',
     type: 'website',
   },
-  twitter: { card: 'summary_large_image', title: 'The work · StayBookt', description: SHARE },
+  twitter: { images: ['/twitter-image'], card: 'summary_large_image', title: 'The work · StayBookt', description: SHARE },
 };
 
 export default function WorkPage() {

@@ -15,6 +15,9 @@ export const metadata = {
   description: SHARE,
   alternates: { canonical: '/how-it-works' },
   openGraph: {
+    /* Defining openGraph WITHOUT images suppresses the inherited app/opengraph-image.tsx,
+       so this page shared as a bare grey rectangle. Every page needs its own images line. */
+    images: ['/opengraph-image'],
     title: 'How it works · StayBookt',
     description: SHARE,
     url: 'https://www.staybookt.com/how-it-works',
@@ -22,7 +25,7 @@ export const metadata = {
     locale: 'en_CA',
     type: 'website',
   },
-  twitter: { card: 'summary_large_image', title: 'How it works · StayBookt', description: SHARE },
+  twitter: { images: ['/twitter-image'], card: 'summary_large_image', title: 'How it works · StayBookt', description: SHARE },
 };
 
 export default function HowItWorksPage() {

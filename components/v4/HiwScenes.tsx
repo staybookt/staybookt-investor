@@ -394,10 +394,14 @@ export function Arrival() {
           longer needs you standing in the middle of it.
         </p>
         <div className="arr-f">That was always the point.</div>
-        <div className="arr-cta">
-          <a href={START_LINK}>Start the journey</a>
-          <span className="arr-note">Thirty minutes with a founder. Never a sales rep.</span>
-        </div>
+        {/* THE BESPOKE CTA IS GONE. This scene ended in a "Start the journey" button on the
+            same Pexels photo HeroCta uses, one screen before HeroCta says almost the same
+            thing with the same footnote. Two closing CTAs, a third button label, and the
+            cream FAQ stranded between two dark full-viewport scenes.
+            Worse: the headline above it was "Go enjoy the life you built it for." — the line
+            Richard rejected ("I have to reread it to think I get it"). It was fixed in
+            HeroCta and survived here. One closing CTA site-wide: HeroCta. The scene ends on
+            "That was always the point." */}
       </div>
     </section>
   );

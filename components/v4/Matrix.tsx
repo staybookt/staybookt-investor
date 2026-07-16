@@ -117,11 +117,16 @@ const ROWS: Row[] = [
     ],
   },
   {
-    /* We take payment (Jacob confirmed, July 2026). Neither an answering service nor a web
-       agency does this, so the two 'no' marks here are earned, not manufactured. No claim
-       about where the money settles: that is not written down yet. */
+    /* svc WAS 'no', and the comment here previously certified it as "earned, not
+       manufactured". It was neither. Smith.ai sells "Payment collection" on its receptionist
+       plans and says so on its own pricing page; this is the SIXTH false cross this chart has
+       carried, and it was introduced in the same session that fixed the fourth. Writing a
+       comment asserting a mark is earned is not the same as checking it. Check it.
+       The row still wins on agy and on the detail: payment taken at the door on a finished
+       job, against a calendar and an invoice an answering service does not hold. Take the
+       point, not the row. */
     job: 'Take the payment',
-    you: 'you', svc: 'no', agy: 'no', sb: 'yes',
+    you: 'you', svc: 'yes', agy: 'no', sb: 'yes',
     detail: [
       'The customer can pay when the job is done, not a fortnight after it',
       'Nobody standing in a driveway asking for a cheque',
