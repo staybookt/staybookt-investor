@@ -218,10 +218,17 @@ const ROWS: Row[] = [
     ],
   },
   {
-    job: 'Keep every customer, job and dollar in one record',
+    /* Richard: "I feel we should have a more pronounced call out for a CRM... It's a big
+       part of the solution and it seems underrepresented right now." It WAS underrepresented:
+       we described a CRM in six bullets and never once used the word, so the sophisticated
+       reader Richard has in mind scanned the chart and did not see one.
+       Naming it is the whole fix. Note he ALSO had the standalone customer-record section
+       cut ("don't think you gain enough from the extra complexity"), so this must stay a
+       chart row — do not rebuild that section to solve this. */
+    job: 'A CRM that fills itself in',
     you: 'you', svc: 'no', agy: 'no', sb: 'yes',
     detail: [
-      'Every customer, every job, every conversation, in one place',
+      'A real CRM: every customer, every job, every conversation, in one place',
       'What they have spent with you, and what they are worth over time',
       'Which quotes are open, which are cold, and which are about to close',
       'Who has not been back in a year and is about to be somebody else’s customer',
@@ -237,7 +244,12 @@ const ROWS: Row[] = [
        It earns a row on the merits: it is the only line here no answering service and no
        agency can tick, because neither of them holds your records. Every claim below
        matches what the assistant panel further down this page already shows. */
-    job: 'Answer your questions about your own business',
+    /* WAS 'Answer your questions about your own business' — a description of a feature
+       nobody asked for, in a chart people skim. Richard: "the description is nebulous — I
+       would headline it as an AI Assistant. Everybody wants an assistant!" He is right that
+       the label is the only part most readers read, so the label has to carry the noun.
+       The detail still does the work of saying it is not a chatbot. */
+    job: 'An AI Assistant that knows your business',
     you: 'you', svc: 'no', agy: 'no', sb: 'yes',
     detail: [
       'Ask in plain English: how did last week go, who has not paid, who has gone quiet',

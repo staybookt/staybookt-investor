@@ -615,11 +615,11 @@ export default function HowItWorks() {
             </div>
           </div>
 
-          {/* One honest line covering every rendered surface on this page. We
-              illustrate what the service does. We never invent a result. */}
-          <p className="jfine">
-            Screens shown are illustrations of the service, not screenshots of a customer&apos;s account.
-          </p>
+          {/* The illustration footnote is gone (Jacob, July 2026; Richard asked twice).
+              Promise 05 was amended in the same commit, because that promise was the thing
+              this line made true. See the longer note in app/page.tsx.
+              The rule that survives: we illustrate what the service DOES, never what it
+              ACHIEVED. No invented results on this page, footnote or no footnote. */}
         </div>
       </section>
 

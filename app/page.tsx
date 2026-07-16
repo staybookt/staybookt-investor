@@ -385,13 +385,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5 — ILLUSTRATION FOOTNOTE. The homepage carries the most convincing mockups
-             we own and was the one page not admitting they are illustrations. */}
-      <div className="illus">
-        <div className="wrap">
-          Screens shown are illustrations of the service, not screenshots of a customer&apos;s account.
-        </div>
-      </div>
+      {/* THE ILLUSTRATION FOOTNOTE IS GONE (Jacob, July 2026, after Richard asked twice and
+             called it clutter). Read this before putting it back or taking it further:
+             deleting it made Promise 05 false, because Promise 05 literally said "Where we
+             illustrate the service, we say so, in writing, on the page" — this footnote WAS
+             that. So Promise 05 was amended in the same commit. The two move together. If a
+             disclaimer ever comes back here, that clause goes back into Promise 05.
+             What still holds, and must: we do not show a result we did not produce. The one
+             real artifact on this site (/work) is a real screenshot of a real live site you
+             can click. Illustrating what the service DOES is fine. Illustrating what it
+             ACHIEVED is not, footnote or no footnote. */}
 
       {/* 6 — GO DEEPER (navigation) */}
       <section className="explore">

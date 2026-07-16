@@ -24,6 +24,11 @@ import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 
 
 /* Enjoy Life (beat 2) was 24% of the track and went by too fast to read. It is now
  * 32%, and the whole track is longer, so every beat has more room. */
+/* TRACK LENGTH. 620vh was 4693px, which is 3936px of scroll: ~98 down-arrow presses at
+   Chrome's ~40px per press to get through ONE section. Richard, twice: "still slow when
+   using the down arrow... Seems fine if using the scroll bar." A scrollbar drag hides the
+   cost; an arrow key exposes it. 460vh is ~2725px of scroll, ~68 presses. The film is the
+   same film; it just stops charging a toll. */
 const B = [0, 0.18, 0.38, 0.70, 1]; // beat boundaries
 
 /* The five people you cannot hire. Same argument as the FiveSalaries ledger on
@@ -67,7 +72,7 @@ function RoleIcon({ id }: { id: string }) {
 }
 
 const CSS = `
-.sscx-track{position:relative;height:620vh;background:#050506;}
+.sscx-track{position:relative;height:460vh;background:#050506;}
 .sscx-stage{position:sticky;top:0;height:100vh;min-height:600px;overflow:hidden;display:flex;flex-direction:column;color:#f5f5f7;--acc:#0ea5e9;--cp:0;--o0:1;--o1:0;--o2:0;--lz:0;}
 .sscx-stage[data-beat="1"]{--acc:#22d3ee;}
 .sscx-stage[data-beat="2"]{--acc:#ffd9a3;}
@@ -129,12 +134,17 @@ const CSS = `
 .sscx-stage[data-beat="0"] .p0,.sscx-stage[data-beat="1"] .p1,.sscx-stage[data-beat="3"] .p3{opacity:1;transform:none;pointer-events:auto;}
 .sscx-stage[data-beat="3"] .p3{position:relative;}
 
-/* sub-progress dots */
+/* SUB-PROGRESS DOTS. The beat-1 set is GONE (Richard: "Where the words are below the
+   flywheel graphic there is a floating blue dot that creates confusion with the words. I
+   think this should be eliminated."). He is right twice over: bottom:12% put the cyan
+   active dot on top of the copy, AND the dots became redundant the moment the orbit ring
+   started showing the same six steps continuously. Two progress indicators for one thing,
+   one of them sitting on the words.
+   The beat-2 set stays: those scenes crossfade and have no ring behind them. */
 .sscx-sub{position:absolute;left:0;right:0;bottom:12%;z-index:3;display:flex;gap:9px;justify-content:center;opacity:0;transition:opacity .5s ease;pointer-events:none;}
-.sscx-stage[data-beat="1"] .sscx-sub.sub-sc,.sscx-stage[data-beat="2"] .sscx-sub.sub-life{opacity:1;}
+.sscx-stage[data-beat="2"] .sscx-sub.sub-life{opacity:1;}
 .sscx-sub span{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.3);transition:transform .3s ease,background .3s ease;}
 .sscx-sub.sub-life span.a{background:#ffd9a3;transform:scale(1.4);}
-.sscx-sub.sub-sc span.a{background:#22d3ee;transform:scale(1.4);}
 
 /* beat 0 — GET FOUND: climb rides scroll continuously via --cp (0..1) */
 .b1{width:min(600px,94%);}
@@ -209,6 +219,20 @@ const CSS = `
 .pj-dol{font-size:.34em;font-weight:600;margin-top:.16em;color:#8b93a5;}
 .pj-per{align-self:flex-end;margin-bottom:.2em;margin-left:8px;font-size:.13em;font-weight:600;letter-spacing:0;color:#8b93a5;}
 .pj-sub{margin:14px auto 0;font-size:clamp(16px,1.9vw,21px);font-weight:600;letter-spacing:-.02em;color:#d7dce4;}
+/* THE TERMS LINE RIDES THE TAIL OF BEAT 3. pj saturates at 6 by lp 0.545 and was the only
+   thing this beat changed, so the last 45% of it was dead scroll: ~13 arrow presses that
+   moved the page and changed nothing. That is what Richard kept hitting.
+   (No backticks in this comment: the whole CSS block is a template literal, so a backtick
+   here closes the string and the file stops compiling. It cost a build to learn that.)
+   --pjp is beat 3's continuous 0..1. The big number still lands at 0.545 and still holds,
+   but this line now settles in underneath from 0.60 to 0.88, so the hold has motion and the
+   last thing read before the FAQ is the terms. The short linear transition only smooths rAF
+   jitter; the reveal itself is scroll position, not a timer. */
+.sscx-stage[data-pj="6"] .pj-sub{
+  opacity:clamp(0, (var(--pjp,0) - .60) * 3.6, 1);
+  transform:translateY(calc(12px * (1 - clamp(0, (var(--pjp,0) - .60) * 3.6, 1))));
+  transition:opacity .12s linear, transform .12s linear;
+}
 
 /* dots */
 .sscx-dots{position:relative;z-index:3;display:flex;gap:24px;justify-content:center;padding:14px 20px 28px;flex-wrap:wrap;}
@@ -289,6 +313,7 @@ export default function JourneyMap() {
   const [lo, setLo] = useState<[number, number, number]>([1, 0, 0]);
   const [lz, setLz] = useState(0);
   const [pj, setPj] = useState(0);
+  const [pjp, setPjp] = useState(0);
   const [fills, setFills] = useState<[number, number, number, number]>([0, 0, 0, 0]);
 
   useEffect(() => {
@@ -337,6 +362,15 @@ export default function JourneyMap() {
            At 11 the five jobs are all in by ~36% and the number is up by ~55%, so it
            holds for nearly half the beat. The reveal IS the point. Let it sit there. */
         setPj(b < 3 ? 0 : Math.min(6, Math.floor(lp * 11)));
+        /* THE HOLD WAS COSTING 13 DEAD KEYPRESSES. `pj` saturates at 6 once lp >= 6/11
+           (0.545), and `pj` was the ONLY thing beat 3 changed. So the last 45% of the beat
+           moved the page and changed nothing on screen: the exact failure fixed in beat 1
+           one beat earlier, reintroduced by the front-loaded multiplier above.
+           Keeping the hold was right, the reveal IS the point. Paying for it with dead
+           scroll was not. `pjp` runs continuously through the beat and settles the card, so
+           the number still sits there for half the beat and every press still moves
+           something. Do not remove this without shortening beat 3. */
+        setPjp(b < 3 ? 0 : lp);
         /* Falloff was 3, which made each scene snap in and out. At 1.9 the scenes
            overlap for longer and genuinely dissolve into one another. */
         setLo(POS.map((pp) => clamp(1 - Math.abs(lifeP - pp) * 1.9)) as [number, number, number]);
@@ -356,6 +390,7 @@ export default function JourneyMap() {
   const stageStyle = {
     '--cp': cp,
     '--sp': sp,
+    '--pjp': pjp,
     '--o0': lo[0],
     '--o1': lo[1],
     '--o2': lo[2],
@@ -530,12 +565,8 @@ export default function JourneyMap() {
           </div>
         </div>
 
-        {/* StayBookt wheel dots */}
-        <div className="sscx-sub sub-sc">
-          {WHEEL.map((w, i) => (
-            <span key={w.lbl} className={sc === i ? 'a' : ''} />
-          ))}
-        </div>
+        {/* The beat-1 wheel dots were removed: the orbit ring shows the same progress and
+            the active dot sat on top of the copy. See the .sscx-sub comment. */}
         {/* Enjoy Life moment dots */}
         <div className="sscx-sub sub-life">
           {LIFE.map((l, i) => (

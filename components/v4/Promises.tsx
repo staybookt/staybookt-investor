@@ -60,7 +60,15 @@ const PROMISES: Vow[] = [
   {
     n: '05',
     h: 'We will never fake proof.',
-    p: 'No invented testimonials. No borrowed logos. No screenshots of results we did not produce. Where we illustrate the service, we say so, in writing, on the page.',
+    /* THE LAST SENTENCE USED TO BE "Where we illustrate the service, we say so, in writing,
+       on the page." The footnotes that made that true were removed from the homepage and
+       /how-it-works (Jacob, July 2026, after Richard asked twice). Leaving the sentence here
+       would have made the promise false ON THE PAGE THAT HOSTS THE PROMISES, days after we
+       pulled a fabricated screenshot off /work for exactly that kind of gap.
+       So it is replaced with something we can still stand behind AND that a reader can check
+       in one click, which is stronger than a footnote ever was. If disclaimers come back,
+       put the old sentence back with them. */
+    p: 'No invented testimonials. No borrowed logos. No screenshots of results we did not produce. The one customer build on this site is a real screenshot of a real live site, and the link is right there for you to go and check.',
     cost: 'It costs us the easy win. Every competitor you have looked at has a wall of five-star quotes, and we could have one by Friday. We would rather show you nothing than show you something we made up.',
   },
 ];
