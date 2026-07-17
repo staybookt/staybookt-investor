@@ -105,8 +105,12 @@ const CSS = `
 @media(max-width:900px){.lg-idx{position:static;}}
 .lg-idx-k{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#9298a1;}
 .lg-idx ol{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;}
+/* The index links live in .lg-body, whose background is #fff, not the cream. #8a8f98
+   on white is 3.25:1 and fails the 4.5:1 bar for text. #69707d is 4.98:1 on white.
+   These are links, so they carry a hover and an .on state that both go to --v4-ink.
+   The resting state is the one that had to clear the bar. */
 .lg-idx a{display:grid;grid-template-columns:28px minmax(0,1fr);gap:8px;padding:8px 0;font-size:14px;line-height:1.4;
-  color:#8a8f98;text-decoration:none;transition:color .25s ease;}
+  color:#69707d;text-decoration:none;transition:color .25s ease;}
 .lg-idx a .n{font-size:11px;font-weight:700;color:#c9cdd0;padding-top:2px;transition:color .25s ease;}
 .lg-idx a:hover{color:var(--v4-ink);}
 .lg-idx a.on{color:var(--v4-ink);font-weight:600;}

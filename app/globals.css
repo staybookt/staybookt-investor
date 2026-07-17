@@ -135,10 +135,19 @@ html, body {
    Dark sections are a SEPARATE token and were never part of this. The eyebrow on
    #050506 is #c9cdd6 (12.79:1), and the few that stay #8a8f98 on #050506 are 6.27:1.
    Both already pass, so do not "fix" them to match the light value. Check the
-   background before you touch an eyebrow colour. */
+   background before you touch an eyebrow colour.
+
+   WHY THIS DEFAULT IS A LITERAL AND NOT var(--mute):
+   this rule used to resolve to var(--mute), which is #64748B = 4.40:1 on the cream.
+   That is a fail. It shipped invisibly only because every page overrides .eyebrow with
+   its own colour, so the broken default never rendered. The next person to use .eyebrow
+   on a light page without an override would have shipped a failure by accident. The bar
+   is 4.5:1 for text and #69707d is 4.60:1 on cream, so the bare default is now safe.
+   --mute itself was deliberately LEFT ALONE. It is used elsewhere for other purposes
+   and may well be fine there. Only what .eyebrow resolves to was changed. */
 .eyebrow {
   font-size: 11px; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.24em; color: var(--mute);
+  letter-spacing: 0.24em; color: #69707d;
 }
 
 /* Buttons — one pill, two contexts. .btn-onlight = dark pill for light
