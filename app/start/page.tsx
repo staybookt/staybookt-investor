@@ -1,6 +1,7 @@
 import Nav from '@/components/v4/Nav';
 import Reveal from '@/components/v4/Reveal';
 import CalEmbed from '@/components/v4/CalEmbed';
+import { EMAIL, PHONE_DISPLAY, PHONE_HREF } from '@/lib/site';
 import SiteFooter from '@/components/SiteFooter';
 
 const SHARE_DESCRIPTION =
@@ -98,6 +99,8 @@ const CSS = `
    layout and renders every time slot in one 1,700px list. */
 .st-book{padding:clamp(30px,3.6vw,44px) 0 clamp(60px,7vw,88px);}
 .st-cal{background:#fff;border:1px solid #e6e6e1;border-radius:24px;padding:clamp(10px,1.4vw,16px);
+.st-alt{margin:18px auto 0;text-align:center;font-size:15px;line-height:1.6;color:#6b7280;}
+.st-alt a{color:var(--v4-ink,#06080d);font-weight:600;text-decoration:underline;text-underline-offset:2px;}
   max-width:1080px;margin:0 auto;
   box-shadow:0 40px 80px -46px rgba(6,12,20,.35),0 2px 6px -2px rgba(6,12,20,.06);}
 
@@ -185,6 +188,20 @@ export default function StartPage() {
           <div className="st-cal">
             <CalEmbed />
           </div>
+          {/* THE ONLY WAY TO CONVERT ON THIS SITE WAS A THIRD-PARTY IFRAME WITH NOTHING BESIDE IT.
+              Every "Get Started" on every page points here — nav, HeroCta, all three FAQs, the
+              404. CalEmbed injects app.cal.com/embed/embed.js at runtime and renders into an
+              empty div. If cal.com is slow, blocked, down, or simply not operable with a screen
+              reader, /start was a 640px white box and the visitor had no way to reach us and
+              nothing telling them one existed.
+              This is not a JS error fallback — it is always visible, because the people most
+              likely to need it are the ones for whom the embed silently fails to be usable
+              rather than fails to load. /contact already had exactly this; the page that
+              actually converts did not. */}
+          <p className="st-alt">
+            Rather not use the calendar? Email <a href={`mailto:${EMAIL}`}>{EMAIL}</a> or call{' '}
+            <a href={PHONE_HREF}>{PHONE_DISPLAY}</a>. A founder answers either way.
+          </p>
         </div>
       </section>
 

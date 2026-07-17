@@ -96,6 +96,11 @@ function RoleIcon({ id }: { id: string }) {
 
 const CSS = `
 .sscx-track{position:relative;height:clamp(2000px,300vh,2900px);background:#050506;}
+/* REDUCED MOTION: collapse the track and unpin the stage. The film resolves to its last
+   frame (see the driver) and simply sits there. No 2,000px of scroll to get past a thing
+   that is not moving, and nothing scrubs under a reader who asked it not to. */
+.sscx-flat{height:auto;}
+.sscx-flat .sscx-stage{position:static;height:auto;min-height:0;padding:clamp(60px,8vw,100px) 0;}
 .sscx-stage{position:sticky;top:0;height:100vh;min-height:600px;overflow:hidden;display:flex;flex-direction:column;color:#f5f5f7;--acc:#0ea5e9;--cp:0;--o0:1;--o1:0;--o2:0;--lz:0;}
 .sscx-stage[data-beat="1"]{--acc:#22d3ee;}
 .sscx-stage[data-beat="2"]{--acc:#ffd9a3;}
@@ -325,6 +330,14 @@ const LIFE: { img: string; cap: string; sub: string }[] = [
 
 export default function JourneyMap() {
   const trackRef = useRef<HTMLElement | null>(null);
+  /* REDUCED MOTION. The CSS killed the transitions (.sscx-stage * {transition:none}) but the
+   * driver kept running, so a reader who asked the OS for less movement still got ~1,800px of
+   * pinned, scrubbing film — now SNAPPING between states instead of easing, which is worse
+   * than leaving it alone. Bail out of the driver entirely and resolve to the last beat, the
+   * same way /how-it-works has always done it (HowItWorks.tsx: `if (reduce) { set --p 1 }`).
+   * Unlike RemovalTest, this film already renders every beat's copy into the DOM and hides it
+   * with opacity, so screen readers were never locked out here — only the vestibular. */
+  const [reduce, setReduce] = useState(false);
   const [beat, setBeat] = useState(0);
   const [cp, setCp] = useState(0);
   const [s0, setS0] = useState(0);
@@ -340,8 +353,22 @@ export default function JourneyMap() {
   const [fills, setFills] = useState<[number, number, number, number]>([0, 0, 0, 0]);
 
   useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const set = () => setReduce(mq.matches);
+    set();
+    mq.addEventListener('change', set);
+    return () => mq.removeEventListener('change', set);
+  }, []);
+
+  useEffect(() => {
     const el = trackRef.current;
     if (!el) return;
+    if (reduce) {
+      /* Resolve to the end state: the film's last frame, no pin, no scrub. */
+      setBeat(3); setCp(1); setS0(2); setSp(1); setSc(5); setLife(2);
+      setPj(6); setPjp(1); setLo([0, 0, 1]); setLz(1); setFills([100, 100, 100, 100]);
+      return;
+    }
     let raf = 0;
     const clamp = (v: number) => Math.min(Math.max(v, 0), 1);
     const POS = [0, 0.5, 1];
@@ -408,7 +435,7 @@ export default function JourneyMap() {
       window.removeEventListener('scroll', onScroll);
       cancelAnimationFrame(raf);
     };
-  }, []);
+  }, [reduce]);
 
   const stageStyle = {
     '--cp': cp,
@@ -421,7 +448,7 @@ export default function JourneyMap() {
   } as CSSProperties;
 
   return (
-    <section ref={trackRef} className="sscx-track">
+    <section ref={trackRef} className={`sscx-track${reduce ? ' sscx-flat' : ''}`}>
       <style>{CSS}</style>
       <div className="sscx-stage" style={stageStyle} data-beat={beat} data-s0={s0} data-sc={sc} data-life={life} data-pj={pj}>
         {/* ENJOY LIFE — full-stage cinematic film, behind everything */}

@@ -134,10 +134,36 @@ const CSS = `
   .rt-dots span{font-size:10px;letter-spacing:.1em;}
 }
 @media(prefers-reduced-motion:reduce){.rt-hub,.rt-sb{transition:none;}}
+
+/* THE STATIC TWIN. Shown when the reader asked for reduced motion; .sr-only otherwise.
+   The track collapses: no 100vh stage, no sticky, no scrub. */
+.rt-flat{height:auto;padding:clamp(64px,9vw,110px) 0;}
+.rt-flat .wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
+.rt-static h3{font-size:clamp(24px,3.4vw,42px);font-weight:600;letter-spacing:-.035em;line-height:1.05;color:#fff;max-width:18ch;}
+.rt-st-beat{margin-top:clamp(26px,3vw,38px);}
+.rt-st-beat h4{font-size:clamp(17px,1.9vw,21px);font-weight:600;letter-spacing:-.02em;color:#fff;}
+.rt-st-beat p{margin-top:8px;font-size:16px;line-height:1.6;color:#aeb6c4;max-width:60ch;}
+.rt-st-list{margin:clamp(30px,3.6vw,44px) 0 0;padding:0;list-style:none;display:grid;gap:14px;}
+.rt-st-list li{font-size:15.5px;line-height:1.6;color:#aeb6c4;max-width:70ch;
+  padding-left:16px;border-left:2px solid rgba(255,255,255,.14);}
+.rt-st-list b{color:#fff;font-weight:600;}
 `;
 
 export default function RemovalTest() {
   const trackRef = useRef<HTMLElement | null>(null);
+  /* THE FILM IS THE ARGUMENT, SO IT CANNOT BE THE ONLY COPY OF IT.
+   * Two people were locked out of this page and it was the same root cause both times:
+   *   - reduced motion: the CSS killed the transitions but the driver still ran, so someone
+   *     who asked the OS for less movement got ~2,000px of pinned, scrubbing film that now
+   *     SNAPPED between states instead of easing. Worse than doing nothing.
+   *   - screen readers: only BEATS[beat] was ever mounted, so a linear reader heard beat 0
+   *     and moved on. All twelve driver lines — the actual substance, the thing the page says
+   *     IS the chart — existed only at a scroll offset they will never reach.
+   * One fix for both: a static twin that renders EVERY beat and all twelve lines. Reduced
+   * motion shows it and unpins the track; everyone else gets it .sr-only behind the film.
+   * If you add a beat, add it to BEATS and it appears in both. Do not conditionally mount
+   * copy in this component again. */
+  const [reduce, setReduce] = useState(false);
   const [beat, setBeat] = useState(0);
   const [p0, setP0] = useState(0);
   const [lift, setLift] = useState(0);
@@ -145,8 +171,16 @@ export default function RemovalTest() {
   const [lit, setLit] = useState(6);
 
   useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const set = () => setReduce(mq.matches);
+    set();
+    mq.addEventListener('change', set);
+    return () => mq.removeEventListener('change', set);
+  }, []);
+
+  useEffect(() => {
     const el = trackRef.current;
-    if (!el) return;
+    if (!el || reduce) return;   // reduced motion: no driver, no pin, no scrub.
     let raf = 0;
     const onScroll = () => {
       cancelAnimationFrame(raf);
@@ -173,7 +207,7 @@ export default function RemovalTest() {
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
     return () => { window.removeEventListener('scroll', onScroll); cancelAnimationFrame(raf); };
-  }, []);
+  }, [reduce]);
 
   const style = { '--p0': p0, '--lift': lift, '--wire': wire } as CSSProperties;
   const copy = BEATS[beat];
@@ -182,13 +216,49 @@ export default function RemovalTest() {
   const idx = beat === 0 ? -1 : beat === 1 ? Math.min(5, 6 - lit - 1) : Math.min(5, lit - 1);
   const truth = idx < 0 ? '' : beat === 1 ? D[idx].you : D[idx].sb;
 
+  /* EVERY beat and all twelve driver lines. Shown for reduced motion, .sr-only otherwise.
+     This is the whole page in text — if the film vanished tomorrow this would still argue. */
+  const Static = () => (
+    <div className={reduce ? 'rt-static' : 'sr-only'}>
+      <h3>Six things decide whether this is a business or a job with a van.</h3>
+      {BEATS.map((b) => (
+        <div key={b.k} className="rt-st-beat">
+          <h4>{b.k}: {b.h}</h4>
+          <p>{b.s}</p>
+        </div>
+      ))}
+      <ul className="rt-st-list">
+        {D.map((d) => (
+          <li key={d.k}>
+            <b>{d.k}.</b> Today: {d.you} With StayBookt: {d.sb}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+
+  /* Reduced motion: no track, no pin, no scrub — just the argument, in order. */
+  if (reduce) {
+    return (
+      <section className="rt-track rt-flat" aria-label="What happens when you take yourself out of the business">
+        <style>{CSS}</style>
+        <div className="wrap"><Static /></div>
+      </section>
+    );
+  }
+
   return (
     <section className="rt-track" ref={trackRef} aria-label="What happens when you take yourself out of the business">
       <style>{CSS}</style>
-      <div className="rt-stage" style={style} data-beat={beat}>
+      <Static />
+      <div className="rt-stage" style={style} data-beat={beat} aria-hidden="true">
         <div className="rt-in">
-          <svg className="rt-svg" viewBox="0 0 900 430" role="img"
-               aria-label="Six things a business needs, each wired back to the owner. Take the owner out and they go dark.">
+          {/* The stage is aria-hidden and the Static twin above carries every word, so this
+              no longer needs role="img". Its old label summarised beats 0-1, named none of
+              the six things, and never mentioned the resolution — which is the point of the
+              film. A label that describes half a picture is worse than no label on a picture
+              that has a text twin. */}
+          <svg className="rt-svg" viewBox="0 0 900 430" aria-hidden="true">
             {D.map((d) => (
               <path key={`b${d.k}`} className="rt-w base" d={path(d)} />
             ))}

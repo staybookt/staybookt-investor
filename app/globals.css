@@ -488,6 +488,15 @@ section[id] { scroll-margin-top: 5rem; }
 .v4 .reveal.d1{transition-delay:.06s;}.v4 .reveal.d2{transition-delay:.12s;}.v4 .reveal.d3{transition-delay:.18s;}
 @media(prefers-reduced-motion:reduce){.v4 .reveal{opacity:1;transform:none;transition:none;}}
 
+/* VISUALLY HIDDEN. There was no such utility in this codebase, which is part of why the
+   scroll films ended up with content that exists only at a scroll offset: with no way to say
+   "in the DOM but not on screen", the only tool to hand was conditional mounting, and that
+   deletes the content for anyone not using their eyes.
+   Do NOT use display:none or hidden for this — both remove it from the accessibility tree,
+   which is the exact opposite of the point. */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+
 /* NAV */
 .v4-nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .3s,border-color .3s;border-bottom:1px solid transparent;}
 .v4-nav.solid{background:rgba(6,8,13,.8);backdrop-filter:saturate(160%) blur(16px);border-bottom-color:rgba(255,255,255,.08);}
