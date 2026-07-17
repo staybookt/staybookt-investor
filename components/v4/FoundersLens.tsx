@@ -145,7 +145,12 @@ export default function FoundersLens() {
               <circle cx={lx} cy={CY} r={R} fill="rgba(245,158,11,.045)" />
               {JOBS.map((j, i) => {
                 const a = (i / JOBS.length) * Math.PI * 2 - Math.PI / 2;
-                const drift = 26 + 62 * cv * (1 - focus);
+                /* Both lenses START identical: the same six, on the same 58px ring. That is
+                   the entire point — they were looking at ONE pattern. Only then do these
+                   drift out and fade, because from outside you watch it leak. Starting them
+                   clustered at 26 made the outside lens a meaningless blob next to the
+                   inside lens's ring, and killed the comparison before it could land. */
+                const drift = 58 + 54 * cv * (1 - focus);
                 return (
                   <circle key={j} cx={lx + Math.cos(a) * drift} cy={CY + Math.sin(a) * drift}
                     r={5} fill="#f59e0b" opacity={0.85 - 0.5 * cv * (1 - focus)} />
@@ -227,16 +232,22 @@ const CSS = `
 .fl-stage[data-beat="0"] .fl-b0,.fl-stage[data-beat="1"] .fl-b1,
 .fl-stage[data-beat="2"] .fl-b2,.fl-stage[data-beat="3"] .fl-b3{opacity:1;transform:none;}
 .fl-k{font-size:11.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#5eead4;margin-bottom:8px;}
-.fl-b h3{font-size:clamp(21px,2.7vw,31px);font-weight:600;letter-spacing:-.03em;line-height:1.15;margin:0 0 10px;}
+/* BLACK ON BLACK. The page sets .abt h1,.abt h2,.abt h3 to color:var(--v4-ink) for its
+   cream sections — near-black. This film inherits #f5f5f7 from .fl-stage, but INHERITANCE
+   ALWAYS LOSES TO A DIRECT RULE, so every headline in here rendered #06080d on a #050506
+   stage: invisible. Caught by screenshotting it, not by reading it. Scoped under .fl-stage
+   so it out-specifies .abt h3 rather than relying on source order. */
+.fl-stage .fl-b h3{color:#f5f5f7;font-size:clamp(21px,2.7vw,31px);font-weight:600;letter-spacing:-.03em;line-height:1.15;margin:0 0 10px;}
 .fl-b p{font-size:clamp(14px,1.5vw,16.5px);line-height:1.55;color:#a6adbb;margin:0;}
 .fl-b p.q{font-style:italic;color:#d4dae4;}
 .fl-who{margin-top:12px;display:flex;flex-direction:column;gap:2px;}
 .fl-who b{font-size:14px;color:#f5f5f7;}
 .fl-who span{font-size:12.5px;color:#7c8496;}
 .fl-static{color:#c8cfdb;}
-.fl-static h3{font-size:clamp(22px,3vw,32px);color:#f5f5f7;letter-spacing:-.03em;margin:0 0 20px;}
+/* Same trap: .abt h3 would paint this near-black on the .fl-track black. */
+.fl-track .fl-static h3{font-size:clamp(22px,3vw,32px);color:#f5f5f7;letter-spacing:-.03em;margin:0 0 20px;}
 .fl-st-beat{margin-bottom:20px;}
-.fl-st-beat h4{font-size:17px;color:#f5f5f7;margin:0 0 6px;}
+.fl-track .fl-st-beat h4{font-size:17px;color:#f5f5f7;margin:0 0 6px;}
 .fl-st-beat p{margin:0 0 6px;line-height:1.6;}
 @media (max-width:640px){
   .fl-stage{min-height:0;}
