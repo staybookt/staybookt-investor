@@ -251,11 +251,15 @@ section[id] { scroll-margin-top: 5rem; }
   text-decoration: none;
   transition: transform .18s ease;
 }
-/* :focus AND :focus-visible on purpose. A scripted or heuristic-missed focus that does not
-   match :focus-visible would leave this link focused but still parked offscreen — the user
-   tabs once, sees nothing move, and has no idea the skip exists. Nobody can focus this with
-   a mouse without also activating it, so there is no cost to the broader selector. This is
-   the pattern WebAIM and GOV.UK both ship, for this exact reason. */
+/* :focus AND :focus-visible, belt and braces. If a focus ever fails the :focus-visible
+   heuristic the link would be focused but still parked offscreen, and the user would tab
+   once, see nothing move, and never learn the skip exists. Nobody can focus this with a
+   mouse without also activating it, so the broader selector costs nothing. WebAIM and
+   GOV.UK both ship :focus here for the same reason.
+   NOT VERIFIED IN A BROWSER, and it cannot be from here: an automated tab is backgrounded,
+   so document.hasFocus() is false, :focus never matches, and transitions do not run. Every
+   reading comes back as the parked value no matter what this file says — forcing transform
+   with !important does not move it either. This wants one real Tab press on a real keyboard. */
 .skip-link:focus,
 .skip-link:focus-visible {
   transform: translate(-50%, 0);
