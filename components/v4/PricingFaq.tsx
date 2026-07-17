@@ -129,12 +129,12 @@ const CSS = `
 @media(max-width:900px){.pfq .faside{position:static;}}
 .pfq h2{font-size:clamp(34px,4.6vw,60px);font-weight:600;letter-spacing:-.035em;line-height:1.0;margin:14px 0 0;max-width:9ch;}
 .pfq h2 .g{background:var(--sb-grad-ink);-webkit-background-clip:text;background-clip:text;color:transparent;}
-.pfq .fa-p{margin-top:20px;font-size:16.5px;line-height:1.6;color:#6b7280;max-width:32ch;}
+.pfq .fa-p{margin-top:20px;font-size:16.5px;line-height:1.6;color:#69707d;max-width:32ch;}
 .pfq .fa-cta{display:inline-flex;align-items:center;gap:9px;margin-top:26px;background:var(--v4-ink,#06080d);color:#fff;font-size:15px;font-weight:600;border-radius:999px;padding:15px 28px;text-decoration:none;transition:gap .3s ease,transform .3s ease;}
 .pfq .fa-cta:hover{gap:14px;transform:translateY(-1px);}
 .pfq .fa-links{display:flex;flex-direction:column;gap:10px;margin-top:26px;}
-.pfq .fa-links a{font-size:14.5px;font-weight:600;color:#0284c7;text-decoration:none;width:fit-content;border-bottom:1px solid transparent;transition:border-color .25s ease;}
-.pfq .fa-links a:hover{border-color:#0284c7;}
+.pfq .fa-links a{font-size:14.5px;font-weight:600;color:#0369a1;text-decoration:none;width:fit-content;border-bottom:1px solid transparent;transition:border-color .25s ease;}
+.pfq .fa-links a:hover{border-color:#0369a1;}
 
 .pfq .list{display:flex;flex-direction:column;gap:8px;}
 .pfq-q{--fc:#4f46e5;position:relative;background:transparent;border:1px solid transparent;border-radius:18px;

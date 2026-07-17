@@ -111,7 +111,7 @@ const CSS = `
   background:transparent;border:0;color:#fff;font-family:inherit;text-align:left;
   padding:clamp(24px,3vw,32px) 0;cursor:pointer;transition:opacity .3s ease;}
 .pr button:hover{opacity:.75;}
-.pr-n{font-size:13px;font-weight:700;letter-spacing:.1em;color:#5c6470;}
+.pr-n{font-size:13px;font-weight:700;letter-spacing:.1em;color:#8a8f98;}
 .pr-h{font-size:clamp(19px,2.5vw,30px);font-weight:600;letter-spacing:-.028em;line-height:1.2;}
 .pr-pl{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.2);color:#9ba2ae;
   display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:300;line-height:1;

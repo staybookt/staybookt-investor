@@ -59,7 +59,7 @@ const CSS = `
 .abt-us{padding:clamp(90px,12vw,150px) 0;background:var(--v4-cream);}
 .abt-us .us-lead{max-width:680px;margin:0 0 clamp(44px,6vw,70px);}
 .abt-us .us-lead h2{margin-top:14px;font-size:clamp(28px,4.2vw,54px);line-height:1.04;}
-.abt-us .us-lead p{margin-top:16px;font-size:clamp(17px,1.9vw,20px);line-height:1.6;color:#6b7280;}
+.abt-us .us-lead p{margin-top:16px;font-size:clamp(17px,1.9vw,20px);line-height:1.6;color:#69707d;}
 
 /* THE TWO FOUNDERS, SIDE BY SIDE. Richard left, Jacob right. Identical elements in
    each card so the grid stays even. */
@@ -70,8 +70,8 @@ const CSS = `
 .fcard img.hi{object-position:center top;}
 .fcard:hover img{transform:translateY(-4px) scale(1.01);}
 .fcard .nm{margin-top:22px;font-size:clamp(20px,2.2vw,26px);font-weight:600;letter-spacing:-.03em;color:var(--v4-ink);}
-.fcard .ro{margin-top:5px;font-size:14px;font-weight:600;letter-spacing:.02em;color:#059669;}
-.fcard .bio{margin-top:18px;font-size:15.5px;line-height:1.7;color:#6b7280;}
+.fcard .ro{margin-top:5px;font-size:14px;font-weight:600;letter-spacing:.02em;color:#047857;}
+.fcard .bio{margin-top:18px;font-size:15.5px;line-height:1.7;color:#69707d;}
 
 /* The source portraits are 3:4. Cover-cropping them into a 1:1 card from the
    default centre lands the crop window on the chest and takes the top of the head

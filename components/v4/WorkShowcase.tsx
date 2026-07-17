@@ -74,7 +74,7 @@ const CSS = `
 .wk-bar .pill svg{width:12px;height:12px;flex:0 0 auto;}
 .wk-frame img{display:block;width:100%;height:auto;}
 .wk-cap{margin:18px auto 0;display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;}
-.wk-cap .txt{font-size:14px;line-height:1.6;color:#7d8592;max-width:60ch;}
+.wk-cap .txt{font-size:14px;line-height:1.6;color:#69707d;max-width:60ch;}
 .wk-go{display:inline-flex;align-items:center;gap:9px;padding:13px 22px;border-radius:999px;background:#fff;color:#06080d;
   font-size:15px;font-weight:600;text-decoration:none;transition:transform .25s ease,box-shadow .25s ease;white-space:nowrap;}
 .wk-go:hover{transform:translateY(-1px);box-shadow:0 18px 40px -20px rgba(255,255,255,.5);}
@@ -87,7 +87,7 @@ const CSS = `
 .wk-item{flex:1;background:#fff;border:1px solid #e6e6e1;border-radius:20px;padding:clamp(22px,2.6vw,30px);
   box-shadow:0 30px 60px -46px rgba(6,12,20,.3);}
 .wk-item .t{font-size:clamp(17px,1.9vw,21px);font-weight:600;letter-spacing:-.02em;}
-.wk-item .b{margin-top:10px;font-size:15.5px;line-height:1.65;color:#6b7280;}
+.wk-item .b{margin-top:10px;font-size:15.5px;line-height:1.65;color:#69707d;}
 .wk-note{margin-top:clamp(34px,4vw,48px);padding-left:clamp(16px,2vw,22px);border-left:3px solid transparent;
   border-image:var(--sb-grad-ink) 1;font-size:clamp(16px,1.8vw,19px);line-height:1.6;color:#42474f;max-width:62ch;}
 .wk-note b{color:var(--v4-ink);font-weight:600;}

@@ -192,7 +192,7 @@ export function AccountBrain() {
 const AB_CSS = `
 .ab{display:grid;grid-template-columns:minmax(0,1fr) 168px minmax(0,1fr);gap:clamp(20px,3vw,40px);align-items:center;margin-top:clamp(40px,5vw,64px);}
 @media(max-width:940px){.ab{grid-template-columns:1fr;gap:32px;}.ab-core{order:-1;}}
-.ab-lbl{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#9298a1;margin-bottom:14px;}
+.ab-lbl{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#69707d;margin-bottom:14px;}
 .abf{position:relative;display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:12px;align-items:center;padding:15px 14px;border-radius:14px;border:1px solid #e9e9e5;background:#fff;margin-bottom:10px;opacity:.42;transform:translateY(6px);transition:opacity .5s ease,transform .5s ease,border-color .5s ease,box-shadow .5s ease;overflow:hidden;}
 .abf.on{opacity:1;transform:none;border-color:rgba(16,185,129,.4);box-shadow:0 14px 30px -22px rgba(16,185,129,.55);}
 .abf.now::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(16,185,129,.16),transparent);animation:abscan 1s ease-out;pointer-events:none;}
@@ -200,7 +200,7 @@ const AB_CSS = `
 .abf-tick{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#eceef1;color:#fff;transition:background .45s ease;}
 .abf.on .abf-tick{background:#10b981;}
 .abf-k{font-size:15px;font-weight:600;color:var(--v4-ink);}
-.abf-v{font-size:13.5px;font-weight:600;color:#059669;background:rgba(16,185,129,.1);border-radius:999px;padding:4px 11px;white-space:nowrap;opacity:0;transition:opacity .5s ease .15s;}
+.abf-v{font-size:13.5px;font-weight:600;color:#047857;background:rgba(16,185,129,.1);border-radius:999px;padding:4px 11px;white-space:nowrap;opacity:0;transition:opacity .5s ease .15s;}
 .abf.on .abf-v{opacity:1;}
 @media(max-width:520px){.abf{grid-template-columns:22px minmax(0,1fr);}.abf-v{grid-column:2;justify-self:start;margin-top:6px;}}
 .ab-core{text-align:center;}
@@ -214,20 +214,20 @@ const AB_CSS = `
 .ab-inner b{font-size:30px;}
 .ab-inner i{font-style:normal;font-size:14px;opacity:.75;}
 .ab-core-t{margin-top:18px;font-size:17px;font-weight:600;letter-spacing:-.02em;color:var(--v4-ink);}
-.ab-core-s{margin-top:5px;font-size:13.5px;line-height:1.45;color:#9298a1;}
+.ab-core-s{margin-top:5px;font-size:13.5px;line-height:1.45;color:#69707d;}
 .abp{background:#f2f2f5;border:1px solid #e9e9e5;border-radius:20px;padding:16px 14px;display:flex;flex-direction:column;gap:9px;min-height:238px;}
 .abb{max-width:88%;padding:10px 14px;border-radius:18px;font-size:14px;line-height:1.4;opacity:0;transform:translateY(8px);}
 .abb.in{animation:abpop .45s cubic-bezier(.16,1,.3,1) forwards;}
 @keyframes abpop{to{opacity:1;transform:none;}}
 .abb.them{align-self:flex-start;background:#e5e5ea;color:#111;border-bottom-left-radius:5px;}
 .abb.us{align-self:flex-end;background:#10b981;color:#fff;border-bottom-right-radius:5px;}
-.abb.sys{align-self:center;background:transparent;color:#059669;font-size:12px;font-weight:600;opacity:1;transform:none;padding:2px;}
+.abb.sys{align-self:center;background:transparent;color:#047857;font-size:12px;font-weight:600;opacity:1;transform:none;padding:2px;}
 .abb.typing{align-self:flex-end;background:#e5e5ea;display:flex;gap:4px;padding:12px 14px;opacity:1;transform:none;}
 .abb.typing i{width:6px;height:6px;border-radius:50%;background:#9298a1;animation:abtype 1.1s ease-in-out infinite;}
 .abb.typing i:nth-child(2){animation-delay:.15s;}
 .abb.typing i:nth-child(3){animation-delay:.3s;}
 @keyframes abtype{0%,60%,100%{opacity:.3;transform:translateY(0);}30%{opacity:1;transform:translateY(-3px);}}
-.ab-cap{margin-top:14px;font-size:14.5px;line-height:1.5;color:#7a818b;opacity:0;transition:opacity .6s ease;}
+.ab-cap{margin-top:14px;font-size:14.5px;line-height:1.5;color:#69707d;opacity:0;transition:opacity .6s ease;}
 .ab-cap b{font-weight:600;color:var(--v4-ink);}
 .ab-cap.on{opacity:1;}
 @media(prefers-reduced-motion:reduce){.ab *{animation:none !important;transition:none !important;}.abb{opacity:1;transform:none;}}
@@ -362,7 +362,7 @@ const NS_CSS = `
 .nsb.them .nsb-b{background:#e9e9eb;color:#000;border-bottom-left-radius:5px;}
 /* SMS green, because a stranger texting a business line is not on iMessage. */
 .nsb.us .nsb-b{background:#34c759;color:#fff;border-bottom-right-radius:5px;}
-.nsb-tag{margin-top:4px;font-size:9.5px;font-weight:700;color:#059669;letter-spacing:.02em;}
+.nsb-tag{margin-top:4px;font-size:9.5px;font-weight:700;color:#047857;letter-spacing:.02em;}
 .nsb-sys{display:block;text-align:center;font-size:10.5px;line-height:1.45;font-weight:600;color:#8e8e93;padding:0 10px;}
 .nsb-b.typing{display:flex;gap:3px;align-items:center;padding:11px 14px;background:#34c759;}
 .nsb-b.typing i{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.9);animation:nstype 1.1s ease-in-out infinite;}

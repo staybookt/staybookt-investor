@@ -147,14 +147,14 @@ const CSS = `
   box-shadow:0 24px 44px -28px rgba(6,12,20,.5);}
 .st-p img.hi{object-position:center top;}
 .st-p .nm{font-size:17.5px;font-weight:600;letter-spacing:-.025em;color:var(--v4-ink);}
-.st-p .ro{margin-top:3px;font-size:13px;font-weight:600;color:#059669;}
+.st-p .ro{margin-top:3px;font-size:13px;font-weight:600;color:#047857;}
 .st-p .bi{margin-top:8px;font-size:14.5px;line-height:1.55;color:#69707d;max-width:34ch;}
 /* .st-note sits on .st, which is the cream var(--v4-cream,#f6f6f3). It was #8a8f98,
    which is 3.00:1 on that cream and fails the 4.5:1 WCAG AA bar for text. #69707d is
    4.60:1 on the cream. Same grey family, same restraint, it just clears the bar.
    Do not swap to #6b7280: it is 4.47:1 on cream and still fails. */
 .st-note{margin-top:clamp(22px,2.8vw,32px);font-size:14px;color:#69707d;}
-.st-note a{color:#0284c7;text-decoration:none;font-weight:600;}
+.st-note a{color:#0369a1;text-decoration:none;font-weight:600;}
 .st-note a:hover{text-decoration:underline;}
 `;
 

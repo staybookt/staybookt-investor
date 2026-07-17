@@ -408,7 +408,7 @@ const CSS = `
 .mx-head{max-width:64ch;}
 .mx-head h2{margin-top:14px;font-size:clamp(28px,4vw,50px);font-weight:600;letter-spacing:-.035em;line-height:1.05;color:var(--v4-ink,#06080d);max-width:20ch;}
 .mx-head h2 .g{background:var(--sb-grad-ink);-webkit-background-clip:text;background-clip:text;color:transparent;}
-.mx-head p{margin-top:20px;font-size:clamp(16px,1.75vw,18px);line-height:1.62;color:#6b7280;max-width:58ch;}
+.mx-head p{margin-top:20px;font-size:clamp(16px,1.75vw,18px);line-height:1.62;color:#69707d;max-width:58ch;}
 
 .mx-scroll{margin-top:clamp(40px,5vw,58px);overflow-x:auto;-webkit-overflow-scrolling:touch;
   background:#fff;border:1px solid #e6e6e1;border-radius:24px;
@@ -422,10 +422,10 @@ const CSS = `
 /* header row */
 .mx-hd{padding-bottom:14px;border-bottom:1px solid #dedeD6;}
 .mx-hd .mx-c{display:flex;flex-direction:column;align-items:center;gap:3px;padding:0 6px;}
-.mx-hd .mx-c b{font-size:12.5px;font-weight:700;letter-spacing:.04em;color:#6b7280;text-align:center;line-height:1.25;}
-.mx-hd .mx-c i{font-style:normal;font-size:11px;color:#9298a1;}
+.mx-hd .mx-c b{font-size:12.5px;font-weight:700;letter-spacing:.04em;color:#69707d;text-align:center;line-height:1.25;}
+.mx-hd .mx-c i{font-style:normal;font-size:11px;color:#69707d;}
 .mx-hd .mx-c.us b{font-size:14px;background:var(--sb-grad-ink);-webkit-background-clip:text;background-clip:text;color:transparent;}
-.mx-hd .mx-c.us i{color:#047857;font-weight:700;font-size:12px;}
+.mx-hd .mx-c.us i{color:#046c4e;font-weight:700;font-size:12px;}
 
 /* body rows */
 .mx-row{border-bottom:1px solid #ededea;}
@@ -433,11 +433,11 @@ const CSS = `
 .mx-row>button:hover{background:#fbfbfa;}
 .mx-j{display:flex;align-items:center;gap:10px;padding-right:16px;}
 .mx-j .jt{font-size:15.5px;line-height:1.4;color:#26292f;}
-.mx-j .pl{width:20px;height:20px;flex:0 0 auto;border-radius:50%;border:1px solid #d8d8dd;color:#9298a1;
+.mx-j .pl{width:20px;height:20px;flex:0 0 auto;border-radius:50%;border:1px solid #d8d8dd;color:#8a8f98;
   display:flex;align-items:center;justify-content:center;font-size:13px;line-height:1;
   transition:transform .4s cubic-bezier(.16,1,.3,1),background .3s ease,color .3s ease,border-color .3s ease;}
 .mx-row.open .pl{transform:rotate(45deg);background:#10b981;border-color:transparent;color:#fff;}
-.mx-row>button:hover .pl{border-color:#a9aeb8;color:#6b7280;}
+.mx-row>button:hover .pl{border-color:#a9aeb8;color:#69707d;}
 .mx-c{display:flex;align-items:center;justify-content:center;}
 /* the one column that fills up */
 .mx-row .mx-c.us{background:rgba(16,185,129,.07);
@@ -461,10 +461,10 @@ const CSS = `
 .mx-body{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.16,1,.3,1);}
 .mx-row.open .mx-body{max-height:420px;}
 .mx-body ul{list-style:none;margin:0;padding:2px 0 22px;}
-.mx-body li{position:relative;padding:7px 0 7px 18px;font-size:14.5px;line-height:1.55;color:#6b7280;max-width:70ch;}
+.mx-body li{position:relative;padding:7px 0 7px 18px;font-size:14.5px;line-height:1.55;color:#69707d;max-width:70ch;}
 .mx-body li::before{content:'';position:absolute;left:0;top:15px;width:5px;height:5px;border-radius:50%;background:#10b981;}
 
-.mx-foot{margin-top:clamp(26px,3vw,34px);font-size:13.5px;line-height:1.6;color:#9298a1;max-width:70ch;}
+.mx-foot{margin-top:clamp(26px,3vw,34px);font-size:13.5px;line-height:1.6;color:#69707d;max-width:70ch;}
 
 /* MOBILE: THE CHART USED TO HIDE ITS OWN PUNCHLINE.
    .mx-grid was min-width:640px inside a ~322px content box, in an overflow-x:auto scroller.
@@ -484,7 +484,7 @@ const CSS = `
   .mx-j .jt{font-size:16.5px;font-weight:600;letter-spacing:-.01em;}
   .mx-row>button{padding:14px 0 10px;}
   .mx-c{justify-content:space-between;padding:7px 10px;border-radius:8px;}
-  .mx-c::before{content:attr(data-lbl);font-size:12.5px;font-weight:600;color:#9298a1;letter-spacing:.01em;}
+  .mx-c::before{content:attr(data-lbl);font-size:12.5px;font-weight:600;color:#69707d;letter-spacing:.01em;}
   /* Our row stays tinted and gains its label colour, so the eye still lands on it first. */
   .mx-row .mx-c.us{background:rgba(16,185,129,.09);border:0;border-radius:8px;margin-top:2px;}
   .mx-row .mx-c.us::before{color:#047857;font-weight:700;}

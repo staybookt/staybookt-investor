@@ -95,7 +95,7 @@ const CSS = `
 .lg-hero .eyebrow{color:#c9cdd6;}
 .lg-hero h1{margin:16px auto 0;font-size:clamp(42px,6.6vw,86px);font-weight:600;letter-spacing:-.035em;line-height:1.02;color:#fff;max-width:16ch;}
 .lg-intro{margin-top:24px;font-size:clamp(17px,1.95vw,21px);line-height:1.6;color:#aeb4c0;max-width:58ch;}
-.lg-upd{margin-top:28px;font-size:13px;font-weight:600;letter-spacing:.02em;color:#5c6470;}
+.lg-upd{margin-top:28px;font-size:13px;font-weight:600;letter-spacing:.02em;color:#8a8f98;}
 
 .lg-body{background:#fff;padding:clamp(70px,9vw,110px) 0 clamp(90px,12vw,150px);}
 .lg-grid{display:grid;grid-template-columns:240px minmax(0,1fr);gap:clamp(40px,6vw,90px);align-items:start;}
@@ -115,20 +115,20 @@ const CSS = `
    The resting state is the one that had to clear the bar. */
 .lg-idx a{display:grid;grid-template-columns:28px minmax(0,1fr);gap:8px;padding:8px 0;font-size:14px;line-height:1.4;
   color:#69707d;text-decoration:none;transition:color .25s ease;}
-.lg-idx a .n{font-size:11px;font-weight:700;color:#c9cdd0;padding-top:2px;transition:color .25s ease;}
+.lg-idx a .n{font-size:11px;font-weight:700;color:#69707d;padding-top:2px;transition:color .25s ease;}
 .lg-idx a:hover{color:var(--v4-ink);}
 .lg-idx a.on{color:var(--v4-ink);font-weight:600;}
-.lg-idx a.on .n{color:#10b981;}
+.lg-idx a.on .n{color:#047857;}
 
 .lg-s{scroll-margin-top:110px;padding-bottom:clamp(44px,5vw,64px);}
 .lg-s + .lg-s{padding-top:clamp(44px,5vw,64px);border-top:1px solid #ececf0;}
-.lg-s-n{font-size:12px;font-weight:700;letter-spacing:.14em;color:#c0c4c8;}
+.lg-s-n{font-size:12px;font-weight:700;letter-spacing:.14em;color:#69707d;}
 .lg-s h2{margin-top:10px;font-size:clamp(23px,2.8vw,34px);font-weight:600;letter-spacing:-.03em;line-height:1.18;color:var(--v4-ink);max-width:22ch;}
 .lg-s-b{margin-top:20px;}
 .lg-s-b p{margin:0 0 16px;font-size:16.5px;line-height:1.7;color:#42474f;max-width:66ch;}
 .lg-s-b p:last-child{margin-bottom:0;}
 .lg-s-b b{font-weight:600;color:var(--v4-ink);}
-.lg-s-b a{color:#0284c7;text-decoration:none;font-weight:600;}
+.lg-s-b a{color:#0369a1;text-decoration:none;font-weight:600;}
 .lg-s-b a:hover{text-decoration:underline;}
 .lg-s-b ul{list-style:none;margin:0 0 16px;padding:0;}
 .lg-s-b li{display:grid;grid-template-columns:16px minmax(0,1fr);gap:12px;padding:7px 0;font-size:16.5px;line-height:1.6;color:#42474f;max-width:66ch;}
