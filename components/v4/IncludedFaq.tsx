@@ -21,9 +21,15 @@ import { min } from '@/lib/css';
  * overlap is the wrong-price question, because it is the single biggest objection on
  * the site and a person auditing this page will ask it here, not go hunting.
  *
- * The best line we own is in here and it must not get softened:
- * "Anyone telling you it is all human is lying about the price. Anyone telling you
- *  it is all AI is lying about the quality." */
+ * The both-on-purpose answer is the argument this page exists to make, and it must keep
+ * saying that nobody can do this all with people at the price and nobody can do it all
+ * with AI and keep the quality. Say it plainly.
+ *
+ * The mirrored version of it ("Anyone telling you... Anyone telling you...") was
+ * flattened in the July 2026 voice pass. The construction was never the problem; the
+ * site was running it about fifty times, which reads as a machine with a favourite
+ * trick. Exactly one survives site-wide now: the /pricing h2. Do not put the mirror
+ * back here. */
 
 type Q = { k: string; c: string; q: string; a: string };
 
@@ -32,13 +38,13 @@ const QS: Q[] = [
     k: 'Who does the work',
     c: '#0ea5e9',
     q: 'Is it AI, or a real person?',
-    a: 'Both, on purpose. Anyone telling you it is all human is lying about the price. Anyone telling you it is all AI is lying about the quality. The AI does the everyday: the routine calls, texts, bookings, confirmations, reminders and follow-ups. It is trained on your prices, your service area, the jobs you take and how you talk to a customer. It is fast, it never sleeps, and it never gets tired at 11pm.',
+    a: 'Both, on purpose. Nobody can do this all with people at this price, and nobody can do it all with AI and keep the quality up. Anyone who tells you different is selling you something. The AI does the everyday: the routine calls, texts, bookings, confirmations, reminders and follow-ups. It is trained on your prices, your service area, the jobs you take and how you talk to a customer. It never sleeps, so an 11pm text gets the same answer as a 9am one.',
   },
   {
     k: 'Who does the work',
     c: '#0ea5e9',
     q: 'What happens when it is out of its depth?',
-    a: 'A person takes over. The AI knows when it is unsure, and anything unusual, anything high-stakes and anything off-script gets pulled by a real person on our team before it ever reaches your customer. That is the whole point of the safety net. You are never the one picking up the slack.',
+    a: 'A person takes over. The AI knows when it is unsure, and if a job is unusual or off-script, someone on our team steps in before it ever reaches your customer. That is the whole point of the safety net. You are never the one picking up the slack.',
   },
   {
     k: 'Who does the work',
@@ -56,13 +62,13 @@ const QS: Q[] = [
     k: 'Who does the work',
     c: '#0ea5e9',
     q: 'What do I still have to do?',
-    a: 'Short list, on purpose. If it grows, we have built the wrong thing. The work itself: you show up and you do the job. The big calls: your prices, new services, who you hire, where you work. A couple of edge cases a week where we ask what you would do. And thirty seconds on the morning brief. That is it.',
+    a: 'Short list, and if it grows we have built the wrong thing. You show up and do the job. You make the big calls: your prices, new services, who you hire, where you work. A couple of edge cases a week where we ask what you would do. And thirty seconds on the morning brief. That is it.',
   },
   {
     k: 'What is yours',
     c: '#10b981',
     q: 'What do I own if we ever part ways?',
-    a: 'Everything that matters, and nothing here is held hostage. The website is yours, permanently. Your domain, in your name. Your Google Business Profile login. Your customer list, exported whenever you want it. Your reviews, which were always yours anyway. If we vanish tomorrow, you keep all of it.',
+    a: 'All of it, and nothing here is held hostage. The website is yours permanently, the domain is in your name, and you keep the Google Business Profile login, your customer list exported whenever you want it, and your reviews, which were always yours anyway. If we vanish tomorrow, you keep all of it.',
   },
   {
     k: 'What is yours',

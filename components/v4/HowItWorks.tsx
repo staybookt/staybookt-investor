@@ -12,10 +12,10 @@ const HERO_IMG =
   'https://images.pexels.com/photos/37227005/pexels-photo-37227005.jpeg?auto=compress&cs=tinysrgb&w=2000';
 
 const HERO_H = 'You run the business. We run the busywork.';
-const HERO_SUB = 'One journey. Three milestones. Here is what happens at every stop.';
+const HERO_SUB = 'Three milestones, in order. Here is what happens at each one.';
 
 const LEARN_H = 'First, we learn your business.';
-const LEARN_P = 'Before anything else, we sit down and learn how you actually work. What you charge. Which jobs you take. Where you go. How you talk to a customer. That becomes the playbook everything runs on, so when we answer, it sounds like you, not a call center.';
+const LEARN_P = 'Before anything else, we sit down and learn how you actually work: what you charge, which jobs you take, where you go, and how you talk to a customer. That becomes the playbook everything runs on, so when we answer, it sounds like you, not a call center.';
 
 type Stop = {
   id: string; n: string; label: string; promise: string; voice: string; accent: string; accentD: string;
@@ -43,10 +43,10 @@ const STOPS: Stop[] = [
     ],
   },
   {
-    id: 'run', n: '2', label: 'StayBookt', promise: 'Every lead, maximized.', voice: 'It is 2 a.m. I am asleep. It is handled.',
+    id: 'run', n: '2', label: 'StayBookt', promise: 'Every lead gets worked.', voice: 'It is 2 a.m. I am asleep. It is handled.',
     accent: '#10b981', accentD: '#059669', side: 'right', surface: 'staybookt',
     beat: 'We catch the missed call, book the job, chase the quote, win the review, and rebook the second job.',
-    result: 'Nothing leaks. Every customer worth everything they are worth.',
+    result: 'Nothing gets dropped, and you get the full value out of every customer who calls you.',
     steps: [
       { t: 'We answer every call and text.', b: 'Day or night, in your voice. AI handles the everyday ones. A real person steps in on anything unusual, before it reaches your customer.' },
       { t: 'We book, confirm, and remind.', b: 'Straight onto your calendar, confirmed with the customer, with reminders so they actually show up.' },
@@ -64,7 +64,7 @@ const STOPS: Stop[] = [
      * purely the outcome: a business that runs without you, and no cut taken. */
     /* The banned phrase survived HERE, on the beat, which is the line that renders large,
        while the fix landed on the step below. Check the line that ships, not the nearest one. */
-    beat: 'After a year of this, the business keeps booking and earning when you are not standing in the middle of it. What you do with that is entirely your call. Most owners do not want out. They want the good half of the job back.',
+    beat: 'After a year of this, the business keeps booking and earning when you are not standing in the middle of it. What you do with that is entirely your call. Most owners are not looking for a way out of this. They just want the good half of the job back.',
     result: 'Do the part you love, hand it to family, or sell it.',
     steps: [
       /* "runs without you" is banned language (see app/layout.tsx) and it survived here.
@@ -72,7 +72,7 @@ const STOPS: Stop[] = [
          and "we take the busywork, not the business". This one line sidelined the owner. */
       { t: 'We build something that keeps running when you step away.', b: 'Everything in the first year points at one thing: the phone gets answered, the jobs get booked and the money lands whether you are standing there or not.' },
       { t: 'The work gets steady, not seasonal.', b: 'Recurring service work, and past customers coming back on their own, so the year stops starting from zero every January.' },
-      { t: 'You take the driver seat.', b: 'Keep it and go back to the work you love, hand it to a family member, or sell it. You never have to use the last door. You just get to have it.' },
+      { t: 'You are the one deciding.', b: 'Keep it and go back to the work you love, hand it to a family member, or sell it. You never have to sell. You just get the choice.' },
       { t: 'And we take no cut of it.', b: 'No commission on your jobs, no share of your revenue, no share of what the business is worth when you sell. The monthly fee is the whole deal. What you built stays yours.' },
     ],
   },
@@ -558,7 +558,7 @@ export default function HowItWorks() {
         <div className="wrap">
           <div className="lhead">
             <div>
-              <div className="eyebrow">Before the journey</div>
+              <div className="eyebrow">Before we start</div>
               <h2 style={{ marginTop: 14 }}>{LEARN_H}</h2>
             </div>
             <p>{LEARN_P}</p>
@@ -571,7 +571,7 @@ export default function HowItWorks() {
       <section className="hiw-jrny">
         <div className="wrap">
           <div className="jhead">
-            <div className="eyebrow">The journey</div>
+            <div className="eyebrow">The three milestones</div>
             <h2>Follow the path.</h2>
             <p>Every customer, and your whole business, travels this route. Here is what happens at each stop.</p>
           </div>

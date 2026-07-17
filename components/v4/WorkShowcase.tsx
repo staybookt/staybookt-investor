@@ -35,7 +35,7 @@ const URL = 'https://www.topchoiceelectrical.com';
 /* Everything here is verifiable from the live site itself. Nothing is a result. */
 const TRUE_THINGS: { t: string; b: string }[] = [
   { t: 'A real client, named.', b: 'Tim Davis runs Top Choice Electrical out of Newmarket, Ontario, covering York Region and Simcoe County. He is our first client. This is his site.' },
-  { t: 'It is live right now.', b: 'Not a staging link, not a concept board, not a deck slide. It is the site his customers land on when they search for an electrician at nine at night.' },
+  { t: 'It is live right now.', b: 'This is the site his customers land on when they search for an electrician at nine at night. Type the address into any browser and it loads.' },
   { t: 'Built to open fast on a phone.', b: 'A homeowner standing in a dark basement does not wait around. Open it on your phone and see how it behaves.' },
   { t: 'His, not ours.', b: 'The site, the domain and the Google profile are in his name. If he left tomorrow he would take all of it with him.' },
 ];
@@ -106,8 +106,8 @@ export default function WorkShowcase() {
           </Reveal>
           <Reveal>
             <p>
-              This is not a case study. It is one real electrician, in one real town, with a site
-              you can open in the next ten seconds. We would rather you checked than believed us.
+              Tim Davis is an electrician in Newmarket, Ontario. We built his site, and you can
+              open it in the next ten seconds. We would rather you checked than believed us.
             </p>
           </Reveal>
         </div>
@@ -140,7 +140,7 @@ export default function WorkShowcase() {
             <div className="wk-cap">
               <span className="txt">
                 An unedited screenshot of the live site, {SHOT_DATE}. Top Choice Electrical, Newmarket,
-                Ontario. Nothing on this page is styled, composited or reconstructed. If it looks
+                Ontario. Nothing on this page has been touched up or rebuilt for the picture. If it looks
                 different when you open it, that is because he has kept working and we have not
                 re-shot it.
               </span>
@@ -155,7 +155,7 @@ export default function WorkShowcase() {
       <section className="wk-true">
         <div className="wrap">
           <Reveal className="eyebrow" as="div">What you can check</Reveal>
-          <Reveal><h2>Four things, all of them verifiable.</h2></Reveal>
+          <Reveal><h2>Four things, and you can check every one.</h2></Reveal>
           <div className="wk-grid">
             {TRUE_THINGS.map((x) => (
               <Reveal key={x.t}>
@@ -169,11 +169,10 @@ export default function WorkShowcase() {
           {/* Says what is NOT here, and why. The absence is the argument. */}
           <Reveal>
             <p className="wk-note">
-              You will notice there are no numbers on this page. <b>No traffic, no leads, no
-              rankings, no revenue.</b> We have not measured them, and Tim&rsquo;s numbers are
-              Tim&rsquo;s business, not our marketing. One client is not evidence of a pattern and we
-              are not going to dress it up as one. It is evidence that the thing is real, which is
-              all we are claiming today.
+              There are no numbers on this page. We have not measured Tim&rsquo;s traffic or his
+              revenue, and either way that is his business to talk about, not our marketing.{' '}
+              <b>One client does not prove a pattern.</b> All we are claiming today is that the thing
+              is real, and you can go look at it.
             </p>
           </Reveal>
         </div>

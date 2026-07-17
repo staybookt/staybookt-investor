@@ -7,7 +7,7 @@ import { min } from '@/lib/css';
  * you", which is exactly the experience we say we exist to abolish. There are
  * two of us. You get an email address and a calendar, and a human answers. */
 
-const SHARE = 'Two people, one inbox, one calendar. Email a founder or book thirty minutes.';
+const SHARE = 'There are two of us and we both read the inbox. Email a founder or book thirty minutes.';
 
 export const metadata = {
   title: 'Contact',
@@ -124,8 +124,8 @@ export default function ContactPage() {
             There are two of us. <span className="g">You get one of us.</span>
           </h1>
           <p>
-            No contact form, no ticket number, no &ldquo;a member of our team will be in touch.&rdquo;
-            An email address and a calendar, and a founder on the other end of both.
+            There is no contact form and no ticket number. You get an email address and a calendar,
+            and a founder on the other end of both.
           </p>
         </div>
       </header>

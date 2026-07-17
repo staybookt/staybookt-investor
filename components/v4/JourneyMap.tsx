@@ -315,12 +315,12 @@ const LIFE: { img: string; cap: string; sub: string }[] = [
   {
     img: '8623946',
     cap: 'Take the two weeks.',
-    sub: 'The phone still gets answered. The jobs still get booked. You are not on call from a beach.',
+    sub: 'The phone still gets answered and the jobs still get booked. You are not on call from a beach.',
   },
   {
     img: '3846255',
     cap: 'Back to the part you love.',
-    sub: 'The craft, the work, bringing the next one up. Not the paperwork at nine at night.',
+    sub: 'The craft, and bringing the next one up. Not the paperwork at nine at night.',
   },
   {
     img: '4835776',
@@ -469,7 +469,7 @@ export default function JourneyMap() {
               last living piece of the 20% value-share framing. The $420,000 counter and the
               "what is the valuation at the end" FAQ were both removed for exactly this. We
               take no share of what the business is worth, so we do not get to promise it. */}
-          <div className="whisper">The work you love. The life you built it for.</div>
+          <div className="whisper">The work you love, and the life you built it for.</div>
         </div>
 
         <div className="sscx-tint" />
@@ -537,7 +537,7 @@ export default function JourneyMap() {
                     <span className="acts"><span className="bt">Call</span><span className="bt o">Book</span></span>
                     <span className="badge">#1</span>
                   </div>
-                  <div className="fc">✓ First call — booked</div>
+                  <div className="fc">✓ First call, booked</div>
                 </div>
               </div>
             </div>

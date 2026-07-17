@@ -52,13 +52,13 @@ const QS: Q[] = [
        processing fees, which made that sentence false. Two items now, both named, with the
        rate. The point of this answer is that we would rather tell you now than have you find
        it on an invoice later, and that only works if the list is actually complete. */
-    a: 'Almost, and here is the honest whole of it. It is $199 CAD a month plus applicable taxes. Two things sit outside that. Your domain registration, about twenty dollars a year, passed through at cost, and yours anyway. And if you take card payments, Stripe or Square charge their own fee, in the region of 2.9% plus thirty cents, which comes out of what you collect exactly as it would with any card processing. That fee is theirs, not ours: we do not mark it up and we take no cut of it. That is the entire list. There is no build fee, no setup fee, no menu of add-ons, no per-minute billing and no overage. And there is no back end: no commission on your jobs, no share of your revenue, and no share of what the business is worth if you ever sell it. We would rather tell you about twenty dollars and a card fee now than have you find them on an invoice later.',
+    a: 'Almost. Here is everything, including the two things that sit outside it. It is $199 CAD a month plus applicable taxes. Two things sit outside that. Your domain registration, about twenty dollars a year, passed through at cost, and yours anyway. And if you take card payments, Stripe or Square charge their own fee, in the region of 2.9% plus thirty cents, which comes out of what you collect exactly as it would with any card processing. That fee is theirs, not ours: we do not mark it up and we take no cut of it. That is the entire list. There is no build fee, no setup fee, no menu of add-ons, no per-minute billing and no overage. And there is no back end: no commission on your jobs, no share of your revenue, and no share of what the business is worth if you ever sell it. We will tell you about twenty dollars and a card fee now rather than let you find them on an invoice later.',
   },
   {
     k: 'The catch',
     c: '#f59e0b',
     q: 'So where is the catch?',
-    a: 'The honest answer is that there is not one, and the reason is that we are two people, not a hundred. We do not have a sales team to pay, an office to fill, or an ad budget to feed. We build everything before you pay us, we grow slowly on purpose, and we would rather have twenty clients we actually run properly than a thousand we do not. If we ever start behaving like the agency that burned you, you can leave in thirty days and take everything with you.',
+    a: 'There is not one. We are two people rather than a hundred, so we are not paying for a sales team, an office or an ad budget. We build everything before you pay us, we grow slowly on purpose, and twenty clients we actually run properly beats a thousand we do not. If we ever start behaving like the agency that burned you, you can leave in thirty days and take everything with you.',
   },
 ];
 

@@ -221,7 +221,7 @@ export default function StartPage() {
               <div>
                 <div className="nm">Richard Roos</div>
                 <div className="ro">Operations, growth, and finance</div>
-                <p className="bi">Two decades running the front of a service business at scale, and a CPA.</p>
+                <p className="bi">Two decades running the front of a service business, and a CPA.</p>
               </div>
             </Reveal>
             <Reveal className="st-p">

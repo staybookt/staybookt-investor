@@ -45,7 +45,7 @@ const FAQ: [string, string][] = [
   ],
   [
     'What if the AI gets a price wrong?',
-    'It answers price questions from your playbook: your prices, your jobs, your service area. Anything it is not sure about, anything unusual and anything high-stakes gets pulled by a real person before it ever reaches your customer. If a wrong number does get out, we bring it straight to you, you decide what you want to honour, and we go back to the customer and sort it out. You are never the one making that call.',
+    'It answers price questions from your playbook: your prices, your jobs, your service area. If it is not sure, or the job is unusual or expensive, a real person pulls it before it ever reaches your customer. If a wrong number does get out, we bring it straight to you, you decide what you want to honour, and we go back to the customer and sort it out. You are never the one making that call.',
   ],
 ];
 

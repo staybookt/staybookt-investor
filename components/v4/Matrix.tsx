@@ -76,7 +76,7 @@ const ROWS: Row[] = [
     detail: [
       'Emergency and after-hours calls sorted against the rules you set',
       'What is urgent, what waits until morning, and what is worth waking you for',
-      'You decide the rules once. We hold the line at 2am',
+      'You set the rules once, and we stick to them at 2am',
     ],
   },
   {
@@ -322,7 +322,7 @@ export default function Matrix() {
         <div className="mx-head">
           <div className="eyebrow">What&apos;s included</div>
           <h2>
-            It is not that the work is not getting done. <span className="g">It is that you are the one doing it.</span>
+            All of this work is getting done today. <span className="g">You are the one doing it, at nine at night.</span>
           </h2>
           <p>
             Every job below has to happen for the business to run. Here is who is doing each one today,
@@ -384,7 +384,8 @@ export default function Matrix() {
         <p className="mx-foot">
           Not a slur on anybody. An answering service answers the phone: it does not chase or sell,
           because that is not what it is. An agency builds you a website and never picks up the
-          phone. Both do their job. Neither does the rest of yours.
+          phone. They both do the job they sell you. The rest of yours is still sitting on your
+          desk at nine at night.
         </p>
       </div>
     </section>

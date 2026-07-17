@@ -148,7 +148,7 @@ export default function LongTermPage() {
               it. That is not our opinion. Ask anyone who buys these businesses for a living.
             </p>
           </Reveal>
-          <Reveal><div className="lt-kick">You do not own the business. You are the business.</div></Reveal>
+          <Reveal><div className="lt-kick">You are the business. Nobody can buy that.</div></Reveal>
         </div>
       </section>
 
@@ -182,8 +182,9 @@ export default function LongTermPage() {
           <Reveal><h2>And we take <span className="g">none of it.</span></h2></Reveal>
           <Reveal>
             <p>
-              No commission on your jobs. No share of your revenue. No share of what the business
-              sells for, if it ever sells. <b>$199 a month is the entire commercial relationship</b>,
+              We take no commission on your jobs, no share of your revenue, and no share of what
+              the business sells for if it ever sells. <b>$199 a month is the entire commercial
+              relationship</b>,
               and it stays $199 whether the business doubles, triples, or you hand it to your
               daughter on a Tuesday.
             </p>

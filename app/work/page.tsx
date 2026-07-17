@@ -7,12 +7,12 @@ import HeroCta from '@/components/v4/HeroCta';
  * which is a result we never measured. Both had to go. The share card is the one piece of
  * copy nobody re-reads, which is exactly why it outlived the page it described. */
 const SHARE =
-  'One real electrician, in one real town, with a site you can open right now. Go look at it yourself.';
+  'Our first client is an electrician in Newmarket, Ontario. His site is live right now. Go look at it yourself.';
 
 /* Same bug as /how-it-works: no openGraph, so the one page that carries actual
  * evidence shared as the homepage. Fixed. */
 export const metadata = {
-  title: 'The work | StayBookt',
+  title: 'The work',
   description: SHARE,
   alternates: { canonical: '/work' },
   openGraph: {

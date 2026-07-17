@@ -178,10 +178,10 @@ export default function PricingPage() {
                 jobs we genuinely do. Do not put the dispatcher or the bookkeeper back. */}
             <p>
               A big company answers every call, books every job, chases every quote and chases the
-              money. Not because it is smarter than you. Because{' '}
-              <b>five people are paid to</b>: a receptionist, a scheduler, an assistant, a collections
-              clerk and a marketer. That is not a tool. That is a payroll, and it is the one thing
-              you have never been able to buy.
+              money. It is not smarter than you. It has{' '}
+              <b>five people on payroll for it</b>: a receptionist, a scheduler, an assistant, a
+              collections clerk and a marketer. That is a payroll, and it is the one thing you have
+              never been able to buy.
             </p>
             <p>
               You are doing all five of those jobs yourself, at nine at night, after a full day of
@@ -189,8 +189,8 @@ export default function PricingPage() {
               help you do them faster.
             </p>
             <div className="kick">
-              It is not a discount on a receptionist.{' '}
-              <span className="g">It is a different way of buying the same outcome.</span>
+              You get the same outcome hiring would give you,{' '}
+              <span className="g">bought a different way.</span>
             </div>
           </div>
         </div>

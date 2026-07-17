@@ -37,10 +37,10 @@ const IN_Q =
 const JOBS = ['The call', 'The quote', 'The review', 'The follow-up', 'The job', 'The brief'];
 
 const BEATS = [
-  { k: 'Two ends', h: 'Two people, at opposite ends of the same problem.', s: 'One of us was outside it, standing next to the owner. One of us was inside it, running the machine. Neither of us was looking for a company.' },
+  { k: 'Two ends', h: 'Two people, at opposite ends of the same problem.', s: 'One of us was outside it, standing next to the owner. The other was inside it, running the machine. Neither of us was looking for a company.' },
   { k: 'The outside lens', h: 'From outside, you watch it leak.', s: OUT_Q, who: 'Jacob Charendoff', role: 'A decade alongside service business owners. Health, hospitality, SaaS, retail, home services.' },
-  { k: 'The inside lens', h: 'From inside, you watch it get caught.', s: IN_Q, who: 'Richard Roos', role: 'Two decades inside operationally rigorous service businesses at scale. Thousands of units across North America. Twenty years a CPA.' },
-  { k: 'The overlap', h: 'It was the same pattern the whole time.', s: 'A big company does not win because it is smarter. It wins because someone is paid to catch every one of these. That is not a tool. That is a payroll, and it is the one thing an owner has never been able to buy. The overlap is the company.' },
+  { k: 'The inside lens', h: 'Inside a big company, none of it gets dropped.', s: IN_Q, who: 'Richard Roos', role: 'Two decades inside big service businesses that run tight. Thousands of units across North America. Twenty years a CPA.' },
+  { k: 'The overlap', h: 'It was the same pattern the whole time.', s: 'A big company wins because someone is paid to catch every one of these. That is a payroll, and no owner has ever been able to buy one. The overlap is the company.' },
 ];
 
 const B = [0, 0.3, 0.58, 1];

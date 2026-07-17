@@ -16,7 +16,7 @@ import { EMAIL } from '@/lib/site';
 export const metadata = {
   title: 'Privacy policy',
   description:
-    'What data StayBookt collects, why, who we share it with, and how to get it deleted. Plain English, no dark patterns.',
+    'What data StayBookt collects, why, who we share it with, and how to get it deleted. Plain English, and no tricks buried in the small print.',
   alternates: { canonical: '/privacy' },
   robots: { index: true, follow: true },
 };
@@ -273,7 +273,7 @@ export default function PrivacyPage() {
       <LegalPage
         eyebrow="Privacy policy"
         title="We do not sell your data. Ever."
-        intro="This is a real privacy policy, not a wall of copied boilerplate. It says what we collect, why, who touches it, and how to make us delete it."
+        intro="We wrote this one ourselves instead of copying a template. It says what we collect, why, who touches it, and how to make us delete it."
         /* Bumped 15 July 2026: Stripe/Square disclosed as a payment processor, and
            "payment status" widened to "payment details and payment status". A privacy
            policy that gains a processor and keeps its old date is worse than useless. */

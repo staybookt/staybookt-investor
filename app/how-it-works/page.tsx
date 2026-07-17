@@ -4,14 +4,14 @@ import HowItWorks from '@/components/v4/HowItWorks';
 import HeroCta from '@/components/v4/HeroCta';
 
 const SHARE =
-  'Not a tool you learn. An operator that runs the front of your business: your website, an AI receptionist, booking, quotes, reviews and a daily brief. Here is exactly how it runs, step by step.';
+  'We run the front of your business for you: your website, an AI receptionist, booking, quotes, reviews and a daily brief. There is nothing for you to learn. Here is exactly how it runs, step by step.';
 
 /* THIS PAGE HAD NO SHARE CARD OF ITS OWN, so it inherited the layout's, which meant
  * that paste it into a text message and it came back titled "StayBookt. Enjoy Life."
  * and linked to the homepage. This is the page you send someone. It is the single
  * most shared URL we have and it was pointing at a different page. */
 export const metadata = {
-  title: 'How it works | StayBookt',
+  title: 'How it works',
   description: SHARE,
   alternates: { canonical: '/how-it-works' },
   openGraph: {

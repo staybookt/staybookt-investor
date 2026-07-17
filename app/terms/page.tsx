@@ -235,7 +235,7 @@ const SECTIONS: Section[] = [
         <p>
           <b>Yours.</b> Your business name and brand. Your domain. Your website, including the code
           we write for it. Your Google Business Profile. Your customer list, your call recordings and
-          your reviews. Your phone number. All of it is yours during the engagement and after it.
+          your reviews. Your phone number. All of it is yours while we work together and after we stop.
         </p>
         <p>
           <b>Ours.</b> The systems, tooling, automations, prompts, models and internal playbooks we

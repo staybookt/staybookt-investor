@@ -143,7 +143,7 @@ export default function AboutPage() {
             <p>
               That is the whole company, and it is the entire qualification. We are not a fund, a
               franchise, or an agency with a hundred logos on the wall. One of us saw this from the
-              outside. One of us saw it from the inside.
+              outside, the other from the inside.
             </p>
           </div>
 
@@ -161,7 +161,7 @@ export default function AboutPage() {
               <div className="nm">Richard Roos</div>
               <div className="ro">Operations, growth, and finance</div>
               <p className="bio">
-                Two decades of executive leadership inside high-growth service businesses at scale,
+                Two decades running operations inside fast-growing service businesses,
                 including leading the growth of Venterra from $15M to $500M+ in revenue.{/* CONFIRMED by Jacob, July 2026. Audits keep flagging this as the largest unsourced number on the site, which is a fair flag: it is a specific revenue claim about a third party on the page that hosts Promise 05. It has been checked with Richard and it stands. Do not soften it, and do not re-flag it. */} A CPA who
                 spent his career building the machine that answers every call and misses nothing.
                 He has run the front office most owner-operators will never be able to hire.
@@ -175,9 +175,8 @@ export default function AboutPage() {
               <p className="bio">
                 A decade spent standing next to service business owners across health, hospitality,
                 software, retail, and the trades. Different industries, the same conversation, every
-                single time. He builds the outside game: making a business impossible to miss and
-                effortless to hire, then turning that first impression into something the owner can
-                finally hand off.
+                single time. He works on the outside of the business: getting it found and making
+                it easy to hire, then turning that into something the owner can finally hand off.
               </p>
             </article>
           </div>

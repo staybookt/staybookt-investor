@@ -37,8 +37,8 @@ export default function NotFound() {
           <div className="nf-k">404</div>
           <h1>That page <span className="g">is not here.</span></h1>
           <p>
-            Either we moved it or the link was wrong. Nothing is broken on your end. Here are the
-            two doors most people want.
+            Either we moved it or the link was wrong. Nothing is broken on your end. Most people
+            who land here want one of these two.
           </p>
           <div className="nf-go">
             <a className="p" href={START_LINK}>Get Started</a>

@@ -24,14 +24,14 @@ type Vow = {
 const PROMISES: Vow[] = [
   {
     n: '01',
-    h: 'We are operators, not a software company.',
-    p: 'We do not hand you a dashboard and wish you luck. We answer the phone. We chase the quote. We ask for the review. If you ever feel like you are operating software, we have built the wrong thing.',
+    h: 'We run the work ourselves.',
+    p: 'We do not hand you a dashboard and wish you luck. We answer the phone, chase the quote and ask for the review ourselves. If you ever feel like you are operating software, we have built the wrong thing.',
     cost: 'It costs us the thing every software company is chasing. We cannot take a thousand clients this year, because a thousand clients means a thousand businesses we would actually have to run. We will grow slowly, on purpose, and we will turn work away before we take work we cannot do properly.',
   },
   {
     n: '02',
     h: 'The owner stays in charge.',
-    p: 'We take the busywork, not the business. Your prices. Your standards. Your name on the van. Your customers, in your voice. We are staff, not a partner who quietly takes the wheel.',
+    p: 'We take the busywork and leave the business to you. You set the prices and the standards, it is your name on the van, and we talk to your customers in your voice. Think of us as staff, not a partner who quietly takes the wheel.',
     cost: 'It costs us the easy wins. We will not raise your prices because the model says we can, or take jobs you would have turned down, or talk to your customers in a way you would not. Some of those things would make us more money. We do not get to do them.',
   },
   {
@@ -69,8 +69,8 @@ const PROMISES: Vow[] = [
        So it is replaced with something we can still stand behind AND that a reader can check
        in one click, which is stronger than a footnote ever was. If disclaimers come back,
        put the old sentence back with them. */
-    p: 'No invented testimonials. No borrowed logos. No screenshots of results we did not produce. The one customer build on this site is a real screenshot of a real live site, and the link is right there for you to go and check.',
-    cost: 'It costs us the easy win. Every competitor you have looked at has a wall of five-star quotes, and we could have one by Friday. We would rather show you nothing than show you something we made up.',
+    p: 'We do not invent testimonials, borrow logos, or post screenshots of results we did not produce. The one customer build on this site is a real screenshot of a real live site, and the link is right there for you to go and check.',
+    cost: 'It costs us the easy win. Every competitor you have looked at has a wall of five-star quotes, and we could have one by Friday. Showing you nothing beats showing you something we made up.',
   },
 ];
 

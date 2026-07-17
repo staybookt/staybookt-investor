@@ -23,7 +23,7 @@ const QS: Q[] = [
   {
     k: 'The service', c: '#38bdf8',
     q: 'Is it AI, or a real person?',
-    a: 'Both, on purpose. Anyone telling you it is all human is lying about the price. Anyone telling you it is all AI is lying about the quality. The AI handles the everyday calls, texts and bookings in your voice, and a real person on our team steps in on anything unusual before it ever reaches your customer.',
+    a: 'Both. The AI handles the everyday calls, texts and bookings in your voice. A real person on our team picks up anything unusual before it ever reaches your customer. Nobody can do this all-human at $199 a month, and all-AI drops the calls that matter.',
     more: { href: '/how-it-works', label: 'See how it runs' },
   },
   {
@@ -41,7 +41,7 @@ const QS: Q[] = [
   {
     k: 'What is yours', c: '#34d399',
     q: 'What do I own if we ever part ways?',
-    a: 'Everything that matters, and nothing is held hostage. The website is yours, your domain is in your name, your Google profile login is yours, and your customer list and reviews go with you. If we vanish tomorrow, you keep all of it.',
+    a: 'All of it. The website is yours, your domain is in your name, your Google profile login is yours, and your customer list and reviews go with you. If we vanish tomorrow, you keep all of it.',
     more: { href: '/whats-included', label: 'See what is included' },
   },
   {

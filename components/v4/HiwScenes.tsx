@@ -182,7 +182,7 @@ export function AccountBrain() {
           {answered && <div className="abb sys">Booked &middot; Thursday, 8:30 AM</div>}
         </div>
         <div className={`ab-cap${answered ? ' on' : ''}`}>
-          Your price. Your area. Your words. <b>You were on another job.</b>
+          That was your price, your area and your words. <b>You were on another job the whole time.</b>
         </div>
       </div>
     </div>
@@ -394,13 +394,13 @@ export function Arrival() {
         <span className="arr-dot" aria-hidden />
         <div className="arr-k">The end of the map</div>
         <h2>
-          Go enjoy the life
+          Do the work you love.
           <br />
-          you built it for.
+          We&apos;ll run the rest.
         </h2>
         <p>
-          The phone gets answered. The jobs get booked. The reviews stack up. And the business no
-          longer needs you standing in the middle of it.
+          Calls get answered and jobs get booked while you are somewhere else, and the reviews
+          keep coming in. None of it needs you standing in the middle of it.
         </p>
         <div className="arr-f">That was always the point.</div>
         {/* THE BESPOKE CTA IS GONE. This scene ended in a "Start the journey" button on the
