@@ -52,6 +52,11 @@ export default function FoundersLens() {
   const [beat, setBeat] = useState(0);
   const [cv, setCv] = useState(0);
   const [reduce, setReduce] = useState(false);
+  /* The dot has to sit exactly where the period does, so the wordmark is measured rather
+     than guessed. getComputedTextLength is the only honest way to know how wide "StayBookt"
+     renders in the real font at the real size. */
+  const wmRef = useRef<SVGTextElement>(null);
+  const [wmW, setWmW] = useState(238);
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -59,6 +64,13 @@ export default function FoundersLens() {
     set();
     mq.addEventListener('change', set);
     return () => mq.removeEventListener('change', set);
+  }, []);
+
+  useEffect(() => {
+    const measure = () => { if (wmRef.current) setWmW(wmRef.current.getComputedTextLength()); };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
   }, []);
 
   useEffect(() => {
@@ -93,6 +105,21 @@ export default function FoundersLens() {
   const lx = 450 - sep;
   const rx = 450 + sep;
   const focus = Math.max(0, (cv - 0.42) / 0.58); // the vesica only resolves once they meet
+
+  /* THE MERGE. The last quarter of the film. The two lenses do not fade into a logo — they
+     BECOME it. Both circles fly to one point and shrink from r=132 to r=9, and that point is
+     exactly where the period of "StayBookt." sits. Two ways of seeing collapse into the dot
+     that ends the company's name. Jacob's idea, and it is the right ending: the whole page
+     argues that the overlap IS the company, so the overlap should turn into the company. */
+  const mrg = Math.max(0, Math.min(1, (cv - 0.74) / 0.26));
+  const ez = mrg * mrg * (3 - 2 * mrg);            // smoothstep, so it lands instead of snapping
+  const PX = 450 - 11 + wmW / 2 + 14;              // the period's x, from the measured wordmark
+  const mlx = lx + (PX - lx) * ez;
+  const mrx = rx + (PX - rx) * ez;
+  const mr = R + (9 - R) * ez;
+  /* The lenses stay lit for most of the flight and only hand over at the very end, so the
+     eye follows them INTO the period rather than watching them fade and a logo appear. */
+  const hand = Math.max(0, (ez - 0.62) / 0.38);
 
   /* THE STATIC TWIN. Everything the film says, in text, for a screen reader and for
      reduced-motion. The film itself is aria-hidden. Same pattern as RemovalTest — a
@@ -131,8 +158,15 @@ export default function FoundersLens() {
 
           <svg className="fl-svg" viewBox="0 0 900 430" fill="none">
             <defs>
-              <clipPath id="fl-clipL"><circle cx={lx} cy={CY} r={R} /></clipPath>
-              <clipPath id="fl-clipR"><circle cx={rx} cy={CY} r={R} /></clipPath>
+              <clipPath id="fl-clipL"><circle cx={mlx} cy={CY} r={mr} /></clipPath>
+              <clipPath id="fl-clipR"><circle cx={mrx} cy={CY} r={mr} /></clipPath>
+              {/* --sb-grad as a literal. SVG cannot read the CSS custom property, same
+                  constraint the favicon has. If --sb-grad changes, change this by hand. */}
+              <linearGradient id="fl-wm" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stopColor="#06B6D4" />
+                <stop offset="52%" stopColor="#10B981" />
+                <stop offset="100%" stopColor="#4F46E5" />
+              </linearGradient>
               <radialGradient id="fl-glow">
                 <stop offset="0%" stopColor="#22d3ee" stopOpacity={0.20 * focus} />
                 <stop offset="100%" stopColor="#22d3ee" stopOpacity="0" />
@@ -141,8 +175,8 @@ export default function FoundersLens() {
 
             {/* OUTSIDE — the jobs drift off, untouched. They leave the lens as cv rises,
                 because that is what "you watch it leak" means. */}
-            <g clipPath="url(#fl-clipL)">
-              <circle cx={lx} cy={CY} r={R} fill="rgba(245,158,11,.045)" />
+            <g clipPath="url(#fl-clipL)" opacity={1 - ez * 0.9}>
+              <circle cx={mlx} cy={CY} r={mr} fill="rgba(245,158,11,.045)" />
               {JOBS.map((j, i) => {
                 const a = (i / JOBS.length) * Math.PI * 2 - Math.PI / 2;
                 /* Both lenses START identical: the same six, on the same 58px ring. That is
@@ -159,8 +193,8 @@ export default function FoundersLens() {
             </g>
 
             {/* INSIDE — the same six, held on a ring. Nothing drifts. */}
-            <g clipPath="url(#fl-clipR)">
-              <circle cx={rx} cy={CY} r={R} fill="rgba(34,211,238,.05)" />
+            <g clipPath="url(#fl-clipR)" opacity={1 - ez * 0.9}>
+              <circle cx={mrx} cy={CY} r={mr} fill="rgba(34,211,238,.05)" />
               <circle cx={rx} cy={CY} r={58} stroke="rgba(34,211,238,.3)" strokeWidth={1} />
               {JOBS.map((j, i) => {
                 const a = (i / JOBS.length) * Math.PI * 2 - Math.PI / 2;
@@ -187,19 +221,32 @@ export default function FoundersLens() {
               </g>
             </g>
 
-            <circle cx={lx} cy={CY} r={R} stroke="rgba(245,158,11,.5)" strokeWidth={1.5} />
-            <circle cx={rx} cy={CY} r={R} stroke="rgba(34,211,238,.5)" strokeWidth={1.5} />
+            <circle cx={mlx} cy={CY} r={mr} stroke="rgba(245,158,11,.5)" strokeWidth={1.5} opacity={1 - hand} />
+            <circle cx={mrx} cy={CY} r={mr} stroke="rgba(34,211,238,.5)" strokeWidth={1.5} opacity={1 - hand} />
 
             <text x={lx} y={CY - R - 16} textAnchor="middle" fontSize="12.5" fontWeight="700"
-              letterSpacing="1.4" fill="#c99a4a" fontFamily="-apple-system,sans-serif">THE OUTSIDE LENS</text>
+              letterSpacing="1.4" fill="#c99a4a" fontFamily="-apple-system,sans-serif" opacity={1 - ez}>THE OUTSIDE LENS</text>
             <text x={rx} y={CY - R - 16} textAnchor="middle" fontSize="12.5" fontWeight="700"
-              letterSpacing="1.4" fill="#5bc7d8" fontFamily="-apple-system,sans-serif">THE INSIDE LENS</text>
+              letterSpacing="1.4" fill="#5bc7d8" fontFamily="-apple-system,sans-serif" opacity={1 - ez}>THE INSIDE LENS</text>
             <text x={lx} y={CY + R + 26} textAnchor="middle" fontSize="13.5" fontWeight="600"
-              fill="#8b93a5" fontFamily="-apple-system,sans-serif" opacity={1 - focus * 0.75}>Jacob</text>
+              fill="#8b93a5" fontFamily="-apple-system,sans-serif" opacity={(1 - focus * 0.75) * (1 - ez)}>Jacob</text>
             <text x={rx} y={CY + R + 26} textAnchor="middle" fontSize="13.5" fontWeight="600"
-              fill="#8b93a5" fontFamily="-apple-system,sans-serif" opacity={1 - focus * 0.75}>Richard</text>
+              fill="#8b93a5" fontFamily="-apple-system,sans-serif" opacity={(1 - focus * 0.75) * (1 - ez)}>Richard</text>
             <text x={450} y={CY + R + 26} textAnchor="middle" fontSize="13.5" fontWeight="700"
-              fill="#5eead4" fontFamily="-apple-system,sans-serif" opacity={focus}>In focus</text>
+              fill="#5eead4" fontFamily="-apple-system,sans-serif" opacity={focus * (1 - ez)}>In focus</text>
+
+            {/* THE LOGO. The lenses do not dissolve into this — they land in it. Both circles
+                fly to PX, which is measured off the real wordmark, and become the period.
+                "Stay" white, "Bookt" gradient, the period purple: the real mark, not a
+                lookalike. */}
+            <g opacity={hand} aria-hidden="true">
+              <text ref={wmRef} x={450 - 11} y={CY + 15} textAnchor="middle" fontSize="46"
+                fontWeight="800" letterSpacing="-1.8"
+                fontFamily="var(--font-display), 'Inter Tight', -apple-system, sans-serif">
+                <tspan fill="#f5f5f7">Stay</tspan><tspan fill="url(#fl-wm)">Bookt</tspan>
+              </text>
+            </g>
+            <circle cx={PX} cy={CY + 15} r={9 * (0.4 + 0.6 * hand)} fill="#7C3AED" opacity={hand} />
           </svg>
 
           <div className="fl-copy">
