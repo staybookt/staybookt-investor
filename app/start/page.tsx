@@ -100,10 +100,31 @@ const CSS = `
    layout and renders every time slot in one 1,700px list. */
 .st-book{padding:clamp(30px,3.6vw,44px) 0 clamp(60px,7vw,88px);}
 .st-cal{background:#fff;border:1px solid #e6e6e1;border-radius:24px;padding:clamp(10px,1.4vw,16px);
-.st-alt{margin:18px auto 0;text-align:center;font-size:15px;line-height:1.6;color:#6b7280;}
-.st-alt a{color:var(--v4-ink,#06080d);font-weight:600;text-decoration:underline;text-underline-offset:2px;}
   max-width:1080px;margin:0 auto;
   box-shadow:0 40px 80px -46px rgba(6,12,20,.35),0 2px 6px -2px rgba(6,12,20,.06);}
+
+/* THE .st-alt RULES WERE PASTED INSIDE THE UNCLOSED .st-cal BLOCK AND NEVER APPLIED.
+   .st-cal spans four lines; both .st-alt rules had been dropped in after line one, so
+   they sat inside .st-cal's declaration block while max-width/margin/box-shadow below
+   them still belonged to .st-cal. A declaration block is not a place a rule can live:
+   legacy CSS treats it as a parse error, and under CSS nesting it resolves to
+   ".st-cal .st-alt". .st-alt is a SIBLING of .st-cal (both are children of .wrap in
+   .st-book), never a descendant, so under either reading it matched nothing and the
+   fallback shipped with no styling at all: no centring, no size, no margin, and no
+   underline on its own links.
+   That is also why the reported 4.47:1 was never actually on screen. With the rule dead,
+   .st-alt just inherited near-black var(--v4-ink) from .st and passed by accident. The
+   colour below only becomes real now that the rule is a rule, which is exactly why the
+   block had to be closed before the colour was worth changing.
+
+   COLOUR: .st-alt and .st-p .bi sit on .st, the cream var(--v4-cream,#f6f6f3). Neither
+   .st-book nor .st-who paints a background, so the cream is the real backdrop. Both were
+   #6b7280, which is 4.47:1 on that cream: a near miss, but still a fail. #69707d is
+   4.60:1. #6b7280 only clears 4.5:1 against pure white, which is not the background here.
+   .st-alt is the "email or call us instead" fallback, so it is the accessibility
+   affordance on this page. It failing contrast was the wrong failure to ship. */
+.st-alt{margin:18px auto 0;text-align:center;font-size:15px;line-height:1.6;color:#69707d;}
+.st-alt a{color:var(--v4-ink,#06080d);font-weight:600;text-decoration:underline;text-underline-offset:2px;}
 
 /* who is on the call. the only thing under the calendar, because it is the only thing
    a person still wonders about once the times are in front of them. */
@@ -127,7 +148,7 @@ const CSS = `
 .st-p img.hi{object-position:center top;}
 .st-p .nm{font-size:17.5px;font-weight:600;letter-spacing:-.025em;color:var(--v4-ink);}
 .st-p .ro{margin-top:3px;font-size:13px;font-weight:600;color:#059669;}
-.st-p .bi{margin-top:8px;font-size:14.5px;line-height:1.55;color:#6b7280;max-width:34ch;}
+.st-p .bi{margin-top:8px;font-size:14.5px;line-height:1.55;color:#69707d;max-width:34ch;}
 /* .st-note sits on .st, which is the cream var(--v4-cream,#f6f6f3). It was #8a8f98,
    which is 3.00:1 on that cream and fails the 4.5:1 WCAG AA bar for text. #69707d is
    4.60:1 on the cream. Same grey family, same restraint, it just clears the bar.

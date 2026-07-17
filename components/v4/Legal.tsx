@@ -103,7 +103,11 @@ const CSS = `
 
 .lg-idx{position:sticky;top:clamp(96px,12vh,124px);}
 @media(max-width:900px){.lg-idx{position:static;}}
-.lg-idx-k{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#9298a1;}
+/* The "Contents" label sits in .lg-body, background #fff. It was #9298a1, which measures
+   2.91:1 on white and fails the 4.5:1 WCAG AA bar for text badly. #69707d is 4.98:1 on
+   white. This label sits directly above .lg-idx a, which is already #69707d, so the key
+   and its links now read as one unit instead of the heading being fainter than the list. */
+.lg-idx-k{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#69707d;}
 .lg-idx ol{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;}
 /* The index links live in .lg-body, whose background is #fff, not the cream. #8a8f98
    on white is 3.25:1 and fails the 4.5:1 bar for text. #69707d is 4.98:1 on white.

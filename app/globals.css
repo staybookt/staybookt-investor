@@ -545,7 +545,29 @@ section[id] { scroll-margin-top: 5rem; }
   -webkit-font-smoothing:antialiased;line-height:1.5;}
 .v4 .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
 .v4 h1,.v4 h2,.v4 h3{font-weight:700;letter-spacing:-.045em;line-height:.98;}
-.v4 .eyebrow{font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--v4-muted);}
+/* WHY THIS IS A LITERAL AND NOT var(--v4-muted), and why the token was NOT retuned.
+   This rule used to resolve to var(--v4-muted) = #7a828f, which measures 3.58:1 on the
+   cream #f6f6f3 and 3.88:1 on white. Both fail the 4.5:1 bar for text. It never rendered
+   broken only because every page overrides .eyebrow at EQUAL specificity (.hiw .eyebrow,
+   .mx .eyebrow, .wk .eyebrow, .ifq .eyebrow, .pfq .eyebrow, .inc .eyebrow, .abt .eyebrow
+   are all 0,2,0, exactly like .v4 .eyebrow) so the correct #69707d won on source order
+   alone. That is luck, not design: the next .eyebrow on a light page with no override
+   would have shipped a 3.58:1 failure. #69707d is 4.60:1 on cream and 4.98:1 on white,
+   so the bare default is now safe on both light backgrounds we ship.
+
+   --v4-muted ITSELF WAS DELIBERATELY LEFT ALONE. It is not a light-only token. Every
+   usage was measured against its real background: .v4 .tier .nm/.u/.ds take the token on
+   a white .tier (3.88:1, fail) AND on .tier.dark, which is var(--v4-ink) #06080d, where
+   #7a828f is 5.17:1 and passes. One declaration, two backgrounds. Retuning the token to
+   #69707d would have fixed the light side and BROKEN the dark side: #69707d on #06080d is
+   only 4.02:1. So the token keeps its dark-background value and the failing light-bg
+   consumers are pinned to a literal instead. Same call, same reason, as .eyebrow vs
+   --mute above.
+   Dark eyebrows are unaffected: they all carry their own override (#eef1f6 on the hero,
+   #c9cdd6 on the legal and interior heroes, #8b93a5 on .product, #86868b on the homepage
+   dark sections = 5.62:1, #8a8f98 on .hfq #050506 = 6.27:1). All already pass. Check the
+   background before you touch an eyebrow colour. */
+.v4 .eyebrow{font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#69707d;}
 
 .v4 .reveal{opacity:0;transform:translateY(28px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1);}
 .v4 .reveal.in{opacity:1;transform:none;}
@@ -687,7 +709,11 @@ section[id] { scroll-margin-top: 5rem; }
 /* light type moment */
 .v4 .light{background:var(--v4-paper);padding:clamp(120px,17vw,220px) 0;}
 .v4 .light h2{font-size:clamp(40px,6.6vw,92px);max-width:15ch;}
-.v4 .light p.sub{margin-top:26px;font-size:clamp(18px,1.7vw,22px);line-height:1.55;color:var(--v4-muted);max-width:46ch;}
+/* .v4 .light is background:var(--v4-paper) = #fff, so this is unambiguously a light-bg
+   consumer. var(--v4-muted) #7a828f is 3.88:1 on white and fails. Pinned to #69707d
+   (4.98:1) for the same reason as .eyebrow above rather than retuning the shared token,
+   which .tier.dark still needs at #7a828f. */
+.v4 .light p.sub{margin-top:26px;font-size:clamp(18px,1.7vw,22px);line-height:1.55;color:#69707d;max-width:46ch;}
 
 /* capability list */
 .v4 .caps{margin-top:72px;display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(40px,6vw,96px);}
