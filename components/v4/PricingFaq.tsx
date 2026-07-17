@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { START_LINK } from '@/lib/site';
+import { min } from '@/lib/css';
 
 /* THE MONEY QUESTIONS, ON THE MONEY PAGE.
  *
@@ -66,7 +67,7 @@ export default function PricingFaq() {
 
   return (
     <section className="pfq">
-      <style>{CSS}</style>
+      <style>{min(CSS)}</style>
       <div className="wrap">
         <div className="fgrid">
           <div className="faside">

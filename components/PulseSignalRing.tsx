@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { min } from '@/lib/css';
 
 const SIGNALS = [
   { id: 'site', label: 'Site' },
@@ -73,10 +74,10 @@ export default function PulseSignalRing({
             <stop offset="60%" stopColor="#10B981" stopOpacity="0.10" />
             <stop offset="100%" stopColor="#0A0E1A" stopOpacity="0" />
           </radialGradient>
-          <style>{`
+          <style>{min(`
             .sb-node-label { display: none; }
             @media (min-width: 640px) { .sb-node-label { display: block; } }
-          `}</style>
+          `)}</style>
         </defs>
 
         {/* Center ambient glow */}

@@ -1,6 +1,7 @@
 import Nav from '@/components/v4/Nav';
 import SiteFooter from '@/components/SiteFooter';
 import { START_LINK, EMAIL, PHONE_DISPLAY, PHONE_HREF } from '@/lib/site';
+import { min } from '@/lib/css';
 
 /* No contact form. A form implies a queue, a ticket and a "we'll get back to
  * you", which is exactly the experience we say we exist to abolish. There are
@@ -112,7 +113,7 @@ function CalIcon() {
 export default function ContactPage() {
   return (
     <div className="ct v4">
-      <style>{CSS}</style>
+      <style>{min(CSS)}</style>
       <Nav />
       <main id="main" tabIndex={-1}>
 

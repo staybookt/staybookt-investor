@@ -3,6 +3,7 @@ import SiteFooter from '@/components/SiteFooter';
 import Matrix from '@/components/v4/Matrix';
 import IncludedFaq from '@/components/v4/IncludedFaq';
 import HeroCta from '@/components/v4/HeroCta';
+import { min } from '@/lib/css';
 
 /* Hero backdrop. This page was the only one still sitting on a flat black gradient
  * while every other hero had something behind it (Jacob, July 14 2026). Same
@@ -83,7 +84,7 @@ const CSS = `
 export default function WhatsIncludedPage() {
   return (
     <div className="inc">
-      <style>{CSS}</style>
+      <style>{min(CSS)}</style>
       <Nav />
       <main id="main" tabIndex={-1}>
 

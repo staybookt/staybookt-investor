@@ -1,4 +1,5 @@
 import { START_LINK } from '@/lib/site';
+import { min } from '@/lib/css';
 
 /* THE CLOSING CTA. One of them, on every page (Jacob, live review, July 2026).
  *
@@ -18,7 +19,7 @@ import { START_LINK } from '@/lib/site';
 export default function HeroCta({ fromBlack = false }: { fromBlack?: boolean }) {
   return (
     <section className="hcta" data-fade={fromBlack ? 'black' : undefined}>
-      <style>{CSS}</style>
+      <style>{min(CSS)}</style>
       <img src={HERO_IMG} alt="" loading="lazy" decoding="async" />
       <div className="hcta-ov" />
       <div className="hcta-in">

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { START_LINK } from '@/lib/site';
+import { min } from '@/lib/css';
 
 /* WHAT'S INCLUDED — the objections, as an accordion.
  *
@@ -106,7 +107,7 @@ export default function IncludedFaq() {
 
   return (
     <section className="ifq">
-      <style>{CSS}</style>
+      <style>{min(CSS)}</style>
       <div className="wrap">
         <div className="fgrid">
           <div className="faside">

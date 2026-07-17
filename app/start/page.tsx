@@ -3,6 +3,7 @@ import Reveal from '@/components/v4/Reveal';
 import CalEmbed from '@/components/v4/CalEmbed';
 import { EMAIL, PHONE_DISPLAY, PHONE_HREF } from '@/lib/site';
 import SiteFooter from '@/components/SiteFooter';
+import { min } from '@/lib/css';
 
 const SHARE_DESCRIPTION =
   'Thirty minutes with a founder. We will show you where the work is slipping, and what it would take to get your life back. No slides, no sales rep.';
@@ -135,7 +136,7 @@ const CSS = `
 export default function StartPage() {
   return (
     <div className="st v4" id="top">
-      <style>{CSS}</style>
+      <style>{min(CSS)}</style>
       <Nav />
       <main id="main" tabIndex={-1}>
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { min } from '@/lib/css';
 
 /* THE PROMISE BOARD.
  *
@@ -78,7 +79,7 @@ export function Promises() {
 
   return (
     <div className="prm">
-      <style>{CSS}</style>
+      <style>{min(CSS)}</style>
       {PROMISES.map((p, i) => (
         <div className={`pr${open === i ? ' open' : ''}`} key={p.n}>
           <button type="button" onClick={() => setOpen(open === i ? null : i)}>

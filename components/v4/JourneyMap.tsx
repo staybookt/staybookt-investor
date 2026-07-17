@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
+import { min } from '@/lib/css';
 
 /* The Secret Sauce: one scroll-pinned four-beat film, fully scroll-scrubbed.
  * Get Found (linear climb) -> StayBookt (wheel + blurbs) -> Enjoy Life (continuous
@@ -449,7 +450,7 @@ export default function JourneyMap() {
 
   return (
     <section ref={trackRef} className={`sscx-track${reduce ? ' sscx-flat' : ''}`}>
-      <style>{CSS}</style>
+      <style>{min(CSS)}</style>
       <div className="sscx-stage" style={stageStyle} data-beat={beat} data-s0={s0} data-sc={sc} data-life={life} data-pj={pj}>
         {/* ENJOY LIFE — full-stage cinematic film, behind everything */}
         <div className="sscx-film">

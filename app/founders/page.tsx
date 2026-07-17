@@ -2,6 +2,7 @@ import Nav from '@/components/v4/Nav';
 import SiteFooter from '@/components/SiteFooter';
 import HeroCta from '@/components/v4/HeroCta';
 import { Promises } from '@/components/v4/Promises';
+import { min } from '@/lib/css';
 
 /* WHAT THIS PAGE IS FOR.
  *
@@ -108,7 +109,7 @@ export default function AboutPage() {
        resolves to nothing and, because the rule also sets color:transparent,
        the word "Bookt" disappears entirely. */
     <div className="abt v4">
-      <style>{CSS}</style>
+      <style>{min(CSS)}</style>
       <Nav />
       <main id="main" tabIndex={-1}>
 

@@ -3,6 +3,7 @@ import Reveal from '@/components/v4/Reveal';
 import HeroCta from '@/components/v4/HeroCta';
 import RemovalTest from '@/components/v4/RemovalTest';
 import SiteFooter from '@/components/SiteFooter';
+import { min } from '@/lib/css';
 
 const SHARE =
   'Six things make an owner-operated business worth more than the jobs it does this month. Here they are, and here is which ones we do for you.';
@@ -103,7 +104,7 @@ const CSS = `
 export default function LongTermPage() {
   return (
     <div className="lt v4" id="top">
-      <style>{CSS}</style>
+      <style>{min(CSS)}</style>
       <Nav />
       <main id="main" tabIndex={-1}>
 

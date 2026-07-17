@@ -3,6 +3,7 @@
 import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
 import { START_LINK } from '@/lib/site';
 import { AccountBrain, NightShift, Arrival } from './HiwScenes';
+import { min } from '@/lib/css';
 
 /* Hero backdrop: a still, not a film. The homepage owns the one video moment,
  * and this page already runs a scroll-driven SVG trail. A slow drift on a still
@@ -528,7 +529,7 @@ export default function HowItWorks() {
 
   return (
     <div className="hiw" ref={rootRef}>
-      <style>{CSS}</style>
+      <style>{min(CSS)}</style>
 
       {/* HUD */}
       <div className={`jhud${hudOn ? ' show' : ''}`} aria-hidden="true">

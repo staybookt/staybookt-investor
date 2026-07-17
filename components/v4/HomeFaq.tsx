@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { START_LINK } from '@/lib/site';
+import { min } from '@/lib/css';
 
 /* HOMEPAGE FAQ — the front-door greatest hits (Jacob, live review, July 2026).
  *
@@ -56,7 +57,7 @@ export default function HomeFaq() {
 
   return (
     <section className="hfq">
-      <style>{CSS}</style>
+      <style>{min(CSS)}</style>
       <div className="wrap">
         <div className="fgrid">
           <div className="faside">

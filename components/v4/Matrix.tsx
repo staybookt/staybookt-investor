@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { min } from '@/lib/css';
 
 /* WHAT'S INCLUDED — the comparison matrix.
  *
@@ -316,7 +317,7 @@ export default function Matrix() {
 
   return (
     <section className="mx">
-      <style>{CSS}</style>
+      <style>{min(CSS)}</style>
       <div className="wrap">
         <div className="mx-head">
           <div className="eyebrow">What&apos;s included</div>

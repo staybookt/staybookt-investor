@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import { min } from '@/lib/css';
 
 /* THE REMOVAL TEST — the cinematic core of /long-term.
  *
@@ -241,7 +242,7 @@ export default function RemovalTest() {
   if (reduce) {
     return (
       <section className="rt-track rt-flat" aria-label="What happens when you take yourself out of the business">
-        <style>{CSS}</style>
+        <style>{min(CSS)}</style>
         <div className="wrap"><Static /></div>
       </section>
     );
@@ -249,7 +250,7 @@ export default function RemovalTest() {
 
   return (
     <section className="rt-track" ref={trackRef} aria-label="What happens when you take yourself out of the business">
-      <style>{CSS}</style>
+      <style>{min(CSS)}</style>
       <Static />
       <div className="rt-stage" style={style} data-beat={beat} aria-hidden="true">
         <div className="rt-in">

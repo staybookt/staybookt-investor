@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { START_LINK } from '@/lib/site';
+import { min } from '@/lib/css';
 
 /* Set pieces for /how-it-works.
  *
@@ -127,7 +128,7 @@ export function AccountBrain() {
 
   return (
     <div className={`ab${answered ? ' done' : ''}`} ref={ref}>
-      <style>{AB_CSS}</style>
+      <style>{min(AB_CSS)}</style>
 
       <div className="ab-col ab-facts">
         <div className="ab-lbl">What we learn</div>
@@ -278,7 +279,7 @@ export function NightShift() {
 
   return (
     <div className="ns-hold" ref={ref}>
-      <style>{NS_CSS}</style>
+      <style>{min(NS_CSS)}</style>
 
       <div className="ns">
         <div className="nsp">
@@ -386,7 +387,7 @@ export function Arrival() {
   const ref = useOnView<HTMLElement>(0.25);
   return (
     <section className="arr" ref={ref}>
-      <style>{ARR_CSS}</style>
+      <style>{min(ARR_CSS)}</style>
       <img src={ARRIVE_IMG} alt="" loading="lazy" decoding="async" />
       <div className="arr-ov" />
       <div className="arr-in">

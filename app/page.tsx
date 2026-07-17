@@ -7,6 +7,7 @@ import HomeFaq from '@/components/v4/HomeFaq';
 import HeroCta from '@/components/v4/HeroCta';
 import SiteFooter from '@/components/SiteFooter';
 import { START_LINK } from '@/lib/site';
+import { min } from '@/lib/css';
 
 const SHARE_DESCRIPTION =
   'StayBookt answers your phone, books your jobs and chases your quotes. You do the work. We run everything around it. $199 a month, nothing upfront, no lock-in.';
@@ -291,7 +292,7 @@ const PAGE_CSS = `
 export default function HomePage() {
   return (
     <div id="top" className="v4">
-      <style>{PAGE_CSS}</style>
+      <style>{min(PAGE_CSS)}</style>
       <Nav />
       <main id="main" tabIndex={-1}>
 

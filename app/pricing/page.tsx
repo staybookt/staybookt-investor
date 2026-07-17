@@ -3,6 +3,7 @@ import SiteFooter from '@/components/SiteFooter';
 import PricingFaq from '@/components/v4/PricingFaq';
 import HeroCta from '@/components/v4/HeroCta';
 import { START_LINK } from '@/lib/site';
+import { min } from '@/lib/css';
 
 const SHARE =
   'One plan, $199 a month, nothing upfront, no lock-in, ninety days to change your mind for any reason. It was never software. It was five salaries.';
@@ -108,7 +109,7 @@ const CSS = `
 export default function PricingPage() {
   return (
     <div className="prc v4">
-      <style>{CSS}</style>
+      <style>{min(CSS)}</style>
       <Nav />
       <main id="main" tabIndex={-1}>
 

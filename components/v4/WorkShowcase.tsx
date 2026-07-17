@@ -1,4 +1,5 @@
 import Reveal from '@/components/v4/Reveal';
+import { min } from '@/lib/css';
 
 /* ============================================================================
  * REBUILT July 2026. This page used to be a drag-to-compare before/after where
@@ -95,7 +96,7 @@ const CSS = `
 export default function WorkShowcase() {
   return (
     <div className="wk">
-      <style>{CSS}</style>
+      <style>{min(CSS)}</style>
 
       <header className="wk-hero">
         <div className="wrap">

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { min } from '@/lib/css';
 
 /* Shared shell for the legal pages. Dark hero, sticky index, light body.
  * Same skin as the rest of the site: legal pages that look like they belong to
@@ -43,7 +44,7 @@ export function LegalPage({
 
   return (
     <>
-      <style>{CSS}</style>
+      <style>{min(CSS)}</style>
 
       <header className="lg-hero">
         <div className="wrap">

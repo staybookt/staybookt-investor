@@ -1,6 +1,7 @@
 import Nav from '@/components/v4/Nav';
 import SiteFooter from '@/components/SiteFooter';
 import { START_LINK } from '@/lib/site';
+import { min } from '@/lib/css';
 
 export const metadata = { title: 'Page not found' };
 
@@ -11,7 +12,7 @@ export const metadata = { title: 'Page not found' };
 export default function NotFound() {
   return (
     <div className="v4" style={{ background: '#050506', minHeight: '100vh' }}>
-      <style>{`
+      <style>{min(`
         .nf{min-height:100vh;display:flex;align-items:center;justify-content:center;
           text-align:center;padding:120px 24px 80px;position:relative;overflow:hidden;}
         .nf::before{content:'';position:absolute;inset:0;pointer-events:none;
@@ -28,7 +29,7 @@ export default function NotFound() {
         .nf-go a:hover{transform:translateY(-1px);}
         .nf-go .p{background:#fff;color:#06080d;}
         .nf-go .s{background:rgba(255,255,255,.08);color:#eef1f6;border:1px solid rgba(255,255,255,.18);}
-      `}</style>
+      `)}</style>
       <Nav />
       <main id="main" tabIndex={-1}>
       <section className="nf">
