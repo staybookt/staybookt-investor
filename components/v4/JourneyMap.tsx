@@ -24,12 +24,35 @@ import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 
 
 /* Enjoy Life (beat 2) was 24% of the track and went by too fast to read. It is now
  * 32%, and the whole track is longer, so every beat has more room. */
-/* TRACK LENGTH. 620vh was 4693px, which is 3936px of scroll: ~98 down-arrow presses at
-   Chrome's ~40px per press to get through ONE section. Richard, twice: "still slow when
-   using the down arrow... Seems fine if using the scroll bar." A scrollbar drag hides the
-   cost; an arrow key exposes it. 460vh is ~2725px of scroll, ~68 presses. The film is the
-   same film; it just stops charging a toll. */
-const B = [0, 0.18, 0.38, 0.70, 1]; // beat boundaries
+/* TRACK LENGTH — read this before changing any number in this file.
+ *
+ * Richard navigates with the DOWN ARROW KEY on a desktop. Chrome moves ~40px per press, so
+ * the only honest unit for this film is PRESSES, not pixels. He said it three times and I
+ * measured the wrong thing twice before I understood him.
+ *
+ * 620vh was 98 presses. 460vh was 68 at a 757px viewport — but he is on a big monitor, and
+ * that is where the real bug was: THE TRACK WAS IN vh, SO A BIGGER SCREEN COST MORE PRESSES.
+ * 81 at 900px. 94 at 1050px. Backwards. A bigger screen should never mean more work.
+ *
+ * Clamped in px, it now costs ~38-46 presses at ANY viewport, and a big monitor costs FEWER
+ * because it subtracts more from a fixed track. That is the right shape.
+ *
+ * "Seems fine if using the scroll bar" is the tell: a drag covers 3,240px in one gesture and
+ * hides the toll. The keyboard is the honest test. Test with the arrow key.
+ *
+ * BEAT BUDGET. Presses are allocated to how much actually CHANGES in a beat, not by feel:
+ *   b0 climb      ~7   continuous, nothing discrete
+ *   b1 flywheel   ~11  six wheel steps -> one every 1.9 presses
+ *   b2 enjoy life ~11  three scenes    -> one every 3.6 presses  (WAS one every 8.6 — this
+ *                      was Richard's actual complaint. "After the flywheel type graphic" is
+ *                      THIS beat. It took 32% of the film to show three photographs, and its
+ *                      cross-dissolve and push-in move ~0.6% per press: real motion, below
+ *                      the threshold anyone can perceive. Eight presses of nothing reads as
+ *                      a broken page, and he was right to call it.)
+ *   b3 the price  ~16  seven pj steps at ~1.2 presses each, then the $199 holds ~7 presses
+ *                      while --pjp reveals the terms line. Do not starve this one: the jobs
+ *                      arriving IS the payoff. */
+const B = [0, 0.16, 0.41, 0.65, 1]; // beat boundaries
 
 /* The five people you cannot hire. Same argument as the FiveSalaries ledger on
  * /pricing, but as a moment instead of a card: they arrive one at a time, hold,
@@ -72,7 +95,7 @@ function RoleIcon({ id }: { id: string }) {
 }
 
 const CSS = `
-.sscx-track{position:relative;height:460vh;background:#050506;}
+.sscx-track{position:relative;height:clamp(2000px,300vh,2900px);background:#050506;}
 .sscx-stage{position:sticky;top:0;height:100vh;min-height:600px;overflow:hidden;display:flex;flex-direction:column;color:#f5f5f7;--acc:#0ea5e9;--cp:0;--o0:1;--o1:0;--o2:0;--lz:0;}
 .sscx-stage[data-beat="1"]{--acc:#22d3ee;}
 .sscx-stage[data-beat="2"]{--acc:#ffd9a3;}

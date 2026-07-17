@@ -26,8 +26,12 @@ import { useEffect, useRef, useState, type CSSProperties } from 'react';
  * retracting. Beat 2 = the wires redrawing. If you add a beat, give it something continuous
  * or do not add it.
  *
- * TRACK LENGTH. 360vh, deliberately shorter than the homepage film's 460vh. This is a
- * supporting page. Roughly 50 arrow presses end to end.
+ * TRACK LENGTH. Clamped in PIXELS, not vh — same fix as the homepage film, same reason.
+ * Richard navigates with the DOWN ARROW KEY (~40px/press), and a vh track means a BIGGER
+ * MONITOR COSTS MORE PRESSES: 360vh was ~50 presses at 900px and ~59 at 1200px. Backwards.
+ * Clamped, this is ~22-29 presses at any viewport and a big screen costs fewer.
+ * Measure this film in PRESSES, never pixels, and test it with the keyboard — a scrollbar
+ * drag covers the whole track in one gesture and hides the cost completely.
  *
  * THE RULE THIS PAGE EXISTS UNDER: no valuation numbers. The lights going out say "worth
  * less" without ever putting a figure on it, which is exactly why the metaphor earns its
@@ -68,7 +72,7 @@ const B = [0, 0.34, 0.68, 1];
 const clamp = (n: number) => Math.min(Math.max(n, 0), 1);
 
 const CSS = `
-.rt-track{position:relative;height:360vh;background:#050506;}
+.rt-track{position:relative;height:clamp(1500px,230vh,2100px);background:#050506;}
 .rt-stage{position:sticky;top:0;height:100vh;min-height:600px;overflow:hidden;display:flex;
   flex-direction:column;align-items:center;justify-content:center;color:#f5f5f7;
   --p0:0;--lift:0;--wire:0;}
