@@ -113,10 +113,16 @@ export default function FoundersLens() {
      argues that the overlap IS the company, so the overlap should turn into the company. */
   const mrg = Math.max(0, Math.min(1, (cv - 0.74) / 0.26));
   const ez = mrg * mrg * (3 - 2 * mrg);            // smoothstep, so it lands instead of snapping
-  const PX = 450 - 11 + wmW / 2 + 14;              // the period's x, from the measured wordmark
+  /* A period SITS ON the baseline, it is not centred on it. Putting the dot's centre at the
+     text's y hung it 9px low and it read as a detached bullet rather than punctuation.
+     PR is the real period's radius at this size; the dot's centre goes one radius ABOVE the
+     baseline, and the gap is tightened so it touches the 't' the way the wordmark does. */
+  const PR = 7;
+  const PX = 450 - 11 + wmW / 2 + 11;              // the period's x, from the measured wordmark
+  const PY = CY + 15 - PR;                         // its centre, one radius above the baseline
   const mlx = lx + (PX - lx) * ez;
   const mrx = rx + (PX - rx) * ez;
-  const mr = R + (9 - R) * ez;
+  const mr = R + (PR - R) * ez;
   /* The lenses stay lit for most of the flight and only hand over at the very end, so the
      eye follows them INTO the period rather than watching them fade and a logo appear. */
   const hand = Math.max(0, (ez - 0.62) / 0.38);
@@ -246,7 +252,7 @@ export default function FoundersLens() {
                 <tspan fill="#f5f5f7">Stay</tspan><tspan fill="url(#fl-wm)">Bookt</tspan>
               </text>
             </g>
-            <circle cx={PX} cy={CY + 15} r={9 * (0.4 + 0.6 * hand)} fill="#7C3AED" opacity={hand} />
+            <circle cx={PX} cy={PY} r={PR * (0.4 + 0.6 * hand)} fill="#7C3AED" opacity={hand} />
           </svg>
 
           <div className="fl-copy">
