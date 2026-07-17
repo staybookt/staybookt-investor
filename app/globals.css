@@ -126,6 +126,16 @@ html, body {
 }
 
 /* Eyebrow — always mute grey, never a color accent (Apple restraint) */
+/* CONTRAST, and why the light-section eyebrow is #69707d.
+   Eyebrows on the light sections were #8a8f98. On the cream #f6f6f3 that measures
+   3.00:1. WCAG AA wants 4.5:1 for text, so every eyebrow on a light page failed.
+   #69707d measures 4.60:1 on the cream and 4.98:1 on white, so it clears the bar on
+   both light backgrounds we actually ship. Note #6b7280 does NOT: it is 4.47:1 on the
+   cream and only reaches 4.5:1 against pure white, which is not the background here.
+   Dark sections are a SEPARATE token and were never part of this. The eyebrow on
+   #050506 is #c9cdd6 (12.79:1), and the few that stay #8a8f98 on #050506 are 6.27:1.
+   Both already pass, so do not "fix" them to match the light value. Check the
+   background before you touch an eyebrow colour. */
 .eyebrow {
   font-size: 11px; font-weight: 600; text-transform: uppercase;
   letter-spacing: 0.24em; color: var(--mute);

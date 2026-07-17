@@ -43,7 +43,7 @@ const TRUE_THINGS: { t: string; b: string }[] = [
 const CSS = `
 .wk{background:var(--v4-cream,#f6f6f3);color:var(--v4-ink,#06080d);}
 .wk .wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
-.wk .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#8a8f98;}
+.wk .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#69707d;}
 .wk h1,.wk h2,.wk h3{font-weight:600;letter-spacing:-.035em;}
 
 /* Centred to match the standard. Five interior heroes were centred and four were left-

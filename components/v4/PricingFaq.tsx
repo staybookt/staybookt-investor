@@ -122,7 +122,7 @@ export default function PricingFaq() {
 const CSS = `
 .pfq{padding:clamp(90px,12vw,150px) 0;background:var(--v4-cream,#f6f6f3);color:var(--v4-ink,#06080d);}
 .pfq .wrap{width:100%;max-width:1080px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
-.pfq .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#8a8f98;}
+.pfq .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#69707d;}
 .pfq .fgrid{display:grid;grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr);gap:clamp(32px,6vw,84px);align-items:start;}
 @media(max-width:900px){.pfq .fgrid{grid-template-columns:1fr;gap:36px;}}
 .pfq .faside{position:sticky;top:clamp(96px,12vh,130px);}

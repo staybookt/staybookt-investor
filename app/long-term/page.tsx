@@ -57,7 +57,7 @@ const CSS = `
    have. It looked like a different site, because it was built off the old /enjoy-life, which
    was itself a one-off. Copying a one-off is how the drift spreads.
    The values below are lifted from /pricing and /how-it-works, which are the standard:
-     eyebrow   13px / 700 / .18em / uppercase / #8a8f98 (#c9cdd6 on dark)
+     eyebrow   13px / 700 / .18em / uppercase / #69707d (#c9cdd6 on dark)
      headings  600 / letter-spacing -.035em
      hero      centred, #050506, radial grade, clamp(140px,17vh,190px) top
      h1        clamp(42px,6.6vw,86px), line-height 1.0, max 14ch, centred
@@ -69,7 +69,7 @@ const CSS = `
    spoken for, and HeroCta at the bottom of THIS page already uses one of them. */
 .lt{background:var(--v4-cream,#f6f6f3);color:var(--v4-ink,#06080d);}
 .lt .wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
-.lt .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#8a8f98;}
+.lt .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#69707d;}
 .lt h1,.lt h2,.lt h3{font-weight:600;letter-spacing:-.035em;color:var(--v4-ink);}
 
 /* HERO — the /pricing pattern exactly. */

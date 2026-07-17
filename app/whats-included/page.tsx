@@ -54,7 +54,7 @@ const CSS = `
 .inc,.v4-nav{--v4-ink:#06080d;--v4-paper:#fff;--v4-cream:#f6f6f3;--v4-line:#e9e9e6;--v4-muted:#7a828f;--v4-green:#10b981;--v4-green-d:#047857;--v4-violet:#7c3aed;--v4-cyan:#06b6d4;--v4-indigo:#4f46e5;}
 .inc{background:#fff;color:var(--v4-ink);}
 .inc .wrap{width:100%;max-width:1080px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
-.inc .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#8a8f98;}
+.inc .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#69707d;}
 .inc h1,.inc h2,.inc h3{font-weight:600;letter-spacing:-.035em;color:var(--v4-ink);}
 .inc-btn{display:inline-flex;align-items:center;gap:8px;background:var(--v4-ink);color:#fff;font-size:15px;font-weight:600;border-radius:999px;padding:15px 30px;text-decoration:none;transition:transform .3s ease;}
 .inc-btn:hover{transform:translateY(-1px);}

@@ -110,7 +110,7 @@ const CSS = `
 /* Jacob likes this and it stays. Tightened, not cut: it is the last thing on the page
    and it only has to answer one question, which is who am I actually going to meet. */
 .st-who{border-top:1px solid #e6e6e1;padding:clamp(44px,5.5vw,68px) 0 clamp(56px,7vw,84px);}
-.st-who .k{font-size:11.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#8a8f98;}
+.st-who .k{font-size:11.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#69707d;}
 .st-who h2{margin-top:12px;font-size:clamp(22px,2.6vw,34px);font-weight:600;letter-spacing:-.035em;color:var(--v4-ink);max-width:20ch;}
 .st-two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(22px,3.4vw,48px);margin-top:clamp(24px,2.8vw,34px);max-width:880px;}
 @media(max-width:760px){.st-two{grid-template-columns:1fr;gap:28px;}}
