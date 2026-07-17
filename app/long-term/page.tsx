@@ -102,9 +102,10 @@ const CSS = `
 
 export default function LongTermPage() {
   return (
-    <main className="lt v4" id="top">
+    <div className="lt v4" id="top">
       <style>{CSS}</style>
       <Nav />
+      <main id="main" tabIndex={-1}>
 
       <header className="lt-hero">
         <div className="wrap">
@@ -205,7 +206,8 @@ export default function LongTermPage() {
       {/* fromBlack: .lt-none directly above is #050506. Without it the CTA's photo opens at
           a 60% scrim and hard-cuts out of solid black — the exact seam fromBlack dissolves. */}
       <HeroCta fromBlack />
+      </main>
       <SiteFooter />
-    </main>
+    </div>
   );
 }

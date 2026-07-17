@@ -103,7 +103,11 @@ export default function Nav() {
         </div>
       </div>
 
-      <div id="nav-sheet" className={`nav-sheet${open ? ' open' : ''}`} hidden={!open}>
+      {/* hidden={!open} was here and did NOTHING — the author rule in globals.css set
+          display:block, which beats the UA stylesheet's [hidden]{display:none}, so the
+          attribute never applied and the links stayed in the tab order. Visibility does
+          the hiding now, in CSS, next to the animation that depends on it. */}
+      <div id="nav-sheet" className={`nav-sheet${open ? ' open' : ''}`}>
         {LINKS.map((l) => (
           <a key={l.href} href={l.href} onClick={() => setOpen(false)}>
             {l.label}

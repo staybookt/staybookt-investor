@@ -62,6 +62,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={`antialiased ${interTight.variable}`}>
+        <a href="#main" className="skip-link">
+          Skip to content
+        </a>
         {children}
         <StructuredData />
         <Analytics />

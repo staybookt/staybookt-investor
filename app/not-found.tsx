@@ -10,7 +10,7 @@ export const metadata = { title: 'Page not found' };
  * rotted. Give them the door, not a dead end. */
 export default function NotFound() {
   return (
-    <main className="v4" style={{ background: '#050506', minHeight: '100vh' }}>
+    <div className="v4" style={{ background: '#050506', minHeight: '100vh' }}>
       <style>{`
         .nf{min-height:100vh;display:flex;align-items:center;justify-content:center;
           text-align:center;padding:120px 24px 80px;position:relative;overflow:hidden;}
@@ -30,6 +30,7 @@ export default function NotFound() {
         .nf-go .s{background:rgba(255,255,255,.08);color:#eef1f6;border:1px solid rgba(255,255,255,.18);}
       `}</style>
       <Nav />
+      <main id="main" tabIndex={-1}>
       <section className="nf">
         <div className="nf-in">
           <div className="nf-k">404</div>
@@ -44,7 +45,8 @@ export default function NotFound() {
           </div>
         </div>
       </section>
+      </main>
       <SiteFooter />
-    </main>
+    </div>
   );
 }

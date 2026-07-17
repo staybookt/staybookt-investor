@@ -107,9 +107,10 @@ export default function AboutPage() {
     /* .v4 carries every design token. Without it the nav wordmark's gradient
        resolves to nothing and, because the rule also sets color:transparent,
        the word "Bookt" disappears entirely. */
-    <main className="abt v4">
+    <div className="abt v4">
       <style>{CSS}</style>
       <Nav />
+      <main id="main" tabIndex={-1}>
 
       {/* 1 — THE BELIEF */}
       <header className="abt-hero">
@@ -257,7 +258,9 @@ export default function AboutPage() {
       {/* fromBlack: .abt-prm directly above is #050506. Same seam as /long-term. */}
       <HeroCta fromBlack />
 
+      </main>
+
       <SiteFooter />
-    </main>
+    </div>
   );
 }

@@ -283,18 +283,33 @@ const COLS: { k: keyof Pick<Row, 'you' | 'svc' | 'agy' | 'sb'>; label: string; s
   { k: 'sb', label: 'StayBookt', sub: '$199/mo' },
 ];
 
+/* THE WHOLE CHART ANNOUNCED AS NOTHING.
+ * These marks carried aria-label on a bare <span>. A span maps to role="generic", and
+ * generic does not support an accessible name, so EVERY aria-label here was silently
+ * discarded — and the "no" span has no text content at all. A screen reader got six job
+ * titles and silence. The comparison IS the argument of this section.
+ * The marks are decorative now and the ROW says the whole line (see say() and the button's
+ * aria-label below), which also fixes the second half of the bug: this grid declared
+ * role="table" while its data rows were <button>s, so the column headers never associated
+ * with any cell and the table was exposed as broken or empty. */
 function Mark({ v }: { v: Cell }) {
   if (v === 'yes')
     return (
-      <span className="mk yes" aria-label="yes">
+      <span className="mk yes" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3.2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M4 12l5 5L20 6" />
         </svg>
       </span>
     );
-  if (v === 'you') return <span className="mk youtag">You</span>;
-  return <span className="mk no" aria-label="no" />;
+  if (v === 'you') return <span className="mk youtag" aria-hidden="true">You</span>;
+  return <span className="mk no" aria-hidden="true" />;
 }
+
+/* Self-contained on purpose: with no table semantics to lean on, each value has to state
+   its own column, or "yes" floating alone means nothing. */
+const say = (v: Cell) => (v === 'yes' ? 'yes' : v === 'you' ? 'you do this yourself' : 'no');
+const rowLabel = (r: Row) =>
+  `${r.job}. ` + COLS.map((c) => `${c.label}: ${say(r[c.k])}`).join('. ') + '.';
 
 export default function Matrix() {
   const [open, setOpen] = useState<number | null>(null);
@@ -316,11 +331,15 @@ export default function Matrix() {
         </div>
 
         <div className="mx-scroll">
-          <div className="mx-grid" role="table">
-            <div className="mx-r mx-hd" role="row">
-              <div className="mx-j" role="columnheader" />
+          {/* role="table" is GONE. It was invalid: the data rows are <button>s, not
+              role="row", so AT exposed the table as broken and never tied a header to a
+              cell. The header row is visual only now — every row states its own columns in
+              its accessible name, which is also what makes the stacked mobile view work. */}
+          <div className="mx-grid">
+            <div className="mx-r mx-hd" aria-hidden="true">
+              <div className="mx-j" />
               {COLS.map((c) => (
-                <div className={`mx-c${c.k === 'sb' ? ' us' : ''}`} key={c.k} role="columnheader">
+                <div className={`mx-c${c.k === 'sb' ? ' us' : ''}`} key={c.k}>
                   <b>{c.label}</b>
                   <i>{c.sub}</i>
                 </div>
@@ -334,6 +353,7 @@ export default function Matrix() {
                   className="mx-r"
                   onClick={() => setOpen(open === i ? null : i)}
                   aria-expanded={open === i}
+                  aria-label={rowLabel(r)}
                 >
                   <span className="mx-j">
                     <span className="jt">{r.job}</span>

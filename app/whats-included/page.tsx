@@ -82,9 +82,10 @@ const CSS = `
 
 export default function WhatsIncludedPage() {
   return (
-    <main className="inc">
+    <div className="inc">
       <style>{CSS}</style>
       <Nav />
+      <main id="main" tabIndex={-1}>
 
       <header className="inc-hero">
         <img src={HERO_IMG} alt="" fetchPriority="high" decoding="async" />
@@ -137,7 +138,9 @@ export default function WhatsIncludedPage() {
           same CTA banner the homepage ends on, so every page lands the same way. */}
       <HeroCta />
 
+      </main>
+
       <SiteFooter />
-    </main>
+    </div>
   );
 }

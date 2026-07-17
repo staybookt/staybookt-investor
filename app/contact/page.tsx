@@ -111,9 +111,10 @@ function CalIcon() {
 
 export default function ContactPage() {
   return (
-    <main className="ct v4">
+    <div className="ct v4">
       <style>{CSS}</style>
       <Nav />
+      <main id="main" tabIndex={-1}>
 
       <header className="ct-hero">
         <div className="wrap">
@@ -216,7 +217,9 @@ export default function ContactPage() {
         </div>
       </section>
 
+      </main>
+
       <SiteFooter />
-    </main>
+    </div>
   );
 }

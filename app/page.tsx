@@ -290,9 +290,10 @@ const PAGE_CSS = `
 
 export default function HomePage() {
   return (
-    <main id="top" className="v4">
+    <div id="top" className="v4">
       <style>{PAGE_CSS}</style>
       <Nav />
+      <main id="main" tabIndex={-1}>
 
       {/* 1 — HERO */}
       <header className="scene">
@@ -447,7 +448,9 @@ export default function HomePage() {
       {/* HomeFaq is #050506, so fromBlack still grades correctly out of it. */}
       <HeroCta fromBlack />
 
+      </main>
+
       <SiteFooter />
-    </main>
+    </div>
   );
 }

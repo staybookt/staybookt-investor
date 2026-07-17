@@ -30,12 +30,14 @@ export const metadata = {
 
 export default function HowItWorksPage() {
   return (
-    <main id="top" className="v4">
+    <div id="top" className="v4">
       <Nav />
+      <main id="main" tabIndex={-1}>
       <HowItWorks />
       {/* Every page closes the same way. This one used to just stop. */}
       <HeroCta />
+      </main>
       <SiteFooter />
-    </main>
+    </div>
   );
 }

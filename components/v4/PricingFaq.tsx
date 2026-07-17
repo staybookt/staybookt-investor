@@ -154,8 +154,18 @@ const CSS = `
 .pfq-q:hover .pl{border-color:var(--fc);color:var(--fc);}
 .pfq-q.open .pl{transform:rotate(45deg);background:var(--fc);border-color:transparent;color:#fff;box-shadow:0 8px 20px -8px var(--fc);}
 
-.pfq .fbody{max-height:0;overflow:hidden;transition:max-height .55s cubic-bezier(.16,1,.3,1);}
-.pfq-q.open .fbody{max-height:520px;}
+/* max-height:0 + overflow:hidden CLIPS PIXELS. It does not touch the accessibility tree.
+   So every collapsed answer here was still being read aloud, in full, while aria-expanded
+   on the button said "collapsed" — the accordion did not exist to a screen reader, it was
+   one wall of text that contradicted its own state. It also left anything focusable inside
+   in the tab order, invisible.
+   visibility:hidden fixes both and still animates. The 0s delay is load-bearing: opening,
+   visible flips instantly so the height can animate; closing, it waits out the .55s so the
+   body does not vanish on frame one. */
+.pfq .fbody{max-height:0;overflow:hidden;visibility:hidden;
+  transition:max-height .55s cubic-bezier(.16,1,.3,1),visibility 0s linear .55s;}
+.pfq-q.open .fbody{max-height:520px;visibility:visible;
+  transition:max-height .55s cubic-bezier(.16,1,.3,1),visibility 0s;}
 .pfq .fbody p{margin:0;padding:0 clamp(16px,2vw,22px) clamp(22px,2.6vw,28px);font-size:16px;line-height:1.65;color:#52565e;max-width:62ch;}
 
 @media(prefers-reduced-motion:reduce){.pfq .fbody,.pfq-q,.pfq-q .pl{transition:none;}}

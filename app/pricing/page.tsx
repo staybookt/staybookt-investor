@@ -107,9 +107,10 @@ const CSS = `
 
 export default function PricingPage() {
   return (
-    <main className="prc v4">
+    <div className="prc v4">
       <style>{CSS}</style>
       <Nav />
+      <main id="main" tabIndex={-1}>
 
       {/* 1 — THE NUMBER */}
       <header className="prc-hero">
@@ -200,7 +201,9 @@ export default function PricingPage() {
       {/* 4 — THE CALL. Same banner every page lands on. */}
       <HeroCta />
 
+      </main>
+
       <SiteFooter />
-    </main>
+    </div>
   );
 }

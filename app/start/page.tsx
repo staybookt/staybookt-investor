@@ -134,9 +134,10 @@ const CSS = `
 
 export default function StartPage() {
   return (
-    <main className="st v4" id="top">
+    <div className="st v4" id="top">
       <style>{CSS}</style>
       <Nav />
+      <main id="main" tabIndex={-1}>
 
       <section className="st-hero">
         <div className="wrap">
@@ -246,7 +247,9 @@ export default function StartPage() {
         </div>
       </section>
 
+      </main>
+
       <SiteFooter />
-    </main>
+    </div>
   );
 }

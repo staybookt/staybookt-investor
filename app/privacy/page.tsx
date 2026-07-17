@@ -267,8 +267,9 @@ const SECTIONS: Section[] = [
 
 export default function PrivacyPage() {
   return (
-    <main className="v4" style={{ background: '#fff' }}>
+    <div className="v4" style={{ background: '#fff' }}>
       <Nav />
+      <main id="main" tabIndex={-1}>
       <LegalPage
         eyebrow="Privacy policy"
         title="We do not sell your data. Ever."
@@ -279,7 +280,8 @@ export default function PrivacyPage() {
         updated="15 July 2026"
         sections={SECTIONS}
       />
+      </main>
       <SiteFooter />
-    </main>
+    </div>
   );
 }

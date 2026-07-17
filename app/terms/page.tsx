@@ -346,8 +346,9 @@ const SECTIONS: Section[] = [
 
 export default function TermsPage() {
   return (
-    <main className="v4" style={{ background: '#fff' }}>
+    <div className="v4" style={{ background: '#fff' }}>
       <Nav />
+      <main id="main" tabIndex={-1}>
       <LegalPage
         eyebrow="Terms and conditions"
         title="The deal, in plain English."
@@ -359,7 +360,8 @@ export default function TermsPage() {
         updated="15 July 2026"
         sections={SECTIONS}
       />
+      </main>
       <SiteFooter />
-    </main>
+    </div>
   );
 }

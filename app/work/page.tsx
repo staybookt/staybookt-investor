@@ -31,13 +31,15 @@ export const metadata = {
 
 export default function WorkPage() {
   return (
-    <main id="top" className="v4">
+    <div id="top" className="v4">
       <Nav />
+      <main id="main" tabIndex={-1}>
       <WorkShowcase />
       {/* One CTA site-wide. WorkShowcase used to end on its own bespoke card with a
           different headline and a button that said "Pick a time". Now there is one. */}
       <HeroCta />
+      </main>
       <SiteFooter />
-    </main>
+    </div>
   );
 }

@@ -104,7 +104,9 @@ html, body {
   scroll-behavior: smooth;
 }
 
-main#top {
+/* was main#top — the shell is a <div> now so <main> can sit INSIDE it,
+   below the nav, which is what makes the skip link mean anything. */
+#top {
   overflow-x: clip;
 }
 
@@ -218,11 +220,44 @@ section[id] { scroll-margin-top: 5rem; }
   }
 }
 
+/* --elec is 8.39:1 on #050506 and 2.24:1 on cream. One rule serves both palettes, so
+   it has to clear 3:1 on the WORST surface, not the best — on every cream and white page
+   this ring was invisible to anyone who needed it. --elec-deep: 3.40 cream / 3.68 white /
+   5.53 dark. The note at the top of this file already said #06b6d4 "fails contrast on
+   cream and reads like a highlighter" — that was written about text; the ring was never
+   re-checked against it. */
 :focus-visible {
-  outline: 2px solid var(--elec);
+  outline: 2px solid var(--elec-deep);
   outline-offset: 2px;
   border-radius: 4px;
 }
+
+/* SKIP LINK. First thing in the tab order, visible only once focused. Every page's nav is
+   ~8 links plus a burger; without this a keyboard user re-tabs the whole nav on every
+   single page before reaching content. Richard navigates this site by keyboard. */
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -110%);
+  z-index: 200;
+  padding: 12px 22px;
+  background: #050506;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+  border-radius: 0 0 10px 10px;
+  text-decoration: none;
+  transition: transform .18s ease;
+}
+.skip-link:focus-visible {
+  transform: translate(-50%, 0);
+  outline: 2px solid var(--elec-light);
+  outline-offset: -4px;
+}
+#main:focus { outline: none; }
+#main:focus-visible { outline: none; }
 
 @media (max-width: 640px) {
   .font-display, .display-xl, .display-1, .display-2 { word-break: keep-all; overflow-wrap: break-word; }
@@ -536,12 +571,23 @@ section[id] { scroll-margin-top: 5rem; }
   .v4-nav .nav-burger{display:flex;}
   /* The sheet is always dark, so the nav must be solid while it is open (handled in Nav.tsx
      by OR-ing `open` into the solid class) or the links float on the page underneath. */
+  /* SIX PHANTOM TAB STOPS. The closed sheet was hidden with opacity:0 + pointer-events:none.
+     Neither takes an element out of the tab order, so on a phone the six menu links were
+     tabbable while completely invisible — tab into the page and focus vanishes into a
+     menu nobody can see. Nav.tsx carried hidden={!open}, but THIS rule beat it: [hidden]
+     lives in the UA stylesheet and any author display wins, so the attribute computed to
+     nothing at all.
+     visibility is the fix because it is the only one that does both jobs — it removes the
+     element from the tab order AND it transitions. The 0s delay is load-bearing: opening,
+     it flips to visible instantly so the fade can run; closing, it waits .2s for the fade
+     to finish before hiding, instead of snapping out on frame one. */
   .v4-nav .nav-sheet{display:block;position:fixed;top:64px;left:0;right:0;bottom:0;
     background:rgba(6,8,13,.97);backdrop-filter:saturate(160%) blur(16px);
     padding:14px clamp(20px,5vw,32px) 40px;overflow-y:auto;
-    opacity:0;pointer-events:none;transform:translateY(-8px);
-    transition:opacity .2s ease,transform .25s ease;}
-  .v4-nav .nav-sheet.open{opacity:1;pointer-events:auto;transform:none;}
+    opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-8px);
+    transition:opacity .2s ease,transform .25s ease,visibility 0s linear .2s;}
+  .v4-nav .nav-sheet.open{opacity:1;visibility:visible;pointer-events:auto;transform:none;
+    transition:opacity .2s ease,transform .25s ease,visibility 0s;}
   .v4-nav .nav-sheet a{display:block;padding:17px 2px;font-size:19px;font-weight:600;
     letter-spacing:-.02em;color:#eef1f6;text-decoration:none;
     border-bottom:1px solid rgba(255,255,255,.09);}
