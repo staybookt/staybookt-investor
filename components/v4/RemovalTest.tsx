@@ -56,7 +56,12 @@ const path = (d: Driver) =>
 const BEATS = [
   { k: 'Right now', h: 'Every one of these runs through you.', s: 'Six things decide whether this is a business or a job with a van. Today, all six are wired to one person.' },
   { k: 'Take a week off', h: 'And here is what a buyer sees.', s: 'Not your van. Not your tools. They are looking at what happens when you are not standing there.' },
-  { k: 'The difference', h: 'Five of those wires stop being yours.', s: 'The lights stay on whether you are on a roof or on a beach. You are still connected. You are just not the thing holding it up.' },
+  /* WAS "Five of those wires stop being yours." Richard: "why is it not 6?" Because it was
+     simply wrong: setLit relights ALL SIX in beat 2, and beat 0 above says "all six are wired
+     to one person". I wrote a number the picture contradicts.
+     It now mirrors beat 0 word for word, which is what the drop-the-mic wants: the film opens
+     on "Every one of these runs through you" and closes on the exact inverse. */
+  { k: 'The difference', h: 'Not one of them runs through you now.', s: 'The lights stay on whether you are on a roof or on a beach. You are still connected. You are just not the thing holding it up.' },
 ];
 
 const B = [0, 0.34, 0.68, 1];

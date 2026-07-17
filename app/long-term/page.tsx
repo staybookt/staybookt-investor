@@ -162,28 +162,17 @@ export default function LongTermPage() {
           out in the quietest column; now it is what you see when the power goes off. */}
       <RemovalTest />
 
-      {/* THE ENGINE. Kept from the /enjoy-life version — Richard said he liked the messaging,
-          and it is the mechanism that makes rows 2 and 5 of the chart actually happen. */}
-      <section className="lt-sec">
-        <div className="wrap">
-          <Reveal className="eyebrow" as="div">What compounds</Reveal>
-          <Reveal><h2>The cheapest job you will ever win is the second one.</h2></Reveal>
-          <Reveal>
-            <p>
-              Somebody who already likes you does not need to be found, or sold, or convinced. They
-              need to be <b>asked</b>. And asking is the first thing that falls off the list when you
-              are the one doing everything.
-            </p>
-          </Reveal>
-          <Reveal>
-            <p>
-              A business that starts every January from zero is worth what it can bill this year. A
-              business with a list that comes back is worth something else entirely, and the
-              difference between the two is whether anybody asked.
-            </p>
-          </Reveal>
-        </div>
-      </section>
+      {/* "WHAT COMPOUNDS" WAS HERE AND IS GONE (Richard, review round 3, July 2026).
+          "I feel the What Compounds is out of place. It breaks the flow and I think detracts
+          from what you have done above which feels like a 'drop the mic' presentation. Why do
+          you think we need this?"
+          The honest answer to his question: I kept it because he had said he liked that
+          messaging on the old /enjoy-life. That is a reason to keep a sentence, not a reason
+          to put it after the payoff. The film IS the argument now, and the second-job idea it
+          carried already lives inside the film as driver 2 ("Past customers brought back for
+          the work they are due"). Saying it again in prose, after the lights come back on, is
+          explaining the joke.
+          The page now goes: the one fact -> the film -> we take none of it -> the door. */}
 
       <section className="lt-none">
         <div className="wrap">
