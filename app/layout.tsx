@@ -4,6 +4,7 @@ import './globals.css';
 import Analytics from '@/components/Analytics';
 import AnalyticsEvents from '@/components/AnalyticsEvents';
 import StructuredData from '@/components/StructuredData';
+import ArrowScroll from '@/components/ArrowScroll';
 
 const interTight = Inter_Tight({
   subsets: ['latin'],
@@ -65,6 +66,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a href="#main" className="skip-link">
           Skip to content
         </a>
+        {/* Richard reads this site with the down arrow. Chrome gives an arrow press 40px and
+            a wheel notch 100px, so the keyboard was doing 2.5x the work through the films. */}
+        <ArrowScroll />
         {children}
         <StructuredData />
         <Analytics />
