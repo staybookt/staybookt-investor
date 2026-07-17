@@ -251,6 +251,12 @@ section[id] { scroll-margin-top: 5rem; }
   text-decoration: none;
   transition: transform .18s ease;
 }
+/* :focus AND :focus-visible on purpose. A scripted or heuristic-missed focus that does not
+   match :focus-visible would leave this link focused but still parked offscreen — the user
+   tabs once, sees nothing move, and has no idea the skip exists. Nobody can focus this with
+   a mouse without also activating it, so there is no cost to the broader selector. This is
+   the pattern WebAIM and GOV.UK both ship, for this exact reason. */
+.skip-link:focus,
 .skip-link:focus-visible {
   transform: translate(-50%, 0);
   outline: 2px solid var(--elec-light);
