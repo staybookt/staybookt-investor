@@ -71,12 +71,12 @@ const CSS = `
    calendar started at 635px on a 713px viewport, which meant we had moved it up the
    page and it was STILL one scroll away. A booking page whose calendar you have to go
    looking for is the thing we were fixing. Do not pad this back out. */
-.st-hero{position:relative;overflow:hidden;background:#050506;
-  padding:clamp(84px,10vh,104px) 0 clamp(34px,3.6vw,46px);}
-.st-hero::before{content:'';position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(58% 70% at 12% 0%,rgba(16,185,129,.16),transparent 62%),
-             radial-gradient(52% 70% at 90% 10%,rgba(79,70,229,.14),transparent 62%);}
-.st-hero .wrap{position:relative;z-index:1;}
+/* THE ONE HEIGHT EXCEPTION ON THE SITE, and the comment above is the reason. The
+   shared .pg-hero is clamp(140px,17vh,190px) top, which would put roughly 90px back
+   on a page whose whole job is having the calendar in view on load. It keeps the
+   base, the wash and the hue from the system and overrides the padding only.
+   Indigo: /start is the booking, the same commitment rung as /pricing. */
+.pg-hero.st-hero{padding:clamp(84px,10vh,104px) 0 clamp(34px,3.6vw,46px);--hero-hue:79,70,229;}
 .st-copy{text-align:center;max-width:720px;margin:0 auto;}
 
 .st-k{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;
@@ -165,7 +165,7 @@ export default function StartPage() {
       <Nav />
       <main id="main" tabIndex={-1}>
 
-      <section className="st-hero">
+      <section className="pg-hero st-hero">
         <div className="wrap">
           <div className="st-copy">
             <Reveal as="div">

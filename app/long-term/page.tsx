@@ -1,6 +1,7 @@
 import Nav from '@/components/v4/Nav';
 import Reveal from '@/components/v4/Reveal';
 import HeroCta from '@/components/v4/HeroCta';
+import HeroMedia from '@/components/v4/HeroMedia';
 import RemovalTest from '@/components/v4/RemovalTest';
 import SiteFooter from '@/components/SiteFooter';
 import { min } from '@/lib/css';
@@ -59,29 +60,24 @@ const CSS = `
    The values below are lifted from /pricing and /how-it-works, which are the standard:
      eyebrow   13px / 700 / .18em / uppercase / #69707d (#c9cdd6 on dark)
      headings  600 / letter-spacing -.035em
-     hero      centred, #050506, radial grade, clamp(140px,17vh,190px) top
+     hero      the shared .pg-hero in globals.css. THIS PAGE IS ONE OF THE TWO
+               THAT GET THE FILM VARIANT, see below.
      h1        clamp(42px,6.6vw,86px), line-height 1.0, max 14ch, centred
      lead      clamp(18px,2.1vw,23px) / 1.45 / #c6cbd3
      h2        clamp(30px,4.4vw,56px), line-height 1.03
      section   clamp(80px,11vw,140px)
-   /pricing is the model rather than /how-it-works because this is an argument page with no
-   photo. Do not add a photo hero here: the only three Pexels IDs in this codebase are all
-   spoken for, and HeroCta at the bottom of THIS page already uses one of them. */
+   The no-photo rule above still holds and is now moot: this page does not get a Pexels
+   still, it gets the film. The site has exactly two lifestyle video headers, the homepage
+   and this one, and both run the same public/hero-loop.mp4 through the same HeroMedia, so
+   a phone gets the 38KB poster and only a viewport above 761px pays for the 1.24MB clip.
+   No second asset, no second breakpoint to keep in sync. */
 .lt{background:var(--v4-cream,#f6f6f3);color:var(--v4-ink,#06080d);}
 .lt .wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
 .lt .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#69707d;}
 .lt h1,.lt h2,.lt h3{font-weight:600;letter-spacing:-.035em;color:var(--v4-ink);}
 
-/* HERO — the /pricing pattern exactly. */
-.lt-hero{position:relative;background:#050506;padding:clamp(140px,17vh,190px) 0 clamp(80px,10vw,120px);overflow:hidden;text-align:center;}
-.lt-hero::before{content:'';position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(58% 46% at 50% 0%,rgba(79,70,229,.16),transparent 64%);}
-.lt-hero .wrap{position:relative;z-index:1;}
-.lt-hero .eyebrow{color:#c9cdd6;}
-.lt-hero h1{margin-top:18px;font-size:clamp(42px,6.6vw,86px);line-height:1.0;max-width:14ch;
-  margin-left:auto;margin-right:auto;color:#fff;text-shadow:0 4px 44px rgba(0,0,0,.6);}
-.lt-hero h1 .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
-.lt-hero p{margin:26px auto 0;font-size:clamp(18px,2.1vw,23px);line-height:1.45;color:#c6cbd3;max-width:46ch;}
+/* HERO. The film variant of .pg-hero, defined in globals.css. This page sets no hue:
+   there is a video behind the copy, and a colour wash on top of a film is mud. */
 
 /* SECTIONS — clamp(80px,11vw,140px) is the gold rhythm. */
 .lt-sec{padding:clamp(80px,11vw,140px) 0;border-top:1px solid #e6e6e1;}
@@ -108,7 +104,11 @@ export default function LongTermPage() {
       <Nav />
       <main id="main" tabIndex={-1}>
 
-      <header className="lt-hero">
+      <header className="pg-hero film">
+        {/* Poster on a phone, film above 761px, poster again under reduced motion.
+            Inherited, not re-implemented. See HeroMedia.tsx. */}
+        <HeroMedia />
+        <div className="grad-ov" />
         <div className="wrap">
           <Reveal className="eyebrow" as="div">Long-term value</Reveal>
           <Reveal>

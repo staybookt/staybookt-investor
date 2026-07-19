@@ -647,6 +647,97 @@ section[id] { scroll-margin-top: 5rem; }
   .v4-nav .pill{padding:9px 15px;font-size:13.5px;}
 }
 
+/* ============================================================================
+   THE PAGE HEADER. There is one. There are two renderings of it.
+
+   It was nine. Every interior page hand-rolled its own #050506 header with a
+   radial-gradient ::before, and because each one was copied from the last and
+   nudged, they came out accidentally near-identical AND subtly misaligned at the
+   same time: clamp(140px,18vh,210px) here, clamp(150px,20vh,210px) there,
+   clamp(140px,17vh,190px) on three others, all wearing the same emerald+indigo
+   wash. Two pages went the other way entirely and ran full-bleed Pexels photo
+   heroes at min(88vh,820px), which is why the set read as two different websites.
+
+   .pg-hero        the dark header. Every page except the two films.
+   .pg-hero.film   the lifestyle film header. The homepage owns one, /long-term
+                   is the second and last. Same overlay, same HeroMedia, so the
+                   phone behaviour (poster only, video above 761px, reduced motion
+                   respected) is inherited rather than re-derived.
+
+   ONE HEIGHT. clamp(140px,17vh,190px) top, clamp(80px,10vw,120px) bottom, on
+   every non-film header. There is no per-page height. If a page needs a different
+   one it needs a reason written down beside it, and there is exactly one of those
+   (/start, where the calendar has to stay above the fold on a 713px viewport).
+
+   THE ONLY THING A PAGE SETS IS --hero-hue. One line. The headline gradient is
+   --sb-grad on all nine without exception, see the gradient note at the top of
+   this file. The per-page colour lives in the background wash and nowhere else,
+   because a per-page text gradient is how you get a tenth brand gradient.
+
+   HUE ASSIGNMENT. Only the three brand hues, assigned by what the page is FOR,
+   with no two adjacent nav items sharing one. Nav order runs:
+     How it works     cyan    #06b6d4  6,182,212
+     Whats included   emerald #10b981  16,185,129
+     Pricing          indigo  #4f46e5  79,70,229
+     Long-term value  FILM            (no wash, it is a video header)
+     The work         cyan    #06b6d4  6,182,212
+     About us         emerald #10b981  16,185,129
+   and off-nav:
+     /start           indigo  #4f46e5  79,70,229
+     /contact         cyan    #06b6d4  6,182,212
+     404              cyan    #06b6d4  6,182,212
+   The logic is the ladder the whole site is built on. Cyan is Get Found, the
+   outside world finding you: how the machine works, the live client site you can
+   go and click, the front door, and the page you land on when a link rots.
+   Emerald is StayBookt, the running of it: the list of what we actually do, and
+   the two people who do it. Indigo is the commitment: the price, and the booking.
+   A new page inherits the header for free and only has to answer one question,
+   which of those three things it is.
+   ========================================================================= */
+.pg-hero{
+  --hero-hue:16,185,129;
+  position:relative;background:#050506;overflow:hidden;text-align:center;
+  padding:clamp(140px,17vh,190px) 0 clamp(80px,10vw,120px);
+}
+/* --hero-hue IS AN R,G,B TRIPLE, NOT A HEX, AND THAT IS NOT A STYLE PREFERENCE.
+   This was written first as color-mix(in srgb,var(--hero-hue) 13%,transparent) with
+   a hex, which reads better and shipped wrong. Lightning CSS downlevels color-mix()
+   at build time, and with an unresolvable var() inside it cannot compute the blend,
+   so it emitted a legacy fallback of plain `var(--hero-hue)` with the 13% silently
+   dropped. Full-saturation emerald across the top of the header: a coloured panel,
+   which is the exact thing this system exists to not be. Verify the built CSS in
+   .next/static/chunks, not the source, if you ever touch this.
+   rgba(var(--hero-hue),.13) has no such problem. It is one declaration, it survives
+   the minifier byte for byte, and it works everywhere. */
+.pg-hero::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(58% 46% at 50% 0%,rgba(var(--hero-hue),.13),transparent 64%),
+    radial-gradient(46% 44% at 86% 100%,rgba(var(--hero-hue),.07),transparent 62%);}
+/* SPECIFICITY IS LOAD-BEARING HERE. Every page ships its CSS in a <style> inside
+   <body>, which is later in document order than this stylesheet, so a page rule
+   like .inc h1{color:var(--v4-ink)} at (0,1,1) would beat .pg-hero h1 at (0,1,1)
+   on the tie and render the headline near-black on near-black. Going through
+   .wrap buys the extra class. Do not flatten these selectors. */
+.pg-hero>.wrap{position:relative;z-index:1;}
+.pg-hero .wrap .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#c9cdd6;}
+.pg-hero .wrap h1{margin:18px auto 0;font-size:clamp(42px,6.6vw,86px);font-weight:600;
+  letter-spacing:-.035em;line-height:1.0;max-width:14ch;color:#fff;}
+.pg-hero .wrap h1 .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.pg-hero .wrap p{margin:26px auto 0;font-size:clamp(18px,2.1vw,23px);line-height:1.45;color:#c6cbd3;max-width:46ch;}
+
+/* THE FILM HEADER. The overlay stops are the homepage hero's own, byte for byte,
+   over the homepage hero's own clip, so legibility is not being re-guessed. The
+   text-shadow is the treatment the two photo heroes used and is what carries the
+   copy across the bright middle of the frame. The hue wash is suppressed: there
+   is a film behind this, it does not need atmosphere painted on it. */
+.pg-hero.film{padding:0;display:flex;align-items:center;justify-content:center;min-height:min(74vh,700px);}
+.pg-hero.film::before{display:none;}
+.pg-hero.film>img,.pg-hero.film>video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.pg-hero.film .grad-ov{position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(5,5,6,.55) 0%,rgba(5,5,6,.12) 36%,rgba(5,5,6,.38) 68%,rgba(5,5,6,.86) 90%,#050506 100%);}
+.pg-hero.film .wrap{padding-top:clamp(80px,11vh,120px);padding-bottom:clamp(56px,8vh,88px);}
+.pg-hero.film .wrap h1,.pg-hero.film .wrap p{text-shadow:0 4px 44px rgba(0,0,0,.8);}
+
 /* full-bleed image moment */
 .v4 .scene{position:relative;min-height:100vh;display:flex;align-items:flex-end;overflow:hidden;color:#fff;}
 .v4 .scene>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}

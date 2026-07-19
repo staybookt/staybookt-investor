@@ -68,10 +68,9 @@ const CSS = `
 .prc-btn.w{background:#fff;color:#050506;}
 
 /* ===== 1. THE NUMBER ===== */
-.prc-hero{position:relative;background:#050506;padding:clamp(140px,17vh,190px) 0 clamp(80px,10vw,120px);overflow:hidden;}
-.prc-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(58% 46% at 50% 0%,rgba(16,185,129,.14),transparent 64%);pointer-events:none;}
-.prc-hero .wrap{position:relative;z-index:1;}
-.prc-hero .eyebrow{color:#c9cdd6;text-align:center;}
+/* HERO. Everything else is .pg-hero in globals.css. Indigo: this is the page where
+   the ask is the money, and indigo is the commitment rung. */
+.pg-hero{--hero-hue:79,70,229;}
 
 .plan{margin-top:16px;text-align:center;}
 .plan .nm{font-size:clamp(24px,3.2vw,40px);font-weight:600;letter-spacing:-.03em;color:#fff;line-height:1.1;}
@@ -91,10 +90,10 @@ const CSS = `
 .fact b{display:block;font-size:14.5px;font-weight:600;letter-spacing:-.01em;color:#fff;}
 .fact span{display:block;margin-top:7px;font-size:13.5px;line-height:1.5;color:#8b93a5;}
 
-.prc-hero .more{margin-top:clamp(34px,4.4vw,44px);text-align:center;font-size:15px;}
-.prc-hero .more a{color:#5eead4;text-decoration:none;font-weight:600;}
-.prc-hero .more a:hover{text-decoration:underline;}
-.prc-hero .cta{margin-top:clamp(26px,3.2vw,34px);text-align:center;}
+.pg-hero .more{margin-top:clamp(34px,4.4vw,44px);text-align:center;font-size:15px;}
+.pg-hero .more a{color:#5eead4;text-decoration:none;font-weight:600;}
+.pg-hero .more a:hover{text-decoration:underline;}
+.pg-hero .cta{margin-top:clamp(26px,3.2vw,34px);text-align:center;}
 
 /* ===== 2. WHY IT CAN BE $199. The argument, in words. No table. ===== */
 .prc-led{background:#fff;padding:clamp(90px,12vw,150px) 0;}
@@ -114,7 +113,7 @@ export default function PricingPage() {
       <main id="main" tabIndex={-1}>
 
       {/* 1 — THE NUMBER */}
-      <header className="prc-hero">
+      <header className="pg-hero">
         <div className="wrap">
           <div className="eyebrow">One plan</div>
 

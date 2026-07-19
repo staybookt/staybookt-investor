@@ -33,16 +33,10 @@ const CSS = `
 .ct .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#69707d;}
 .ct h1,.ct h2{font-weight:600;letter-spacing:-.035em;color:var(--v4-ink);}
 
-/* hero */
-/* Centred to match the standard. Five interior heroes were centred and four were left-
-   aligned, and hero alignment is the first thing anybody sees on a page. */
-.ct-hero{position:relative;background:#050506;padding:clamp(140px,17vh,190px) 0 clamp(70px,9vw,100px);overflow:hidden;text-align:center;}
-.ct-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(58% 46% at 24% 0%,rgba(16,185,129,.13),transparent 62%),radial-gradient(46% 42% at 86% 100%,rgba(79,70,229,.11),transparent 62%);pointer-events:none;}
-.ct-hero .wrap{position:relative;z-index:1;}
-.ct-hero .eyebrow{color:#c9cdd6;}
-.ct-hero h1{margin:16px auto 0;font-size:clamp(38px,5.8vw,76px);line-height:1.02;color:#fff;max-width:15ch;}
-.ct-hero h1 .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
-.ct-hero p{margin:24px auto 0;font-size:clamp(17px,1.95vw,21px);line-height:1.6;color:#aeb4c0;max-width:50ch;}
+/* HERO. Everything else is .pg-hero in globals.css, including the centring the note
+   here used to argue for. Cyan: this is the front door, the reachable-from-outside
+   rung, same as /how-it-works and /work. */
+.pg-hero{--hero-hue:6,182,212;}
 
 /* the two ways */
 .ct-ways{background:#fff;padding:clamp(70px,9vw,110px) 0;}
@@ -117,7 +111,7 @@ export default function ContactPage() {
       <Nav />
       <main id="main" tabIndex={-1}>
 
-      <header className="ct-hero">
+      <header className="pg-hero">
         <div className="wrap">
           <div className="eyebrow">Contact</div>
           <h1>

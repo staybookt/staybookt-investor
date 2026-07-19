@@ -5,11 +5,12 @@ import { START_LINK } from '@/lib/site';
 import { AccountBrain, NightShift, Arrival } from './HiwScenes';
 import { min } from '@/lib/css';
 
-/* Hero backdrop: a still, not a film. The homepage owns the one video moment,
- * and this page already runs a scroll-driven SVG trail. A slow drift on a still
- * gives it life without a second mp4 or a second frame budget. */
-const HERO_IMG =
-  'https://images.pexels.com/photos/37227005/pexels-photo-37227005.jpeg?auto=compress&cs=tinysrgb&w=2000';
+/* THE PEXELS PHOTO HERO IS GONE. This page and /whats-included were the only two
+ * running a full-bleed still at min(88vh,820px) while the other six sat on a 190px
+ * dark header, and that gap is most of why the set read as two different websites.
+ * The header is the shared .pg-hero in globals.css now. The film moments on this site
+ * are the homepage and /long-term, and this page still has the scroll-driven SVG
+ * trail directly under the header, which is the motion that was earning its keep. */
 
 const HERO_H = 'You run the business. We run the busywork.';
 const HERO_SUB = 'Three milestones, in order. Here is what happens at each one.';
@@ -99,20 +100,13 @@ const CSS = `
 .hiw-btn:hover{transform:translateY(-1px);}
 .hiw-btn.ghost{background:transparent;color:var(--v4-ink);border:1px solid rgba(0,0,0,.18);}
 
-/* hero — full-bleed still, slow drift, dark grade. No buttons: the nav carries
-   Get Started, and the ask belongs at the arrival, not before the story starts. */
-.hiw-hero{position:relative;background:#050506;text-align:center;display:flex;align-items:center;justify-content:center;min-height:min(88vh,820px);padding:clamp(120px,15vh,170px) 0 clamp(70px,9vw,110px);overflow:hidden;}
-.hiw-hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 42%;transform:scale(1.08);animation:hdrift 26s ease-in-out infinite alternate;}
-@keyframes hdrift{from{transform:scale(1.08) translate3d(0,0,0);}to{transform:scale(1.16) translate3d(-1.4%,-1.2%,0);}}
-.hiw-hero .hov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,6,.82) 0%,rgba(5,5,6,.52) 40%,rgba(5,5,6,.66) 74%,rgba(5,5,6,.95) 100%);}
-.hiw-hero .hov::after{content:'';position:absolute;inset:0;background:radial-gradient(62% 52% at 50% 6%,rgba(14,165,233,.18),transparent 64%);}
-.hiw-hero .wrap{position:relative;z-index:1;}
-.hiw-hero .eyebrow{color:#c9cdd6;}
-.hiw-hero h1{margin-top:18px;font-size:clamp(42px,6.8vw,92px);line-height:.99;max-width:15ch;margin-left:auto;margin-right:auto;color:#fff;text-shadow:0 4px 40px rgba(0,0,0,.5);}
-.hiw-hero p.lead{margin:24px auto 0;font-size:clamp(18px,2.1vw,23px);line-height:1.45;color:#c6cbd3;max-width:36ch;text-shadow:0 2px 24px rgba(0,0,0,.55);}
-.hiw-hero .hcue{position:absolute;left:50%;bottom:34px;transform:translateX(-50%);z-index:1;font-size:11.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);animation:hbob 2.6s ease-in-out infinite;}
-@keyframes hbob{0%,100%{transform:translateX(-50%) translateY(0);opacity:.5;}50%{transform:translateX(-50%) translateY(6px);opacity:.9;}}
-@media(prefers-reduced-motion:reduce){.hiw-hero>img,.hiw-hero .hcue{animation:none;}}
+/* HERO. Everything else is .pg-hero in globals.css. No buttons: the nav carries
+   Get Started, and the ask belongs at the arrival, not before the story starts.
+   The Scroll cue went with the full-height still. It existed because an 88vh
+   motionless photograph gave a visitor nothing to react to. A 190px header is
+   plainly a header with a page under it.
+   Cyan: this page opens on Get Found and is the mechanism of being found. */
+.pg-hero{--hero-hue:6,182,212;}
 
 /* learn */
 .hiw-learn{padding:clamp(80px,11vw,140px) 0;background:var(--v4-cream);}
@@ -540,9 +534,7 @@ export default function HowItWorks() {
       </div>
 
       {/* HERO */}
-      <header className="hiw-hero">
-        <img src={HERO_IMG} alt="" fetchPriority="high" decoding="async" />
-        <div className="hov" />
+      <header className="pg-hero">
         <div className="wrap">
           <div className="eyebrow">How it works</div>
           <h1>{HERO_H}</h1>
@@ -550,7 +542,6 @@ export default function HowItWorks() {
           {/* No buttons here. The nav already carries Get Started, and the page
               is a story: the ask belongs at the arrival, not before it starts. */}
         </div>
-        <div className="hcue" aria-hidden>Scroll</div>
       </header>
 
       {/* LEARN — the account brain */}

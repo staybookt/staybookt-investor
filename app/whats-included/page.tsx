@@ -5,16 +5,12 @@ import IncludedFaq from '@/components/v4/IncludedFaq';
 import HeroCta from '@/components/v4/HeroCta';
 import { min } from '@/lib/css';
 
-/* Hero backdrop. This page was the only one still sitting on a flat black gradient
- * while every other hero had something behind it (Jacob, July 14 2026). Same
- * treatment as /how-it-works: a still, not a film, with a slow drift so it breathes
- * without costing a second mp4.
- *
- * The image is one owner, alone, working in a real workshop with the windows blown
- * out behind him. Not glossy, not staged, nobody smiling at a laptop. That is the
- * register of this page: no asterisks, no fine print. */
-const HERO_IMG =
-  'https://images.pexels.com/photos/7484157/pexels-photo-7484157.jpeg?auto=compress&cs=tinysrgb&w=2000';
+/* THE PEXELS PHOTO HERO IS GONE. This page and /how-it-works were the only two
+ * running a full-bleed still behind the headline, and they were the reason the set
+ * read as two different websites: every other page was a 190px dark header. The
+ * header is the shared .pg-hero in globals.css now, and the only thing this page
+ * says about it is its hue. The photo bought atmosphere and cost the page a 2000px
+ * third-party image above the fold. */
 
 const SHARE =
   'The whole list. Everything $199 a month actually buys, what you still do, and the things we do not do.';
@@ -59,19 +55,9 @@ const CSS = `
 .inc-btn{display:inline-flex;align-items:center;gap:8px;background:var(--v4-ink);color:#fff;font-size:15px;font-weight:600;border-radius:999px;padding:15px 30px;text-decoration:none;transition:transform .3s ease;}
 .inc-btn:hover{transform:translateY(-1px);}
 
-/* hero */
-.inc-hero{position:relative;background:#050506;text-align:center;padding:clamp(140px,18vh,210px) 0 clamp(70px,9vw,110px);overflow:hidden;}
-.inc-hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 46%;transform:scale(1.08);animation:idrift 28s ease-in-out infinite alternate;}
-@keyframes idrift{from{transform:scale(1.08) translate3d(0,0,0);}to{transform:scale(1.15) translate3d(1.4%,-1%,0);}}
-@media(prefers-reduced-motion:reduce){.inc-hero>img{animation:none;}}
-/* graded hard, because the windows in this shot are blown out and the copy has to
-   sit on top of them. Dark at the top for the nav, dark at the bottom for the seam. */
-.inc-hero .hov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,6,.9) 0%,rgba(5,5,6,.7) 34%,rgba(5,5,6,.74) 70%,rgba(5,5,6,.97) 100%);}
-.inc-hero .hov::after{content:'';position:absolute;inset:0;background:radial-gradient(62% 52% at 50% 2%,rgba(16,185,129,.16),transparent 62%);}
-.inc-hero .wrap{position:relative;z-index:1;}
-.inc-hero .eyebrow{color:#c9cdd6;}
-.inc-hero h1{margin-top:18px;font-size:clamp(42px,6.6vw,86px);line-height:1.0;max-width:14ch;margin-left:auto;margin-right:auto;color:#fff;text-shadow:0 4px 44px rgba(0,0,0,.6);}
-.inc-hero p{margin:26px auto 0;font-size:clamp(18px,2.1vw,23px);line-height:1.45;color:#c6cbd3;max-width:46ch;text-shadow:0 2px 26px rgba(0,0,0,.7);}
+/* HERO. Everything else is .pg-hero in globals.css. Emerald: this is the page that
+   lists what we actually run for you, which is the StayBookt half of the ladder. */
+.pg-hero{--hero-hue:16,185,129;}
 
 
 
@@ -88,9 +74,7 @@ export default function WhatsIncludedPage() {
       <Nav />
       <main id="main" tabIndex={-1}>
 
-      <header className="inc-hero">
-        <img src={HERO_IMG} alt="" fetchPriority="high" decoding="async" />
-        <div className="hov" />
+      <header className="pg-hero">
         <div className="wrap">
           <div className="eyebrow">What&apos;s included</div>
           <h1>What you get for $199.</h1>

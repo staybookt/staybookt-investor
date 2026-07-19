@@ -43,15 +43,11 @@ const CSS = `
 .abt h1,.abt h2,.abt h3{font-weight:600;letter-spacing:-.035em;color:var(--v4-ink);}
 
 /* ===== 1. THE BELIEF. The reason the company exists, said first. ===== */
-/* Centred to match the standard. Five interior heroes were centred and four were left-
-   aligned, and hero alignment is the first thing anybody sees on a page. */
-.abt-hero{position:relative;background:#050506;padding:clamp(150px,20vh,210px) 0 clamp(90px,11vw,130px);overflow:hidden;text-align:center;}
-.abt-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(60% 50% at 22% 0%,rgba(16,185,129,.14),transparent 62%),radial-gradient(50% 46% at 88% 100%,rgba(79,70,229,.12),transparent 62%);pointer-events:none;}
-.abt-hero .wrap{position:relative;z-index:1;}
-.abt-hero .eyebrow{color:#c9cdd6;}
-.abt-hero h1{margin:20px auto 0;font-size:clamp(42px,6.6vw,86px);line-height:1.0;max-width:14ch;color:#fff;}
-.abt-hero h1 .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
-.abt-hero .sub{margin-top:28px;font-size:clamp(17px,2vw,22px);line-height:1.55;color:#aeb4c0;max-width:52ch;}
+/* HERO. Everything else is .pg-hero in globals.css, including the centring the note
+   here used to argue for. This page was the tallest header on the site at
+   clamp(150px,20vh,210px) and is now the same height as the other seven. Emerald:
+   the two people who run it, same rung as what's included. */
+.pg-hero{--hero-hue:16,185,129;}
 
 
 /* ===== 3. WHO WE ARE ===== */
@@ -114,7 +110,7 @@ export default function AboutPage() {
       <main id="main" tabIndex={-1}>
 
       {/* 1 — THE BELIEF */}
-      <header className="abt-hero">
+      <header className="pg-hero">
         <div className="wrap">
           <div className="eyebrow">About us</div>
           <h1>

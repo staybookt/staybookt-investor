@@ -335,8 +335,9 @@ export default function HomePage() {
             The homepage does not need it. The hero is a playing video and the section under
             it is a scroll-driven film. Nobody has ever failed to scroll a website.
 
-            /how-it-works keeps its cue: that hero is a still image with no motion at all,
-            which is the one place the hint earns its keep. */}
+            /how-it-works used to keep its cue, because that header was a motionless 88vh
+            photograph. It is a 190px header now, like every other page except this one and
+            /long-term, so there is no cue left anywhere on the site. */}
       </header>
 
       {/* THE "IN PLAIN ENGLISH" CARD IS GONE (Jacob, July 14 2026).
