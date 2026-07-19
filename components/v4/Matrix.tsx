@@ -442,14 +442,22 @@ const CSS = `
 .mx-j .jt{font-size:15.5px;line-height:1.4;color:#26292f;}
 
 /* THE AFFORDANCE: a control that looks like a control */
-.cue{display:inline-flex;align-items:center;gap:6px;flex:0 0 auto;margin-left:auto;
-  border:1px solid rgba(4,108,78,.34);border-radius:999px;padding:5px 10px 5px 12px;background:#fff;
+/* THE CUE IS TEXT, NOT A BUTTON. It shipped as a bordered pill because Linda missed the
+   old 3.00:1 grey plus entirely, and loud was the right correction. But thirteen bordered
+   pills down the page read as thirteen calls to action stacked on top of each other, and
+   they ended up carrying more visual weight than the job names they point at. The list is
+   the argument; the cue is a footnote to it.
+   So: keep the words, which are what made it discoverable, and drop the chrome. Green text
+   plus a chevron at 6.44:1 is still unmissable and stops competing with the content. The
+   affordance now lives in the hover and open states rather than in a permanent border. */
+.cue{display:inline-flex;align-items:center;gap:5px;flex:0 0 auto;margin-left:auto;
+  border:1px solid transparent;border-radius:999px;padding:4px 8px 4px 9px;background:transparent;
   transition:background .25s ease,border-color .25s ease;}
-.cue .cue-t{font-size:12px;font-weight:600;letter-spacing:.01em;color:#046c4e;white-space:nowrap;}
-.cue .pl{width:16px;height:16px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;
-  font-size:14px;line-height:1;color:#046c4e;transition:transform .4s cubic-bezier(.16,1,.3,1);}
-.mx-row>button:hover .cue{background:rgba(16,185,129,.1);border-color:rgba(4,108,78,.6);}
-.mx-row.open .cue{background:rgba(16,185,129,.12);border-color:rgba(4,108,78,.55);}
+.cue .cue-t{font-size:11.5px;font-weight:600;letter-spacing:.01em;color:#046c4e;white-space:nowrap;}
+.cue .pl{width:15px;height:15px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;
+  font-size:13px;line-height:1;color:#046c4e;transition:transform .4s cubic-bezier(.16,1,.3,1);}
+.mx-row>button:hover .cue{background:rgba(16,185,129,.1);border-color:rgba(4,108,78,.45);}
+.mx-row.open .cue{background:rgba(16,185,129,.12);border-color:rgba(4,108,78,.4);}
 .mx-row.open .pl{transform:rotate(45deg);}
 
 .mx-c{display:flex;align-items:center;justify-content:center;}
