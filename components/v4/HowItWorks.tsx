@@ -12,7 +12,10 @@ import { min } from '@/lib/css';
  * are the homepage and /long-term, and this page still has the scroll-driven SVG
  * trail directly under the header, which is the motion that was earning its keep. */
 
-const HERO_H = 'You run the business. We run the busywork.';
+/* Split so the second half can carry the brand gradient. The whole promise of the page
+   is the second sentence, so that is the half that gets the colour. */
+const HERO_H_A = 'You run the business. ';
+const HERO_H_B = 'We run the busywork.';
 const HERO_SUB = 'Three milestones, in order. Here is what happens at each one.';
 
 const LEARN_H = 'First, we learn your business.';
@@ -537,7 +540,7 @@ export default function HowItWorks() {
       <header className="pg-hero">
         <div className="wrap">
           <div className="eyebrow">How it works</div>
-          <h1>{HERO_H}</h1>
+          <h1>{HERO_H_A}<span className="g">{HERO_H_B}</span></h1>
           <p className="lead">{HERO_SUB}</p>
           {/* No buttons here. The nav already carries Get Started, and the page
               is a story: the ask belongs at the arrival, not before it starts. */}

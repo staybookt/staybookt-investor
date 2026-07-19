@@ -77,7 +77,7 @@ export default function WhatsIncludedPage() {
       <header className="pg-hero">
         <div className="wrap">
           <div className="eyebrow">What&apos;s included</div>
-          <h1>What you get for $199.</h1>
+          <h1>What you get for <span className="g">$199</span>.</h1>
           <p>
             The whole list. No asterisks, no fine print. Here is exactly what we do, what you still
             do, and the things we do not do.
