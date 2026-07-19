@@ -362,22 +362,23 @@ export default function Matrix() {
       <div className="wrap">
         <div className="mx-head">
           <div className="eyebrow">What&apos;s included</div>
+          {/* ONE LEAD-IN, NOT TWO (Richard, July 2026): "I don't love this main tag line,
+              prefer the secondary statement as it is crisper to me. Maybe just have one here
+              for a simpler lead-in."
+              The tagline that used to sit here was "All of this work is getting done today.
+              You are the one doing it, at nine at night." He is right about it. It was a two
+              part construction that took a whole headline to arrive at an idea the sentence
+              underneath stated outright, with actual numbers in it. So the sentence
+              underneath is the headline now and the tagline is gone. One statement.
+              The gradient sits on the price, which is the part worth looking at.
+              An earlier version of the paragraph opened three sentences the same way, which
+              is anaphora and the exact AI tell the voice pass spent a night removing. Do not
+              let it back in. */}
           <h2>
-            All of this work is getting done today.{' '}
-            <span className="g">You are the one doing it, at nine at night.</span>
-          </h2>
-          {/* WAS: "Every job below has to happen... Every one of them is on you today. Every
-              one of them moves to us. Open any row for exactly what we do." Three sentences
-              opening the same way is anaphora, which is the exact AI tell the voice pass
-              spent a night removing, and it walked back in with the rebuild. It also never
-              said the value: thirteen and $199 never appeared next to each other.
-              The instruction at the end is gone too. Every row now carries its own
-              "See what this includes", so telling the reader twice is telling them once too
-              many. */}
-          <p>
             Thirteen jobs, and the business does not run without any of them. You are doing all
-            thirteen tonight. For $199 a month we do them instead.
-          </p>
+            thirteen tonight.{' '}
+            <span className="g">For $199 a month we do them instead.</span>
+          </h2>
         </div>
 
         <div className="mx-scroll">
@@ -505,7 +506,9 @@ const CSS = `
 .mx .wrap{width:100%;max-width:1080px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
 .mx .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#69707d;}
 .mx-head{max-width:64ch;}
-.mx-head h2{margin-top:14px;font-size:clamp(28px,4vw,50px);font-weight:600;letter-spacing:-.035em;line-height:1.05;color:var(--v4-ink,#06080d);max-width:20ch;}
+/* Smaller and wider than a tagline, because this is a sentence doing a headline's job.
+   At the old clamp(28,4vw,50) and 20ch it wrapped into a wall six lines deep. */
+.mx-head h2{margin-top:14px;font-size:clamp(23px,2.9vw,36px);font-weight:600;letter-spacing:-.03em;line-height:1.18;color:var(--v4-ink,#06080d);max-width:34ch;}
 .mx-head h2 .g{background:var(--sb-grad-ink);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .mx-head p{margin-top:20px;font-size:clamp(16px,1.75vw,18px);line-height:1.62;color:#69707d;max-width:58ch;}
 
