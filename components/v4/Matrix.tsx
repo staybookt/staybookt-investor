@@ -424,7 +424,7 @@ const CSS = `
 .mx-hd .mx-c{display:flex;flex-direction:column;align-items:center;gap:3px;padding:0 6px;}
 .mx-hd .mx-c b{font-size:12.5px;font-weight:700;letter-spacing:.04em;color:#69707d;text-align:center;line-height:1.25;}
 .mx-hd .mx-c i{font-style:normal;font-size:11px;color:#69707d;}
-.mx-hd .mx-c.us b{font-size:14px;background:var(--sb-grad-ink);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.mx-hd .mx-c.us b{font-size:14px;color:#046c4e;}
 .mx-hd .mx-c.us i{color:#046c4e;font-weight:700;font-size:12px;}
 
 /* body rows */
