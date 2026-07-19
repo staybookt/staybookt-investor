@@ -107,7 +107,11 @@ export default function LongTermPage() {
       <header className="pg-hero film">
         {/* Poster on a phone, film above 761px, poster again under reduced motion.
             Inherited, not re-implemented. See HeroMedia.tsx. */}
-        <HeroMedia />
+        {/* Two vans, not one. This page asks "One day, this has to be worth
+            something", and two vans is that argument in a picture: the business grew
+            past one person's pair of hands, which is the whole thing a buyer is
+            actually paying for. */}
+        <HeroMedia poster="https://images.pexels.com/photos/4620555/pexels-photo-4620555.jpeg?auto=compress&cs=tinysrgb&w=1600" video="/hero-loop.mp4?v=2" />
         <div className="grad-ov" />
         <div className="wrap">
           <Reveal className="eyebrow" as="div">Long-term value</Reveal>

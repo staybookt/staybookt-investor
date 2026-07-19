@@ -71,6 +71,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={`antialiased ${interTight.variable}`}>
+        {/* The hero still is the LCP element on mobile and it is served cross origin, so
+            pay the DNS and TLS cost up front instead of at first paint. */}
+        <link rel="preconnect" href="https://images.pexels.com" crossOrigin="" />
         <a href="#main" className="skip-link">
           Skip to content
         </a>

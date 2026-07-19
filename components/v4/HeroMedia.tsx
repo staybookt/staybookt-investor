@@ -5,30 +5,45 @@ import { useEffect, useState } from 'react';
 /* THE HOMEPAGE HERO SHIPPED A 1.24MB VIDEO TO EVERY PHONE, AND IT NEVER PLAYED.
  *
  * Measured on a real 390px viewport (July 2026): hero-loop.mp4 is 1,271KB. Three and a half
- * seconds after load it was still readyState 0, paused, networkState 2 — i.e. the visitor is
- * looking at the 38KB poster and will have scrolled past the hero long before a frame
- * arrives. So a phone paid for 1.24MB of nothing. Meanwhile /work says "Built to open fast
- * on a phone", which made this a claim as well as a cost.
+ * seconds after load it was still readyState 0, paused, networkState 2, so the visitor is
+ * looking at the still and will have scrolled past the hero long before a frame arrives. A
+ * phone paid for 1.24MB of nothing. /work also says "built to open fast on a phone", which
+ * made this a claim as well as a cost.
  *
- * A phone gets the poster. It is the same first frame, it is 3% of the bytes, and it is what
- * the visitor was seeing anyway. A desktop gets the film.
+ * WE ARE NOT GOING TO FIX THAT BY ENGINEERING THE VIDEO HARDER. iOS Low Power Mode blocks
+ * autoplay outright, even with muted + playsInline + autoplay, and draws a tap-to-play button
+ * over the hero instead. Our reader is an owner-operator on a phone that has been off the
+ * charger since six in the morning: Low Power Mode is close to their default state. The
+ * failure mode is not a slow video, it is a play button on our first impression.
  *
- * WHY JS AND NOT CSS: you cannot conditionally *load* a video with a media query. <source
- * media> is unreliable for this and the browser may still fetch. The only way to not pay for
- * the bytes is to not mount the element, which needs the client.
+ * So a phone gets a still, on purpose, and the still gets a slow ken-burns drift. Motion by
+ * CSS transform costs zero bytes, is never blocked by Low Power Mode, and reads as
+ * deliberate. That is the cinematic feel the video was there for, on every phone, every time.
  *
- * The poster renders on the server for everyone, so there is no blank hero on first paint and
+ * WHY JS AND NOT CSS FOR THE VIDEO: you cannot conditionally *load* a video with a media
+ * query. <source media> is unreliable and the browser may still fetch. The only way to not
+ * pay the bytes is to not mount the element, which needs the client.
+ *
+ * The still renders on the server for everyone, so there is no blank hero on first paint and
  * no layout shift: the video mounts on top of it, only above the breakpoint.
  *
- * 760px matches the film's own mobile breakpoints. If you move one, move the other.
+ * 760px matches the films' own mobile breakpoints. If you move one, move the other.
  */
-export default function HeroMedia() {
+
+type Props = {
+  /** The still. Each page picks its own, because the two heroes argue different things. */
+  poster: string;
+  /** Alt stays empty: these are mood, not information. The headline carries the meaning. */
+  video?: string;
+};
+
+export default function HeroMedia({ poster, video }: Props) {
   const [wide, setWide] = useState(false);
 
   useEffect(() => {
     const mq = window.matchMedia('(min-width: 761px)');
-    /* Also respect reduced motion: a looping background film is exactly what that setting is
-       for, and the poster is a complete substitute. */
+    /* Reduced motion kills the film AND the drift. A looping background is exactly what that
+       setting is for, and the still alone is a complete substitute. */
     const rm = window.matchMedia('(prefers-reduced-motion: reduce)');
     const set = () => setWide(mq.matches && !rm.matches);
     set();
@@ -39,12 +54,9 @@ export default function HeroMedia() {
 
   return (
     <>
-      {/* Server-rendered for everyone. On a phone this is the whole hero. */}
-      <img src="/hero-poster.jpg" alt="" fetchPriority="high" decoding="async" />
-      {wide && (
-        /* ?v=2 busts the CDN + browser cache. The file was re-cut to 12.4s to drop the dough
-           and laptop clips, but the old copy was still served under the identical URL. */
-        <video autoPlay muted loop playsInline preload="auto" poster="/hero-poster.jpg" src="/hero-loop.mp4?v=2" />
+      <img className="hm-still" src={poster} alt="" fetchPriority="high" decoding="async" />
+      {wide && video && (
+        <video autoPlay muted loop playsInline preload="auto" poster={poster} src={video} />
       )}
     </>
   );

@@ -300,7 +300,12 @@ export default function HomePage() {
       <header className="scene">
         {/* Poster on a phone, film on a desktop. The video is 1.24MB and never played on
             mobile before the visitor scrolled past it. See HeroMedia.tsx. */}
-        <HeroMedia />
+        {/* The still is a father and a child fishing at dusk, not the couple on the
+            clifftop with wine that the video ends on. The headline is "You built your
+            business to enjoy your life" and our reader runs a service business under
+            $5M, so the picture has to be time, not wealth. It is also silhouetted and
+            low contrast, which is what lets white headline type sit on it cleanly. */}
+        <HeroMedia poster="https://images.pexels.com/photos/10879352/pexels-photo-10879352.jpeg?auto=compress&cs=tinysrgb&w=1600" video="/hero-loop.mp4?v=2" />
         <div className="grad-ov" />
         <div className="wrap inner">
           <Reveal className="eyebrow" as="div">For owner-operated service businesses</Reveal>
