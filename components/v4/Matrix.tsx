@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { min } from '@/lib/css';
 
 /* WHAT'S INCLUDED — the work-transfer chart.
@@ -290,6 +290,69 @@ const rowLabel = (r: Row, isOpen: boolean) =>
   '. ' +
   (isOpen ? 'Hide the detail.' : 'See what this includes.');
 
+/* THE FOURTEENTH BEAT (Linda, cold read, July 2026: "at the bottom, prompt people to
+ * consider what they would do with all the time they get back"; Richard added the half
+ * she did not: it is not only about leaving, it is about doing more of the part of the
+ * job you actually like).
+ *
+ * SO THE ENTRIES ALTERNATE, on purpose, inside the work then outside it, all the way
+ * down. Never two of a kind in a row. If somebody adds a ninth line, it goes in the
+ * slot the alternation asks for, not on the end.
+ *
+ * NO NUMBER GOES NEAR THIS. The obvious version of this section says "get back about
+ * fourteen hours a week". We have no such figure, this site publishes a promise that we
+ * never fake proof, and two separate invented numbers have already had to be killed off
+ * other pages. The reader fills the blank. We only show the shape of an answer.
+ *
+ * NOT A BENEFITS LIST EITHER. One line at a time, in one slot. The moment it becomes
+ * three bullets it stops being a question and starts being a pitch. */
+const FILL = [
+  'On the tools.',
+  'Dinner at home, on time.',
+  'The big install you keep turning down.',
+  'Saturday at your kid’s game.',
+  'Training the apprentice properly.',
+  'A Friday afternoon off.',
+  'Walking the job before you quote it.',
+  'A week away you don’t cut short.',
+];
+
+/* ONE SLOT, FADING. Not a fourth scroll film: this page is a scannable list and the
+   site already carries three films. A fade in a single slot is the right weight.
+   The slot is aria-hidden and the full set is published once in an sr-only list right
+   after it, the same static-twin pattern the films use. aria-live here would make a
+   screen reader announce a new fragment every three seconds forever. */
+function Fill() {
+  const [i, setI] = useState(0);
+  const [on, setOn] = useState(true);
+
+  useEffect(() => {
+    const mq =
+      typeof window !== 'undefined' && window.matchMedia
+        ? window.matchMedia('(prefers-reduced-motion: reduce)')
+        : null;
+    if (mq && mq.matches) return;
+    let out: ReturnType<typeof setTimeout>;
+    const tick = setInterval(() => {
+      setOn(false);
+      out = setTimeout(() => {
+        setI((n) => (n + 1) % FILL.length);
+        setOn(true);
+      }, 420);
+    }, 3000);
+    return () => {
+      clearInterval(tick);
+      clearTimeout(out);
+    };
+  }, []);
+
+  return (
+    <span className={'cl-slot' + (on ? ' on' : '')} aria-hidden="true">
+      {FILL[i]}
+    </span>
+  );
+}
+
 export default function Matrix() {
   const [open, setOpen] = useState<number | null>(null);
 
@@ -388,6 +451,31 @@ export default function Matrix() {
                 </div>
               </div>
             ))}
+
+            {/* THE LEFT COLUMN, EMPTY. Thirteen amber pills, then nothing: the reader has
+                just watched all of it leave that column, and now they are made to look at
+                it. The dashed outline keeps it reading as an empty slot rather than a
+                rendering fault. The StayBookt column carries straight on underneath,
+                because the work did not stop, it just stopped being theirs. */}
+            <div className="mx-close">
+              <div className="mx-r">
+                <div className="mx-j">
+                  <p className="cl-h">That column is yours again.</p>
+                  <p className="cl-q">What goes in it?</p>
+                  <Fill />
+                  <ul className="sr-only">
+                    {FILL.map((f) => (
+                      <li key={f}>{f}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="mx-c today" data-lbl={COLS[0].short} aria-hidden="true">
+                  <span className="ghost" />
+                </div>
+                <div className="mx-lane" aria-hidden="true" />
+                <div className="mx-c us" aria-hidden="true" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -499,6 +587,25 @@ const CSS = `
 .mx-body li{position:relative;padding:7px 0 7px 18px;font-size:14.5px;line-height:1.55;color:#69707d;max-width:70ch;}
 .mx-body li::before{content:'';position:absolute;left:0;top:15px;width:5px;height:5px;border-radius:50%;background:#10b981;}
 
+/* THE CLOSING BEAT. Same four column track as every row above it, so it reads as one
+   more row of the same chart rather than a new section bolted underneath. */
+.mx-grid .mx-row:last-child .mx-c.us{border-bottom:0;border-radius:0;}
+.mx-close{padding:clamp(28px,3.6vw,44px) 0 clamp(10px,1.4vw,18px);}
+.mx-close .mx-r{align-items:stretch;}
+.mx-close .mx-j{flex-direction:column;align-items:flex-start;gap:0;padding-right:26px;}
+.cl-h{font-size:clamp(19px,2.3vw,25px);font-weight:600;letter-spacing:-.025em;line-height:1.25;color:#06080d;}
+.cl-q{margin-top:3px;font-size:clamp(19px,2.3vw,25px);font-weight:600;letter-spacing:-.025em;line-height:1.25;color:#69707d;}
+.cl-slot{display:block;margin-top:16px;min-height:26px;font-size:16.5px;line-height:1.5;color:#26292f;
+opacity:0;transform:translateY(4px);transition:opacity .42s ease,transform .42s ease;}
+.cl-slot.on{opacity:1;transform:none;}
+.cl-slot::before{content:'';display:inline-block;width:7px;height:7px;border-radius:50%;
+margin-right:10px;vertical-align:middle;background:#f59e0b;}
+.mx-close .mx-c.today{align-items:flex-start;padding-top:6px;}
+.ghost{display:block;width:60px;height:27px;border-radius:999px;border:1px dashed rgba(180,83,9,.5);}
+.mx-close .mx-c.us{background:rgba(16,185,129,.07);border-left:1px solid rgba(16,185,129,.3);
+border-right:1px solid rgba(16,185,129,.3);border-bottom:1px solid rgba(16,185,129,.3);
+border-radius:0 0 14px 14px;}
+
 /* MOBILE: THE CHART USED TO HIDE ITS OWN PUNCHLINE.
    .mx-grid was min-width:640px inside a ~322px content box, in an overflow-x:auto scroller,
    and StayBookt is the LAST column, so the one column the whole thing exists to show was the
@@ -533,6 +640,17 @@ const CSS = `
   .mx-row .mx-c.us::before{color:#047857;font-weight:700;}
   .mx-grid .mx-row:last-child .mx-c.us{border:0;border-radius:8px;}
   .mx-body{padding-left:0;}
+  /* stacked: the empty slot keeps its Today label so it reads as the same card the
+     thirteen above it are, only with nothing in it. The green column and the lane go,
+     because there is nothing left to move across. */
+  .mx-close{padding:clamp(22px,6vw,32px) 0 4px;}
+  .mx-close .mx-j{padding-right:0;}
+  .mx-close .mx-lane,.mx-close .mx-c.us{display:none;}
+  .mx-close .mx-c.today{align-items:center;padding:8px 10px;}
+  .cl-slot{font-size:16px;}
 }
-@media(prefers-reduced-motion:reduce){.mx-body,.cue,.cue .pl,.mx-row>button{transition:none;}}
+/* reduced motion: Fill never starts its timer, so the slot holds entry one. It is
+   pinned visible here so a paused rotation can never leave an empty line on the page. */
+@media(prefers-reduced-motion:reduce){.mx-body,.cue,.cue .pl,.mx-row>button{transition:none;}
+.cl-slot{opacity:1;transform:none;transition:none;}}
 `;
