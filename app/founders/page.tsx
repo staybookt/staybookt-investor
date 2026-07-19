@@ -3,7 +3,6 @@ import SiteFooter from '@/components/SiteFooter';
 import HeroCta from '@/components/v4/HeroCta';
 import { Promises } from '@/components/v4/Promises';
 import { min } from '@/lib/css';
-import FoundersLens from '@/components/v4/FoundersLens';
 
 /* WHAT THIS PAGE IS FOR.
  *
@@ -85,6 +84,23 @@ const CSS = `
 .abt-prm .lead{margin-top:24px;font-size:clamp(17px,1.95vw,21px);line-height:1.6;color:#9ba2ae;max-width:58ch;}
 .abt-prm .lead b{color:#fff;font-weight:600;}
 
+/* BOTH VOICES, OPENING THE PAGE. Two columns, Richard left and Jacob right, mirroring
+   the two founder cards below so the page reads as one company of two people rather
+   than two profiles. Gradient rule on each so they are unmistakably ours and not a
+   pair of generic testimonial slabs. */
+.abt-quote{padding:clamp(80px,10vw,130px) 0;background:#fff;}
+.abt-quote .eyebrow{color:#69707d;}
+.abt-quote .q2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4.5vw,64px);align-items:start;margin-top:clamp(28px,3.6vw,44px);}
+@media(max-width:820px){.abt-quote .q2{grid-template-columns:1fr;gap:44px;}}
+.abt-quote .qq{margin:0;}
+.abt-quote .lens{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#69707d;}
+.abt-quote blockquote{margin:14px 0 0;padding-left:clamp(16px,2vw,22px);border-left:3px solid transparent;
+  border-image:var(--sb-grad-ink) 1;
+  font-size:clamp(18px,2.1vw,26px);font-weight:500;letter-spacing:-.02em;line-height:1.42;color:var(--v4-ink);}
+.abt-quote figcaption{display:flex;flex-direction:column;gap:2px;margin-top:clamp(18px,2.2vw,24px);
+  padding-left:clamp(19px,2vw,25px);}
+.abt-quote figcaption .cn{font-size:15.5px;font-weight:600;letter-spacing:-.01em;color:var(--v4-ink);}
+.abt-quote figcaption .cr{font-size:13.5px;font-weight:600;color:#059669;}
 `;
 
 export default function AboutPage() {
@@ -112,17 +128,57 @@ export default function AboutPage() {
         </div>
       </header>
 
-      {/* THE RANGEFINDER REPLACES THE TWO QUOTES (Jacob, July 2026).
-          This section used to print Richard's quote next to Jacob's under the labels "the
-          inside lens" and "the outside lens" — it TOLD you the thesis and asked you to
-          assemble it. The homepage and /how-it-works are the gold standard because they show
-          it, and /long-term earned its place the same way. So does this.
+      {/* REVERTED to the two founder quotes (Richard, July 2026). This briefly ran a
+          scroll-scrubbed rangefinder film that converged two lenses into the wordmark.
+          Richard did not like it and asked for the original back. The quotes were always
+          the substance here: two real people saying the two halves of the same problem.
+          The eyebrow colour is the only thing NOT restored verbatim: it was #8a8f98,
+          which is 3.00:1 on cream and fails WCAG. It is #69707d now, 4.60:1. */}
+      {/* BOTH VOICES OPEN THE PAGE (Jacob, live review, July 2026). The section under
+          this one says "One of us saw this from the outside. One of us saw it from the
+          inside," and then the page never showed you those two people saying those two
+          things. Now it does, and it does it first.
 
-          Both quotes are still here, verbatim, inside the film — beats 1 and 2. They are not
-          repeated outside it, because saying it twice on one page is the exact redundancy
-          this page kept collecting. The lens labels live in the graphic now, where they
-          finally mean something literal. */}
-      <FoundersLens />
+          Richard's is the full version of the line the homepage abbreviates to "there
+          was never enough time." Jacob's is the other half of the same problem: the
+          thing you bought to fix it made it worse. They are stronger together than
+          apart, which is why they are not split across two founder cards any more.
+
+          The lens labels live HERE, with the voices, not on the cards. Saying "the
+          inside lens" twice on one page is the exact redundancy this page was full of. */}
+      <section className="abt-quote">
+        <div className="wrap">
+          <div className="eyebrow">Why we built this</div>
+          <div className="q2">
+            <figure className="qq">
+              <div className="lens">The inside lens</div>
+              <blockquote>
+                &ldquo;In talking to entrepreneurs, one theme kept coming up: they didn&apos;t have
+                enough time to grow their business and enjoy the rewards they&apos;d hoped for.
+                StayBookt is our answer to &lsquo;not enough time.&rsquo; We get to build something
+                great while helping others realize their dreams and Enjoy Life more.&rdquo;
+              </blockquote>
+              <figcaption>
+                <span className="cn">Richard Roos</span>
+                <span className="cr">Co-founder</span>
+              </figcaption>
+            </figure>
+
+            <figure className="qq">
+              <div className="lens">The outside lens</div>
+              <blockquote>
+                &ldquo;Every owner I worked with tried to buy their way out of it. Another tool,
+                another login, another thing that promised to fix it. None of them ever did the
+                work. They just handed you one more job.&rdquo;
+              </blockquote>
+              <figcaption>
+                <span className="cn">Jacob Charendoff</span>
+                <span className="cr">Co-founder</span>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
 
       {/* 3 — WHO WE ARE */}
       {/* THE FACES COME FIRST NOW (Jacob, July 14 2026). This page's whole job is
