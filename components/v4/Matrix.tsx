@@ -303,9 +303,17 @@ export default function Matrix() {
             All of this work is getting done today.{' '}
             <span className="g">You are the one doing it, at nine at night.</span>
           </h2>
+          {/* WAS: "Every job below has to happen... Every one of them is on you today. Every
+              one of them moves to us. Open any row for exactly what we do." Three sentences
+              opening the same way is anaphora, which is the exact AI tell the voice pass
+              spent a night removing, and it walked back in with the rebuild. It also never
+              said the value: thirteen and $199 never appeared next to each other.
+              The instruction at the end is gone too. Every row now carries its own
+              "See what this includes", so telling the reader twice is telling them once too
+              many. */}
           <p>
-            Every job below has to happen for the business to run. Every one of them is on you
-            today. Every one of them moves to us. Open any row for exactly what we do.
+            Thirteen jobs, and the business does not run without any of them. You are doing all
+            thirteen tonight. For $199 a month we do them instead.
           </p>
         </div>
 

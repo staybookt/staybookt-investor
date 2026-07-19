@@ -78,9 +78,17 @@ export default function WhatsIncludedPage() {
         <div className="wrap">
           <div className="eyebrow">What&apos;s included</div>
           <h1>What you get for <span className="g">$199</span>.</h1>
+          {/* WAS: "The whole list. No asterisks, no fine print. Here is exactly what we do,
+              what you still do, and the things we do not do." Linda: the wording under
+              What's included is not crisp enough, make it about undeniable value. She is
+              right, and the reason is that the old line described the DISCLOSURE rather than
+              the offer. It told you the list was honest before it told you what was on it.
+              Thirteen and $199 in the same breath is the value, and it is the thing
+              Stephanie reacted to independently: for what it covers, the number sells
+              itself. The honesty stays in the second sentence, where it belongs. */}
           <p>
-            The whole list. No asterisks, no fine print. Here is exactly what we do, what you still
-            do, and the things we do not do.
+            Thirteen jobs your business cannot run without. Right now you are doing every one of
+            them. Below is the full list, plus what stays yours and what we do not touch.
           </p>
         </div>
       </header>
