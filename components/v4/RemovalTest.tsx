@@ -58,6 +58,46 @@ const HUB = { x: 450, y: 372 };
 const path = (d: Driver) =>
   `M ${d.x} ${d.y} C ${d.x} ${d.y + 130}, ${HUB.x} ${HUB.y - 140}, ${HUB.x} ${HUB.y}`;
 
+/* THE PHONE GETS ITS OWN GEOMETRY, not a bigger font.
+ *
+ * The desktop box is 900 units wide. On a 390px phone that scales to 0.43, so the node labels
+ * rendered at about 7px and the core picture of this page read as grey noise. A font bump
+ * alone cannot fix it: six nodes strung across 900 units sit ~140 units apart, and type large
+ * enough to read at 0.43 is wide enough to collide with its neighbours.
+ *
+ * So below 760px the film is redrawn in a 420x440 box: three rows of two, hub underneath.
+ * A narrower box means a far bigger scale factor, so the SAME picture arrives about 2.3x
+ * larger. Nothing about the story changes - six things, all wired to one person, the owner
+ * lifts out, the wires re-route. Only where the six sit on the page.
+ *
+ * Considered and rejected: dropping the in-SVG labels on mobile and listing them as HTML
+ * underneath. It reads fine as a list and not at all as a diagram - the whole argument is
+ * that these six converge on one point, and a list has no convergence in it.
+ *
+ * DESKTOP IS UNTOUCHED. D, HUB, path() and the desktop viewBox above are exactly as they
+ * were. Everything mobile lives in M / MHUB / mpath / MLEN below. */
+const M: Driver[] = D.map((d, i) => ({ ...d, x: i % 2 === 0 ? 110 : 310, y: 56 + Math.floor(i / 2) * 110 }));
+const MHUB = { x: 210, y: 380 };
+const mpath = (d: Driver) =>
+  `M ${d.x} ${d.y} C ${d.x} ${d.y + 70}, ${MHUB.x} ${MHUB.y - 75}, ${MHUB.x} ${MHUB.y}`;
+
+/* Desktop uses one --len (420) for all six because its wires are all roughly that long.
+   The mobile wires are not: the bottom row runs ~145 units and the top row ~340, so a shared
+   length would make the short wires vanish a third of the way into the retract and come back
+   late. Measure each one instead. */
+const clen = (d: Driver) => {
+  const c: number[][] = [[d.x, d.y], [d.x, d.y + 70], [MHUB.x, MHUB.y - 75], [MHUB.x, MHUB.y]];
+  let L = 0, px = c[0][0], py = c[0][1];
+  for (let i = 1; i <= 24; i++) {
+    const t = i / 24, u = 1 - t;
+    const x = u * u * u * c[0][0] + 3 * u * u * t * c[1][0] + 3 * u * t * t * c[2][0] + t * t * t * c[3][0];
+    const y = u * u * u * c[0][1] + 3 * u * u * t * c[1][1] + 3 * u * t * t * c[2][1] + t * t * t * c[3][1];
+    L += Math.hypot(x - px, y - py); px = x; py = y;
+  }
+  return Math.round(L) + 6;   // a hair of slack so --wire:1 is fully retracted
+};
+const MLEN: number[] = M.map(clen);
+
 const BEATS = [
   { k: 'Right now', h: 'Every one of these runs through you.', s: 'Six things decide whether this is a business or a job with a van. Today, all six are wired to one person.' },
   { k: 'Take a week off', h: 'And here is what a buyer sees.', s: 'A buyer is not looking at your van or your tools. They are looking at what happens when you are not standing there.' },
@@ -135,8 +175,13 @@ const CSS = `
 .rt-stage[data-beat="0"] .rt-dots .d0,.rt-stage[data-beat="1"] .rt-dots .d1,.rt-stage[data-beat="2"] .rt-dots .d2{opacity:1;}
 
 @media(max-width:760px){
-  .rt-svg{max-height:38vh;}
-  .rt-lbl{font-size:17px;}
+  /* These sizes are in 420x440 viewBox units, not pixels - see the mobile geometry note
+     above. On a 390x844 phone the box lands at scale ~.80, so 21 units is ~17px on glass.
+     It was ~7px before. Do not "fix" these numbers by reading them as CSS pixels. */
+  .rt-svg{max-height:42vh;}
+  .rt-lbl{font-size:21px;}
+  .rt-hub-t{font-size:26px;}
+  .rt-sb-t{font-size:20px;}
   .rt-dots{gap:12px;}
   .rt-dots span{font-size:10px;letter-spacing:.1em;}
 }
@@ -177,6 +222,9 @@ export default function RemovalTest() {
    * If you add a beat, add it to BEATS and it appears in both. Do not conditionally mount
    * copy in this component again. */
   const [reduce, setReduce] = useState(false);
+  /* Defaults to FALSE so the server render and the first client render both draw the desktop
+     box and React has nothing to complain about. The phone layout arrives on mount. */
+  const [mobile, setMobile] = useState(false);
   const [beat, setBeat] = useState(0);
   const [p0, setP0] = useState(0);
   const [lift, setLift] = useState(0);
@@ -186,6 +234,14 @@ export default function RemovalTest() {
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
     const set = () => setReduce(mq.matches);
+    set();
+    mq.addEventListener('change', set);
+    return () => mq.removeEventListener('change', set);
+  }, []);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width:760px)');
+    const set = () => setMobile(mq.matches);
     set();
     mq.addEventListener('change', set);
     return () => mq.removeEventListener('change', set);
@@ -228,6 +284,11 @@ export default function RemovalTest() {
   }, [reduce]);
 
   const style = { '--p0': p0, '--lift': lift, '--wire': wire } as CSSProperties;
+  /* One object so there is exactly one place the two layouts differ. Desktop values are the
+     literals that were inline before. */
+  const g = mobile
+    ? { vb: '0 0 420 440', nodes: M, wire: mpath, len: (i: number) => MLEN[i], hub: MHUB, hubR: 54, hubDy: 8, lblDy: -30, rOn: 11, rOff: 7, halo: 20 }
+    : { vb: '0 0 900 430', nodes: D, wire: path, len: (_i: number) => 420, hub: HUB, hubR: 34, hubDy: 5, lblDy: -26, rOn: 9, rOff: 6, halo: 17 };
   const copy = BEATS[beat];
   /* On beat 1 the truth line follows the light that just went out. On beat 2 it follows the
      one that just came back. Either way it is the node the eye is already on. */
@@ -276,38 +337,38 @@ export default function RemovalTest() {
               the six things, and never mentioned the resolution — which is the point of the
               film. A label that describes half a picture is worse than no label on a picture
               that has a text twin. */}
-          <svg className="rt-svg" viewBox="0 0 900 430" aria-hidden="true">
-            {D.map((d) => (
-              <path key={`b${d.k}`} className="rt-w base" d={path(d)} />
+          <svg className="rt-svg" viewBox={g.vb} aria-hidden="true">
+            {g.nodes.map((d) => (
+              <path key={`b${d.k}`} className="rt-w base" d={g.wire(d)} />
             ))}
-            {D.map((d, i) => {
+            {g.nodes.map((d, i) => {
               const on = beat === 1 ? i >= 6 - lit : beat === 2 ? i < lit : true;
               return (
-                <g key={`w${d.k}`} style={{ '--len': 420 } as CSSProperties}>
-                  {on && <path className="rt-w live" d={path(d)} />}
-                  {beat === 0 && <path className="rt-w pulse" d={path(d)} />}
+                <g key={`w${d.k}`} style={{ '--len': g.len(i) } as CSSProperties}>
+                  {on && <path className="rt-w live" d={g.wire(d)} />}
+                  {beat === 0 && <path className="rt-w pulse" d={g.wire(d)} />}
                 </g>
               );
             })}
-            {D.map((d, i) => {
+            {g.nodes.map((d, i) => {
               const on = beat === 1 ? i >= 6 - lit : beat === 2 ? i < lit : true;
               return (
                 <g key={d.k}>
-                  <circle className="rt-n" cx={d.x} cy={d.y} r={on ? 9 : 6}
+                  <circle className="rt-n" cx={d.x} cy={d.y} r={on ? g.rOn : g.rOff}
                           fill={on ? (beat === 2 ? '#34d399' : '#22d3ee') : '#3f3f46'} />
-                  {on && <circle cx={d.x} cy={d.y} r="17" fill={beat === 2 ? 'rgba(52,211,153,.16)' : 'rgba(34,211,238,.16)'} />}
-                  <text className="rt-lbl" x={d.x} y={d.y - 26} textAnchor="middle"
+                  {on && <circle cx={d.x} cy={d.y} r={g.halo} fill={beat === 2 ? 'rgba(52,211,153,.16)' : 'rgba(34,211,238,.16)'} />}
+                  <text className="rt-lbl" x={d.x} y={d.y + g.lblDy} textAnchor="middle"
                         fill={on ? '#e2e7ef' : '#5c6470'}>{d.k}</text>
                 </g>
               );
             })}
             <g className="rt-hub">
-              <circle className="rt-hub-r" cx={HUB.x} cy={HUB.y} r="34" />
-              <text className="rt-hub-t" x={HUB.x} y={HUB.y + 5} textAnchor="middle">You</text>
+              <circle className="rt-hub-r" cx={g.hub.x} cy={g.hub.y} r={g.hubR} />
+              <text className="rt-hub-t" x={g.hub.x} y={g.hub.y + g.hubDy} textAnchor="middle">You</text>
             </g>
             <g className="rt-sb">
-              <circle className="rt-sb-r" cx={HUB.x} cy={HUB.y} r="34" />
-              <text className="rt-sb-t" x={HUB.x} y={HUB.y + 5} textAnchor="middle">StayBookt</text>
+              <circle className="rt-sb-r" cx={g.hub.x} cy={g.hub.y} r={g.hubR} />
+              <text className="rt-sb-t" x={g.hub.x} y={g.hub.y + g.hubDy} textAnchor="middle">StayBookt</text>
             </g>
           </svg>
 
