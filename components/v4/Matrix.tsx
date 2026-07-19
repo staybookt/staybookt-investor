@@ -473,7 +473,16 @@ export default function Matrix() {
                   <span className="ghost" />
                 </div>
                 <div className="mx-lane" aria-hidden="true" />
-                <div className="mx-c us" aria-hidden="true" />
+                {/* THE GREEN COLUMN WAS EMPTY HERE and read as a rendering fault: a large
+                    flat green rectangle with nothing in it. The fix is not to shrink it, it
+                    is to say the thing this whole page has been building to. The owner's
+                    column empties completely and the number does not move. That is the
+                    value, stated where the eye already is. Both figures are real: thirteen
+                    is the row count above, $199 is the price. */}
+                <div className="mx-c us cl-us">
+                  <span className="cl-all">All thirteen.</span>
+                  <span className="cl-price">Still $199 a month.</span>
+                </div>
               </div>
             </div>
           </div>
@@ -598,8 +607,13 @@ const CSS = `
 .cl-slot{display:block;margin-top:16px;min-height:26px;font-size:16.5px;line-height:1.5;color:#26292f;
 opacity:0;transform:translateY(4px);transition:opacity .42s ease,transform .42s ease;}
 .cl-slot.on{opacity:1;transform:none;}
-.cl-slot::before{content:'';display:inline-block;width:7px;height:7px;border-radius:50%;
-margin-right:10px;vertical-align:middle;background:#f59e0b;}
+/* The amber dot is gone. Amber means work you owe everywhere else on this page, and this
+   line is the opposite of that, so it inverted the page's own colour logic. It was also a
+   bullet on a one item list. The empty dashed slot in the today column already says whose
+   column this is; the words say it better than a dot can. */
+.mx-close .mx-c.us.cl-us{flex-direction:column;align-items:center;justify-content:center;gap:3px;text-align:center;}
+.cl-all{font-size:clamp(17px,1.9vw,21px);font-weight:700;letter-spacing:-.02em;color:#046c4e;}
+.cl-price{font-size:13.5px;font-weight:600;color:#046c4e;opacity:.82;}
 .mx-close .mx-c.today{align-items:flex-start;padding-top:6px;}
 .ghost{display:block;width:60px;height:27px;border-radius:999px;border:1px dashed rgba(180,83,9,.5);}
 .mx-close .mx-c.us{background:rgba(16,185,129,.07);border-left:1px solid rgba(16,185,129,.3);
