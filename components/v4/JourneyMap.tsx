@@ -102,7 +102,13 @@ const CSS = `
    that is not moving, and nothing scrubs under a reader who asked it not to. */
 .sscx-flat{height:auto;}
 .sscx-flat .sscx-stage{position:static;height:auto;min-height:0;padding:clamp(60px,8vw,100px) 0;}
-.sscx-stage{position:sticky;top:0;height:100vh;min-height:600px;overflow:hidden;display:flex;flex-direction:column;color:#f5f5f7;--acc:#0ea5e9;--cp:0;--o0:1;--o1:0;--o2:0;--lz:0;}
+/* iOS. 100vh is the LARGE viewport (URL bar hidden), so the pinned stage stood ~86px
+   taller than the screen and the beat labels along the bottom sat under Safari's bar.
+   100svh is the small viewport, which is the one that is always actually visible. The
+   100vh line above it is the fallback for browsers that never heard of svh. On desktop
+   the two are identical. NEVER do this to the track: the track's clamp() height is the
+   film's entire travel, and in svh it would shrink and the film would collapse. */
+.sscx-stage{position:sticky;top:0;height:100vh;height:100svh;min-height:600px;overflow:hidden;display:flex;flex-direction:column;color:#f5f5f7;--acc:#0ea5e9;--cp:0;--o0:1;--o1:0;--o2:0;--lz:0;}
 .sscx-stage[data-beat="1"]{--acc:#22d3ee;}
 .sscx-stage[data-beat="2"]{--acc:#ffd9a3;}
 .sscx-stage[data-beat="3"]{--acc:#f5f5f7;}
@@ -268,6 +274,12 @@ const CSS = `
 .sscx-dots span{font-size:12px;font-weight:600;color:#f5f5f7;opacity:.4;transition:opacity .4s;text-shadow:0 1px 14px rgba(0,0,0,.6);}
 .sscx-stage[data-beat="0"] .sscx-dots .d0,.sscx-stage[data-beat="1"] .sscx-dots .d1,.sscx-stage[data-beat="2"] .sscx-dots .d2,.sscx-stage[data-beat="3"] .sscx-dots .d3{opacity:1;}
 
+/* Landscape phones and short windows: a 600px floor on a 390px-tall screen pushes the
+   stage past the viewport and the pin math skews. Keyed on height, not width, because a
+   phone on its side is 844px WIDE. */
+@media (max-height:640px){
+  .sscx-stage{min-height:0;}
+}
 @media (prefers-reduced-motion: reduce){
   .sscx-stage *{transition:none !important;}
 }
@@ -331,6 +343,8 @@ const LIFE: { img: string; cap: string; sub: string }[] = [
 
 export default function JourneyMap() {
   const trackRef = useRef<HTMLElement | null>(null);
+  /* The pinned stage, measured by the driver below instead of window.innerHeight. */
+  const stageRef = useRef<HTMLDivElement | null>(null);
   /* REDUCED MOTION. The CSS killed the transitions (.sscx-stage * {transition:none}) but the
    * driver kept running, so a reader who asked the OS for less movement still got ~1,800px of
    * pinned, scrubbing film — now SNAPPING between states instead of easing, which is worse
@@ -377,7 +391,12 @@ export default function JourneyMap() {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
         const r = el.getBoundingClientRect();
-        const vh = window.innerHeight;
+        /* MEASURE THE STAGE, NOT THE WINDOW. window.innerHeight changes by 60-90px as
+           iOS Safari's URL bar shows and hides, so progress was divided by a number that
+           moved mid-scroll and the pinned film lurched. The sticky stage is the thing that
+           is actually pinned, so its rendered height is the real viewport term. */
+        const stage = stageRef.current;
+        const vh = stage ? stage.offsetHeight : window.innerHeight;
         const total = el.offsetHeight - vh;
         const scrolled = Math.min(Math.max(-r.top, 0), total);
         const p = total > 0 ? scrolled / total : 0;
@@ -451,7 +470,7 @@ export default function JourneyMap() {
   return (
     <section ref={trackRef} className={`sscx-track${reduce ? ' sscx-flat' : ''}`}>
       <style>{min(CSS)}</style>
-      <div className="sscx-stage" style={stageStyle} data-beat={beat} data-s0={s0} data-sc={sc} data-life={life} data-pj={pj}>
+      <div ref={stageRef} className="sscx-stage" style={stageStyle} data-beat={beat} data-s0={s0} data-sc={sc} data-life={life} data-pj={pj}>
         {/* ENJOY LIFE — full-stage cinematic film, behind everything */}
         <div className="sscx-film">
           {LIFE.map((l, i) => (

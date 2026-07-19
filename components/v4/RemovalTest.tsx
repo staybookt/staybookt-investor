@@ -74,7 +74,13 @@ const clamp = (n: number) => Math.min(Math.max(n, 0), 1);
 
 const CSS = `
 .rt-track{position:relative;height:clamp(1500px,230vh,2100px);background:#050506;}
-.rt-stage{position:sticky;top:0;height:100vh;min-height:600px;overflow:hidden;display:flex;
+/* iOS. 100vh is the LARGE viewport (URL bar hidden), so the pinned stage stood ~86px
+   taller than the screen and the beat labels along the bottom sat under Safari's bar.
+   100svh is the small viewport, which is the one that is always actually visible. The
+   100vh line above it is the fallback for browsers that never heard of svh. On desktop
+   the two are identical. NEVER do this to the track: the track's clamp() height is the
+   film's entire travel, and in svh it would shrink and the film would collapse. */
+.rt-stage{position:sticky;top:0;height:100vh;height:100svh;min-height:600px;overflow:hidden;display:flex;
   flex-direction:column;align-items:center;justify-content:center;color:#f5f5f7;
   --p0:0;--lift:0;--wire:0;}
 .rt-stage::before{content:'';position:absolute;inset:0;pointer-events:none;
@@ -134,6 +140,10 @@ const CSS = `
   .rt-dots{gap:12px;}
   .rt-dots span{font-size:10px;letter-spacing:.1em;}
 }
+/* Landscape phones and short windows: the min-height floor on a 390px-tall screen pushes
+   the stage past the viewport and the pin math skews. Keyed on height, not width, because
+   a phone on its side is 844px WIDE. */
+@media(max-height:640px){.rt-stage{min-height:0;}}
 @media(prefers-reduced-motion:reduce){.rt-hub,.rt-sb{transition:none;}}
 
 /* THE STATIC TWIN. Shown when the reader asked for reduced motion; .sr-only otherwise.
@@ -152,6 +162,8 @@ const CSS = `
 
 export default function RemovalTest() {
   const trackRef = useRef<HTMLElement | null>(null);
+  /* The pinned stage, measured by the driver below instead of window.innerHeight. */
+  const stageRef = useRef<HTMLDivElement | null>(null);
   /* THE FILM IS THE ARGUMENT, SO IT CANNOT BE THE ONLY COPY OF IT.
    * Two people were locked out of this page and it was the same root cause both times:
    *   - reduced motion: the CSS killed the transitions but the driver still ran, so someone
@@ -187,7 +199,12 @@ export default function RemovalTest() {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
         const r = el.getBoundingClientRect();
-        const vh = window.innerHeight;
+        /* MEASURE THE STAGE, NOT THE WINDOW. window.innerHeight changes by 60-90px as
+           iOS Safari's URL bar shows and hides, so progress was divided by a number that
+           moved mid-scroll and the pinned film lurched. The sticky stage is the thing that
+           is actually pinned, so its rendered height is the real viewport term. */
+        const stage = stageRef.current;
+        const vh = stage ? stage.offsetHeight : window.innerHeight;
         const total = el.offsetHeight - vh;
         const scrolled = Math.min(Math.max(-r.top, 0), total);
         const p = total > 0 ? scrolled / total : 0;
@@ -252,7 +269,7 @@ export default function RemovalTest() {
     <section className="rt-track" ref={trackRef} aria-label="What happens when you take yourself out of the business">
       <style>{min(CSS)}</style>
       <Static />
-      <div className="rt-stage" style={style} data-beat={beat} aria-hidden="true">
+      <div ref={stageRef} className="rt-stage" style={style} data-beat={beat} aria-hidden="true">
         <div className="rt-in">
           {/* The stage is aria-hidden and the Static twin above carries every word, so this
               no longer needs role="img". Its old label summarised beats 0-1, named none of

@@ -1,10 +1,11 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter_Tight } from 'next/font/google';
 import './globals.css';
 import Analytics from '@/components/Analytics';
 import AnalyticsEvents from '@/components/AnalyticsEvents';
 import StructuredData from '@/components/StructuredData';
 import ArrowScroll from '@/components/ArrowScroll';
+import CallBar from '@/components/v4/CallBar';
 
 const interTight = Inter_Tight({
   subsets: ['latin'],
@@ -59,6 +60,13 @@ export const metadata: Metadata = {
   },
 };
 
+/* Paints the phone's browser chrome the site's own near-black instead of leaving it
+ * default grey above a dark, cinematic page. Next 16 wants this on the viewport export,
+ * not on metadata, or the build warns and drops it. */
+export const viewport: Viewport = {
+  themeColor: '#050506',
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -70,6 +78,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             a wheel notch 100px, so the keyboard was doing 2.5x the work through the films. */}
         <ArrowScroll />
         {children}
+        {/* Phones only, and mounted once here so every page has it. See CallBar.tsx for
+            why it is always visible instead of scroll-revealed. */}
+        <CallBar />
         <StructuredData />
         <Analytics />
         <AnalyticsEvents />

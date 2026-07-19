@@ -49,6 +49,8 @@ const R = 132;
 
 export default function FoundersLens() {
   const trackRef = useRef<HTMLDivElement>(null);
+  /* The pinned stage, measured by the driver below instead of window.innerHeight. */
+  const stageRef = useRef<HTMLDivElement>(null);
   const [beat, setBeat] = useState(0);
   const [cv, setCv] = useState(0);
   const [reduce, setReduce] = useState(false);
@@ -80,7 +82,12 @@ export default function FoundersLens() {
     const run = () => {
       raf = 0;
       const r = el.getBoundingClientRect();
-      const total = el.offsetHeight - window.innerHeight;
+      /* MEASURE THE STAGE, NOT THE WINDOW. window.innerHeight changes by 60-90px as iOS
+         Safari's URL bar shows and hides, so progress was divided by a number that moved
+         mid-scroll and the pinned film lurched. The sticky stage is the thing that is
+         actually pinned, so its rendered height is the real viewport term. */
+      const stage = stageRef.current;
+      const total = el.offsetHeight - (stage ? stage.offsetHeight : window.innerHeight);
       const p = total <= 0 ? 0 : Math.max(0, Math.min(1, -r.top / total));
       let b = 0;
       for (let i = 1; i < B.length; i++) if (p >= B[i]) b = i;
@@ -158,7 +165,7 @@ export default function FoundersLens() {
     <section ref={trackRef} className="fl-track">
       <style>{min(CSS)}</style>
       <Static />
-      <div className="fl-stage" data-beat={beat} aria-hidden="true">
+      <div ref={stageRef} className="fl-stage" data-beat={beat} aria-hidden="true">
         <div className="fl-in">
           <div className="fl-eyebrow">Why we built this</div>
 
@@ -274,7 +281,13 @@ export default function FoundersLens() {
 const CSS = `
 .fl-track{position:relative;height:clamp(1900px,290vh,2500px);background:#050506;}
 .fl-flat{height:auto;padding:clamp(48px,7vw,84px) 0;}
-.fl-stage{position:sticky;top:0;height:100vh;min-height:560px;overflow:hidden;display:flex;
+/* iOS. 100vh is the LARGE viewport (URL bar hidden), so the pinned stage stood ~86px
+   taller than the screen and the beat labels along the bottom sat under Safari's bar.
+   100svh is the small viewport, which is the one that is always actually visible. The
+   100vh line above it is the fallback for browsers that never heard of svh. On desktop
+   the two are identical. NEVER do this to the track: the track's clamp() height is the
+   film's entire travel, and in svh it would shrink and the film would collapse. */
+.fl-stage{position:sticky;top:0;height:100vh;height:100svh;min-height:560px;overflow:hidden;display:flex;
   align-items:center;justify-content:center;color:#f5f5f7;}
 .fl-in{width:min(1080px,92%);display:flex;flex-direction:column;align-items:center;gap:clamp(10px,1.6vh,18px);}
 .fl-eyebrow{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#6b7280;}
@@ -302,6 +315,12 @@ const CSS = `
 .fl-st-beat{margin-bottom:20px;}
 .fl-track .fl-st-beat h4{font-size:17px;color:#f5f5f7;margin:0 0 6px;}
 .fl-st-beat p{margin:0 0 6px;line-height:1.6;}
+/* Landscape phones and short windows: the min-height floor on a 390px-tall screen pushes
+   the stage past the viewport and the pin math skews. Keyed on height, not width, because
+   a phone on its side is 844px WIDE. */
+@media (max-height:640px){
+  .fl-stage{min-height:0;}
+}
 @media (max-width:640px){
   .fl-stage{min-height:0;}
   .fl-copy{height:clamp(196px,32vh,240px);}
