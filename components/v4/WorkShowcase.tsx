@@ -34,7 +34,12 @@ const URL = 'https://www.topchoiceelectrical.com';
 
 /* Everything here is verifiable from the live site itself. Nothing is a result. */
 const TRUE_THINGS: { t: string; b: string }[] = [
-  { t: 'A real client, named.', b: 'Tim Davis runs Top Choice Electrical out of Newmarket, Ontario, covering York Region and Simcoe County. He is our first client. This is his site.' },
+  /* HIS NAME IS CISZKOWSKI, NOT DAVIS. This page shipped with "Tim Davis", a wrong
+     surname on the one page whose argument is "a real client, named", with a link to his
+     live site where the real name is everywhere: title tag, about page, footer. One click
+     to falsify us. Caught by Jacob, July 2026. Verified against topchoiceelectrical.com
+     before fixing. If a name appears next to a checkable source, check the source. */
+  { t: 'A real client, named.', b: 'Tim Ciszkowski runs Top Choice Electrical out of Newmarket, Ontario, covering York Region and Simcoe County. He is our first client. This is his site.' },
   { t: 'It is live right now.', b: 'This is the site his customers land on when they search for an electrician at nine at night. Type the address into any browser and it loads.' },
   { t: 'Built to open fast on a phone.', b: 'A homeowner standing in a dark basement does not wait around. Open it on your phone and see how it behaves.' },
   { t: 'His, not ours.', b: 'The site, the domain and the Google profile are in his name. If he left tomorrow he would take all of it with him.' },
@@ -97,7 +102,7 @@ export default function WorkShowcase() {
           </Reveal>
           <Reveal>
             <p>
-              Tim Davis is an electrician in Newmarket, Ontario. We built his site, and you can
+              Tim Ciszkowski is an electrician in Newmarket, Ontario. We built his site, and you can
               open it in the next ten seconds. We would rather you checked than believed us.
             </p>
           </Reveal>
