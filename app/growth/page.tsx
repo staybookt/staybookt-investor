@@ -1,7 +1,7 @@
 import Nav from '@/components/v4/Nav';
-import HeroCta from '@/components/v4/HeroCta';
 import SiteFooter from '@/components/SiteFooter';
 import GrowthQuiz from '@/components/v4/GrowthQuiz';
+import { START_LINK } from '@/lib/site';
 import { min } from '@/lib/css';
 
 /* /growth: PRIVATE DRAFT. NOT A PUBLIC PAGE (Jacob + Richard, July 2026).
@@ -86,8 +86,15 @@ import { min } from '@/lib/css';
  * from the HTML.
  */
 
+/* NAMED, THIRTEENTH PASS (Jacob, July 2026): the draft became THE LEAK CHECK.
+ * The page is a guided self-diagnosis: the reader guesses, the industry corrects
+ * them, their own arithmetic convicts them. We never make the claim. Each question
+ * now opens with a scene from the owner's day, each reveal closes on a verdict and
+ * a bridge (see GrowthQuiz.tsx), and the page earns its own close below instead of
+ * the generic HeroCta: the reader has just done the math, so the close harvests
+ * exactly that and prices the fix against one job. Still private, still noindex. */
 export const metadata = {
-  title: 'Growth (internal draft)',
+  title: 'The Leak Check · StayBookt',
   description: 'Internal working draft. The money argument, with cited public research.',
   robots: { index: false, follow: false },
 };
@@ -116,6 +123,21 @@ const CSS = `
 .gro .pg-hero .wrap .gro-cue svg{display:block;animation:gro-cue 2s ease-in-out infinite;}
 @keyframes gro-cue{0%,100%{opacity:.4;}50%{opacity:.95;}}
 @media(prefers-reduced-motion:reduce){.gro .pg-hero .wrap .gro-cue svg{animation:none;}}
+/* THE HARVEST CLOSE (thirteenth pass). HeroCta's visual language, this page's
+   copy: the photo close, the same overlay grade, the one white button. Local
+   because HeroCta's lines are hardcoded and this page has just earned a
+   different close: the reader did the math, so the close says so and prices
+   the fix against the job they just priced it with. No new claims: the $199
+   and what the product does are already public on /pricing. */
+.gro-close{position:relative;min-height:min(100vh,900px);display:flex;align-items:flex-end;overflow:hidden;color:#fff;background:#050506;}
+.gro-close>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.gro-close-ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,6,.6) 0%,rgba(5,5,6,.18) 34%,rgba(5,5,6,.5) 72%,#050506 100%);}
+.gro-close-in{position:relative;z-index:1;width:100%;max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px) clamp(72px,9vw,110px);text-align:center;}
+.gro-close-in h2{font-size:clamp(34px,5.4vw,74px);font-weight:600;letter-spacing:-.035em;line-height:1.03;color:#fff;max-width:15ch;margin:0 auto;text-shadow:0 2px 34px rgba(0,0,0,.55);}
+.gro-close-in p{margin:20px auto 0;font-size:clamp(16px,1.9vw,20px);line-height:1.5;color:#eef1f5;max-width:44ch;text-shadow:0 1px 22px rgba(0,0,0,.6);}
+.gro-close-btn{display:inline-flex;align-items:center;justify-content:center;margin-top:clamp(28px,3.6vw,38px);background:#fff;color:#050506;font-size:15.5px;font-weight:600;border-radius:999px;padding:16px 34px;text-decoration:none;box-shadow:0 18px 44px -18px rgba(0,0,0,.7);transition:transform .3s ease,box-shadow .3s ease;}
+.gro-close-btn:hover{transform:translateY(-2px);box-shadow:0 26px 58px -18px rgba(0,0,0,.8);}
+@media(prefers-reduced-motion:reduce){.gro-close-btn{transition:none;}}
 `;
 
 export default function GrowthPage() {
@@ -129,11 +151,11 @@ export default function GrowthPage() {
             one sits directly beneath it. Still no Start gate. */}
         <header className="pg-hero">
           <div className="wrap">
-            <div className="eyebrow">Growth · internal draft</div>
+            <div className="eyebrow">The Leak Check · internal draft</div>
             <h1>You know the work. <span className="g">Do you know the money?</span></h1>
             <p>
-              Three quick questions about the industry, then your own numbers. Two minutes,
-              and the math at the end is yours, not ours.
+              The Leak Check: three quick questions about the industry, then your own
+              numbers. Two minutes, and the math at the end is yours, not ours.
             </p>
             {/* The CTA is the scroll itself: no button, just the invitation. */}
             <p className="gro-cue">
@@ -161,7 +183,23 @@ export default function GrowthPage() {
             deliberately (July 2026). */}
         <GrowthQuiz />
 
-        <HeroCta />
+        {/* THE HARVEST CLOSE. This page only: the generic HeroCta gave way to a
+            close that harvests the arithmetic the reader just did. Three lines,
+            one button, nothing new claimed. The quiz's hard-stop containment
+            (body[data-quiz-active] .gq~*) hides this exactly as it hid HeroCta
+            until the finale releases the page. */}
+        <section className="gro-close">
+          <img src="/closer-dock.jpg" alt="" width={2000} height={2835} loading="lazy" decoding="async" />
+          <div className="gro-close-ov" />
+          <div className="gro-close-in">
+            <h2>You just did the math.</h2>
+            <p>
+              We answer the calls, chase the quotes, and bring past customers back. $199 a
+              month, and you have seen what one job covers.
+            </p>
+            <a className="gro-close-btn" href={START_LINK}>Get Started</a>
+          </div>
+        </section>
       </main>
       <SiteFooter />
     </div>

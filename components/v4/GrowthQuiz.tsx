@@ -210,6 +210,28 @@ import { min } from '@/lib/css';
  *     above optical centre. Each screen composes the frame instead of floating
  *     in it; the same heading scale, kicker, wash and seat carry the reveals,
  *     the results, the steppers and the finale, because they share the stage.
+ *
+ * THIRTEENTH PASS, THE LEAK CHECK (Jacob, July 2026): the page got its name and
+ * the journey got its narrative thread. Copy only; flow, structure, layout and
+ * containment untouched. Three moves:
+ *   - THE SCENE: each question opens with one or two quiet lines from the
+ *     owner's day above the question (the sink at 6:47, the customer texting
+ *     three companies, the spring customer nobody called back). The scene sets
+ *     the moment the stat lives in; the question stays the display element
+ *     with its gradient word. Scenes carry NO dollar figures and no invented
+ *     specifics: a time of day and a room, nothing a lawyer or an auditor
+ *     could dispute.
+ *   - THE VERDICT AND THE BRIDGE: each reveal closes on one line that says
+ *     what the figure means and one line that hands to the next beat, so the
+ *     three stats read as a single argument: you are losing more than you
+ *     think, winning is mostly showing up first, the biggest money is behind
+ *     you. The third bridge turns the page: "That was the industry. Now you."
+ *     They ride the source beat's fade, inside the existing hold; nothing new
+ *     arms or advances.
+ *   - Register law, sitewide: no em-dashes, and no "It is not X. It is Y."
+ *     antithesis anywhere on this page; the site's one allowed antithesis
+ *     lives on /pricing. The reveals are complicit, owner to owner, never
+ *     scolding: the reader's miss is everyone's miss.
  */
 
 const PRICE = 199;
@@ -224,6 +246,10 @@ const money = (n: number) => '$' + n.toLocaleString('en-US');
 type Question = {
   key: string;
   eye: string;
+  /* THE SCENE (thirteenth pass): one or two lines from the owner's day, rendered
+     quiet above the question while the options are open. No dollar figures, no
+     invented specifics beyond the site's established time-of-day language. */
+  scene: string;
   question: string;
   /* TWELFTH PASS, BRAND + COMPOSITION (Jacob's screenshot review, July 2026): the
      question screens read as a generic monochrome form, nothing said StayBookt.
@@ -243,6 +269,11 @@ type Question = {
   small?: boolean;
   line: string;
   src: string;
+  /* THE VERDICT AND THE BRIDGE (thirteenth pass): the verdict says what the
+     figure means, complicit, never scolding; the bridge hands to the next beat
+     so the three reveals read as one argument. Both ride the source beat. */
+  verdict: string;
+  bridge: string;
 };
 
 /* Every figure is published external research, named quietly on its card: the
@@ -253,6 +284,7 @@ const QUESTIONS: Question[] = [
   {
     key: 'missed',
     eye: 'Missed calls',
+    scene: 'It is 6:47 on a Tuesday. You are under a sink with both hands full. The phone stops ringing.',
     question: 'What share of calls to home-service businesses ring out unanswered?',
     hi: 'unanswered?',
     options: ['25%', '40%', '62%', '75%'],
@@ -261,11 +293,14 @@ const QUESTIONS: Question[] = [
     fig: (p) => Math.round(62 * p) + '%',
     line: 'of calls to home-service businesses are never answered live.',
     src: '411 Locals, 2024',
+    verdict: 'Almost nobody calls this one. The leak is invisible from inside the truck.',
+    bridge: 'And the calls you do catch have a clock on them.',
   },
   {
     key: 'speed',
     eye: 'Speed to lead',
-    question: 'Answering a new lead within the hour makes you how much more likely to win it than waiting a day?',
+    scene: 'A new customer texts three companies about the same job. One answers in twenty minutes.',
+    question: 'How much more likely is that company to win the job by answering within the hour?',
     hi: 'within the hour',
     options: ['2x', '4x', '7x', '10x'],
     answer: '7x',
@@ -273,10 +308,13 @@ const QUESTIONS: Question[] = [
     fig: (p) => Math.round(7 * p) + 'x',
     line: 'more likely to win the lead when you answer within the hour. The average business takes 42 hours.',
     src: 'Harvard Business Review, 2011',
+    verdict: 'The best quote in town loses to the fastest answer most weeks.',
+    bridge: 'And the most valuable caller is one you already know.',
   },
   {
     key: 'retention',
     eye: 'Repeat customers',
+    scene: 'The customer from last spring liked your work. Nobody ever called them back.',
     question: 'Raising customer retention five percent raises profit by up to?',
     hi: 'profit',
     options: ['10%', '25%', '50%', '95%'],
@@ -286,6 +324,8 @@ const QUESTIONS: Question[] = [
     small: true,
     line: 'more profit from raising customer retention by just five percent.',
     src: 'Bain & Company, via Harvard Business Review, 2014',
+    verdict: 'The biggest money is behind you, in people who already trust you.',
+    bridge: 'That was the industry. Now you.',
   },
 ];
 
@@ -427,6 +467,12 @@ body[data-quiz-active] .gro main~footer{display:none;}
 .gq-h.quiet{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;line-height:1.5;color:#69707d;max-width:none;}
 .gq-h.quiet .g{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:#69707d;}
 .gq-sub{margin:16px auto 0;font-size:clamp(15.5px,1.7vw,18px);line-height:1.6;color:#69707d;max-width:52ch;}
+/* THE SCENE (thirteenth pass). One or two lines from the owner's day above the
+   question: the moment the stat lives in. Quiet on purpose, italic, well under
+   the question's display scale; #69707d runs 4.60:1 on the cream, past the
+   4.5:1 body-text bar. It renders only while the options are open: the reveal
+   owns its screen as before. */
+.gq-scene{margin:14px auto 0;max-width:44ch;font-size:clamp(15.5px,1.7vw,18px);font-style:italic;line-height:1.55;color:#69707d;}
 /* THE QUIET CONTINUE. The only forward control left anywhere. Invisible in the
    scroll flow until the card is hovered or it holds focus; always visible (.vis)
    for keyboard picks, reduced motion and reopens from the finale, which need a
@@ -505,6 +551,14 @@ body[data-quiz-active] .gro main~footer{display:none;}
    4.60:1 on the cream. */
 .gq-srcline{margin:12px auto 0;max-width:60ch;font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;line-height:1.6;color:#69707d;opacity:0;transform:translateY(6px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1);}
 .gq-srcline.on{opacity:1;transform:none;}
+/* THE VERDICT AND THE BRIDGE (thirteenth pass). One line that says what the
+   figure means, one line that hands to the next beat, so the three reveals
+   read as a single argument. They ride the source beat's fade inside the
+   existing hold: verdict in ink because it is the line of the moment, bridge
+   quiet because it is a hand-off. Nothing new arms or advances. */
+.gq-vd{margin:clamp(18px,3.2vh,30px) auto 0;max-width:44ch;font-size:clamp(16px,1.8vw,20px);font-weight:600;letter-spacing:-.01em;line-height:1.5;color:#06080d;opacity:0;transform:translateY(6px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1);}
+.gq-br{margin:10px auto 0;max-width:44ch;font-size:clamp(15px,1.6vw,17.5px);line-height:1.55;color:#69707d;opacity:0;transform:translateY(6px);transition:opacity .6s cubic-bezier(.16,1,.3,1) .12s,transform .6s cubic-bezier(.16,1,.3,1) .12s;}
+.gq-vd.on,.gq-br.on{opacity:1;transform:none;}
 /* THE INPUTS. Salvaged from YourMath: 48px minimum tap targets (these run 52), real
    buttons and a real number input per field, visible focus. Non-negotiable. */
 .gq-fields{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,22px);width:100%;max-width:940px;margin:clamp(22px,4vh,40px) auto 0;text-align:left;}
@@ -560,7 +614,7 @@ body[data-quiz-active] .gro main~footer{display:none;}
    pulse, no pinned stage and no delayed source: flat stacked flow, everything
    simply there. The count-ups and the gesture capture are killed in JS by the
    matchMedia check; the JS also adds .gq-rel, these rules are the CSS half. */
-@media(prefers-reduced-motion:reduce){.gq-tr,.gq-card.anim,.gq-card.anim>*,.gq-col li,.gq-col .late,.gq-opts.going .gq-opt,.gq-reveal,.gq-reveal .gq-fig,.gq-cue,.gq-cue.on,.gq-verdict{animation:none;}.gq-h{transition:none;}.gq-opt,.gq-tr,.gq-btn{transition:none;}.gq-opt:hover,.gq-tr:hover,.gq-btn:hover{transform:none;}.gq-stage{position:static;height:auto;min-height:100svh;overflow:visible;}.gq-srcline{opacity:1;transform:none;transition:none;}}
+@media(prefers-reduced-motion:reduce){.gq-tr,.gq-card.anim,.gq-card.anim>*,.gq-col li,.gq-col .late,.gq-opts.going .gq-opt,.gq-reveal,.gq-reveal .gq-fig,.gq-cue,.gq-cue.on,.gq-verdict{animation:none;}.gq-h{transition:none;}.gq-opt,.gq-tr,.gq-btn{transition:none;}.gq-opt:hover,.gq-tr:hover,.gq-btn:hover{transform:none;}.gq-stage{position:static;height:auto;min-height:100svh;overflow:visible;}.gq-srcline,.gq-vd,.gq-br{opacity:1;transform:none;transition:none;}}
 `;
 
 /* The count-up. Runs once per mount, ~900ms ease-out cubic, then holds the final
@@ -1027,6 +1081,10 @@ export default function GrowthQuiz() {
           >
             {qMark(q)}
           </h2>
+          {/* The scene renders only while the options are open; the reveal owns
+              its screen exactly as before. It sits under the question so the
+              display element keeps the top of the frame. */}
+          {!revealed && <p className="gq-scene">{q.scene}</p>}
           {!revealed && (
             <div
               className={'gq-opts' + (step === 'condense' ? ' going' : '')}
@@ -1070,6 +1128,10 @@ export default function GrowthQuiz() {
               {/* The source beat: fades in ~400ms after the count lands, its own
                   quiet moment inside the hold. */}
               <p className={'gq-srcline' + (srcOn ? ' on' : '')}>{q.src}</p>
+              {/* The verdict and the bridge ride the same beat: what the figure
+                  means, then the hand-off to the next one. */}
+              <p className={'gq-vd' + (srcOn ? ' on' : '')}>{q.verdict}</p>
+              <p className={'gq-br' + (srcOn ? ' on' : '')}>{q.bridge}</p>
               {/* The chevron cue: decorative, lights once the source beat has
                   landed, and only while the scroll gestures are actually armed. */}
               {!manual && !journeyDone && (
@@ -1123,7 +1185,7 @@ export default function GrowthQuiz() {
             ? 'Two of three. You know this industry better than most of the people selling to it.'
             : score === 1
               ? 'One of three. The published numbers run ahead of almost everyone who guesses.'
-              : 'The published numbers surprised you. They surprise almost everyone, and that is rather the point.';
+              : 'Nobody calls these. That is exactly why the leak survives.';
       return (
         <>
           <h2 className="gq-h quiet" tabIndex={-1} ref={headRef}>
@@ -1461,7 +1523,7 @@ export default function GrowthQuiz() {
   return (
     <section
       className={'gq' + (released ? ' gq-rel' : '')}
-      aria-label="The growth quiz"
+      aria-label="The Leak Check"
       ref={secRef}
     >
       <style>{min(CSS)}</style>
