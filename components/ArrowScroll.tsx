@@ -65,6 +65,8 @@ export default function ArrowScroll() {
       if (typing(e.target)) return;
       /* The nav sheet locks body scroll while open; leave the keys alone under it. */
       if (document.body.style.overflow === 'hidden') return;
+      /* The growth quiz owns the keys while its journey is live, so an arrow press advances the quiz instead of double-scrolling; see GrowthQuiz.tsx. */
+      if (document.body.dataset.quizActive === '1') return;
 
       e.preventDefault();
       if (!running) target = window.scrollY; // resync after a wheel/drag/anchor jump

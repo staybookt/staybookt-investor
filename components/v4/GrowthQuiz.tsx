@@ -13,11 +13,10 @@ import { min } from '@/lib/css';
  * trail. The next question rises into focus beneath it. The reader always sees
  * where they have been; the page visibly builds. After the last input the finale
  * assembles from the trail: the industry's revealed figures in one column, the
- * reader's own numbers and arithmetic in the other. Content height grows and the
- * page scrolls naturally as the trail accumulates; that is the journey. Nothing
- * advances on scroll. The reveals flow on their own once the figure has landed
- * (see MOTION below); the steppers and the finale still wait for a deliberate
- * act, because inputs need deliberate submission.
+ * reader's own numbers and arithmetic in the other. Content height grows as the
+ * trail accumulates; that is the journey. A held reveal advances on the reader's
+ * next scroll intent (see MOTION below); the steppers and the finale still wait
+ * for a deliberate act, because inputs need deliberate submission.
  *
  * WHY A QUIZ: guess before reveal makes the figures land. The reader commits to
  * 40% and then watches 62% count up; the gap between their guess and the
@@ -53,16 +52,29 @@ import { min } from '@/lib/css';
  * one shrink up toward the incoming trail row, the others fade out. The reveal then
  * owns the screen: the question quiets to a small kicker line, and the figure, its
  * one line and its source sit in generous air, roughly double the question rhythm.
- * The figure counts up once, ~900ms ease-out cubic. Then the reveal dwells ~2800ms,
- * a thin hairline under the figure filling so the auto-advance is legible, and
- * condenses itself into the trail while the next question rises, ~600ms ease. Any
- * click, tap or keypress during the dwell skips ahead immediately. The dwell PAUSES
- * while the card is hovered or anything on the page has focus-visible. A pick made
- * by keyboard (detail 0) gets NO timer at all: a quiet Continue control takes focus
- * and the reader advances with Enter or Space at their own pace. prefers-reduced-
- * motion gets NO auto-advance and NO count-up, instant reveal plus that same quiet
- * control, because auto-motion is exactly what the setting refuses; CSS media query
- * plus a matchMedia check cover both halves. The finale's rows assemble with a short
+ * The figure counts up once, ~900ms ease-out cubic. Then the reveal HOLDS. The old
+ * ~2800ms dwell timer and its hairline are GONE (Jacob, July 2026): the reveal waits
+ * indefinitely, a small chevron pulsing gently beneath it, and the reader's NEXT
+ * SCROLL is the advance. One gesture, one transition: a wheel tick past a small
+ * threshold, a touch swipe up, ArrowDown, PageDown, Space or Enter, and the reveal
+ * condenses into the trail while the next question rises, the same 350/600ms
+ * motion. A ~700ms debounce after each advance keeps wheel momentum from
+ * double-firing. A click or tap on the card still advances, and a pick made by
+ * keyboard (detail 0) still hands focus to the quiet Continue control so the reader
+ * can advance with Enter or Space at their own pace.
+ *
+ * SCROLL IS CONTAINED while the journey is live: wheel and touchmove over the stage
+ * are consumed, and scroll keys are swallowed, so a scroll can never blow past the
+ * quiz into the sources and closer below, and a gesture on an unanswered question
+ * does nothing at all. The quiz sets document.body.dataset.quizActive = '1' for the
+ * same window, and ArrowScroll.tsx bails on that flag so an arrow press advances
+ * the quiz instead of double-scrolling the page. Both the containment and the flag
+ * end the moment the finale is reached: from there the page scrolls normally,
+ * stack-up into sources into the closing CTA. prefers-reduced-motion gets NO
+ * gesture capture and NO count-up: instant reveal, normal page scrolling, and the
+ * quiet Continue control, because hijacking scroll is exactly what that setting
+ * refuses; CSS media query plus a matchMedia check cover both halves. The finale's
+ * rows assemble with a short
  * stagger, echoing the trail they came from. No aria-live on the count, on purpose:
  * a screen reader gets the final text in DOM order and is never shouted at by sixty
  * intermediate values. Nothing animates on initial page load: the landing state is
@@ -188,7 +200,7 @@ const CSS = `
    purpose: hero into question one, no dead band. The ::before is the hero's
    emerald wash carrying on, faint and decorative, over the same #050506 the hero
    sits on, so the seam between header and quiz is invisible. */
-.gq{position:relative;background:#050506;color:#f5f5f7;min-height:100svh;padding:clamp(8px,1.6vh,18px) 0 clamp(56px,8vh,96px);}
+.gq{position:relative;background:#050506;color:#f5f5f7;min-height:100svh;padding:clamp(8px,1.6vh,18px) 0 clamp(56px,8vh,96px);overscroll-behavior:contain;}
 .gq::before{content:'';position:absolute;top:0;left:0;right:0;height:340px;pointer-events:none;background:radial-gradient(64% 100% at 50% 0%,rgba(16,185,129,.05),transparent 72%);}
 .gq-wrap{position:relative;z-index:1;width:100%;max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px);display:flex;flex-direction:column;align-items:center;text-align:center;}
 .gq-eye{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#8a8f98;}
@@ -219,9 +231,10 @@ const CSS = `
 .gq-h.quiet .g{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:#8a8f98;}
 .gq-sub{margin:16px auto 0;font-size:clamp(15.5px,1.7vw,18px);line-height:1.6;color:#aeb6c4;max-width:52ch;}
 /* THE QUIET CONTINUE. The only forward control left anywhere. Invisible in the
-   auto flow until the card is hovered or it holds focus; always visible (.vis)
-   for keyboard picks, reduced motion and the steppers, which need deliberate
-   submission. 48px tap target, quiet grey at 6.27:1 on #050506. */
+   scroll flow until the card is hovered or it holds focus; always visible (.vis)
+   for keyboard picks, reduced motion, reveals reopened after the finale and the
+   steppers, which need deliberate submission. 48px tap target, quiet grey at
+   6.27:1 on #050506. */
 .gq-go{margin-top:clamp(18px,3vh,32px);min-height:48px;padding:12px 24px;border:1px solid transparent;border-radius:999px;background:transparent;color:#8a8f98;font-family:inherit;font-size:13.5px;font-weight:600;letter-spacing:.04em;cursor:pointer;opacity:0;transition:opacity .2s ease,color .2s ease,border-color .2s ease;}
 .gq-go.vis{opacity:1;border-color:#23262e;}
 .gq-go:focus-visible,.gq-card:hover .gq-go{opacity:1;}
@@ -249,14 +262,18 @@ const CSS = `
 @keyframes gq-shrink{to{opacity:0;transform:translateY(-30px) scale(.55);}}
 @keyframes gq-fade{to{opacity:0;}}
 /* THE REVEAL. Figure, one line, source, in air: roughly double the question
-   rhythm. The hairline under the figure fills across the dwell so the
-   auto-advance is legible, not mysterious. */
+   rhythm. The region is focusable so a keyboard reader can land on it and
+   advance in place; the chevron beneath it pulses gently once the count lands,
+   the quiet cue that the next scroll brings the next question. */
 .gq-reveal{display:flex;flex-direction:column;align-items:center;width:100%;animation:gq-in .35s ease both;}
+.gq-reveal:focus-visible{outline:2px solid #34d399;outline-offset:10px;border-radius:12px;}
 .gq-reveal .gq-fig{margin-top:clamp(26px,5.5vh,54px);}
 .gq-reveal .gq-line{margin-top:clamp(22px,4.2vh,40px);}
 .gq-reveal .gq-srcline{margin-top:clamp(14px,2.8vh,26px);}
-.gq-bar{margin-top:clamp(20px,3.6vh,36px);width:min(220px,56%);height:2px;border-radius:999px;background:#23262e;overflow:hidden;}
-.gq-bar i{display:block;width:100%;height:100%;background:#34d399;transform:scaleX(0);transform-origin:left center;}
+.gq-cue{margin-top:clamp(20px,3.6vh,36px);height:14px;color:#8a8f98;opacity:0;transition:opacity .3s ease;}
+.gq-cue.on{opacity:1;animation:gq-cue 2.4s ease-in-out infinite;}
+.gq-cue svg{display:block;}
+@keyframes gq-cue{0%,100%{opacity:.45;transform:translateY(0);}50%{opacity:.95;transform:translateY(5px);}}
 /* THE FIGURE. Keynote scale, gradient on the number, tabular so digits do not
    jitter sideways while they count. Giant display text, so the gradient's quietest
    stop clears the WCAG large-text bar with room. */
@@ -311,14 +328,15 @@ const CSS = `
 .gq-note{margin:16px 0 0;font-size:13px;line-height:1.6;color:#8a8f98;max-width:62ch;}
 .gq-score{margin-top:20px;font-size:14px;line-height:1.5;color:#8a8f98;}
 .gq-close{margin:12px auto 0;max-width:56ch;font-size:clamp(15px,1.7vw,18px);line-height:1.55;color:#aeb6c4;}
-/* REDUCED MOTION: no condense, no rise, no stagger, no reveal slide. The count-ups
-   and the auto-advance are killed in JS by the matchMedia check. */
-@media(prefers-reduced-motion:reduce){.gq-tr,.gq-card.anim,.gq-col li,.gq-col .late,.gq-opts.going .gq-opt,.gq-reveal{animation:none;}.gq-h{transition:none;}}
+/* REDUCED MOTION: no condense, no rise, no stagger, no reveal slide, no chevron
+   pulse. The count-ups and the gesture capture are killed in JS by the matchMedia
+   check. */
+@media(prefers-reduced-motion:reduce){.gq-tr,.gq-card.anim,.gq-col li,.gq-col .late,.gq-opts.going .gq-opt,.gq-reveal,.gq-cue{animation:none;}.gq-h{transition:none;}}
 `;
 
 /* The count-up. Runs once per mount, ~900ms ease-out cubic, then holds the final
-   string and reports done, which is what arms the dwell timer. Instant when
-   reduced motion is on. Plain text, no aria-live. */
+   string and reports done, which is what arms the scroll advance and lights the
+   chevron. Instant when reduced motion is on. Plain text, no aria-live. */
 function Fig({
   fig,
   small,
@@ -371,22 +389,27 @@ export default function GrowthQuiz() {
   });
   const [reduced, setReduced] = useState(false);
   /* THE FLOW MACHINE for a question card. step: null (options open), 'condense'
-     (~350ms, options folding away), 'reveal' (figure owns the screen). manual
-     means no timer for this reveal: reduced motion, or a pick made by keyboard.
-     hovered and focusPause hold the dwell; dwellRef accumulates elapsed dwell ms
-     across pauses; advancedRef guards the advance to exactly once per reveal. */
+     (~350ms, options folding away), 'reveal' (figure owns the screen, HOLDS until
+     the reader advances it). manual means the quiet Continue leads this reveal:
+     reduced motion, or a pick made by keyboard. advancedRef guards the advance to
+     exactly once per reveal; holdRef mirrors "a reveal is held and its count has
+     landed" for the gesture listeners; lastAdvRef timestamps each advance for the
+     ~700ms momentum debounce; wheelAccRef accumulates wheel delta toward one
+     tick; touchRef tracks one swipe per touch. */
   const [step, setStep] = useState<null | 'condense' | 'reveal'>(null);
   const [countDone, setCountDone] = useState(false);
   const [manual, setManual] = useState(false);
-  const [hovered, setHovered] = useState(false);
-  const [focusPause, setFocusPause] = useState(false);
   const headRef = useRef<HTMLHeadingElement | null>(null);
   const goRef = useRef<HTMLButtonElement | null>(null);
-  const barRef = useRef<HTMLElement | null>(null);
+  const secRef = useRef<HTMLElement | null>(null);
   const navved = useRef(false);
   const advancedRef = useRef(false);
-  const dwellRef = useRef(0);
   const kbRef = useRef(false);
+  const holdRef = useRef(false);
+  const lastAdvRef = useRef(0);
+  const wheelAccRef = useRef(0);
+  const touchRef = useRef<{ y: number; fired: boolean } | null>(null);
+  const advRef = useRef<() => void>(() => {});
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -406,12 +429,13 @@ export default function GrowthQuiz() {
     setStep(null);
     setCountDone(false);
     setManual(false);
-    dwellRef.current = 0;
   };
 
   const advance = () => {
     navved.current = true;
     setMoved(true);
+    lastAdvRef.current = performance.now();
+    wheelAccRef.current = 0;
     resetFlow();
     if (active < furthest) {
       setActive(furthest);
@@ -423,7 +447,7 @@ export default function GrowthQuiz() {
   };
 
   /* The single gate every path to the next card goes through during a reveal:
-     timer, click-to-skip, keypress-to-skip and the quiet Continue all land here,
+     wheel tick, swipe, advance keys, click and the quiet Continue all land here,
      and only the first one counts. */
   const advanceOnce = () => {
     if (advancedRef.current) return;
@@ -450,7 +474,6 @@ export default function GrowthQuiz() {
      the quiet Continue takes focus, so the reader advances at their own pace. */
   const pick = (qKey: string, o: string, detail: number) => {
     advancedRef.current = false;
-    dwellRef.current = 0;
     setCountDone(false);
     kbRef.current = detail === 0;
     setManual(reduced || detail === 0);
@@ -470,65 +493,78 @@ export default function GrowthQuiz() {
     if (step === 'reveal' && kbRef.current) goRef.current?.focus();
   }, [step]);
 
-  /* THE DWELL, auto flow only: ~2800ms after the count-up lands, driving the
-     hairline from the same clock, then the flow advances itself. Pausing (hover
-     or focus-visible anywhere) tears the loop down; dwellRef keeps the elapsed
-     time, so resuming continues instead of restarting. */
+  /* SCROLL IS THE ADVANCE, AND SCROLL IS CONTAINED. While the journey is live
+     (finale not yet reached, reduced motion off) the stage consumes wheel and
+     touchmove so a scroll can never blow past the quiz into the sources below,
+     and the body carries the quizActive flag that tells ArrowScroll.tsx to
+     leave the arrow keys alone. While a reveal is held (its count has landed),
+     the first scroll intent advances: a wheel tick past a small threshold, a
+     touch swipe up, ArrowDown, PageDown, Space or Enter. One gesture is one
+     transition; advanceOnce still guards each reveal, and a ~700ms debounce
+     after each advance keeps wheel momentum from double-firing into the next
+     reveal. On an unanswered question the gestures are consumed and do nothing:
+     answering stays tap, click or keyboard on the options. Enter and Space on a
+     real control are left to that control, so option picks, trail reopens and
+     the quiet Continue keep working. The moment the finale is reached this
+     whole effect tears down and the page scrolls normally again, stack-up into
+     sources into the closing CTA. */
+  const journeyDone = furthest === STAGES - 1;
   useEffect(() => {
-    if (step !== 'reveal' || !countDone || manual || hovered || focusPause) return;
-    let raf = 0;
-    let last = performance.now();
-    const tick = (t: number) => {
-      dwellRef.current += t - last;
-      last = t;
-      const u = Math.min(1, dwellRef.current / 2800);
-      if (barRef.current) barRef.current.style.transform = 'scaleX(' + u + ')';
-      if (u >= 1) {
-        advanceOnce();
+    if (reduced || journeyDone) return;
+    document.body.dataset.quizActive = '1';
+    const sec = secRef.current;
+    const ready = () =>
+      holdRef.current && performance.now() - lastAdvRef.current > 700;
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      if (!ready()) return;
+      if (e.deltaY <= 0) {
+        wheelAccRef.current = 0;
         return;
       }
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [step, countDone, manual, hovered, focusPause]);
-
-  /* Focus-visible anywhere on the page holds the dwell: a keyboard user tabbing
-     through the trail is never advanced out from under their focus. */
-  useEffect(() => {
-    if (step !== 'reveal') return;
-    const onIn = (e: FocusEvent) => {
-      const t = e.target as HTMLElement | null;
-      try {
-        setFocusPause(!!t && typeof t.matches === 'function' && t.matches(':focus-visible'));
-      } catch {
-        setFocusPause(true);
+      wheelAccRef.current += e.deltaY;
+      if (wheelAccRef.current >= 24) {
+        wheelAccRef.current = 0;
+        advRef.current();
       }
     };
-    const onOut = () => setFocusPause(false);
-    document.addEventListener('focusin', onIn);
-    document.addEventListener('focusout', onOut);
-    return () => {
-      document.removeEventListener('focusin', onIn);
-      document.removeEventListener('focusout', onOut);
+    const onTouchStart = (e: TouchEvent) => {
+      touchRef.current = { y: e.touches[0].clientY, fired: false };
     };
-  }, [step]);
-
-  /* Any keypress during the auto dwell skips ahead, except keys that are
-     navigation or modifiers, and never while something holds visible focus:
-     that Enter belongs to the focused control. */
-  useEffect(() => {
-    if (step !== 'reveal' || manual) return;
+    const onTouchMove = (e: TouchEvent) => {
+      e.preventDefault();
+      const t = touchRef.current;
+      if (!t || t.fired || !ready()) return;
+      if (t.y - e.touches[0].clientY > 40) {
+        t.fired = true;
+        advRef.current();
+      }
+    };
     const onKey = (e: KeyboardEvent) => {
-      if (['Tab', 'Shift', 'Control', 'Alt', 'Meta', 'Escape'].includes(e.key)) return;
-      if (focusPause) return;
-      advanceOnce();
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const t = e.target as HTMLElement | null;
+      if (t && /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)) return;
+      const onControl =
+        !!t && typeof t.closest === 'function' && !!t.closest('button,a,[role=button]');
+      if (onControl && (e.key === ' ' || e.key === 'Enter')) return;
+      if ([' ', 'ArrowDown', 'ArrowUp', 'PageDown', 'PageUp'].includes(e.key))
+        e.preventDefault();
+      if (e.shiftKey) return;
+      if (![' ', 'ArrowDown', 'PageDown', 'Enter'].includes(e.key)) return;
+      if (ready()) advRef.current();
     };
+    sec?.addEventListener('wheel', onWheel, { passive: false });
+    sec?.addEventListener('touchstart', onTouchStart, { passive: true });
+    sec?.addEventListener('touchmove', onTouchMove, { passive: false });
     window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [step, manual, focusPause]);
+    return () => {
+      delete document.body.dataset.quizActive;
+      sec?.removeEventListener('wheel', onWheel);
+      sec?.removeEventListener('touchstart', onTouchStart);
+      sec?.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [reduced, journeyDone]);
 
   const set = (f: Field, next: number) => {
     const n = Math.min(f.maxV, Math.max(f.minV, Math.round(next)));
@@ -659,24 +695,39 @@ export default function GrowthQuiz() {
             </div>
           )}
           {revealed && (
-            <div className="gq-reveal">
+            <div
+              className="gq-reveal"
+              tabIndex={0}
+              role="group"
+              aria-label="The answer, revealed. Scroll down, or press Enter, to continue."
+            >
               <Fig
                 fig={q.fig}
                 small={q.small}
                 instant={reduced}
                 onDone={() => setCountDone(true)}
               />
-              {!manual && (
-                <div className="gq-bar" aria-hidden="true">
-                  <i ref={barRef} />
-                </div>
-              )}
               <p className="gq-line">{q.line}</p>
               <p className="gq-srcline">{q.src}</p>
+              {/* The chevron cue: decorative, lights once the count lands, and only
+                  while the scroll gestures are actually armed. */}
+              {!manual && !journeyDone && (
+                <div className={'gq-cue' + (countDone ? ' on' : '')} aria-hidden="true">
+                  <svg width="22" height="12" viewBox="0 0 22 12" fill="none">
+                    <path
+                      d="M2 2l9 8 9-8"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+              )}
               <button
                 type="button"
                 ref={goRef}
-                className={'gq-go' + (manual ? ' vis' : '')}
+                className={'gq-go' + (manual || journeyDone ? ' vis' : '')}
                 onClick={(e) => {
                   e.stopPropagation();
                   advanceOnce();
@@ -885,21 +936,23 @@ export default function GrowthQuiz() {
   const kicker =
     active <= 2 ? 'Question ' + (active + 1) + ' of 3' : active === 3 ? 'Your numbers' : 'The stack-up';
 
-  /* During a reveal the card itself is the skip control: hover holds the dwell,
-     a click or tap anywhere on it advances immediately. Outside a reveal these
-     handlers do nothing. */
+  /* During a reveal the card itself is also a control: a click or tap anywhere
+     on it advances immediately. Outside a reveal these handlers do nothing. The
+     refs below mirror render state for the gesture listeners, same pattern as
+     doneRef in Fig: holdRef arms them only while a reveal is held and its count
+     has landed, advRef always points at the current advanceOnce. */
   const inReveal = active <= 2 && !!picks[QUESTIONS[active].key] && step !== 'condense';
+  holdRef.current = inReveal && step === 'reveal' && countDone;
+  advRef.current = advanceOnce;
 
   return (
-    <section className="gq" aria-label="The growth quiz">
+    <section className="gq" aria-label="The growth quiz" ref={secRef}>
       <style>{min(CSS)}</style>
       <div className="gq-wrap">
         {trail.length > 0 && <div className="gq-trail">{trail}</div>}
         <div
           key={active}
           className={'gq-card' + (moved ? ' anim' : '')}
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
           onClick={() => {
             if (inReveal) advanceOnce();
           }}
