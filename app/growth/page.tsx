@@ -2,7 +2,7 @@ import Nav from '@/components/v4/Nav';
 import Reveal from '@/components/v4/Reveal';
 import HeroCta from '@/components/v4/HeroCta';
 import SiteFooter from '@/components/SiteFooter';
-import GrowthFilm from '@/components/v4/GrowthFilm';
+import GrowthNumbers from '@/components/v4/GrowthNumbers';
 import YourMath from '@/components/v4/YourMath';
 import { min } from '@/lib/css';
 
@@ -12,11 +12,15 @@ import { min } from '@/lib/css';
  * that the same machine makes them more money. Fair. This page is the money argument,
  * built for the founders to iterate on before any of it goes anywhere public.
  *
- * REBUILT AS AN EXPERIENCE (Jacob, July 2026). The first draft was five dense text
- * sections: a memo sitting inside a cinematic site, the exact failure /long-term had
- * before the RemovalTest. The five money mechanisms are now a pinned scroll film
- * (GrowthFilm) in the site's established film grammar, and the arrival is YourMath, a
- * calculator that echoes the reader's own arithmetic back with zero hidden multipliers.
+ * REBUILT A THIRD TIME (Jacob, July 2026). Take one was five dense text sections: a
+ * memo inside a cinematic site. Take two drew the mechanisms as a revenue stream with
+ * five leaks; take three scrubbed a clock through one workday in two lanes. Jacob
+ * rejected both films as annoying to drive and not unique to this page, and set the
+ * brief as one question: how would Apple handle this? The answer shipped here: no
+ * metaphor, no scroll-scrubbed film. THE CITED FIGURES ARE THE VISUAL (GrowthNumbers),
+ * one thought per full screen, the number at keynote scale, counting up once on
+ * arrival. The finale is YourMath, the reader's own arithmetic rendered in the same
+ * giant type, with zero hidden multipliers.
  *
  * PRIVATE MEANS THREE THINGS, ALL LOAD-BEARING:
  *   1. metadata.robots is noindex,nofollow. Do not remove it while this is a draft.
@@ -25,8 +29,9 @@ import { min } from '@/lib/css';
  *   3. It is reachable only by typing /growth.
  *
  * THE RULES THIS PAGE LIVES UNDER, same as the rest of the site:
- *   - No invented numbers. Every figure in the film is an external, published stat,
- *     presented as external, with its source named inline and linked at the bottom.
+ *   - No invented numbers. Every figure on the screens is an external, published stat,
+ *     presented as external, with its source named on its screen and linked at the
+ *     bottom.
  *   - No ROI promise, no "typical customer saves X", no revenue guarantee.
  *   - THE CALCULATOR IS NOT THE LEAK CALCULATOR. That anti-pattern is still banned,
  *     and the reason it was banned is what YourMath refuses to do: it has no hidden
@@ -53,19 +58,16 @@ const CSS = `
 .gro .wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
 .gro .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#69707d;}
 .gro h1,.gro h2{font-weight:600;letter-spacing:-.035em;color:var(--v4-ink);}
-
 /* HERO. The standard .pg-hero. Emerald: this page is about what the running of the
    business produces, and emerald is the running-of-it hue. The h1 is a full sentence,
    longer than the standard 14ch, so it gets one extra-specific width override rather
    than a hand-rolled header. */
 .gro .pg-hero{--hero-hue:16,185,129;}
 .gro .pg-hero .wrap h1{max-width:22ch;font-size:clamp(38px,5.6vw,74px);}
-
 /* THE DRAFT LINE. A sentence, not a warning box. */
 .gro-draft{padding:26px 0;border-bottom:1px solid #e6e6e1;background:#f6f6f3;}
 .gro-draft p{text-align:center;font-size:14.5px;line-height:1.6;color:#5c636e;max-width:72ch;margin:0 auto;}
 .gro-draft p b{font-weight:600;color:var(--v4-ink);}
-
 /* SOURCES. Small, plain, complete. */
 .gro-src{padding:clamp(60px,8vw,100px) 0;border-top:1px solid #e6e6e1;background:#f6f6f3;}
 .gro-src h2{margin-top:12px;font-size:clamp(24px,3vw,36px);line-height:1.1;}
@@ -122,7 +124,6 @@ export default function GrowthPage() {
       <style>{min(CSS)}</style>
       <Nav />
       <main id="main" tabIndex={-1}>
-
       <header className="pg-hero">
         <div className="wrap">
           <Reveal className="eyebrow" as="div">Internal draft</Reveal>
@@ -134,13 +135,12 @@ export default function GrowthPage() {
           </Reveal>
           <Reveal>
             <p>
-              One workday, seven in the morning to nine at night. Five moments decide how it
-              ends, and every one plays out both ways. Then the math is yours.
+              Five numbers, one thought at a time. None of them are ours, and every one is
+              published research. Then the math is yours.
             </p>
           </Reveal>
         </div>
       </header>
-
       {/* THE DRAFT LINE. A sentence, on purpose, where both founders will see it first. */}
       <div className="gro-draft">
         <div className="wrap">
@@ -151,16 +151,12 @@ export default function GrowthPage() {
           </p>
         </div>
       </div>
-
-      {/* THE FILM. The Two Days: scroll runs the clock through one workday, and five
-          moments each play out both ways. The dense sections it replaced live on in the
-          static twin and the Sources below. */}
-      <GrowthFilm />
-
-      {/* THE ARRIVAL. The reader's own numbers, said back. Never ours. */}
+      {/* THE NUMBERS. Five full screens, one cited figure each at keynote scale, then the
+          hinge screen that hands the argument to the reader. */}
+      <GrowthNumbers />
+      {/* THE FINALE. The reader's own numbers, said back in the same giant type. Never ours. */}
       <YourMath />
-
-      {/* SOURCES. Every number in the film, findable. */}
+      {/* SOURCES. Every number on this page, findable. */}
       <section className="gro-src">
         <div className="wrap">
           <div className="eyebrow">Sources</div>
@@ -175,7 +171,6 @@ export default function GrowthPage() {
           </ul>
         </div>
       </section>
-
       <HeroCta />
       </main>
       <SiteFooter />

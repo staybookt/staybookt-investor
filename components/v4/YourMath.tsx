@@ -26,9 +26,19 @@ import { min } from '@/lib/css';
  * If you add a coefficient that is not the reader's own input or the public price, you
  * have rebuilt the leak calculator and it is banned. Do not.
  *
+ * RESTYLED FOR THE KEYNOTE TAKE (July 2026). The logic and the inputs are untouched;
+ * only the output changed clothes. The section is dark now, the inputs sit compact at
+ * the top, and THE READER'S OWN NUMBER renders in the same giant gradient type as the
+ * five stat screens above it. Their figure is the biggest thing on the page, which is
+ * the whole argument. It updates instantly as the inputs change: no count-up here, no
+ * transition lag, because a calculator that lags feels like it is thinking up an
+ * answer instead of doing arithmetic.
+ *
  * ACCESSIBILITY LAWS, from the site audits: real buttons and a real number input per
- * field (keyboard operable, focus visible), 48px tap targets, works at 390px, and the
- * quiet grey is #69707d (4.5:1 or better on this background). #6b7280 is BANNED. */
+ * field (keyboard operable, focus visible), 48px tap targets, works at 390px. The
+ * quiet grey on this dark section is #8a8f98 (6.27:1 on #050506); the mid grey is
+ * #aeb6c4. #6b7280 is BANNED everywhere, and light-section greys do not belong here.
+ */
 
 const PRICE = 199;
 
@@ -53,46 +63,43 @@ const FIELDS: Field[] = [
 ];
 
 const CSS = `
-.ym{background:var(--v4-cream,#f6f6f3);color:var(--v4-ink,#06080d);padding:clamp(80px,11vw,140px) 0;}
-.ym .wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
-.ym .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#69707d;}
-.ym h2{margin-top:14px;font-size:clamp(30px,4.4vw,56px);font-weight:600;letter-spacing:-.035em;line-height:1.03;color:var(--v4-ink,#06080d);max-width:16ch;}
-.ym h2 .g{background:var(--sb-grad-ink);-webkit-background-clip:text;background-clip:text;color:transparent;}
-.ym-lead{margin-top:20px;font-size:clamp(16px,1.8vw,19px);line-height:1.62;color:#42474f;max-width:58ch;}
-
-.ym-card{margin-top:clamp(36px,4.6vw,56px);background:#fff;border:1px solid #e6e6e1;border-radius:24px;
-  box-shadow:0 40px 80px -46px rgba(6,12,20,.35),0 2px 6px -2px rgba(6,12,20,.06);
-  padding:clamp(22px,3vw,40px);}
-
-.ym-fields{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.2vw,28px);}
+.ym{background:#050506;color:#f5f5f7;padding:clamp(90px,12vw,150px) 0 clamp(80px,10vw,130px);}
+.ym .wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px);text-align:center;}
+.ym .eyebrow{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#8a8f98;}
+.ym h2{margin:14px auto 0;font-size:clamp(30px,4.4vw,56px);font-weight:600;letter-spacing:-.035em;line-height:1.03;color:#fff;max-width:16ch;}
+.ym h2 .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.ym-lead{margin:18px auto 0;font-size:clamp(15.5px,1.7vw,18px);line-height:1.6;color:#aeb6c4;max-width:56ch;}
+/* THE INPUTS. Compact, at the top, out of the way of the payoff. */
+.ym-fields{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.6vw,18px);max-width:920px;margin:clamp(30px,4vw,46px) auto 0;text-align:left;}
 @media(max-width:860px){.ym-fields{grid-template-columns:1fr;}}
-.ym-f{border:1px solid #e6e6e1;border-radius:16px;padding:16px 16px 14px;}
-.ym-f .lb{display:block;font-size:14.5px;font-weight:600;color:var(--v4-ink,#06080d);}
-.ym-f .ht{display:block;margin-top:3px;font-size:12.5px;line-height:1.45;color:#69707d;}
-.ym-row{margin-top:12px;display:flex;align-items:stretch;gap:8px;}
+.ym-f{border:1px solid #23262e;border-radius:16px;background:#0b0c10;padding:14px 14px 12px;}
+.ym-f .lb{display:block;font-size:14px;font-weight:600;color:#f5f5f7;}
+.ym-f .ht{display:block;margin-top:3px;font-size:12.5px;line-height:1.45;color:#8a8f98;}
+.ym-row{margin-top:10px;display:flex;align-items:stretch;gap:8px;}
 /* 48px tap targets, real buttons, visible focus. Non-negotiable. */
-.ym-btn{flex:0 0 48px;min-width:48px;min-height:48px;border-radius:12px;border:1px solid #cfd3cd;
-  background:#f6f6f3;color:var(--v4-ink,#06080d);font-size:22px;font-weight:600;line-height:1;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;transition:background .2s ease,border-color .2s ease;}
-.ym-btn:hover{background:#ecece8;border-color:#b9beb7;}
-.ym-btn:active{background:#e2e2dd;}
-.ym-btn:focus-visible{outline:2px solid #059669;outline-offset:2px;}
+.ym-btn{flex:0 0 48px;min-width:48px;min-height:48px;border-radius:12px;border:1px solid #2c2f38;background:#15171d;color:#f5f5f7;font-size:22px;font-weight:600;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s ease,border-color .2s ease;}
+.ym-btn:hover{background:#1c1f27;border-color:#3a3e49;}
+.ym-btn:active{background:#23262f;}
+.ym-btn:focus-visible{outline:2px solid #34d399;outline-offset:2px;}
 .ym-btn:disabled{opacity:.35;cursor:default;}
 .ym-val{position:relative;flex:1 1 auto;min-width:0;display:flex;align-items:center;}
-.ym-val .cur{position:absolute;left:12px;font-size:16px;font-weight:600;color:#69707d;pointer-events:none;}
-.ym-in{width:100%;min-height:48px;border:1px solid #cfd3cd;border-radius:12px;background:#fff;
-  font-family:inherit;font-size:19px;font-weight:600;color:var(--v4-ink,#06080d);text-align:center;
-  -moz-appearance:textfield;appearance:textfield;}
+.ym-val .cur{position:absolute;left:12px;font-size:16px;font-weight:600;color:#8a8f98;pointer-events:none;}
+.ym-in{width:100%;min-height:48px;border:1px solid #2c2f38;border-radius:12px;background:#0b0c10;font-family:inherit;font-size:19px;font-weight:600;color:#fff;text-align:center;-moz-appearance:textfield;appearance:textfield;}
 .ym-in::-webkit-outer-spin-button,.ym-in::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
-.ym-in:focus-visible{outline:2px solid #059669;outline-offset:2px;}
-
-/* THE ECHO. Their numbers, said back. The figures carry the ink gradient because they
-   are the point; everything around them stays quiet. */
-.ym-out{margin-top:clamp(24px,3vw,36px);border-top:1px solid #e6e6e1;padding-top:clamp(20px,2.6vw,30px);}
-.ym-line{padding:12px 0;font-size:clamp(17px,2.1vw,23px);font-weight:600;letter-spacing:-.02em;line-height:1.45;color:var(--v4-ink,#06080d);max-width:34ch;}
-.ym-line b{font-weight:700;background:var(--sb-grad-ink);-webkit-background-clip:text;background-clip:text;color:transparent;white-space:nowrap;}
-.ym-line.quiet{font-weight:500;color:#42474f;}
-.ym-note{margin-top:clamp(18px,2.2vw,26px);font-size:13.5px;line-height:1.6;color:#69707d;max-width:64ch;}
+.ym-in:focus-visible{outline:2px solid #34d399;outline-offset:2px;}
+/* THE PAYOFF. The reader's own number in the same keynote type as the five screens
+   above. It snaps, never eases: arithmetic, not theatre. */
+.ym-out{margin-top:clamp(44px,6vw,72px);}
+.ym-k{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#8a8f98;}
+.ym-big{margin-top:clamp(8px,1.6vh,18px);font-family:var(--font-display),'Inter Tight','Helvetica Neue',Arial,sans-serif;font-size:clamp(96px,22vw,260px);line-height:.95;font-weight:700;letter-spacing:-.05em;font-variant-numeric:tabular-nums;background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.ym-cap{margin:clamp(12px,2vh,22px) auto 0;max-width:34ch;font-size:clamp(18px,2.2vw,25px);font-weight:600;letter-spacing:-.02em;line-height:1.4;color:#fff;}
+.ym-lines{margin:clamp(24px,3vw,36px) auto 0;max-width:56ch;}
+.ym-line{padding:7px 0;font-size:clamp(15px,1.7vw,18.5px);line-height:1.55;color:#aeb6c4;}
+.ym-line b{font-weight:700;color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap;}
+.ym-line.quiet{color:#8a8f98;}
+.ym-note{margin:clamp(22px,2.6vw,32px) auto 0;font-size:13px;line-height:1.6;color:#8a8f98;max-width:62ch;}
+/* "$5,000" is six characters; the phone ramp keeps it inside 390px. */
+@media(max-width:760px){.ym-big{font-size:clamp(56px,17vw,80px);}}
 `;
 
 export default function YourMath() {
@@ -115,23 +122,12 @@ export default function YourMath() {
   const missedMonthly = missed * 4;                 // their weekly count, four weeks
   const quoteValue = quotes * job;                  // their count times their ticket
 
-  const lines: { key: string; quiet?: boolean; jsx: ReactNode }[] = [];
+  const cap =
+    months >= 1
+      ? 'covers ' + word(months) + ' month' + (months === 1 ? '' : 's') + ' of StayBookt.'
+      : 'means ' + word(jobsForMonth) + ' jobs cover a month of StayBookt.';
 
-  if (months >= 1) {
-    lines.push({
-      key: 'cover',
-      jsx: (
-        <>One job at <b>{money(job)}</b> covers {word(months)} month{months === 1 ? '' : 's'} of StayBookt.</>
-      ),
-    });
-  } else {
-    lines.push({
-      key: 'cover',
-      jsx: (
-        <>It takes {word(jobsForMonth)} jobs at <b>{money(job)}</b> to cover a month of StayBookt.</>
-      ),
-    });
-  }
+  const lines: { key: string; quiet?: boolean; jsx: ReactNode }[] = [];
 
   if (missed > 0) {
     lines.push({
@@ -180,64 +176,65 @@ export default function YourMath() {
           projecting at all. Put in your own three numbers and it says them back, next to the
           one number of ours that is public: $199 a month.
         </p>
-
-        <div className="ym-card">
-          <div className="ym-fields">
-            {FIELDS.map((f) => {
-              const val = v[f.key];
-              return (
-                <div className="ym-f" key={f.key}>
-                  <label className="lb" htmlFor={'ym-' + f.key}>{f.label}</label>
-                  <span className="ht">{f.hint}</span>
-                  <div className="ym-row">
-                    <button
-                      type="button"
-                      className="ym-btn"
-                      onClick={() => set(f, val - f.step)}
-                      disabled={val <= f.minV}
-                      aria-label={'Decrease ' + f.label.toLowerCase()}
-                    >
-                      &minus;
-                    </button>
-                    <div className="ym-val">
-                      {f.isMoney && <span className="cur" aria-hidden="true">$</span>}
-                      <input
-                        id={'ym-' + f.key}
-                        className="ym-in"
-                        type="number"
-                        inputMode="numeric"
-                        min={f.minV}
-                        max={f.maxV}
-                        step={f.step}
-                        value={val}
-                        onChange={(e) => set(f, Number(e.target.value))}
-                      />
-                    </div>
-                    <button
-                      type="button"
-                      className="ym-btn"
-                      onClick={() => set(f, val + f.step)}
-                      disabled={val >= f.maxV}
-                      aria-label={'Increase ' + f.label.toLowerCase()}
-                    >
-                      +
-                    </button>
+        <div className="ym-fields">
+          {FIELDS.map((f) => {
+            const val = v[f.key];
+            return (
+              <div className="ym-f" key={f.key}>
+                <label className="lb" htmlFor={'ym-' + f.key}>{f.label}</label>
+                <span className="ht">{f.hint}</span>
+                <div className="ym-row">
+                  <button
+                    type="button"
+                    className="ym-btn"
+                    onClick={() => set(f, val - f.step)}
+                    disabled={val <= f.minV}
+                    aria-label={'Decrease ' + f.label.toLowerCase()}
+                  >
+                    &minus;
+                  </button>
+                  <div className="ym-val">
+                    {f.isMoney && <span className="cur" aria-hidden="true">$</span>}
+                    <input
+                      id={'ym-' + f.key}
+                      className="ym-in"
+                      type="number"
+                      inputMode="numeric"
+                      min={f.minV}
+                      max={f.maxV}
+                      step={f.step}
+                      value={val}
+                      onChange={(e) => set(f, Number(e.target.value))}
+                    />
                   </div>
+                  <button
+                    type="button"
+                    className="ym-btn"
+                    onClick={() => set(f, val + f.step)}
+                    disabled={val >= f.maxV}
+                    aria-label={'Increase ' + f.label.toLowerCase()}
+                  >
+                    +
+                  </button>
                 </div>
-              );
-            })}
-          </div>
-
-          <div className="ym-out" aria-live="polite">
+              </div>
+            );
+          })}
+        </div>
+        <div className="ym-out" aria-live="polite">
+          <div className="ym-k">Your average job</div>
+          <div className="ym-big">{money(job)}</div>
+          <p className="ym-cap">{cap}</p>
+          <div className="ym-lines">
             {lines.map((l) => (
               <p key={l.key} className={'ym-line' + (l.quiet ? ' quiet' : '')}>{l.jsx}</p>
             ))}
-            <p className="ym-note">
-              This is your arithmetic, not our promise. We do not know your close rate, your
-              margins or your market, and we are not going to pretend we do. The numbers above
-              are your inputs, multiplied and divided where you can check them in your head.
-            </p>
           </div>
+          <p className="ym-note">
+            This is your arithmetic, not our promise. We do not know your close rate, your
+            margins or your market, and we are not going to pretend we do. The numbers above
+            are your inputs, multiplied and divided where you can check them in your head.
+          </p>
         </div>
       </div>
     </section>
