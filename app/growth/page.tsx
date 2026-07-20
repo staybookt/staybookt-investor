@@ -18,9 +18,18 @@ import { min } from '@/lib/css';
  * rejected both films as annoying to drive and not unique to this page, and set the
  * brief as one question: how would Apple handle this? The answer shipped here: no
  * metaphor, no scroll-scrubbed film. THE CITED FIGURES ARE THE VISUAL (GrowthNumbers),
- * one thought per full screen, the number at keynote scale, counting up once on
- * arrival. The finale is YourMath, the reader's own arithmetic rendered in the same
- * giant type, with zero hidden multipliers.
+ * the number at keynote scale, counting up once on arrival. The finale is YourMath,
+ * the reader's own arithmetic rendered in the same giant type, with zero hidden
+ * multipliers.
+ *
+ * TIGHTENED A FOURTH TIME (Jacob, July 2026). He liked the keynote figures but not
+ * their price: each one cost a full viewport of travel, six screens of scrolling for
+ * six sentences. The five figures and the hinge now advance IN PLACE on one pinned
+ * stage inside a short track (~150vh of travel for the whole sequence), discrete
+ * eased stops, never scrubbed, with a micro-parallax inside each stop so every
+ * arrow press still visibly moves something. See the motion law at the top of
+ * GrowthNumbers.tsx. The hero lost the line that pre-told the figures, the stage
+ * copy is one line per figure, and the sources collapsed to a quiet line-list.
  *
  * PRIVATE MEANS THREE THINGS, ALL LOAD-BEARING:
  *   1. metadata.robots is noindex,nofollow. Do not remove it while this is a draft.
@@ -64,18 +73,17 @@ const CSS = `
    than a hand-rolled header. */
 .gro .pg-hero{--hero-hue:16,185,129;}
 .gro .pg-hero .wrap h1{max-width:22ch;font-size:clamp(38px,5.6vw,74px);}
-/* THE DRAFT LINE. A sentence, not a warning box. */
-.gro-draft{padding:26px 0;border-bottom:1px solid #e6e6e1;background:#f6f6f3;}
-.gro-draft p{text-align:center;font-size:14.5px;line-height:1.6;color:#5c636e;max-width:72ch;margin:0 auto;}
-.gro-draft p b{font-weight:600;color:var(--v4-ink);}
-/* SOURCES. Small, plain, complete. */
-.gro-src{padding:clamp(60px,8vw,100px) 0;border-top:1px solid #e6e6e1;background:#f6f6f3;}
-.gro-src h2{margin-top:12px;font-size:clamp(24px,3vw,36px);line-height:1.1;}
-.gro-src ul{margin-top:26px;max-width:760px;list-style:none;padding:0;}
-.gro-src li{padding:14px 0;border-top:1px solid #e2e2dd;font-size:15px;line-height:1.6;color:#42474f;}
-.gro-src li:first-child{border-top:0;}
+/* THE DRAFT LINE. One quiet sentence inside the hero, replacing the old banded
+   warning box AND the hero paragraph that pre-told the figures. Cold open: the
+   next thing after this line is 62%. #aab0bb on the hero dark clears 4.5:1. */
+.gro .pg-hero .wrap .gro-note{margin:26px auto 0;font-size:14px;line-height:1.6;color:#aab0bb;max-width:64ch;}
+/* SOURCES. One quiet line-list, still linked. The heading went; the eyebrow says
+   everything the h2 said. */
+.gro-src{padding:clamp(44px,6vw,72px) 0;border-top:1px solid #e6e6e1;background:#f6f6f3;}
+.gro-src ul{margin-top:18px;max-width:760px;list-style:none;padding:0;}
+.gro-src li{padding:8px 0;font-size:13.5px;line-height:1.6;color:#5c636e;}
 .gro-src li b{font-weight:600;color:var(--v4-ink);}
-.gro-src li a{color:#047857;font-weight:600;text-decoration:none;word-break:break-word;}
+.gro-src li a{color:#047857;font-weight:600;text-decoration:none;}
 .gro-src li a:hover{text-decoration:underline;}
 `;
 
@@ -134,38 +142,28 @@ export default function GrowthPage() {
             </h1>
           </Reveal>
           <Reveal>
-            <p>
-              Five numbers, one thought at a time. None of them are ours, and every one is
-              published research. Then the math is yours.
+            <p className="gro-note">
+              A working draft the two of us are iterating on: linked from nowhere, listed in
+              no sitemap, and marked not to be indexed.
             </p>
           </Reveal>
         </div>
       </header>
-      {/* THE DRAFT LINE. A sentence, on purpose, where both founders will see it first. */}
-      <div className="gro-draft">
-        <div className="wrap">
-          <p>
-            <b>This page is a working draft.</b> Jacob and Richard are iterating on it before
-            anything here goes public. It is linked from nowhere, listed in no sitemap, and
-            marked not to be indexed.
-          </p>
-        </div>
-      </div>
-      {/* THE NUMBERS. Five full screens, one cited figure each at keynote scale, then the
-          hinge screen that hands the argument to the reader. */}
+      {/* THE NUMBERS. One pinned stage, six stops: five cited figures at keynote scale,
+          then the hinge that hands the argument to the reader. */}
       <GrowthNumbers />
       {/* THE FINALE. The reader's own numbers, said back in the same giant type. Never ours. */}
       <YourMath />
-      {/* SOURCES. Every number on this page, findable. */}
+      {/* SOURCES. Every number on this page, findable. The link text is the paper,
+          not the raw URL: quieter, same destination. */}
       <section className="gro-src">
         <div className="wrap">
           <div className="eyebrow">Sources</div>
-          <h2>Where every number on this page comes from.</h2>
           <ul>
             {SOURCES.map((s) => (
               <li key={s.url}>
-                <b>{s.name}</b> ({s.year}). {s.title}.{' '}
-                <a href={s.url} target="_blank" rel="noopener noreferrer">{s.url}</a>
+                <b>{s.name}</b> ({s.year}).{' '}
+                <a href={s.url} target="_blank" rel="noopener noreferrer">{s.title}</a>.
               </li>
             ))}
           </ul>
