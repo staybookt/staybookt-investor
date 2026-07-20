@@ -350,7 +350,8 @@ const WHEEL: { lbl: string; blurb: string; dx: number; dy: number; lx: number; l
    Mediterranean beach holiday and a hammock over a resort cove, on a site whose reader
    exits at low seven figures at best. The aspiration has to be reachable or it reads as
    somebody else's ad. These are now the fundamental luxuries the ICP actually wants:
-   the pontoon at sunset, the same tradesman at his bench, the dog in the pines. Time,
+   the pontoon at sunset, the same tradesman at his bench, the two men walking their
+   dog along the shore, hand in hand. Time,
    bought back. Self-hosted, like every image on this site now. */
 const LIFE: { img: string; cap: string; sub: string }[] = [
   {
