@@ -148,6 +148,26 @@ import { min } from '@/lib/css';
  * stage scrolls internally (overflow-y auto, auto margins on the card, so the
  * top of the content is always reachable) and the gesture capture stands down
  * for native scroll while it does.
+ *
+ * TENTH PASS, THE HARD STOP (July 2026): the desktop fix. The ninth pass
+ * contained scroll with preventDefault plus a snap-back clamp, and on a real
+ * desktop it did not hold: Chrome only honours a cancel on the FIRST wheel
+ * event of a scroll sequence, so trackpad momentum that began up on the hero
+ * arrived at the pin uncancelable, sailed straight past the quiz into the
+ * white sources section, and the window clamp could only snap back after the
+ * overshoot had painted. The page visibly blew through the journey and
+ * jumped back: the quiz read as broken. The fix stops depending on
+ * preventDefault for containment. While the journey is live, the body flag
+ * this quiz already sets (data-quiz-active, the one ArrowScroll reads) also
+ * takes everything BELOW the quiz out of the document flow, so the page
+ * simply ENDS at the stage: the browser's own scroll limit is the pin, and
+ * no momentum, flick, scrollbar drag or programmatic scroll can ever land
+ * past it. Wheel and touch events still fire at the scroll limit, so the
+ * armed-reveal advance keeps working exactly as before; the gesture
+ * listeners and the clamp stay on as belt and braces. The flag clears the
+ * moment the finale is reached (and is never set under reduced motion), and
+ * the sources and the closing CTA return to the flow right where the reader
+ * is about to scroll into them.
  */
 
 const PRICE = 199;
@@ -254,6 +274,19 @@ const CSS = `
    normal flow: the finale can run as tall as it is, and the page scrolls on into
    the sources and the closing CTA. */
 .gq.gq-rel .gq-stage{position:static;height:auto;min-height:100svh;overflow:visible;padding-bottom:clamp(56px,8vh,96px);}
+/* THE HARD STOP (tenth pass, the desktop fix). While the journey is live the
+   quiz sets data-quiz-active on the body, and that flag takes everything below
+   the quiz, the sources and the closing CTA inside main and the footer after
+   it, out of the flow entirely. The document ends at the stage, so the
+   browser's own scroll limit IS the pin: no wheel momentum, flick, scrollbar
+   drag or programmatic scroll can land past the quiz, with no preventDefault
+   involved. Chrome only honours a cancel on the first wheel event of a scroll
+   sequence, so the ninth pass's listener containment could not stop momentum
+   that began on the hero; this can. The flag clears at the finale and is never
+   set under reduced motion, so released and reduced readers keep the full
+   page. */
+body[data-quiz-active] .gq~*{display:none;}
+body[data-quiz-active] .gro main~footer{display:none;}
 /* The mobile CallBar is fixed over the bottom 66px of every viewport under 768px
    (CallBar.tsx reserves body padding for it, which a pinned stage cannot use), so
    the stage reserves the same zone itself: every centred moment, and the
