@@ -1,7 +1,6 @@
 import Nav from '@/components/v4/Nav';
 import Reveal from '@/components/v4/Reveal';
 import HeroCta from '@/components/v4/HeroCta';
-import HeroMedia from '@/components/v4/HeroMedia';
 import RemovalTest from '@/components/v4/RemovalTest';
 import SiteFooter from '@/components/SiteFooter';
 import { min } from '@/lib/css';
@@ -60,8 +59,7 @@ const CSS = `
    The values below are lifted from /pricing and /how-it-works, which are the standard:
      eyebrow   13px / 700 / .18em / uppercase / #69707d (#c9cdd6 on dark)
      headings  600 / letter-spacing -.035em
-     hero      the shared .pg-hero in globals.css. THIS PAGE IS ONE OF THE TWO
-               THAT GET THE FILM VARIANT, see below.
+     hero      the shared .pg-hero in globals.css, standard dark variant.
      h1        clamp(42px,6.6vw,86px), line-height 1.0, max 14ch, centred
      lead      clamp(18px,2.1vw,23px) / 1.45 / #c6cbd3
      h2        clamp(30px,4.4vw,56px), line-height 1.03
@@ -76,8 +74,8 @@ const CSS = `
 .lt .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#69707d;}
 .lt h1,.lt h2,.lt h3{font-weight:600;letter-spacing:-.035em;color:var(--v4-ink);}
 
-/* HERO. The film variant of .pg-hero, defined in globals.css. This page sets no hue:
-   there is a video behind the copy, and a colour wash on top of a film is mud. */
+/* HERO. The standard .pg-hero in globals.css. No hue override, so it takes the
+   default wash. See the note at the header for why there is no photo. */
 
 /* SECTIONS — clamp(80px,11vw,140px) is the gold rhythm. */
 .lt-sec{padding:clamp(80px,11vw,140px) 0;border-top:1px solid #e6e6e1;}
@@ -104,15 +102,18 @@ export default function LongTermPage() {
       <Nav />
       <main id="main" tabIndex={-1}>
 
-      <header className="pg-hero film">
-        {/* Poster on a phone, film above 761px, poster again under reduced motion.
-            Inherited, not re-implemented. See HeroMedia.tsx. */}
-        {/* Two vans, not one. This page asks "One day, this has to be worth
-            something", and two vans is that argument in a picture: the business grew
-            past one person's pair of hands, which is the whole thing a buyer is
-            actually paying for. */}
-        <HeroMedia poster="https://images.pexels.com/photos/4620555/pexels-photo-4620555.jpeg?auto=compress&cs=tinysrgb&w=1600" video="/hero-loop.mp4?v=2" />
-        <div className="grad-ov" />
+      {/* NO PHOTO HERE, ON PURPOSE. This page ran the same lifestyle clip as the
+          homepage, then a stock photo of two vans. Both failed on inspection: the first
+          pair were showroom-new Mercedes on an empty motorway, which reads as a van
+          dealership advert, and the replacement fleet turned out to be liveried Canada
+          Post vehicles, logo and phone number legible, which is a third party brand we
+          cannot put behind our own headline.
+          Neither was a near miss worth patching. A page arguing that the business is worth
+          something does not get illustrated by somebody else's fleet, and the real
+          centrepiece here is the RemovalTest film below. So it takes the same dark header
+          every other page uses. If the right photo turns up it becomes .film again in one
+          line. */}
+      <header className="pg-hero">
         <div className="wrap">
           <Reveal className="eyebrow" as="div">Long-term value</Reveal>
           <Reveal>

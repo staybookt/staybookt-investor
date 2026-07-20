@@ -305,7 +305,7 @@ export default function HomePage() {
             business to enjoy your life" and our reader runs a service business under
             $5M, so the picture has to be time, not wealth. It is also silhouetted and
             low contrast, which is what lets white headline type sit on it cleanly. */}
-        <HeroMedia poster="https://images.pexels.com/photos/10879352/pexels-photo-10879352.jpeg?auto=compress&cs=tinysrgb&w=1600" video="/hero-loop.mp4?v=2" />
+        <HeroMedia poster="/hero-home.jpg" video="/hero-loop.mp4?v=2" />
         <div className="grad-ov" />
         <div className="wrap inner">
           <Reveal className="eyebrow" as="div">For owner-operated service businesses</Reveal>
