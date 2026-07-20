@@ -545,6 +545,11 @@ const CSS = `
 .mx-row{border-bottom:1px solid #ededea;}
 .mx-row>button{cursor:pointer;padding:16px 0;transition:background .25s ease;}
 .mx-row>button:hover{background:#fbfbfa;}
+/* The press state lives here rather than only in globals.css because this component's
+   :hover rule ships in a <style> in the body, which is later in document order and would
+   otherwise win the tie on a touch press. Thirteen rows, and each one has to answer the
+   thumb: the tap highlight that used to do that is off site-wide now. */
+.mx-row>button:active{background:#f2f2ef;}
 .mx-row>button:focus-visible{outline:2px solid #059669;outline-offset:-2px;border-radius:10px;}
 .mx-j{display:flex;align-items:center;gap:12px;padding-right:16px;}
 .mx-j .jt{font-size:15.5px;line-height:1.4;color:#26292f;}

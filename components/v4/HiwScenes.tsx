@@ -344,7 +344,11 @@ const NS_CSS = `
 .nsp-notch{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:118px;height:27px;background:#0a0a0c;border-radius:0 0 17px 17px;z-index:3;}
 .nsp-screen{background:#f2f2f7;border-radius:36px;overflow:hidden;display:flex;flex-direction:column;height:500px;}
 
+/* The blur here sits on a 94%-opaque bar inside a static phone mockup, over a screen that
+   never moves, so on a phone it is a compositing cost with no visible result. Solid below
+   760px, unchanged on desktop. See the phone pass at the end of globals.css. */
 .nsp-bar{background:rgba(247,247,250,.94);backdrop-filter:blur(12px);padding:32px 14px 9px;display:flex;align-items:center;gap:9px;border-bottom:1px solid #d9d9de;}
+@media(max-width:760px){.nsp-bar{background:#f7f7fa;backdrop-filter:none;-webkit-backdrop-filter:none;}}
 .nsp-back{color:#0a84ff;font-size:25px;line-height:1;font-weight:300;}
 .nsp-av{width:30px;height:30px;border-radius:50%;background:#c7c7cc;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex:0 0 auto;}
 .nsp-who b{display:block;font-size:13.5px;font-weight:600;color:#000;letter-spacing:-.01em;}
@@ -388,7 +392,10 @@ export function Arrival() {
   return (
     <section className="arr" ref={ref}>
       <style>{min(ARR_CSS)}</style>
-      <img src={ARRIVE_IMG} alt="" loading="lazy" decoding="async" />
+      {/* Same photo, same size, as the closing scene in HeroCta.tsx: 2000x2835 measured from
+          what Pexels serves at w=2000. object-fit:cover still decides what you see; these
+          two numbers only stop the layout shifting when the image arrives. */}
+      <img src={ARRIVE_IMG} alt="" width={2000} height={2835} loading="lazy" decoding="async" />
       <div className="arr-ov" />
       <div className="arr-in">
         <span className="arr-dot" aria-hidden />

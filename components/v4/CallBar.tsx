@@ -24,8 +24,16 @@ import { PHONE_DISPLAY, PHONE_HREF, START_LINK } from '@/lib/site';
  * change either number, keep that order. */
 
 const CSS = `
+/* NO BACKDROP-FILTER. This bar is fixed, it is over the content, and it is on screen for
+   every frame of every scroll, which makes it the most expensive blur on the site: a
+   full-width GPU read-back of whatever is behind it, re-composited continuously, on the
+   phone hardware our buyer actually owns. It was rgba(5,5,6,.96) + blur(14px), and at 96%
+   opacity there is nothing left to see through, so the blur was buying four percent of an
+   effect at that price. Solid #050506 looks the same and costs nothing.
+   This is a phone-only element (display:none at 768px and up), so there is no desktop
+   version of this to preserve. */
 .sbcall{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;gap:10px;
-  align-items:center;background:rgba(5,5,6,.96);backdrop-filter:saturate(160%) blur(14px);
+  align-items:center;background:#050506;
   border-top:1px solid rgba(255,255,255,.10);
   padding:9px clamp(12px,4vw,20px);
   padding-bottom:calc(9px + env(safe-area-inset-bottom));}
@@ -35,7 +43,10 @@ const CSS = `
 .sbcall .sbcall-call{flex:1 1 auto;background:var(--sb-grad);color:#fff;}
 .sbcall .sbcall-start{flex:0 0 auto;background:transparent;color:#eef1f6;
   border:1px solid rgba(255,255,255,.24);}
-.sbcall a:active{opacity:.85;}
+/* The tap highlight is off site-wide, so this dip IS the feedback that the call went
+   through. .8 rather than .85: this is the one control on the site whose result (the dialler
+   opening) can take a full second to appear. */
+.sbcall a:active{opacity:.8;}
 /* The bar floats over the page, so the last thing in the footer would sit under it.
    Reserve exactly the bar's height, plus the home indicator inset on a notched phone. */
 @media (max-width:767px){

@@ -20,7 +20,11 @@ export default function HeroCta({ fromBlack = false }: { fromBlack?: boolean }) 
   return (
     <section className="hcta" data-fade={fromBlack ? 'black' : undefined}>
       <style>{min(CSS)}</style>
-      <img src={HERO_IMG} alt="" loading="lazy" decoding="async" />
+      {/* 2000x2835 is what Pexels returns for this id at w=2000, measured, not guessed. The
+          CSS above pins this to inset:0 / 100% / object-fit:cover, so the attributes never
+          set the rendered size; they give the browser the aspect ratio up front so it
+          reserves the box before the bytes land instead of reflowing around it. */}
+      <img src={HERO_IMG} alt="" width={2000} height={2835} loading="lazy" decoding="async" />
       <div className="hcta-ov" />
       <div className="hcta-in">
         {/* WAS "Go enjoy the life you built it for." (Richard: "feels awkward. I have to

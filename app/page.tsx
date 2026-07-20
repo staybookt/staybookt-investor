@@ -89,6 +89,19 @@ const PAGE_CSS = `
   box-shadow:0 8px 30px -12px rgba(0,0,0,.6);}
 .v4 header.scene .eyebrow::before{content:'';width:7px;height:7px;border-radius:50%;flex:0 0 auto;
   background:var(--sb-grad);box-shadow:0 0 10px 1px rgba(16,185,129,.75);}
+/* THE TWO PIECES OF GLASS IN THE HERO, ON A PHONE. Both of these blur the hero photo behind
+   them, which means the GPU reads back the frame under them on every composited frame of the
+   first scroll on the site, at the exact moment the page is also decoding the still and
+   running the drift animation. It is the worst place on the site to spend that.
+   Dropping the blur alone would leave the pill and the badge nearly invisible over a bright
+   frame, so the white tint goes up to carry the separation on its own: .12 to .22 on the
+   pill, .08 to .16 on the badge. Both keep their 1px border and their white text over an
+   overlay that is already rgba(5,5,6,.55) at the top of the frame.
+   Desktop keeps the glass. This block is 760px and down only. */
+@media(max-width:760px){
+.v4 header.scene .cta .pill{background:rgba(255,255,255,.22);backdrop-filter:none;-webkit-backdrop-filter:none;}
+.v4 header.scene .eyebrow{background:rgba(255,255,255,.16);backdrop-filter:none;-webkit-backdrop-filter:none;}
+}
 .v4 .kicker{font-size:14px;font-weight:600;letter-spacing:.02em;margin-bottom:14px;background:linear-gradient(90deg,#0ea5e9,#06b6d4 34%,#14b8a6 66%,#10b981);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .v4 .sbwrap,.v4 .sb-clook{--grad:linear-gradient(90deg,#0ea5e9,#06b6d4 34%,#14b8a6 66%,#10b981);}
 .v4 .sb-clook{background:#fff;padding:clamp(80px,10vw,120px) 0;}
@@ -305,7 +318,8 @@ export default function HomePage() {
             business to enjoy your life" and our reader runs a service business under
             $5M, so the picture has to be time, not wealth. It is also silhouetted and
             low contrast, which is what lets white headline type sit on it cleanly. */}
-        <HeroMedia poster="/hero-home.jpg" video="/hero-loop.mp4?v=2" />
+        {/* 1800x1200 is public/hero-home.jpg's real size, read off the file. */}
+        <HeroMedia poster="/hero-home.jpg" posterW={1800} posterH={1200} video="/hero-loop.mp4?v=2" />
         <div className="grad-ov" />
         <div className="wrap inner">
           <Reveal className="eyebrow" as="div">For owner-operated service businesses</Reveal>

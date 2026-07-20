@@ -95,6 +95,17 @@
   --color-period: var(--period);
 }
 
+/* iOS INFLATES TEXT ON ROTATION unless it is told not to. Turn a phone to landscape and
+   WebKit's text autosizer scales up the body copy inside any block wider than it thinks is
+   readable, so a headline the design sets at 40px comes back at 48 and the line breaks move.
+   text-size-adjust:100% says "the sizes in this file are the sizes I meant". It does NOT
+   stop the user's own Larger Text setting or pinch zoom, which is why it is 100% and not
+   none: none would also block user scaling, which is an accessibility failure. */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 html, body {
   background: var(--paper);
   color: var(--ink);
@@ -228,7 +239,23 @@ section[id] { scroll-margin-top: 5rem; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { scrollbar-width: none; }
 
+/* THE GREY FLASH ON EVERY TAP is the loudest "this is a web page, not an app" tell a phone
+   gives. This rule was already here and already global; what was missing is the other half.
+   See the press-state block at the bottom of this file: killing the highlight without
+   replacing it makes the site feel dead under the thumb, so the two rules are one change and
+   neither should be removed alone. */
 * { -webkit-tap-highlight-color: transparent; }
+
+/* touch-action:manipulation on the things you tap. Legacy WebKit waits ~300ms after a tap to
+   see whether a second one is coming (double-tap-to-zoom); manipulation says this element
+   will never be a double-tap target, so the browser fires the click on the first one. It is
+   the cheapest 300ms on the site.
+   NOT on `*`, and deliberately not on the film tracks, the pinned stages or anything else
+   that is scrolled through: manipulation still allows pan and pinch, but there is no reason
+   to declare a touch behaviour on an element whose only job is to be scrolled past. */
+a, button, summary, label, input, select, textarea, [role="button"] {
+  touch-action: manipulation;
+}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -594,7 +621,15 @@ section[id] { scroll-margin-top: 5rem; }
 .hm-still{animation:hmDrift 26s ease-in-out infinite alternate;will-change:transform;}
 @media(prefers-reduced-motion:reduce){.hm-still{animation:none;transform:none;}}
 .v4-nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .3s,border-color .3s;border-bottom:1px solid transparent;}
-.v4-nav.solid{background:rgba(6,8,13,.8);backdrop-filter:saturate(160%) blur(16px);border-bottom-color:rgba(255,255,255,.08);}
+/* NO BLUR IN THE BASE RULE, ON PURPOSE, AND THE PHONE VALUE IS THE DEFAULT. The glass is
+   restored for 761px and up in the phone pass at the end of this file. It is written that way
+   round because the override direction does not survive the build: `backdrop-filter:none`
+   inside a max-width block came out of Lightning CSS as the -webkit- form only, with the
+   unprefixed declaration dropped, which would have left the blur running in any engine that
+   only reads the standard property. A declaration that is never written cannot be dropped.
+   The phone background is .94 rather than .8 because with no blur behind it, .8 lets the
+   headline underneath read through the nav. */
+.v4-nav.solid{background:rgba(6,8,13,.94);border-bottom-color:rgba(255,255,255,.08);}
 .v4-nav .nav-in{display:flex;align-items:center;justify-content:space-between;height:64px;}
 .v4 .mark,.v4-nav .mark{font-size:21px;font-weight:700;letter-spacing:-.03em;color:#fff;}
 /* WAS a hand-rolled linear-gradient with a 45% midpoint — 7 points off the token's 52%.
@@ -641,8 +676,18 @@ section[id] { scroll-margin-top: 5rem; }
      element from the tab order AND it transitions. The 0s delay is load-bearing: opening,
      it flips to visible instantly so the fade can run; closing, it waits .2s for the fade
      to finish before hiding, instead of snapping out on frame one. */
+  /* SCROLL CHAINING. The sheet is a fixed panel with its own overflow-y:auto. Without
+     overscroll-behavior:contain, a flick that reaches the end of the six links keeps going
+     into the PAGE underneath: the menu stays open and the site scrolls behind it, which is
+     the one thing an open menu is supposed to make impossible. Nav.tsx already sets
+     body{overflow:hidden} while open, and that is not enough on iOS, which still rubber-bands
+     and still chains. contain stops the chain at this element and keeps the sheet's own
+     scrolling intact.
+     contain, NOT none: none would also kill the sheet's own bounce at the ends, which is the
+     feedback that tells a thumb it has hit the bottom of the list. */
   .v4-nav .nav-sheet{display:block;position:fixed;top:64px;left:0;right:0;bottom:0;
-    background:rgba(6,8,13,.97);backdrop-filter:saturate(160%) blur(16px);
+    background:#06080d;
+    overscroll-behavior:contain;
     padding:14px clamp(20px,5vw,32px) 40px;overflow-y:auto;
     opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-8px);
     transition:opacity .2s ease,transform .25s ease,visibility 0s linear .2s;}
@@ -651,7 +696,9 @@ section[id] { scroll-margin-top: 5rem; }
   .v4-nav .nav-sheet a{display:block;padding:17px 2px;font-size:19px;font-weight:600;
     letter-spacing:-.02em;color:#eef1f6;text-decoration:none;
     border-bottom:1px solid rgba(255,255,255,.09);}
-  .v4-nav .nav-sheet a:active{color:#fff;}
+  /* A colour shift alone is almost invisible on a 19px link under a thumb that is covering
+     it. The row lights up as well, which is what a native list does. */
+  .v4-nav .nav-sheet a:active{color:#fff;background:rgba(255,255,255,.07);}
   /* 44px minimum tap target, and the pill must not crowd the burger on a 320px screen. */
   .v4-nav .pill{padding:9px 15px;font-size:13.5px;}
 }
@@ -858,7 +905,7 @@ section[id] { scroll-margin-top: 5rem; }
 @media(prefers-reduced-motion:reduce){.v4 .rc-phone{animation:none;}}
 .v4 .rc-screen{position:relative;width:100%;height:100%;border-radius:44px;background:#fff;overflow:hidden;display:flex;flex-direction:column;}
 .v4 .rc-island{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:110px;height:31px;background:#000;border-radius:20px;z-index:6;}
-.v4 .rc-imhdr{padding:44px 12px 10px;text-align:center;border-bottom:.5px solid #d9d9dd;background:rgba(249,249,249,.94);backdrop-filter:blur(10px);position:relative;z-index:4;}
+.v4 .rc-imhdr{padding:44px 12px 10px;text-align:center;border-bottom:.5px solid #d9d9dd;background:#f9f9f9;position:relative;z-index:4;}
 .v4 .rc-imhdr .chev{position:absolute;left:16px;top:50px;color:#1f8fff;font-size:26px;line-height:1;}
 .v4 .rc-imhdr .av{width:44px;height:44px;border-radius:50%;background:var(--v4-grad);margin:0 auto 4px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;font-size:15px;}
 .v4 .rc-imhdr .nm{font-size:12px;color:#0a0e14;font-weight:600;}
@@ -968,7 +1015,7 @@ section[id] { scroll-margin-top: 5rem; }
 .v4 .brf-next{display:flex;align-items:center;gap:12px;}
 .v4 .brf-next .t{width:44px;height:44px;border-radius:12px;background:#0a0e14;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;}
 .v4 .brf-next .t b{font-size:15px;}.v4 .brf-next .t span{font-size:9px;color:#9aa2b3;margin-top:2px;}
-.v4 .brf-tabbar{position:absolute;bottom:0;left:0;right:0;height:78px;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border-top:1px solid #eceded;display:flex;justify-content:space-around;align-items:center;padding-bottom:14px;}
+.v4 .brf-tabbar{position:absolute;bottom:0;left:0;right:0;height:78px;background:#fff;border-top:1px solid #eceded;display:flex;justify-content:space-around;align-items:center;padding-bottom:14px;}
 .v4 .brf-tab{font-size:10px;color:#9aa2b3;text-align:center;}
 .v4 .brf-tab.on{color:#0a0e14;}
 .v4 .brf-tab i{display:block;width:22px;height:22px;margin:0 auto 4px;border-radius:6px;background:currentColor;opacity:.85;}
@@ -1106,3 +1153,133 @@ section[id] { scroll-margin-top: 5rem; }
 .v4 .sbwrap .brief-l .bi{display:flex;gap:12px;padding:11px 0;border-top:1px solid #f1f1f4;align-items:flex-start;font-size:14px;color:#2b2b30;}
 .v4 .sbwrap .brief-l .bi:first-of-type{border-top:0;}
 .v4 .sbwrap .brief-l .bic{width:8px;height:8px;border-radius:50%;margin-top:6px;flex:0 0 auto;}
+
+/* ============================================================================
+   PHONE PASS (July 2026). Everything below here is about how this site feels in a
+   hand. It is deliberately at the bottom of the file so it wins the source-order
+   tie against the component rules above it, and it is deliberately in one place so
+   the next person can read the whole argument at once.
+   ========================================================================= */
+
+/* 1. PRESS STATES. The `* { -webkit-tap-highlight-color: transparent }` near the top of this
+   file deletes the grey rectangle iOS draws on every tap. That flash is ugly, and it is also
+   the ONLY press feedback a phone gives: delete it with nothing in its place and every tap on
+   the site reads as a dead tap for the 200-400ms before the next page paints.
+   So everything tappable dips. No transition on purpose: a press state that eases in is a
+   press state that arrives after the thumb has already left.
+   Gated on (hover:none) because this is a touch problem. On a laptop the hover states are the
+   feedback, and a mousedown dip would fight them. */
+@media (hover: none) {
+  a:active,
+  button:active,
+  summary:active,
+  label:active,
+  [role="button"]:active { opacity: .72; }
+  /* Full-width rows need more than an opacity dip, because the thumb is on top of the thing
+     that is dipping. These light up instead, the way a native list row does. */
+  .mx-row > button:active { background: #f2f2ef; }
+  .hfq-q button:active { background: rgba(255,255,255,.06); }
+  .ifq-q button:active,
+  .pfq-q button:active,
+  .hiw-q button:active { background: rgba(0,0,0,.04); }
+}
+
+/* 2. NO TEXT SELECTION ON CHROME. A long-press on a nav link or a button used to pop the
+   selection handles and the Copy bubble, which is the other big tell that this is a web page.
+   Chrome only: the nav, the fixed call bar, buttons and pills, the matrix row controls, the
+   FAQ toggles. NOT the footer, NOT body copy, NOT headlines, and above all NOT the phone
+   number or the email address, which people are supposed to be able to select and copy. */
+.v4-nav,
+.sbcall,
+.btn,
+.v4 .pill,
+.hpv2 .pill,
+.mx-row > button,
+.hfq-q button,
+.ifq-q button,
+.pfq-q button,
+.hiw-q button {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* 3. BACKDROP-FILTER COMES OFF ON PHONES. A blur is a full-screen GPU read-back of everything
+   behind the element, re-run on every composited frame. The nav is fixed and repaints all the
+   way down a 250vh film track, so it was paying that cost through the entire scroll on the
+   slowest device we ship to.
+   Every one of these sat on a background that is already 90% opaque or more, so at phone size
+   the blur was doing almost nothing you can see. Desktop keeps all of it: a laptop GPU does
+   not care and the effect is more visible on a large surface.
+   WRITTEN AS A MIN-WIDTH RESTORE, NOT A MAX-WIDTH CANCEL. `backdrop-filter:none` in a
+   max-width block came back out of Lightning CSS as -webkit-backdrop-filter:none alone, with
+   the standard property dropped, which cancels the blur in WebKit and Blink and leaves it
+   running anywhere else. So the rules above simply do not declare a filter, and the glass is
+   added here for viewports that can afford it.
+   NOT changed: .jhud in HowItWorks.tsx, which is display:none below 720px and therefore never
+   composites on a phone at all. */
+@media (min-width: 761px) {
+  .v4-nav.solid {
+    background: rgba(6,8,13,.8);
+    -webkit-backdrop-filter: saturate(160%) blur(16px);
+    backdrop-filter: saturate(160%) blur(16px);
+  }
+  .v4-nav .nav-sheet {
+    background: rgba(6,8,13,.97);
+    -webkit-backdrop-filter: saturate(160%) blur(16px);
+    backdrop-filter: saturate(160%) blur(16px);
+  }
+  /* Device mockups. Both of these blur a static, near-solid panel over a static screen, so
+     there is nothing behind them to see through in the first place, but the desktop rendering
+     is the one that has been reviewed and signed off, so it stays byte for byte. */
+  .v4 .rc-imhdr {
+    background: rgba(249,249,249,.94);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+  .v4 .brf-tabbar {
+    background: rgba(255,255,255,.9);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+  }
+}
+
+/* 4. REVEAL TIMING ON A PHONE. The .reveal transition is 1s with a 60/120/180ms stagger, tuned
+   on a laptop where an element crosses the 15% threshold slowly and near the middle of a wide
+   viewport. On a 390px screen a section fills the viewport, so it crosses that threshold the
+   moment it appears and then spends a full second catching up with the thumb. It reads as lag,
+   not as grace. 620ms with a 40/80/120ms stagger lands while the scroll is still settling, and
+   the travel drops from 28px to 18px because there is less room for it to come from.
+   INSIDE prefers-reduced-motion:no-preference on purpose. The reduce block earlier in this file
+   sets transition:none, and transition-duration here would have partially undone it: the
+   duration would come back and the motion with it. This block simply never matches for a
+   reader who has asked for less motion. */
+@media (max-width: 760px) and (prefers-reduced-motion: no-preference) {
+  .v4 .reveal { transition-duration: .62s; transform: translateY(18px); }
+  .v4 .reveal.d1 { transition-delay: .04s; }
+  .v4 .reveal.d2 { transition-delay: .08s; }
+  .v4 .reveal.d3 { transition-delay: .12s; }
+  .hpv2 .reveal { transition-duration: .6s; transform: translateY(18px); }
+  .hpv2 .reveal.d1 { transition-delay: .05s; }
+  .hpv2 .reveal.d2 { transition-delay: .1s; }
+  .hpv2 .reveal.d3 { transition-delay: .15s; }
+  .hpv2 .subhero .reveal { animation-duration: .6s; }
+  .hpv2 .subhero .reveal.d1 { animation-delay: .07s; }
+  .hpv2 .subhero .reveal.d2 { animation-delay: .14s; }
+}
+
+/* 5. CONTENT-VISIBILITY, IN EXACTLY ONE PLACE. The footer is the same ~40 links and 900px of
+   layout on every page, it is always below everything, and it has no scroll driver, no
+   IntersectionObserver, no snap marker and no film anywhere near it. Skipping its layout and
+   paint until it approaches the viewport is free.
+   NOTHING ELSE GETS THIS, and that is the whole point. Three pages are scroll-linked films
+   whose drivers measure geometry every frame; the legal pages have a scrollspy index that
+   measures section offsets; nearly every other long section is full of IntersectionObserver
+   reveals that would fire against un-laid-out content. content-visibility lies about the size
+   of what it skips, and all of those read that size.
+   contain-intrinsic-size uses the `auto` keyword so the browser remembers the real measured
+   height after the first render and stops guessing, which is what keeps the scrollbar and the
+   scroll position stable on the way back up. */
+footer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}

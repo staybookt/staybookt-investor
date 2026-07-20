@@ -33,11 +33,18 @@ import { useEffect, useState } from 'react';
 type Props = {
   /** The still. Each page picks its own, because the two heroes argue different things. */
   poster: string;
+  /** The still's intrinsic pixel size. Required in practice, defaulted to the only still in
+   *  use (public/hero-home.jpg, 1800x1200) so an existing caller cannot break.
+   *  This is the LCP element on every phone. Without a width and a height the browser has no
+   *  aspect ratio for it until the bytes arrive, and the hero grows on decode. Pass the real
+   *  numbers for a new poster, do not inherit these. */
+  posterW?: number;
+  posterH?: number;
   /** Alt stays empty: these are mood, not information. The headline carries the meaning. */
   video?: string;
 };
 
-export default function HeroMedia({ poster, video }: Props) {
+export default function HeroMedia({ poster, video, posterW = 1800, posterH = 1200 }: Props) {
   const [wide, setWide] = useState(false);
 
   useEffect(() => {
@@ -54,7 +61,15 @@ export default function HeroMedia({ poster, video }: Props) {
 
   return (
     <>
-      <img className="hm-still" src={poster} alt="" fetchPriority="high" decoding="async" />
+      <img
+        className="hm-still"
+        src={poster}
+        alt=""
+        width={posterW}
+        height={posterH}
+        fetchPriority="high"
+        decoding="async"
+      />
       {wide && video && (
         <video autoPlay muted loop playsInline preload="auto" poster={poster} src={video} />
       )}
