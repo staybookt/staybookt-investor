@@ -118,6 +118,36 @@ import { min } from '@/lib/css';
  * results screen carries the receipts itself, so nothing ever doubles. Stage
  * count went five to six. The finale, the reopen behaviour, the arithmetic and
  * the containment are unchanged.
+ *
+ * NINTH PASS, THE HELD STAGE (Jacob, July 2026): the site's film grammar arrived.
+ * The section is now a sticky stage, position sticky, top 0, height 100svh, the
+ * exact pin the JourneyMap film uses, so once the compact hero above hands off,
+ * every moment, question, reveal, results, calculator, finale, owns the FULL
+ * viewport: no nav-height reservation, no half screens. The scroll that brings
+ * the stage up IS the call to action: the hero closes on a quiet "Scroll to
+ * start" line, a wheel tick or a down key carries the reader to the pin, and a
+ * window-level scroll clamp snaps any momentum that tries to blow past it, so a
+ * hard trackpad flick cannot escape the journey mid-way. While pinned, scrolling
+ * UP still releases naturally back to the hero; scrolling down is the gesture
+ * grammar, one moment at a time, exactly as before. The gesture listeners moved
+ * from the section to the window for this: the old section-scoped listeners let
+ * a wheel over the fixed nav, or momentum that started on the hero, sail past
+ * the whole quiz. The clamp and the window listeners close that hole. The nav
+ * sheet check (body overflow hidden) keeps the mobile menu scrollable.
+ *
+ * THE SOURCE BEAT, same pass: the reveal used to print figure, line and source
+ * in one breath. Now the small quiet source line fades in ~400ms AFTER the count
+ * lands, its own beat inside the hold, and the chevron cue and the scroll
+ * advance arm only once the source is up, so where the number came from gets
+ * its dwell before the reader can move on. Reduced motion shows it instantly,
+ * as it shows everything instantly.
+ *
+ * THE RELEASE: reduced motion, and the finale, both unpin the stage to normal
+ * flow (.gq-rel): height auto, no overflow clip, no containment, stack-up into
+ * sources into the closing CTA. If a moment ever outgrows a small viewport the
+ * stage scrolls internally (overflow-y auto, auto margins on the card, so the
+ * top of the content is always reachable) and the gesture capture stands down
+ * for native scroll while it does.
  */
 
 const PRICE = 199;
@@ -205,16 +235,36 @@ const FIELDS: Field[] = [
 const STAGES = 6;
 
 const CSS = `
-/* ONE PAGE GROWING, not screens swapping. The section is normal flow: the trail
-   stacks at the top, the active card holds focus beneath it, and the content height
-   grows as the journey builds. The .pg-hero above carries the fixed nav's 64px
-   clearance now, so this top padding is only the hand-off gap, kept tight on
-   purpose: hero into question one, no dead band. The ::before is the hero's
-   emerald wash carrying on, faint and decorative, over the same #050506 the hero
-   sits on, so the seam between header and quiz is invisible. */
-.gq{position:relative;background:#050506;color:#f5f5f7;min-height:100svh;padding:clamp(8px,1.6vh,18px) 0 clamp(56px,8vh,96px);overscroll-behavior:contain;}
+/* THE HELD STAGE (ninth pass). The section is a track and the stage inside it is
+   the film pin: sticky, top 0, one viewport tall, the exact grammar JourneyMap
+   uses. Once the hero above scrolls off, the stage owns the full screen and every
+   moment centres inside it. 100vh then 100svh, same iOS reason as the films: svh
+   is the viewport that is always actually visible, vh is the fallback. The 64px
+   top padding is the fixed nav's clearance, carried here now that the stage, not
+   the hero, sits under it. overflow-y auto plus the auto margins on the card mean
+   a moment that outgrows a short screen scrolls internally instead of clipping,
+   and overscroll-behavior keeps that internal scroll from chaining to the page.
+   The ::before is the hero's emerald wash carrying on, faint and decorative, over
+   the same #050506 the hero sits on, so the seam between header and quiz is
+   invisible. */
+.gq{position:relative;background:#050506;color:#f5f5f7;}
 .gq::before{content:'';position:absolute;top:0;left:0;right:0;height:340px;pointer-events:none;background:radial-gradient(64% 100% at 50% 0%,rgba(16,185,129,.05),transparent 72%);}
-.gq-wrap{position:relative;z-index:1;width:100%;max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px);display:flex;flex-direction:column;align-items:center;text-align:center;}
+.gq-stage{position:sticky;top:0;height:100vh;height:100svh;overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;padding:calc(64px + clamp(4px,1vh,10px)) 0 clamp(12px,2.5vh,22px);}
+/* THE RELEASE. Reduced motion, and the journey's finale, both unpin the stage to
+   normal flow: the finale can run as tall as it is, and the page scrolls on into
+   the sources and the closing CTA. */
+.gq.gq-rel .gq-stage{position:static;height:auto;min-height:100svh;overflow:visible;padding-bottom:clamp(56px,8vh,96px);}
+/* The mobile CallBar is fixed over the bottom 66px of every viewport under 768px
+   (CallBar.tsx reserves body padding for it, which a pinned stage cannot use), so
+   the stage reserves the same zone itself: every centred moment, and the
+   calculator's Continue, stays clear of the bar. */
+@media(max-width:767px){.gq-stage{padding-bottom:calc(74px + env(safe-area-inset-bottom));}.gq-f{padding:14px 14px 12px;}}
+/* No min-height:0 here, deliberately: when a moment outgrows a short screen the
+   wrap must GROW to its content so the stage's scrollHeight is real and the
+   bottom padding (the mobile CallBar reserve) stays respected. min-height:0
+   locked the wrap to the leftover space and let tall content spill under the
+   CallBar instead of scrolling clear of it. */
+.gq-wrap{position:relative;z-index:1;width:100%;max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px);flex:1 0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;}
 .gq-eye{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#8a8f98;}
 /* THE TRAIL. Answered cards condense into these receipt rows and stay visible.
    Every row is a real button: tapping it reopens that card. */
@@ -230,9 +280,11 @@ const CSS = `
 .gq .mk.ok{color:#34d399;}
 .gq .mk.miss{color:#f59e0b;}
 .gq .mk.nt{color:#8a8f98;}
-/* THE ACTIVE CARD. Rises into focus beneath the trail; the landing state renders
-   without animation. */
-.gq-card{width:100%;display:flex;flex-direction:column;align-items:center;text-align:center;padding-top:clamp(26px,4.5vh,50px);}
+/* THE ACTIVE CARD. Centred in the held stage's full viewport; the auto margins,
+   not justify-content, do the centring, so if the card ever outgrows a short
+   screen the top stays reachable through the stage's internal scroll. Rises into
+   focus beneath the trail; the landing state renders without animation. */
+.gq-card{width:100%;display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:auto;margin-bottom:auto;padding:clamp(14px,2.5vh,30px) 0;}
 .gq-card.anim{animation:gq-in .6s ease both;}
 @keyframes gq-in{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:none;}}
 .gq-h{margin:14px auto 0;font-size:clamp(27px,3.8vw,50px);font-weight:600;letter-spacing:-.03em;line-height:1.08;color:#fff;max-width:24ch;outline:none;transition:font-size .3s ease;}
@@ -293,7 +345,13 @@ const CSS = `
 .gq-fig-sm{font-size:clamp(56px,14vw,170px);}
 @media(max-width:760px){.gq-fig{font-size:clamp(48px,16vw,84px);}.gq-fig-sm{font-size:clamp(38px,12vw,64px);}}
 .gq-line{margin:clamp(10px,2vh,18px) auto 0;max-width:36ch;font-size:clamp(17px,2vw,23px);font-weight:600;letter-spacing:-.02em;line-height:1.4;color:#fff;}
-.gq-srcline{margin:12px auto 0;max-width:60ch;font-size:12.5px;line-height:1.5;color:#8a8f98;}
+/* THE SOURCE BEAT. The source line is part of the hold: it starts silent and
+   fades in ~400ms after the count lands (the JS owns the delay, .on is the cue),
+   so where the number came from gets its own quiet moment before the chevron
+   invites the next scroll. Small quiet type on purpose: 12.5px #8a8f98 runs
+   6.27:1 on #050506. */
+.gq-srcline{margin:12px auto 0;max-width:60ch;font-size:12.5px;line-height:1.5;color:#8a8f98;opacity:0;transform:translateY(6px);transition:opacity .6s ease,transform .6s ease;}
+.gq-srcline.on{opacity:1;transform:none;}
 /* THE INPUTS. Salvaged from YourMath: 48px minimum tap targets (these run 52), real
    buttons and a real number input per field, visible focus. Non-negotiable. */
 .gq-fields{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,22px);width:100%;max-width:940px;margin:clamp(22px,4vh,40px) auto 0;text-align:left;}
@@ -341,9 +399,10 @@ const CSS = `
 .gq-score{margin-top:20px;font-size:14px;line-height:1.5;color:#8a8f98;}
 .gq-close{margin:12px auto 0;max-width:56ch;font-size:clamp(15px,1.7vw,18px);line-height:1.55;color:#aeb6c4;}
 /* REDUCED MOTION: no condense, no rise, no stagger, no reveal slide, no chevron
-   pulse. The count-ups and the gesture capture are killed in JS by the matchMedia
-   check. */
-@media(prefers-reduced-motion:reduce){.gq-tr,.gq-card.anim,.gq-col li,.gq-col .late,.gq-opts.going .gq-opt,.gq-reveal,.gq-cue{animation:none;}.gq-h{transition:none;}}
+   pulse, no pinned stage and no delayed source: flat stacked flow, everything
+   simply there. The count-ups and the gesture capture are killed in JS by the
+   matchMedia check; the JS also adds .gq-rel, these rules are the CSS half. */
+@media(prefers-reduced-motion:reduce){.gq-tr,.gq-card.anim,.gq-col li,.gq-col .late,.gq-opts.going .gq-opt,.gq-reveal,.gq-cue{animation:none;}.gq-h{transition:none;}.gq-stage{position:static;height:auto;min-height:100svh;overflow:visible;}.gq-srcline{opacity:1;transform:none;transition:none;}}
 `;
 
 /* The count-up. Runs once per mount, ~900ms ease-out cubic, then holds the final
@@ -410,10 +469,14 @@ export default function GrowthQuiz() {
      tick; touchRef tracks one swipe per touch. */
   const [step, setStep] = useState<null | 'condense' | 'reveal'>(null);
   const [countDone, setCountDone] = useState(false);
+  /* srcOn is the SOURCE BEAT: flips ~400ms after the count lands, fades the
+     source line in, lights the chevron and arms the scroll advance. */
+  const [srcOn, setSrcOn] = useState(false);
   const [manual, setManual] = useState(false);
   const headRef = useRef<HTMLHeadingElement | null>(null);
   const goRef = useRef<HTMLButtonElement | null>(null);
   const secRef = useRef<HTMLElement | null>(null);
+  const stageRef = useRef<HTMLDivElement | null>(null);
   const navved = useRef(false);
   const advancedRef = useRef(false);
   const kbRef = useRef(false);
@@ -447,6 +510,7 @@ export default function GrowthQuiz() {
   const resetFlow = () => {
     setStep(null);
     setCountDone(false);
+    setSrcOn(false);
     setManual(false);
   };
 
@@ -494,6 +558,7 @@ export default function GrowthQuiz() {
   const pick = (qKey: string, o: string, detail: number) => {
     advancedRef.current = false;
     setCountDone(false);
+    setSrcOn(false);
     kbRef.current = detail === 0;
     setManual(reduced || detail === 0);
     setPicks((p) => ({ ...p, [qKey]: o }));
@@ -512,35 +577,89 @@ export default function GrowthQuiz() {
     if (step === 'reveal' && kbRef.current) goRef.current?.focus();
   }, [step]);
 
-  /* SCROLL IS THE ADVANCE, AND SCROLL IS CONTAINED. While the journey is live
-     (finale not yet reached, reduced motion off) the stage consumes wheel and
-     touchmove so a scroll can never blow past the quiz into the sources below,
-     and the body carries the quizActive flag that tells ArrowScroll.tsx to
-     leave the arrow keys alone. While a reveal is held (its count has landed),
-     the first scroll intent advances: a wheel tick past a small threshold, a
-     touch swipe up, ArrowDown, PageDown, Space or Enter. One gesture is one
-     transition; advanceOnce still guards each reveal, and a ~700ms debounce
-     after each advance keeps wheel momentum from double-firing into the next
-     reveal. On an unanswered question the gestures are consumed and do nothing:
-     answering stays tap, click or keyboard on the options. Enter and Space on a
-     real control are left to that control, so option picks, trail reopens and
-     the quiet Continue keep working. The moment the finale is reached this
-     whole effect tears down and the page scrolls normally again, stack-up into
-     sources into the closing CTA. */
+  /* THE SOURCE BEAT. ~400ms after the count lands the source line fades in, and
+     only then do the chevron and the scroll advance arm: the hold includes where
+     the number came from, on purpose. Reduced motion gets it instantly, like
+     everything else. */
+  useEffect(() => {
+    if (step !== 'reveal' || !countDone) return;
+    if (reduced) {
+      setSrcOn(true);
+      return;
+    }
+    const t = setTimeout(() => setSrcOn(true), 400);
+    return () => clearTimeout(t);
+  }, [step, countDone, reduced]);
+
+  /* SCROLL IS THE ADVANCE, AND SCROLL IS CONTAINED (ninth pass: at the WINDOW,
+     with a PIN). While the journey is live (finale not yet reached, reduced
+     motion off) the listeners live on the window, because the section-scoped
+     listeners of the earlier passes had a hole: a wheel over the fixed nav, or
+     momentum that started on the hero, never touched the section and sailed
+     past the whole quiz. The grammar now runs in three zones:
+
+     ABOVE THE PIN (the hero still showing): scrolling is native, that scroll IS
+     the CTA. A wheel tick big enough to cross the pin lands exactly on it, a
+     down key glides to it, and the window scroll clamp snaps back anything,
+     momentum, scrollbar drag, anything, that gets past. The stage cannot be
+     blown through.
+
+     AT THE PIN (the stage owns the screen): wheel down and swipe up are
+     consumed. While a reveal is held AND its source beat has landed, the first
+     scroll intent advances: a wheel tick past a small threshold, a touch swipe
+     up of 40px, ArrowDown, PageDown, Space or Enter. One gesture is one
+     transition; advanceOnce guards each reveal and the ~700ms debounce keeps
+     momentum from double-firing. On an unanswered question the gestures are
+     consumed and do nothing: answering stays tap, click or keyboard on the
+     options. Enter and Space on a real control are left to that control.
+
+     BACK UP AND OUT: wheel up, swipe down and the up keys are left native, so
+     the reader can always return to the hero; ArrowScroll bails on the
+     quizActive flag, so an up arrow walks back at the browser's own step. The
+     nav sheet check (body overflow hidden) leaves the mobile menu alone, and
+     if the stage ever scrolls internally (short screens) the capture stands
+     down for native scroll. The moment the finale is reached this whole effect
+     tears down and the page scrolls normally again, stack-up into sources into
+     the closing CTA. */
   const journeyDone = furthest === STAGES - 1;
   useEffect(() => {
     if (reduced || journeyDone) return;
     document.body.dataset.quizActive = '1';
     const sec = secRef.current;
+    const stage = stageRef.current;
+    const navOpen = () => document.body.style.overflow === 'hidden';
+    const rectTop = () => (sec ? sec.getBoundingClientRect().top : 0);
+    const pinned = () => rectTop() <= 1;
+    const pinY = () => window.scrollY + rectTop();
+    const overflowing = () =>
+      !!stage && stage.scrollHeight > stage.clientHeight + 2;
     const ready = () =>
       holdRef.current && performance.now() - lastAdvRef.current > 700;
+    /* THE CLAMP. The one line that makes a hard flick escape-proof: any scroll
+       that ends up past the pin while the journey is live is snapped back to
+       it, whatever produced it. 'instant', because globals.css sets smooth. */
+    const onScroll = () => {
+      if (navOpen()) return;
+      const py = pinY();
+      if (window.scrollY > py + 1) window.scrollTo({ top: py, behavior: 'instant' });
+    };
     const onWheel = (e: WheelEvent) => {
-      e.preventDefault();
-      if (!ready()) return;
+      if (navOpen()) return;
+      if (!pinned()) {
+        const top = rectTop();
+        if (e.deltaY > 0 && e.deltaY >= top) {
+          e.preventDefault();
+          window.scrollTo({ top: pinY(), behavior: 'instant' });
+        }
+        return;
+      }
       if (e.deltaY <= 0) {
         wheelAccRef.current = 0;
         return;
       }
+      if (overflowing()) return;
+      e.preventDefault();
+      if (!ready()) return;
       wheelAccRef.current += e.deltaY;
       if (wheelAccRef.current >= 24) {
         wheelAccRef.current = 0;
@@ -551,36 +670,54 @@ export default function GrowthQuiz() {
       touchRef.current = { y: e.touches[0].clientY, fired: false };
     };
     const onTouchMove = (e: TouchEvent) => {
-      e.preventDefault();
+      if (navOpen()) return;
+      if (!pinned()) return;
       const t = touchRef.current;
-      if (!t || t.fired || !ready()) return;
-      if (t.y - e.touches[0].clientY > 40) {
+      if (!t) return;
+      const dy = t.y - e.touches[0].clientY;
+      if (dy < 0) return;
+      if (overflowing()) return;
+      e.preventDefault();
+      if (t.fired || !ready()) return;
+      if (dy > 40) {
         t.fired = true;
         advRef.current();
       }
     };
     const onKey = (e: KeyboardEvent) => {
       if (e.metaKey || e.ctrlKey || e.altKey) return;
+      if (navOpen()) return;
       const t = e.target as HTMLElement | null;
       if (t && /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)) return;
       const onControl =
         !!t && typeof t.closest === 'function' && !!t.closest('button,a,[role=button]');
       if (onControl && (e.key === ' ' || e.key === 'Enter')) return;
-      if ([' ', 'ArrowDown', 'ArrowUp', 'PageDown', 'PageUp'].includes(e.key))
+      const down = !e.shiftKey && [' ', 'ArrowDown', 'PageDown'].includes(e.key);
+      if (!pinned()) {
+        if (down) {
+          e.preventDefault();
+          window.scrollTo({ top: pinY(), behavior: 'smooth' });
+        }
+        return;
+      }
+      if (down) {
         e.preventDefault();
-      if (e.shiftKey) return;
-      if (![' ', 'ArrowDown', 'PageDown', 'Enter'].includes(e.key)) return;
-      if (ready()) advRef.current();
+        if (ready()) advRef.current();
+        return;
+      }
+      if (e.key === 'Enter' && !e.shiftKey && ready()) advRef.current();
     };
-    sec?.addEventListener('wheel', onWheel, { passive: false });
-    sec?.addEventListener('touchstart', onTouchStart, { passive: true });
-    sec?.addEventListener('touchmove', onTouchMove, { passive: false });
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('wheel', onWheel, { passive: false });
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchmove', onTouchMove, { passive: false });
     window.addEventListener('keydown', onKey);
     return () => {
       delete document.body.dataset.quizActive;
-      sec?.removeEventListener('wheel', onWheel);
-      sec?.removeEventListener('touchstart', onTouchStart);
-      sec?.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('wheel', onWheel);
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchmove', onTouchMove);
       window.removeEventListener('keydown', onKey);
     };
   }, [reduced, journeyDone]);
@@ -730,11 +867,13 @@ export default function GrowthQuiz() {
                 onDone={() => setCountDone(true)}
               />
               <p className="gq-line">{q.line}</p>
-              <p className="gq-srcline">{q.src}</p>
-              {/* The chevron cue: decorative, lights once the count lands, and only
-                  while the scroll gestures are actually armed. */}
+              {/* The source beat: fades in ~400ms after the count lands, its own
+                  quiet moment inside the hold. */}
+              <p className={'gq-srcline' + (srcOn ? ' on' : '')}>{q.src}</p>
+              {/* The chevron cue: decorative, lights once the source beat has
+                  landed, and only while the scroll gestures are actually armed. */}
               {!manual && !journeyDone && (
-                <div className={'gq-cue' + (countDone ? ' on' : '')} aria-hidden="true">
+                <div className={'gq-cue' + (srcOn ? ' on' : '')} aria-hidden="true">
                   <svg width="22" height="12" viewBox="0 0 22 12" fill="none">
                     <path
                       d="M2 2l9 8 9-8"
@@ -1040,27 +1179,38 @@ export default function GrowthQuiz() {
      doneRef in Fig: holdRef arms them only while a reveal is held and its count
      has landed, advRef always points at the current advanceOnce. */
   const inReveal = active <= 2 && !!picks[QUESTIONS[active].key] && step !== 'condense';
-  /* The results overview holds exactly like a landed reveal: its screen is
-     static, so it arms the moment it is active. */
-  holdRef.current = (inReveal && step === 'reveal' && countDone) || active === 3;
+  /* A reveal arms only after its SOURCE BEAT has landed, so the source always
+     gets its dwell. The results overview holds exactly like a landed reveal:
+     its screen is static, so it arms the moment it is active. */
+  holdRef.current = (inReveal && step === 'reveal' && countDone && srcOn) || active === 3;
   advRef.current = advanceOnce;
 
+  /* Released: reduced motion (flat stacked flow) or the finale (the page opens
+     back up). Either way the stage unpins to normal flow. */
+  const released = reduced || journeyDone;
+
   return (
-    <section className="gq" aria-label="The growth quiz" ref={secRef}>
+    <section
+      className={'gq' + (released ? ' gq-rel' : '')}
+      aria-label="The growth quiz"
+      ref={secRef}
+    >
       <style>{min(CSS)}</style>
-      <div className="gq-wrap">
-        {trail.length > 0 && <div className="gq-trail">{trail}</div>}
-        <div
-          key={active}
-          className={'gq-card' + (moved ? ' anim' : '')}
-          onClick={() => {
-            if (inReveal) advanceOnce();
-          }}
-        >
-          {/* The results card's quiet h2 IS its kicker, so the eye is skipped
-              there: one line, one focus target, no doubling. */}
-          {active !== 3 && <div className="gq-eye">{kicker}</div>}
-          {card}
+      <div className="gq-stage" ref={stageRef}>
+        <div className="gq-wrap">
+          {trail.length > 0 && <div className="gq-trail">{trail}</div>}
+          <div
+            key={active}
+            className={'gq-card' + (moved ? ' anim' : '')}
+            onClick={() => {
+              if (inReveal) advanceOnce();
+            }}
+          >
+            {/* The results card's quiet h2 IS its kicker, so the eye is skipped
+                there: one line, one focus target, no doubling. */}
+            {active !== 3 && <div className="gq-eye">{kicker}</div>}
+            {card}
+          </div>
         </div>
       </div>
     </section>

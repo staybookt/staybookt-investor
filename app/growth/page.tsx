@@ -34,6 +34,14 @@ import { min } from '@/lib/css';
  * page h1 lives in the hero now; every quiz card heading is an h2, and a quiet
  * "Question 1 of 3" kicker keeps the stage named. The journey itself is untouched.
  *
+ * THE HELD STAGE, NINTH PASS (Jacob, July 2026): the quiz became a sticky
+ * full-viewport stage in the site's film grammar (see the ninth-pass block in
+ * GrowthQuiz.tsx). The hero hands off and leaves: it closes on a quiet "Scroll
+ * to start" line, the scroll itself is the CTA, and once the stage pins every
+ * moment owns the whole screen. A window scroll clamp makes the containment
+ * escape-proof, and each reveal now holds on its source for a beat before the
+ * chevron invites the next scroll.
+ *
  * PRIVATE MEANS THREE THINGS, ALL LOAD-BEARING:
  *   1. metadata.robots is noindex,nofollow. Do not remove it while this is a draft.
  *   2. It appears in NO nav, NO footer, NO sitemap (app/sitemap.ts is an explicit
@@ -80,15 +88,23 @@ const CSS = `
 .gro .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#69707d;}
 /* HERO. The shared .pg-hero from globals.css, emerald because this page argues the
    running-of-it. ONE deliberate exception to the one-height law, reason written down
-   as that law requires: this header hands straight into question one, so the landing
-   viewport must show the invitation AND the top of Q1 on desktop, and leave Q1 at
-   most one small scroll away on a phone. The standard clamp(140px,17vh,190px) top
-   pushes Q1 below the fold. The fixed nav's 64px clearance lives here now instead of
-   in the quiz section; the headline and sub also run a step smaller than the
-   standard hero scale, for the same reason. */
+   as that law requires: this header HANDS OFF AND LEAVES (ninth pass). The quiz
+   below is a sticky full-viewport stage in the site's film grammar, so the hero's
+   only job is the invitation and the instruction, compact, with the top of the
+   stage visible beneath it. The scroll that brings the stage up IS the call to
+   action, so the hero closes on a quiet "Scroll to start" line with a soft chevron
+   instead of any button. The fixed nav's 64px clearance lives in the hero AND in
+   the stage now (the stage owns the screen once pinned); the headline and sub run
+   a step smaller than the standard hero scale, same reason as ever. */
 .gro .pg-hero{--hero-hue:16,185,129;padding:calc(64px + clamp(40px,6vh,64px)) 0 clamp(30px,4.5vh,48px);}
 .gro .pg-hero .wrap h1{font-size:clamp(34px,4.6vw,58px);max-width:22ch;}
 .gro .pg-hero .wrap p{margin-top:18px;font-size:clamp(16px,1.9vw,20px);max-width:52ch;}
+/* THE SCROLL CUE. Quiet, uppercase, #8a8f98 at 6.27:1 on #050506. The chevron bobs
+   gently; reduced motion stills it. */
+.gro .pg-hero .wrap .gro-cue{display:flex;flex-direction:column;align-items:center;gap:9px;margin:clamp(26px,4.5vh,44px) auto 0;max-width:none;font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#8a8f98;}
+.gro .pg-hero .wrap .gro-cue svg{display:block;animation:gro-cue 2.4s ease-in-out infinite;}
+@keyframes gro-cue{0%,100%{opacity:.45;transform:translateY(0);}50%{opacity:.95;transform:translateY(5px);}}
+@media(prefers-reduced-motion:reduce){.gro .pg-hero .wrap .gro-cue svg{animation:none;}}
 /* SOURCES. One quiet line-list, still linked. Every figure the quiz uses, findable. */
 .gro-src{padding:clamp(44px,6vw,72px) 0;border-top:1px solid #e6e6e1;background:#f6f6f3;}
 .gro-src ul{margin-top:18px;max-width:760px;list-style:none;padding:0;}
@@ -153,6 +169,19 @@ export default function GrowthPage() {
             <p>
               Three quick questions about the industry, then your own numbers. Two minutes,
               and the math at the end is yours, not ours.
+            </p>
+            {/* The CTA is the scroll itself: no button, just the invitation. */}
+            <p className="gro-cue">
+              Scroll to start
+              <svg width="22" height="12" viewBox="0 0 22 12" fill="none" aria-hidden="true">
+                <path
+                  d="M2 2l9 8 9-8"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </p>
           </div>
         </header>
