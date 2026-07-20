@@ -71,8 +71,18 @@ import { min } from '@/lib/css';
  *
  * STATE IS REACT STATE. A refresh restarts the journey from question one. Accepted:
  * this is a private draft for two founders, not a saved form. Question one renders on
- * the server, so the prerender checks can see the h1 and its four options; the trail
- * and later cards are client state and cannot be grepped from the HTML.
+ * the server, so the prerender checks can see its heading and its four options; the
+ * trail and later cards are client state and cannot be grepped from the HTML.
+ *
+ * SEVENTH PASS, THE HAND-OFF (Jacob, July 2026): the page grew the standard
+ * .pg-hero above this section, and the hero's sub-line is the instruction. The
+ * page h1 lives there now, so every card heading here is an h2 (the outline runs
+ * h1 hero, h2 cards) and the old "Internal draft" eyebrow became a stage kicker:
+ * "Question 1 of 3" on the questions, then "Your numbers", then "The stack-up".
+ * The hero's emerald wash continues faintly across this section's top so hero and
+ * quiz read as one surface, and this section no longer carries its own nav
+ * clearance: the hero does. Nothing else about the journey changed, and there is
+ * still no gate.
  */
 
 const PRICE = 199;
@@ -161,9 +171,14 @@ const STAGES = 5;
 const CSS = `
 /* ONE PAGE GROWING, not screens swapping. The section is normal flow: the trail
    stacks at the top, the active card holds focus beneath it, and the content height
-   grows as the journey builds. 64px of clearance keeps it clear of the fixed nav. */
-.gq{position:relative;background:#050506;color:#f5f5f7;min-height:100svh;padding:calc(64px + clamp(22px,4vh,44px)) 0 clamp(56px,8vh,96px);}
-.gq-wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px);display:flex;flex-direction:column;align-items:center;text-align:center;}
+   grows as the journey builds. The .pg-hero above carries the fixed nav's 64px
+   clearance now, so this top padding is only the hand-off gap, kept tight on
+   purpose: hero into question one, no dead band. The ::before is the hero's
+   emerald wash carrying on, faint and decorative, over the same #050506 the hero
+   sits on, so the seam between header and quiz is invisible. */
+.gq{position:relative;background:#050506;color:#f5f5f7;min-height:100svh;padding:clamp(8px,1.6vh,18px) 0 clamp(56px,8vh,96px);}
+.gq::before{content:'';position:absolute;top:0;left:0;right:0;height:340px;pointer-events:none;background:radial-gradient(64% 100% at 50% 0%,rgba(16,185,129,.05),transparent 72%);}
+.gq-wrap{position:relative;z-index:1;width:100%;max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px);display:flex;flex-direction:column;align-items:center;text-align:center;}
 .gq-eye{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#8a8f98;}
 /* THE TRAIL. Answered cards condense into these receipt rows and stay visible.
    Every row is a real button: tapping it reopens that card. */
@@ -436,9 +451,9 @@ export default function GrowthQuiz() {
       const picked = picks[q.key];
       return (
         <>
-          <h1 className="gq-h" tabIndex={-1} ref={headRef} id={'gq-q-' + q.key}>
+          <h2 className="gq-h" tabIndex={-1} ref={headRef} id={'gq-q-' + q.key}>
             {q.question}
-          </h1>
+          </h2>
           <div className="gq-opts" role="group" aria-labelledby={'gq-q-' + q.key}>
             {q.options.map((o) => {
               const cls =
@@ -476,9 +491,9 @@ export default function GrowthQuiz() {
     if (active === 3) {
       return (
         <>
-          <h1 className="gq-h" tabIndex={-1} ref={headRef}>
+          <h2 className="gq-h" tabIndex={-1} ref={headRef}>
             Now three numbers <span className="g">only you know.</span>
-          </h1>
+          </h2>
           <p className="gq-sub">
             Rough is fine. The arithmetic happens on your screen and goes nowhere.
           </p>
@@ -546,9 +561,9 @@ export default function GrowthQuiz() {
        arithmetic, at keynote scale, become the other. No verdict. */
     return (
       <>
-        <h1 className="gq-h" tabIndex={-1} ref={headRef}>
+        <h2 className="gq-h" tabIndex={-1} ref={headRef}>
           The industry&apos;s numbers, <span className="g">beside yours.</span>
-        </h1>
+        </h2>
         <div className="gq-cols">
           <div className="gq-col">
             <div className="hd">The industry</div>
@@ -660,13 +675,19 @@ export default function GrowthQuiz() {
     );
   })();
 
+  /* The stage kicker. The quiet line that took over the old h1's orienting role:
+     it names where the reader is, inside the card, above its h2. The hero above
+     already says "internal draft", so this section stopped repeating it. */
+  const kicker =
+    active <= 2 ? 'Question ' + (active + 1) + ' of 3' : active === 3 ? 'Your numbers' : 'The stack-up';
+
   return (
     <section className="gq" aria-label="The growth quiz">
       <style>{min(CSS)}</style>
       <div className="gq-wrap">
-        <div className="gq-eye">Internal draft</div>
         {trail.length > 0 && <div className="gq-trail">{trail}</div>}
         <div key={active} className={'gq-card' + (moved ? ' anim' : '')}>
+          <div className="gq-eye">{kicker}</div>
           {card}
         </div>
       </div>

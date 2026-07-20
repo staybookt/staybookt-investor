@@ -26,6 +26,14 @@ import { min } from '@/lib/css';
  * the block at the top of GrowthQuiz.tsx. GrowthNumbers (the pinned stage) and the
  * standalone YourMath section stay deleted; their salvage lives in GrowthQuiz.
  *
+ * GIVEN ITS HEADER, SEVENTH PASS (Jacob, July 2026): the page now opens with the
+ * standard .pg-hero every other page carries, emerald wash, at a compact height
+ * whose reason is written beside the CSS below. The hero's sub-line IS the
+ * instruction, and it hands straight into question one: no Start gate, no dead
+ * band, the hero's wash continuing faintly into the quiz's dark surface. The
+ * page h1 lives in the hero now; every quiz card heading is an h2, and a quiet
+ * "Question 1 of 3" kicker keeps the stage named. The journey itself is untouched.
+ *
  * PRIVATE MEANS THREE THINGS, ALL LOAD-BEARING:
  *   1. metadata.robots is noindex,nofollow. Do not remove it while this is a draft.
  *   2. It appears in NO nav, NO footer, NO sitemap (app/sitemap.ts is an explicit
@@ -54,9 +62,10 @@ import { min } from '@/lib/css';
  * this page.
  *
  * STATE NOTE: the quiz is React state. Refresh restarts the journey from question
- * one, which is accepted for a two-founder draft. Question one renders on the server,
- * so the prerender checks can see the h1 and its four options; the trail and the
- * later cards are client state and cannot be grepped from the HTML.
+ * one, which is accepted for a two-founder draft. The hero and question one render
+ * on the server, so the prerender checks can see the h1, Q1's h2 and its four
+ * options; the trail and the later cards are client state and cannot be grepped
+ * from the HTML.
  */
 
 export const metadata = {
@@ -69,8 +78,17 @@ const CSS = `
 .gro{background:#fff;color:var(--v4-ink);}
 .gro .wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
 .gro .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#69707d;}
-/* NO .pg-hero HERE. The quiz's first question IS the hero; the section carries its
-   own clearance under the fixed nav. */
+/* HERO. The shared .pg-hero from globals.css, emerald because this page argues the
+   running-of-it. ONE deliberate exception to the one-height law, reason written down
+   as that law requires: this header hands straight into question one, so the landing
+   viewport must show the invitation AND the top of Q1 on desktop, and leave Q1 at
+   most one small scroll away on a phone. The standard clamp(140px,17vh,190px) top
+   pushes Q1 below the fold. The fixed nav's 64px clearance lives here now instead of
+   in the quiz section; the headline and sub also run a step smaller than the
+   standard hero scale, for the same reason. */
+.gro .pg-hero{--hero-hue:16,185,129;padding:calc(64px + clamp(40px,6vh,64px)) 0 clamp(30px,4.5vh,48px);}
+.gro .pg-hero .wrap h1{font-size:clamp(34px,4.6vw,58px);max-width:22ch;}
+.gro .pg-hero .wrap p{margin-top:18px;font-size:clamp(16px,1.9vw,20px);max-width:52ch;}
 /* SOURCES. One quiet line-list, still linked. Every figure the quiz uses, findable. */
 .gro-src{padding:clamp(44px,6vw,72px) 0;border-top:1px solid #e6e6e1;background:#f6f6f3;}
 .gro-src ul{margin-top:18px;max-width:760px;list-style:none;padding:0;}
@@ -125,6 +143,20 @@ export default function GrowthPage() {
       <style>{min(CSS)}</style>
       <Nav />
       <main id="main" tabIndex={-1}>
+        {/* THE HEADER. The standard dark hero every other page opens with. Its
+            sub-line IS the instruction: it reads as the invitation, and question
+            one sits directly beneath it. Still no Start gate. */}
+        <header className="pg-hero">
+          <div className="wrap">
+            <div className="eyebrow">Growth · internal draft</div>
+            <h1>You know the work. <span className="g">Do you know the money?</span></h1>
+            <p>
+              Three quick questions about the industry, then your own numbers. Two minutes,
+              and the math at the end is yours, not ours.
+            </p>
+          </div>
+        </header>
+
         {/* THE QUIZ IS THE PAGE. It opens on question one, condenses answered cards
             into a visible trail, and assembles its finale from that trail. Advanced
             only by tap, click or keyboard. */}
