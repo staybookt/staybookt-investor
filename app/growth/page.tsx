@@ -158,8 +158,10 @@ export default function GrowthPage() {
         </header>
 
         {/* THE QUIZ IS THE PAGE. It opens on question one, condenses answered cards
-            into a visible trail, and assembles its finale from that trail. Advanced
-            only by tap, click or keyboard. */}
+            into a visible trail, and assembles its finale from that trail. The
+            reveals flow on their own once the figure lands, click to skip; keyboard
+            and reduced-motion readers advance at their own pace, and the steppers
+            and finale keep deliberate controls. */}
         <GrowthQuiz />
 
         {/* SOURCES. Every number in the quiz, findable. The link text is the paper,

@@ -15,7 +15,9 @@ import { min } from '@/lib/css';
  * assembles from the trail: the industry's revealed figures in one column, the
  * reader's own numbers and arithmetic in the other. Content height grows and the
  * page scrolls naturally as the trail accumulates; that is the journey. Nothing
- * advances on scroll and nothing advances on a timer: taps, clicks and keys only.
+ * advances on scroll. The reveals flow on their own once the figure has landed
+ * (see MOTION below); the steppers and the finale still wait for a deliberate
+ * act, because inputs need deliberate submission.
  *
  * WHY A QUIZ: guess before reveal makes the figures land. The reader commits to
  * 40% and then watches 62% count up; the gap between their guess and the
@@ -46,13 +48,23 @@ import { min } from '@/lib/css';
  * never their business. The stack-up sets the industry's published numbers beside
  * theirs and draws no conclusion for them.
  *
- * MOTION: an answered card condenses into its trail row over ~450ms ease while the
- * next card rises into focus, also ~450ms. The finale's rows assemble with a short
- * stagger, echoing the trail they came from. The three reveal figures count up once,
- * ~900ms ease-out cubic, and never again. prefers-reduced-motion gets instant
- * condenses, instant rises and no count-ups, via both the CSS media query and a
- * matchMedia check for the JS-driven count. No aria-live on the count, on purpose: a
- * screen reader gets the final text in DOM order and is never shouted at by sixty
+ * MOTION, THE SEAMLESS FLOW (Jacob, July 2026): no Next button anywhere. On answer
+ * the four options condense immediately, ~350ms: the picked option and the correct
+ * one shrink up toward the incoming trail row, the others fade out. The reveal then
+ * owns the screen: the question quiets to a small kicker line, and the figure, its
+ * one line and its source sit in generous air, roughly double the question rhythm.
+ * The figure counts up once, ~900ms ease-out cubic. Then the reveal dwells ~2800ms,
+ * a thin hairline under the figure filling so the auto-advance is legible, and
+ * condenses itself into the trail while the next question rises, ~600ms ease. Any
+ * click, tap or keypress during the dwell skips ahead immediately. The dwell PAUSES
+ * while the card is hovered or anything on the page has focus-visible. A pick made
+ * by keyboard (detail 0) gets NO timer at all: a quiet Continue control takes focus
+ * and the reader advances with Enter or Space at their own pace. prefers-reduced-
+ * motion gets NO auto-advance and NO count-up, instant reveal plus that same quiet
+ * control, because auto-motion is exactly what the setting refuses; CSS media query
+ * plus a matchMedia check cover both halves. The finale's rows assemble with a short
+ * stagger, echoing the trail they came from. No aria-live on the count, on purpose:
+ * a screen reader gets the final text in DOM order and is never shouted at by sixty
  * intermediate values. Nothing animates on initial page load: the landing state is
  * simply there.
  *
@@ -183,7 +195,7 @@ const CSS = `
 /* THE TRAIL. Answered cards condense into these receipt rows and stay visible.
    Every row is a real button: tapping it reopens that card. */
 .gq-trail{width:100%;max-width:720px;margin:clamp(16px,2.6vh,26px) auto 0;display:flex;flex-direction:column;gap:8px;}
-.gq-tr{display:flex;align-items:center;gap:12px;width:100%;min-height:48px;padding:10px 16px;border:1px solid #23262e;border-radius:14px;background:#0b0c10;color:#aeb6c4;font-family:inherit;font-size:14.5px;line-height:1.45;text-align:left;cursor:pointer;transition:border-color .2s ease,background .2s ease;animation:gq-condense .45s ease both;}
+.gq-tr{display:flex;align-items:center;gap:12px;width:100%;min-height:48px;padding:10px 16px;border:1px solid #23262e;border-radius:14px;background:#0b0c10;color:#aeb6c4;font-family:inherit;font-size:14.5px;line-height:1.45;text-align:left;cursor:pointer;transition:border-color .2s ease,background .2s ease;animation:gq-condense .6s ease both;}
 .gq-tr:hover{border-color:#3a3e49;background:#101218;}
 .gq-tr:focus-visible{outline:2px solid #34d399;outline-offset:2px;}
 .gq-tr b{font-weight:700;color:#fff;font-variant-numeric:tabular-nums;}
@@ -197,14 +209,24 @@ const CSS = `
 /* THE ACTIVE CARD. Rises into focus beneath the trail; the landing state renders
    without animation. */
 .gq-card{width:100%;display:flex;flex-direction:column;align-items:center;text-align:center;padding-top:clamp(26px,4.5vh,50px);}
-.gq-card.anim{animation:gq-in .45s ease both;}
+.gq-card.anim{animation:gq-in .6s ease both;}
 @keyframes gq-in{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:none;}}
-.gq-h{margin:14px auto 0;font-size:clamp(27px,3.8vw,50px);font-weight:600;letter-spacing:-.03em;line-height:1.08;color:#fff;max-width:24ch;outline:none;}
+.gq-h{margin:14px auto 0;font-size:clamp(27px,3.8vw,50px);font-weight:600;letter-spacing:-.03em;line-height:1.08;color:#fff;max-width:24ch;outline:none;transition:font-size .3s ease;}
 .gq-h .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+/* During the reveal the question quiets to a small kicker line above the figure.
+   Same h2 element, so the outline and the focus target never change. */
+.gq-h.quiet{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;line-height:1.5;color:#8a8f98;max-width:none;}
+.gq-h.quiet .g{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:#8a8f98;}
 .gq-sub{margin:16px auto 0;font-size:clamp(15.5px,1.7vw,18px);line-height:1.6;color:#aeb6c4;max-width:52ch;}
-.gq-cta{margin-top:clamp(22px,3.5vh,38px);min-height:48px;padding:12px 34px;border-radius:999px;border:0;background:#fff;color:#0b0c10;font-family:inherit;font-size:15.5px;font-weight:600;cursor:pointer;transition:transform .2s ease;}
-.gq-cta:hover{transform:translateY(-1px);}
-.gq-cta:focus-visible{outline:2px solid #34d399;outline-offset:2px;}
+/* THE QUIET CONTINUE. The only forward control left anywhere. Invisible in the
+   auto flow until the card is hovered or it holds focus; always visible (.vis)
+   for keyboard picks, reduced motion and the steppers, which need deliberate
+   submission. 48px tap target, quiet grey at 6.27:1 on #050506. */
+.gq-go{margin-top:clamp(18px,3vh,32px);min-height:48px;padding:12px 24px;border:1px solid transparent;border-radius:999px;background:transparent;color:#8a8f98;font-family:inherit;font-size:13.5px;font-weight:600;letter-spacing:.04em;cursor:pointer;opacity:0;transition:opacity .2s ease,color .2s ease,border-color .2s ease;}
+.gq-go.vis{opacity:1;border-color:#23262e;}
+.gq-go:focus-visible,.gq-card:hover .gq-go{opacity:1;}
+.gq-go:hover{color:#aeb6c4;border-color:#3a3e49;}
+.gq-go:focus-visible{outline:2px solid #34d399;outline-offset:2px;}
 /* OPTIONS. Real buttons; after the pick they resolve in place: the correct one goes
    emerald, the reader's wrong pick keeps a light outline, the rest fall back. They
    go aria-disabled, never disabled, so keyboard focus is not dropped. */
@@ -218,6 +240,23 @@ const CSS = `
 .gq-opt.dim{opacity:.4;cursor:default;}
 .gq-opt.ok:hover,.gq-opt.my:hover,.gq-opt.dim:hover{background:#15171d;}
 .gq-opt.ok:hover{background:#0b0c10;}
+/* THE CONDENSE, ~350ms on answer: the picked option and the correct one shrink up
+   toward the incoming trail row; the rest fade out. Then the reveal owns the
+   screen. */
+.gq-opts.going .gq-opt{pointer-events:none;}
+.gq-opts.going .gq-opt.ok,.gq-opts.going .gq-opt.my{animation:gq-shrink .35s ease both;}
+.gq-opts.going .gq-opt.dim{animation:gq-fade .35s ease both;}
+@keyframes gq-shrink{to{opacity:0;transform:translateY(-30px) scale(.55);}}
+@keyframes gq-fade{to{opacity:0;}}
+/* THE REVEAL. Figure, one line, source, in air: roughly double the question
+   rhythm. The hairline under the figure fills across the dwell so the
+   auto-advance is legible, not mysterious. */
+.gq-reveal{display:flex;flex-direction:column;align-items:center;width:100%;animation:gq-in .35s ease both;}
+.gq-reveal .gq-fig{margin-top:clamp(26px,5.5vh,54px);}
+.gq-reveal .gq-line{margin-top:clamp(22px,4.2vh,40px);}
+.gq-reveal .gq-srcline{margin-top:clamp(14px,2.8vh,26px);}
+.gq-bar{margin-top:clamp(20px,3.6vh,36px);width:min(220px,56%);height:2px;border-radius:999px;background:#23262e;overflow:hidden;}
+.gq-bar i{display:block;width:100%;height:100%;background:#34d399;transform:scaleX(0);transform-origin:left center;}
 /* THE FIGURE. Keynote scale, gradient on the number, tabular so digits do not
    jitter sideways while they count. Giant display text, so the gradient's quietest
    stop clears the WCAG large-text bar with room. */
@@ -272,21 +311,35 @@ const CSS = `
 .gq-note{margin:16px 0 0;font-size:13px;line-height:1.6;color:#8a8f98;max-width:62ch;}
 .gq-score{margin-top:20px;font-size:14px;line-height:1.5;color:#8a8f98;}
 .gq-close{margin:12px auto 0;max-width:56ch;font-size:clamp(15px,1.7vw,18px);line-height:1.55;color:#aeb6c4;}
-/* REDUCED MOTION: no condense, no rise, no stagger. The count-ups are killed in JS
-   by the matchMedia check. */
-@media(prefers-reduced-motion:reduce){.gq-tr,.gq-card.anim,.gq-col li,.gq-col .late{animation:none;}}
+/* REDUCED MOTION: no condense, no rise, no stagger, no reveal slide. The count-ups
+   and the auto-advance are killed in JS by the matchMedia check. */
+@media(prefers-reduced-motion:reduce){.gq-tr,.gq-card.anim,.gq-col li,.gq-col .late,.gq-opts.going .gq-opt,.gq-reveal{animation:none;}.gq-h{transition:none;}}
 `;
 
 /* The count-up. Runs once per mount, ~900ms ease-out cubic, then holds the final
-   string. Instant when reduced motion is on. Plain text, no aria-live. */
-function Fig({ fig, small, instant }: { fig: (p: number) => string; small?: boolean; instant: boolean }) {
+   string and reports done, which is what arms the dwell timer. Instant when
+   reduced motion is on. Plain text, no aria-live. */
+function Fig({
+  fig,
+  small,
+  instant,
+  onDone,
+}: {
+  fig: (p: number) => string;
+  small?: boolean;
+  instant: boolean;
+  onDone?: () => void;
+}) {
   const [p, setP] = useState(instant ? 1 : 0);
   const ran = useRef(false);
+  const doneRef = useRef(onDone);
+  doneRef.current = onDone;
   useEffect(() => {
     if (ran.current) return;
     ran.current = true;
     if (instant) {
       setP(1);
+      doneRef.current?.();
       return;
     }
     let raf = 0;
@@ -295,6 +348,7 @@ function Fig({ fig, small, instant }: { fig: (p: number) => string; small?: bool
       const u = Math.min(1, (t - t0) / 900);
       setP(1 - Math.pow(1 - u, 3));
       if (u < 1) raf = requestAnimationFrame(tick);
+      else doneRef.current?.();
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
@@ -316,8 +370,23 @@ export default function GrowthQuiz() {
     quotes: 4,
   });
   const [reduced, setReduced] = useState(false);
+  /* THE FLOW MACHINE for a question card. step: null (options open), 'condense'
+     (~350ms, options folding away), 'reveal' (figure owns the screen). manual
+     means no timer for this reveal: reduced motion, or a pick made by keyboard.
+     hovered and focusPause hold the dwell; dwellRef accumulates elapsed dwell ms
+     across pauses; advancedRef guards the advance to exactly once per reveal. */
+  const [step, setStep] = useState<null | 'condense' | 'reveal'>(null);
+  const [countDone, setCountDone] = useState(false);
+  const [manual, setManual] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const [focusPause, setFocusPause] = useState(false);
   const headRef = useRef<HTMLHeadingElement | null>(null);
+  const goRef = useRef<HTMLButtonElement | null>(null);
+  const barRef = useRef<HTMLElement | null>(null);
   const navved = useRef(false);
+  const advancedRef = useRef(false);
+  const dwellRef = useRef(0);
+  const kbRef = useRef(false);
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -327,15 +396,23 @@ export default function GrowthQuiz() {
     return () => mq.removeEventListener('change', on);
   }, []);
 
-  /* Focus lands on the active card's heading on every user-driven advance, reopen
-     or return, never on initial load. */
+  /* Focus lands on the active card's heading on every advance, reopen or return,
+     never on initial load. */
   useEffect(() => {
     if (navved.current) headRef.current?.focus();
   }, [active]);
 
+  const resetFlow = () => {
+    setStep(null);
+    setCountDone(false);
+    setManual(false);
+    dwellRef.current = 0;
+  };
+
   const advance = () => {
     navved.current = true;
     setMoved(true);
+    resetFlow();
     if (active < furthest) {
       setActive(furthest);
       return;
@@ -345,9 +422,20 @@ export default function GrowthQuiz() {
     setActive(n);
   };
 
+  /* The single gate every path to the next card goes through during a reveal:
+     timer, click-to-skip, keypress-to-skip and the quiet Continue all land here,
+     and only the first one counts. */
+  const advanceOnce = () => {
+    if (advancedRef.current) return;
+    advancedRef.current = true;
+    advance();
+  };
+
   const reopen = (stage: number, qKey?: string) => {
     navved.current = true;
     setMoved(true);
+    advancedRef.current = true;
+    resetFlow();
     if (qKey) {
       setPicks((p) => {
         const c = { ...p };
@@ -357,6 +445,90 @@ export default function GrowthQuiz() {
     }
     setActive(stage);
   };
+
+  /* The pick. Detail 0 means keyboard activation: that reveal gets no timer and
+     the quiet Continue takes focus, so the reader advances at their own pace. */
+  const pick = (qKey: string, o: string, detail: number) => {
+    advancedRef.current = false;
+    dwellRef.current = 0;
+    setCountDone(false);
+    kbRef.current = detail === 0;
+    setManual(reduced || detail === 0);
+    setPicks((p) => ({ ...p, [qKey]: o }));
+    setStep(reduced ? 'reveal' : 'condense');
+  };
+
+  /* Condense runs ~350ms, then the reveal owns the screen. */
+  useEffect(() => {
+    if (step !== 'condense') return;
+    const t = setTimeout(() => setStep('reveal'), 350);
+    return () => clearTimeout(t);
+  }, [step]);
+
+  /* A keyboard pick hands focus to the quiet Continue once the reveal is up. */
+  useEffect(() => {
+    if (step === 'reveal' && kbRef.current) goRef.current?.focus();
+  }, [step]);
+
+  /* THE DWELL, auto flow only: ~2800ms after the count-up lands, driving the
+     hairline from the same clock, then the flow advances itself. Pausing (hover
+     or focus-visible anywhere) tears the loop down; dwellRef keeps the elapsed
+     time, so resuming continues instead of restarting. */
+  useEffect(() => {
+    if (step !== 'reveal' || !countDone || manual || hovered || focusPause) return;
+    let raf = 0;
+    let last = performance.now();
+    const tick = (t: number) => {
+      dwellRef.current += t - last;
+      last = t;
+      const u = Math.min(1, dwellRef.current / 2800);
+      if (barRef.current) barRef.current.style.transform = 'scaleX(' + u + ')';
+      if (u >= 1) {
+        advanceOnce();
+        return;
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step, countDone, manual, hovered, focusPause]);
+
+  /* Focus-visible anywhere on the page holds the dwell: a keyboard user tabbing
+     through the trail is never advanced out from under their focus. */
+  useEffect(() => {
+    if (step !== 'reveal') return;
+    const onIn = (e: FocusEvent) => {
+      const t = e.target as HTMLElement | null;
+      try {
+        setFocusPause(!!t && typeof t.matches === 'function' && t.matches(':focus-visible'));
+      } catch {
+        setFocusPause(true);
+      }
+    };
+    const onOut = () => setFocusPause(false);
+    document.addEventListener('focusin', onIn);
+    document.addEventListener('focusout', onOut);
+    return () => {
+      document.removeEventListener('focusin', onIn);
+      document.removeEventListener('focusout', onOut);
+    };
+  }, [step]);
+
+  /* Any keypress during the auto dwell skips ahead, except keys that are
+     navigation or modifiers, and never while something holds visible focus:
+     that Enter belongs to the focused control. */
+  useEffect(() => {
+    if (step !== 'reveal' || manual) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (['Tab', 'Shift', 'Control', 'Alt', 'Meta', 'Escape'].includes(e.key)) return;
+      if (focusPause) return;
+      advanceOnce();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step, manual, focusPause]);
 
   const set = (f: Field, next: number) => {
     const n = Math.min(f.maxV, Math.max(f.minV, Math.round(next)));
@@ -449,40 +621,70 @@ export default function GrowthQuiz() {
     if (active <= 2) {
       const q = QUESTIONS[active];
       const picked = picks[q.key];
+      const revealed = !!picked && step !== 'condense';
       return (
         <>
-          <h2 className="gq-h" tabIndex={-1} ref={headRef} id={'gq-q-' + q.key}>
+          <h2
+            className={'gq-h' + (revealed ? ' quiet' : '')}
+            tabIndex={-1}
+            ref={headRef}
+            id={'gq-q-' + q.key}
+          >
             {q.question}
           </h2>
-          <div className="gq-opts" role="group" aria-labelledby={'gq-q-' + q.key}>
-            {q.options.map((o) => {
-              const cls =
-                'gq-opt' +
-                (picked ? (o === q.answer ? ' ok' : o === picked ? ' my' : ' dim') : '');
-              return (
-                <button
-                  key={o}
-                  type="button"
-                  className={cls}
-                  aria-disabled={picked ? true : undefined}
-                  onClick={() => {
-                    if (!picked) setPicks((p) => ({ ...p, [q.key]: o }));
-                  }}
-                >
-                  {o}
-                </button>
-              );
-            })}
-          </div>
-          {picked && (
-            <>
-              <Fig fig={q.fig} small={q.small} instant={reduced} />
+          {!revealed && (
+            <div
+              className={'gq-opts' + (step === 'condense' ? ' going' : '')}
+              role="group"
+              aria-labelledby={'gq-q-' + q.key}
+            >
+              {q.options.map((o) => {
+                const cls =
+                  'gq-opt' +
+                  (picked ? (o === q.answer ? ' ok' : o === picked ? ' my' : ' dim') : '');
+                return (
+                  <button
+                    key={o}
+                    type="button"
+                    className={cls}
+                    aria-disabled={picked ? true : undefined}
+                    onClick={(e) => {
+                      if (!picked) pick(q.key, o, e.detail);
+                    }}
+                  >
+                    {o}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+          {revealed && (
+            <div className="gq-reveal">
+              <Fig
+                fig={q.fig}
+                small={q.small}
+                instant={reduced}
+                onDone={() => setCountDone(true)}
+              />
+              {!manual && (
+                <div className="gq-bar" aria-hidden="true">
+                  <i ref={barRef} />
+                </div>
+              )}
               <p className="gq-line">{q.line}</p>
               <p className="gq-srcline">{q.src}</p>
-              <button type="button" className="gq-cta" onClick={advance}>
-                {active < furthest ? returnLabel : 'Next'}
+              <button
+                type="button"
+                ref={goRef}
+                className={'gq-go' + (manual ? ' vis' : '')}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  advanceOnce();
+                }}
+              >
+                {active < furthest ? returnLabel : 'Continue'}
               </button>
-            </>
+            </div>
           )}
         </>
       );
@@ -548,7 +750,9 @@ export default function GrowthQuiz() {
               );
             })}
           </div>
-          <button type="button" className="gq-cta" onClick={advance}>
+          {/* Inputs need deliberate submission: no timer here, ever. The
+              affordance is quiet but always present. */}
+          <button type="button" className="gq-go vis" onClick={advance}>
             {active < furthest ? returnLabel : 'Continue'}
           </button>
         </>
@@ -681,12 +885,25 @@ export default function GrowthQuiz() {
   const kicker =
     active <= 2 ? 'Question ' + (active + 1) + ' of 3' : active === 3 ? 'Your numbers' : 'The stack-up';
 
+  /* During a reveal the card itself is the skip control: hover holds the dwell,
+     a click or tap anywhere on it advances immediately. Outside a reveal these
+     handlers do nothing. */
+  const inReveal = active <= 2 && !!picks[QUESTIONS[active].key] && step !== 'condense';
+
   return (
     <section className="gq" aria-label="The growth quiz">
       <style>{min(CSS)}</style>
       <div className="gq-wrap">
         {trail.length > 0 && <div className="gq-trail">{trail}</div>}
-        <div key={active} className={'gq-card' + (moved ? ' anim' : '')}>
+        <div
+          key={active}
+          className={'gq-card' + (moved ? ' anim' : '')}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          onClick={() => {
+            if (inReveal) advanceOnce();
+          }}
+        >
           <div className="gq-eye">{kicker}</div>
           {card}
         </div>
