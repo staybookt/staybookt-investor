@@ -14,14 +14,17 @@ import { min } from '@/lib/css';
  * sections. Takes two and three were scroll-scrubbed films, rejected as annoying to
  * drive. Take four put the cited figures at keynote scale, one per viewport; take
  * four-and-a-half collapsed them onto a pinned stage. Jacob rejected all three
- * scroll-driven takes as confusing, and approved this instead: ONE held card that
- * swaps its content, advanced only by tap, click or keyboard. No pin, no snap
- * markers, no scroll driver, no travel tax. Guess before reveal makes the figures
- * land: the reader commits to an answer, then watches the published number count up
- * past it. The finale is their own arithmetic and a stack-up of the industry's
- * numbers beside theirs. The mirror-not-promise law is unchanged; see the block at
- * the top of GrowthQuiz.tsx. GrowthNumbers (the pinned stage) and the standalone
- * YourMath section are deleted; their salvage lives in GrowthQuiz.
+ * scroll-driven takes as confusing, and approved the quiz instead. Guess before
+ * reveal makes the figures land: the reader commits to an answer, then watches the
+ * published number count up past it.
+ *
+ * RESTRUCTURED A SIXTH TIME (Jacob, July 2026): THE UNIFIED JOURNEY. The gated
+ * card-flow and its cold-open Start card are gone: "the quiz IS the page, a unified
+ * journey, not a click-and-start." The page now opens ON question one, answered
+ * cards condense into a visible trail of receipt rows, and the finale assembles the
+ * stack-up from the reader's own trail. The mirror-not-promise law is unchanged; see
+ * the block at the top of GrowthQuiz.tsx. GrowthNumbers (the pinned stage) and the
+ * standalone YourMath section stay deleted; their salvage lives in GrowthQuiz.
  *
  * PRIVATE MEANS THREE THINGS, ALL LOAD-BEARING:
  *   1. metadata.robots is noindex,nofollow. Do not remove it while this is a draft.
@@ -50,10 +53,10 @@ import { min } from '@/lib/css';
  * "80% of sales take five follow-ups" chestnut. If it cannot be sourced, it is not on
  * this page.
  *
- * STATE NOTE: the quiz is React state. Refresh restarts it from the cold open, which
- * is accepted for a two-founder draft. The cold open renders on the server, so the
- * prerender checks can see it; the later cards are client state and cannot be grepped
- * from the HTML.
+ * STATE NOTE: the quiz is React state. Refresh restarts the journey from question
+ * one, which is accepted for a two-founder draft. Question one renders on the server,
+ * so the prerender checks can see the h1 and its four options; the trail and the
+ * later cards are client state and cannot be grepped from the HTML.
  */
 
 export const metadata = {
@@ -66,8 +69,8 @@ const CSS = `
 .gro{background:#fff;color:var(--v4-ink);}
 .gro .wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
 .gro .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#69707d;}
-/* NO .pg-hero HERE. The quiz's cold-open card IS the hero; the section carries its
-   own 64px clearance under the fixed nav. */
+/* NO .pg-hero HERE. The quiz's first question IS the hero; the section carries its
+   own clearance under the fixed nav. */
 /* SOURCES. One quiet line-list, still linked. Every figure the quiz uses, findable. */
 .gro-src{padding:clamp(44px,6vw,72px) 0;border-top:1px solid #e6e6e1;background:#f6f6f3;}
 .gro-src ul{margin-top:18px;max-width:760px;list-style:none;padding:0;}
@@ -122,9 +125,9 @@ export default function GrowthPage() {
       <style>{min(CSS)}</style>
       <Nav />
       <main id="main" tabIndex={-1}>
-        {/* THE QUIZ. One held card, seven steps: cold open, three guesses against
-            published research, the reader's three inputs, their arithmetic at keynote
-            scale, and the stack-up. Advanced only by tap, click or keyboard. */}
+        {/* THE QUIZ IS THE PAGE. It opens on question one, condenses answered cards
+            into a visible trail, and assembles its finale from that trail. Advanced
+            only by tap, click or keyboard. */}
         <GrowthQuiz />
 
         {/* SOURCES. Every number in the quiz, findable. The link text is the paper,

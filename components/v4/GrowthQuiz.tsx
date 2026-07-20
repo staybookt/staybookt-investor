@@ -1,19 +1,25 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { min } from '@/lib/css';
 
-/* THE GROWTH QUIZ: one held card, seven steps, and the mirror at the end.
+/* THE GROWTH QUIZ IS THE PAGE: one unified journey with a trail of receipts.
  *
- * This replaced GrowthNumbers (the pinned keynote stage) and the standalone YourMath
- * section. Jacob rejected three scroll-driven versions of this page as confusing to
- * drive; the approved design holds ONE card in the viewport and swaps its content.
- * Nothing advances on scroll. Nothing advances on a timer. The reader taps, clicks or
- * presses a key, and that is the only way through.
+ * REBUILT A SIXTH TIME (Jacob, July 2026): the gated card-flow is gone, and so is
+ * its cold-open Start card. "The quiz IS the page, a unified journey, not a
+ * click-and-start." The page opens ON question one: landing means already being in
+ * the journey. When a question is answered, its card condenses into a compact
+ * receipt row that stacks at the top of the experience and stays visible: the
+ * trail. The next question rises into focus beneath it. The reader always sees
+ * where they have been; the page visibly builds. After the last input the finale
+ * assembles from the trail: the industry's revealed figures in one column, the
+ * reader's own numbers and arithmetic in the other. Content height grows and the
+ * page scrolls naturally as the trail accumulates; that is the journey. Nothing
+ * advances on scroll and nothing advances on a timer: taps, clicks and keys only.
  *
- * WHY A QUIZ: guess before reveal makes the figures land. The reader commits to 40%
- * and then watches 62% count up; the gap between their guess and the published number
- * IS the argument, and no scroll choreography ever did that.
+ * WHY A QUIZ: guess before reveal makes the figures land. The reader commits to
+ * 40% and then watches 62% count up; the gap between their guess and the
+ * published number IS the argument, and no scroll choreography ever did that.
  *
  * THE MIRROR, NOT THE PROMISE. READ THIS BEFORE "IMPROVING" ANYTHING.
  * The old leak calculator is a documented, forbidden anti-pattern on this site, and
@@ -37,25 +43,36 @@ import { min } from '@/lib/css';
  * have rebuilt the leak calculator and it is banned. Do not.
  *
  * THE SCORE LINE judges the reader's three QUIZ GUESSES only ("You called 2 of 3."),
- * never their business. The stack-up card sets the industry's published numbers beside
+ * never their business. The stack-up sets the industry's published numbers beside
  * theirs and draws no conclusion for them.
  *
- * MOTION: card swaps are a ~350ms fade with a slight slide, played on the incoming
- * card. The three reveal figures count up once, ~900ms ease-out cubic, and never
- * again. prefers-reduced-motion gets instant swaps and no count-ups, via both the CSS
- * media query and a matchMedia check for the JS-driven count. No aria-live on the
- * count, on purpose: a screen reader gets the final text in DOM order and is never
- * shouted at by sixty intermediate values.
+ * MOTION: an answered card condenses into its trail row over ~450ms ease while the
+ * next card rises into focus, also ~450ms. The finale's rows assemble with a short
+ * stagger, echoing the trail they came from. The three reveal figures count up once,
+ * ~900ms ease-out cubic, and never again. prefers-reduced-motion gets instant
+ * condenses, instant rises and no count-ups, via both the CSS media query and a
+ * matchMedia check for the JS-driven count. No aria-live on the count, on purpose: a
+ * screen reader gets the final text in DOM order and is never shouted at by sixty
+ * intermediate values. Nothing animates on initial page load: the landing state is
+ * simply there.
+ *
+ * BACK IS THE TRAIL: every trail row is a real button. Tapping a question's row
+ * reopens that question for a fresh answer; tapping the numbers row reopens the
+ * steppers. Everything downstream recomputes from state. At the finale, the rows
+ * that assembled into the stack-up stay tappable for the same purpose.
  *
  * ACCESSIBILITY LAWS, from the site audits: options are real buttons in a group
  * labelled by the question heading; answered options go aria-disabled (not disabled)
- * so keyboard focus is never dropped; focus moves to the new card's heading on every
- * advance; tap targets run 48px or better; works at 390px. Quiet grey on this dark
- * section is #8a8f98 (6.27:1 on #050506); mid grey is #aeb6c4; the emerald #34d399
- * clears 10:1. #6b7280 is BANNED everywhere.
+ * so keyboard focus is never dropped; focus moves to the active card's heading on
+ * every advance, reopen or return, never on initial load; trail rows and every other
+ * control run 48px or better; works at 390px. Quiet grey on this dark section is
+ * #8a8f98 (6.27:1 on #050506); mid grey is #aeb6c4; the emerald #34d399 clears 10:1;
+ * the amber #f59e0b clears 9:1. #6b7280 is BANNED everywhere.
  *
- * STATE IS REACT STATE. A refresh restarts the quiz from the cold open. Accepted:
- * this is a private draft for two founders, not a saved form.
+ * STATE IS REACT STATE. A refresh restarts the journey from question one. Accepted:
+ * this is a private draft for two founders, not a saved form. Question one renders on
+ * the server, so the prerender checks can see the h1 and its four options; the trail
+ * and later cards are client state and cannot be grepped from the HTML.
  */
 
 const PRICE = 199;
@@ -73,6 +90,9 @@ type Question = {
   question: string;
   options: string[];
   answer: string;
+  /* The revealed figure as it reads in the trail and the stack-up: for retention the
+     reveal is the 25-95% range, not the bare answer option. */
+  stack: string;
   fig: (p: number) => string;
   small?: boolean;
   line: string;
@@ -89,6 +109,7 @@ const QUESTIONS: Question[] = [
     question: 'What share of calls to home-service businesses ring out unanswered?',
     options: ['25%', '40%', '62%', '75%'],
     answer: '62%',
+    stack: '62%',
     fig: (p) => Math.round(62 * p) + '%',
     line: 'of calls to home-service businesses are never answered live.',
     src: '411 Locals, 2024',
@@ -99,6 +120,7 @@ const QUESTIONS: Question[] = [
     question: 'Answering a new lead within the hour makes you how much more likely to win it than waiting a day?',
     options: ['2x', '4x', '7x', '10x'],
     answer: '7x',
+    stack: '7x',
     fig: (p) => Math.round(7 * p) + 'x',
     line: 'more likely to win the lead when you answer within the hour. The average business takes 42 hours.',
     src: 'Harvard Business Review, 2011',
@@ -109,6 +131,7 @@ const QUESTIONS: Question[] = [
     question: 'Raising customer retention five percent raises profit by up to?',
     options: ['10%', '25%', '50%', '95%'],
     answer: '95%',
+    stack: '25-95%',
     fig: (p) => Math.round(25 * p) + '-' + Math.round(95 * p) + '%',
     small: true,
     line: 'more profit from raising customer retention by just five percent.',
@@ -132,26 +155,35 @@ const FIELDS: Field[] = [
   { key: 'quotes', label: 'Quotes unchased in a month', hint: 'Sent, then buried. No yes, no no', minV: 0, maxV: 50, step: 1, isMoney: false },
 ];
 
-const CARDS = 7;
+/* Stages of the journey: three questions, the reader's numbers, the stack-up. */
+const STAGES = 5;
 
 const CSS = `
-/* ONE HELD CARD. The section is the viewport; the card content swaps in place.
-   64px of top padding keeps the card clear of the fixed nav. overflow-y on the view
-   is a safety net for short phones: the flow itself must reach every word. */
-.gq{position:relative;background:#050506;color:#f5f5f7;height:100vh;height:100svh;min-height:560px;display:flex;flex-direction:column;padding-top:64px;}
-.gq-bar{position:relative;flex:0 0 auto;display:flex;align-items:center;justify-content:center;height:48px;}
-.gq-prog{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#8a8f98;}
-.gq-back{position:absolute;left:clamp(10px,3vw,32px);top:0;min-width:48px;min-height:48px;display:flex;align-items:center;justify-content:center;border:0;background:transparent;color:#8a8f98;font-size:22px;line-height:1;cursor:pointer;border-radius:12px;transition:color .2s ease;}
-.gq-back:hover{color:#fff;}
-.gq-back:focus-visible{outline:2px solid #34d399;outline-offset:2px;}
-.gq-view{flex:1 1 auto;min-height:0;overflow-y:auto;display:flex;}
-.gq-card{margin:auto;width:100%;max-width:1120px;padding:14px clamp(20px,4vw,40px) 44px;display:flex;flex-direction:column;align-items:center;text-align:center;}
-/* THE SWAP. ~350ms fade with a slight slide on the incoming card. Reduced motion
-   gets the instant version via the media query below. */
-@keyframes gq-in{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
-.gq-card.anim{animation:gq-in .35s ease both;}
-@media(prefers-reduced-motion:reduce){.gq-card.anim{animation:none;}}
+/* ONE PAGE GROWING, not screens swapping. The section is normal flow: the trail
+   stacks at the top, the active card holds focus beneath it, and the content height
+   grows as the journey builds. 64px of clearance keeps it clear of the fixed nav. */
+.gq{position:relative;background:#050506;color:#f5f5f7;min-height:100svh;padding:calc(64px + clamp(22px,4vh,44px)) 0 clamp(56px,8vh,96px);}
+.gq-wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px);display:flex;flex-direction:column;align-items:center;text-align:center;}
 .gq-eye{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#8a8f98;}
+/* THE TRAIL. Answered cards condense into these receipt rows and stay visible.
+   Every row is a real button: tapping it reopens that card. */
+.gq-trail{width:100%;max-width:720px;margin:clamp(16px,2.6vh,26px) auto 0;display:flex;flex-direction:column;gap:8px;}
+.gq-tr{display:flex;align-items:center;gap:12px;width:100%;min-height:48px;padding:10px 16px;border:1px solid #23262e;border-radius:14px;background:#0b0c10;color:#aeb6c4;font-family:inherit;font-size:14.5px;line-height:1.45;text-align:left;cursor:pointer;transition:border-color .2s ease,background .2s ease;animation:gq-condense .45s ease both;}
+.gq-tr:hover{border-color:#3a3e49;background:#101218;}
+.gq-tr:focus-visible{outline:2px solid #34d399;outline-offset:2px;}
+.gq-tr b{font-weight:700;color:#fff;font-variant-numeric:tabular-nums;}
+@keyframes gq-condense{from{opacity:0;transform:translateY(14px) scale(.97);}to{opacity:1;transform:none;}}
+/* Right and wrong marks, shared by the trail and the stack-up. Decorative; the
+   words beside them carry the meaning. */
+.gq .mk{flex:0 0 auto;font-size:14px;line-height:1.6;}
+.gq .mk.ok{color:#34d399;}
+.gq .mk.miss{color:#f59e0b;}
+.gq .mk.nt{color:#8a8f98;}
+/* THE ACTIVE CARD. Rises into focus beneath the trail; the landing state renders
+   without animation. */
+.gq-card{width:100%;display:flex;flex-direction:column;align-items:center;text-align:center;padding-top:clamp(26px,4.5vh,50px);}
+.gq-card.anim{animation:gq-in .45s ease both;}
+@keyframes gq-in{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:none;}}
 .gq-h{margin:14px auto 0;font-size:clamp(27px,3.8vw,50px);font-weight:600;letter-spacing:-.03em;line-height:1.08;color:#fff;max-width:24ch;outline:none;}
 .gq-h .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .gq-sub{margin:16px auto 0;font-size:clamp(15.5px,1.7vw,18px);line-height:1.6;color:#aeb6c4;max-width:52ch;}
@@ -197,23 +229,37 @@ const CSS = `
 .gq-in{width:100%;min-height:52px;border:1px solid #2c2f38;border-radius:14px;background:#0b0c10;font-family:inherit;font-size:21px;font-weight:600;color:#fff;text-align:center;-moz-appearance:textfield;appearance:textfield;}
 .gq-in::-webkit-outer-spin-button,.gq-in::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
 .gq-in:focus-visible{outline:2px solid #34d399;outline-offset:2px;}
-/* THE REVEAL. Their arithmetic in the keynote type. It renders instantly, no
-   count-up: arithmetic, not theatre. */
-.gq-cap{margin:clamp(10px,2vh,18px) auto 0;max-width:34ch;font-size:clamp(17px,2.1vw,24px);font-weight:600;letter-spacing:-.02em;line-height:1.4;color:#fff;}
-.gq-covers{margin:14px auto 0;max-width:56ch;font-size:clamp(15px,1.7vw,18.5px);line-height:1.55;color:#aeb6c4;}
-.gq-covers b{font-weight:700;color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap;}
-.gq-covers.quiet{color:#8a8f98;}
-.gq-note{margin:clamp(16px,2.4vh,26px) auto 0;font-size:13px;line-height:1.6;color:#8a8f98;max-width:62ch;}
-/* THE STACK-UP. Two quiet columns, industry beside theirs. No verdict. */
-.gq-cols{margin-top:clamp(20px,3.5vh,34px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2vw,22px);width:100%;max-width:900px;text-align:left;}
+/* THE STACK-UP. The trail rows assemble into two quiet columns, industry beside
+   theirs, with a short stagger echoing the trail they came from. No verdict. The
+   question rows stay tappable so an answer can still be changed from here. */
+.gq-cols{margin-top:clamp(20px,3.5vh,34px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2vw,22px);width:100%;max-width:940px;text-align:left;}
 @media(max-width:720px){.gq-cols{grid-template-columns:1fr;}}
 .gq-col{border:1px solid #23262e;border-radius:18px;background:#0b0c10;padding:20px 22px;}
 .gq-col .hd{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#8a8f98;}
-.gq-col ul{list-style:none;margin:12px 0 0;padding:0;}
-.gq-col li{padding:7px 0;font-size:clamp(14px,1.5vw,16.5px);line-height:1.5;color:#aeb6c4;}
+.gq-col ul{list-style:none;margin:10px 0 0;padding:0;}
+.gq-col li{font-size:clamp(14px,1.5vw,16.5px);line-height:1.5;color:#aeb6c4;animation:gq-in .45s ease both;}
+.gq-col li.tx{padding:10px 0;display:flex;gap:10px;}
 .gq-col li b{font-weight:700;color:#fff;font-variant-numeric:tabular-nums;}
-.gq-score{margin-top:18px;font-size:14px;line-height:1.5;color:#8a8f98;}
-.gq-close{margin:14px auto 0;max-width:56ch;font-size:clamp(15px,1.7vw,18px);line-height:1.55;color:#aeb6c4;}
+.gq-col li:nth-child(2){animation-delay:.08s;}
+.gq-col li:nth-child(3){animation-delay:.16s;}
+.gq-col li:nth-child(4){animation-delay:.24s;}
+.gq-col li:nth-child(5){animation-delay:.32s;}
+.gq-qr{display:flex;align-items:center;gap:10px;width:100%;min-height:48px;margin:0;padding:8px 10px 8px 0;border:0;border-radius:12px;background:transparent;color:#aeb6c4;font-family:inherit;font-size:inherit;line-height:inherit;text-align:left;cursor:pointer;transition:background .2s ease;}
+.gq-qr:hover{background:#15171d;}
+.gq-qr:focus-visible{outline:2px solid #34d399;outline-offset:2px;}
+.gq-qr .you{display:block;margin-top:2px;font-size:12.5px;color:#8a8f98;}
+.gq-fig.gq-fig-col{margin-top:18px;font-size:clamp(44px,6.5vw,96px);}
+.gq-col .late{animation:gq-in .45s ease both;animation-delay:.3s;}
+.gq-cap-col{margin:10px 0 0;max-width:40ch;font-size:clamp(15px,1.6vw,19px);font-weight:600;letter-spacing:-.02em;line-height:1.45;color:#fff;}
+.gq-covers{margin:12px 0 0;max-width:56ch;font-size:clamp(14.5px,1.6vw,17px);line-height:1.55;color:#aeb6c4;}
+.gq-covers b{font-weight:700;color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap;}
+.gq-covers.quiet{color:#8a8f98;}
+.gq-note{margin:16px 0 0;font-size:13px;line-height:1.6;color:#8a8f98;max-width:62ch;}
+.gq-score{margin-top:20px;font-size:14px;line-height:1.5;color:#8a8f98;}
+.gq-close{margin:12px auto 0;max-width:56ch;font-size:clamp(15px,1.7vw,18px);line-height:1.55;color:#aeb6c4;}
+/* REDUCED MOTION: no condense, no rise, no stagger. The count-ups are killed in JS
+   by the matchMedia check. */
+@media(prefers-reduced-motion:reduce){.gq-tr,.gq-card.anim,.gq-col li,.gq-col .late{animation:none;}}
 `;
 
 /* The count-up. Runs once per mount, ~900ms ease-out cubic, then holds the final
@@ -242,7 +288,12 @@ function Fig({ fig, small, instant }: { fig: (p: number) => string; small?: bool
 }
 
 export default function GrowthQuiz() {
-  const [step, setStep] = useState(0);
+  /* active is the card holding focus; furthest is how far the journey has built.
+     Reopening a trail row drops active below furthest; completing it returns to
+     furthest, and everything downstream recomputes from state. */
+  const [active, setActive] = useState(0);
+  const [furthest, setFurthest] = useState(0);
+  const [moved, setMoved] = useState(false);
   const [picks, setPicks] = useState<Record<string, string>>({});
   const [v, setV] = useState<{ job: number; missed: number; quotes: number }>({
     job: 400,
@@ -261,15 +312,35 @@ export default function GrowthQuiz() {
     return () => mq.removeEventListener('change', on);
   }, []);
 
-  /* Focus lands on the new card's heading on every user-driven advance or back,
-     never on initial load. */
+  /* Focus lands on the active card's heading on every user-driven advance, reopen
+     or return, never on initial load. */
   useEffect(() => {
     if (navved.current) headRef.current?.focus();
-  }, [step]);
+  }, [active]);
 
-  const go = (n: number) => {
+  const advance = () => {
     navved.current = true;
-    setStep(Math.max(0, Math.min(CARDS - 1, n)));
+    setMoved(true);
+    if (active < furthest) {
+      setActive(furthest);
+      return;
+    }
+    const n = Math.min(STAGES - 1, active + 1);
+    setFurthest(n);
+    setActive(n);
+  };
+
+  const reopen = (stage: number, qKey?: string) => {
+    navved.current = true;
+    setMoved(true);
+    if (qKey) {
+      setPicks((p) => {
+        const c = { ...p };
+        delete c[qKey];
+        return c;
+      });
+    }
+    setActive(stage);
   };
 
   const set = (f: Field, next: number) => {
@@ -297,33 +368,77 @@ export default function GrowthQuiz() {
       </>
     );
 
-  const card = (() => {
-    if (step === 0) {
-      return (
-        <>
-          <div className="gq-eye">Internal draft</div>
-          <h2 className="gq-h" tabIndex={-1} ref={headRef}>
-            How well do you know the <span className="g">money in your business?</span>
-          </h2>
-          <p className="gq-sub">
-            Three guesses against published research, then your own numbers said back to you.
-          </p>
-          <button type="button" className="gq-cta" onClick={() => go(1)}>
-            Start
-          </button>
-        </>
-      );
-    }
+  const caption =
+    quotes > 0
+      ? quotes === 1
+        ? 'your one unchased quote, priced at your own average job.'
+        : 'of asked-for work in your ' + quotes + ' unchased quotes each month.'
+      : 'is your average job.';
 
-    if (step >= 1 && step <= 3) {
-      const q = QUESTIONS[step - 1];
+  const numbersSummary = (
+    <>
+      Your numbers: <b>{money(job)}</b> avg job, <b>{missed}</b> missed {missed === 1 ? 'call' : 'calls'}/wk,{' '}
+      <b>{quotes}</b> unchased {quotes === 1 ? 'quote' : 'quotes'}/mo
+    </>
+  );
+
+  /* THE TRAIL: a receipt row for every completed card that is not currently open.
+     Hidden at the finale, where the same rows assemble into the stack-up. */
+  const trail: ReactNode[] = [];
+  if (active < STAGES - 1) {
+    for (let s = 0; s < STAGES - 1; s++) {
+      if (s === active || s >= furthest) continue;
+      if (s <= 2) {
+        const q = QUESTIONS[s];
+        const picked = picks[q.key];
+        const right = picked === q.answer;
+        trail.push(
+          <button
+            key={q.key}
+            type="button"
+            className="gq-tr"
+            onClick={() => reopen(s, q.key)}
+            aria-label={'Reopen the ' + q.eye.toLowerCase() + ' question and answer it again'}
+          >
+            <span className={'mk ' + (right ? 'ok' : 'miss')} aria-hidden="true">
+              {right ? '✓' : '●'}
+            </span>
+            <span>
+              {q.eye}: <b>{q.stack}</b>{' '}
+              {picked ? (right ? '(you called it)' : '(you said ' + picked + ')') : '(no answer yet)'}
+            </span>
+          </button>
+        );
+      } else {
+        trail.push(
+          <button
+            key="numbers"
+            type="button"
+            className="gq-tr"
+            onClick={() => reopen(3)}
+            aria-label="Reopen your numbers and adjust them"
+          >
+            <span className="mk nt" aria-hidden="true">
+              {'●'}
+            </span>
+            <span>{numbersSummary}</span>
+          </button>
+        );
+      }
+    }
+  }
+
+  const returnLabel = furthest === STAGES - 1 ? 'Back to the stack-up' : 'Return';
+
+  const card = (() => {
+    if (active <= 2) {
+      const q = QUESTIONS[active];
       const picked = picks[q.key];
       return (
         <>
-          <div className="gq-eye">{q.eye}</div>
-          <h2 className="gq-h" tabIndex={-1} ref={headRef} id={'gq-q-' + q.key}>
+          <h1 className="gq-h" tabIndex={-1} ref={headRef} id={'gq-q-' + q.key}>
             {q.question}
-          </h2>
+          </h1>
           <div className="gq-opts" role="group" aria-labelledby={'gq-q-' + q.key}>
             {q.options.map((o) => {
               const cls =
@@ -349,8 +464,8 @@ export default function GrowthQuiz() {
               <Fig fig={q.fig} small={q.small} instant={reduced} />
               <p className="gq-line">{q.line}</p>
               <p className="gq-srcline">{q.src}</p>
-              <button type="button" className="gq-cta" onClick={() => go(step + 1)}>
-                Next
+              <button type="button" className="gq-cta" onClick={advance}>
+                {active < furthest ? returnLabel : 'Next'}
               </button>
             </>
           )}
@@ -358,13 +473,12 @@ export default function GrowthQuiz() {
       );
     }
 
-    if (step === 4) {
+    if (active === 3) {
       return (
         <>
-          <div className="gq-eye">Your numbers</div>
-          <h2 className="gq-h" tabIndex={-1} ref={headRef}>
+          <h1 className="gq-h" tabIndex={-1} ref={headRef}>
             Now three numbers <span className="g">only you know.</span>
-          </h2>
+          </h1>
           <p className="gq-sub">
             Rough is fine. The arithmetic happens on your screen and goes nowhere.
           </p>
@@ -419,72 +533,71 @@ export default function GrowthQuiz() {
               );
             })}
           </div>
-          <button type="button" className="gq-cta" onClick={() => go(5)}>
-            Continue
+          <button type="button" className="gq-cta" onClick={advance}>
+            {active < furthest ? returnLabel : 'Continue'}
           </button>
         </>
       );
     }
 
-    if (step === 5) {
-      return (
-        <>
-          <div className="gq-eye">The arithmetic</div>
-          <h2 className="gq-h" tabIndex={-1} ref={headRef}>
-            Your math, <span className="g">not ours.</span>
-          </h2>
-          <div className="gq-fig">{money(quotes > 0 ? quoteValue : job)}</div>
-          <p className="gq-cap">
-            {quotes > 0
-              ? quotes === 1
-                ? 'your one unchased quote, priced at your own average job.'
-                : 'of asked-for work in your ' + quotes + ' unchased quotes each month.'
-              : 'is your average job.'}
-          </p>
-          <p className="gq-covers">{covers}</p>
-          {quotes === 0 && (
-            <p className="gq-covers quiet">
-              No unchased quotes on the table, so the figure above is simply your average job.
-            </p>
-          )}
-          <p className="gq-note">
-            This is your arithmetic, not our promise. We do not know your close rate, your
-            margins or your market, and we are not going to pretend we do. The numbers above
-            are your inputs, multiplied and divided where you can check them in your head.
-          </p>
-          <button type="button" className="gq-cta" onClick={() => go(6)}>
-            Next
-          </button>
-        </>
-      );
-    }
-
+    /* THE FINALE. The trail assembles into the stack-up: the reader's three
+       revealed figures, still wearing their marks and their guesses, become the
+       industry column beside two more published stats; their own inputs and their
+       arithmetic, at keynote scale, become the other. No verdict. */
     return (
       <>
-        <div className="gq-eye">The stack-up</div>
-        <h2 className="gq-h" tabIndex={-1} ref={headRef}>
+        <h1 className="gq-h" tabIndex={-1} ref={headRef}>
           The industry&apos;s numbers, <span className="g">beside yours.</span>
-        </h2>
+        </h1>
         <div className="gq-cols">
           <div className="gq-col">
             <div className="hd">The industry</div>
             <ul>
-              <li>
-                <b>62%</b> of calls to home-service businesses are never answered live.
+              {QUESTIONS.map((q, i) => {
+                const picked = picks[q.key];
+                const right = picked === q.answer;
+                return (
+                  <li key={q.key}>
+                    <button
+                      type="button"
+                      className="gq-qr"
+                      onClick={() => reopen(i, q.key)}
+                      aria-label={'Reopen the ' + q.eye.toLowerCase() + ' question and answer it again'}
+                    >
+                      <span className={'mk ' + (right ? 'ok' : 'miss')} aria-hidden="true">
+                        {right ? '✓' : '●'}
+                      </span>
+                      <span>
+                        <b>{q.stack}</b> {q.line}
+                        <span className="you">
+                          {picked
+                            ? right
+                              ? 'You called it.'
+                              : 'You said ' + picked + '. Tap to change it.'
+                            : 'You left this one open. Tap to answer it.'}
+                        </span>
+                      </span>
+                    </button>
+                  </li>
+                );
+              })}
+              <li className="tx">
+                <span className="mk nt" aria-hidden="true">
+                  {'●'}
+                </span>
+                <span>
+                  <b>37%</b> of estimates close on the first visit. The rest close in the
+                  follow-up, or never. (ServiceTitan)
+                </span>
               </li>
-              <li>
-                <b>7x</b> more likely to win the lead when you answer within the hour.
-              </li>
-              <li>
-                <b>37%</b> of estimates close on the first visit. The rest close in the
-                follow-up, or never. (ServiceTitan)
-              </li>
-              <li>
-                <b>88%</b> of consumers would use a business that replies to all of its
-                reviews. (BrightLocal, 2024)
-              </li>
-              <li>
-                <b>25-95%</b> more profit from raising retention five percent.
+              <li className="tx">
+                <span className="mk nt" aria-hidden="true">
+                  {'●'}
+                </span>
+                <span>
+                  <b>88%</b> of consumers would use a business that replies to all of its
+                  reviews. (BrightLocal, 2024)
+                </span>
               </li>
             </ul>
           </div>
@@ -492,36 +605,56 @@ export default function GrowthQuiz() {
             <div className="hd">Yours</div>
             <ul>
               <li>
-                Your average job is <b>{money(job)}</b>.
+                <button
+                  type="button"
+                  className="gq-qr"
+                  onClick={() => reopen(3)}
+                  aria-label="Reopen your numbers and adjust them"
+                >
+                  <span className="mk nt" aria-hidden="true">
+                    {'●'}
+                  </span>
+                  <span>
+                    {numbersSummary}
+                    <span className="you">Tap to adjust them.</span>
+                  </span>
+                </button>
               </li>
-              <li>
-                {missed > 0 ? (
-                  <>
-                    You miss <b>{missed}</b> {missed === 1 ? 'call' : 'calls'} a week, which is{' '}
-                    <b>{missedMonthly}</b> a month.
-                  </>
-                ) : (
-                  <>No missed calls in a week.</>
-                )}
+              <li className="tx">
+                <span className="mk nt" aria-hidden="true">
+                  {'●'}
+                </span>
+                <span>
+                  {missed > 0 ? (
+                    <>
+                      You miss <b>{missed}</b> {missed === 1 ? 'call' : 'calls'} a week, which is{' '}
+                      <b>{missedMonthly}</b> a month.
+                    </>
+                  ) : (
+                    <>No missed calls in a week.</>
+                  )}
+                </span>
               </li>
-              <li>
-                {quotes > 0 ? (
-                  <>
-                    <b>{quotes}</b> {quotes === 1 ? 'quote sits' : 'quotes sit'} unchased a
-                    month, carrying <b>{money(quoteValue)}</b> of asked-for work.
-                  </>
-                ) : (
-                  <>No unchased quotes on the table.</>
-                )}
-              </li>
-              <li>{covers}</li>
             </ul>
+            <div className="gq-fig gq-fig-col late">{money(quotes > 0 ? quoteValue : job)}</div>
+            <p className="gq-cap-col late">{caption}</p>
+            <p className="gq-covers late">{covers}</p>
+            {quotes === 0 && (
+              <p className="gq-covers quiet late">
+                No unchased quotes on the table, so the figure above is simply your average job.
+              </p>
+            )}
+            <p className="gq-note late">
+              This is your arithmetic, not our promise. We do not know your close rate, your
+              margins or your market, and we are not going to pretend we do. The numbers above
+              are your inputs, multiplied and divided where you can check them in your head.
+            </p>
           </div>
         </div>
-        <p className="gq-score">You called {score} of 3 on the quiz.</p>
+        <p className="gq-score">You called {score} of 3.</p>
         <p className="gq-close">
-          Every industry figure above is published research, linked just below. Yours came
-          from you, and the disclosure from the last card still applies.
+          Every industry figure above is published research, linked just below. Your column
+          came from you, and stayed on your screen.
         </p>
       </>
     );
@@ -530,16 +663,10 @@ export default function GrowthQuiz() {
   return (
     <section className="gq" aria-label="The growth quiz">
       <style>{min(CSS)}</style>
-      <div className="gq-bar">
-        {step > 0 && (
-          <button type="button" className="gq-back" onClick={() => go(step - 1)} aria-label="Back to the previous card">
-            &larr;
-          </button>
-        )}
-        <div className="gq-prog">{(step + 1) + ' of ' + CARDS}</div>
-      </div>
-      <div className="gq-view">
-        <div key={step} className="gq-card anim">
+      <div className="gq-wrap">
+        <div className="gq-eye">Internal draft</div>
+        {trail.length > 0 && <div className="gq-trail">{trail}</div>}
+        <div key={active} className={'gq-card' + (moved ? ' anim' : '')}>
           {card}
         </div>
       </div>
