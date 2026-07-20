@@ -109,11 +109,12 @@ const CSS = `
 .gro .pg-hero{--hero-hue:16,185,129;padding:calc(64px + clamp(40px,6vh,64px)) 0 clamp(30px,4.5vh,48px);}
 .gro .pg-hero .wrap h1{font-size:clamp(34px,4.6vw,58px);max-width:22ch;}
 .gro .pg-hero .wrap p{margin-top:18px;font-size:clamp(16px,1.9vw,20px);max-width:52ch;}
-/* THE SCROLL CUE. Quiet, uppercase, #8a8f98 at 6.27:1 on #050506. The chevron bobs
-   gently; reduced motion stills it. */
+/* THE SCROLL CUE. Quiet, uppercase, #8a8f98 at 6.27:1 on #050506. The chevron
+   pulses on opacity only, 2s period, same grammar as the quiz's cue; reduced
+   motion stills it. */
 .gro .pg-hero .wrap .gro-cue{display:flex;flex-direction:column;align-items:center;gap:9px;margin:clamp(26px,4.5vh,44px) auto 0;max-width:none;font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#8a8f98;}
-.gro .pg-hero .wrap .gro-cue svg{display:block;animation:gro-cue 2.4s ease-in-out infinite;}
-@keyframes gro-cue{0%,100%{opacity:.45;transform:translateY(0);}50%{opacity:.95;transform:translateY(5px);}}
+.gro .pg-hero .wrap .gro-cue svg{display:block;animation:gro-cue 2s ease-in-out infinite;}
+@keyframes gro-cue{0%,100%{opacity:.4;}50%{opacity:.95;}}
 @media(prefers-reduced-motion:reduce){.gro .pg-hero .wrap .gro-cue svg{animation:none;}}
 `;
 

@@ -331,9 +331,12 @@ body[data-quiz-active] .gro main~footer{display:none;}
 /* THE TRAIL. Answered cards condense into these receipt rows and stay visible.
    Every row is a real button: tapping it reopens that card. White cards on the
    cream, #ececeb borders: the matrix's light-surface card language. */
-.gq-trail{width:100%;max-width:720px;margin:clamp(16px,2.6vh,26px) auto 0;display:flex;flex-direction:column;gap:8px;}
-.gq-tr{display:flex;align-items:center;gap:12px;width:100%;min-height:48px;padding:10px 16px;border:1px solid #ececeb;border-radius:14px;background:#fff;color:#69707d;font-family:inherit;font-size:14.5px;line-height:1.45;text-align:left;cursor:pointer;transition:border-color .2s ease,background .2s ease;animation:gq-condense .6s ease both;box-shadow:0 2px 6px -2px rgba(6,12,20,.06);}
-.gq-tr:hover{border-color:#d9d9d3;background:#fbfbfa;}
+.gq-trail{width:100%;max-width:720px;margin:clamp(16px,2.6vh,24px) auto 0;display:flex;flex-direction:column;gap:8px;}
+/* Receipt rows as quiet pills: full-radius, hairline border, the layered light
+   shadow, and a 1px lift on hover. Transform and opacity only. */
+.gq-tr{display:flex;align-items:center;gap:12px;width:100%;min-height:48px;padding:10px 18px;border:1px solid #ececeb;border-radius:999px;background:#fff;color:#69707d;font-family:inherit;font-size:14.5px;line-height:1.45;text-align:left;cursor:pointer;transition:border-color .25s cubic-bezier(.16,1,.3,1),transform .25s cubic-bezier(.16,1,.3,1),box-shadow .25s cubic-bezier(.16,1,.3,1);animation:gq-condense .5s cubic-bezier(.16,1,.3,1) both;box-shadow:0 1px 2px rgba(6,8,13,.05),0 10px 28px -12px rgba(6,8,13,.12);}
+.gq-tr:hover{border-color:#d9d9d3;transform:translateY(-1px);box-shadow:0 2px 4px rgba(6,8,13,.06),0 14px 34px -12px rgba(6,8,13,.16);}
+.gq-tr:active{transform:translateY(0);box-shadow:0 1px 2px rgba(6,8,13,.05),0 8px 22px -12px rgba(6,8,13,.1);}
 .gq-tr:focus-visible{outline:2px solid #059669;outline-offset:2px;}
 .gq-tr b{font-weight:700;color:#06080d;font-variant-numeric:tabular-nums;}
 @keyframes gq-condense{from{opacity:0;transform:translateY(14px) scale(.97);}to{opacity:1;transform:none;}}
@@ -348,10 +351,21 @@ body[data-quiz-active] .gro main~footer{display:none;}
    not justify-content, do the centring, so if the card ever outgrows a short
    screen the top stays reachable through the stage's internal scroll. Rises into
    focus beneath the trail; the landing state renders without animation. */
-.gq-card{width:100%;display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:auto;margin-bottom:auto;padding:clamp(14px,2.5vh,30px) 0;}
-.gq-card.anim{animation:gq-in .6s ease both;}
+.gq-card{width:100%;display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:auto;margin-bottom:auto;padding:clamp(16px,2.5vh,32px) 0;}
+.gq-card.anim{animation:gq-in .5s cubic-bezier(.16,1,.3,1) both;}
+/* THE STAGGER (craft pass). A card swap choreographs its children 60-90ms apart
+   on the site curve. The to-frame deliberately omits opacity: each child fades
+   toward its OWN computed value, so the chevron cue, the quiet Continue and the
+   source line, which idle at opacity 0 until armed, stay dark instead of being
+   forced visible by a fill. This rule sits early on purpose: the armed states
+   (.gq-cue.on and friends) are declared later and win the cascade. */
+.gq-card.anim>*{animation:gq-ch .5s cubic-bezier(.16,1,.3,1) both;}
+.gq-card.anim>*:nth-child(2){animation-delay:.07s;}
+.gq-card.anim>*:nth-child(3){animation-delay:.14s;}
+.gq-card.anim>*:nth-child(n+4){animation-delay:.2s;}
+@keyframes gq-ch{from{opacity:0;transform:translateY(14px);}to{transform:none;}}
 @keyframes gq-in{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:none;}}
-.gq-h{margin:14px auto 0;font-size:clamp(27px,3.8vw,50px);font-weight:600;letter-spacing:-.03em;line-height:1.08;color:#06080d;max-width:24ch;outline:none;transition:font-size .3s ease;}
+.gq-h{margin:16px auto 0;font-size:clamp(27px,3.8vw,50px);font-weight:600;letter-spacing:-.035em;line-height:1.05;color:#06080d;max-width:24ch;outline:none;transition:font-size .35s cubic-bezier(.16,1,.3,1);}
 .gq-h .g{background:var(--sb-grad-ink);-webkit-background-clip:text;background-clip:text;color:transparent;}
 /* During the reveal the question quiets to a small kicker line above the figure.
    Same h2 element, so the outline and the focus target never change. */
@@ -362,7 +376,7 @@ body[data-quiz-active] .gro main~footer{display:none;}
    scroll flow until the card is hovered or it holds focus; always visible (.vis)
    for keyboard picks, reduced motion and reopens from the finale, which need a
    deliberate way back. 48px tap target, quiet grey at 4.60:1 on the cream. */
-.gq-go{margin-top:clamp(18px,3vh,32px);min-height:48px;padding:12px 24px;border:1px solid transparent;border-radius:999px;background:transparent;color:#69707d;font-family:inherit;font-size:13.5px;font-weight:600;letter-spacing:.04em;cursor:pointer;opacity:0;transition:opacity .2s ease,color .2s ease,border-color .2s ease;}
+.gq-go{margin-top:clamp(16px,3vh,32px);min-height:48px;padding:12px 24px;border:1px solid transparent;border-radius:999px;background:transparent;color:#69707d;font-family:inherit;font-size:13.5px;font-weight:600;letter-spacing:.04em;cursor:pointer;opacity:0;transition:opacity .25s cubic-bezier(.16,1,.3,1),color .25s cubic-bezier(.16,1,.3,1),border-color .25s cubic-bezier(.16,1,.3,1);}
 .gq-go.vis{opacity:1;border-color:#ececeb;}
 .gq-go:focus-visible,.gq-card:hover .gq-go{opacity:1;}
 .gq-go:hover{color:#06080d;border-color:#d9d9d3;}
@@ -370,38 +384,50 @@ body[data-quiz-active] .gro main~footer{display:none;}
 /* OPTIONS. Real buttons; after the pick they resolve in place: the correct one goes
    emerald, the reader's wrong pick keeps a light outline, the rest fall back. They
    go aria-disabled, never disabled, so keyboard focus is not dropped. */
-.gq-opts{margin-top:clamp(20px,3.5vh,34px);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;width:100%;max-width:640px;}
+.gq-opts{margin-top:clamp(24px,3.5vh,32px);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;width:100%;max-width:640px;}
 @media(max-width:560px){.gq-opts{grid-template-columns:1fr 1fr;}}
-.gq-opt{min-height:56px;border-radius:16px;border:1px solid #ececeb;background:#fff;color:#06080d;font-family:inherit;font-size:19px;font-weight:600;cursor:pointer;transition:background .2s ease,border-color .2s ease,color .2s ease,opacity .2s ease;box-shadow:0 2px 6px -2px rgba(6,12,20,.06);}
-.gq-opt:hover{background:#fbfbfa;border-color:#d9d9d3;}
+/* Option cards in the refined light-surface material: white, hairline border, a
+   layered soft shadow. Hover lifts 1px and deepens the shadow; pressed
+   compresses; the resolved states sit flat and confident. Transform and opacity
+   only, on the site curve. */
+.gq-opt{min-height:56px;border-radius:14px;border:1px solid #ececeb;background:#fff;color:#06080d;font-family:inherit;font-size:19px;font-weight:600;font-variant-numeric:tabular-nums;cursor:pointer;transition:background .25s cubic-bezier(.16,1,.3,1),border-color .25s cubic-bezier(.16,1,.3,1),color .25s cubic-bezier(.16,1,.3,1),opacity .25s cubic-bezier(.16,1,.3,1),transform .25s cubic-bezier(.16,1,.3,1),box-shadow .25s cubic-bezier(.16,1,.3,1);box-shadow:0 1px 2px rgba(6,8,13,.05),0 10px 28px -12px rgba(6,8,13,.12);}
+.gq-opt:hover{background:#fbfbfa;border-color:#d9d9d3;transform:translateY(-1px);box-shadow:0 2px 4px rgba(6,8,13,.06),0 16px 36px -12px rgba(6,8,13,.16);}
+.gq-opt:active{transform:translateY(0) scale(.98);box-shadow:0 1px 2px rgba(6,8,13,.05),0 8px 22px -12px rgba(6,8,13,.1);}
 .gq-opt:focus-visible{outline:2px solid #059669;outline-offset:2px;}
-.gq-opt.ok{border-color:#046c4e;color:#046c4e;background:rgba(4,108,78,.06);cursor:default;}
-.gq-opt.my{border-color:#b45309;color:#b45309;background:rgba(245,158,11,.1);cursor:default;}
-.gq-opt.dim{opacity:.55;cursor:default;}
-.gq-opt.my:hover,.gq-opt.dim:hover{background:#fff;}
-.gq-opt.my:hover{background:rgba(245,158,11,.1);}
-.gq-opt.ok:hover{background:rgba(4,108,78,.06);border-color:#046c4e;}
+/* The correct answer resolves with a confident emerald ring and tint, not just a
+   border swap; the reader's miss keeps its amber outline, quieter. */
+.gq-opt.ok{border-color:#046c4e;color:#046c4e;background:rgba(4,108,78,.06);cursor:default;box-shadow:0 0 0 3px rgba(5,150,105,.16),0 1px 2px rgba(6,8,13,.05);}
+.gq-opt.my{border-color:#b45309;color:#b45309;background:rgba(245,158,11,.1);cursor:default;box-shadow:0 1px 2px rgba(6,8,13,.05);}
+.gq-opt.dim{opacity:.55;cursor:default;box-shadow:0 1px 2px rgba(6,8,13,.05);}
+.gq-opt.ok:hover,.gq-opt.my:hover,.gq-opt.dim:hover{transform:none;}
+.gq-opt.dim:hover{background:#fff;border-color:#ececeb;}
+.gq-opt.my:hover{background:rgba(245,158,11,.1);border-color:#b45309;}
+.gq-opt.ok:hover{background:rgba(4,108,78,.06);border-color:#046c4e;box-shadow:0 0 0 3px rgba(5,150,105,.16),0 1px 2px rgba(6,8,13,.05);}
 /* THE CONDENSE, ~350ms on answer: the picked option and the correct one shrink up
    toward the incoming trail row; the rest fade out. Then the reveal owns the
    screen. */
 .gq-opts.going .gq-opt{pointer-events:none;}
-.gq-opts.going .gq-opt.ok,.gq-opts.going .gq-opt.my{animation:gq-shrink .35s ease both;}
-.gq-opts.going .gq-opt.dim{animation:gq-fade .35s ease both;}
+.gq-opts.going .gq-opt.ok,.gq-opts.going .gq-opt.my{animation:gq-shrink .35s cubic-bezier(.16,1,.3,1) both;}
+.gq-opts.going .gq-opt.dim{animation:gq-fade .3s cubic-bezier(.16,1,.3,1) both;}
 @keyframes gq-shrink{to{opacity:0;transform:translateY(-30px) scale(.55);}}
 @keyframes gq-fade{to{opacity:0;}}
 /* THE REVEAL. Figure, one line, source, in air: roughly double the question
    rhythm. The region is focusable so a keyboard reader can land on it and
    advance in place; the chevron beneath it pulses gently once the count lands,
    the quiet cue that the next scroll brings the next question. */
-.gq-reveal{display:flex;flex-direction:column;align-items:center;width:100%;animation:gq-in .35s ease both;}
+.gq-reveal{display:flex;flex-direction:column;align-items:center;width:100%;animation:gq-in .35s cubic-bezier(.16,1,.3,1) both;}
 .gq-reveal:focus-visible{outline:2px solid #059669;outline-offset:10px;border-radius:12px;}
-.gq-reveal .gq-fig{margin-top:clamp(26px,5.5vh,54px);}
+/* The figure lands with a slight settle: scale 1.02 to 1 on the site curve while
+   the count runs, so the number arrives instead of appearing. */
+.gq-reveal .gq-fig{margin-top:clamp(26px,5.5vh,54px);animation:gq-settle .9s cubic-bezier(.16,1,.3,1) both;}
+@keyframes gq-settle{from{opacity:0;transform:scale(1.02);}to{transform:none;}}
 .gq-reveal .gq-line{margin-top:clamp(22px,4.2vh,40px);}
-.gq-reveal .gq-srcline{margin-top:clamp(14px,2.8vh,26px);}
-.gq-cue{margin-top:clamp(20px,3.6vh,36px);height:14px;color:#69707d;opacity:0;transition:opacity .3s ease;}
-.gq-cue.on{opacity:1;animation:gq-cue 2.4s ease-in-out infinite;}
+.gq-reveal .gq-srcline{margin-top:clamp(16px,2.8vh,24px);}
+/* The chevron pulse: opacity only, 2s period, deliberately subtle. */
+.gq-cue{margin-top:clamp(20px,3.6vh,36px);height:14px;color:#69707d;opacity:0;transition:opacity .3s cubic-bezier(.16,1,.3,1);}
+.gq-cue.on{opacity:1;animation:gq-cue 2s ease-in-out infinite;}
 .gq-cue svg{display:block;}
-@keyframes gq-cue{0%,100%{opacity:.45;transform:translateY(0);}50%{opacity:.95;transform:translateY(5px);}}
+@keyframes gq-cue{0%,100%{opacity:.4;}50%{opacity:.95;}}
 /* THE FIGURE. Keynote scale, gradient on the number, tabular so digits do not
    jitter sideways while they count. Giant display text on the LIGHT ground, so
    the gradient is --sb-grad-ink, never --sb-grad: the ink gradient's quietest
@@ -418,24 +444,24 @@ body[data-quiz-active] .gro main~footer{display:none;}
    so where the number came from gets its own quiet moment before the chevron
    invites the next scroll. Small quiet type on purpose: 12.5px #69707d runs
    4.60:1 on the cream. */
-.gq-srcline{margin:12px auto 0;max-width:60ch;font-size:12.5px;line-height:1.5;color:#69707d;opacity:0;transform:translateY(6px);transition:opacity .6s ease,transform .6s ease;}
+.gq-srcline{margin:12px auto 0;max-width:60ch;font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;line-height:1.6;color:#69707d;opacity:0;transform:translateY(6px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1);}
 .gq-srcline.on{opacity:1;transform:none;}
 /* THE INPUTS. Salvaged from YourMath: 48px minimum tap targets (these run 52), real
    buttons and a real number input per field, visible focus. Non-negotiable. */
 .gq-fields{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,22px);width:100%;max-width:940px;margin:clamp(22px,4vh,40px) auto 0;text-align:left;}
 @media(max-width:860px){.gq-fields{grid-template-columns:1fr;}}
-.gq-f{border:1px solid #ececeb;border-radius:18px;background:#fff;padding:18px 18px 16px;box-shadow:0 2px 6px -2px rgba(6,12,20,.06);}
+.gq-f{border:1px solid #ececeb;border-radius:16px;background:#fff;padding:18px 18px 16px;box-shadow:0 1px 2px rgba(6,8,13,.05),0 10px 28px -12px rgba(6,8,13,.12);}
 .gq-f .lb{display:block;font-size:14.5px;font-weight:600;color:#06080d;}
 .gq-f .ht{display:block;margin-top:4px;font-size:12.5px;line-height:1.45;color:#69707d;}
 .gq-row{margin-top:12px;display:flex;align-items:stretch;gap:10px;}
-.gq-btn{flex:0 0 52px;min-width:48px;min-height:52px;border-radius:14px;border:1px solid #ececeb;background:#fff;color:#06080d;font-size:24px;font-weight:600;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s ease,border-color .2s ease;}
-.gq-btn:hover{background:#fbfbfa;border-color:#d9d9d3;}
-.gq-btn:active{background:#f2f2ef;}
+.gq-btn{flex:0 0 52px;min-width:48px;min-height:52px;border-radius:14px;border:1px solid #ececeb;background:#fff;color:#06080d;font-size:24px;font-weight:600;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s cubic-bezier(.16,1,.3,1),border-color .2s cubic-bezier(.16,1,.3,1),transform .2s cubic-bezier(.16,1,.3,1);}
+.gq-btn:hover{background:#fbfbfa;border-color:#d9d9d3;transform:translateY(-1px);}
+.gq-btn:active{background:#f2f2ef;transform:translateY(0) scale(.96);}
 .gq-btn:focus-visible{outline:2px solid #059669;outline-offset:2px;}
 .gq-btn:disabled{opacity:.35;cursor:default;}
 .gq-val{position:relative;flex:1 1 auto;min-width:0;display:flex;align-items:center;}
 .gq-val .cur{position:absolute;left:12px;font-size:16px;font-weight:600;color:#69707d;pointer-events:none;}
-.gq-in{width:100%;min-height:52px;border:1px solid #ececeb;border-radius:14px;background:#fff;font-family:inherit;font-size:21px;font-weight:600;color:#06080d;text-align:center;-moz-appearance:textfield;appearance:textfield;}
+.gq-in{width:100%;min-height:52px;border:1px solid #ececeb;border-radius:14px;background:#fff;font-family:inherit;font-size:24px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:#06080d;text-align:center;-moz-appearance:textfield;appearance:textfield;}
 .gq-in::-webkit-outer-spin-button,.gq-in::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
 .gq-in:focus-visible{outline:2px solid #059669;outline-offset:2px;}
 /* THE STACK-UP. The trail rows assemble into two quiet columns, industry beside
@@ -443,39 +469,39 @@ body[data-quiz-active] .gro main~footer{display:none;}
    question rows stay tappable so an answer can still be changed from here. */
 .gq-cols{margin-top:clamp(20px,3.5vh,34px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2vw,22px);width:100%;max-width:940px;text-align:left;}
 @media(max-width:720px){.gq-cols{grid-template-columns:1fr;}}
-.gq-col{border:1px solid #ececeb;border-radius:18px;background:#fff;padding:20px 22px;box-shadow:0 2px 6px -2px rgba(6,12,20,.06);}
+.gq-col{border:1px solid #ececeb;border-radius:18px;background:#fff;padding:20px 22px;box-shadow:0 1px 2px rgba(6,8,13,.05),0 10px 28px -12px rgba(6,8,13,.12);}
 .gq-col .hd{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#69707d;}
 .gq-col ul{list-style:none;margin:10px 0 0;padding:0;}
-.gq-col li{font-size:clamp(14px,1.5vw,16.5px);line-height:1.5;color:#69707d;animation:gq-in .45s ease both;}
+.gq-col li{font-size:clamp(14px,1.5vw,16.5px);line-height:1.5;color:#69707d;animation:gq-in .45s cubic-bezier(.16,1,.3,1) both;}
 .gq-col li.tx{padding:10px 0;display:flex;gap:10px;}
 .gq-col li b{font-weight:700;color:#06080d;font-variant-numeric:tabular-nums;}
 .gq-col li:nth-child(2){animation-delay:.08s;}
 .gq-col li:nth-child(3){animation-delay:.16s;}
 .gq-col li:nth-child(4){animation-delay:.24s;}
 .gq-col li:nth-child(5){animation-delay:.32s;}
-.gq-qr{display:flex;align-items:center;gap:10px;width:100%;min-height:48px;margin:0;padding:8px 10px 8px 0;border:0;border-radius:12px;background:transparent;color:#69707d;font-family:inherit;font-size:inherit;line-height:inherit;text-align:left;cursor:pointer;transition:background .2s ease;}
+.gq-qr{display:flex;align-items:center;gap:10px;width:100%;min-height:48px;margin:0;padding:8px 10px 8px 0;border:0;border-radius:12px;background:transparent;color:#69707d;font-family:inherit;font-size:inherit;line-height:inherit;text-align:left;cursor:pointer;transition:background .2s cubic-bezier(.16,1,.3,1);}
 .gq-qr:hover{background:#f6f6f3;}
 .gq-qr:focus-visible{outline:2px solid #059669;outline-offset:2px;}
 .gq-qr .you{display:block;margin-top:2px;font-size:12.5px;color:#69707d;}
 .gq-fig.gq-fig-col{margin-top:18px;font-size:clamp(44px,6.5vw,96px);}
-.gq-col .late{animation:gq-in .45s ease both;animation-delay:.3s;}
+.gq-col .late{animation:gq-in .45s cubic-bezier(.16,1,.3,1) both;animation-delay:.3s;}
 .gq-cap-col{margin:10px 0 0;max-width:40ch;font-size:clamp(15px,1.6vw,19px);font-weight:600;letter-spacing:-.02em;line-height:1.45;color:#06080d;}
 .gq-covers{margin:12px 0 0;max-width:56ch;font-size:clamp(14.5px,1.6vw,17px);line-height:1.55;color:#69707d;}
 .gq-covers b{font-weight:700;color:#06080d;font-variant-numeric:tabular-nums;white-space:nowrap;}
 .gq-covers.quiet{color:#69707d;}
-.gq-note{margin:16px 0 0;font-size:13px;line-height:1.6;color:#69707d;max-width:62ch;}
+.gq-note{margin:16px 0 0;font-size:13px;line-height:1.6;color:#69707d;max-width:60ch;}
 .gq-score{margin-top:20px;font-size:14px;line-height:1.5;color:#69707d;}
 .gq-close{margin:12px auto 0;max-width:56ch;font-size:clamp(15px,1.7vw,18px);line-height:1.55;color:#69707d;}
 /* THE RESULTS MOMENT (eleventh pass). The score lands first at keynote scale and
    counts up; once the count lands the three receipts stagger in beneath it, 120ms
    apart (inline animation-delay per row), and one adaptive line of verdict copy
    rises last. The verdict is ink, not grey: it is the line of the moment. */
-.gq-verdict{margin:clamp(14px,2.4vh,22px) auto 0;max-width:44ch;font-size:clamp(16px,1.8vw,20px);font-weight:600;letter-spacing:-.01em;line-height:1.5;color:#06080d;animation:gq-in .45s ease both;animation-delay:.36s;}
+.gq-verdict{margin:clamp(14px,2.4vh,22px) auto 0;max-width:44ch;font-size:clamp(16px,1.8vw,20px);font-weight:600;letter-spacing:-.01em;line-height:1.5;color:#06080d;animation:gq-in .45s cubic-bezier(.16,1,.3,1) both;animation-delay:.36s;}
 /* REDUCED MOTION: no condense, no rise, no stagger, no reveal slide, no chevron
    pulse, no pinned stage and no delayed source: flat stacked flow, everything
    simply there. The count-ups and the gesture capture are killed in JS by the
    matchMedia check; the JS also adds .gq-rel, these rules are the CSS half. */
-@media(prefers-reduced-motion:reduce){.gq-tr,.gq-card.anim,.gq-col li,.gq-col .late,.gq-opts.going .gq-opt,.gq-reveal,.gq-cue,.gq-verdict{animation:none;}.gq-h{transition:none;}.gq-stage{position:static;height:auto;min-height:100svh;overflow:visible;}.gq-srcline{opacity:1;transform:none;transition:none;}}
+@media(prefers-reduced-motion:reduce){.gq-tr,.gq-card.anim,.gq-card.anim>*,.gq-col li,.gq-col .late,.gq-opts.going .gq-opt,.gq-reveal,.gq-reveal .gq-fig,.gq-cue,.gq-cue.on,.gq-verdict{animation:none;}.gq-h{transition:none;}.gq-opt,.gq-tr,.gq-btn{transition:none;}.gq-opt:hover,.gq-tr:hover,.gq-btn:hover{transform:none;}.gq-stage{position:static;height:auto;min-height:100svh;overflow:visible;}.gq-srcline{opacity:1;transform:none;transition:none;}}
 `;
 
 /* The count-up. Runs once per mount, ~900ms ease-out cubic, then holds the final
