@@ -490,21 +490,56 @@ export default function HowItWorks() {
     if (!el || !root) return;
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduce) { root.style.setProperty('--p', '1'); return; }
+    /* DAMPED, NOT DIRECT. Same treatment as the two pinned films (JourneyMap, RemovalTest),
+       for the same reason: this trail was drawn straight from scroll position once per frame,
+       so a phone flick drew the whole three-milestone path in one gesture and the trail read
+       as a static line rather than something the reader was pulling along. Scroll now sets a
+       TARGET and the rendered progress eases toward it at K per frame, so the dot keeps
+       travelling after the thumb leaves the glass.
+       K = 0.12, the same constant as the films, so the whole site moves at one rate and it
+       still composes with ArrowScroll's 0.2 scroll easing instead of double-easing into mush.
+       NO SNAP MARKERS HERE. This is not a pinned beat track: it is an ordinary section that
+       scrolls past, with no beat boundaries to settle on, and snap points on a page people
+       are reading straight through would fight them. Snap belongs only to the film tracks.
+       The loop runs only while it is moving, then STOPS. Idle costs nothing. */
+    const K = 0.12;
     let raf = 0;
+    let running = false;
+    let cur = 0;
+    const measure = () => {
+      const r = el.getBoundingClientRect();
+      const vh = window.innerHeight;
+      setHudOn(r.top < vh * 0.5 && r.bottom > vh * 0.4);
+      return Math.min(Math.max((vh * 0.55 - r.top) / r.height, 0), 1);
+    };
+    const draw = (p: number) => {
+      pRef.current = p;
+      root.style.setProperty('--p', String(p));
+      apply(p);
+    };
+    const tick = () => {
+      const t = measure();
+      const d = t - cur;
+      /* 0.0004 of the trail is well under a pixel: settled, so stop the loop. */
+      if (Math.abs(d) < 0.0004) {
+        cur = t;
+        draw(cur);
+        running = false;
+        return;
+      }
+      cur += d * K;
+      draw(cur);
+      raf = requestAnimationFrame(tick);
+    };
     const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const r = el.getBoundingClientRect();
-        const vh = window.innerHeight;
-        const p = Math.min(Math.max((vh * 0.55 - r.top) / r.height, 0), 1);
-        pRef.current = p;
-        root.style.setProperty('--p', String(p));
-        apply(p);
-        setHudOn(r.top < vh * 0.5 && r.bottom > vh * 0.4);
-      });
+      if (running) return;
+      running = true;
+      raf = requestAnimationFrame(tick);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+    /* First paint is exact, never eased: a reload halfway down must not swoop. */
+    cur = measure();
+    draw(cur);
     return () => { window.removeEventListener('scroll', onScroll); cancelAnimationFrame(raf); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -96,7 +96,7 @@ function RoleIcon({ id }: { id: string }) {
 }
 
 const CSS = `
-.sscx-track{position:relative;height:clamp(2000px,300vh,2900px);background:#050506;}
+.sscx-track{position:relative;--trk:clamp(2000px,300vh,2900px);height:var(--trk);background:#050506;}
 /* REDUCED MOTION: collapse the track and unpin the stage. The film resolves to its last
    frame (see the driver) and simply sits there. No 2,000px of scroll to get past a thing
    that is not moving, and nothing scrubs under a reader who asked it not to. */
@@ -301,6 +301,29 @@ const CSS = `
   .b1 .rw.c{top:calc(132px + 66px * var(--cp));}
   .b1 .rw.tc{top:calc(220px * (1 - var(--cp)));}
 }
+
+/* MOBILE SNAP - one swipe, one beat.
+   A phone flick with iOS momentum covers 1,000-2,000px, which is most of this
+   2,000-2,900px track, so the whole four-beat film went past in a single gesture and
+   nothing about it read as deliberate. These five markers sit at EXACTLY the four beat
+   boundaries in B plus the end of the travel, so the film settles on a beat instead of
+   wherever momentum happened to die. They are rendered from B itself, so they cannot
+   drift out of sync with the driver.
+   PROXIMITY, NEVER MANDATORY. Mandatory on a 2,900px track inside a long document traps
+   a reader who is only trying to get past the film.
+   WebKit bug 243582: iOS suppresses momentum scrolling inside a snap container. That is
+   the desired behaviour here, not a bug to route around. Do not "fix" it.
+   No scroll-padding-top and no scroll-margin-top, deliberately: the snap target is a
+   zero-size marker inside a track whose stage is sticky at top 0 and fills the viewport,
+   so there is nothing that can hide under the 64px fixed nav. Offsetting by the nav
+   height would only land the film 64px off its own beat boundary.
+   DESKTOP IS UNTOUCHED: the snap rules live in the max-width:760px block and nowhere else,
+   and no other element on any page carries scroll-snap-align. */
+.sscx-snap{position:absolute;left:0;width:0;height:0;pointer-events:none;}
+@media (max-width:760px){
+  html{scroll-snap-type:y proximity;}
+  .sscx-snap{scroll-snap-align:start;}
+}
 `;
 
 const WHEEL: { lbl: string; blurb: string; dx: number; dy: number; lx: number; ly: number; a: 'start' | 'middle' | 'end' }[] = [
@@ -384,22 +407,42 @@ export default function JourneyMap() {
       setPj(6); setPjp(1); setLo([0, 0, 1]); setLz(1); setFills([100, 100, 100, 100]);
       return;
     }
+    /* DAMPED, NOT DIRECT.
+       This used to map scroll position straight to state, once per frame. On a phone one
+       flick with iOS momentum covers 1,000-2,000px, which is most of this 2,000-2,900px
+       track, so the film arrived at its last frame and the reader saw none of the four
+       beats (Jacob: "it scrolls way too easily and fast through everything, it isn't clear
+       it is intentional scroll for more information and an evolving experience").
+       So scroll now only sets a TARGET, and the RENDERED progress eases toward it every
+       frame. Everything downstream reads the eased value - the continuous custom properties
+       AND the discrete beat/step state - so the film keeps moving after the thumb has left
+       the glass and visibly catches up, and a beat cannot fire instantly on a flick.
+       K = 0.12: ~8 frames to 63%, ~0.4s to settle. It has to COMPOSE with ArrowScroll,
+       which already eases the SCROLL at 0.2 (~0.25s), not double-ease into mush. Cascaded,
+       one arrow press resolves in about half a second, and holding the key down leaves a
+       steady-state lag of roughly 8 frames of travel: about 35px on a 2,400px track, which
+       is 1.5% of one beat. Much below 0.12 and the keyboard goes soft.
+       The loop measures and eases only while it is moving, then STOPS. Idle costs nothing.
+       Never leave a permanent rAF loop running here. */
+    const K = 0.12;
     let raf = 0;
+    let running = false;
+    let cur = 0;
     const clamp = (v: number) => Math.min(Math.max(v, 0), 1);
     const POS = [0, 0.5, 1];
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const r = el.getBoundingClientRect();
-        /* MEASURE THE STAGE, NOT THE WINDOW. window.innerHeight changes by 60-90px as
-           iOS Safari's URL bar shows and hides, so progress was divided by a number that
-           moved mid-scroll and the pinned film lurched. The sticky stage is the thing that
-           is actually pinned, so its rendered height is the real viewport term. */
-        const stage = stageRef.current;
-        const vh = stage ? stage.offsetHeight : window.innerHeight;
-        const total = el.offsetHeight - vh;
-        const scrolled = Math.min(Math.max(-r.top, 0), total);
-        const p = total > 0 ? scrolled / total : 0;
+    const measure = () => {
+      const r = el.getBoundingClientRect();
+      /* MEASURE THE STAGE, NOT THE WINDOW. window.innerHeight changes by 60-90px as
+         iOS Safari's URL bar shows and hides, so progress was divided by a number that
+         moved mid-scroll and the pinned film lurched. The sticky stage is the thing that
+         is actually pinned, so its rendered height is the real viewport term. */
+      const stage = stageRef.current;
+      const vh = stage ? stage.offsetHeight : window.innerHeight;
+      const total = el.offsetHeight - vh;
+      const scrolled = Math.min(Math.max(-r.top, 0), total);
+      return total > 0 ? scrolled / total : 0;
+    };
+    const apply = (p: number) => {
         const b = p < B[1] ? 0 : p < B[2] ? 1 : p < B[3] ? 2 : 3;
         const lp = Math.min(Math.max((p - B[b]) / (B[b + 1] - B[b]), 0), 0.9999);
         const climb = b === 0 ? clamp((lp - 0.1) / 0.55) : 1;
@@ -447,10 +490,31 @@ export default function JourneyMap() {
         setLz(lifeP);
         const seg = (i: number) => clamp((p - B[i]) / (B[i + 1] - B[i])) * 100;
         setFills([seg(0), seg(1), seg(2), seg(3)]);
-      });
+    };
+    const tick = () => {
+      const t = measure();
+      const d = t - cur;
+      /* 0.0004 of the track is under a pixel: settled, so stop the loop. */
+      if (Math.abs(d) < 0.0004) {
+        cur = t;
+        apply(cur);
+        running = false;
+        return;
+      }
+      cur += d * K;
+      apply(cur);
+      raf = requestAnimationFrame(tick);
+    };
+    const onScroll = () => {
+      if (running) return;
+      running = true;
+      raf = requestAnimationFrame(tick);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+    /* First paint is exact, never eased: a reload halfway down the film must not swoop
+       in from beat 0. */
+    cur = measure();
+    apply(cur);
     return () => {
       window.removeEventListener('scroll', onScroll);
       cancelAnimationFrame(raf);
@@ -470,6 +534,14 @@ export default function JourneyMap() {
   return (
     <section ref={trackRef} className={`sscx-track${reduce ? ' sscx-flat' : ''}`}>
       <style>{min(CSS)}</style>
+      {/* SNAP MARKERS. Invisible, zero-size, aria-hidden: snap targets and nothing else.
+          Positioned off B so they land on the same boundaries the driver uses, and off
+          --trk so they land inside the same track height. The travel is the track minus
+          the pinned stage, which is what the driver divides by. Not rendered for reduced
+          motion, where the track is collapsed and there is no film to settle on. */}
+      {!reduce && B.map((f, i) => (
+        <i key={i} aria-hidden="true" className="sscx-snap" style={{ top: `calc((var(--trk) - 100svh) * ${f})` }} />
+      ))}
       <div ref={stageRef} className="sscx-stage" style={stageStyle} data-beat={beat} data-s0={s0} data-sc={sc} data-life={life} data-pj={pj}>
         {/* ENJOY LIFE — full-stage cinematic film, behind everything */}
         <div className="sscx-film">

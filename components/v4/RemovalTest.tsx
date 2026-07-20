@@ -113,7 +113,7 @@ const B = [0, 0.34, 0.68, 1];
 const clamp = (n: number) => Math.min(Math.max(n, 0), 1);
 
 const CSS = `
-.rt-track{position:relative;height:clamp(1500px,230vh,2100px);background:#050506;}
+.rt-track{position:relative;--trk:clamp(1500px,230vh,2100px);height:var(--trk);background:#050506;}
 /* iOS. 100vh is the LARGE viewport (URL bar hidden), so the pinned stage stood ~86px
    taller than the screen and the beat labels along the bottom sat under Safari's bar.
    100svh is the small viewport, which is the one that is always actually visible. The
@@ -203,6 +203,27 @@ const CSS = `
 .rt-st-list li{font-size:15.5px;line-height:1.6;color:#aeb6c4;max-width:70ch;
   padding-left:16px;border-left:2px solid rgba(255,255,255,.14);}
 .rt-st-list b{color:#fff;font-weight:600;}
+
+/* MOBILE SNAP - one swipe, one beat.
+   A phone flick with iOS momentum covers 1,000-2,000px, which is most or all of this
+   1,500-2,100px track, so the removal test played start to finish in one gesture and the
+   lights went out and came back before anyone could see it happen. These four markers sit
+   at EXACTLY the three beat boundaries in B plus the end of the travel, so the film
+   settles on a beat. They are rendered from B itself and cannot drift from the driver.
+   PROXIMITY, NEVER MANDATORY. Mandatory on a track this long traps a reader who is only
+   trying to get past the film.
+   WebKit bug 243582: iOS suppresses momentum scrolling inside a snap container. That is
+   the desired behaviour here, not a bug to route around. Do not "fix" it.
+   No scroll-padding-top and no scroll-margin-top, deliberately: the snap target is a
+   zero-size marker inside a track whose stage is sticky at top 0 and fills the viewport,
+   so nothing can hide under the 64px fixed nav, and offsetting by the nav height would
+   only land the film 64px off its own beat boundary.
+   DESKTOP IS UNTOUCHED: the snap rules live in the max-width:760px block and nowhere else. */
+.rt-snap{position:absolute;left:0;width:0;height:0;pointer-events:none;}
+@media (max-width:760px){
+  html{scroll-snap-type:y proximity;}
+  .rt-snap{scroll-snap-align:start;}
+}
 `;
 
 export default function RemovalTest() {
@@ -250,20 +271,33 @@ export default function RemovalTest() {
   useEffect(() => {
     const el = trackRef.current;
     if (!el || reduce) return;   // reduced motion: no driver, no pin, no scrub.
+    /* DAMPED, NOT DIRECT. Same fix as the homepage film, same reason.
+       This used to map scroll position straight to state, once per frame. On a phone one
+       flick covers most of this track, so the owner lifted out and the wires re-routed
+       inside a single gesture and the argument never landed. Scroll now sets a TARGET and
+       the RENDERED progress eases toward it every frame; the continuous vars (--p0, --lift,
+       --wire) AND the discrete light count all read the eased value, so the film keeps
+       moving after the thumb leaves the glass.
+       K = 0.12 matches JourneyMap: ~0.4s to settle, and it composes with ArrowScroll's 0.2
+       scroll easing rather than double-easing into mush. See the long note in JourneyMap.
+       The loop runs only while it is moving, then STOPS. Idle costs nothing. */
+    const K = 0.12;
     let raf = 0;
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const r = el.getBoundingClientRect();
-        /* MEASURE THE STAGE, NOT THE WINDOW. window.innerHeight changes by 60-90px as
-           iOS Safari's URL bar shows and hides, so progress was divided by a number that
-           moved mid-scroll and the pinned film lurched. The sticky stage is the thing that
-           is actually pinned, so its rendered height is the real viewport term. */
-        const stage = stageRef.current;
-        const vh = stage ? stage.offsetHeight : window.innerHeight;
-        const total = el.offsetHeight - vh;
-        const scrolled = Math.min(Math.max(-r.top, 0), total);
-        const p = total > 0 ? scrolled / total : 0;
+    let running = false;
+    let cur = 0;
+    const measure = () => {
+      const r = el.getBoundingClientRect();
+      /* MEASURE THE STAGE, NOT THE WINDOW. window.innerHeight changes by 60-90px as
+         iOS Safari's URL bar shows and hides, so progress was divided by a number that
+         moved mid-scroll and the pinned film lurched. The sticky stage is the thing that
+         is actually pinned, so its rendered height is the real viewport term. */
+      const stage = stageRef.current;
+      const vh = stage ? stage.offsetHeight : window.innerHeight;
+      const total = el.offsetHeight - vh;
+      const scrolled = Math.min(Math.max(-r.top, 0), total);
+      return total > 0 ? scrolled / total : 0;
+    };
+    const apply = (p: number) => {
         const b = p < B[1] ? 0 : p < B[2] ? 1 : 2;
         const lp = clamp((p - B[b]) / (B[b + 1] - B[b]));
         setBeat(b);
@@ -276,10 +310,30 @@ export default function RemovalTest() {
         /* The lights go out one at a time across beat 1, then come back across beat 2. The
            count is discrete but it rides on top of the continuous retract above. */
         setLit(b === 0 ? 6 : b === 1 ? 6 - Math.min(6, Math.floor(lp * 7)) : Math.min(6, Math.floor(lp * 7)));
-      });
+    };
+    const tick = () => {
+      const t = measure();
+      const d = t - cur;
+      /* 0.0004 of the track is under a pixel: settled, so stop the loop. */
+      if (Math.abs(d) < 0.0004) {
+        cur = t;
+        apply(cur);
+        running = false;
+        return;
+      }
+      cur += d * K;
+      apply(cur);
+      raf = requestAnimationFrame(tick);
+    };
+    const onScroll = () => {
+      if (running) return;
+      running = true;
+      raf = requestAnimationFrame(tick);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+    /* First paint is exact, never eased: a reload halfway down the film must not swoop. */
+    cur = measure();
+    apply(cur);
     return () => { window.removeEventListener('scroll', onScroll); cancelAnimationFrame(raf); };
   }, [reduce]);
 
@@ -329,6 +383,14 @@ export default function RemovalTest() {
   return (
     <section className="rt-track" ref={trackRef} aria-label="What happens when you take yourself out of the business">
       <style>{min(CSS)}</style>
+      {/* SNAP MARKERS. Invisible, zero-size, aria-hidden: snap targets and nothing else.
+          Positioned off B so they land on the same boundaries the driver uses, and off
+          --trk so they land inside the same track height. The travel is the track minus
+          the pinned stage, which is what the driver divides by. The reduced-motion branch
+          returns above this, so they never render there. */}
+      {B.map((f, i) => (
+        <i key={i} aria-hidden="true" className="rt-snap" style={{ top: `calc((var(--trk) - 100svh) * ${f})` }} />
+      ))}
       <Static />
       <div ref={stageRef} className="rt-stage" style={style} data-beat={beat} aria-hidden="true">
         <div className="rt-in">
