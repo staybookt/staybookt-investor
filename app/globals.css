@@ -272,6 +272,21 @@ a, button, summary, label, input, select, textarea, [role="button"] {
    5.53 dark. The note at the top of this file already said #06b6d4 "fails contrast on
    cream and reads like a highlighter" — that was written about text; the ring was never
    re-checked against it. */
+/* CROSS-DOCUMENT VIEW TRANSITIONS. Every navigation on this site is a real page load
+   (the nav is plain anchors), which is exactly what the cross-document API is for: the
+   browser crossfades old page to new instead of flashing white between them. Pure CSS,
+   and a browser without support simply does a normal load, so there is nothing to break
+   and no JS to maintain.
+   Kept to a fast default crossfade on purpose: shared-element morphs between pages are a
+   design project, not a default, and a slow transition makes a site feel heavier, not
+   smoother. .22s is below the threshold where a transition reads as a wait.
+   Reduced motion turns it off entirely. */
+@view-transition{navigation:auto;}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.22s;}
+@media (prefers-reduced-motion:reduce){
+  @view-transition{navigation:none;}
+}
+
 :focus-visible {
   outline: 2px solid var(--elec-deep);
   outline-offset: 2px;
