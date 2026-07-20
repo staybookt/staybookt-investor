@@ -196,6 +196,20 @@ import { min } from '@/lib/css';
  *   - THE SOURCES SECTION BELOW THE QUIZ IS GONE: every reveal carries its
  *     source line, and the finale names its sources inline, so the bottom
  *     list restated what the journey had already cited.
+ *
+ * TWELFTH PASS, BRAND + COMPOSITION (Jacob's screenshot, July 2026): the light
+ * body left the question screens monochrome and adrift, a generic form floating
+ * in cream. Two fixes, structure, flow, copy and logic untouched:
+ *   - BRAND PRESENCE: one loaded phrase per question wears --sb-grad-ink (the
+ *     hi field), the kicker runs the emerald eyebrow voice, and a faint radial
+ *     emerald wash sits behind every screen, the .pg-hero atmosphere translated
+ *     to the light ground.
+ *   - COMPOSITION: the question at clamp(34px,4.5vw,56px), options 2x2 with
+ *     real presence (76px, 21px type) instead of four small pills across, and
+ *     the stage's grown bottom padding seats every centred moment slightly
+ *     above optical centre. Each screen composes the frame instead of floating
+ *     in it; the same heading scale, kicker, wash and seat carry the reveals,
+ *     the results, the steppers and the finale, because they share the stage.
  */
 
 const PRICE = 199;
@@ -211,6 +225,15 @@ type Question = {
   key: string;
   eye: string;
   question: string;
+  /* TWELFTH PASS, BRAND + COMPOSITION (Jacob's screenshot review, July 2026): the
+     question screens read as a generic monochrome form, nothing said StayBookt.
+     hi is the emotionally loaded phrase of each question, and it alone wears the
+     on-light brand gradient (--sb-grad-ink, background-clip text), the exact
+     device the site's h2 highlights use. The copy is untouched; only the markup
+     splits around it. Contrast: the question runs 34px+ at weight 600, large
+     text, and every --sb-grad-ink stop clears the 3:1 large-text bar on cream
+     (#0891b2 3.4:1, #059669 3.5:1, #4f46e5 5.8:1). */
+  hi: string;
   options: string[];
   answer: string;
   /* The revealed figure as it reads in the trail and the stack-up: for retention the
@@ -231,6 +254,7 @@ const QUESTIONS: Question[] = [
     key: 'missed',
     eye: 'Missed calls',
     question: 'What share of calls to home-service businesses ring out unanswered?',
+    hi: 'unanswered?',
     options: ['25%', '40%', '62%', '75%'],
     answer: '62%',
     stack: '62%',
@@ -242,6 +266,7 @@ const QUESTIONS: Question[] = [
     key: 'speed',
     eye: 'Speed to lead',
     question: 'Answering a new lead within the hour makes you how much more likely to win it than waiting a day?',
+    hi: 'within the hour',
     options: ['2x', '4x', '7x', '10x'],
     answer: '7x',
     stack: '7x',
@@ -253,6 +278,7 @@ const QUESTIONS: Question[] = [
     key: 'retention',
     eye: 'Repeat customers',
     question: 'Raising customer retention five percent raises profit by up to?',
+    hi: 'profit',
     options: ['10%', '25%', '50%', '95%'],
     answer: '95%',
     stack: '25-95%',
@@ -283,6 +309,22 @@ const FIELDS: Field[] = [
    numbers, the stack-up. */
 const STAGES = 6;
 
+/* The twelfth pass's brand device: the question renders with its loaded phrase
+   in the on-light gradient span the site's h2 highlights use. The copy string is
+   untouched; this only splits the markup around q.hi. If the phrase ever drifts
+   from the copy the whole question renders plain, never broken. */
+const qMark = (q: Question): ReactNode => {
+  const i = q.question.indexOf(q.hi);
+  if (i < 0) return q.question;
+  return (
+    <>
+      {q.question.slice(0, i)}
+      <span className="g">{q.hi}</span>
+      {q.question.slice(i + q.hi.length)}
+    </>
+  );
+};
+
 const CSS = `
 /* THE HELD STAGE (ninth pass). The section is a track and the stage inside it is
    the film pin: sticky, top 0, one viewport tall, the exact grammar JourneyMap
@@ -298,7 +340,17 @@ const CSS = `
    dark header and this section is the same seam every other page runs. The old
    emerald ::before wash existed to blend dark into dark and is gone with it. */
 .gq{position:relative;background:#f6f6f3;color:#06080d;}
-.gq-stage{position:sticky;top:0;height:100vh;height:100svh;overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;padding:calc(64px + clamp(4px,1vh,10px)) 0 clamp(12px,2.5vh,22px);}
+/* THE WASH (twelfth pass). The eleventh pass removed the dark blend and left the
+   frame a flat cream void: no atmosphere, nothing of the brand. This is the
+   .pg-hero emerald wash translated to the light ground, one faint radial behind
+   the composition, far under any contrast math (a 5% emerald over cream moves
+   the ground by less than 1%). Absolute in the section, under the z-indexed
+   wrap, pointer-events none. */
+.gq::before{content:'';position:absolute;inset:0;background:radial-gradient(110rem 70rem at 50% 24%,rgba(16,185,129,.06),transparent 62%);pointer-events:none;}
+/* Stage bottom padding grew (twelfth pass): the centred card now sits slightly
+   ABOVE optical centre instead of dead-centre in the auto margins, the classic
+   keynote balance, and the chevron zone keeps a real anchor at the bottom. */
+.gq-stage{position:sticky;top:0;height:100vh;height:100svh;overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;padding:calc(64px + clamp(4px,1vh,10px)) 0 clamp(36px,7vh,72px);}
 /* THE RELEASE. Reduced motion, and the journey's finale, both unpin the stage to
    normal flow: the finale can run as tall as it is, and the page scrolls on into
    the sources and the closing CTA. */
@@ -327,7 +379,10 @@ body[data-quiz-active] .gro main~footer{display:none;}
    locked the wrap to the leftover space and let tall content spill under the
    CallBar instead of scrolling clear of it. */
 .gq-wrap{position:relative;z-index:1;width:100%;max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px);flex:1 0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;}
-.gq-eye{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#69707d;}
+/* The stage kicker in the site's emerald eyebrow voice (twelfth pass), not the
+   quiet grey: it is the one line that says where you are, and it now also says
+   whose room this is. #046c4e runs 5.9:1 on the cream. */
+.gq-eye{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#046c4e;}
 /* THE TRAIL. Answered cards condense into these receipt rows and stay visible.
    Every row is a real button: tapping it reopens that card. White cards on the
    cream, #ececeb borders: the matrix's light-surface card language. */
@@ -365,7 +420,7 @@ body[data-quiz-active] .gro main~footer{display:none;}
 .gq-card.anim>*:nth-child(n+4){animation-delay:.2s;}
 @keyframes gq-ch{from{opacity:0;transform:translateY(14px);}to{transform:none;}}
 @keyframes gq-in{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:none;}}
-.gq-h{margin:16px auto 0;font-size:clamp(27px,3.8vw,50px);font-weight:600;letter-spacing:-.035em;line-height:1.05;color:#06080d;max-width:24ch;outline:none;transition:font-size .35s cubic-bezier(.16,1,.3,1);}
+.gq-h{margin:16px auto 0;font-size:clamp(34px,4.5vw,56px);font-weight:600;letter-spacing:-.035em;line-height:1.05;color:#06080d;max-width:24ch;outline:none;transition:font-size .35s cubic-bezier(.16,1,.3,1);}
 .gq-h .g{background:var(--sb-grad-ink);-webkit-background-clip:text;background-clip:text;color:transparent;}
 /* During the reveal the question quiets to a small kicker line above the figure.
    Same h2 element, so the outline and the focus target never change. */
@@ -384,13 +439,17 @@ body[data-quiz-active] .gro main~footer{display:none;}
 /* OPTIONS. Real buttons; after the pick they resolve in place: the correct one goes
    emerald, the reader's wrong pick keeps a light outline, the rest fall back. They
    go aria-disabled, never disabled, so keyboard focus is not dropped. */
-.gq-opts{margin-top:clamp(24px,3.5vh,32px);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;width:100%;max-width:640px;}
-@media(max-width:560px){.gq-opts{grid-template-columns:1fr 1fr;}}
+/* 2x2, NOT four across (twelfth pass): four across shrank every option to a
+   small floating pill and the composition died. Two by two reads as an Apple
+   segmented choice, gives each option real presence, and with the larger
+   question fills the frame's middle band. Single column stacked under 640px. */
+.gq-opts{margin-top:clamp(28px,4.5vh,44px);display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%;max-width:720px;}
+@media(max-width:640px){.gq-opts{grid-template-columns:1fr;gap:12px;}.gq-opt{min-height:60px;padding:12px 18px;font-size:19px;}}
 /* Option cards in the refined light-surface material: white, hairline border, a
    layered soft shadow. Hover lifts 1px and deepens the shadow; pressed
    compresses; the resolved states sit flat and confident. Transform and opacity
    only, on the site curve. */
-.gq-opt{min-height:56px;border-radius:14px;border:1px solid #ececeb;background:#fff;color:#06080d;font-family:inherit;font-size:19px;font-weight:600;font-variant-numeric:tabular-nums;cursor:pointer;transition:background .25s cubic-bezier(.16,1,.3,1),border-color .25s cubic-bezier(.16,1,.3,1),color .25s cubic-bezier(.16,1,.3,1),opacity .25s cubic-bezier(.16,1,.3,1),transform .25s cubic-bezier(.16,1,.3,1),box-shadow .25s cubic-bezier(.16,1,.3,1);box-shadow:0 1px 2px rgba(6,8,13,.05),0 10px 28px -12px rgba(6,8,13,.12);}
+.gq-opt{min-height:76px;padding:16px 20px;border-radius:16px;border:1px solid #ececeb;background:#fff;color:#06080d;font-family:inherit;font-size:21px;font-weight:600;font-variant-numeric:tabular-nums;cursor:pointer;transition:background .25s cubic-bezier(.16,1,.3,1),border-color .25s cubic-bezier(.16,1,.3,1),color .25s cubic-bezier(.16,1,.3,1),opacity .25s cubic-bezier(.16,1,.3,1),transform .25s cubic-bezier(.16,1,.3,1),box-shadow .25s cubic-bezier(.16,1,.3,1);box-shadow:0 1px 2px rgba(6,8,13,.05),0 10px 28px -12px rgba(6,8,13,.12);}
 .gq-opt:hover{background:#fbfbfa;border-color:#d9d9d3;transform:translateY(-1px);box-shadow:0 2px 4px rgba(6,8,13,.06),0 16px 36px -12px rgba(6,8,13,.16);}
 .gq-opt:active{transform:translateY(0) scale(.98);box-shadow:0 1px 2px rgba(6,8,13,.05),0 8px 22px -12px rgba(6,8,13,.1);}
 .gq-opt:focus-visible{outline:2px solid #059669;outline-offset:2px;}
@@ -966,7 +1025,7 @@ export default function GrowthQuiz() {
             ref={headRef}
             id={'gq-q-' + q.key}
           >
-            {q.question}
+            {qMark(q)}
           </h2>
           {!revealed && (
             <div
