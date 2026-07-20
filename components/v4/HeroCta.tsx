@@ -17,7 +17,7 @@ import { min } from '@/lib/css';
  * scene has to dissolve out of that black rather than cut to a photo. Everywhere
  * else the section above is light or mid-tone, so the standard grade is correct. */
 /* PER-PAGE CLOSES (Jacob, July 2026: "The close on every page should be different.")
- * Each page's closing photo pays off that page's own argument: the morning coffee after
+ * Each page's closing photo pays off that page's own argument: the slow morning with the paper after
  * /how-it-works teaches the machine, the girlfriends' day out after /whats-included, the
  * dawn tee time after /pricing, the campfire after /long-term, the ride after /work, the
  * long table of old friends after /founders. One dock photo everywhere was efficient, not
