@@ -134,8 +134,8 @@ export default function GrowthPage() {
           </Reveal>
           <Reveal>
             <p>
-              Five places money leaks out of a service business, sealed one at a time. Then
-              the math is yours.
+              One workday, seven in the morning to nine at night. Five moments decide how it
+              ends, and every one plays out both ways. Then the math is yours.
             </p>
           </Reveal>
         </div>
@@ -152,8 +152,9 @@ export default function GrowthPage() {
         </div>
       </div>
 
-      {/* THE FILM. Five leaks, five seals. The film carries the whole argument now; the
-          dense sections it replaced live on in its static twin and the Sources below. */}
+      {/* THE FILM. The Two Days: scroll runs the clock through one workday, and five
+          moments each play out both ways. The dense sections it replaced live on in the
+          static twin and the Sources below. */}
       <GrowthFilm />
 
       {/* THE ARRIVAL. The reader's own numbers, said back. Never ours. */}

@@ -3,222 +3,240 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { min } from '@/lib/css';
 
-/* THE FIVE LEAKS: the film that replaced the /growth wall of text.
+/* THE TWO DAYS: the film on /growth.
  *
- * The draft page argued five money mechanisms in five dense sections. Same argument,
- * drawn: one revenue stream, five points where money visibly leaks out of it in amber
- * (the Matrix's you-colour, the colour of work and money that are still yours to lose),
- * and at each beat StayBookt catches the leak and seals it in emerald. By beat five all
- * five are sealed and the whole stream runs green. The reader watches the money stop
- * leaking instead of reading that it does.
+ * The previous film here drew the five money mechanisms as one revenue stream with five
+ * leaks along it. It argued fine and looked wrong: a horizontal line with five points
+ * wired off it reads as a cousin of the RemovalTest diagram on /long-term, and the two
+ * pages were starting to rhyme. Jacob called it (July 2026): this page needed its own
+ * picture, not a second wire drawing.
  *
- * BUILT ON THE RemovalTest CHASSIS, deliberately: same damped driver (K = 0.12, see the
- * long note in JourneyMap for why that constant), same measure-the-stage viewport fix,
- * same px-clamped track, same mobile-gets-its-own-geometry move, same static twin, same
- * snap markers rendered from B. If you change a law here, you are diverging from three
- * other films that all obey it. Do not.
+ * So there is no diagram at all now. Scroll scrubs TIME. One workday, 7:00 AM to
+ * 9:00 PM, and the reader lives it twice at once: every moment that matters plays out
+ * in two lanes, the day it slips in amber and the day it is caught in emerald. The
+ * argument is the same five mechanisms with the same cited numbers, but the reader
+ * watches a clock instead of a pipe. Visual vocabulary deliberately NOT used here,
+ * because the rest of the site owns it: nodes, wires, streams, pipes, orbit rings,
+ * flow diagrams. This film is typographic and scenic: a clock, a sky, moment cards.
  *
- * EVERY BEAT HAS A CONTINUOUS VARIABLE, the rule that cost hours on the homepage film
- * twice. Each beat runs three at once off its local progress:
- *   --dr  drip travel: the amber leak visibly drips for the whole beat
- *   --sl  the seal: the emerald ring draws around the leak and the catch line fades in
- *   --fp  global flow: the dashes on the revenue line itself move on EVERY press of the
- *         entire film, so no press anywhere can land on nothing
- * On the last beat --sl also drives the whole line turning emerald, which is the payoff.
+ * TWO THINGS MOVE ON EVERY PRESS OF THE ENTIRE FILM, so no press anywhere can land on
+ * nothing (the rule that cost hours on the homepage film twice):
+ *   - the clock readout, ticking 7:00 AM toward 9:00 PM off the eased progress
+ *   - the sky behind the stage, warming dawn to midday to golden hour to dusk
+ * The sky is four low-alpha washes over the site's near-black, cross-faded by scroll.
+ * The base never leaves #050506, so white and grey type keep their contrast at every
+ * hour of the day; the washes are tint, not daylight. On top of that, each moment runs
+ * its own continuous locals: the card rises, the slip lane lands, the caught lane
+ * answers, the citation settles in.
  *
- * TRACK LENGTH IS CLAMPED IN PIXELS, NOT vh. Richard reviews with the DOWN ARROW KEY at
- * ~40px a press, and a vh track makes a bigger monitor cost MORE presses, which is
- * backwards. This clamp lands at roughly 38-49 presses for five beats (~8-10 a beat) at
- * any viewport, and a big screen costs fewer. Measure this film in presses, never
- * pixels, and test it with the keyboard: a scrollbar drag hides the toll completely.
+ * TIME IS PIECEWISE LINEAR ON PURPOSE. The five moments sit at 8:10, 11:30, 2:00,
+ * 4:45 and 7:30, which are not evenly spaced on a real clock, but each moment deserves
+ * the same reading time. So the track is cut into even-ish segments (B) and the clock
+ * runs each segment between the matching hours (TB): it moves on every press, monotonic
+ * always, faster through the empty stretches of the day and slower while a moment is on
+ * stage. Nobody reads a clock for its velocity; everybody notices a dead press.
  *
- * THE NUMBERS IN THE CAPTIONS ARE NOT OURS. Every figure is the published, external
+ * BUILT ON THE SAME CHASSIS AS EVERY FILM: damped driver (K = 0.12, see JourneyMap for
+ * why that constant), measure-the-stage viewport fix, px-clamped track (~40-50 arrow
+ * presses at 40px each, ~8-10 a moment, and a bigger monitor costs fewer, never more),
+ * snap markers rendered from B, static twin for readers and reduced motion. If you
+ * change a law here you are diverging from three other films that all obey it. Do not.
+ *
+ * THE NUMBERS IN THE CITATIONS ARE NOT OURS. Every figure is the published, external
  * research already cited on this page, source named right under it, linked in the
- * Sources list below the film. No invented numbers, no ROI claim, no upgraded product
- * claims: what-we-do lines say only what /whats-included already says. */
+ * Sources list below the film. No invented totals, no named customers, no fake jobs:
+ * the end of the day is one line and zero arithmetic.
+ */
 
-type Beat = {
-  k: string;   // eyebrow
-  n: string;   // short node label in the SVG
-  h: string;   // headline (the existing section headline, verbatim)
-  s: string;   // the leak, 1-2 lines
-  c: string;   // the catch: what we do, fades in with the seal
-  f: string;   // the cited figure
-  src: string; // its source, named
+type Mo = {
+  t: string;    // the clock time this moment arrives
+  sc: string;   // the scene, one line
+  h: string;    // headline (the established section headline, verbatim)
+  slip: string; // left lane: the day it slips
+  ct: string;   // right lane: the day it is caught
+  f: string;    // the cited figure
+  src: string;  // its source, named
 };
 
-const BEATS: Beat[] = [
+/* Index 0 is the opening beat, 1 through 5 are the five moments. The headline, slip
+   line, caught line and figure of each moment are the page's established copy: same
+   claims, same citations, nothing new promised. */
+const MOMS: Mo[] = [
   {
-    k: 'The first leak',
-    n: 'Missed calls',
+    t: '7:00 AM',
+    sc: 'Two owners start the same day.',
+    h: 'Five moments will decide how this day ends.',
+    slip: 'Same trade, same town, same phone that will not stop. On this side of the page, each moment slips past while the day is busy being the day.',
+    ct: 'On this side, the same moments land in a system that answers while the owner works. The clock runs on scroll. Watch it.',
+    f: '',
+    src: '',
+  },
+  {
+    t: '8:10 AM',
+    sc: 'A call comes in with both hands busy.',
     h: 'The call that rings out is a job that rings next door.',
-    s: 'The caller has a problem today and a short list of numbers to try. When yours goes to voicemail, most of them just dial the next name, and the job goes with them.',
-    c: 'Sealed: every call and text answered, 24 hours a day, in your voice.',
+    slip: 'The caller has a problem today and a short list of numbers to try. When yours goes to voicemail, most of them just dial the next name, and the job goes with them.',
+    ct: 'Every call and text answered, 24 hours a day, in your voice.',
     f: 'A live person answered 37.8% of working-hours calls to real small businesses across 58 industries. The other 62% got voicemail or nothing.',
     src: '411 Locals, 2024',
   },
   {
-    k: 'The second leak',
-    n: 'Slow response',
+    t: '11:30 AM',
+    sc: 'A new lead wants an answer now.',
     h: 'The fastest answer usually wins the job.',
-    s: 'A homeowner with a leak messages three companies and hires the one that gets back first. Speed reads as competence before you have said a word about your work.',
-    c: 'Sealed: the first voice they hear back is yours, even with both hands full.',
+    slip: 'A homeowner with a leak messages three companies and hires the one that gets back first. Speed reads as competence before you have said a word about your work.',
+    ct: 'The first voice they hear back is yours, even with both hands full.',
     f: 'Firms that tried to reach a new lead within an hour were nearly seven times as likely to qualify it. The average company took 42 hours.',
     src: 'Harvard Business Review, 2011',
   },
   {
-    k: 'The third leak',
-    n: 'Unchased quotes',
+    t: '2:00 PM',
+    sc: 'The quote from last Thursday is still open.',
     h: 'Quotes do not close themselves.',
-    s: 'You price the job, send the quote, and get buried in Tuesday. The customer had two questions and nobody to ask, so the paper sat there until it went cold.',
-    c: 'Sealed: every quote you send, chased until you have a yes or a no.',
+    slip: 'You price the job, send the quote, and get buried in the week. The customer had two questions and nobody to ask, so the paper sat there until it went cold.',
+    ct: 'Every quote you send, chased until you have a yes or a no.',
     f: 'Across home-service contractors on ServiceTitan, only 37% of estimates close on the first visit. The rest close in the follow-up, or never.',
     src: 'ServiceTitan',
   },
   {
-    k: 'The fourth leak',
-    n: 'Reviews',
+    t: '4:45 PM',
+    sc: 'The job is finished. The review moment.',
     h: 'Reviews are compounding interest on being found.',
-    s: 'Every review makes you a little easier to find, which brings a few more jobs, which bring a few more reviews. The gap between asking and hoping compounds for years.',
-    c: 'Sealed: a review asked for after every finished job, and every one answered.',
+    slip: 'Every review makes you a little easier to find, which brings a few more jobs, which bring a few more reviews. The gap between asking and hoping compounds for years.',
+    ct: 'A review asked for after every finished job, and every one answered.',
     f: '88% of consumers would use a business that replies to all of its reviews, against 47% for one that replies to none.',
     src: 'BrightLocal, 2024',
   },
   {
-    k: 'The fifth leak',
-    n: 'Repeat work',
+    t: '7:30 PM',
+    sc: 'The customer from last spring is due back.',
     h: 'The cheapest job you will ever win is the second one.',
-    s: 'A past customer already trusts you and already has your number. Most of them do not leave, they just drift, and their next job goes to whoever shows up in a search.',
-    c: 'Sealed: past customers brought back before they drift, for the work they are due.',
+    slip: 'A past customer already trusts you and already has your number. Most of them do not leave, they just drift, and their next job goes to whoever shows up in a search.',
+    ct: 'Past customers brought back before they drift, for the work they are due.',
     f: 'Raising customer retention by 5% increases profits by 25% to 95%, and a new customer costs five to twenty-five times as much as keeping one.',
     src: 'Harvard Business Review, citing Bain & Company, 2014',
   },
 ];
 
-/* DESKTOP GEOMETRY. One horizontal revenue stream, five leak points along it. */
-const NX = [120, 285, 450, 615, 780];
-const LY = 150; // the line
-const leak = (x: number) =>
-  'M ' + x + ' ' + LY + ' C ' + x + ' 215, ' + (x + 46) + ' 262, ' + (x + 46) + ' 330';
+/* The end of the day. One line, no totals, no arithmetic. */
+const END =
+  'One owner spends this evening chasing what slipped. The other one caught it hours ago, and the evening is just the evening.';
 
-/* THE PHONE GETS ITS OWN GEOMETRY, not a bigger font: the RemovalTest lesson. Five
- * labels strung across a 900-unit box render at ~7px on a 390px screen and collide long
- * before they are legible. So below 760px the stream is redrawn VERTICAL in a 420x470
- * box: revenue flows top to bottom, the five leaks spill to the right, labels sit beside
- * their node at 21 viewBox units. At 390px the SVG renders ~366px wide, scale ~0.87, so
- * the labels land at ~18px on glass. Do not read these font numbers as CSS pixels.
- * DESKTOP IS UNTOUCHED: NX, LY and leak() above are exactly what they were. */
-const MX = 72;
-const MY = [60, 145, 230, 315, 400];
-const mleak = (y: number) =>
-  'M ' + MX + ' ' + y + ' C 150 ' + (y + 8) + ', 240 ' + (y + 26) + ', 330 ' + (y + 44);
+/* Track fractions (B) and the clock hours they map to (TB). Segment i of the track runs
+   the clock from TB[i] to TB[i + 1]; moment i arrives at B[i]. Even-ish segments so
+   every moment gets ~8-10 presses, whatever the clock says. */
+const B = [0, 0.08, 0.27, 0.46, 0.65, 0.84, 1];
+const TB = [7, 8 + 10 / 60, 11.5, 14, 16.75, 19.5, 21];
 
-const B = [0, 0.2, 0.4, 0.6, 0.8, 1];
 const clamp01 = (n: number) => Math.min(Math.max(n, 0), 1);
 
+const seg = (p: number) => {
+  let i = 0;
+  while (i < 5 && p >= B[i + 1]) i++;
+  return i;
+};
+
+const hourOf = (p: number) => {
+  const i = seg(p);
+  const lp = clamp01((p - B[i]) / (B[i + 1] - B[i]));
+  return TB[i] + (TB[i + 1] - TB[i]) * lp;
+};
+
+/* 7.5 renders as 7:30 AM, 21 as 9:00 PM. Tabular numerals in the CSS keep it from
+   jittering sideways as the minutes spin. */
+const fmt = (p: number) => {
+  const t = hourOf(p);
+  let h = Math.floor(t);
+  let m = Math.round((t - h) * 60);
+  if (m === 60) { h += 1; m = 0; }
+  return { d: (h > 12 ? h - 12 : h) + ':' + (m < 10 ? '0' + m : String(m)), mer: h < 12 ? 'AM' : 'PM' };
+};
+
 const CSS = `
-.gf-track{position:relative;--trk:clamp(2200px,320vh,3000px);height:var(--trk);background:#050506;}
+.td-track{position:relative;--trk:clamp(2200px,320vh,3000px);height:var(--trk);background:#050506;}
 /* iOS: 100vh is the LARGE viewport (URL bar hidden). 100svh is the one actually visible.
    Never put svh on the track: its clamp() height is the film's whole travel. */
-.gf-stage{position:sticky;top:0;height:100vh;height:100svh;min-height:600px;overflow:hidden;display:flex;
+.td-stage{position:sticky;top:0;height:100vh;height:100svh;min-height:600px;overflow:hidden;display:flex;
   flex-direction:column;align-items:center;justify-content:center;color:#f5f5f7;
-  --dr:0;--sl:0;--fp:0;}
-.gf-stage::before{content:'';position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(60% 50% at 50% 8%,rgba(245,158,11,.09),transparent 64%);}
-.gf-stage[data-beat="4"]::before{background:radial-gradient(60% 50% at 50% 8%,rgba(16,185,129,.1),transparent 64%);}
-
-.gf-in{position:relative;z-index:2;width:min(1040px,94%);display:flex;flex-direction:column;align-items:center;gap:clamp(12px,2.2vh,26px);}
-.gf-svg{width:100%;height:auto;max-height:44vh;overflow:visible;}
-
-/* THE STREAM. A faint rail plus dashes that move on every press of the whole film. */
-.gf-rail{fill:none;stroke:rgba(255,255,255,.14);stroke-width:2;stroke-linecap:round;}
-.gf-flow{fill:none;stroke:#f59e0b;stroke-width:2.4;stroke-linecap:round;opacity:.8;
-  stroke-dasharray:7 17;stroke-dashoffset:calc(-1 * var(--fp) * 480);}
-/* The payoff: on the last beat the whole stream turns emerald as the seal completes. */
-.gf-flow2{fill:none;stroke:#34d399;stroke-width:2.4;stroke-linecap:round;opacity:0;
-  stroke-dasharray:7 17;stroke-dashoffset:calc(-1 * var(--fp) * 480);
-  filter:drop-shadow(0 0 6px rgba(52,211,153,.5));}
-.gf-stage[data-beat="4"] .gf-flow2{opacity:var(--sl);}
-.gf-stage[data-beat="4"] .gf-flow{opacity:calc(.8 * (1 - var(--sl)));}
-
-/* THE LEAKS. Amber, the you-colour: this is money that is still yours to lose. */
-.gf-lk{fill:none;stroke:#f59e0b;stroke-width:2;stroke-linecap:round;transition:opacity .45s ease;}
-.gf-dp{fill:none;stroke:#fbbf24;stroke-width:3.2;stroke-linecap:round;
-  stroke-dasharray:10 22;stroke-dashoffset:calc(-1 * var(--dr) * 128);transition:opacity .45s ease;}
-.gf-nd.todo .gf-lk{opacity:.18;}
-.gf-nd.todo .gf-dp{opacity:0;}
-.gf-nd.act .gf-lk{opacity:calc(.9 * (1 - var(--sl)));filter:drop-shadow(0 0 5px rgba(245,158,11,.45));}
-.gf-nd.act .gf-dp{opacity:calc(1 - var(--sl));}
-.gf-nd.done .gf-lk,.gf-nd.done .gf-dp{opacity:0;}
-
-/* THE SEAL. An emerald ring draws around the leak point, then holds its check. */
-.gf-ring{fill:none;stroke:#34d399;stroke-width:2;stroke-dasharray:101;
-  filter:drop-shadow(0 0 6px rgba(52,211,153,.5));}
-.gf-nd.todo .gf-ring{stroke-dashoffset:101;}
-.gf-nd.act .gf-ring{stroke-dashoffset:calc(101 * (1 - var(--sl)));}
-.gf-nd.done .gf-ring{stroke-dashoffset:0;}
-.gf-ck{fill:none;stroke:#34d399;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;transition:opacity .3s ease;}
-.gf-nd.todo .gf-ck{opacity:0;}
-.gf-nd.act .gf-ck{opacity:var(--sl);}
-.gf-nd.done .gf-ck{opacity:1;}
-.gf-dot{transition:fill .45s ease;}
-.gf-lbl{font-size:13px;font-weight:600;font-family:-apple-system,sans-serif;transition:fill .45s ease;}
-
-/* COPY PANEL. Fixed slots so the stage never jumps between beats. */
-.gf-copy{text-align:center;max-width:64ch;}
-.gf-k{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#8a8f98;}
-.gf-h{margin-top:10px;min-height:2.1em;font-size:clamp(22px,3.1vw,40px);font-weight:600;letter-spacing:-.035em;line-height:1.05;color:#fff;}
-.gf-s{margin:10px auto 0;min-height:4.6em;font-size:clamp(14px,1.55vw,17px);line-height:1.5;color:#aeb6c4;max-width:56ch;}
-/* The catch line rides the seal: same continuous var, so it settles in as the ring draws. */
-.gf-c{margin:8px auto 0;min-height:1.6em;font-size:clamp(13.5px,1.4vw,16px);line-height:1.45;font-weight:500;color:#34d399;
-  opacity:var(--sl);transform:translateY(calc(6px * (1 - var(--sl))));}
+  --mp:0;--r0:0;--r1:0;--r2:0;--r3:0;--ep:0;--skyA:0;--skyB:0;--skyC:0;--skyD:0;}
+/* THE SKY. Four washes over the same near-black, cross-faded by the eased progress.
+   Alphas stay low on purpose: the base never leaves #050506, so #fff, #aeb6c4 and
+   #8a8f98 hold 4.5:1 and better at every hour. Tint, not daylight. */
+.td-sky{position:absolute;inset:0;pointer-events:none;}
+.td-sky i{position:absolute;inset:0;}
+.td-sky .sa{background:radial-gradient(95% 62% at 50% 0%,rgba(251,113,133,.15),rgba(251,146,60,.08) 46%,transparent 72%);opacity:var(--skyA);}
+.td-sky .sb{background:radial-gradient(95% 62% at 50% 0%,rgba(96,165,250,.13),rgba(147,197,253,.05) 46%,transparent 72%);opacity:var(--skyB);}
+.td-sky .sc{background:radial-gradient(95% 62% at 50% 0%,rgba(245,158,11,.16),rgba(217,119,6,.07) 50%,transparent 76%);opacity:var(--skyC);}
+.td-sky .sd{background:radial-gradient(95% 62% at 50% 0%,rgba(99,102,241,.15),rgba(30,27,75,.3) 55%,transparent 82%);opacity:var(--skyD);}
+.td-in{position:relative;z-index:2;width:min(1040px,94%);display:flex;flex-direction:column;align-items:center;gap:clamp(10px,2vh,22px);}
+/* THE CLOCK. The one continuous readout of the whole film: it moves on every press. */
+.td-k{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#8a8f98;}
+.td-clock{margin-top:6px;font-variant-numeric:tabular-nums;font-size:clamp(44px,7vw,84px);font-weight:600;letter-spacing:-.04em;line-height:1;color:#fff;}
+.td-clock span{font-size:.34em;font-weight:600;letter-spacing:.06em;color:#8a8f98;margin-left:.2em;}
+/* THE CARD. Fixed slots and min-heights so the stage never jumps between moments. */
+.td-card{width:100%;max-width:920px;text-align:center;opacity:var(--r0);transform:translateY(calc(10px * (1 - var(--r0))));}
+.td-mo{min-height:1.4em;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#8a8f98;}
+.td-mo b{color:#f5f5f7;font-weight:700;letter-spacing:.12em;font-variant-numeric:tabular-nums;}
+.td-h{margin:8px auto 0;min-height:2.15em;max-width:30ch;font-size:clamp(21px,2.9vw,36px);font-weight:600;letter-spacing:-.035em;line-height:1.05;color:#fff;}
+/* THE TWO LANES. Amber is the day it slips, emerald is the day it is caught: the
+   Matrix's you-colour against the running-of-it hue, same as everywhere on the site. */
+.td-lanes{margin-top:clamp(10px,1.8vh,18px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2.4vw,26px);text-align:left;min-height:10em;}
+.td-lane{border-top:2px solid;padding-top:10px;}
+.td-lane h5{margin:0;font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;}
+.td-lane p{margin:7px 0 0;font-size:clamp(13.5px,1.45vw,15.5px);line-height:1.5;color:#aeb6c4;max-width:46ch;}
+.td-slip{border-color:rgba(245,158,11,.55);opacity:var(--r1);transform:translateY(calc(8px * (1 - var(--r1))));}
+.td-slip h5{color:#fbbf24;}
+.td-catch{border-color:rgba(52,211,153,.55);opacity:var(--r2);transform:translateY(calc(8px * (1 - var(--r2))));}
+.td-catch h5{color:#34d399;}
 /* The cite row: the only numbers in the film, and every one is somebody else's. */
-.gf-cite{margin:12px auto 0;min-height:3.4em;max-width:62ch;font-size:12.5px;line-height:1.5;color:#8a8f98;}
-.gf-cite b{display:block;margin-top:3px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:10.5px;color:#8a8f98;}
-
-.gf-dots{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;}
-.gf-dots span{font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#f5f5f7;opacity:.32;transition:opacity .4s;}
-.gf-stage[data-beat="0"] .gf-dots .d0,.gf-stage[data-beat="1"] .gf-dots .d1,.gf-stage[data-beat="2"] .gf-dots .d2,
-.gf-stage[data-beat="3"] .gf-dots .d3,.gf-stage[data-beat="4"] .gf-dots .d4{opacity:1;}
-
+.td-cite{margin:10px auto 0;min-height:3.4em;max-width:62ch;font-size:12.5px;line-height:1.5;color:#8a8f98;opacity:var(--r3);}
+.td-cite b{display:block;margin-top:3px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:10.5px;color:#8a8f98;}
+/* 9:00 PM. The two days end differently, in one line. */
+.td-end{min-height:1.6em;max-width:58ch;text-align:center;font-size:clamp(14px,1.5vw,17px);line-height:1.5;font-weight:500;color:#f5f5f7;opacity:var(--ep);transform:translateY(calc(8px * (1 - var(--ep))));}
+.td-end b{font-weight:700;font-variant-numeric:tabular-nums;}
+.td-dots{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;}
+.td-dots span{font-variant-numeric:tabular-nums;font-size:11.5px;font-weight:600;letter-spacing:.1em;color:#f5f5f7;opacity:.3;transition:opacity .4s;}
+.td-stage[data-beat="1"] .td-dots .d0,.td-stage[data-beat="2"] .td-dots .d1,.td-stage[data-beat="3"] .td-dots .d2,.td-stage[data-beat="4"] .td-dots .d3,.td-stage[data-beat="5"] .td-dots .d4{opacity:1;}
 @media(max-width:760px){
-  /* Sizes here are 420x470 viewBox units, not pixels: at 390px the box renders at
-     scale ~0.87, so 21 units is ~18px on glass. Do not "fix" them as CSS pixels. */
-  .gf-svg{max-height:40vh;}
-  .gf-lbl{font-size:21px;}
-  .gf-dots{gap:10px;}
-  .gf-dots span{font-size:10px;letter-spacing:.08em;}
-  .gf-s{min-height:6em;}
-  .gf-cite{min-height:4.8em;}
+  /* Lanes stack: the day it slips above, the day it is caught below. Everything here
+     is real CSS pixels (no SVG scale factor on this film), floor 13px. */
+  .td-lanes{grid-template-columns:1fr;gap:14px;min-height:16em;}
+  .td-lane p{font-size:13.5px;max-width:none;}
+  .td-clock{font-size:42px;}
+  .td-h{font-size:20px;}
+  .td-mo{font-size:13px;}
+  .td-cite{font-size:13px;min-height:4.8em;}
+  .td-dots{gap:10px;}
+  .td-dots span{font-size:13px;letter-spacing:.04em;}
 }
 /* Landscape phones and short windows: keyed on height, because a phone on its side is
    844px WIDE. */
-@media(max-height:640px){.gf-stage{min-height:0;}}
-
+@media(max-height:640px){.td-stage{min-height:0;}}
 /* THE STATIC TWIN. Shown when the reader asked for reduced motion; .sr-only otherwise.
-   Every beat, every catch, every stat, in order. If the film vanished tomorrow this
-   would still argue. */
-.gf-flat{height:auto;padding:clamp(64px,9vw,110px) 0;}
-.gf-flat .wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
-.gf-static h3{font-size:clamp(24px,3.4vw,42px);font-weight:600;letter-spacing:-.035em;line-height:1.05;color:#fff;max-width:22ch;}
-.gf-st-beat{margin-top:clamp(26px,3vw,38px);}
-.gf-st-beat h4{font-size:clamp(17px,1.9vw,21px);font-weight:600;letter-spacing:-.02em;color:#fff;}
-.gf-st-beat p{margin-top:8px;font-size:15.5px;line-height:1.6;color:#aeb6c4;max-width:62ch;}
-.gf-st-beat p.ct{color:#34d399;font-weight:500;}
-.gf-st-beat p.fg{font-size:13.5px;color:#8a8f98;}
-
-/* MOBILE SNAP - one flick, one beat. Six markers at EXACTLY the five beat boundaries in
-   B plus the end of the travel, rendered from B itself so they cannot drift from the
-   driver. PROXIMITY, NEVER MANDATORY: mandatory on a track this long traps a reader who
-   only wants past the film. WebKit bug 243582 (iOS suppresses momentum inside a snap
-   container) is the desired behaviour here, not a bug to route around. No scroll-padding
-   and no scroll-margin, deliberately: the target is a zero-size marker inside a track
-   whose stage is sticky at top 0, so nothing can hide under the fixed nav.
-   DESKTOP IS UNTOUCHED: the snap rules live in the max-width:760px block only. */
-.gf-snap{position:absolute;left:0;width:0;height:0;pointer-events:none;}
+   The whole day, every moment both ways, every citation, in order. If the film vanished
+   tomorrow this would still argue. */
+.td-flat{height:auto;padding:clamp(64px,9vw,110px) 0;}
+.td-flat .wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
+.td-static h3{font-size:clamp(24px,3.4vw,42px);font-weight:600;letter-spacing:-.035em;line-height:1.05;color:#fff;max-width:24ch;}
+.td-st{margin-top:clamp(26px,3vw,38px);}
+.td-st h4{font-size:clamp(17px,1.9vw,21px);font-weight:600;letter-spacing:-.02em;color:#fff;}
+.td-st p{margin-top:8px;font-size:15.5px;line-height:1.6;color:#aeb6c4;max-width:62ch;}
+.td-st p b{font-weight:700;}
+.td-st p.sl b{color:#fbbf24;}
+.td-st p.ct b{color:#34d399;}
+.td-st p.fg{font-size:13.5px;color:#8a8f98;}
+.td-st-end{margin-top:clamp(26px,3vw,38px);font-size:16.5px;line-height:1.6;font-weight:500;color:#fff;max-width:58ch;}
+/* MOBILE SNAP - one flick, one moment. Markers at EXACTLY the segment boundaries in B,
+   rendered from B itself so they cannot drift from the driver. PROXIMITY, NEVER
+   MANDATORY: mandatory on a track this long traps a reader who only wants past the
+   film. No scroll-padding and no scroll-margin, deliberately: the target is a
+   zero-size marker inside a track whose stage is sticky at top 0, so nothing can hide
+   under the fixed nav. DESKTOP IS UNTOUCHED: the snap rules live in the
+   max-width:760px block only. */
+.td-snap{position:absolute;left:0;width:0;height:0;pointer-events:none;}
 @media (max-width:760px){
   html{scroll-snap-type:y proximity;}
-  .gf-snap{scroll-snap-align:start;}
+  .td-snap{scroll-snap-align:start;}
 }
 `;
 
@@ -228,12 +246,9 @@ export default function GrowthFilm() {
      Safari's URL bar changes innerHeight by 60-90px mid-scroll and the film lurches. */
   const stageRef = useRef<HTMLDivElement | null>(null);
   const [reduce, setReduce] = useState(false);
-  /* Defaults FALSE so server render and first client render agree (desktop box). */
-  const [mobile, setMobile] = useState(false);
   const [beat, setBeat] = useState(0);
-  const [dr, setDr] = useState(0);
-  const [sl, setSl] = useState(0);
-  const [fp, setFp] = useState(0);
+  const [mp, setMp] = useState(0);
+  const [pp, setPp] = useState(0);
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -244,20 +259,14 @@ export default function GrowthFilm() {
   }, []);
 
   useEffect(() => {
-    const mq = window.matchMedia('(max-width:760px)');
-    const set = () => setMobile(mq.matches);
-    set();
-    mq.addEventListener('change', set);
-    return () => mq.removeEventListener('change', set);
-  }, []);
-
-  useEffect(() => {
     const el = trackRef.current;
     if (!el || reduce) return; // reduced motion: no driver, no pin, no scrub.
     /* DAMPED, NOT DIRECT. Scroll sets a TARGET; the rendered progress eases toward it
-       every frame, so a phone flick cannot jump the film to its last frame. K = 0.12
-       matches JourneyMap and RemovalTest: ~0.4s to settle, composes with ArrowScroll's
-       0.2 without double-easing into mush. The loop runs only while moving, then STOPS. */
+       every frame, so a phone flick cannot jump the day to 9:00 PM. K = 0.12 matches
+       JourneyMap and RemovalTest: ~0.4s to settle, composes with ArrowScroll's 0.2
+       without double-easing into mush. The loop runs only while moving, then STOPS.
+       The clock, the sky and the card states all read this eased value: nothing in
+       the film reads raw scroll. */
     const K = 0.12;
     let raf = 0;
     let running = false;
@@ -271,15 +280,10 @@ export default function GrowthFilm() {
       return total > 0 ? scrolled / total : 0;
     };
     const apply = (p: number) => {
-      const b = p < B[1] ? 0 : p < B[2] ? 1 : p < B[3] ? 2 : p < B[4] ? 3 : 4;
-      const lp = clamp01((p - B[b]) / (B[b + 1] - B[b]));
-      setBeat(b);
-      /* Three continuous variables per beat, all off lp, so no press lands on nothing:
-         the drip travels for the whole beat, the seal draws across its back half, and
-         the flow dashes on the stream ride overall progress through the entire film. */
-      setDr(lp);
-      setSl(clamp01((lp - 0.5) / 0.45));
-      setFp(p);
+      const i = seg(p);
+      setBeat(i);
+      setMp(clamp01((p - B[i]) / (B[i + 1] - B[i])));
+      setPp(p);
     };
     const tick = () => {
       const t = measure();
@@ -307,49 +311,52 @@ export default function GrowthFilm() {
     return () => { window.removeEventListener('scroll', onScroll); cancelAnimationFrame(raf); };
   }, [reduce]);
 
-  const style = { '--dr': dr, '--sl': sl, '--fp': fp } as CSSProperties;
-  const copy = BEATS[beat];
+  /* Everything below reads the EASED value (pp, mp), never raw scroll. */
+  const hr = hourOf(pp);
+  const ck = fmt(pp);
+  const sky = {
+    a: clamp01(1 - Math.abs(hr - 7) / 2.6),     // dawn, full at 7:00
+    b: clamp01(1 - Math.abs(hr - 12.6) / 3.8),  // midday
+    c: clamp01(1 - Math.abs(hr - 17.4) / 2.4),  // golden hour
+    d: clamp01((hr - 18.6) / 2.4),              // dusk, full at 9:00
+  };
+  /* Per-moment locals, all off mp: the card rises, the slip lane lands, the caught lane
+     answers, the citation settles. Stacked so every press inside a moment moves one of
+     them, and the clock and sky move regardless. */
+  const r0 = clamp01(mp * 4);
+  const r1 = clamp01((mp - 0.1) / 0.3);
+  const r2 = clamp01((mp - 0.45) / 0.3);
+  const r3 = clamp01((mp - 0.72) / 0.2);
+  const ep = clamp01((pp - 0.95) / 0.045);
+  const style = {
+    '--mp': mp, '--r0': r0, '--r1': r1, '--r2': r2, '--r3': r3, '--ep': ep,
+    '--skyA': sky.a, '--skyB': sky.b, '--skyC': sky.c, '--skyD': sky.d,
+  } as CSSProperties;
+  const copy = MOMS[beat];
 
-  /* One object, one place the two layouts differ (the RemovalTest pattern). */
-  const g = mobile
-    ? {
-        vb: '0 0 420 470',
-        rail: 'M ' + MX + ' 24 L ' + MX + ' 446',
-        pt: (i: number) => ({ x: MX, y: MY[i] }),
-        lk: (i: number) => mleak(MY[i]),
-        lbl: (i: number) => ({ x: MX + 34, y: MY[i] - 16, a: 'start' as const }),
-        rOn: 10, rOff: 7, ring: 17,
-      }
-    : {
-        vb: '0 0 900 430',
-        rail: 'M 30 ' + LY + ' L 870 ' + LY,
-        pt: (i: number) => ({ x: NX[i], y: LY }),
-        lk: (i: number) => leak(NX[i]),
-        lbl: (i: number) => ({ x: NX[i], y: LY - 30, a: 'middle' as const }),
-        rOn: 9, rOff: 6, ring: 16,
-      };
-
-  /* EVERY beat, catch and stat. Shown for reduced motion, .sr-only otherwise. The film
-     is aria-hidden, so this twin is the page for screen readers. Do not conditionally
-     mount copy in this component. */
+  /* The whole day, every moment both ways, every citation. Shown for reduced motion,
+     .sr-only otherwise. The film is aria-hidden, so this twin is the page for screen
+     readers. Do not conditionally mount copy in this component. */
   const Static = () => (
-    <div className={reduce ? 'gf-static' : 'sr-only'}>
-      <h3>Five places money leaks out of a service business, and the seal on each one.</h3>
-      {BEATS.map((b) => (
-        <div key={b.k} className="gf-st-beat">
-          <h4>{b.n}: {b.h}</h4>
-          <p>{b.s}</p>
-          <p className="ct">{b.c}</p>
-          <p className="fg">{b.f} ({b.src})</p>
+    <div className={reduce ? 'td-static' : 'sr-only'}>
+      <h3>One workday, 7:00 AM to 9:00 PM. Five moments, and every one plays out both ways.</h3>
+      {MOMS.slice(1).map((m) => (
+        <div key={m.t} className="td-st">
+          <h4>{m.t}. {m.sc}</h4>
+          <p>{m.h}</p>
+          <p className="sl"><b>The day it slips:</b> {m.slip}</p>
+          <p className="ct"><b>The day it is caught:</b> {m.ct}</p>
+          <p className="fg">{m.f} ({m.src})</p>
         </div>
       ))}
+      <p className="td-st-end">9:00 PM. {END}</p>
     </div>
   );
 
-  /* Reduced motion: no track, no pin, no scrub. Just the argument, in order. */
+  /* Reduced motion: no track, no pin, no scrub. Just the day, in order. */
   if (reduce) {
     return (
-      <section className="gf-track gf-flat" aria-label="The five leaks, and what seals each one">
+      <section className="td-track td-flat" aria-label="The two days: one workday, played both ways">
         <style>{min(CSS)}</style>
         <div className="wrap"><Static /></div>
       </section>
@@ -357,57 +364,46 @@ export default function GrowthFilm() {
   }
 
   return (
-    <section className="gf-track" ref={trackRef} aria-label="The five leaks, and what seals each one">
+    <section className="td-track" ref={trackRef} aria-label="The two days: one workday, played both ways">
       <style>{min(CSS)}</style>
       {/* SNAP MARKERS. Zero-size, aria-hidden, positioned off B and --trk so they land
           on the same boundaries the driver uses. The reduced-motion branch returns
           above, so they never render there. */}
       {B.map((f, i) => (
-        <i key={i} aria-hidden="true" className="gf-snap" style={{ top: `calc((var(--trk) - 100svh) * ${f})` }} />
+        <i key={i} aria-hidden="true" className="td-snap" style={{ top: 'calc((var(--trk) - 100svh) * ' + f + ')' }} />
       ))}
       <Static />
-      <div ref={stageRef} className="gf-stage" style={style} data-beat={beat} aria-hidden="true">
-        <div className="gf-in">
-          <svg className="gf-svg" viewBox={g.vb} aria-hidden="true">
-            <path className="gf-rail" d={g.rail} />
-            <path className="gf-flow" d={g.rail} />
-            <path className="gf-flow2" d={g.rail} />
-            {BEATS.map((b, i) => {
-              const cls = i < beat ? 'done' : i === beat ? 'act' : 'todo';
-              const p = g.pt(i);
-              const l = g.lbl(i);
-              const done = i < beat || (i === beat && sl >= 1);
-              return (
-                <g key={b.n} className={'gf-nd ' + cls}>
-                  <path className="gf-lk" d={g.lk(i)} />
-                  <path className="gf-dp" d={g.lk(i)} />
-                  <circle className="gf-ring" cx={p.x} cy={p.y} r={g.ring}
-                          transform={'rotate(-90 ' + p.x + ' ' + p.y + ')'} />
-                  <circle className="gf-dot" cx={p.x} cy={p.y} r={i === beat ? g.rOn : g.rOff}
-                          fill={done ? '#34d399' : i === beat ? '#f59e0b' : '#3f3f46'} />
-                  <path className="gf-ck"
-                        d={'M ' + (p.x - 5) + ' ' + p.y + ' l 3.5 4 l 7 -8.5'} />
-                  <text className="gf-lbl" x={l.x} y={l.y} textAnchor={l.a}
-                        fill={done ? '#a7f3d0' : i === beat ? '#f5f5f7' : '#5c6470'}>{b.n}</text>
-                </g>
-              );
-            })}
-          </svg>
-
-          <div className="gf-copy">
-            <div className="gf-k">{copy.k}</div>
-            <div className="gf-h">{copy.h}</div>
-            <div className="gf-s">{copy.s}</div>
-            <div className="gf-c">{copy.c}</div>
-            <div className="gf-cite">
+      <div ref={stageRef} className="td-stage" style={style} data-beat={beat} aria-hidden="true">
+        <div className="td-sky">
+          <i className="sa" /><i className="sb" /><i className="sc" /><i className="sd" />
+        </div>
+        <div className="td-in">
+          <div>
+            <div className="td-k">The Two Days</div>
+            <div className="td-clock">{ck.d}<span>{ck.mer}</span></div>
+          </div>
+          <div className="td-card">
+            <div className="td-mo"><b>{copy.t}</b> &middot; {copy.sc}</div>
+            <div className="td-h">{copy.h}</div>
+            <div className="td-lanes">
+              <div className="td-lane td-slip">
+                <h5>The day it slips</h5>
+                <p>{copy.slip}</p>
+              </div>
+              <div className="td-lane td-catch">
+                <h5>The day it is caught</h5>
+                <p>{copy.ct}</p>
+              </div>
+            </div>
+            <div className="td-cite">
               {copy.f}
               <b>{copy.src}</b>
             </div>
           </div>
-
-          <div className="gf-dots">
-            {BEATS.map((b, i) => (
-              <span key={b.n} className={'d' + i}>{b.n}</span>
+          <p className="td-end"><b>9:00 PM.</b> {END}</p>
+          <div className="td-dots">
+            {MOMS.slice(1).map((m, i) => (
+              <span key={m.t} className={'d' + i}>{m.t}</span>
             ))}
           </div>
         </div>
