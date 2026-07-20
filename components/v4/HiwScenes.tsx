@@ -18,10 +18,8 @@ import { min } from '@/lib/css';
  * customer's account, and the page says so. We illustrate what the service does.
  * We never invent a result it produced. */
 
-const px = (id: string, w = 2000) =>
-  `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=${w}`;
 
-const ARRIVE_IMG = px('30660768');
+const ARRIVE_IMG = '/closer-dock.jpg'; /* same earned-evening dock as the closer; it was the same image twice before, too */
 
 function useOnView<T extends HTMLElement>(threshold = 0.35) {
   const ref = useRef<T | null>(null);

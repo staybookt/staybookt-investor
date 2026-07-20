@@ -310,7 +310,7 @@ const FILL = [
   'On the tools.',
   'Dinner at home, on time.',
   'The big install you keep turning down.',
-  'Saturday at your kid’s game.',
+  'Saturday on the dock.', /* was "your kid's game": the ICP is 50+, the kids are grown */
   'Training the apprentice properly.',
   'A Friday afternoon off.',
   'Walking the job before you quote it.',

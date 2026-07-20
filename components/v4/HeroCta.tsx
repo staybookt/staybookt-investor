@@ -59,8 +59,12 @@ export default function HeroCta({ fromBlack = false }: { fromBlack?: boolean }) 
   );
 }
 
-const HERO_IMG =
-  'https://images.pexels.com/photos/30660768/pexels-photo-30660768.jpeg?auto=compress&cs=tinysrgb&w=2000';
+/* WAS the golden-hour family (dad, daughter on shoulders), on every page. Warm, but it
+   was the "relationship stuff too heavy" note, sitewide. Two Muskoka chairs on a dock at
+   golden hour instead: under "Do the work you love. We'll run the rest." the empty chairs
+   read as the evening waiting for you, and a dock is what a seven-figure exit actually
+   buys. Richard asked for this shot by name. */
+const HERO_IMG = '/closer-dock.jpg';
 
 const CSS = `
 .hcta{position:relative;min-height:min(100vh,900px);display:flex;align-items:flex-end;overflow:hidden;color:#fff;background:#050506;}

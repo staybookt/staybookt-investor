@@ -319,7 +319,13 @@ export default function HomePage() {
             $5M, so the picture has to be time, not wealth. It is also silhouetted and
             low contrast, which is what lets white headline type sit on it cleanly. */}
         {/* 1800x1200 is public/hero-home.jpg's real size, read off the file. */}
-        <HeroMedia poster="/hero-home.jpg" posterW={1800} posterH={1200} video="/hero-loop.mp4?v=2" />
+        {/* THE VIDEO IS RETIRED (Tammer + Richard, July 2026). Its payoff scene was the
+            couple with wine on a clifftop balcony, which is the exact billionaire-register
+            image this round of feedback killed, and the clip carried visible AI-generation
+            tells besides. The fishing still with the ken-burns drift is on the approved
+            list (fishing), weighs 70KB against 1.24MB, and cannot be blocked by Low Power
+            Mode. Desktop and mobile now share one hero. */}
+        <HeroMedia poster="/hero-home.jpg" posterW={1800} posterH={1200} />
         <div className="grad-ov" />
         <div className="wrap inner">
           <Reveal className="eyebrow" as="div">For owner-operated service businesses</Reveal>

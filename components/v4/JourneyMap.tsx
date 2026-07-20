@@ -346,19 +346,25 @@ const WHEEL: { lbl: string; blurb: string; dx: number; dy: number; lx: number; l
  * Each scene now carries a caption AND a line of context, because the captions on
  * their own were pretty and vague. The caption is the feeling. The line underneath
  * is what we actually did to make it possible. */
+/* THE LIFE SCENES WERE BILLIONAIRE ASPIRATIONS (Tammer, then Richard, July 2026). A
+   Mediterranean beach holiday and a hammock over a resort cove, on a site whose reader
+   exits at low seven figures at best. The aspiration has to be reachable or it reads as
+   somebody else's ad. These are now the fundamental luxuries the ICP actually wants:
+   the pontoon at sunset, the same tradesman at his bench, the dog in the pines. Time,
+   bought back. Self-hosted, like every image on this site now. */
 const LIFE: { img: string; cap: string; sub: string }[] = [
   {
-    img: '8623946',
+    img: '/life-boat.jpg',
     cap: 'Take the two weeks.',
     sub: 'The phone still gets answered and the jobs still get booked. You are not on call from a beach.',
   },
   {
-    img: '3846255',
+    img: '/life-shop.jpg',
     cap: 'Back to the part you love.',
     sub: 'The craft, and bringing the next one up. Not the paperwork at nine at night.',
   },
   {
-    img: '4835776',
+    img: '/life-dog.jpg',
     cap: 'A day that is finally yours.',
     sub: 'Nothing was dropped while you were gone. You read about it tomorrow, in thirty seconds.',
   },
@@ -549,7 +555,7 @@ export default function JourneyMap() {
             <div
               key={l.img}
               className={`scene e${i}`}
-              style={{ backgroundImage: `url(https://images.pexels.com/photos/${l.img}/pexels-photo-${l.img}.jpeg?auto=compress&cs=tinysrgb&w=1600)` }}
+              style={{ backgroundImage: `url(${l.img})` }}
             />
           ))}
           <svg className="grain"><filter id="sscxG"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves={2} stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#sscxG)" /></svg>
