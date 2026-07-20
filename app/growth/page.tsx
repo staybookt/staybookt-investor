@@ -42,6 +42,14 @@ import { min } from '@/lib/css';
  * escape-proof, and each reveal now holds on its source for a beat before the
  * chevron invites the next scroll.
  *
+ * THE LIGHT BODY, ELEVENTH PASS (Jacob, live review, July 2026): every other page
+ * runs the dark .pg-hero into a light body, and this one ran dark into dark. The
+ * whole quiz journey now lives on the site's cream (see the eleventh-pass block in
+ * GrowthQuiz.tsx), the results screen became a real moment (keynote score count-up,
+ * staggered receipts, adaptive verdict), the calculator advances on scroll like
+ * every other moment, and the bottom Sources list is gone: each reveal cites
+ * itself.
+ *
  * PRIVATE MEANS THREE THINGS, ALL LOAD-BEARING:
  *   1. metadata.robots is noindex,nofollow. Do not remove it while this is a draft.
  *   2. It appears in NO nav, NO footer, NO sitemap (app/sitemap.ts is an explicit
@@ -50,8 +58,10 @@ import { min } from '@/lib/css';
  *
  * THE RULES THIS PAGE LIVES UNDER, same as the rest of the site:
  *   - No invented numbers. Every figure in the quiz is an external, published stat,
- *     presented as external, with its source named on its card and linked at the
- *     bottom.
+ *     presented as external, with its source named in small type on its own reveal
+ *     card and again inline at the stack-up. (The bottom Sources list is gone,
+ *     July 2026: it restated what every reveal already cites. Do not re-add it;
+ *     the citation lives with the figure.)
  *   - No ROI promise, no "typical customer saves X", no revenue guarantee.
  *   - THE CALCULATOR IS NOT THE LEAK CALCULATOR. That anti-pattern is still banned,
  *     and the reason it was banned is what the quiz's arithmetic refuses to do: it
@@ -83,7 +93,7 @@ export const metadata = {
 };
 
 const CSS = `
-.gro{background:#fff;color:var(--v4-ink);}
+.gro{background:#f6f6f3;color:var(--v4-ink);}
 .gro .wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
 .gro .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#69707d;}
 /* HERO. The shared .pg-hero from globals.css, emerald because this page argues the
@@ -105,53 +115,7 @@ const CSS = `
 .gro .pg-hero .wrap .gro-cue svg{display:block;animation:gro-cue 2.4s ease-in-out infinite;}
 @keyframes gro-cue{0%,100%{opacity:.45;transform:translateY(0);}50%{opacity:.95;transform:translateY(5px);}}
 @media(prefers-reduced-motion:reduce){.gro .pg-hero .wrap .gro-cue svg{animation:none;}}
-/* SOURCES. One quiet line-list, still linked. Every figure the quiz uses, findable. */
-.gro-src{padding:clamp(44px,6vw,72px) 0;border-top:1px solid #e6e6e1;background:#f6f6f3;}
-.gro-src ul{margin-top:18px;max-width:760px;list-style:none;padding:0;}
-.gro-src li{padding:8px 0;font-size:13.5px;line-height:1.6;color:#5c636e;}
-.gro-src li b{font-weight:600;color:var(--v4-ink);}
-.gro-src li a{color:#047857;font-weight:600;text-decoration:none;}
-.gro-src li a:hover{text-decoration:underline;}
 `;
-
-const SOURCES: { name: string; title: string; year: string; url: string }[] = [
-  {
-    name: '411 Locals',
-    title: 'Small Business Owners Do Not Answer 62% of Phone Calls',
-    year: '2024',
-    url: 'https://411locals.us/small-business-owners-dont-answer-62-of-phone-calls/',
-  },
-  {
-    name: 'Harvard Business Review',
-    title: 'The Short Life of Online Sales Leads (audit of 2,241 companies)',
-    year: '2011',
-    url: 'https://hbr.org/2011/03/the-short-life-of-online-sales-leads',
-  },
-  {
-    name: 'MIT / InsideSales.com',
-    title: 'Lead Response Management Study',
-    year: '2007',
-    url: 'https://www.insidesales.com/response-time-matters/',
-  },
-  {
-    name: 'ServiceTitan',
-    title: 'Follow-Ups 101: Back 2 Basics',
-    year: 'n.d.',
-    url: 'https://www.servicetitan.com/blog/webinar-recap-follow-ups-101-back-2-basics',
-  },
-  {
-    name: 'BrightLocal',
-    title: 'Local Consumer Review Survey',
-    year: '2024',
-    url: 'https://www.brightlocal.com/research/local-consumer-review-survey-2024/',
-  },
-  {
-    name: 'Harvard Business Review, citing Bain & Company',
-    title: 'The Value of Keeping the Right Customers',
-    year: '2014',
-    url: 'https://hbr.org/2014/10/the-value-of-keeping-the-right-customers',
-  },
-];
 
 export default function GrowthPage() {
   return (
@@ -190,25 +154,11 @@ export default function GrowthPage() {
             into a visible trail, and assembles its finale from that trail. A reveal
             holds until the reader's next scroll advances it, and scroll is contained
             inside the journey until the finale, so nothing blows past into the
-            sources below; reduced-motion readers keep a quiet Continue and normal
-            page scrolling, and the steppers and finale keep deliberate controls. */}
+            closer below; reduced-motion readers keep a quiet Continue and normal
+            page scrolling. Every figure's citation lives on its reveal card and
+            inline at the stack-up: there is no separate Sources block down here,
+            deliberately (July 2026). */}
         <GrowthQuiz />
-
-        {/* SOURCES. Every number in the quiz, findable. The link text is the paper,
-            not the raw URL: quieter, same destination. */}
-        <section className="gro-src">
-          <div className="wrap">
-            <div className="eyebrow">Sources</div>
-            <ul>
-              {SOURCES.map((s) => (
-                <li key={s.url}>
-                  <b>{s.name}</b> ({s.year}).{' '}
-                  <a href={s.url} target="_blank" rel="noopener noreferrer">{s.title}</a>.
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
 
         <HeroCta />
       </main>

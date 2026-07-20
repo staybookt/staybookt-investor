@@ -65,12 +65,12 @@ import { min } from '@/lib/css';
  *
  * SCROLL IS CONTAINED while the journey is live: wheel and touchmove over the stage
  * are consumed, and scroll keys are swallowed, so a scroll can never blow past the
- * quiz into the sources and closer below, and a gesture on an unanswered question
+ * quiz into the closer below, and a gesture on an unanswered question
  * does nothing at all. The quiz sets document.body.dataset.quizActive = '1' for the
  * same window, and ArrowScroll.tsx bails on that flag so an arrow press advances
  * the quiz instead of double-scrolling the page. Both the containment and the flag
  * end the moment the finale is reached: from there the page scrolls normally,
- * stack-up into sources into the closing CTA. prefers-reduced-motion gets NO
+ * stack-up into the closing CTA. prefers-reduced-motion gets NO
  * gesture capture and NO count-up: instant reveal, normal page scrolling, and the
  * quiet Continue control, because hijacking scroll is exactly what that setting
  * refuses; CSS media query plus a matchMedia check cover both halves. The finale's
@@ -89,9 +89,13 @@ import { min } from '@/lib/css';
  * labelled by the question heading; answered options go aria-disabled (not disabled)
  * so keyboard focus is never dropped; focus moves to the active card's heading on
  * every advance, reopen or return, never on initial load; trail rows and every other
- * control run 48px or better; works at 390px. Quiet grey on this dark section is
- * #8a8f98 (6.27:1 on #050506); mid grey is #aeb6c4; the emerald #34d399 clears 10:1;
- * the amber #f59e0b clears 9:1. #6b7280 is BANNED everywhere.
+ * control run 48px or better; works at 390px. Quiet grey on this LIGHT section is
+ * #69707d (4.60:1 on the cream #f6f6f3, 4.98:1 on the white cards); ink is #06080d;
+ * the emerald is its light-surface variant #046c4e (5.9:1 on cream) and the amber is
+ * #b45309 (4.6:1 on cream); focus rings are #059669 (3.6:1, clears the 3:1 non-text
+ * bar). #6b7280 is BANNED everywhere, and so is --sb-grad on a light surface: its
+ * cyan stop fails contrast on cream, so every figure and headline highlight here
+ * uses --sb-grad-ink, whose quietest stop clears the large-text bar on cream.
  *
  * STATE IS REACT STATE. A refresh restarts the journey from question one. Accepted:
  * this is a private draft for two founders, not a saved form. Question one renders on
@@ -144,7 +148,7 @@ import { min } from '@/lib/css';
  *
  * THE RELEASE: reduced motion, and the finale, both unpin the stage to normal
  * flow (.gq-rel): height auto, no overflow clip, no containment, stack-up into
- * sources into the closing CTA. If a moment ever outgrows a small viewport the
+ * the closing CTA. If a moment ever outgrows a small viewport the
  * stage scrolls internally (overflow-y auto, auto margins on the card, so the
  * top of the content is always reachable) and the gesture capture stands down
  * for native scroll while it does.
@@ -166,8 +170,32 @@ import { min } from '@/lib/css';
  * armed-reveal advance keeps working exactly as before; the gesture
  * listeners and the clamp stay on as belt and braces. The flag clears the
  * moment the finale is reached (and is never set under reduced motion), and
- * the sources and the closing CTA return to the flow right where the reader
- * is about to scroll into them.
+ * the closing CTA returns to the flow right where the reader is about to
+ * scroll into it.
+ *
+ * ELEVENTH PASS, THE LIGHT BODY (Jacob, live review, July 2026): every other
+ * page on the site runs a dark .pg-hero into a light body, and this page ran
+ * dark into dark. The whole journey, questions, reveals, results, calculator,
+ * finale, now lives on the site's cream #f6f6f3 in the white-card language the
+ * matrix uses on /whats-included: white surfaces, #ececeb borders, ink text,
+ * #69707d quiet grey. Keynote figures and headline highlights switched from
+ * --sb-grad to --sb-grad-ink, because --sb-grad's cyan stop fails contrast on
+ * a light ground. Three more moves in the same pass:
+ *   - THE RESULTS MOMENT: the score is no longer a small line under the rows.
+ *     It lands first, keynote scale, counting up to its "2 of 3"; the three
+ *     receipts stagger in beneath it 120ms apart once the count lands, then
+ *     one line of verdict copy that adapts to the score, warm at every score,
+ *     no shame at zero. It judges the three GUESSES only, as ever.
+ *   - SCROLL TO THE FINALE: the calculator no longer demands a Continue
+ *     click. The defaults count as inputs, so once the reader settles, the
+ *     next scroll advances to the finale like every other moment. Inputs stay
+ *     deliberate: the advance never fires while a field holds focus, and a
+ *     short settle window after the last interaction has to pass before the
+ *     scroll arms. Keyboard and reduced-motion readers keep the quiet
+ *     Continue, and a reopen from the finale keeps its visible Return.
+ *   - THE SOURCES SECTION BELOW THE QUIZ IS GONE: every reveal carries its
+ *     source line, and the finale names its sources inline, so the bottom
+ *     list restated what the journey had already cited.
  */
 
 const PRICE = 199;
@@ -194,9 +222,10 @@ type Question = {
   src: string;
 };
 
-/* Every figure is published external research, named quietly on its card and linked
-   in full in the Sources list below the quiz. The dropped stats stay dropped: see the
-   note in app/growth/page.tsx. */
+/* Every figure is published external research, named quietly on its card: the
+   reveal's source line IS the citation, and the finale repeats it inline. The old
+   Sources list below the quiz is gone (eleventh pass). The dropped stats stay
+   dropped: see the note in app/growth/page.tsx. */
 const QUESTIONS: Question[] = [
   {
     key: 'missed',
@@ -264,11 +293,11 @@ const CSS = `
    the hero, sits under it. overflow-y auto plus the auto margins on the card mean
    a moment that outgrows a short screen scrolls internally instead of clipping,
    and overscroll-behavior keeps that internal scroll from chaining to the page.
-   The ::before is the hero's emerald wash carrying on, faint and decorative, over
-   the same #050506 the hero sits on, so the seam between header and quiz is
-   invisible. */
-.gq{position:relative;background:#050506;color:#f5f5f7;}
-.gq::before{content:'';position:absolute;top:0;left:0;right:0;height:340px;pointer-events:none;background:radial-gradient(64% 100% at 50% 0%,rgba(16,185,129,.05),transparent 72%);}
+   THE LIGHT BODY (eleventh pass): the section is the site's cream #f6f6f3, the
+   standard light body every dark .pg-hero hands into, so the seam between the
+   dark header and this section is the same seam every other page runs. The old
+   emerald ::before wash existed to blend dark into dark and is gone with it. */
+.gq{position:relative;background:#f6f6f3;color:#06080d;}
 .gq-stage{position:sticky;top:0;height:100vh;height:100svh;overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;padding:calc(64px + clamp(4px,1vh,10px)) 0 clamp(12px,2.5vh,22px);}
 /* THE RELEASE. Reduced motion, and the journey's finale, both unpin the stage to
    normal flow: the finale can run as tall as it is, and the page scrolls on into
@@ -276,8 +305,8 @@ const CSS = `
 .gq.gq-rel .gq-stage{position:static;height:auto;min-height:100svh;overflow:visible;padding-bottom:clamp(56px,8vh,96px);}
 /* THE HARD STOP (tenth pass, the desktop fix). While the journey is live the
    quiz sets data-quiz-active on the body, and that flag takes everything below
-   the quiz, the sources and the closing CTA inside main and the footer after
-   it, out of the flow entirely. The document ends at the stage, so the
+   the quiz, the closing CTA inside main and the footer after it, out of the
+   flow entirely. The document ends at the stage, so the
    browser's own scroll limit IS the pin: no wheel momentum, flick, scrollbar
    drag or programmatic scroll can land past the quiz, with no preventDefault
    involved. Chrome only honours a cancel on the first wheel event of a scroll
@@ -298,21 +327,23 @@ body[data-quiz-active] .gro main~footer{display:none;}
    locked the wrap to the leftover space and let tall content spill under the
    CallBar instead of scrolling clear of it. */
 .gq-wrap{position:relative;z-index:1;width:100%;max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px);flex:1 0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;}
-.gq-eye{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#8a8f98;}
+.gq-eye{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#69707d;}
 /* THE TRAIL. Answered cards condense into these receipt rows and stay visible.
-   Every row is a real button: tapping it reopens that card. */
+   Every row is a real button: tapping it reopens that card. White cards on the
+   cream, #ececeb borders: the matrix's light-surface card language. */
 .gq-trail{width:100%;max-width:720px;margin:clamp(16px,2.6vh,26px) auto 0;display:flex;flex-direction:column;gap:8px;}
-.gq-tr{display:flex;align-items:center;gap:12px;width:100%;min-height:48px;padding:10px 16px;border:1px solid #23262e;border-radius:14px;background:#0b0c10;color:#aeb6c4;font-family:inherit;font-size:14.5px;line-height:1.45;text-align:left;cursor:pointer;transition:border-color .2s ease,background .2s ease;animation:gq-condense .6s ease both;}
-.gq-tr:hover{border-color:#3a3e49;background:#101218;}
-.gq-tr:focus-visible{outline:2px solid #34d399;outline-offset:2px;}
-.gq-tr b{font-weight:700;color:#fff;font-variant-numeric:tabular-nums;}
+.gq-tr{display:flex;align-items:center;gap:12px;width:100%;min-height:48px;padding:10px 16px;border:1px solid #ececeb;border-radius:14px;background:#fff;color:#69707d;font-family:inherit;font-size:14.5px;line-height:1.45;text-align:left;cursor:pointer;transition:border-color .2s ease,background .2s ease;animation:gq-condense .6s ease both;box-shadow:0 2px 6px -2px rgba(6,12,20,.06);}
+.gq-tr:hover{border-color:#d9d9d3;background:#fbfbfa;}
+.gq-tr:focus-visible{outline:2px solid #059669;outline-offset:2px;}
+.gq-tr b{font-weight:700;color:#06080d;font-variant-numeric:tabular-nums;}
 @keyframes gq-condense{from{opacity:0;transform:translateY(14px) scale(.97);}to{opacity:1;transform:none;}}
 /* Right and wrong marks, shared by the trail and the stack-up. Decorative; the
-   words beside them carry the meaning. */
+   words beside them carry the meaning. Light-surface variants: emerald #046c4e,
+   amber #b45309, both past 4.5:1 on cream and white. */
 .gq .mk{flex:0 0 auto;font-size:14px;line-height:1.6;}
-.gq .mk.ok{color:#34d399;}
-.gq .mk.miss{color:#f59e0b;}
-.gq .mk.nt{color:#8a8f98;}
+.gq .mk.ok{color:#046c4e;}
+.gq .mk.miss{color:#b45309;}
+.gq .mk.nt{color:#69707d;}
 /* THE ACTIVE CARD. Centred in the held stage's full viewport; the auto margins,
    not justify-content, do the centring, so if the card ever outgrows a short
    screen the top stays reachable through the stage's internal scroll. Rises into
@@ -320,36 +351,36 @@ body[data-quiz-active] .gro main~footer{display:none;}
 .gq-card{width:100%;display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:auto;margin-bottom:auto;padding:clamp(14px,2.5vh,30px) 0;}
 .gq-card.anim{animation:gq-in .6s ease both;}
 @keyframes gq-in{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:none;}}
-.gq-h{margin:14px auto 0;font-size:clamp(27px,3.8vw,50px);font-weight:600;letter-spacing:-.03em;line-height:1.08;color:#fff;max-width:24ch;outline:none;transition:font-size .3s ease;}
-.gq-h .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.gq-h{margin:14px auto 0;font-size:clamp(27px,3.8vw,50px);font-weight:600;letter-spacing:-.03em;line-height:1.08;color:#06080d;max-width:24ch;outline:none;transition:font-size .3s ease;}
+.gq-h .g{background:var(--sb-grad-ink);-webkit-background-clip:text;background-clip:text;color:transparent;}
 /* During the reveal the question quiets to a small kicker line above the figure.
    Same h2 element, so the outline and the focus target never change. */
-.gq-h.quiet{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;line-height:1.5;color:#8a8f98;max-width:none;}
-.gq-h.quiet .g{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:#8a8f98;}
-.gq-sub{margin:16px auto 0;font-size:clamp(15.5px,1.7vw,18px);line-height:1.6;color:#aeb6c4;max-width:52ch;}
+.gq-h.quiet{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;line-height:1.5;color:#69707d;max-width:none;}
+.gq-h.quiet .g{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:#69707d;}
+.gq-sub{margin:16px auto 0;font-size:clamp(15.5px,1.7vw,18px);line-height:1.6;color:#69707d;max-width:52ch;}
 /* THE QUIET CONTINUE. The only forward control left anywhere. Invisible in the
    scroll flow until the card is hovered or it holds focus; always visible (.vis)
-   for keyboard picks, reduced motion, reveals reopened after the finale and the
-   steppers, which need deliberate submission. 48px tap target, quiet grey at
-   6.27:1 on #050506. */
-.gq-go{margin-top:clamp(18px,3vh,32px);min-height:48px;padding:12px 24px;border:1px solid transparent;border-radius:999px;background:transparent;color:#8a8f98;font-family:inherit;font-size:13.5px;font-weight:600;letter-spacing:.04em;cursor:pointer;opacity:0;transition:opacity .2s ease,color .2s ease,border-color .2s ease;}
-.gq-go.vis{opacity:1;border-color:#23262e;}
+   for keyboard picks, reduced motion and reopens from the finale, which need a
+   deliberate way back. 48px tap target, quiet grey at 4.60:1 on the cream. */
+.gq-go{margin-top:clamp(18px,3vh,32px);min-height:48px;padding:12px 24px;border:1px solid transparent;border-radius:999px;background:transparent;color:#69707d;font-family:inherit;font-size:13.5px;font-weight:600;letter-spacing:.04em;cursor:pointer;opacity:0;transition:opacity .2s ease,color .2s ease,border-color .2s ease;}
+.gq-go.vis{opacity:1;border-color:#ececeb;}
 .gq-go:focus-visible,.gq-card:hover .gq-go{opacity:1;}
-.gq-go:hover{color:#aeb6c4;border-color:#3a3e49;}
-.gq-go:focus-visible{outline:2px solid #34d399;outline-offset:2px;}
+.gq-go:hover{color:#06080d;border-color:#d9d9d3;}
+.gq-go:focus-visible{outline:2px solid #059669;outline-offset:2px;}
 /* OPTIONS. Real buttons; after the pick they resolve in place: the correct one goes
    emerald, the reader's wrong pick keeps a light outline, the rest fall back. They
    go aria-disabled, never disabled, so keyboard focus is not dropped. */
 .gq-opts{margin-top:clamp(20px,3.5vh,34px);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;width:100%;max-width:640px;}
 @media(max-width:560px){.gq-opts{grid-template-columns:1fr 1fr;}}
-.gq-opt{min-height:56px;border-radius:16px;border:1px solid #2c2f38;background:#15171d;color:#f5f5f7;font-family:inherit;font-size:19px;font-weight:600;cursor:pointer;transition:background .2s ease,border-color .2s ease,color .2s ease,opacity .2s ease;}
-.gq-opt:hover{background:#1c1f27;border-color:#3a3e49;}
-.gq-opt:focus-visible{outline:2px solid #34d399;outline-offset:2px;}
-.gq-opt.ok{border-color:#34d399;color:#34d399;background:#0b0c10;cursor:default;}
-.gq-opt.my{border-color:#aeb6c4;background:#15171d;cursor:default;}
-.gq-opt.dim{opacity:.4;cursor:default;}
-.gq-opt.ok:hover,.gq-opt.my:hover,.gq-opt.dim:hover{background:#15171d;}
-.gq-opt.ok:hover{background:#0b0c10;}
+.gq-opt{min-height:56px;border-radius:16px;border:1px solid #ececeb;background:#fff;color:#06080d;font-family:inherit;font-size:19px;font-weight:600;cursor:pointer;transition:background .2s ease,border-color .2s ease,color .2s ease,opacity .2s ease;box-shadow:0 2px 6px -2px rgba(6,12,20,.06);}
+.gq-opt:hover{background:#fbfbfa;border-color:#d9d9d3;}
+.gq-opt:focus-visible{outline:2px solid #059669;outline-offset:2px;}
+.gq-opt.ok{border-color:#046c4e;color:#046c4e;background:rgba(4,108,78,.06);cursor:default;}
+.gq-opt.my{border-color:#b45309;color:#b45309;background:rgba(245,158,11,.1);cursor:default;}
+.gq-opt.dim{opacity:.55;cursor:default;}
+.gq-opt.my:hover,.gq-opt.dim:hover{background:#fff;}
+.gq-opt.my:hover{background:rgba(245,158,11,.1);}
+.gq-opt.ok:hover{background:rgba(4,108,78,.06);border-color:#046c4e;}
 /* THE CONDENSE, ~350ms on answer: the picked option and the correct one shrink up
    toward the incoming trail row; the rest fade out. Then the reveal owns the
    screen. */
@@ -363,79 +394,88 @@ body[data-quiz-active] .gro main~footer{display:none;}
    advance in place; the chevron beneath it pulses gently once the count lands,
    the quiet cue that the next scroll brings the next question. */
 .gq-reveal{display:flex;flex-direction:column;align-items:center;width:100%;animation:gq-in .35s ease both;}
-.gq-reveal:focus-visible{outline:2px solid #34d399;outline-offset:10px;border-radius:12px;}
+.gq-reveal:focus-visible{outline:2px solid #059669;outline-offset:10px;border-radius:12px;}
 .gq-reveal .gq-fig{margin-top:clamp(26px,5.5vh,54px);}
 .gq-reveal .gq-line{margin-top:clamp(22px,4.2vh,40px);}
 .gq-reveal .gq-srcline{margin-top:clamp(14px,2.8vh,26px);}
-.gq-cue{margin-top:clamp(20px,3.6vh,36px);height:14px;color:#8a8f98;opacity:0;transition:opacity .3s ease;}
+.gq-cue{margin-top:clamp(20px,3.6vh,36px);height:14px;color:#69707d;opacity:0;transition:opacity .3s ease;}
 .gq-cue.on{opacity:1;animation:gq-cue 2.4s ease-in-out infinite;}
 .gq-cue svg{display:block;}
 @keyframes gq-cue{0%,100%{opacity:.45;transform:translateY(0);}50%{opacity:.95;transform:translateY(5px);}}
 /* THE FIGURE. Keynote scale, gradient on the number, tabular so digits do not
-   jitter sideways while they count. Giant display text, so the gradient's quietest
-   stop clears the WCAG large-text bar with room. */
-.gq-fig{margin-top:clamp(12px,2.6vh,24px);font-family:var(--font-display),'Inter Tight','Helvetica Neue',Arial,sans-serif;font-size:clamp(96px,22vw,240px);line-height:.95;font-weight:700;letter-spacing:-.05em;font-variant-numeric:tabular-nums;background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+   jitter sideways while they count. Giant display text on the LIGHT ground, so
+   the gradient is --sb-grad-ink, never --sb-grad: the ink gradient's quietest
+   stop clears the WCAG large-text bar on cream, the bright one's cyan does not. */
+.gq-fig{margin-top:clamp(12px,2.6vh,24px);font-family:var(--font-display),'Inter Tight','Helvetica Neue',Arial,sans-serif;font-size:clamp(96px,22vw,240px);line-height:.95;font-weight:700;letter-spacing:-.05em;font-variant-numeric:tabular-nums;background:var(--sb-grad-ink);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .gq-fig-sm{font-size:clamp(56px,14vw,170px);}
-@media(max-width:760px){.gq-fig{font-size:clamp(48px,16vw,84px);}.gq-fig-sm{font-size:clamp(38px,12vw,64px);}}
-.gq-line{margin:clamp(10px,2vh,18px) auto 0;max-width:36ch;font-size:clamp(17px,2vw,23px);font-weight:600;letter-spacing:-.02em;line-height:1.4;color:#fff;}
+/* THE SCORE FIGURE (eleventh pass). "2 of 3" is wide, so it runs a step under the
+   headline figures and still lands keynote. */
+.gq-fig.gq-fig-score{font-size:clamp(64px,15vw,180px);}
+@media(max-width:760px){.gq-fig{font-size:clamp(48px,16vw,84px);}.gq-fig-sm{font-size:clamp(38px,12vw,64px);}.gq-fig.gq-fig-score{font-size:clamp(40px,13vw,72px);}}
+.gq-line{margin:clamp(10px,2vh,18px) auto 0;max-width:36ch;font-size:clamp(17px,2vw,23px);font-weight:600;letter-spacing:-.02em;line-height:1.4;color:#06080d;}
 /* THE SOURCE BEAT. The source line is part of the hold: it starts silent and
    fades in ~400ms after the count lands (the JS owns the delay, .on is the cue),
    so where the number came from gets its own quiet moment before the chevron
-   invites the next scroll. Small quiet type on purpose: 12.5px #8a8f98 runs
-   6.27:1 on #050506. */
-.gq-srcline{margin:12px auto 0;max-width:60ch;font-size:12.5px;line-height:1.5;color:#8a8f98;opacity:0;transform:translateY(6px);transition:opacity .6s ease,transform .6s ease;}
+   invites the next scroll. Small quiet type on purpose: 12.5px #69707d runs
+   4.60:1 on the cream. */
+.gq-srcline{margin:12px auto 0;max-width:60ch;font-size:12.5px;line-height:1.5;color:#69707d;opacity:0;transform:translateY(6px);transition:opacity .6s ease,transform .6s ease;}
 .gq-srcline.on{opacity:1;transform:none;}
 /* THE INPUTS. Salvaged from YourMath: 48px minimum tap targets (these run 52), real
    buttons and a real number input per field, visible focus. Non-negotiable. */
 .gq-fields{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,22px);width:100%;max-width:940px;margin:clamp(22px,4vh,40px) auto 0;text-align:left;}
 @media(max-width:860px){.gq-fields{grid-template-columns:1fr;}}
-.gq-f{border:1px solid #23262e;border-radius:18px;background:#0b0c10;padding:18px 18px 16px;}
-.gq-f .lb{display:block;font-size:14.5px;font-weight:600;color:#f5f5f7;}
-.gq-f .ht{display:block;margin-top:4px;font-size:12.5px;line-height:1.45;color:#8a8f98;}
+.gq-f{border:1px solid #ececeb;border-radius:18px;background:#fff;padding:18px 18px 16px;box-shadow:0 2px 6px -2px rgba(6,12,20,.06);}
+.gq-f .lb{display:block;font-size:14.5px;font-weight:600;color:#06080d;}
+.gq-f .ht{display:block;margin-top:4px;font-size:12.5px;line-height:1.45;color:#69707d;}
 .gq-row{margin-top:12px;display:flex;align-items:stretch;gap:10px;}
-.gq-btn{flex:0 0 52px;min-width:48px;min-height:52px;border-radius:14px;border:1px solid #2c2f38;background:#15171d;color:#f5f5f7;font-size:24px;font-weight:600;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s ease,border-color .2s ease;}
-.gq-btn:hover{background:#1c1f27;border-color:#3a3e49;}
-.gq-btn:active{background:#23262f;}
-.gq-btn:focus-visible{outline:2px solid #34d399;outline-offset:2px;}
+.gq-btn{flex:0 0 52px;min-width:48px;min-height:52px;border-radius:14px;border:1px solid #ececeb;background:#fff;color:#06080d;font-size:24px;font-weight:600;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s ease,border-color .2s ease;}
+.gq-btn:hover{background:#fbfbfa;border-color:#d9d9d3;}
+.gq-btn:active{background:#f2f2ef;}
+.gq-btn:focus-visible{outline:2px solid #059669;outline-offset:2px;}
 .gq-btn:disabled{opacity:.35;cursor:default;}
 .gq-val{position:relative;flex:1 1 auto;min-width:0;display:flex;align-items:center;}
-.gq-val .cur{position:absolute;left:12px;font-size:16px;font-weight:600;color:#8a8f98;pointer-events:none;}
-.gq-in{width:100%;min-height:52px;border:1px solid #2c2f38;border-radius:14px;background:#0b0c10;font-family:inherit;font-size:21px;font-weight:600;color:#fff;text-align:center;-moz-appearance:textfield;appearance:textfield;}
+.gq-val .cur{position:absolute;left:12px;font-size:16px;font-weight:600;color:#69707d;pointer-events:none;}
+.gq-in{width:100%;min-height:52px;border:1px solid #ececeb;border-radius:14px;background:#fff;font-family:inherit;font-size:21px;font-weight:600;color:#06080d;text-align:center;-moz-appearance:textfield;appearance:textfield;}
 .gq-in::-webkit-outer-spin-button,.gq-in::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
-.gq-in:focus-visible{outline:2px solid #34d399;outline-offset:2px;}
+.gq-in:focus-visible{outline:2px solid #059669;outline-offset:2px;}
 /* THE STACK-UP. The trail rows assemble into two quiet columns, industry beside
    theirs, with a short stagger echoing the trail they came from. No verdict. The
    question rows stay tappable so an answer can still be changed from here. */
 .gq-cols{margin-top:clamp(20px,3.5vh,34px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2vw,22px);width:100%;max-width:940px;text-align:left;}
 @media(max-width:720px){.gq-cols{grid-template-columns:1fr;}}
-.gq-col{border:1px solid #23262e;border-radius:18px;background:#0b0c10;padding:20px 22px;}
-.gq-col .hd{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#8a8f98;}
+.gq-col{border:1px solid #ececeb;border-radius:18px;background:#fff;padding:20px 22px;box-shadow:0 2px 6px -2px rgba(6,12,20,.06);}
+.gq-col .hd{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#69707d;}
 .gq-col ul{list-style:none;margin:10px 0 0;padding:0;}
-.gq-col li{font-size:clamp(14px,1.5vw,16.5px);line-height:1.5;color:#aeb6c4;animation:gq-in .45s ease both;}
+.gq-col li{font-size:clamp(14px,1.5vw,16.5px);line-height:1.5;color:#69707d;animation:gq-in .45s ease both;}
 .gq-col li.tx{padding:10px 0;display:flex;gap:10px;}
-.gq-col li b{font-weight:700;color:#fff;font-variant-numeric:tabular-nums;}
+.gq-col li b{font-weight:700;color:#06080d;font-variant-numeric:tabular-nums;}
 .gq-col li:nth-child(2){animation-delay:.08s;}
 .gq-col li:nth-child(3){animation-delay:.16s;}
 .gq-col li:nth-child(4){animation-delay:.24s;}
 .gq-col li:nth-child(5){animation-delay:.32s;}
-.gq-qr{display:flex;align-items:center;gap:10px;width:100%;min-height:48px;margin:0;padding:8px 10px 8px 0;border:0;border-radius:12px;background:transparent;color:#aeb6c4;font-family:inherit;font-size:inherit;line-height:inherit;text-align:left;cursor:pointer;transition:background .2s ease;}
-.gq-qr:hover{background:#15171d;}
-.gq-qr:focus-visible{outline:2px solid #34d399;outline-offset:2px;}
-.gq-qr .you{display:block;margin-top:2px;font-size:12.5px;color:#8a8f98;}
+.gq-qr{display:flex;align-items:center;gap:10px;width:100%;min-height:48px;margin:0;padding:8px 10px 8px 0;border:0;border-radius:12px;background:transparent;color:#69707d;font-family:inherit;font-size:inherit;line-height:inherit;text-align:left;cursor:pointer;transition:background .2s ease;}
+.gq-qr:hover{background:#f6f6f3;}
+.gq-qr:focus-visible{outline:2px solid #059669;outline-offset:2px;}
+.gq-qr .you{display:block;margin-top:2px;font-size:12.5px;color:#69707d;}
 .gq-fig.gq-fig-col{margin-top:18px;font-size:clamp(44px,6.5vw,96px);}
 .gq-col .late{animation:gq-in .45s ease both;animation-delay:.3s;}
-.gq-cap-col{margin:10px 0 0;max-width:40ch;font-size:clamp(15px,1.6vw,19px);font-weight:600;letter-spacing:-.02em;line-height:1.45;color:#fff;}
-.gq-covers{margin:12px 0 0;max-width:56ch;font-size:clamp(14.5px,1.6vw,17px);line-height:1.55;color:#aeb6c4;}
-.gq-covers b{font-weight:700;color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap;}
-.gq-covers.quiet{color:#8a8f98;}
-.gq-note{margin:16px 0 0;font-size:13px;line-height:1.6;color:#8a8f98;max-width:62ch;}
-.gq-score{margin-top:20px;font-size:14px;line-height:1.5;color:#8a8f98;}
-.gq-close{margin:12px auto 0;max-width:56ch;font-size:clamp(15px,1.7vw,18px);line-height:1.55;color:#aeb6c4;}
+.gq-cap-col{margin:10px 0 0;max-width:40ch;font-size:clamp(15px,1.6vw,19px);font-weight:600;letter-spacing:-.02em;line-height:1.45;color:#06080d;}
+.gq-covers{margin:12px 0 0;max-width:56ch;font-size:clamp(14.5px,1.6vw,17px);line-height:1.55;color:#69707d;}
+.gq-covers b{font-weight:700;color:#06080d;font-variant-numeric:tabular-nums;white-space:nowrap;}
+.gq-covers.quiet{color:#69707d;}
+.gq-note{margin:16px 0 0;font-size:13px;line-height:1.6;color:#69707d;max-width:62ch;}
+.gq-score{margin-top:20px;font-size:14px;line-height:1.5;color:#69707d;}
+.gq-close{margin:12px auto 0;max-width:56ch;font-size:clamp(15px,1.7vw,18px);line-height:1.55;color:#69707d;}
+/* THE RESULTS MOMENT (eleventh pass). The score lands first at keynote scale and
+   counts up; once the count lands the three receipts stagger in beneath it, 120ms
+   apart (inline animation-delay per row), and one adaptive line of verdict copy
+   rises last. The verdict is ink, not grey: it is the line of the moment. */
+.gq-verdict{margin:clamp(14px,2.4vh,22px) auto 0;max-width:44ch;font-size:clamp(16px,1.8vw,20px);font-weight:600;letter-spacing:-.01em;line-height:1.5;color:#06080d;animation:gq-in .45s ease both;animation-delay:.36s;}
 /* REDUCED MOTION: no condense, no rise, no stagger, no reveal slide, no chevron
    pulse, no pinned stage and no delayed source: flat stacked flow, everything
    simply there. The count-ups and the gesture capture are killed in JS by the
    matchMedia check; the JS also adds .gq-rel, these rules are the CSS half. */
-@media(prefers-reduced-motion:reduce){.gq-tr,.gq-card.anim,.gq-col li,.gq-col .late,.gq-opts.going .gq-opt,.gq-reveal,.gq-cue{animation:none;}.gq-h{transition:none;}.gq-stage{position:static;height:auto;min-height:100svh;overflow:visible;}.gq-srcline{opacity:1;transform:none;transition:none;}}
+@media(prefers-reduced-motion:reduce){.gq-tr,.gq-card.anim,.gq-col li,.gq-col .late,.gq-opts.going .gq-opt,.gq-reveal,.gq-cue,.gq-verdict{animation:none;}.gq-h{transition:none;}.gq-stage{position:static;height:auto;min-height:100svh;overflow:visible;}.gq-srcline{opacity:1;transform:none;transition:none;}}
 `;
 
 /* The count-up. Runs once per mount, ~900ms ease-out cubic, then holds the final
@@ -444,11 +484,13 @@ body[data-quiz-active] .gro main~footer{display:none;}
 function Fig({
   fig,
   small,
+  cls,
   instant,
   onDone,
 }: {
   fig: (p: number) => string;
   small?: boolean;
+  cls?: string;
   instant: boolean;
   onDone?: () => void;
 }) {
@@ -475,7 +517,7 @@ function Fig({
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
   }, [instant]);
-  return <div className={'gq-fig' + (small ? ' gq-fig-sm' : '')}>{fig(p)}</div>;
+  return <div className={'gq-fig' + (small ? ' gq-fig-sm' : '') + (cls ? ' ' + cls : '')}>{fig(p)}</div>;
 }
 
 export default function GrowthQuiz() {
@@ -518,6 +560,14 @@ export default function GrowthQuiz() {
   const wheelAccRef = useRef(0);
   const touchRef = useRef<{ y: number; fired: boolean } | null>(null);
   const advRef = useRef<() => void>(() => {});
+  /* SCROLL TO THE FINALE (eleventh pass): the steppers advance on scroll like
+     every other moment, but inputs stay deliberate. fieldFocusRef is true while
+     any stepper control holds focus (the advance never fires then), and
+     lastFieldRef timestamps the last interaction with the fields, so a short
+     settle window has to pass before the scroll re-arms. */
+  const fieldFocusRef = useRef(false);
+  const lastFieldRef = useRef(0);
+  const fieldsRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -533,11 +583,12 @@ export default function GrowthQuiz() {
     if (navved.current) headRef.current?.focus();
   }, [active]);
 
-  /* The results overview is a held screen with no pick of its own, so landing on
-     it re-arms the one-advance guard; the ~700ms debounce still keeps the wheel
-     momentum that finished Q3 from blowing straight through it. */
+  /* The results moment and the calculator are held screens with no pick of their
+     own, so landing on either re-arms the one-advance guard; the ~700ms debounce
+     still keeps the wheel momentum that carried the reader in from blowing
+     straight through. */
   useEffect(() => {
-    if (active === 3) advancedRef.current = false;
+    if (active === 3 || active === 4) advancedRef.current = false;
   }, [active]);
 
   const resetFlow = () => {
@@ -624,6 +675,20 @@ export default function GrowthQuiz() {
     return () => clearTimeout(t);
   }, [step, countDone, reduced]);
 
+  /* THE RESULTS MOMENT arms the same way a reveal does: the score count lands,
+     the receipts get their 120ms stagger and the verdict its rise, and only
+     then do the chevron and the scroll advance arm, so the moment cannot be
+     scrolled through mid-assembly. Reduced motion arms instantly. */
+  useEffect(() => {
+    if (active !== 3 || !countDone) return;
+    if (reduced) {
+      setSrcOn(true);
+      return;
+    }
+    const t = setTimeout(() => setSrcOn(true), 800);
+    return () => clearTimeout(t);
+  }, [active, countDone, reduced]);
+
   /* SCROLL IS THE ADVANCE, AND SCROLL IS CONTAINED (ninth pass: at the WINDOW,
      with a PIN). While the journey is live (finale not yet reached, reduced
      motion off) the listeners live on the window, because the section-scoped
@@ -666,8 +731,24 @@ export default function GrowthQuiz() {
     const pinY = () => window.scrollY + rectTop();
     const overflowing = () =>
       !!stage && stage.scrollHeight > stage.clientHeight + 2;
+    /* ready: a moment is held and armed, the ~700ms advance debounce has
+       passed, no stepper field holds focus, and the ~900ms settle window since
+       the last field interaction has passed (both stepper guards are inert
+       outside the calculator screen; the refs stay false/null/stale
+       elsewhere). fieldBusy checks the focus flag AND document.activeElement
+       against the fields container, belt and braces, so a focused input
+       blocks the advance even if a focus event was ever missed. */
+    const fieldBusy = () => {
+      if (fieldFocusRef.current) return true;
+      const f = fieldsRef.current;
+      const a = document.activeElement;
+      return !!(f && a && f.contains(a));
+    };
     const ready = () =>
-      holdRef.current && performance.now() - lastAdvRef.current > 700;
+      holdRef.current &&
+      performance.now() - lastAdvRef.current > 700 &&
+      !fieldBusy() &&
+      performance.now() - lastFieldRef.current > 900;
     /* THE CLAMP. The one line that makes a hard flick escape-proof: any scroll
        that ends up past the pin while the journey is live is snapped back to
        it, whatever produced it. 'instant', because globals.css sets smooth. */
@@ -756,6 +837,7 @@ export default function GrowthQuiz() {
   }, [reduced, journeyDone]);
 
   const set = (f: Field, next: number) => {
+    lastFieldRef.current = performance.now();
     const n = Math.min(f.maxV, Math.max(f.minV, Math.round(next)));
     setV((p) => ({ ...p, [f.key]: Number.isFinite(n) ? n : p[f.key] }));
   };
@@ -936,71 +1018,94 @@ export default function GrowthQuiz() {
     }
 
     if (active === 3) {
-      /* THE RESULTS OVERVIEW. A held screen of its own (eighth pass): after the
-         third reveal the receipts and the steppers used to share this viewport,
-         and it read cluttered. Now the three receipt rows and the quiet score
-         line get the screen alone. The quiet h2 IS this card's kicker (the
-         gq-eye is skipped for this stage so the line never doubles), the rows
-         are the same reopen buttons the trail uses, and the score line judges
-         the reader's three GUESSES only, as ever. The screen holds like a
-         reveal: chevron cue, next scroll advances to the calculator; reduced
-         motion gets the visible Continue and no gesture capture instead. */
+      /* THE RESULTS MOMENT (eighth pass gave it the screen alone; the eleventh
+         made it land). The score is the moment: "You called" quiets above it as
+         this card's kicker, the count runs up to its "2 of 3" at keynote scale,
+         and only once the count lands do the three receipts stagger in beneath,
+         120ms apart, with one adaptive line of verdict copy after them. The
+         verdict speaks to the score, warm owner voice at every score, no shame
+         at zero, and it judges the reader's three GUESSES only, as ever. The
+         rows are the same reopen buttons the trail uses. The screen holds like
+         a reveal: the chevron and the scroll advance arm only after the
+         assembly (see the results-moment effect); reduced motion gets it all
+         instantly, with the visible Continue and no gesture capture. No
+         aria-live on the count, as ever: a screen reader gets the final text in
+         DOM order. */
+      const verdict =
+        score === 3
+          ? 'Three for three. You watch this industry more closely than most owners ever get to.'
+          : score === 2
+            ? 'Two of three. You know this industry better than most of the people selling to it.'
+            : score === 1
+              ? 'One of three. The published numbers run ahead of almost everyone who guesses.'
+              : 'The published numbers surprised you. They surprise almost everyone, and that is rather the point.';
       return (
         <>
           <h2 className="gq-h quiet" tabIndex={-1} ref={headRef}>
-            Your results
+            You called
           </h2>
-          <div
-            className="gq-trail"
-            role="group"
-            aria-label="Your three answers. Each one is a button that reopens its question."
-          >
-            {QUESTIONS.map((q, i) => {
-              const picked = picks[q.key];
-              const right = picked === q.answer;
-              return (
-                <button
-                  key={q.key}
-                  type="button"
-                  className="gq-tr"
-                  onClick={() => reopen(i, q.key)}
-                  aria-label={'Reopen the ' + q.eye.toLowerCase() + ' question and answer it again'}
-                >
-                  <span className={'mk ' + (right ? 'ok' : 'miss')} aria-hidden="true">
-                    {right ? '✓' : '●'}
-                  </span>
-                  <span>
-                    {q.eye}: <b>{q.stack}</b>{' '}
-                    {picked ? (right ? '(you called it)' : '(you said ' + picked + ')') : '(no answer yet)'}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-          <p className="gq-score">You called {score} of 3.</p>
-          {!reduced && (
-            <div className="gq-cue on" aria-hidden="true">
-              <svg width="22" height="12" viewBox="0 0 22 12" fill="none">
-                <path
-                  d="M2 2l9 8 9-8"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
+          <Fig
+            cls="gq-fig-score"
+            fig={(p) => Math.round(score * p) + ' of 3'}
+            instant={reduced}
+            onDone={() => setCountDone(true)}
+          />
+          {countDone && (
+            <>
+              <div
+                className="gq-trail"
+                role="group"
+                aria-label="Your three answers. Each one is a button that reopens its question."
+              >
+                {QUESTIONS.map((q, i) => {
+                  const picked = picks[q.key];
+                  const right = picked === q.answer;
+                  return (
+                    <button
+                      key={q.key}
+                      type="button"
+                      className="gq-tr"
+                      style={reduced ? undefined : { animationDelay: i * 0.12 + 's' }}
+                      onClick={() => reopen(i, q.key)}
+                      aria-label={'Reopen the ' + q.eye.toLowerCase() + ' question and answer it again'}
+                    >
+                      <span className={'mk ' + (right ? 'ok' : 'miss')} aria-hidden="true">
+                        {right ? '✓' : '●'}
+                      </span>
+                      <span>
+                        {q.eye}: <b>{q.stack}</b>{' '}
+                        {picked ? (right ? '(you called it)' : '(you said ' + picked + ')') : '(no answer yet)'}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+              <p className="gq-verdict">{verdict}</p>
+              {!reduced && (
+                <div className={'gq-cue' + (srcOn ? ' on' : '')} aria-hidden="true">
+                  <svg width="22" height="12" viewBox="0 0 22 12" fill="none">
+                    <path
+                      d="M2 2l9 8 9-8"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+              )}
+              <button
+                type="button"
+                className={'gq-go' + (reduced ? ' vis' : '')}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  advanceOnce();
+                }}
+              >
+                Continue
+              </button>
+            </>
           )}
-          <button
-            type="button"
-            className={'gq-go' + (reduced ? ' vis' : '')}
-            onClick={(e) => {
-              e.stopPropagation();
-              advanceOnce();
-            }}
-          >
-            Continue
-          </button>
         </>
       );
     }
@@ -1014,7 +1119,27 @@ export default function GrowthQuiz() {
           <p className="gq-sub">
             Rough is fine. The arithmetic happens on your screen and goes nowhere.
           </p>
-          <div className="gq-fields">
+          {/* SCROLL TO THE FINALE (eleventh pass): the defaults count as
+              answers, so the next scroll advances like every other moment. The
+              capture handlers keep the inputs deliberate: while any control in
+              here holds focus the advance is off, and every interaction
+              restarts the ~900ms settle window (see ready() in the gesture
+              effect). */}
+          <div
+            className="gq-fields"
+            ref={fieldsRef}
+            onPointerDownCapture={() => {
+              lastFieldRef.current = performance.now();
+            }}
+            onFocusCapture={() => {
+              fieldFocusRef.current = true;
+              lastFieldRef.current = performance.now();
+            }}
+            onBlurCapture={() => {
+              fieldFocusRef.current = false;
+              lastFieldRef.current = performance.now();
+            }}
+          >
             {FIELDS.map((f) => {
               const val = v[f.key];
               return (
@@ -1065,9 +1190,30 @@ export default function GrowthQuiz() {
               );
             })}
           </div>
-          {/* Inputs need deliberate submission: no timer here, ever. The
-              affordance is quiet but always present. */}
-          <button type="button" className="gq-go vis" onClick={advance}>
+          {/* The chevron says what the whole page has been saying: the next
+              scroll is the advance. It stands down when the gestures do
+              (reduced motion, or a reopen after the finale). */}
+          {!reduced && !journeyDone && (
+            <div className="gq-cue on" aria-hidden="true">
+              <svg width="22" height="12" viewBox="0 0 22 12" fill="none">
+                <path
+                  d="M2 2l9 8 9-8"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+          )}
+          {/* The quiet Continue stays for keyboard and reduced-motion readers,
+              and shows outright when the gestures are off: reduced motion, or a
+              reopen from the finale, where it is the only way back. */}
+          <button
+            type="button"
+            className={'gq-go' + (reduced || journeyDone ? ' vis' : '')}
+            onClick={advance}
+          >
             {active < furthest ? returnLabel : 'Continue'}
           </button>
         </>
@@ -1102,7 +1248,7 @@ export default function GrowthQuiz() {
                         {right ? '✓' : '●'}
                       </span>
                       <span>
-                        <b>{q.stack}</b> {q.line}
+                        <b>{q.stack}</b> {q.line} ({q.src})
                         <span className="you">
                           {picked
                             ? right
@@ -1187,8 +1333,8 @@ export default function GrowthQuiz() {
         </div>
         <p className="gq-score">You called {score} of 3.</p>
         <p className="gq-close">
-          Every industry figure above is published research, linked just below. Your column
-          came from you, and stayed on your screen.
+          Every industry figure above is published research, named right beside it. Your
+          column came from you, and stayed on your screen.
         </p>
       </>
     );
@@ -1213,9 +1359,14 @@ export default function GrowthQuiz() {
      has landed, advRef always points at the current advanceOnce. */
   const inReveal = active <= 2 && !!picks[QUESTIONS[active].key] && step !== 'condense';
   /* A reveal arms only after its SOURCE BEAT has landed, so the source always
-     gets its dwell. The results overview holds exactly like a landed reveal:
-     its screen is static, so it arms the moment it is active. */
-  holdRef.current = (inReveal && step === 'reveal' && countDone && srcOn) || active === 3;
+     gets its dwell. The results moment arms the same way, once its count and
+     its stagger have assembled (srcOn doubles as that beat). The calculator
+     holds from the moment it is active: its own guards, the field-focus check
+     and the settle window, live inside ready() in the gesture effect. */
+  holdRef.current =
+    (inReveal && step === 'reveal' && countDone && srcOn) ||
+    (active === 3 && srcOn) ||
+    active === 4;
   advRef.current = advanceOnce;
 
   /* Released: reduced motion (flat stacked flow) or the finale (the page opens
