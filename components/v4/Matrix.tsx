@@ -463,15 +463,21 @@ export default function Matrix() {
                 <div className="mx-j">
                   <p className="cl-h">That column is yours again.</p>
                   <p className="cl-q">What goes in it?</p>
-                  <Fill />
                   <ul className="sr-only">
                     {FILL.map((f) => (
                       <li key={f}>{f}</li>
                     ))}
                   </ul>
                 </div>
+                {/* THE ANSWER GOES IN THE SLOT (Richard, July 2026): "It would be better if
+                    the empty space with the dotted line has the comments rolling through
+                    rather than in the bottom left, which seems too understated. Okay with the
+                    empty space shape getting bigger." He is right, and it is better than the
+                    original: the page asks what goes in the empty column, and now the answers
+                    literally appear inside it. The sr-only list above still carries the full
+                    set for screen readers; everything in this cell is presentation. */}
                 <div className="mx-c today" data-lbl={COLS[0].short} aria-hidden="true">
-                  <span className="ghost" />
+                  <span className="ghost"><Fill /></span>
                 </div>
                 <div className="mx-lane" aria-hidden="true" />
                 {/* THE GREEN COLUMN WAS EMPTY HERE and read as a rendering fault: a large
@@ -612,7 +618,8 @@ const CSS = `
 .mx-close .mx-j{flex-direction:column;align-items:flex-start;gap:0;padding-right:26px;}
 .cl-h{font-size:clamp(19px,2.3vw,25px);font-weight:600;letter-spacing:-.025em;line-height:1.25;color:#06080d;}
 .cl-q{margin-top:3px;font-size:clamp(19px,2.3vw,25px);font-weight:600;letter-spacing:-.025em;line-height:1.25;color:#69707d;}
-.cl-slot{display:block;margin-top:16px;min-height:26px;font-size:16.5px;line-height:1.5;color:#26292f;
+.cl-slot{display:block;text-align:center;font-size:clamp(16px,1.8vw,19px);font-weight:600;
+letter-spacing:-.015em;line-height:1.4;color:#26292f;
 opacity:0;transform:translateY(4px);transition:opacity .42s ease,transform .42s ease;}
 .cl-slot.on{opacity:1;transform:none;}
 /* The amber dot is gone. Amber means work you owe everywhere else on this page, and this
@@ -623,7 +630,8 @@ opacity:0;transform:translateY(4px);transition:opacity .42s ease,transform .42s 
 .cl-all{font-size:clamp(17px,1.9vw,21px);font-weight:700;letter-spacing:-.02em;color:#046c4e;}
 .cl-price{font-size:13.5px;font-weight:600;color:#046c4e;opacity:.82;}
 .mx-close .mx-c.today{align-items:flex-start;padding-top:6px;}
-.ghost{display:block;width:60px;height:27px;border-radius:999px;border:1px dashed rgba(180,83,9,.5);}
+.ghost{display:flex;align-items:center;justify-content:center;width:100%;max-width:340px;
+  min-height:64px;padding:12px 18px;border-radius:16px;border:1.5px dashed rgba(180,83,9,.5);}
 .mx-close .mx-c.us{background:rgba(16,185,129,.07);border-left:1px solid rgba(16,185,129,.3);
 border-right:1px solid rgba(16,185,129,.3);border-bottom:1px solid rgba(16,185,129,.3);
 border-radius:0 0 14px 14px;}
@@ -667,8 +675,13 @@ border-radius:0 0 14px 14px;}
      because there is nothing left to move across. */
   .mx-close{padding:clamp(22px,6vw,32px) 0 4px;}
   .mx-close .mx-j{padding-right:0;}
-  .mx-close .mx-lane,.mx-close .mx-c.us{display:none;}
-  .mx-close .mx-c.today{align-items:center;padding:8px 10px;}
+  /* Only the LANE dies on mobile. The value cell used to die with it, which silently
+     hid "All thirteen. Still $199 a month." on the primary viewport: the rule predates
+     the cell having anything in it. Caught in self-review, do not re-hide it. */
+  .mx-close .mx-lane{display:none;}
+  .mx-close .mx-c.today{align-items:center;justify-content:center;padding:10px 0 4px;}
+  .mx-close .mx-c.today::before{display:none;}
+  .mx-close .mx-c.us.cl-us{margin-top:10px;padding:14px 12px;border-radius:12px;}
   .cl-slot{font-size:16px;}
 }
 /* reduced motion: Fill never starts its timer, so the slot holds entry one. It is

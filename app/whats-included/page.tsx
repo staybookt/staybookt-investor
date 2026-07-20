@@ -77,7 +77,13 @@ export default function WhatsIncludedPage() {
       <header className="pg-hero">
         <div className="wrap">
           <div className="eyebrow">What&apos;s included</div>
-          <h1>What you get for <span className="g">$199</span>.</h1>
+          {/* "$199." with a full stop reads as a one-time fee, which is exactly the wrong
+              thing to be ambiguous about on the page whose job is to justify the price
+              (Richard, July 2026: "needs to clearly say 199/mth"). The matrix heading below
+              already says "$199 a month", so the h1 was the only place on this page the
+              recurrence was missing. The gradient carries the whole price now, not just the
+              number, so the term cannot read as an afterthought. */}
+          <h1>What you get for <span className="g">$199 a month</span>.</h1>
           {/* WAS: "The whole list. No asterisks, no fine print. Here is exactly what we do,
               what you still do, and the things we do not do." Linda: the wording under
               What's included is not crisp enough, make it about undeniable value. She is
