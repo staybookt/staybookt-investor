@@ -35,7 +35,7 @@ export default function HowItWorksPage() {
       <main id="main" tabIndex={-1}>
       <HowItWorks />
       {/* Every page closes the same way. This one used to just stop. */}
-      <HeroCta />
+      <HeroCta img="/close-hiw.jpg" />
       </main>
       <SiteFooter />
     </div>

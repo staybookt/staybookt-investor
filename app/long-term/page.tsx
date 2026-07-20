@@ -212,7 +212,7 @@ export default function LongTermPage() {
 
       {/* fromBlack: .lt-none directly above is #050506. Without it the CTA's photo opens at
           a 60% scrim and hard-cuts out of solid black — the exact seam fromBlack dissolves. */}
-      <HeroCta fromBlack />
+      <HeroCta fromBlack img="/close-lt.jpg" />
       </main>
       <SiteFooter />
     </div>

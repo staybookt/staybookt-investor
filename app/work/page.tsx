@@ -37,7 +37,7 @@ export default function WorkPage() {
       <WorkShowcase />
       {/* One CTA site-wide. WorkShowcase used to end on its own bespoke card with a
           different headline and a button that said "Pick a time". Now there is one. */}
-      <HeroCta />
+      <HeroCta img="/close-work.jpg" />
       </main>
       <SiteFooter />
     </div>

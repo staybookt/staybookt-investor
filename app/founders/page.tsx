@@ -257,7 +257,7 @@ export default function AboutPage() {
 
       {/* Same CTA banner every other page lands on. */}
       {/* fromBlack: .abt-prm directly above is #050506. Same seam as /long-term. */}
-      <HeroCta fromBlack />
+      <HeroCta fromBlack img="/close-founders.jpg" />
 
       </main>
 

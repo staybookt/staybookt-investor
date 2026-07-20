@@ -135,7 +135,7 @@ export default function WhatsIncludedPage() {
 
       {/* The closer used to be a bare headline and a button on white. It is now the
           same CTA banner the homepage ends on, so every page lands the same way. */}
-      <HeroCta />
+      <HeroCta img="/close-inc.jpg" />
 
       </main>
 

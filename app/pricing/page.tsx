@@ -199,7 +199,7 @@ export default function PricingPage() {
       <PricingFaq />
 
       {/* 4 — THE CALL. Same banner every page lands on. */}
-      <HeroCta />
+      <HeroCta img="/close-pricing.jpg" />
 
       </main>
 

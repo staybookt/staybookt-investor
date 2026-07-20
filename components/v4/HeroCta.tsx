@@ -16,15 +16,23 @@ import { min } from '@/lib/css';
  * fromBlack: the homepage only. The film ends on the $199 reveal on black, and this
  * scene has to dissolve out of that black rather than cut to a photo. Everywhere
  * else the section above is light or mid-tone, so the standard grade is correct. */
-export default function HeroCta({ fromBlack = false }: { fromBlack?: boolean }) {
+/* PER-PAGE CLOSES (Jacob, July 2026: "The close on every page should be different.")
+ * Each page's closing photo pays off that page's own argument: the morning coffee after
+ * /how-it-works teaches the machine, the girlfriends' day out after /whats-included, the
+ * dawn tee time after /pricing, the campfire after /long-term, the ride after /work, the
+ * long table of old friends after /founders. One dock photo everywhere was efficient, not
+ * considered. The dock stays the default: home ends on it, and any page that does not
+ * pass `img` falls back to it. */
+export default function HeroCta({ fromBlack = false, img = HERO_IMG }: { fromBlack?: boolean; img?: string }) {
   return (
     <section className="hcta" data-fade={fromBlack ? 'black' : undefined}>
       <style>{min(CSS)}</style>
-      {/* 2000x2835 is what Pexels returns for this id at w=2000, measured, not guessed. The
+      {/* 2000x2835 is what Pexels returns for the default dock photo at w=2000, measured,
+          not guessed. The per-page images have other aspect ratios, and that is fine: the
           CSS above pins this to inset:0 / 100% / object-fit:cover, so the attributes never
-          set the rendered size; they give the browser the aspect ratio up front so it
+          set the rendered size; they only give the browser an aspect ratio up front so it
           reserves the box before the bytes land instead of reflowing around it. */}
-      <img src={HERO_IMG} alt="" width={2000} height={2835} loading="lazy" decoding="async" />
+      <img src={img} alt="" width={2000} height={2835} loading="lazy" decoding="async" />
       <div className="hcta-ov" />
       <div className="hcta-in">
         {/* WAS "Go enjoy the life you built it for." (Richard: "feels awkward. I have to
