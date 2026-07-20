@@ -107,6 +107,17 @@ import { min } from '@/lib/css';
  * quiz read as one surface, and this section no longer carries its own nav
  * clearance: the hero does. Nothing else about the journey changed, and there is
  * still no gate.
+ *
+ * EIGHTH PASS, TWO HELD SCREENS (Jacob, July 2026): after the third reveal the
+ * trail of receipts and the "Your numbers" steppers used to land on one screen
+ * together, and it read cluttered. The journey now lands on a RESULTS OVERVIEW
+ * that owns the viewport alone: the three receipt rows and the quiet score line,
+ * held with the chevron cue like any reveal, and the reader's NEXT scroll brings
+ * the calculator screen, kicker, heading, steppers and deliberate Continue, with
+ * no trail beside it. The top trail now shows only on the question screens; the
+ * results screen carries the receipts itself, so nothing ever doubles. Stage
+ * count went five to six. The finale, the reopen behaviour, the arithmetic and
+ * the containment are unchanged.
  */
 
 const PRICE = 199;
@@ -189,8 +200,9 @@ const FIELDS: Field[] = [
   { key: 'quotes', label: 'Quotes unchased in a month', hint: 'Sent, then buried. No yes, no no', minV: 0, maxV: 50, step: 1, isMoney: false },
 ];
 
-/* Stages of the journey: three questions, the reader's numbers, the stack-up. */
-const STAGES = 5;
+/* Stages of the journey: three questions, the results overview, the reader's
+   numbers, the stack-up. */
+const STAGES = 6;
 
 const CSS = `
 /* ONE PAGE GROWING, not screens swapping. The section is normal flow: the trail
@@ -425,6 +437,13 @@ export default function GrowthQuiz() {
     if (navved.current) headRef.current?.focus();
   }, [active]);
 
+  /* The results overview is a held screen with no pick of its own, so landing on
+     it re-arms the one-advance guard; the ~700ms debounce still keeps the wheel
+     momentum that finished Q3 from blowing straight through it. */
+  useEffect(() => {
+    if (active === 3) advancedRef.current = false;
+  }, [active]);
+
   const resetFlow = () => {
     setStep(null);
     setCountDone(false);
@@ -606,11 +625,14 @@ export default function GrowthQuiz() {
   );
 
   /* THE TRAIL: a receipt row for every completed card that is not currently open.
-     Hidden at the finale, where the same rows assemble into the stack-up. */
+     Shown only while a QUESTION is open: the results overview carries the same
+     receipts itself (so nothing doubles), the calculator screen owns its viewport
+     alone, and at the finale the rows assemble into the stack-up. Stage 3, the
+     results overview, never gets a receipt row of its own: it IS the receipts. */
   const trail: ReactNode[] = [];
-  if (active < STAGES - 1) {
+  if (active <= 2) {
     for (let s = 0; s < STAGES - 1; s++) {
-      if (s === active || s >= furthest) continue;
+      if (s === active || s >= furthest || s === 3) continue;
       if (s <= 2) {
         const q = QUESTIONS[s];
         const picked = picks[q.key];
@@ -638,7 +660,7 @@ export default function GrowthQuiz() {
             key="numbers"
             type="button"
             className="gq-tr"
-            onClick={() => reopen(3)}
+            onClick={() => reopen(4)}
             aria-label="Reopen your numbers and adjust them"
           >
             <span className="mk nt" aria-hidden="true">
@@ -742,6 +764,76 @@ export default function GrowthQuiz() {
     }
 
     if (active === 3) {
+      /* THE RESULTS OVERVIEW. A held screen of its own (eighth pass): after the
+         third reveal the receipts and the steppers used to share this viewport,
+         and it read cluttered. Now the three receipt rows and the quiet score
+         line get the screen alone. The quiet h2 IS this card's kicker (the
+         gq-eye is skipped for this stage so the line never doubles), the rows
+         are the same reopen buttons the trail uses, and the score line judges
+         the reader's three GUESSES only, as ever. The screen holds like a
+         reveal: chevron cue, next scroll advances to the calculator; reduced
+         motion gets the visible Continue and no gesture capture instead. */
+      return (
+        <>
+          <h2 className="gq-h quiet" tabIndex={-1} ref={headRef}>
+            Your results
+          </h2>
+          <div
+            className="gq-trail"
+            role="group"
+            aria-label="Your three answers. Each one is a button that reopens its question."
+          >
+            {QUESTIONS.map((q, i) => {
+              const picked = picks[q.key];
+              const right = picked === q.answer;
+              return (
+                <button
+                  key={q.key}
+                  type="button"
+                  className="gq-tr"
+                  onClick={() => reopen(i, q.key)}
+                  aria-label={'Reopen the ' + q.eye.toLowerCase() + ' question and answer it again'}
+                >
+                  <span className={'mk ' + (right ? 'ok' : 'miss')} aria-hidden="true">
+                    {right ? '✓' : '●'}
+                  </span>
+                  <span>
+                    {q.eye}: <b>{q.stack}</b>{' '}
+                    {picked ? (right ? '(you called it)' : '(you said ' + picked + ')') : '(no answer yet)'}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+          <p className="gq-score">You called {score} of 3.</p>
+          {!reduced && (
+            <div className="gq-cue on" aria-hidden="true">
+              <svg width="22" height="12" viewBox="0 0 22 12" fill="none">
+                <path
+                  d="M2 2l9 8 9-8"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+          )}
+          <button
+            type="button"
+            className={'gq-go' + (reduced ? ' vis' : '')}
+            onClick={(e) => {
+              e.stopPropagation();
+              advanceOnce();
+            }}
+          >
+            Continue
+          </button>
+        </>
+      );
+    }
+
+    if (active === 4) {
       return (
         <>
           <h2 className="gq-h" tabIndex={-1} ref={headRef}>
@@ -878,7 +970,7 @@ export default function GrowthQuiz() {
                 <button
                   type="button"
                   className="gq-qr"
-                  onClick={() => reopen(3)}
+                  onClick={() => reopen(4)}
                   aria-label="Reopen your numbers and adjust them"
                 >
                   <span className="mk nt" aria-hidden="true">
@@ -934,7 +1026,13 @@ export default function GrowthQuiz() {
      it names where the reader is, inside the card, above its h2. The hero above
      already says "internal draft", so this section stopped repeating it. */
   const kicker =
-    active <= 2 ? 'Question ' + (active + 1) + ' of 3' : active === 3 ? 'Your numbers' : 'The stack-up';
+    active <= 2
+      ? 'Question ' + (active + 1) + ' of 3'
+      : active === 3
+        ? 'Your results'
+        : active === 4
+          ? 'Your numbers'
+          : 'The stack-up';
 
   /* During a reveal the card itself is also a control: a click or tap anywhere
      on it advances immediately. Outside a reveal these handlers do nothing. The
@@ -942,7 +1040,9 @@ export default function GrowthQuiz() {
      doneRef in Fig: holdRef arms them only while a reveal is held and its count
      has landed, advRef always points at the current advanceOnce. */
   const inReveal = active <= 2 && !!picks[QUESTIONS[active].key] && step !== 'condense';
-  holdRef.current = inReveal && step === 'reveal' && countDone;
+  /* The results overview holds exactly like a landed reveal: its screen is
+     static, so it arms the moment it is active. */
+  holdRef.current = (inReveal && step === 'reveal' && countDone) || active === 3;
   advRef.current = advanceOnce;
 
   return (
@@ -957,7 +1057,9 @@ export default function GrowthQuiz() {
             if (inReveal) advanceOnce();
           }}
         >
-          <div className="gq-eye">{kicker}</div>
+          {/* The results card's quiet h2 IS its kicker, so the eye is skipped
+              there: one line, one focus target, no doubling. */}
+          {active !== 3 && <div className="gq-eye">{kicker}</div>}
           {card}
         </div>
       </div>
