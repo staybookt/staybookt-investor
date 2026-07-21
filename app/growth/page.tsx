@@ -269,7 +269,7 @@ export default function GrowthPage() {
               We answer the calls, chase the quotes, and bring past customers back. $199 a
               month, and you have seen what one job covers.
             </p>
-            <a className="gro-close-btn" href={START_LINK}>Get Started</a>
+            <a className="gro-close-btn" href={START_LINK} data-cta="leak_check">Get Started</a>
           </div>
         </section>
       </main>

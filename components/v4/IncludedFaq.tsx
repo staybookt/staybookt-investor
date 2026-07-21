@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { START_LINK } from '@/lib/site';
 import { min } from '@/lib/css';
+import { track } from '@/lib/analytics';
 
 /* WHAT'S INCLUDED — the objections, as an accordion.
  *
@@ -130,7 +131,7 @@ export default function IncludedFaq() {
               That is the whole list. If something on it is not what you need, tell us on the call
               and we will say so. We would rather lose the sale than sell you the wrong thing.
             </p>
-            <a className="fa-cta" href={START_LINK}>
+            <a className="fa-cta" href={START_LINK} data-cta="faq_included">
               Get Started <span aria-hidden>&rarr;</span>
             </a>
             <div className="fa-links">
@@ -148,7 +149,16 @@ export default function IncludedFaq() {
                 className={`ifq-q${open === i ? ' open' : ''}`}
                 style={{ ['--fc' as string]: x.c }}
               >
-                <button type="button" onClick={() => setOpen(open === i ? null : i)} aria-expanded={open === i}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    /* Only the opening counts. Which objections people actually
+                       have is the question; closing one answers nothing. */
+                    if (open !== i) track('faq_open', { question: x.q, faq: 'included' });
+                    setOpen(open === i ? null : i);
+                  }}
+                  aria-expanded={open === i}
+                >
                   <span>
                     <span className="fk">{x.k}</span>
                     <span className="fq">{x.q}</span>

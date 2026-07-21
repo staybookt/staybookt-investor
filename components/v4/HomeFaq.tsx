@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { START_LINK } from '@/lib/site';
 import { min } from '@/lib/css';
+import { track } from '@/lib/analytics';
 
 /* HOMEPAGE FAQ — the front-door greatest hits (Jacob, live review, July 2026).
  *
@@ -69,7 +70,7 @@ export default function HomeFaq() {
               The first things everyone asks, answered here. The full sets live on the pages they
               belong to.
             </p>
-            <a className="fa-cta" href={START_LINK}>
+            <a className="fa-cta" href={START_LINK} data-cta="faq_home">
               Get Started <span aria-hidden>&rarr;</span>
             </a>
           </div>
@@ -81,7 +82,16 @@ export default function HomeFaq() {
                 className={`hfq-q${open === i ? ' open' : ''}`}
                 style={{ ['--fc' as string]: x.c }}
               >
-                <button type="button" onClick={() => setOpen(open === i ? null : i)} aria-expanded={open === i}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    /* Only the opening counts. Which objections people actually
+                       have is the question; closing one answers nothing. */
+                    if (open !== i) track('faq_open', { question: x.q, faq: 'home' });
+                    setOpen(open === i ? null : i);
+                  }}
+                  aria-expanded={open === i}
+                >
                   <span>
                     <span className="fk">{x.k}</span>
                     <span className="fq">{x.q}</span>

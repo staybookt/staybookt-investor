@@ -342,7 +342,7 @@ export default function HomePage() {
           </Reveal>
           <Reveal>
             <div className="cta">
-              <a href={START_LINK} className="pill pill-white" style={{ padding: '14px 28px', fontSize: 15 }}>Get Started</a>
+              <a href={START_LINK} className="pill pill-white" style={{ padding: '14px 28px', fontSize: 15 }} data-cta="hero">Get Started</a>
             </div>
           </Reveal>
           {/* THE MYSTERY-SHOP LINE IS GONE FROM THE WHOLE SITE (Jacob, July 2026).

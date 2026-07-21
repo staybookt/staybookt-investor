@@ -4,6 +4,7 @@ import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from
 import { START_LINK } from '@/lib/site';
 import { AccountBrain, NightShift, Arrival } from './HiwScenes';
 import { min } from '@/lib/css';
+import { track } from '@/lib/analytics';
 
 /* THE PEXELS PHOTO HERO IS GONE. This page and /whats-included were the only two
  * running a full-bleed still at min(88vh,820px) while the other six sat on a 190px
@@ -671,7 +672,7 @@ export default function HowItWorks() {
                 <a href="/pricing">pricing page</a>, and what you own lives on{' '}
                 <a href="/whats-included">what&rsquo;s included</a>. Every page answers one thing.
               </p>
-              <a className="fa-cta" href={START_LINK}>
+              <a className="fa-cta" href={START_LINK} data-cta="faq_how_it_works">
                 Ask a founder directly <span aria-hidden>&rarr;</span>
               </a>
               <div className="fa-links">
@@ -687,7 +688,15 @@ export default function HowItWorks() {
                   className={`hiw-q${openF === i ? ' open' : ''}`}
                   style={{ '--fc': f.c } as CSSProperties}
                 >
-                  <button type="button" onClick={() => setOpenF(openF === i ? null : i)}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      /* Only the opening counts. Which objections people actually
+                         have is the question; closing one answers nothing. */
+                      if (openF !== i) track('faq_open', { question: f.q, faq: 'how_it_works' });
+                      setOpenF(openF === i ? null : i);
+                    }}
+                  >
                     <span>
                       <span className="fk">{f.k}</span>
                       <span className="fq">{f.q}</span>

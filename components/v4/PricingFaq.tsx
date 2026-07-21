@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { START_LINK } from '@/lib/site';
 import { min } from '@/lib/css';
+import { track } from '@/lib/analytics';
 
 /* THE MONEY QUESTIONS, ON THE MONEY PAGE.
  *
@@ -84,7 +85,7 @@ export default function PricingFaq() {
               Every question a person asks before they hand somebody two hundred dollars a month,
               answered here rather than on the call.
             </p>
-            <a className="fa-cta" href={START_LINK}>
+            <a className="fa-cta" href={START_LINK} data-cta="faq_pricing">
               Get Started <span aria-hidden>&rarr;</span>
             </a>
             <div className="fa-links">
@@ -100,7 +101,16 @@ export default function PricingFaq() {
                 className={`pfq-q${open === i ? ' open' : ''}`}
                 style={{ ['--fc' as string]: x.c }}
               >
-                <button type="button" onClick={() => setOpen(open === i ? null : i)} aria-expanded={open === i}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    /* Only the opening counts. Which objections people actually
+                       have is the question; closing one answers nothing. */
+                    if (open !== i) track('faq_open', { question: x.q, faq: 'pricing' });
+                    setOpen(open === i ? null : i);
+                  }}
+                  aria-expanded={open === i}
+                >
                   <span>
                     <span className="fk">{x.k}</span>
                     <span className="fq">{x.q}</span>

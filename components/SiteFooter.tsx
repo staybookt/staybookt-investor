@@ -55,6 +55,7 @@ export default function SiteFooter() {
           <div className="flex flex-col items-start gap-3 sm:items-end">
             <a
               href={onStart ? '#book' : START_LINK}
+              data-cta="footer"
               className="text-sm font-semibold text-white transition-opacity hover:opacity-70"
             >
               Get Started

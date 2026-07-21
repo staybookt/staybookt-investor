@@ -35,7 +35,7 @@ export default function NotFound() {
             who land here want one of these two.
           </p>
           <div className="nf-go">
-            <a className="p" href={START_LINK}>Get Started</a>
+            <a className="p" href={START_LINK} data-cta="not_found">Get Started</a>
             <a className="s" href="/how-it-works">See how it works</a>
           </div>
         </div>

@@ -87,7 +87,7 @@ export default function Nav() {
           {/* ON /start THIS BUTTON WAS A DEAD CLICK. It pointed at /start from /start, so
               the most prominent CTA on the booking page did nothing at all. There it
               scrolls to the calendar instead. Everywhere else it goes to /start. */}
-          <a href={onStart ? '#book' : START_LINK} className="pill pill-white">
+          <a href={onStart ? '#book' : START_LINK} className="pill pill-white" data-cta="nav_pill">
             Get Started
           </a>
           <button

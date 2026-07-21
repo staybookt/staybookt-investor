@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { min } from '@/lib/css';
+import { track } from '@/lib/analytics';
 
 /* THE GROWTH QUIZ IS THE PAGE: one unified journey with a trail of receipts.
  *
@@ -1019,6 +1020,8 @@ export default function GrowthQuiz() {
   const wheelAccRef = useRef(0);
   const touchRef = useRef<{ y: number; fired: boolean } | null>(null);
   const advRef = useRef<() => void>(() => {});
+  /* One leak_check_start per mount, on the first answer given. */
+  const startedRef = useRef(false);
   /* SCROLL TO THE FINALE (eleventh pass): the steppers advance on scroll like
      every other moment, but inputs stay deliberate. fieldFocusRef is true while
      any stepper control holds focus (the advance never fires then), and
@@ -1065,6 +1068,28 @@ export default function GrowthQuiz() {
      straight through. */
   useEffect(() => {
     if (active === 3 || active === 4) advancedRef.current = false;
+  }, [active]);
+
+  /* THE FUNNEL. This journey is six screens and the only interesting question
+     about it is where people stop, so each screen reports itself once: start on
+     the first answer, one event per question with its number and whether they
+     called it, one when the steppers come up, one at the finale. Reopening a
+     question from the trail re-fires leak_check_question on the new answer,
+     which is correct: that IS a second attempt and it should be counted.
+     All of it no-ops with GA unset. */
+  const seenRef = useRef<Record<number, boolean>>({});
+  useEffect(() => {
+    if (active === 4 && !seenRef.current[4]) {
+      seenRef.current[4] = true;
+      track('leak_check_inputs');
+    }
+    if (active === STAGES - 1 && !seenRef.current[5]) {
+      seenRef.current[5] = true;
+      const called = QUESTIONS.filter((q) => picks[q.key] === q.answer).length;
+      track('leak_check_complete', { score: called });
+    }
+    /* picks is read for the score only; the stage change is the trigger. */
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active]);
 
   const resetFlow = () => {
@@ -1116,6 +1141,16 @@ export default function GrowthQuiz() {
   /* The pick. Detail 0 means keyboard activation: that reveal gets no timer and
      the quiet Continue takes focus, so the reader advances at their own pace. */
   const pick = (qKey: string, o: string, detail: number) => {
+    const qi = QUESTIONS.findIndex((q) => q.key === qKey);
+    if (!startedRef.current) {
+      startedRef.current = true;
+      track('leak_check_start');
+    }
+    track('leak_check_question', {
+      question: qi + 1,
+      topic: qKey,
+      correct: qi >= 0 && o === QUESTIONS[qi].answer,
+    });
     advancedRef.current = false;
     setCountDone(false);
     setSrcOn(false);

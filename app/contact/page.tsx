@@ -138,7 +138,7 @@ export default function ContactPage() {
                 slipping, and what it would take to get your life back.
               </p>
               <div className="go">
-                <a className="btn" href={START_LINK}>
+                <a className="btn" href={START_LINK} data-cta="contact">
                   Pick a time <span aria-hidden>&rarr;</span>
                 </a>
                 <div className="sub">Free. No slides, and never a sales rep.</div>

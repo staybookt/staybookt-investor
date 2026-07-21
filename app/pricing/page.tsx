@@ -150,7 +150,7 @@ export default function PricingPage() {
             </p>
 
             <div className="cta">
-              <a className="prc-btn w" href={START_LINK}>Get Started</a>
+              <a className="prc-btn w" href={START_LINK} data-cta="pricing">Get Started</a>
             </div>
           </div>
         </div>

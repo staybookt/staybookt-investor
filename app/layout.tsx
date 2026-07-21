@@ -3,6 +3,13 @@ import { Inter_Tight } from 'next/font/google';
 import './globals.css';
 import Analytics from '@/components/Analytics';
 import AnalyticsEvents from '@/components/AnalyticsEvents';
+import Clarity from '@/components/Clarity';
+/* Vercel's own two. They need no keys and no IDs: they read the deployment they
+ * are running in, and they are no-ops anywhere else, which is why they sit
+ * outside the env gates above. Aliased because components/Analytics.tsx is our
+ * GA4 loader and the names would otherwise collide. */
+import { Analytics as VercelAnalytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import StructuredData from '@/components/StructuredData';
 import ArrowScroll from '@/components/ArrowScroll';
 import CallBar from '@/components/v4/CallBar';
@@ -84,6 +91,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <StructuredData />
         <Analytics />
         <AnalyticsEvents />
+        <Clarity />
+        <VercelAnalytics />
+        <SpeedInsights />
       </body>
     </html>
   );

@@ -70,10 +70,11 @@ export default function CallBar() {
         href={PHONE_HREF}
         className="sbcall-call"
         aria-label={'Call StayBookt at ' + PHONE_DISPLAY}
+        data-cta="call_bar_call"
       >
         Call now
       </a>
-      <a href={onStart ? '#book' : START_LINK} className="sbcall-start">
+      <a href={onStart ? '#book' : START_LINK} className="sbcall-start" data-cta="call_bar">
         Get Started
       </a>
     </nav>
