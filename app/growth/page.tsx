@@ -94,7 +94,9 @@ import { min } from '@/lib/css';
  * the generic HeroCta: the reader has just done the math, so the close harvests
  * exactly that and prices the fix against one job. Still private, still noindex. */
 export const metadata = {
-  title: 'The Leak Check · StayBookt',
+  /* The layout's title template appends the StayBookt suffix; the rendered
+     title is "The Leak Check · StayBookt". Writing the suffix here doubled it. */
+  title: 'The Leak Check',
   description: 'Internal working draft. The money argument, with cited public research.',
   robots: { index: false, follow: false },
 };

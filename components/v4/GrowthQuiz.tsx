@@ -1073,6 +1073,11 @@ export default function GrowthQuiz() {
       const revealed = !!picked && step !== 'condense';
       return (
         <>
+          {/* The scene opens the question, above it, the way a beat sets up a
+              line: the reader is in the moment before they are asked about it.
+              It renders only while the options are open; the reveal owns its
+              screen exactly as before. */}
+          {!revealed && <p className="gq-scene">{q.scene}</p>}
           <h2
             className={'gq-h' + (revealed ? ' quiet' : '')}
             tabIndex={-1}
@@ -1081,10 +1086,6 @@ export default function GrowthQuiz() {
           >
             {qMark(q)}
           </h2>
-          {/* The scene renders only while the options are open; the reveal owns
-              its screen exactly as before. It sits under the question so the
-              display element keeps the top of the frame. */}
-          {!revealed && <p className="gq-scene">{q.scene}</p>}
           {!revealed && (
             <div
               className={'gq-opts' + (step === 'condense' ? ' going' : '')}
