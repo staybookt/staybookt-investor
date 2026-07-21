@@ -288,6 +288,13 @@ type Question = {
   small?: boolean;
   line: string;
   src: string;
+  /* THE RECALL (sixteenth pass): the stack-up no longer re-teaches the three
+     stats, it recalls them. tail is the figure's meaning in a handful of words
+     and srcShort is the publisher alone, both cut down from line and src above,
+     never new claims. The full line and the full citation still run on the
+     reveal, which is where the figure is actually taught. */
+  tail: string;
+  srcShort: string;
   /* THE VERDICT AND THE BRIDGE (thirteenth pass): the verdict says what the
      figure means, complicit, never scolding; the bridge hands to the next beat
      so the three reveals read as one argument. Both ride the source beat. */
@@ -312,6 +319,8 @@ const QUESTIONS: Question[] = [
     fig: (p) => Math.round(62 * p) + '%',
     line: 'of calls to home-service businesses are never answered live.',
     src: '411 Locals, 2024',
+    tail: 'of calls never answered live',
+    srcShort: '411 Locals',
     verdict: 'Almost nobody calls this one. The leak is invisible from inside the truck.',
     bridge: 'And the calls you do catch have a clock on them.',
   },
@@ -327,6 +336,8 @@ const QUESTIONS: Question[] = [
     fig: (p) => Math.round(7 * p) + 'x',
     line: 'more likely to win the lead when you answer within the hour. The average business takes 42 hours.',
     src: 'Harvard Business Review, 2011',
+    tail: 'more likely to win inside the hour',
+    srcShort: 'HBR',
     verdict: 'The best quote in town loses to the fastest answer most weeks.',
     bridge: 'And the most valuable caller is one you already know.',
   },
@@ -343,6 +354,8 @@ const QUESTIONS: Question[] = [
     small: true,
     line: 'more profit from raising customer retention by just five percent.',
     src: 'Bain & Company, via Harvard Business Review, 2014',
+    tail: 'more profit from five percent retention',
+    srcShort: 'Bain, via HBR',
     verdict: 'The biggest money is behind you, in people who already trust you.',
     bridge: 'That was the industry. Now you.',
   },
@@ -611,32 +624,12 @@ body[data-quiz-active] .gro main~footer{display:none;}
 .gq-in{width:100%;min-height:52px;border:1px solid #ececeb;border-radius:14px;background:#fff;font-family:inherit;font-size:24px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:#06080d;text-align:center;-moz-appearance:textfield;appearance:textfield;}
 .gq-in::-webkit-outer-spin-button,.gq-in::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
 .gq-in:focus-visible{outline:2px solid #059669;outline-offset:2px;}
-/* THE STACK-UP. The trail rows assemble into two quiet columns, industry beside
-   theirs, with a short stagger echoing the trail they came from. No verdict. The
-   question rows stay tappable so an answer can still be changed from here. */
-.gq-cols{margin-top:clamp(20px,3.5vh,34px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2vw,22px);width:100%;max-width:940px;text-align:left;}
-@media(max-width:720px){.gq-cols{grid-template-columns:1fr;}}
-.gq-col{border:1px solid #ececeb;border-radius:18px;background:#fff;padding:20px 22px;box-shadow:0 1px 2px rgba(6,8,13,.05),0 10px 28px -12px rgba(6,8,13,.12);}
-.gq-col .hd{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#69707d;}
-.gq-col ul{list-style:none;margin:10px 0 0;padding:0;}
-.gq-col li{font-size:clamp(14px,1.5vw,16.5px);line-height:1.5;color:#69707d;animation:gq-in .45s cubic-bezier(.16,1,.3,1) both;}
-.gq-col li.tx{padding:10px 0;display:flex;gap:10px;}
-.gq-col li b{font-weight:700;color:#06080d;font-variant-numeric:tabular-nums;}
-.gq-col li:nth-child(2){animation-delay:.08s;}
-.gq-col li:nth-child(3){animation-delay:.16s;}
-.gq-col li:nth-child(4){animation-delay:.24s;}
-.gq-col li:nth-child(5){animation-delay:.32s;}
-.gq-qr{display:flex;align-items:center;gap:10px;width:100%;min-height:48px;margin:0;padding:8px 10px 8px 0;border:0;border-radius:12px;background:transparent;color:#69707d;font-family:inherit;font-size:inherit;line-height:inherit;text-align:left;cursor:pointer;transition:background .2s cubic-bezier(.16,1,.3,1);}
-.gq-qr:hover{background:#f6f6f3;}
-.gq-qr:focus-visible{outline:2px solid #059669;outline-offset:2px;}
-.gq-qr .you{display:block;margin-top:2px;font-size:12.5px;color:#69707d;}
-.gq-fig.gq-fig-col{margin-top:18px;font-size:clamp(44px,6.5vw,96px);}
-.gq-col .late{animation:gq-in .45s cubic-bezier(.16,1,.3,1) both;animation-delay:.3s;}
-.gq-cap-col{margin:10px 0 0;max-width:40ch;font-size:clamp(15px,1.6vw,19px);font-weight:600;letter-spacing:-.02em;line-height:1.45;color:#06080d;}
-.gq-covers{margin:12px 0 0;max-width:56ch;font-size:clamp(14.5px,1.6vw,17px);line-height:1.55;color:#69707d;}
-.gq-covers b{font-weight:700;color:#06080d;font-variant-numeric:tabular-nums;white-space:nowrap;}
-.gq-covers.quiet{color:#69707d;}
-.gq-note{margin:16px 0 0;font-size:13px;line-height:1.6;color:#69707d;max-width:60ch;}
+/* THE STACK-UP's two-column dress is GONE (sixteenth pass): the finale is one
+   hero panel of the reader's own arithmetic with the industry recalled in pills
+   beneath it, and all of that lives in the dark-act block at the foot of this
+   sheet. The rules that styled .gq-cols, .gq-col, .gq-qr and their figure went
+   with the markup they dressed. Do not re-add a two-column stack-up: it gave
+   the industry equal billing on the screen that belongs to the reader. */
 .gq-score{margin-top:20px;font-size:14px;line-height:1.5;color:#69707d;}
 .gq-close{margin:12px auto 0;max-width:56ch;font-size:clamp(15px,1.7vw,18px);line-height:1.55;color:#69707d;}
 /* THE RESULTS MOMENT (eleventh pass). The score lands first at keynote scale and
@@ -648,7 +641,7 @@ body[data-quiz-active] .gro main~footer{display:none;}
    pulse, no pinned stage and no delayed source: flat stacked flow, everything
    simply there. The count-ups and the gesture capture are killed in JS by the
    matchMedia check; the JS also adds .gq-rel, these rules are the CSS half. */
-@media(prefers-reduced-motion:reduce){.gq-tr,.gq-card.anim,.gq-card.anim>*,.gq-col li,.gq-col .late,.gq-opts.going .gq-opt,.gq-reveal,.gq-reveal .gq-fig,.gq-cue,.gq-cue.on,.gq-verdict,.gq-guess,.gq-guess .mk.ok{animation:none;}.gq-h{transition:none;}.gq-opt,.gq-tr,.gq-btn{transition:none;}.gq-opt:hover,.gq-tr:hover,.gq-btn:hover{transform:none;}.gq-stage{position:static;height:auto;min-height:100svh;overflow:visible;}.gq-srcline,.gq-vd,.gq-br{opacity:1;transform:none;transition:none;}}
+@media(prefers-reduced-motion:reduce){.gq-tr,.gq-card.anim,.gq-card.anim>*,.gq-opts.going .gq-opt,.gq-reveal,.gq-reveal .gq-fig,.gq-cue,.gq-cue.on,.gq-verdict,.gq-guess,.gq-guess .mk.ok{animation:none;}.gq-h{transition:none;}.gq-opt,.gq-tr,.gq-btn{transition:none;}.gq-opt:hover,.gq-tr:hover,.gq-btn:hover{transform:none;}.gq-stage{position:static;height:auto;min-height:100svh;overflow:visible;}.gq-srcline,.gq-vd,.gq-br{opacity:1;transform:none;transition:none;}}
 /* FOURTEENTH PASS, THE VIEWPORT FIT (Jacob's screenshot, July 2026): the
    thirteenth pass's scene, verdict and bridge lines made the held screens
    taller than a normal laptop viewport, and a held moment that needs a
@@ -773,6 +766,161 @@ body[data-quiz-active] .gro main~footer{display:none;}
 .gq-cue{margin-top:6px;}
 .gq-go{margin-top:6px;}
 }
+/* ============================================================
+SIXTEENTH PASS, THE THREE ACTS MADE VISIBLE (Jacob, July 2026).
+The Leak Check taught on one flat cream surface from the first question to the
+last dollar, and the turn in the middle of it, the one the third reveal names
+out loud, had no visual weight at all. The journey now runs in two registers.
+ACT ONE, the industry's story, keeps every pixel of the light worksheet above:
+hero, three questions, three reveals, the results overview. Nothing in that
+half was restyled. ACT TWO, the reader's own half, takes the site's dark
+register, #050506 with the faint emerald wash the .pg-hero carries, and it
+opens the moment the journey leaves the industry behind: the steppers, the
+arithmetic and the stack-up all live there, and the harvest close below already
+did.
+THE FLIP is an eased 600ms cross-fade on one absolutely positioned sheet
+(.gq-dim) rather than a background-color transition, because the dark ground
+carries its own radial wash and a colour tween cannot fade a gradient. The
+sheet sits under the z-indexed wrap and over the light wash, so the ground
+changes on the same beat as the card swap.
+THE ROUND TRIP is the whole reason this is a class derived from the active
+stage and not a one-way state: reopening a QUESTION from the dark stack-up
+drops .gq-dark, the sheet fades back out on the same curve, and every light-act
+rule above is simply in force again. Nothing about the flip is stateful, so
+there is nothing that can get stuck half way.
+CONTRAST, computed against the ACTUAL dark grounds: the page ground is #050506
+and the cards are a 4-5% white over it, which composites to about #0e0e0f.
+#9ba1ab runs 7.4:1 there, #8a8f98 runs 5.9:1, the emerald #34d399 runs 10:1,
+the amber #fbbf24 runs 12:1 and white runs 18:1. Every one clears 4.5:1.
+THE GRADIENT flips with the ground: --sb-grad-ink exists because the bright
+gradient's cyan fails on cream, and on #050506 that reverses, so the dark act's
+figures wear the full --sb-grad, the same one the wordmark uses.
+============================================================ */
+.gq-dim{position:absolute;inset:0;z-index:0;opacity:0;pointer-events:none;background:#050506;transition:opacity .6s cubic-bezier(.16,1,.3,1);}
+.gq-dim::after{content:'';position:absolute;inset:0;background:radial-gradient(110rem 70rem at 50% 26%,rgba(16,185,129,.11),transparent 62%);}
+.gq-dark .gq-dim{opacity:1;}
+.gq-dark .gq-eye{color:#34d399;}
+.gq-dark .gq-h{color:#fff;}
+.gq-dark .gq-h .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.gq-dark .gq-h.quiet,.gq-dark .gq-h.quiet .g{color:#9ba1ab;}
+.gq-dark .gq-sub{color:#9ba1ab;}
+.gq-dark .gq-fig{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.gq-dark .gq-cue{color:#9ba1ab;}
+.gq-dark .gq-go{color:#9ba1ab;}
+.gq-dark .gq-go.vis{border-color:rgba(255,255,255,.18);}
+.gq-dark .gq-go:hover{color:#fff;border-color:rgba(255,255,255,.36);}
+.gq-dark .gq-go:focus-visible{outline-color:#34d399;}
+/* THE STEPPERS AS A KEYNOTE SCREEN. The light version read flat: three small
+boxes of form controls sitting in a row. Dark, they get real presence. The card
+is a raised dark surface (hairline white border, an inset top highlight, a deep
+drop), the number is the largest thing on the card at white display scale in
+tabular figures, and the plus and minus wear the emerald so the affordance
+reads before the label does. The typed field keeps every metric that matters:
+48px minimum targets, numeric inputmode, select on focus, clamp on commit. */
+.gq-dark .gq-fields{max-width:1000px;gap:clamp(16px,2.2vw,26px);margin-top:clamp(26px,5vh,48px);}
+.gq-dark .gq-f{background:rgba(255,255,255,.045);border-color:rgba(255,255,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 1px 2px rgba(0,0,0,.5),0 30px 60px -34px rgba(0,0,0,.95);padding:22px 22px 20px;transition:border-color .25s cubic-bezier(.16,1,.3,1),background .25s cubic-bezier(.16,1,.3,1);}
+.gq-dark .gq-f:hover{border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.06);}
+.gq-dark .gq-f .lb{color:#fff;font-size:15px;}
+.gq-dark .gq-f .ht{color:#9ba1ab;margin-top:5px;}
+.gq-dark .gq-row{margin-top:16px;}
+.gq-dark .gq-btn{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.14);color:#34d399;}
+.gq-dark .gq-btn:hover{background:rgba(52,211,153,.14);border-color:rgba(52,211,153,.5);}
+.gq-dark .gq-btn:active{background:rgba(52,211,153,.2);}
+.gq-dark .gq-btn:disabled{opacity:.3;}
+.gq-dark .gq-btn:focus-visible{outline-color:#34d399;}
+.gq-dark .gq-in{background:rgba(255,255,255,.035);border-color:rgba(255,255,255,.14);color:#fff;font-size:clamp(28px,3vw,36px);min-height:60px;}
+.gq-dark .gq-in:focus-visible{outline-color:#34d399;}
+.gq-dark .gq-val .cur{color:#9ba1ab;font-size:17px;}
+/* THE ARITHMETIC FINALE. The reader's own half is the hero panel and it comes
+first in the DOM: the compact numbers line they can tap to change, the one
+dollar figure at keynote scale in the full brand gradient, its white caption,
+and the covers line promoted to the second largest thing on the screen, because
+that line is the whole point of the page. One line of disclosure under it,
+carrying exactly what the paragraph it replaces carried. */
+.gq-fin{width:100%;max-width:940px;margin:clamp(18px,3vh,32px) auto 0;text-align:center;}
+.gq-fin .hd,.gq-recall .hd{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#9ba1ab;}
+.gq-numline{display:inline-flex;align-items:center;gap:10px;min-height:48px;margin:clamp(10px,1.8vh,16px) auto 0;padding:10px 20px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:#9ba1ab;font-family:inherit;font-size:14px;line-height:1.45;text-align:left;cursor:pointer;transition:border-color .25s cubic-bezier(.16,1,.3,1),background .25s cubic-bezier(.16,1,.3,1);}
+.gq-numline b{font-weight:700;color:#fff;font-variant-numeric:tabular-nums;}
+.gq-numline:hover{border-color:rgba(255,255,255,.28);background:rgba(255,255,255,.07);}
+.gq-numline:focus-visible{outline:2px solid #34d399;outline-offset:2px;}
+.gq-monthline{margin:10px auto 0;max-width:44ch;font-size:13.5px;line-height:1.55;color:#8a8f98;}
+.gq-monthline b{font-weight:700;color:#fff;font-variant-numeric:tabular-nums;}
+.gq-fig.gq-fig-fin{margin-top:clamp(14px,3vh,28px);font-size:clamp(72px,13vw,190px);}
+.gq-cap-fin{margin:clamp(12px,2vh,18px) auto 0;max-width:34ch;font-size:clamp(16px,1.9vw,22px);font-weight:600;letter-spacing:-.02em;line-height:1.4;color:#fff;}
+.gq-covers-big{margin:clamp(18px,3.2vh,32px) auto 0;max-width:22ch;font-size:clamp(24px,3.4vw,46px);font-weight:600;letter-spacing:-.03em;line-height:1.14;color:#fff;}
+.gq-covers-big b{font-weight:600;color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap;}
+.gq-quiet-fin{margin:12px auto 0;max-width:52ch;font-size:14px;line-height:1.55;color:#9ba1ab;}
+.gq-disc{margin:clamp(16px,2.6vh,24px) auto 0;max-width:62ch;font-size:13px;line-height:1.6;color:#8a8f98;}
+/* THE RECALL. The industry taught its lesson two screens ago, so down here it
+is three quiet pills the reader can tap to change a guess, one footnote for the
+two published figures that were never questions, and ONE line of instruction
+where three used to repeat themselves. */
+.gq-recall{width:100%;max-width:940px;margin:clamp(28px,5.5vh,60px) auto 0;text-align:center;}
+.gq-pills{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:clamp(10px,1.8vh,16px);}
+.gq-pill{display:flex;align-items:center;gap:10px;min-height:48px;padding:10px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.11);background:rgba(255,255,255,.035);color:#9ba1ab;font-family:inherit;font-size:14px;line-height:1.45;text-align:left;cursor:pointer;transition:border-color .25s cubic-bezier(.16,1,.3,1),background .25s cubic-bezier(.16,1,.3,1),transform .25s cubic-bezier(.16,1,.3,1);}
+.gq-pill b{font-weight:700;color:#fff;font-variant-numeric:tabular-nums;}
+.gq-pill .sm{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#8a8f98;white-space:nowrap;}
+.gq-pill{animation:gq-in .45s cubic-bezier(.16,1,.3,1) both;}
+.gq-pill:nth-child(2){animation-delay:.08s;}
+.gq-pill:nth-child(3){animation-delay:.16s;}
+.gq-pill:hover{border-color:rgba(255,255,255,.26);background:rgba(255,255,255,.06);transform:translateY(-1px);}
+.gq-pill:focus-visible{outline:2px solid #34d399;outline-offset:2px;}
+.gq-dark .mk.ok{color:#34d399;}
+.gq-dark .mk.miss{color:#fbbf24;}
+.gq-dark .mk.nt{color:#8a8f98;}
+.gq-foot b{font-weight:700;color:#fff;font-variant-numeric:tabular-nums;}
+.gq-foot{margin:clamp(12px,2vh,18px) auto 0;max-width:74ch;font-size:12.5px;line-height:1.6;color:#8a8f98;}
+.gq-tap{margin:10px auto 0;font-size:13.5px;line-height:1.5;color:#9ba1ab;}
+.gq-dark .gq-score{color:#8a8f98;}
+.gq-dark .gq-close{color:#8a8f98;}
+/* The dark act's own height ramps, matching the light act's 900/800/740 steps
+so nothing in the second half clips on a laptop either, plus the 390 width
+step. Tap targets keep their 48px floor at every ramp: the accessibility law
+outranks the fit, as ever. */
+@media (max-height:900px){
+.gq-dark .gq-fields{margin-top:clamp(20px,3.6vh,34px);}
+.gq-dark .gq-f{padding:18px 18px 16px;}
+.gq-dark .gq-in{font-size:clamp(26px,2.6vw,32px);min-height:56px;}
+.gq-fig.gq-fig-fin{font-size:clamp(64px,11vw,150px);}
+.gq-covers-big{font-size:clamp(22px,3vw,40px);}
+.gq-recall{margin-top:clamp(22px,4.5vh,44px);}
+}
+@media (max-height:800px){
+.gq-dark .gq-fields{margin-top:clamp(16px,2.8vh,26px);}
+.gq-dark .gq-f{padding:15px 16px 13px;}
+.gq-dark .gq-row{margin-top:12px;}
+.gq-dark .gq-in{font-size:clamp(24px,2.4vw,28px);min-height:52px;}
+.gq-fin{margin-top:clamp(12px,2vh,22px);}
+.gq-fig.gq-fig-fin{font-size:clamp(56px,10vw,124px);}
+.gq-cap-fin{font-size:clamp(15px,1.7vw,19px);}
+.gq-covers-big{margin-top:clamp(14px,2.4vh,24px);font-size:clamp(21px,2.7vw,34px);}
+.gq-recall{margin-top:clamp(18px,3.6vh,34px);}
+}
+@media (max-height:740px){
+.gq-dark .gq-fields{margin-top:12px;}
+.gq-dark .gq-f{padding:13px 14px 11px;}
+.gq-dark .gq-row{margin-top:10px;}
+.gq-dark .gq-in{font-size:22px;min-height:48px;}
+.gq-dark .gq-f .lb{font-size:14px;}
+.gq-fig.gq-fig-fin{font-size:clamp(48px,9vw,104px);}
+.gq-covers-big{margin-top:12px;font-size:clamp(20px,2.4vw,30px);}
+.gq-disc{margin-top:12px;}
+.gq-recall{margin-top:clamp(14px,3vh,28px);}
+}
+@media (max-width:760px){
+.gq-dark .gq-fields{gap:8px;margin-top:10px;}
+.gq-dark .gq-f{padding:10px 12px 8px;}
+.gq-dark .gq-row{margin-top:6px;}
+.gq-dark .gq-in{font-size:20px;min-height:48px;}
+.gq-dark .gq-f .lb{font-size:13.5px;}
+.gq-dark .gq-f .ht{margin-top:3px;}
+.gq-numline,.gq-pill{width:100%;font-size:13.5px;align-items:flex-start;}
+.gq-pill .sm{white-space:normal;}
+.gq-fig.gq-fig-fin{font-size:clamp(46px,15vw,76px);}
+.gq-cap-fin{font-size:15.5px;}
+.gq-covers-big{font-size:22px;max-width:26ch;}
+}
+@media(prefers-reduced-motion:reduce){.gq-dim{transition:none;}.gq-pill{animation:none;}.gq-pill:hover{transform:none;}}
 `;
 
 /* The count-up. Runs once per mount, ~900ms ease-out cubic, then holds the final
@@ -1779,121 +1927,94 @@ export default function GrowthQuiz() {
       );
     }
 
-    /* THE FINALE. The trail assembles into the stack-up: the reader's three
-       revealed figures, still wearing their marks and their guesses, become the
-       industry column beside two more published stats; their own inputs and their
-       arithmetic, at keynote scale, become the other. No verdict. */
+    /* THE FINALE, RESTRUCTURED (sixteenth pass). It used to be two equal
+       columns, the industry on the left teaching its three stats all over
+       again, the reader's own arithmetic on the right, and three separate lines
+       of "You said X. Tap to change it." The hierarchy now says what the page
+       says: the reader's half is the hero panel and it comes FIRST, one dollar
+       figure at keynote scale in the full brand gradient with the covers line
+       promoted under it, and the industry compresses to three quiet recall
+       pills, one footnote and ONE line of instruction. Every pill and the
+       numbers line are the same reopen buttons they always were, so the way
+       back into any question or into the steppers is unchanged, and so is the
+       arithmetic: the reader's three inputs and the public price, nothing
+       else, with the disclosure carrying exactly what its paragraph carried. */
     return (
       <>
         <h2 className="gq-h" tabIndex={-1} ref={headRef}>
-          The industry&apos;s numbers, <span className="g">beside yours.</span>
+          Your arithmetic, <span className="g">beside the industry&apos;s.</span>
         </h2>
-        <div className="gq-cols">
-          <div className="gq-col">
-            <div className="hd">The industry</div>
-            <ul>
-              {QUESTIONS.map((q, i) => {
-                const picked = picks[q.key];
-                const right = picked === q.answer;
-                return (
-                  <li key={q.key}>
-                    <button
-                      type="button"
-                      className="gq-qr"
-                      onClick={() => reopen(i, q.key)}
-                      aria-label={'Reopen the ' + q.eye.toLowerCase() + ' question and answer it again'}
-                    >
-                      <span className={'mk ' + (right ? 'ok' : 'miss')} aria-hidden="true">
-                        {right ? '✓' : '●'}
-                      </span>
-                      <span>
-                        <b>{q.stack}</b> {q.line} ({q.src})
-                        <span className="you">
-                          {picked
-                            ? right
-                              ? 'You called it.'
-                              : 'You said ' + picked + '. Tap to change it.'
-                            : 'You left this one open. Tap to answer it.'}
-                        </span>
-                      </span>
-                    </button>
-                  </li>
-                );
-              })}
-              <li className="tx">
-                <span className="mk nt" aria-hidden="true">
-                  {'●'}
-                </span>
-                <span>
-                  <b>37%</b> of estimates close on the first visit. The rest close in the
-                  follow-up, or never. (ServiceTitan)
-                </span>
-              </li>
-              <li className="tx">
-                <span className="mk nt" aria-hidden="true">
-                  {'●'}
-                </span>
-                <span>
-                  <b>88%</b> of consumers would use a business that replies to all of its
-                  reviews. (BrightLocal, 2024)
-                </span>
-              </li>
-            </ul>
-          </div>
-          <div className="gq-col">
-            <div className="hd">Yours</div>
-            <ul>
-              <li>
+        <div className="gq-fin">
+          <div className="hd">Yours</div>
+          <button
+            type="button"
+            className="gq-numline"
+            onClick={() => reopen(4)}
+            aria-label="Reopen your numbers and adjust them"
+          >
+            <span className="mk nt" aria-hidden="true">
+              {'●'}
+            </span>
+            <span>{numbersSummary}</span>
+          </button>
+          <p className="gq-monthline">
+            {missed > 0 ? (
+              <>
+                You miss <b>{missed}</b> {missed === 1 ? 'call' : 'calls'} a week, which is{' '}
+                <b>{missedMonthly}</b> a month.
+              </>
+            ) : (
+              <>No missed calls in a week.</>
+            )}
+          </p>
+          <div className="gq-fig gq-fig-fin">{money(quotes > 0 ? quoteValue : job)}</div>
+          <p className="gq-cap-fin">{caption}</p>
+          <p className="gq-covers-big">{covers}</p>
+          {quotes === 0 && (
+            <p className="gq-quiet-fin">
+              No unchased quotes on the table, so the figure above is simply your average job.
+            </p>
+          )}
+          <p className="gq-disc">
+            Your arithmetic, not our promise. Your inputs, multiplied where you can check them
+            in your head.
+          </p>
+        </div>
+        <div className="gq-recall">
+          <div className="hd">The industry</div>
+          <div className="gq-pills">
+            {QUESTIONS.map((q, i) => {
+              const picked = picks[q.key];
+              const right = picked === q.answer;
+              return (
                 <button
+                  key={q.key}
                   type="button"
-                  className="gq-qr"
-                  onClick={() => reopen(4)}
-                  aria-label="Reopen your numbers and adjust them"
+                  className="gq-pill"
+                  onClick={() => reopen(i, q.key)}
+                  aria-label={'Reopen the ' + q.eye.toLowerCase() + ' question and answer it again'}
                 >
-                  <span className="mk nt" aria-hidden="true">
-                    {'●'}
+                  <span className={'mk ' + (right ? 'ok' : 'miss')} aria-hidden="true">
+                    {right ? '✓' : '●'}
                   </span>
                   <span>
-                    {numbersSummary}
-                    <span className="you">Tap to adjust them.</span>
+                    <b>{q.stack}</b> {q.tail} <span className="sm">{q.srcShort}</span>
                   </span>
                 </button>
-              </li>
-              <li className="tx">
-                <span className="mk nt" aria-hidden="true">
-                  {'●'}
-                </span>
-                <span>
-                  {missed > 0 ? (
-                    <>
-                      You miss <b>{missed}</b> {missed === 1 ? 'call' : 'calls'} a week, which is{' '}
-                      <b>{missedMonthly}</b> a month.
-                    </>
-                  ) : (
-                    <>No missed calls in a week.</>
-                  )}
-                </span>
-              </li>
-            </ul>
-            <div className="gq-fig gq-fig-col late">{money(quotes > 0 ? quoteValue : job)}</div>
-            <p className="gq-cap-col late">{caption}</p>
-            <p className="gq-covers late">{covers}</p>
-            {quotes === 0 && (
-              <p className="gq-covers quiet late">
-                No unchased quotes on the table, so the figure above is simply your average job.
-              </p>
-            )}
-            <p className="gq-note late">
-              This is your arithmetic, not our promise. We do not know your close rate, your
-              margins or your market, and we are not going to pretend we do. The numbers above
-              are your inputs, multiplied and divided where you can check them in your head.
-            </p>
+              );
+            })}
           </div>
+          <p className="gq-foot">
+            Two more published figures, never asked: <b>37%</b> of estimates close on the first
+            visit, the rest in the follow-up or never (ServiceTitan), and <b>88%</b> of consumers
+            would use a business that replies to all of its reviews (BrightLocal, 2024).
+          </p>
+          <p className="gq-tap">Tap any figure to change your guess.</p>
         </div>
         <p className="gq-score">You called {score} of 3.</p>
         <p className="gq-close">
-          Every industry figure above is published research, named right beside it. Your
-          column came from you, and stayed on your screen.
+          Every industry figure above is published research, named right beside it. Your column
+          came from you, and stayed on your screen.
         </p>
       </>
     );
@@ -1932,13 +2053,28 @@ export default function GrowthQuiz() {
      back up). Either way the stage unpins to normal flow. */
   const released = reduced || journeyDone;
 
+  /* ACT TWO (sixteenth pass). The journey's second half, the reader's own half,
+     runs in the site's dark register: the steppers, the arithmetic and the
+     stack-up. It is DERIVED from the active stage, never stored, which is what
+     makes the round trip free: reopening a question from the dark stack-up
+     drops the class and every light-act rule is in force again, and returning
+     re-adds it, both on the same eased cross-fade. Act one, the hero, the three
+     questions, the three reveals and the results overview, is untouched light.
+     The threshold is the turn the third reveal names out loud: the industry has
+     finished teaching, and the next screen is the reader's own numbers. */
+  const darkAct = active >= 4;
+
   return (
     <section
-      className={'gq' + (released ? ' gq-rel' : '')}
+      className={'gq' + (released ? ' gq-rel' : '') + (darkAct ? ' gq-dark' : '')}
       aria-label="The Leak Check"
       ref={secRef}
     >
       <style>{min(CSS)}</style>
+      {/* THE FLIP. One sheet, faded in over the light ground on the site curve,
+          so the register changes with the card instead of snapping. Decorative
+          and inert; reduced motion keeps the same two acts with no tween. */}
+      <div className="gq-dim" aria-hidden="true" />
       <div className="gq-stage" ref={stageRef}>
         <div className="gq-wrap">
           {trail.length > 0 && <div className="gq-trail">{trail}</div>}
