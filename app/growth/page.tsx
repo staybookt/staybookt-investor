@@ -95,6 +95,16 @@ import { min } from '@/lib/css';
  * (scrollbar drag) settles to the nearer side. Reduced motion keeps the flat
  * flow. See the fourteenth-pass block in GrowthQuiz.tsx. */
 
+/* THE FULL FRAME, FIFTEENTH PASS (Jacob's second screenshot, July 2026): the
+ * glide fixed the scroll and could not fix the resting state. At scroll 0 the
+ * compact hero left a band of bare cream under it with question one's kicker at
+ * the bottom edge, because the stage below centres its moment inside 100svh and
+ * what peeked through was the empty top half of that frame. The hero is now a
+ * full frame of its own, 100svh minus the nav, composed and centred, with the
+ * scroll cue seated at its bottom edge: the viewport at rest is the hero and
+ * nothing else. The glide, the clamp, the containment and the reduced-motion
+ * flat flow are all unchanged. See the hero block in the CSS below. */
+
 /* NAMED, THIRTEENTH PASS (Jacob, July 2026): the draft became THE LEAK CHECK.
  * The page is a guided self-diagnosis: the reader guesses, the industry corrects
  * them, their own arithmetic convicts them. We never make the claim. Each question
@@ -115,16 +125,28 @@ const CSS = `
 .gro .wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
 .gro .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#69707d;}
 /* HERO. The shared .pg-hero from globals.css, emerald because this page argues the
-   running-of-it. ONE deliberate exception to the one-height law, reason written down
-   as that law requires: this header HANDS OFF AND LEAVES (ninth pass). The quiz
-   below is a sticky full-viewport stage in the site's film grammar, so the hero's
-   only job is the invitation and the instruction, compact, with the top of the
-   stage visible beneath it. The scroll that brings the stage up IS the call to
-   action, so the hero closes on a quiet "Scroll to start" line with a soft chevron
-   instead of any button. The fixed nav's 64px clearance lives in the hero AND in
-   the stage now (the stage owns the screen once pinned); the headline and sub run
-   a step smaller than the standard hero scale, same reason as ever. */
-.gro .pg-hero{--hero-hue:16,185,129;padding:calc(64px + clamp(40px,6vh,64px)) 0 clamp(30px,4.5vh,48px);}
+   running-of-it. It HANDS OFF AND LEAVES (ninth pass): the quiz below is a sticky
+   full-viewport stage in the site's film grammar, so the hero's only job is the
+   invitation and the instruction, and the scroll that brings the stage up IS the
+   call to action, a quiet "Scroll to start" line with a soft chevron instead of
+   any button.
+   THE FULL FRAME (fifteenth pass, Jacob's screenshot, July 2026). The hero used
+   to be compact, roughly 410px, on the theory that the top of the stage should
+   peek beneath it. What actually rendered at rest was the hero, then a tall band
+   of bare cream, then question one's kicker at the very bottom edge: the stage
+   below centres its moment inside 100svh, so the peek was the EMPTY top half of
+   question one's frame. The fourteenth pass's glide fixed the scroll and could
+   not fix the resting state, because the resting state is geometry. So the hero
+   now owns a full frame of its own: 100svh, the fixed nav's 64px clearance in
+   the top padding exactly as the stage carries it, the composition centred in
+   what is left by the auto margins on .gro-hero-in, and the cue seated near the
+   bottom edge of the frame instead of floating mid-air. At scroll 0 the viewport
+   is the hero and nothing else. The headline and sub still run a step smaller
+   than the standard hero scale, same reason as ever, and the height ramps below
+   keep the whole composition inside the frame on short laptops. */
+.gro .pg-hero{--hero-hue:16,185,129;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;padding:calc(64px + clamp(20px,3.4vh,40px)) 0 clamp(24px,3.8vh,44px);}
+.gro .pg-hero>.wrap{flex:1 1 auto;display:flex;flex-direction:column;}
+.gro .pg-hero .wrap .gro-hero-in{margin:auto 0;}
 .gro .pg-hero .wrap h1{font-size:clamp(34px,4.6vw,58px);max-width:22ch;}
 .gro .pg-hero .wrap p{margin-top:18px;font-size:clamp(16px,1.9vw,20px);max-width:52ch;}
 /* THE SCROLL CUE. Quiet, uppercase, #8a8f98 at 6.27:1 on #050506. The chevron
@@ -134,6 +156,40 @@ const CSS = `
 .gro .pg-hero .wrap .gro-cue svg{display:block;animation:gro-cue 2s ease-in-out infinite;}
 @keyframes gro-cue{0%,100%{opacity:.4;}50%{opacity:.95;}}
 @media(prefers-reduced-motion:reduce){.gro .pg-hero .wrap .gro-cue svg{animation:none;}}
+/* THE HERO HEIGHT RAMPS (fifteenth pass). The same 900, 800 and 740 ladder the
+   quiz stage runs on, applied to the hero now that it owns a full frame: on a
+   short laptop the eyebrow, headline, sub and cue all still have to compose
+   inside 100svh minus the nav without clipping or scrolling. Nothing is hidden
+   at any step; only scale and air give way, and the cue keeps its seat at the
+   bottom of the frame throughout. */
+@media (max-height:900px){
+.gro .pg-hero{padding:calc(64px + clamp(16px,2.6vh,30px)) 0 clamp(20px,3vh,34px);}
+.gro .pg-hero .wrap h1{font-size:clamp(32px,4.2vw,52px);}
+.gro .pg-hero .wrap p{margin-top:16px;}
+.gro .pg-hero .wrap .gro-cue{margin-top:clamp(18px,3vh,30px);}
+}
+@media (max-height:800px){
+.gro .pg-hero{padding:calc(64px + clamp(12px,2vh,22px)) 0 clamp(16px,2.4vh,26px);}
+.gro .pg-hero .wrap h1{font-size:clamp(30px,3.8vw,46px);}
+.gro .pg-hero .wrap p{margin-top:14px;font-size:clamp(15.5px,1.7vw,18px);}
+.gro .pg-hero .wrap .gro-cue{margin-top:clamp(14px,2.4vh,24px);}
+}
+@media (max-height:740px){
+.gro .pg-hero{padding:calc(64px + 10px) 0 14px;}
+.gro .pg-hero .wrap h1{font-size:clamp(28px,3.4vw,40px);}
+.gro .pg-hero .wrap p{margin-top:12px;font-size:clamp(15px,1.6vw,17px);}
+.gro .pg-hero .wrap .gro-cue{margin-top:clamp(12px,2vh,18px);}
+}
+/* THE CALL BAR'S SEAT (same pass, measured on a 390x844 phone). CallBar is a
+   fixed 67px bar across the bottom on phone widths, and globals reserves its
+   height on the body for the end of the document. A full-frame hero ends AT
+   the viewport bottom, so the scroll cue landed underneath the bar. Reserve
+   the bar's height plus the home indicator inset here too, and the cue sits
+   just above it. Last in the file on purpose: it has to beat the height ramps
+   above on padding-bottom at equal specificity. */
+@media (max-width:767px){
+.gro .pg-hero{padding-bottom:calc(76px + env(safe-area-inset-bottom));}
+}
 /* THE HARVEST CLOSE (thirteenth pass). HeroCta's visual language, this page's
    copy: the photo close, the same overlay grade, the one white button. Local
    because HeroCta's lines are hardcoded and this page has just earned a
@@ -162,12 +218,17 @@ export default function GrowthPage() {
             one sits directly beneath it. Still no Start gate. */}
         <header className="pg-hero">
           <div className="wrap">
-            <div className="eyebrow">The Leak Check · internal draft</div>
-            <h1>You know the work. <span className="g">Do you know the money?</span></h1>
-            <p>
-              The Leak Check: three quick questions about the industry, then your own
-              numbers. Two minutes, and the math at the end is yours, not ours.
-            </p>
+            {/* The composed block. It is grouped so the auto margins can centre it
+                inside the hero's full frame while the cue below keeps its seat at
+                the bottom edge (fifteenth pass). */}
+            <div className="gro-hero-in">
+              <div className="eyebrow">The Leak Check · internal draft</div>
+              <h1>You know the work. <span className="g">Do you know the money?</span></h1>
+              <p>
+                The Leak Check: three quick questions about the industry, then your own
+                numbers. Two minutes, and the math at the end is yours, not ours.
+              </p>
+            </div>
             {/* The CTA is the scroll itself: no button, just the invitation. */}
             <p className="gro-cue">
               Scroll to start
