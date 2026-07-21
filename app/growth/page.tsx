@@ -86,6 +86,15 @@ import { min } from '@/lib/css';
  * from the HTML.
  */
 
+/* THE HAND-OFF GLIDE, FOURTEENTH PASS (Jacob's screenshot, July 2026): the band
+ * between the compact hero and the pinned stage was restable, and a single
+ * wheel tick parked the reader on a viewport of bare cream with question one's
+ * kicker at the bottom edge. The first scroll intent off the hero now glides
+ * the page to the pin in one eased motion on the site curve, the return glides
+ * back to the hero top the same way, and anything that parks in the band
+ * (scrollbar drag) settles to the nearer side. Reduced motion keeps the flat
+ * flow. See the fourteenth-pass block in GrowthQuiz.tsx. */
+
 /* NAMED, THIRTEENTH PASS (Jacob, July 2026): the draft became THE LEAK CHECK.
  * The page is a guided self-diagnosis: the reader guesses, the industry corrects
  * them, their own arithmetic convicts them. We never make the claim. Each question

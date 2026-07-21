@@ -957,11 +957,13 @@ export default function GrowthQuiz() {
      momentum that started on the hero, never touched the section and sailed
      past the whole quiz. The grammar now runs in three zones:
 
-     ABOVE THE PIN (the hero still showing): scrolling is native, that scroll IS
-     the CTA. A wheel tick big enough to cross the pin lands exactly on it, a
-     down key glides to it, and the window scroll clamp snaps back anything,
-     momentum, scrollbar drag, anything, that gets past. The stage cannot be
-     blown through.
+     ABOVE THE PIN (the hero still showing): the first downward intent, wheel
+     tick, swipe or down key, glides the page to the pin in ONE eased motion
+     (see THE HAND-OFF GLIDE below), upward intent in the band glides back to
+     the hero top the same way, and the window scroll clamp snaps back
+     anything, momentum, scrollbar drag, anything, that gets past the pin. No
+     resting point exists between the hero and the stage: the settle in
+     onScroll sweeps whatever parks there to the nearer side.
 
      AT THE PIN (the stage owns the screen): wheel down and swipe up are
      consumed. While a reveal is held AND its source beat has landed, the first
@@ -972,9 +974,10 @@ export default function GrowthQuiz() {
      consumed and do nothing: answering stays tap, click or keyboard on the
      options. Enter and Space on a real control are left to that control.
 
-     BACK UP AND OUT: wheel up, swipe down and the up keys are left native, so
-     the reader can always return to the hero; ArrowScroll bails on the
-     quizActive flag, so an up arrow walks back at the browser's own step. The
+     BACK UP AND OUT: wheel up, swipe down and the up keys glide the page back
+     to the hero top in the same single motion, so the return crosses the band
+     without a resting point either; ArrowScroll bails on the quizActive flag,
+     so the up arrow reaches this handler instead of double-scrolling. The
      nav sheet check (body overflow hidden) leaves the mobile menu alone, and
      if the stage ever scrolls internally (short screens) the capture stands
      down for native scroll. The moment the finale is reached this whole effect
@@ -1010,28 +1013,126 @@ export default function GrowthQuiz() {
       performance.now() - lastAdvRef.current > 700 &&
       !fieldBusy() &&
       performance.now() - lastFieldRef.current > 900;
-    /* THE CLAMP. The one line that makes a hard flick escape-proof: any scroll
-       that ends up past the pin while the journey is live is snapped back to
-       it, whatever produced it. 'instant', because globals.css sets smooth. */
+    /* THE HAND-OFF GLIDE (fourteenth pass, Jacob's screenshot, July 2026).
+       The band between the compact hero and the pin used to be restable: one
+       wheel tick off the hero scrolled natively, stopped partway, and the
+       reader parked on the blank top half of question one's centred frame, a
+       viewport of bare cream with the kicker peeking in at the bottom edge.
+       The rule now: NO resting point exists between the hero and the pin. The
+       first downward intent in the hero zone glides the page to the pin in
+       one eased motion, ~500ms on the site curve; upward intent from the pin
+       glides back to the hero top the same way; and anything that parks in
+       the band regardless (scrollbar drag, browser scroll restoration)
+       settles to the nearer side the moment it stops moving. The glide is a
+       JS rAF loop rather than scroll-snap because html-level snap is a
+       mobile-only decision sitewide and a page-scoped snap container would
+       fight the sticky pin; 'instant' per frame for the same globals.css
+       reason as the clamp. Input during a glide is swallowed so momentum
+       cannot fight the animation, and the glide's landing re-arms the ~700ms
+       advance debounce so the gesture that brought the reader in can never
+       also advance the first reveal. Reduced motion never reaches this code:
+       the whole effect stands down and the page scrolls flat, as ever. */
+    let glideRaf = 0;
+    let gliding = false;
+    let upAcc = 0;
+    let settleT: ReturnType<typeof setTimeout> | undefined;
+    /* The site curve, cubic-bezier(.16,1,.3,1), solved numerically: bisect
+       the bezier's x for the elapsed fraction, return its y. Both y control
+       points are 1, so y reduces to the Bernstein sum below. */
+    const easeY = (x: number) => {
+      if (x <= 0) return 0;
+      if (x >= 1) return 1;
+      let lo = 0;
+      let hi = 1;
+      let u = x;
+      for (let i = 0; i < 24; i++) {
+        u = (lo + hi) / 2;
+        const bx = 3 * u * (1 - u) * (1 - u) * 0.16 + 3 * u * u * (1 - u) * 0.3 + u * u * u;
+        if (bx < x) lo = u;
+        else hi = u;
+      }
+      return 3 * u * (1 - u) * (1 - u) + 3 * u * u * (1 - u) + u * u * u;
+    };
+    const glide = (to: number) => {
+      cancelAnimationFrame(glideRaf);
+      const from = window.scrollY;
+      if (Math.abs(to - from) < 2) {
+        gliding = false;
+        return;
+      }
+      gliding = true;
+      const t0 = performance.now();
+      const run = (now: number) => {
+        const t = Math.min(1, (now - t0) / 500);
+        window.scrollTo({ top: from + (to - from) * easeY(t), behavior: 'instant' });
+        if (t < 1) {
+          glideRaf = requestAnimationFrame(run);
+        } else {
+          gliding = false;
+          wheelAccRef.current = 0;
+          lastAdvRef.current = performance.now();
+        }
+      };
+      glideRaf = requestAnimationFrame(run);
+    };
+    /* THE CLAMP, plus THE SETTLE. The clamp is unchanged: any scroll that
+       ends up past the pin while the journey is live is snapped back to it,
+       whatever produced it. The settle is new: a scroll that was not ours and
+       stopped inside the band (scrollbar drag, mostly) gets ~140ms to keep
+       moving, then glides to whichever side is nearer. 'instant', because
+       globals.css sets smooth. */
     const onScroll = () => {
       if (navOpen()) return;
       const py = pinY();
-      if (window.scrollY > py + 1) window.scrollTo({ top: py, behavior: 'instant' });
+      if (window.scrollY > py + 1) {
+        window.scrollTo({ top: py, behavior: 'instant' });
+        return;
+      }
+      if (gliding) return;
+      if (window.scrollY > 1 && window.scrollY < py - 1) {
+        clearTimeout(settleT);
+        settleT = setTimeout(() => {
+          if (gliding) return;
+          const p = pinY();
+          const y = window.scrollY;
+          if (y > 1 && y < p - 1) glide(y > p / 2 ? p : 0);
+        }, 140);
+      }
     };
     const onWheel = (e: WheelEvent) => {
       if (navOpen()) return;
+      if (gliding) {
+        e.preventDefault();
+        return;
+      }
       if (!pinned()) {
-        const top = rectTop();
-        if (e.deltaY > 0 && e.deltaY >= top) {
+        /* Hero zone: the first downward tick IS the hand-off, whatever its
+           size. Upward in the band glides home; upward at the hero top stays
+           native. */
+        if (e.deltaY > 0) {
           e.preventDefault();
-          window.scrollTo({ top: pinY(), behavior: 'instant' });
+          glide(pinY());
+        } else if (e.deltaY < 0 && window.scrollY > 1) {
+          e.preventDefault();
+          glide(0);
         }
         return;
       }
       if (e.deltaY <= 0) {
         wheelAccRef.current = 0;
+        if (e.deltaY === 0 || overflowing()) return;
+        /* Up from the pin: one eased motion back to the hero top, never a
+           native crawl through the band. Same 24px intent threshold as the
+           advance, so trackpad jitter cannot bounce the reader out. */
+        e.preventDefault();
+        upAcc += -e.deltaY;
+        if (upAcc >= 24) {
+          upAcc = 0;
+          glide(0);
+        }
         return;
       }
+      upAcc = 0;
       if (overflowing()) return;
       e.preventDefault();
       if (!ready()) return;
@@ -1046,11 +1147,40 @@ export default function GrowthQuiz() {
     };
     const onTouchMove = (e: TouchEvent) => {
       if (navOpen()) return;
-      if (!pinned()) return;
+      if (gliding) {
+        e.preventDefault();
+        return;
+      }
       const t = touchRef.current;
       if (!t) return;
       const dy = t.y - e.touches[0].clientY;
-      if (dy < 0) return;
+      if (!pinned()) {
+        /* Hero zone: the FIRST move with a direction decides, because iOS
+           only honours a cancel on the first touchmove of a drag. Down glides
+           to the pin, up in the band glides home, up at the hero top stays
+           native (the rubber band). */
+        if (t.fired) {
+          e.preventDefault();
+          return;
+        }
+        if (Math.abs(dy) < 2) return;
+        if (dy < 0 && window.scrollY <= 1) return;
+        e.preventDefault();
+        t.fired = true;
+        glide(dy > 0 ? pinY() : 0);
+        return;
+      }
+      if (dy < 0) {
+        if (overflowing()) return;
+        /* Swipe down from the pin: captured, and past the same 40px intent
+           threshold it glides back to the hero top in one motion. */
+        e.preventDefault();
+        if (!t.fired && dy < -40) {
+          t.fired = true;
+          glide(0);
+        }
+        return;
+      }
       if (overflowing()) return;
       e.preventDefault();
       if (t.fired || !ready()) return;
@@ -1068,11 +1198,31 @@ export default function GrowthQuiz() {
         !!t && typeof t.closest === 'function' && !!t.closest('button,a,[role=button]');
       if (onControl && (e.key === ' ' || e.key === 'Enter')) return;
       const down = !e.shiftKey && [' ', 'ArrowDown', 'PageDown'].includes(e.key);
+      const up =
+        (!e.shiftKey && ['ArrowUp', 'PageUp'].includes(e.key)) ||
+        (e.shiftKey && e.key === ' ');
+      if (gliding) {
+        if (down || up) e.preventDefault();
+        return;
+      }
       if (!pinned()) {
+        /* Hero zone: a down key IS the hand-off, the same glide as the wheel,
+           and an up key in the band glides home. Richard drives by keyboard;
+           the arrows land on this handler because ArrowScroll bails on the
+           quizActive flag. */
         if (down) {
           e.preventDefault();
-          window.scrollTo({ top: pinY(), behavior: 'smooth' });
+          glide(pinY());
+        } else if (up && window.scrollY > 1) {
+          e.preventDefault();
+          glide(0);
         }
+        return;
+      }
+      if (up) {
+        if (overflowing()) return;
+        e.preventDefault();
+        glide(0);
         return;
       }
       if (down) {
@@ -1087,8 +1237,16 @@ export default function GrowthQuiz() {
     window.addEventListener('touchstart', onTouchStart, { passive: true });
     window.addEventListener('touchmove', onTouchMove, { passive: false });
     window.addEventListener('keydown', onKey);
+    /* If the page arrives already parked in the band (browser scroll
+       restoration), settle it without ceremony: nothing animates on initial
+       load, by law, so this one is an instant snap to the nearer side. */
+    if (window.scrollY > 1 && window.scrollY < pinY() - 1) {
+      window.scrollTo({ top: window.scrollY > pinY() / 2 ? pinY() : 0, behavior: 'instant' });
+    }
     return () => {
       delete document.body.dataset.quizActive;
+      cancelAnimationFrame(glideRaf);
+      clearTimeout(settleT);
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('wheel', onWheel);
       window.removeEventListener('touchstart', onTouchStart);
