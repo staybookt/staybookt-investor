@@ -706,6 +706,34 @@ body[data-quiz-active] .gro main~footer{display:none;}
 .gq-fig-sm{font-size:clamp(34px,11vw,56px);}
 .gq-fig.gq-fig-score{font-size:clamp(36px,12vw,64px);}
 }
+/* THE PHONE CALCULATOR (same pass, live phone measurement): with the three
+   stepper cards stacked single-column, the calculator was the one moment that
+   still outgrew a 390x844 phone. Compact the field cards on phone widths:
+   every label, hint, control and the Continue stay, tap targets hold the 48px
+   law, only padding, gaps and the hint's air give way. The short-phone step
+   below tightens one notch further; on the very shortest phones the stage's
+   built-in internal scroll remains the designed release valve. */
+@media (max-width:760px){
+.gq-card{padding:12px 0;}
+.gq-sub{margin-top:10px;font-size:14.5px;}
+.gq-fields{margin-top:12px;gap:10px;}
+.gq-f{padding:12px 14px 10px;}
+.gq-f .lb{font-size:13.5px;}
+.gq-f .ht{font-size:12px;line-height:1.4;}
+.gq-row{margin-top:8px;}
+.gq-btn{flex-basis:48px;min-height:48px;}
+.gq-in{min-height:48px;font-size:20px;}
+.gq-cue{margin-top:10px;}
+.gq-go{margin-top:8px;}
+}
+@media (max-width:760px) and (max-height:740px){
+.gq-h{font-size:24px;}
+.gq-scene{font-size:14px;}
+.gq-sub{font-size:13.5px;}
+.gq-fields{margin-top:10px;gap:8px;}
+.gq-f{padding:10px 12px 8px;}
+.gq-f .ht{font-size:11.5px;line-height:1.35;}
+}
 `;
 
 /* The count-up. Runs once per mount, ~900ms ease-out cubic, then holds the final
