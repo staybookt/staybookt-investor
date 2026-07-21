@@ -615,6 +615,97 @@ body[data-quiz-active] .gro main~footer{display:none;}
    simply there. The count-ups and the gesture capture are killed in JS by the
    matchMedia check; the JS also adds .gq-rel, these rules are the CSS half. */
 @media(prefers-reduced-motion:reduce){.gq-tr,.gq-card.anim,.gq-card.anim>*,.gq-col li,.gq-col .late,.gq-opts.going .gq-opt,.gq-reveal,.gq-reveal .gq-fig,.gq-cue,.gq-cue.on,.gq-verdict{animation:none;}.gq-h{transition:none;}.gq-opt,.gq-tr,.gq-btn{transition:none;}.gq-opt:hover,.gq-tr:hover,.gq-btn:hover{transform:none;}.gq-stage{position:static;height:auto;min-height:100svh;overflow:visible;}.gq-srcline,.gq-vd,.gq-br{opacity:1;transform:none;transition:none;}}
+/* FOURTEENTH PASS, THE VIEWPORT FIT (Jacob's screenshot, July 2026): the
+   thirteenth pass's scene, verdict and bridge lines made the held screens
+   taller than a normal laptop viewport, and a held moment that needs a
+   scroll to be seen whole is a broken hold. Three height ramps, 900, 800
+   and 740, scale the keynote figure, the type one step and the vertical
+   rhythm in 8px-family steps so every moment composes inside 100svh minus
+   the nav down to 700px tall. NOTHING is hidden or cut at any height: the
+   scene, the verdict, the bridge, the source and the chevron all stay;
+   only scale and air give way, and the auto margins keep the moment seated
+   just above optical centre at every ramp. The figure sizes are scoped to
+   desktop widths so the existing mobile sizes under 760px keep winning
+   there, with their own short-phone step in the 740 ramp; the rhythm ramps
+   apply at every width, which is what lets a 390x700 phone fit too.
+   Controls keep their 48px minimum at every ramp: the accessibility law
+   outranks the fit. These blocks sit after the reduced-motion block on
+   purpose; at equal specificity the later rule wins the cascade. */
+@media (max-height:900px){
+.gq-h{font-size:clamp(30px,4vw,48px);}
+.gq-reveal .gq-fig{margin-top:clamp(20px,4vh,36px);}
+.gq-reveal .gq-line{margin-top:clamp(16px,3vh,28px);}
+.gq-reveal .gq-srcline{margin-top:clamp(12px,2vh,18px);}
+.gq-vd{margin-top:clamp(14px,2.4vh,22px);}
+.gq-cue{margin-top:clamp(14px,2.6vh,24px);}
+.gq-go{margin-top:clamp(12px,2vh,20px);}
+.gq-opts{margin-top:clamp(20px,3.5vh,32px);}
+.gq-opt{min-height:68px;}
+.gq-fields{margin-top:clamp(18px,3vh,30px);}
+.gq-verdict{margin-top:clamp(12px,2vh,18px);}
+}
+@media (max-height:900px) and (min-width:761px){
+.gq-fig{font-size:clamp(80px,18vw,180px);}
+.gq-fig-sm{font-size:clamp(48px,11vw,128px);}
+.gq-fig.gq-fig-score{font-size:clamp(56px,12vw,136px);}
+}
+@media (max-height:800px){
+.gq-stage{padding-bottom:clamp(28px,5vh,48px);}
+.gq-card{padding:clamp(10px,1.8vh,20px) 0;}
+.gq-h{font-size:clamp(28px,3.6vw,42px);}
+.gq-scene{margin-top:10px;font-size:clamp(14.5px,1.6vw,16.5px);}
+.gq-sub{margin-top:12px;}
+.gq-line{font-size:clamp(16px,1.8vw,20px);}
+.gq-fig{margin-top:clamp(10px,2vh,18px);}
+.gq-reveal .gq-fig{margin-top:clamp(14px,3vh,24px);}
+.gq-reveal .gq-line{margin-top:clamp(12px,2.2vh,20px);}
+.gq-reveal .gq-srcline{margin-top:10px;}
+.gq-vd{margin-top:clamp(12px,2vh,16px);font-size:clamp(15px,1.6vw,18px);line-height:1.45;}
+.gq-br{margin-top:8px;font-size:clamp(14px,1.5vw,16px);line-height:1.5;}
+.gq-cue{margin-top:clamp(10px,2vh,16px);}
+.gq-go{margin-top:10px;}
+.gq-opts{margin-top:clamp(16px,3vh,26px);gap:12px;}
+.gq-opt{min-height:62px;font-size:19px;}
+.gq-trail{margin-top:12px;}
+.gq-tr{padding:8px 16px;font-size:13.5px;}
+.gq-verdict{margin-top:10px;font-size:clamp(15px,1.6vw,17px);}
+.gq-fields{margin-top:clamp(14px,2.4vh,22px);}
+.gq-f{padding:14px 16px 12px;}
+}
+@media (max-height:800px) and (min-width:761px){
+.gq-fig{font-size:clamp(72px,15vw,144px);}
+.gq-fig-sm{font-size:clamp(44px,10vw,104px);}
+.gq-fig.gq-fig-score{font-size:clamp(48px,10vw,112px);}
+}
+@media (max-height:740px){
+.gq-stage{padding-bottom:clamp(24px,4vh,34px);}
+.gq-card{padding:clamp(8px,1.4vh,14px) 0;}
+.gq-h{font-size:clamp(26px,3.2vw,38px);margin-top:10px;}
+.gq-line{line-height:1.35;}
+.gq-vd{margin-top:10px;line-height:1.4;}
+.gq-br{margin-top:6px;line-height:1.45;}
+.gq-reveal .gq-fig{margin-top:clamp(12px,2.4vh,18px);}
+.gq-reveal .gq-line{margin-top:clamp(10px,1.8vh,14px);}
+.gq-reveal .gq-srcline{margin-top:8px;}
+.gq-cue{margin-top:8px;height:12px;}
+.gq-go{margin-top:8px;}
+.gq-opts{margin-top:clamp(14px,2.4vh,20px);}
+.gq-opt{min-height:56px;font-size:18px;}
+.gq-trail{margin-top:10px;gap:6px;}
+.gq-verdict{margin-top:8px;}
+.gq-fields{margin-top:12px;}
+.gq-f{padding:12px 14px 10px;}
+}
+@media (max-height:740px) and (min-width:761px){
+.gq-fig{font-size:clamp(60px,12vw,116px);}
+.gq-fig-sm{font-size:clamp(40px,9vw,88px);}
+.gq-fig.gq-fig-score{font-size:clamp(44px,9vw,92px);}
+}
+@media (max-height:740px) and (max-width:760px){
+.gq-fig{font-size:clamp(44px,14vw,72px);}
+.gq-fig-sm{font-size:clamp(34px,11vw,56px);}
+.gq-fig.gq-fig-score{font-size:clamp(36px,12vw,64px);}
+}
 `;
 
 /* The count-up. Runs once per mount, ~900ms ease-out cubic, then holds the final
