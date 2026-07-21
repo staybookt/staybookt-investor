@@ -733,6 +733,9 @@ body[data-quiz-active] .gro main~footer{display:none;}
 .gq-fields{margin-top:10px;gap:8px;}
 .gq-f{padding:10px 12px 8px;}
 .gq-f .ht{font-size:11.5px;line-height:1.35;}
+.gq-row{margin-top:6px;}
+.gq-cue{margin-top:6px;}
+.gq-go{margin-top:6px;}
 }
 `;
 
