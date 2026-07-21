@@ -232,6 +232,25 @@ import { min } from '@/lib/css';
  *     antithesis anywhere on this page; the site's one allowed antithesis
  *     lives on /pricing. The reveals are complicit, owner to owner, never
  *     scolding: the reader's miss is everyone's miss.
+ *
+ * FIFTEENTH PASS, FOUR CRAFT FIXES (Jacob, July 2026): approved surgical
+ * additions; flow, copy strategy and layout untouched.
+ *   - THE GUESS LINE: each reveal answers the guess it asked for, one quiet
+ *     line under the figure's caption. "You called it." on a right call, the
+ *     reader's own pick back on a miss. The trail receipts keep their text.
+ *   - THE ONE BEAT: a right call pulses the small emerald tick beside that
+ *     line once, scale 1 to 1.15 to 1, ~450ms on the site curve. A miss gets
+ *     nothing extra. Reduced motion gets no pulse.
+ *   - TYPED STEPPERS: the stepper number is an editable field. Click or tap
+ *     to type, select-all on focus, the phone number pad via inputmode and
+ *     pattern, clamped to the existing ranges on blur or Enter, arrows still
+ *     step, the plus and minus buttons unchanged, no layout shift on focus.
+ *   - SHUFFLED OPTIONS: each question's options render in a fresh order per
+ *     visit, shuffled in an effect after mount so hydration never mismatches,
+ *     and held in state so a question reopened from the trail keeps its
+ *     session order. Correctness keys off the VALUE everywhere (picks store
+ *     the option string), so the reveal, the receipts and the score are
+ *     untouched by the order.
  */
 
 const PRICE = 199;
@@ -559,8 +578,23 @@ body[data-quiz-active] .gro main~footer{display:none;}
 .gq-vd{margin:clamp(18px,3.2vh,30px) auto 0;max-width:44ch;font-size:clamp(16px,1.8vw,20px);font-weight:600;letter-spacing:-.01em;line-height:1.5;color:#06080d;opacity:0;transform:translateY(6px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1);}
 .gq-br{margin:10px auto 0;max-width:44ch;font-size:clamp(15px,1.6vw,17.5px);line-height:1.55;color:#69707d;opacity:0;transform:translateY(6px);transition:opacity .6s cubic-bezier(.16,1,.3,1) .12s,transform .6s cubic-bezier(.16,1,.3,1) .12s;}
 .gq-vd.on,.gq-br.on{opacity:1;transform:none;}
+/* THE GUESS LINE (fifteenth pass): the reveal pays off the guess it asked for.
+   One quiet line directly under the figure's caption: "You called it." on a
+   right call, "You said 40%." (the reader's actual pick) on a miss. Part of
+   the reveal's entrance with its own short delay on the site curve; #69707d
+   runs 4.60:1 on the cream, past the 4.5:1 body-text bar. The trail receipts
+   keep their own text. */
+.gq-guess{margin:10px auto 0;font-size:14px;font-weight:500;line-height:1.5;color:#69707d;animation:gq-in .5s cubic-bezier(.16,1,.3,1) .12s both;}
+/* THE ONE BEAT (same pass): a right call pulses the small emerald tick beside
+   the guess line ONCE, scale 1 to 1.15 to 1, ~450ms on the site curve, after
+   the line has entered. Nothing fires on a miss; reduced motion kills it in
+   the block below. */
+.gq-guess .mk{display:inline-block;margin-right:6px;}
+.gq-guess .mk.ok{animation:gq-beat .45s cubic-bezier(.16,1,.3,1) .55s 1 both;}
+@keyframes gq-beat{0%{transform:scale(1);}50%{transform:scale(1.15);}100%{transform:scale(1);}}
 /* THE INPUTS. Salvaged from YourMath: 48px minimum tap targets (these run 52), real
-   buttons and a real number input per field, visible focus. Non-negotiable. */
+   buttons and a real editable value field per field (text in numeric mode since the
+   fifteenth pass, so phones raise the number pad), visible focus. Non-negotiable. */
 .gq-fields{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,22px);width:100%;max-width:940px;margin:clamp(22px,4vh,40px) auto 0;text-align:left;}
 @media(max-width:860px){.gq-fields{grid-template-columns:1fr;}}
 .gq-f{border:1px solid #ececeb;border-radius:16px;background:#fff;padding:18px 18px 16px;box-shadow:0 1px 2px rgba(6,8,13,.05),0 10px 28px -12px rgba(6,8,13,.12);}
@@ -614,7 +648,7 @@ body[data-quiz-active] .gro main~footer{display:none;}
    pulse, no pinned stage and no delayed source: flat stacked flow, everything
    simply there. The count-ups and the gesture capture are killed in JS by the
    matchMedia check; the JS also adds .gq-rel, these rules are the CSS half. */
-@media(prefers-reduced-motion:reduce){.gq-tr,.gq-card.anim,.gq-card.anim>*,.gq-col li,.gq-col .late,.gq-opts.going .gq-opt,.gq-reveal,.gq-reveal .gq-fig,.gq-cue,.gq-cue.on,.gq-verdict{animation:none;}.gq-h{transition:none;}.gq-opt,.gq-tr,.gq-btn{transition:none;}.gq-opt:hover,.gq-tr:hover,.gq-btn:hover{transform:none;}.gq-stage{position:static;height:auto;min-height:100svh;overflow:visible;}.gq-srcline,.gq-vd,.gq-br{opacity:1;transform:none;transition:none;}}
+@media(prefers-reduced-motion:reduce){.gq-tr,.gq-card.anim,.gq-card.anim>*,.gq-col li,.gq-col .late,.gq-opts.going .gq-opt,.gq-reveal,.gq-reveal .gq-fig,.gq-cue,.gq-cue.on,.gq-verdict,.gq-guess,.gq-guess .mk.ok{animation:none;}.gq-h{transition:none;}.gq-opt,.gq-tr,.gq-btn{transition:none;}.gq-opt:hover,.gq-tr:hover,.gq-btn:hover{transform:none;}.gq-stage{position:static;height:auto;min-height:100svh;overflow:visible;}.gq-srcline,.gq-vd,.gq-br{opacity:1;transform:none;transition:none;}}
 /* FOURTEENTH PASS, THE VIEWPORT FIT (Jacob's screenshot, July 2026): the
    thirteenth pass's scene, verdict and bridge lines made the held screens
    taller than a normal laptop viewport, and a held moment that needs a
@@ -660,6 +694,7 @@ body[data-quiz-active] .gro main~footer{display:none;}
 .gq-reveal .gq-fig{margin-top:clamp(14px,3vh,24px);}
 .gq-reveal .gq-line{margin-top:clamp(12px,2.2vh,20px);}
 .gq-reveal .gq-srcline{margin-top:10px;}
+.gq-guess{margin-top:8px;font-size:13px;}
 .gq-vd{margin-top:clamp(12px,2vh,16px);font-size:clamp(15px,1.6vw,18px);line-height:1.45;}
 .gq-br{margin-top:8px;font-size:clamp(14px,1.5vw,16px);line-height:1.5;}
 .gq-cue{margin-top:clamp(10px,2vh,16px);}
@@ -687,6 +722,7 @@ body[data-quiz-active] .gro main~footer{display:none;}
 .gq-reveal .gq-fig{margin-top:clamp(12px,2.4vh,18px);}
 .gq-reveal .gq-line{margin-top:clamp(10px,1.8vh,14px);}
 .gq-reveal .gq-srcline{margin-top:8px;}
+.gq-guess{margin-top:6px;font-size:12.5px;}
 .gq-cue{margin-top:8px;height:12px;}
 .gq-go{margin-top:8px;}
 .gq-opts{margin-top:clamp(14px,2.4vh,20px);}
@@ -795,6 +831,20 @@ export default function GrowthQuiz() {
     quotes: 4,
   });
   const [reduced, setReduced] = useState(false);
+  /* SHUFFLED OPTIONS (fifteenth pass): each question's four options render in a
+     fresh order per visit, so a repeat visit or a shared screenshot never learns
+     the answer by position. The server renders the default order and the
+     shuffle lands in an effect after mount, before any interaction, so
+     hydration never mismatches; the order lives in state for the life of the
+     mount, so a question reopened from the trail keeps its session order.
+     Correctness keys off the VALUE everywhere (picks store the option string,
+     right is picked === q.answer), never the position. */
+  const [order, setOrder] = useState<Record<string, string[]> | null>(null);
+  /* TYPED STEPPERS (fifteenth pass): draft holds the raw text while a stepper
+     field is being typed in, so a half-typed "1" is never clamped to the floor
+     mid-keystroke; the clamp lands on blur or Enter through the same set()
+     every plus and minus press uses. */
+  const [draft, setDraft] = useState<{ key: Field['key']; text: string } | null>(null);
   /* THE FLOW MACHINE for a question card. step: null (options open), 'condense'
      (~350ms, options folding away), 'reveal' (figure owns the screen, HOLDS until
      the reader advances it). manual means the quiet Continue leads this reveal:
@@ -836,6 +886,23 @@ export default function GrowthQuiz() {
     const on = (e: MediaQueryListEvent) => setReduced(e.matches);
     mq.addEventListener('change', on);
     return () => mq.removeEventListener('change', on);
+  }, []);
+
+  /* The shuffle itself: Fisher-Yates per question, once per mount. Runs in an
+     effect so the server markup and the first client render agree (default
+     order) and no hydration warning can ever fire; the reorder paints before
+     any pick is possible. */
+  useEffect(() => {
+    const o: Record<string, string[]> = {};
+    for (const q of QUESTIONS) {
+      const a = [...q.options];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      o[q.key] = a;
+    }
+    setOrder(o);
   }, []);
 
   /* Focus lands on the active card's heading on every advance, reopen or return,
@@ -1261,6 +1328,19 @@ export default function GrowthQuiz() {
     setV((p) => ({ ...p, [f.key]: Number.isFinite(n) ? n : p[f.key] }));
   };
 
+  /* The typed commit (fifteenth pass): parse the draft, clamp it to the field's
+     range through the same set() the buttons use, clear the draft. An empty or
+     unparseable draft simply reverts to the held value. Runs on blur and on
+     Enter; Enter blurs, and the second commit finds the same numbers, so the
+     pair is harmless. */
+  const commit = (f: Field) => {
+    if (!draft || draft.key !== f.key) return;
+    const n = Number(draft.text);
+    if (draft.text !== '' && Number.isFinite(n)) set(f, n);
+    else lastFieldRef.current = performance.now();
+    setDraft(null);
+  };
+
   /* Every figure below is the reader's own inputs plus the public price. Nothing
      else. See the block at the top of this file before touching. */
   const { job, missed, quotes } = v;
@@ -1372,7 +1452,7 @@ export default function GrowthQuiz() {
               role="group"
               aria-labelledby={'gq-q-' + q.key}
             >
-              {q.options.map((o) => {
+              {(order?.[q.key] ?? q.options).map((o) => {
                 const cls =
                   'gq-opt' +
                   (picked ? (o === q.answer ? ' ok' : o === picked ? ' my' : ' dim') : '');
@@ -1406,6 +1486,22 @@ export default function GrowthQuiz() {
                 onDone={() => setCountDone(true)}
               />
               <p className="gq-line">{q.line}</p>
+              {/* THE GUESS LINE (fifteenth pass): the payoff for the pick this
+                  page asked for. A right call gets the tick and its one beat; a
+                  miss gets the reader's own number back, complicit, never
+                  scolding. Part of the reveal's entrance, not the source beat. */}
+              <p className="gq-guess">
+                {picked === q.answer ? (
+                  <>
+                    <span className="mk ok" aria-hidden="true">
+                      {'✓'}
+                    </span>
+                    You called it.
+                  </>
+                ) : (
+                  'You said ' + picked + '.'
+                )}
+              </p>
               {/* The source beat: fades in ~400ms after the count lands, its own
                   quiet moment inside the hold. */}
               <p className={'gq-srcline' + (srcOn ? ' on' : '')}>{q.src}</p>
@@ -1592,16 +1688,51 @@ export default function GrowthQuiz() {
                           $
                         </span>
                       )}
+                      {/* TYPED STEPPERS (fifteenth pass): type text in numeric
+                          mode, so phones raise the number pad and a half-typed
+                          value is never clamped mid-keystroke. Select-all on
+                          focus, clamp on blur or Enter, arrows still step by
+                          the field's step. Same classes and metrics as before:
+                          no layout shift when focusing. */}
                       <input
                         id={'gq-' + f.key}
                         className="gq-in"
-                        type="number"
+                        type="text"
                         inputMode="numeric"
-                        min={f.minV}
-                        max={f.maxV}
-                        step={f.step}
-                        value={val}
-                        onChange={(e) => set(f, Number(e.target.value))}
+                        pattern="[0-9]*"
+                        autoComplete="off"
+                        enterKeyHint="done"
+                        value={draft && draft.key === f.key ? draft.text : String(val)}
+                        onFocus={(e) => {
+                          setDraft({ key: f.key, text: String(val) });
+                          e.currentTarget.select();
+                        }}
+                        onChange={(e) => {
+                          lastFieldRef.current = performance.now();
+                          setDraft({ key: f.key, text: e.target.value.replace(/[^0-9]/g, '') });
+                        }}
+                        onBlur={() => commit(f)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            commit(f);
+                            e.currentTarget.blur();
+                            return;
+                          }
+                          if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown') return;
+                          e.preventDefault();
+                          const t = draft && draft.key === f.key ? draft.text : String(val);
+                          const base =
+                            t !== '' && Number.isFinite(Number(t)) ? Number(t) : val;
+                          const n = Math.min(
+                            f.maxV,
+                            Math.max(
+                              f.minV,
+                              Math.round(base) + (e.key === 'ArrowUp' ? f.step : -f.step)
+                            )
+                          );
+                          set(f, n);
+                          setDraft({ key: f.key, text: String(n) });
+                        }}
                       />
                     </div>
                     <button
