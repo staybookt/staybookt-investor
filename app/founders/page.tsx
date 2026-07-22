@@ -65,7 +65,13 @@ const CSS = `
 .fcard img.hi{object-position:center top;}
 .fcard:hover img{transform:translateY(-4px) scale(1.01);}
 .fcard .nm{margin-top:22px;font-size:clamp(20px,2.2vw,26px);font-weight:600;letter-spacing:-.03em;color:var(--v4-ink);}
-.fcard .ro{margin-top:5px;font-size:14px;font-weight:600;letter-spacing:.02em;color:#047857;}
+/* Gradient name-underline: the brand's own language as a decorative accent on the cards,
+   echoing the gradient rule on the quote blockquotes above (Emma, p15 ①). */
+.fcard .nm::after{content:'';display:block;width:42px;height:3px;margin-top:12px;border-radius:2px;background:var(--sb-grad);}
+/* WAS #047857 / the quote label #059669 (3.4:1 on white, fails WCAG AA). One darker emerald
+   for both, ~6:1 on cream and white, still unmistakably green (Emma, p15 ②). Role TEXT
+   untouched — only the colour moved. */
+.fcard .ro{margin-top:14px;font-size:14px;font-weight:600;letter-spacing:.02em;color:#065f46;}
 .fcard .bio{margin-top:18px;font-size:15.5px;line-height:1.7;color:#69707d;}
 
 /* The source portraits are 3:4. Cover-cropping them into a 1:1 card from the
@@ -96,7 +102,7 @@ const CSS = `
 .abt-quote figcaption{display:flex;flex-direction:column;gap:2px;margin-top:clamp(18px,2.2vw,24px);
   padding-left:clamp(19px,2vw,25px);}
 .abt-quote figcaption .cn{font-size:15.5px;font-weight:600;letter-spacing:-.01em;color:var(--v4-ink);}
-.abt-quote figcaption .cr{font-size:13.5px;font-weight:600;color:#059669;}
+.abt-quote figcaption .cr{font-size:13.5px;font-weight:600;color:#065f46;}
 `;
 
 export default function AboutPage() {
