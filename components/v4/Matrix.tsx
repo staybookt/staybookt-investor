@@ -588,12 +588,13 @@ const CSS = `
   border-top:1.5px solid rgba(4,108,78,.65);border-right:1.5px solid rgba(4,108,78,.65);transform:rotate(45deg);}
 
 /* the column everything lands in */
-.mx-row .mx-c.us{background:rgba(16,185,129,.07);
-  border-left:1px solid rgba(16,185,129,.3);border-right:1px solid rgba(16,185,129,.3);}
-.mx-grid .mx-row:last-child .mx-c.us{border-bottom:1px solid rgba(16,185,129,.3);border-radius:0 0 14px 14px;}
-.mx-hd .mx-c.us{background:linear-gradient(180deg,rgba(16,185,129,.2),rgba(16,185,129,.08));
-  border:1px solid rgba(16,185,129,.3);border-bottom:0;border-radius:14px 14px 0 0;
-  padding-top:12px;padding-bottom:12px;box-shadow:0 -1px 0 rgba(16,185,129,.1) inset;}
+/* Emma Beatty p10 #2/#4: checks now read on white (the light-green column tint is
+   gone), and the "With StayBookt" header is a standalone green pill instead of a
+   capped tinted column. */
+.mx-row .mx-c.us{background:transparent;}
+.mx-grid .mx-row:last-child .mx-c.us{border:0;border-radius:0;}
+.mx-hd .mx-c.us{background:rgba(16,185,129,.12);
+  border:1px solid rgba(4,108,78,.35);border-radius:999px;padding:9px 14px;}
 
 .mk{display:block;}
 .mk.yes{display:grid;place-items:center;width:19px;height:19px;color:#10b981;}
@@ -632,9 +633,7 @@ opacity:0;transform:translateY(4px);transition:opacity .42s ease,transform .42s 
 .mx-close .mx-c.today{align-items:flex-start;padding-top:6px;}
 .ghost{display:flex;align-items:center;justify-content:center;width:100%;max-width:340px;
   min-height:64px;padding:12px 18px;border-radius:16px;border:1.5px dashed rgba(124,58,237,.5);}
-.mx-close .mx-c.us{background:rgba(16,185,129,.07);border-left:1px solid rgba(16,185,129,.3);
-border-right:1px solid rgba(16,185,129,.3);border-bottom:1px solid rgba(16,185,129,.3);
-border-radius:0 0 14px 14px;}
+.mx-close .mx-c.us{background:transparent;}
 
 /* MOBILE: THE CHART USED TO HIDE ITS OWN PUNCHLINE.
    .mx-grid was min-width:640px inside a ~322px content box, in an overflow-x:auto scroller,
@@ -651,7 +650,7 @@ border-radius:0 0 14px 14px;}
   .mx-hd .mx-j{display:none;}
   .mx-hd .mx-c{flex:1 1 0;padding:6px 4px;}
   .mx-hd .mx-c b{font-size:11.5px;}
-  .mx-hd .mx-c.us{border-radius:10px;border-bottom:1px solid rgba(16,185,129,.3);padding:8px 4px;}
+  .mx-hd .mx-c.us{border-radius:999px;padding:8px 10px;}
   .mx-hd .hd-lane{flex:0 0 52px;padding:0;}
   .mx-r{grid-template-columns:1fr;align-items:stretch;gap:0;}
   .mx-j{flex-direction:column;align-items:flex-start;gap:9px;padding:2px 0 10px;}
