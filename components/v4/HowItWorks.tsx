@@ -62,7 +62,7 @@ const STOPS: Stop[] = [
   },
   {
     id: 'free', n: '3', label: 'Enjoy life', promise: 'You choose.', voice: 'I could actually sell this. Or not. My call.',
-    accent: '#f59e0b', accentD: '#b45309', side: 'left', surface: 'enjoy',
+    accent: '#7c3aed', accentD: '#6d28d9', side: 'left', surface: 'enjoy',
     /* This milestone used to end in a valuation, because a valuation was how we
      * justified taking 20% of the increase in value. That fee is dead (Richard,
      * July 14 2026), so the valuation framing goes with it. Enjoy Life is now
@@ -120,7 +120,7 @@ const CSS = `
 @media(max-width:820px){.hiw-learn .lhead{grid-template-columns:1fr;gap:20px;align-items:start;}.hiw-learn h2{max-width:18ch;}}
 
 /* ===== JOURNEY MAP (weaving SVG trail, warming arc) ===== */
-.hiw-jrny{padding:clamp(56px,7vw,96px) 0 clamp(70px,9vw,120px);background:linear-gradient(180deg,#f6f8fb 0%,#f9faf7 42%,#fdf7ee 100%);}
+.hiw-jrny{padding:clamp(56px,7vw,96px) 0 clamp(70px,9vw,120px);background:linear-gradient(180deg,#f6f8fb 0%,#f9faf7 42%,#f4f1fb 100%);}
 .hiw-jrny .jhead{text-align:center;max-width:640px;margin:0 auto clamp(30px,4vw,52px);}
 .hiw-jrny .jhead h2{font-size:clamp(30px,4.4vw,54px);line-height:1.05;margin-top:14px;}
 .hiw-jrny .jhead p{margin-top:16px;font-size:clamp(16px,1.8vw,19px);color:#69707d;line-height:1.5;}
@@ -136,7 +136,7 @@ const CSS = `
 .jstart{padding-bottom:clamp(26px,4vw,44px);}
 .jend{padding-top:clamp(30px,5vw,52px);}
 .jstart .sdot{width:16px;height:16px;border-radius:50%;background:var(--v4-ink);position:relative;z-index:2;}
-.jend .edot{width:20px;height:20px;border-radius:50%;background:#f59e0b;position:relative;z-index:2;box-shadow:0 0 0 6px rgba(245,158,11,.16);}
+.jend .edot{width:20px;height:20px;border-radius:50%;background:#7c3aed;position:relative;z-index:2;box-shadow:0 0 0 6px rgba(124,58,237,.16);}
 .jstart .st{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#69707d;}
 .jstart .sh{margin-top:3px;font-size:clamp(17px,2vw,20px);font-weight:600;color:var(--v4-ink);}
 .jend .eh{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02em;color:var(--v4-ink);max-width:16ch;}
@@ -199,7 +199,7 @@ const CSS = `
 .jhud{position:fixed;right:22px;bottom:22px;z-index:30;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border:1px solid #ececf0;border-radius:16px;padding:14px 16px 14px 14px;box-shadow:0 20px 50px -24px rgba(6,12,20,.4);display:flex;gap:12px;align-items:stretch;opacity:0;transform:translateY(10px);transition:opacity .4s ease,transform .4s ease;pointer-events:none;}
 .jhud.show{opacity:1;transform:none;}
 .jhud .track{position:relative;width:4px;border-radius:2px;background:#e6e8ec;}
-.jhud .track i{position:absolute;left:0;top:0;width:4px;border-radius:2px;height:calc(var(--p,0)*100%);background:linear-gradient(180deg,#0ea5e9,#10b981 55%,#f59e0b);}
+.jhud .track i{position:absolute;left:0;top:0;width:4px;border-radius:2px;height:calc(var(--p,0)*100%);background:linear-gradient(180deg,#0ea5e9,#10b981 55%,#7c3aed);}
 .jhud .track .dot{position:absolute;left:-4px;top:calc(var(--p,0)*100%);width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid var(--v4-ink);transform:translateY(-50%);box-shadow:0 2px 6px rgba(0,0,0,.25);}
 .jhud .labs{display:flex;flex-direction:column;justify-content:space-between;font-size:11px;font-weight:600;}
 .jhud .labs span{color:#69707d;transition:color .3s;}
@@ -243,8 +243,8 @@ const CSS = `
 .el .valcard .ns{margin-top:12px;font-size:13.5px;line-height:1.6;color:#9aa0ab;}
 .el .choices{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;}
 .el .choice{background:#fff;border:1px solid #ececf0;border-radius:16px;padding:16px 14px;text-align:left;cursor:pointer;font-family:inherit;transition:border-color .25s ease,transform .25s ease,box-shadow .25s ease;}
-.el .choice:hover,.el .choice.on{border-color:#f59e0b;transform:translateY(-3px);box-shadow:0 18px 34px -18px rgba(245,158,11,.4);}
-.el .choice .ci{width:30px;height:30px;border-radius:9px;background:rgba(245,158,11,.14);display:flex;align-items:center;justify-content:center;color:#b45309;}
+.el .choice:hover,.el .choice.on{border-color:#7c3aed;transform:translateY(-3px);box-shadow:0 18px 34px -18px rgba(124,58,237,.4);}
+.el .choice .ci{width:30px;height:30px;border-radius:9px;background:rgba(124,58,237,.12);display:flex;align-items:center;justify-content:center;color:#6d28d9;}
 .el .choice .cl{margin-top:11px;font-size:15px;font-weight:600;color:var(--v4-ink);}
 .el .choice .cd{max-height:0;overflow:hidden;font-size:12.5px;line-height:1.4;color:#69707d;transition:max-height .35s ease,margin .35s ease;}
 .el .choice:hover .cd,.el .choice.on .cd{max-height:80px;margin-top:7px;}
@@ -611,7 +611,7 @@ export default function HowItWorks() {
                 <linearGradient id="jgrad" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0" stopColor="#0ea5e9" />
                   <stop offset="0.55" stopColor="#10b981" />
-                  <stop offset="1" stopColor="#f59e0b" />
+                  <stop offset="1" stopColor="#7c3aed" />
                 </linearGradient>
               </defs>
               <path className="bg" ref={bgRef} d="" />
