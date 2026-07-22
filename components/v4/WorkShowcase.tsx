@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import Reveal from '@/components/v4/Reveal';
 import { min } from '@/lib/css';
 
@@ -32,18 +33,39 @@ const SHOT = '/photos/tce-live.jpg';
 const SHOT_DATE = 'July 2026';
 const URL = 'https://www.topchoiceelectrical.com';
 
-/* Everything here is verifiable from the live site itself. Nothing is a result. */
-const TRUE_THINGS: { t: string; b: string }[] = [
+/* Everything here is verifiable from the live site itself. Nothing is a result.
+   Each card carries a lucide-style icon (drawn inline in WorkIcon below — no iOS glyph, no
+   new dependency) in its own brand hue, so the four read as four and the group finally has
+   the coloured-icon treatment the rest of the site's cards use (Emma, p14). Icon + colour
+   only: no invented imagery, and the copy is untouched. `tint` is pre-baked rgba. */
+const TRUE_THINGS: { t: string; b: string; ic: string; c: string; tint: string }[] = [
   /* HIS NAME IS CISZKOWSKI, NOT DAVIS. This page shipped with "Tim Davis", a wrong
      surname on the one page whose argument is "a real client, named", with a link to his
      live site where the real name is everywhere: title tag, about page, footer. One click
      to falsify us. Caught by Jacob, July 2026. Verified against topchoiceelectrical.com
      before fixing. If a name appears next to a checkable source, check the source. */
-  { t: 'A real client, named.', b: 'Tim Ciszkowski runs Top Choice Electrical out of Newmarket, Ontario, covering York Region and Simcoe County. He is our first client. This is his site.' },
-  { t: 'It is live right now.', b: 'This is the site his customers land on when they search for an electrician at nine at night. Type the address into any browser and it loads.' },
-  { t: 'Built to open fast on a phone.', b: 'A homeowner standing in a dark basement does not wait around. Open it on your phone and see how it behaves.' },
-  { t: 'His, not ours.', b: 'The site, the domain and the Google profile are in his name. If he left tomorrow he would take all of it with him.' },
+  { t: 'A real client, named.', b: 'Tim Ciszkowski runs Top Choice Electrical out of Newmarket, Ontario, covering York Region and Simcoe County. He is our first client. This is his site.', ic: 'userCheck', c: '#4f46e5', tint: 'rgba(79,70,229,.1)' },
+  { t: 'It is live right now.', b: 'This is the site his customers land on when they search for an electrician at nine at night. Type the address into any browser and it loads.', ic: 'globe', c: '#059669', tint: 'rgba(5,150,105,.1)' },
+  { t: 'Built to open fast on a phone.', b: 'A homeowner standing in a dark basement does not wait around. Open it on your phone and see how it behaves.', ic: 'smartphone', c: '#0284c7', tint: 'rgba(2,132,199,.1)' },
+  { t: 'His, not ours.', b: 'The site, the domain and the Google profile are in his name. If he left tomorrow he would take all of it with him.', ic: 'key', c: '#7c3aed', tint: 'rgba(124,58,237,.1)' },
 ];
+
+/* lucide-style line icons, inline so the cards carry a real glyph without a dependency. */
+function WorkIcon({ name }: { name: string }): ReactNode {
+  const c = { viewBox: '0 0 24 24', width: 20, height: 20, fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const, 'aria-hidden': true };
+  switch (name) {
+    case 'userCheck':
+      return (<svg {...c}><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><polyline points="16 11 18 13 22 9" /></svg>);
+    case 'globe':
+      return (<svg {...c}><circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" /></svg>);
+    case 'smartphone':
+      return (<svg {...c}><rect width="14" height="20" x="5" y="2" rx="2" /><path d="M12 18h.01" /></svg>);
+    case 'key':
+      return (<svg {...c}><circle cx="7.5" cy="15.5" r="5.5" /><path d="m21 2-9.6 9.6" /><path d="m15.5 7.5 3 3L22 7l-3-3" /></svg>);
+    default:
+      return null;
+  }
+}
 
 const CSS = `
 .wk{background:var(--v4-cream,#f6f6f3);color:var(--v4-ink,#06080d);}
@@ -82,6 +104,7 @@ const CSS = `
 .wk-grid > .reveal{display:flex;}
 .wk-item{flex:1;background:#fff;border:1px solid #e6e6e1;border-radius:20px;padding:clamp(22px,2.6vw,30px);
   box-shadow:0 30px 60px -46px rgba(6,12,20,.3);}
+.wk-item .ic{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
 .wk-item .t{font-size:clamp(17px,1.9vw,21px);font-weight:600;letter-spacing:-.02em;}
 .wk-item .b{margin-top:10px;font-size:15.5px;line-height:1.65;color:#69707d;}
 .wk-note{margin-top:clamp(34px,4vw,48px);padding-left:clamp(16px,2vw,22px);border-left:3px solid transparent;
@@ -156,6 +179,7 @@ export default function WorkShowcase() {
             {TRUE_THINGS.map((x) => (
               <Reveal key={x.t}>
                 <div className="wk-item">
+                  <div className="ic" style={{ color: x.c, background: x.tint }}><WorkIcon name={x.ic} /></div>
                   <div className="t">{x.t}</div>
                   <div className="b">{x.b}</div>
                 </div>
