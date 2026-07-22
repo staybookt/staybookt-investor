@@ -126,8 +126,8 @@ const CSS = `
 .pr-p{margin:0;font-size:clamp(16px,1.85vw,19px);line-height:1.6;color:#c7ccd6;max-width:58ch;}
 
 /* the teeth */
-.pr-cost{margin-top:24px;border-left:3px solid #f59e0b;padding:2px 0 2px 20px;max-width:58ch;}
-.pr-ck{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#f5c877;}
+.pr-cost{margin-top:24px;border-left:3px solid #a78bfa;padding:2px 0 2px 20px;max-width:58ch;}
+.pr-ck{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#c4b5fd;}
 .pr-cost p{margin:9px 0 0;font-size:clamp(15px,1.75vw,18px);line-height:1.6;color:#9ba2ae;}
 @media(prefers-reduced-motion:reduce){.pr-body,.pr-pl,.pr button{transition:none;}}
 `;

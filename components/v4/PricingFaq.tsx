@@ -57,7 +57,7 @@ const QS: Q[] = [
   },
   {
     k: 'The catch',
-    c: '#f59e0b',
+    c: '#7c3aed',
     q: 'So where is the catch?',
     a: 'There is not one. We are two people rather than a hundred, so we are not paying for a sales team, an office or an ad budget. We build everything before you pay us, we grow slowly on purpose, and twenty clients we actually run properly beats a thousand we do not. If we ever start behaving like the agency that burned you, you can leave in thirty days and take everything with you.',
   },

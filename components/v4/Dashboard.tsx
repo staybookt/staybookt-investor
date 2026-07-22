@@ -154,7 +154,7 @@ export default function Dashboard() {
             <div className="db-rows">
               <div className="row">
                 <span>
-                  <span className="dot" style={{ background: '#f59e0b' }} />
+                  <span className="dot" style={{ background: '#7c3aed' }} />
                   Quote &middot; Panel upgrade
                 </span>
                 <span className="amt">$4,200</span>

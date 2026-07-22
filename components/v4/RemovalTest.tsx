@@ -167,7 +167,7 @@ const CSS = `
 
 /* THE LINE THAT LANDS. On beat 1 each dark node gets its "you, today" truth. This is the
    best writing on the page and it used to sit greyed out in a table column. */
-.rt-truth{min-height:2.6em;margin-top:6px;font-size:clamp(13.5px,1.4vw,16px);line-height:1.4;color:#f59e0b;font-weight:500;}
+.rt-truth{min-height:2.6em;margin-top:6px;font-size:clamp(13.5px,1.4vw,16px);line-height:1.4;color:#a78bfa;font-weight:500;}
 .rt-stage[data-beat="2"] .rt-truth{color:#34d399;}
 
 .rt-dots{display:flex;gap:22px;justify-content:center;}
