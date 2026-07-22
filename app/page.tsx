@@ -105,12 +105,17 @@ const PAGE_CSS = `
    It is a badge now: bordered, brighter, with the brand dot, matching the treatment on
    /start. An object rather than a caption. It is the first qualifying question a visitor
    has and it should look like an answer. */
+/* WAS a white-glass chip (.08 fill, .18 border). The eyebrow sits at 15vh, below the top of
+   the overlay where the dusk photo is at its brightest, and a translucent-white chip over a
+   bright frame is nearly invisible — the one line that qualifies the whole page washed out
+   (Emma, p4 ②). It is a DARK glass chip now: the near-white text and the brand dot separate
+   cleanly over any frame, and it still reads as glass (blur + border + shadow). */
 .v4 header.scene .eyebrow{display:inline-flex;align-items:center;gap:9px;
-  font-size:12.5px;font-weight:700;letter-spacing:.15em;color:#eef1f6;
-  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
+  font-size:12.5px;font-weight:700;letter-spacing:.15em;color:#f4f6fa;
+  background:rgba(8,10,16,.42);border:1px solid rgba(255,255,255,.3);
   border-radius:999px;padding:9px 18px 9px 13px;
   backdrop-filter:saturate(160%) blur(12px);-webkit-backdrop-filter:saturate(160%) blur(12px);
-  box-shadow:0 8px 30px -12px rgba(0,0,0,.6);}
+  box-shadow:0 8px 30px -12px rgba(0,0,0,.7);}
 .v4 header.scene .eyebrow::before{content:'';width:7px;height:7px;border-radius:50%;flex:0 0 auto;
   background:var(--sb-grad);box-shadow:0 0 10px 1px rgba(16,185,129,.75);}
 /* THE TWO PIECES OF GLASS IN THE HERO, ON A PHONE. Both of these blur the hero photo behind
@@ -118,13 +123,13 @@ const PAGE_CSS = `
    first scroll on the site, at the exact moment the page is also decoding the still and
    running the drift animation. It is the worst place on the site to spend that.
    Dropping the blur alone would leave the pill and the badge nearly invisible over a bright
-   frame, so the white tint goes up to carry the separation on its own: .12 to .22 on the
-   pill, .08 to .16 on the badge. Both keep their 1px border and their white text over an
-   overlay that is already rgba(5,5,6,.55) at the top of the frame.
+   frame, so each carries its separation on its own: the white CTA pill goes .12 to .22, and
+   the badge, now a dark chip, goes a little more opaque (.42 to .55) to compensate for the
+   lost blur. Both keep their border and their light text.
    Desktop keeps the glass. This block is 760px and down only. */
 @media(max-width:760px){
 .v4 header.scene .cta .pill{background:rgba(255,255,255,.22);backdrop-filter:none;-webkit-backdrop-filter:none;}
-.v4 header.scene .eyebrow{background:rgba(255,255,255,.16);backdrop-filter:none;-webkit-backdrop-filter:none;}
+.v4 header.scene .eyebrow{background:rgba(8,10,16,.55);backdrop-filter:none;-webkit-backdrop-filter:none;}
 }
 .v4 .kicker{font-size:14px;font-weight:600;letter-spacing:.02em;margin-bottom:14px;background:linear-gradient(90deg,#0ea5e9,#06b6d4 34%,#14b8a6 66%,#10b981);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .v4 .sbwrap,.v4 .sb-clook{--grad:linear-gradient(90deg,#0ea5e9,#06b6d4 34%,#14b8a6 66%,#10b981);}
