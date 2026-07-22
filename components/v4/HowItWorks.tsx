@@ -458,8 +458,14 @@ export default function HowItWorks() {
     let d = `M ${P[0].x.toFixed(1)} ${P[0].y.toFixed(1)}`;
     for (let i = 1; i < P.length; i++) {
       const a = P[i - 1], b = P[i];
-      const my = (a.y + b.y) / 2;
-      d += ` C ${a.x.toFixed(1)} ${my.toFixed(1)}, ${b.x.toFixed(1)} ${my.toFixed(1)}, ${b.x.toFixed(1)} ${b.y.toFixed(1)}`;
+      /* UX audit (Emma Beatty p8): the old S-curve put both control points at the
+         vertical midpoint, which swung the line across the centre of each milestone
+         and cut straight through the body text (worst on Milestone 3). Instead, hold
+         the source node's x down through its content, then hook across to the next
+         node only near the bottom of the segment. The line now runs beside the text
+         in the gutter rather than through it. */
+      const corner = Math.min(Math.max((b.y - a.y) * 0.45, 40), 130);
+      d += ` C ${a.x.toFixed(1)} ${(b.y - corner).toFixed(1)}, ${a.x.toFixed(1)} ${b.y.toFixed(1)}, ${b.x.toFixed(1)} ${b.y.toFixed(1)}`;
     }
     svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
     bg.setAttribute('d', d);
