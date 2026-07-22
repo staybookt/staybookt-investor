@@ -20,11 +20,17 @@ const SHARE_DESCRIPTION =
 
    The order mirrors the nav on purpose. A person should not have to learn a second
    ordering halfway down the page. */
-const EXPLORE: { k: string; t: string; d: string; href: string; c: string }[] = [
-  { k: 'THE PRODUCT', t: 'How it works', d: 'The website, the front office, and how the whole thing fits together.', href: '/how-it-works', c: '#38bdf8' },
-  { k: 'THE LIST', t: "What's included", d: 'Everything the $199 buys, what is still yours, and what we do not do.', href: '/whats-included', c: '#818cf8' },
-  { k: 'PRICING', t: 'Pricing', d: '$199 a month, and what it does not cost you.', href: '/pricing', c: '#34d399' },
-  { k: 'THE TEAM', t: 'About us', d: 'The two founders behind StayBookt, and why we built it.', href: '/founders', c: '#e5e7eb' },
+/* Each card carries a lucide-style icon (drawn inline in ExploreIcon below, so there is no
+   iOS/Apple glyph and no new dependency) and its own accent in the brand family. The fourth
+   used to be a near-white grey, which read as "the odd one out" rather than a fourth colour;
+   it is violet now so the row spans cyan → indigo → green → violet and the four read as four
+   (Emma, p6). `tint` is the icon chip's faint fill, pre-baked as rgba so Lightning CSS has no
+   colour-mix() to downlevel. */
+const EXPLORE: { k: string; t: string; d: string; href: string; c: string; ic: string; tint: string }[] = [
+  { k: 'THE PRODUCT', t: 'How it works', d: 'The website, the front office, and how the whole thing fits together.', href: '/how-it-works', c: '#38bdf8', ic: 'workflow', tint: 'rgba(56,189,248,.12)' },
+  { k: 'THE LIST', t: "What's included", d: 'Everything the $199 buys, what is still yours, and what we do not do.', href: '/whats-included', c: '#818cf8', ic: 'list', tint: 'rgba(129,140,248,.12)' },
+  { k: 'PRICING', t: 'Pricing', d: '$199 a month, and what it does not cost you.', href: '/pricing', c: '#34d399', ic: 'tag', tint: 'rgba(52,211,153,.12)' },
+  { k: 'THE TEAM', t: 'About us', d: 'The two founders behind StayBookt, and why we built it.', href: '/founders', c: '#a78bfa', ic: 'users', tint: 'rgba(167,139,250,.12)' },
 ];
 
 export const metadata = {
@@ -48,6 +54,24 @@ function ArrowUpRight(): ReactNode {
       <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M9 7h8v8" />
     </svg>
   );
+}
+
+/* lucide-style line icons, drawn inline so the deep-link cards carry a real glyph without an
+   iOS emoji or a new npm dependency. currentColor lets each one take its card's accent. */
+function ExploreIcon({ name }: { name: string }): ReactNode {
+  const common = { viewBox: '0 0 24 24', width: 22, height: 22, fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const, 'aria-hidden': true };
+  switch (name) {
+    case 'workflow':
+      return (<svg {...common}><rect width="8" height="8" x="3" y="3" rx="2" /><path d="M7 11v4a2 2 0 0 0 2 2h4" /><rect width="8" height="8" x="13" y="13" rx="2" /></svg>);
+    case 'list':
+      return (<svg {...common}><path d="m3 17 2 2 4-4" /><path d="m3 7 2 2 4-4" /><path d="M13 6h8" /><path d="M13 12h8" /><path d="M13 18h8" /></svg>);
+    case 'tag':
+      return (<svg {...common}><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" /><circle cx="7.5" cy="7.5" r=".5" fill="currentColor" /></svg>);
+    case 'users':
+      return (<svg {...common}><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>);
+    default:
+      return null;
+  }
 }
 
 const PAGE_CSS = `
@@ -289,6 +313,8 @@ const PAGE_CSS = `
 @media(max-width:1080px){.v4 .explore .xgrid{grid-template-columns:1fr 1fr;max-width:720px;}}
 .v4 .explore .xcard{display:block;height:100%;text-decoration:none;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.018));border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:clamp(24px,3vw,34px);transition:border-color .3s ease,transform .3s ease,background .3s ease;}
 .v4 .explore .xcard:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.22);background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.02));}
+.v4 .explore .xicon{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;border:1px solid transparent;margin-bottom:20px;transition:transform .3s ease;}
+.v4 .explore .xcard:hover .xicon{transform:translateY(-1px) scale(1.04);}
 .v4 .explore .xk{font-size:12px;font-weight:700;letter-spacing:.16em;}
 .v4 .explore .xt{margin-top:12px;font-size:clamp(20px,2.2vw,26px);font-weight:600;letter-spacing:-.02em;color:#f5f5f7;}
 .v4 .explore .xt .ar{color:#86868b;display:inline-block;transition:transform .3s ease;}
@@ -455,6 +481,7 @@ export default function HomePage() {
             {EXPLORE.map((x) => (
               <Reveal key={x.href}>
                 <a href={x.href} className="xcard">
+                  <div className="xicon" style={{ color: x.c, background: x.tint, borderColor: x.tint }}><ExploreIcon name={x.ic} /></div>
                   <div className="xk" style={{ color: x.c }}>{x.k}</div>
                   <div className="xt">
                     {x.t} <span className="ar">↗</span>

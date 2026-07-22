@@ -635,7 +635,12 @@ a, button, summary, label, input, select, textarea, [role="button"] {
 @keyframes hmDrift{from{transform:scale(1.06) translate3d(0,0,0);}to{transform:scale(1.14) translate3d(-1.4%,-1.6%,0);}}
 .hm-still{animation:hmDrift 26s ease-in-out infinite alternate;will-change:transform;}
 @media(prefers-reduced-motion:reduce){.hm-still{animation:none;transform:none;}}
-.v4-nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .3s,border-color .3s;border-bottom:1px solid transparent;}
+/* AT THE VERY TOP THE NAV WAS FULLY TRANSPARENT and the wordmark sat straight on the hero
+   photo. On the bright band of the dusk sky the white "Stay" washed out and the logo read as
+   half-gone (Emma, p4 ①). The base state now carries a top-down scrim: a dark backing at the
+   very top that fades to nothing by the foot of the bar, so the mark always has something to
+   sit on without a hard bar over the film. Past 60px `.solid` swaps in the flat panel. */
+.v4-nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .3s,border-color .3s;border-bottom:1px solid transparent;background:linear-gradient(180deg,rgba(5,5,6,.72) 0%,rgba(5,5,6,.34) 55%,rgba(5,5,6,0) 100%);}
 /* NO BLUR IN THE BASE RULE, ON PURPOSE, AND THE PHONE VALUE IS THE DEFAULT. The glass is
    restored for 761px and up in the phone pass at the end of this file. It is written that way
    round because the override direction does not survive the build: `backdrop-filter:none`

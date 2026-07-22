@@ -663,8 +663,8 @@ export default function JourneyMap() {
                     return (
                       <g key={w.lbl}>
                         {act && <circle cx={w.dx} cy={w.dy} r="13" fill="rgba(34,211,238,.18)" />}
-                        <circle cx={w.dx} cy={w.dy} r={act ? 6.5 : 5.5} fill={on ? '#22d3ee' : '#f59e0b'} style={{ transition: 'fill .4s ease' }} />
-                        <text x={w.lx} y={w.ly} textAnchor={w.a} fontSize="13.5" fontWeight="600" fontFamily="-apple-system,sans-serif" fill={on ? '#e2e7ef' : '#c99a4a'} style={{ transition: 'fill .4s ease' }}>{w.lbl}</text>
+                        <circle cx={w.dx} cy={w.dy} r={act ? 6.5 : 5.5} fill={on ? '#22d3ee' : '#a78bfa'} style={{ transition: 'fill .4s ease' }} />
+                        <text x={w.lx} y={w.ly} textAnchor={w.a} fontSize="13.5" fontWeight="600" fontFamily="-apple-system,sans-serif" fill={on ? '#e2e7ef' : '#9d90c9'} style={{ transition: 'fill .4s ease' }}>{w.lbl}</text>
                       </g>
                     );
                   })}
