@@ -1,11 +1,13 @@
 import Script from 'next/script';
 
-/* Google Analytics 4. Inert until NEXT_PUBLIC_GA_ID is set in Vercel env
- * (Project Settings -> Environment Variables). Get the ID (G-XXXXXXX) from
- * the GA4 property's Data Stream. Renders nothing without it.
- * GA4 property "StayBookt" live; ID set in Vercel env July 2026. */
+/* Google Analytics 4, property "StayBookt" (Measurement ID G-ML7S3FSXX8; GA4
+ * account StayBookt, web data stream www.staybookt.com). The measurement ID is
+ * a public, client-side value that ships in the page source anyway, so it is
+ * baked in as the default here to guarantee tracking fires in production.
+ * NEXT_PUBLIC_GA_ID still overrides it if ever set in Vercel env (e.g. to point
+ * a preview deploy at a separate test property). Created + wired live July 2026. */
 export default function Analytics() {
-  const id = process.env.NEXT_PUBLIC_GA_ID;
+  const id = process.env.NEXT_PUBLIC_GA_ID || 'G-ML7S3FSXX8';
   if (!id) return null;
   return (
     <>
