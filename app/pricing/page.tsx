@@ -186,8 +186,8 @@ export default function PricingPage() {
               A big company answers every call, books every job, chases every quote and chases the
               money. It is not smarter than you. It has{' '}
               <b>five people on payroll for it</b>: a receptionist, a scheduler, an assistant, a
-              collections clerk and a marketer. That is a payroll, and it is the one thing you have
-              never been able to buy.
+              collections clerk and a marketer. That is the one thing you have never been able to
+              buy.
             </p>
             <p>
               You are doing all five of those jobs yourself, at nine at night, after a full day of

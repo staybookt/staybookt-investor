@@ -20,7 +20,7 @@ const HERO_H_B = 'We run the busywork.';
 const HERO_SUB = 'Three milestones, in order. Here is what happens at each one.';
 
 const LEARN_H = 'First, we learn your business.';
-const LEARN_P = 'Before anything else, we sit down and learn how you actually work: what you charge, which jobs you take, where you go, and how you talk to a customer. That becomes the playbook everything runs on, so when we answer, it sounds like you, not a call center.';
+const LEARN_P = 'We learn how you actually work: what you charge, which jobs you take, where you go, and how you talk to a customer. That becomes the playbook everything runs on, so when we answer, it sounds like you, not a call center.';
 
 type Stop = {
   id: string; n: string; label: string; promise: string; voice: string; accent: string; accentD: string;
@@ -613,7 +613,7 @@ export default function HowItWorks() {
           <div className="jhead">
             <div className="eyebrow">The three milestones</div>
             <h2>Follow the path.</h2>
-            <p>Every customer, and your whole business, travels this route. Here is what happens at each stop.</p>
+            <p>Every customer, and your whole business, travels this route.</p>
           </div>
           <div className="jmap" ref={mapRef}>
             <svg className="jsvg" ref={svgRef} preserveAspectRatio="none" aria-hidden="true">
