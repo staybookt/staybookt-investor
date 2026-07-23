@@ -233,7 +233,7 @@ const CSS = `
 .gf.on .chip:nth-child(1){transition-delay:1.1s;}.gf.on .chip:nth-child(2){transition-delay:1.25s;}
 
 /* ===== SCENE: Enjoy Life (valuation) ===== */
-.el{width:min(470px,100%);}
+.el{width:min(520px,100%);}
 .el .valcard{background:#0b0f14;color:#fff;border-radius:20px;padding:26px 26px 24px;box-shadow:0 50px 100px -44px rgba(0,0,0,.6);text-align:left;}
 .el .valcard .k{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#9aa0ab;}
 /* .num, .meterlab and .meter are gone with the invented $420,000 valuation and the
@@ -241,14 +241,18 @@ const CSS = `
    fabricated number. Do not reintroduce a figure here. */
 .el .valcard .hd{margin-top:10px;font-size:clamp(20px,2.4vw,27px);font-weight:600;letter-spacing:-.025em;line-height:1.25;color:#fff;}
 .el .valcard .ns{margin-top:12px;font-size:13.5px;line-height:1.6;color:#9aa0ab;}
-.el .choices{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;}
-.el .choice{background:#fff;border:1px solid #ececf0;border-radius:16px;padding:16px 14px;text-align:left;cursor:pointer;font-family:inherit;transition:border-color .25s ease,transform .25s ease,box-shadow .25s ease;}
+.el .choices{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px;}
+/* ALL THREE ARE FULL CARDS NOW. The description used to be collapsed to max-height:0 until a
+   card was hovered or selected, so at rest two of the three showed only an icon and a one-line
+   label — they read as small and half-empty, which is what Emma flagged (p9). The copy is
+   always visible now, so the three are equal, complete cards; hover/selection just lifts and
+   accents the one you are on. Bigger icon and padding to match. */
+.el .choice{display:flex;flex-direction:column;background:#fff;border:1px solid #ececf0;border-radius:16px;padding:18px 16px 16px;text-align:left;cursor:pointer;font-family:inherit;transition:border-color .25s ease,transform .25s ease,box-shadow .25s ease;}
 .el .choice:hover,.el .choice.on{border-color:#7c3aed;transform:translateY(-3px);box-shadow:0 18px 34px -18px rgba(124,58,237,.4);}
-.el .choice .ci{width:30px;height:30px;border-radius:9px;background:rgba(124,58,237,.12);display:flex;align-items:center;justify-content:center;color:#6d28d9;}
-.el .choice .cl{margin-top:11px;font-size:15px;font-weight:600;color:var(--v4-ink);}
-.el .choice .cd{max-height:0;overflow:hidden;font-size:12.5px;line-height:1.4;color:#69707d;transition:max-height .35s ease,margin .35s ease;}
-.el .choice:hover .cd,.el .choice.on .cd{max-height:80px;margin-top:7px;}
-@media(max-width:520px){.el .choices{grid-template-columns:1fr;}.el .choice .cd{max-height:80px;margin-top:7px;}}
+.el .choice .ci{width:36px;height:36px;border-radius:10px;background:rgba(124,58,237,.12);display:flex;align-items:center;justify-content:center;color:#6d28d9;}
+.el .choice .cl{margin-top:13px;font-size:16px;font-weight:600;color:var(--v4-ink);}
+.el .choice .cd{margin-top:8px;font-size:12.5px;line-height:1.45;color:#69707d;}
+@media(max-width:520px){.el .choices{grid-template-columns:1fr;}}
 
 /* ===== FAQ — two columns, sticky ask on the left, cards on the right ===== */
 .hiw-faq{padding:clamp(90px,12vw,150px) 0;background:var(--v4-cream);}
@@ -365,7 +369,7 @@ function EnjoyLifeScene() {
       <div className="choices">
         {CH.map((c, i) => (
           <button key={c.l} type="button" className={`choice${choice === i ? ' on' : ''}`} onMouseEnter={() => setChoice(i)} onClick={() => setChoice(i)}>
-            <span className="ci"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d={c.icon} /></svg></span>
+            <span className="ci"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d={c.icon} /></svg></span>
             <div className="cl">{c.l}</div>
             <div className="cd">{c.d}</div>
           </button>
