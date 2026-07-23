@@ -55,6 +55,10 @@ import { min } from '@/lib/css';
  *                      arriving IS the payoff. */
 const B = [0, 0.16, 0.41, 0.65, 1]; // beat boundaries
 
+/* The four chapters, in order. Names match the bottom labels and the beat sequence; the
+   orientation HUD reads position off this ("02 / 04 — StayBookt") and renders the jump row. */
+const CHAPTERS = ['Get Found', 'StayBookt', 'Enjoy Life', 'What it costs'];
+
 /* The five people you cannot hire. Same argument as the FiveSalaries ledger on
  * /pricing, but as a moment instead of a card: they arrive one at a time, hold,
  * then collapse into the one number that replaces all of them. */
@@ -136,7 +140,7 @@ const CSS = `
 
 .sscx-top{position:relative;z-index:3;display:flex;align-items:center;justify-content:center;padding:22px 32px 0;}
 .sscx-bars{display:flex;gap:6px;width:100%;max-width:320px;}
-.sscx-seg{flex:1;height:2.5px;border-radius:2px;background:rgba(255,255,255,.14);overflow:hidden;}
+.sscx-seg{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.18);overflow:hidden;}
 .sscx-seg i{display:block;height:100%;width:0;background:var(--acc);transition:background .8s;}
 .sscx-mid{position:relative;z-index:3;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(10px,2vh,20px);padding:1vh 24px;}
 .sscx-phase{font-size:13px;font-weight:700;letter-spacing:.2em;color:var(--acc);text-align:center;transition:color .8s ease,opacity .5s ease;text-shadow:0 1px 18px rgba(0,0,0,.5);}
@@ -269,10 +273,30 @@ const CSS = `
   transition:opacity .12s linear, transform .12s linear;
 }
 
-/* dots */
-.sscx-dots{position:relative;z-index:3;display:flex;gap:24px;justify-content:center;padding:14px 20px 28px;flex-wrap:wrap;}
-.sscx-dots span{font-size:12px;font-weight:600;color:#f5f5f7;opacity:.4;transition:opacity .4s;text-shadow:0 1px 14px rgba(0,0,0,.6);}
+/* ORIENTATION HUD. A pinned, scroll-scrubbed sequence breaks the reader's "scroll = move down
+   the page" model, so it has to answer, at a glance: where am I, how many parts are there, how
+   far in, can I move (Emma p5; Richard's "you hit down and nothing happens, feels like the page
+   is stuck"). The four top bars already carry how-far. This row carries the rest — a NN / 04
+   readout, the live chapter name, and the four chapters as real controls you can jump to. One
+   system, the beat's own accent, nothing shouted. Replaces the old decorative label row. */
+.sscx-nav{position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;gap:9px;padding:12px 20px 26px;}
+.sscx-nav-meta{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;justify-content:center;}
+.sscx-idx{font-size:12px;font-weight:500;letter-spacing:.04em;color:#6b7280;font-variant-numeric:tabular-nums;}
+.sscx-idx b{color:var(--acc);font-weight:700;transition:color .8s ease;}
+.sscx-cur{font-size:12px;font-weight:600;letter-spacing:.02em;color:#c9ced8;}
+.sscx-hint{font-size:11px;color:#5f6672;letter-spacing:.02em;}
+@media(max-width:640px){.sscx-hint{display:none;}}
+.sscx-dots{display:flex;gap:clamp(14px,2.4vw,26px);justify-content:center;flex-wrap:wrap;}
+.sscx-dots button{position:relative;font:inherit;font-size:12px;font-weight:600;color:#f5f5f7;opacity:.34;
+  background:none;border:0;padding:5px 2px 8px;cursor:pointer;letter-spacing:.01em;
+  text-shadow:0 1px 14px rgba(0,0,0,.6);transition:opacity .4s ease;}
+.sscx-dots button::after{content:'';position:absolute;left:2px;right:2px;bottom:0;height:2px;border-radius:2px;
+  background:var(--acc);opacity:0;transform:scaleX(.35);transition:opacity .4s ease,transform .4s ease;}
+.sscx-dots button:hover{opacity:.72;}
+@media(hover:none){.sscx-dots button:hover{opacity:.34;}}
+.sscx-dots button:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:3px;opacity:1;}
 .sscx-stage[data-beat="0"] .sscx-dots .d0,.sscx-stage[data-beat="1"] .sscx-dots .d1,.sscx-stage[data-beat="2"] .sscx-dots .d2,.sscx-stage[data-beat="3"] .sscx-dots .d3{opacity:1;}
+.sscx-stage[data-beat="0"] .sscx-dots .d0::after,.sscx-stage[data-beat="1"] .sscx-dots .d1::after,.sscx-stage[data-beat="2"] .sscx-dots .d2::after,.sscx-stage[data-beat="3"] .sscx-dots .d3::after{opacity:1;transform:none;}
 
 /* Landscape phones and short windows: a 600px floor on a 390px-tall screen pushes the
    stage past the viewport and the pin math skews. Keyed on height, not width, because a
@@ -528,6 +552,22 @@ export default function JourneyMap() {
     };
   }, [reduce]);
 
+  /* Jump to a chapter. The film is scroll-scrubbed, so navigation is just a scroll: land the
+     window at the beat's boundary in the track (a hair past it, so the beat has actually
+     started), and let the same damped driver ease the film into place. No-op under reduced
+     motion, where the track is collapsed and every beat is already resolved on one screen. */
+  const jumpTo = (i: number) => {
+    const el = trackRef.current;
+    if (!el || reduce) return;
+    const stage = stageRef.current;
+    const vh = stage ? stage.offsetHeight : window.innerHeight;
+    const total = el.offsetHeight - vh;
+    if (total <= 0) return;
+    const absTop = el.getBoundingClientRect().top + window.scrollY;
+    const p = Math.min(B[i] + 0.012, 0.999);
+    window.scrollTo({ top: Math.round(absTop + total * p), behavior: 'smooth' });
+  };
+
   const stageStyle = {
     '--cp': cp,
     '--sp': sp,
@@ -723,11 +763,26 @@ export default function JourneyMap() {
           ))}
         </div>
 
-        <div className="sscx-dots">
-          <span className="d0">Get Found</span>
-          <span className="d1">StayBookt</span>
-          <span className="d2">Enjoy Life</span>
-          <span className="d3">What it costs</span>
+        <div className="sscx-nav">
+          <div className="sscx-nav-meta">
+            <span className="sscx-idx"><b>{String(beat + 1).padStart(2, '0')}</b> / 04</span>
+            <span className="sscx-cur">{CHAPTERS[beat]}</span>
+            <span className="sscx-hint" aria-hidden="true">Jump to any chapter</span>
+          </div>
+          <div className="sscx-dots">
+            {CHAPTERS.map((c, i) => (
+              <button
+                key={c}
+                type="button"
+                className={`d${i}`}
+                onClick={() => jumpTo(i)}
+                aria-label={`Jump to chapter ${i + 1} of 4, ${c}`}
+                aria-current={beat === i ? 'step' : undefined}
+              >
+                {c}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </section>
