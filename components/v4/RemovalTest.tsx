@@ -112,6 +112,10 @@ const BEATS = [
 const B = [0, 0.34, 0.68, 1];
 const clamp = (n: number) => Math.min(Math.max(n, 0), 1);
 
+/* The three topics, in order — the orientation HUD reads position off this ("01 / 03 — Right
+   now") and renders the jump row. Matches BEATS[].k. */
+const CHAPTERS = ['Right now', 'Take a week off', 'The difference'];
+
 const CSS = `
 .rt-track{position:relative;--trk:clamp(1500px,230vh,2100px);height:var(--trk);background:#050506;}
 /* iOS. 100vh is the LARGE viewport (URL bar hidden), so the pinned stage stood ~86px
@@ -122,7 +126,10 @@ const CSS = `
    film's entire travel, and in svh it would shrink and the film would collapse. */
 .rt-stage{position:sticky;top:0;height:100vh;height:100svh;min-height:600px;overflow:hidden;display:flex;
   flex-direction:column;align-items:center;justify-content:center;color:#f5f5f7;
-  --p0:0;--lift:0;--wire:0;}
+  --p0:0;--lift:0;--wire:0;--acc:#22d3ee;}
+/* The HUD accent follows the film: cyan while the lights are the owner's, green once they
+   re-route to StayBookt in beat 2. Same colours the wires and nodes already use. */
+.rt-stage[data-beat="2"]{--acc:#34d399;}
 .rt-stage::before{content:'';position:absolute;inset:0;pointer-events:none;
   background:radial-gradient(60% 50% at 50% 8%,rgba(79,70,229,.16),transparent 64%);}
 
@@ -161,8 +168,7 @@ const CSS = `
 
 /* COPY PANEL */
 .rt-copy{text-align:center;max-width:60ch;}
-.rt-k{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#8a8f98;}
-.rt-h{margin-top:10px;font-size:clamp(24px,3.4vw,44px);font-weight:600;letter-spacing:-.035em;line-height:1.05;color:#fff;}
+.rt-h{font-size:clamp(24px,3.4vw,44px);font-weight:600;letter-spacing:-.035em;line-height:1.05;color:#fff;}
 .rt-s{margin:12px auto 0;font-size:clamp(14.5px,1.6vw,18px);line-height:1.5;color:#aeb6c4;max-width:52ch;}
 
 /* THE LINE THAT LANDS. On beat 1 each dark node gets its "you, today" truth. This is the
@@ -170,9 +176,27 @@ const CSS = `
 .rt-truth{min-height:2.6em;margin-top:6px;font-size:clamp(13.5px,1.4vw,16px);line-height:1.4;color:#a78bfa;font-weight:500;}
 .rt-stage[data-beat="2"] .rt-truth{color:#34d399;}
 
-.rt-dots{display:flex;gap:22px;justify-content:center;}
-.rt-dots span{font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#f5f5f7;opacity:.32;transition:opacity .4s;}
+/* ORIENTATION HUD. Same language as the homepage film (JourneyMap sscx-nav): the three topics
+   become one navigable index — NN / 03 readout, live topic name, each part jumpable, inactive
+   ones dimmed — so the reader knows where they are and that they can move. This replaces both
+   the old decorative dot row AND the kicker that used to sit atop the copy panel repeating the
+   same word, which is the redundancy Emma flagged as noise (p13). */
+.rt-nav{display:flex;flex-direction:column;align-items:center;gap:9px;}
+.rt-nav-meta{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;justify-content:center;}
+.rt-idx{font-size:12px;font-weight:500;letter-spacing:.04em;color:#6b7280;font-variant-numeric:tabular-nums;}
+.rt-idx b{color:var(--acc);font-weight:700;transition:color .5s ease;}
+.rt-cur{font-size:12px;font-weight:600;letter-spacing:.02em;color:#c9ced8;}
+.rt-hint{font-size:11px;color:#5f6672;letter-spacing:.02em;}
+@media(max-width:640px){.rt-hint{display:none;}}
+.rt-dots{display:flex;gap:clamp(14px,2.4vw,26px);justify-content:center;flex-wrap:wrap;}
+.rt-dots button{position:relative;font:inherit;font-size:12px;font-weight:600;color:#f5f5f7;opacity:.34;
+  background:none;border:0;padding:5px 2px 8px;cursor:pointer;letter-spacing:.01em;transition:opacity .4s ease;}
+.rt-dots button::after{content:'';position:absolute;left:2px;right:2px;bottom:0;height:2px;border-radius:2px;
+  background:var(--acc);opacity:0;transform:scaleX(.35);transition:opacity .4s ease,transform .4s ease;}
+.rt-dots button:hover{opacity:.72;}
+@media(hover:none){.rt-dots button:hover{opacity:.34;}}
 .rt-stage[data-beat="0"] .rt-dots .d0,.rt-stage[data-beat="1"] .rt-dots .d1,.rt-stage[data-beat="2"] .rt-dots .d2{opacity:1;}
+.rt-stage[data-beat="0"] .rt-dots .d0::after,.rt-stage[data-beat="1"] .rt-dots .d1::after,.rt-stage[data-beat="2"] .rt-dots .d2::after{opacity:1;transform:none;}
 
 @media(max-width:760px){
   /* These sizes are in 420x440 viewBox units, not pixels - see the mobile geometry note
@@ -182,8 +206,8 @@ const CSS = `
   .rt-lbl{font-size:21px;}
   .rt-hub-t{font-size:26px;}
   .rt-sb-t{font-size:20px;}
-  .rt-dots{gap:12px;}
-  .rt-dots span{font-size:10px;letter-spacing:.1em;}
+  .rt-dots{gap:14px;}
+  .rt-dots button{font-size:11px;}
 }
 /* Landscape phones and short windows: the min-height floor on a 390px-tall screen pushes
    the stage past the viewport and the pin math skews. Keyed on height, not width, because
@@ -337,6 +361,21 @@ export default function RemovalTest() {
     return () => { window.removeEventListener('scroll', onScroll); cancelAnimationFrame(raf); };
   }, [reduce]);
 
+  /* Jump to a topic. The film is scroll-scrubbed, so it is just a scroll to the beat boundary
+     (a hair inside it); the damped driver eases the film into place. No-op under reduced motion,
+     where the track is collapsed and every beat is already on one static page. */
+  const jumpTo = (i: number) => {
+    const el = trackRef.current;
+    if (!el || reduce) return;
+    const stage = stageRef.current;
+    const vh = stage ? stage.offsetHeight : window.innerHeight;
+    const total = el.offsetHeight - vh;
+    if (total <= 0) return;
+    const absTop = el.getBoundingClientRect().top + window.scrollY;
+    const p = Math.min(B[i] + 0.02, 0.999);
+    window.scrollTo({ top: Math.round(absTop + total * p), behavior: 'smooth' });
+  };
+
   const style = { '--p0': p0, '--lift': lift, '--wire': wire } as CSSProperties;
   /* One object so there is exactly one place the two layouts differ. Desktop values are the
      literals that were inline before. */
@@ -435,16 +474,25 @@ export default function RemovalTest() {
           </svg>
 
           <div className="rt-copy">
-            <div className="rt-k">{copy.k}</div>
             <div className="rt-h">{copy.h}</div>
             <div className="rt-s">{copy.s}</div>
             <div className="rt-truth">{truth}</div>
           </div>
 
-          <div className="rt-dots">
-            <span className="d0">Right now</span>
-            <span className="d1">Take a week off</span>
-            <span className="d2">The difference</span>
+          {/* Orientation HUD. The stage is aria-hidden and the Static twin carries every word,
+              so these buttons are a pointer affordance only (tabIndex -1, not in the AT tree);
+              a keyboard/screen-reader reader gets the linear twin, where jumping is moot. */}
+          <div className="rt-nav">
+            <div className="rt-nav-meta">
+              <span className="rt-idx"><b>{String(beat + 1).padStart(2, '0')}</b> / 03</span>
+              <span className="rt-cur">{CHAPTERS[beat]}</span>
+              <span className="rt-hint">Jump to any part</span>
+            </div>
+            <div className="rt-dots">
+              {CHAPTERS.map((c, i) => (
+                <button key={c} type="button" tabIndex={-1} className={`d${i}`} onClick={() => jumpTo(i)}>{c}</button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
