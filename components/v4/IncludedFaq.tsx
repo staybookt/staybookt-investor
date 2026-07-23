@@ -71,9 +71,9 @@ const QS: Q[] = [
     q: 'What do I own if we ever part ways?',
     a: 'All of it, and nothing here is held hostage. The website is yours permanently, the domain is in your name, and you keep the Google Business Profile login, your customer list exported whenever you want it, and your reviews, which were always yours anyway. If we vanish tomorrow, you keep all of it.',
   },
-  {/* "Do my customers become your customers?" REMOVED ENTIRELY (Richard, Jul 23 2026): the
-      answer was about phone numbers and read oddly, and we do not want to plant a security /
-      "could I lose my customers" worry that nobody arrives with on their own. */}
+  /* "Do my customers become your customers?" REMOVED ENTIRELY (Richard, Jul 23 2026): the
+     answer was about phone numbers and read oddly, and we do not want to plant a security /
+     "could I lose my customers" worry that nobody arrives with on their own. */
   {
     k: 'What we do not do',
     c: '#7c3aed',
