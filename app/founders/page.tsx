@@ -60,18 +60,19 @@ const CSS = `
    each card so the grid stays even. */
 .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(26px,4vw,56px);align-items:start;}
 @media(max-width:820px){.fgrid{grid-template-columns:1fr;gap:48px;}}
-.fcard img{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:center 18%;border-radius:24px;display:block;
+/* GRADIENT PHOTO BORDER (Emma, p15 ①, her primary shown suggestion): the brand gradient as a
+   decorative ring around each founder photo. The wrapper carries the gradient and a 3px pad; the
+   image sits inside at a slightly smaller radius so the ring shows evenly. Shadow + hover-lift
+   move to the wrapper so the whole framed photo lifts as one. */
+.fcard .fimg{display:block;border-radius:24px;padding:3px;background:var(--sb-grad);
   box-shadow:0 34px 70px -40px rgba(6,12,20,.55);transition:transform .5s cubic-bezier(.16,1,.3,1);}
-.fcard img.hi{object-position:center top;}
-.fcard:hover img{transform:translateY(-4px) scale(1.01);}
+.fcard .fimg img{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:center 18%;border-radius:21px;display:block;}
+.fcard .fimg img.hi{object-position:center top;}
+.fcard:hover .fimg{transform:translateY(-4px) scale(1.01);}
 .fcard .nm{margin-top:22px;font-size:clamp(20px,2.2vw,26px);font-weight:600;letter-spacing:-.03em;color:var(--v4-ink);}
-/* Gradient name-underline: the brand's own language as a decorative accent on the cards,
-   echoing the gradient rule on the quote blockquotes above (Emma, p15 ①). */
-.fcard .nm::after{content:'';display:block;width:42px;height:3px;margin-top:12px;border-radius:2px;background:var(--sb-grad);}
-/* WAS #047857 / the quote label #059669 (3.4:1 on white, fails WCAG AA). One darker emerald
-   for both, ~6:1 on cream and white, still unmistakably green (Emma, p15 ②). Role TEXT
-   untouched — only the colour moved. */
-.fcard .ro{margin-top:14px;font-size:14px;font-weight:600;letter-spacing:.02em;color:#065f46;}
+/* Roles BLACK, not green (Emma, p15 ②). She flagged the green as a contrast risk and asked for
+   black; the gradient decorative role is carried by the photo border above, not the text. */
+.fcard .ro{margin-top:12px;font-size:14px;font-weight:600;letter-spacing:.02em;color:var(--v4-ink);}
 .fcard .bio{margin-top:18px;font-size:15.5px;line-height:1.7;color:#69707d;}
 
 /* The source portraits are 3:4. Cover-cropping them into a 1:1 card from the
@@ -102,7 +103,7 @@ const CSS = `
 .abt-quote figcaption{display:flex;flex-direction:column;gap:2px;margin-top:clamp(18px,2.2vw,24px);
   padding-left:clamp(19px,2vw,25px);}
 .abt-quote figcaption .cn{font-size:15.5px;font-weight:600;letter-spacing:-.01em;color:var(--v4-ink);}
-.abt-quote figcaption .cr{font-size:13.5px;font-weight:600;color:#065f46;}
+.abt-quote figcaption .cr{font-size:13.5px;font-weight:600;color:#69707d;}
 `;
 
 export default function AboutPage() {
@@ -215,7 +216,7 @@ export default function AboutPage() {
               and nothing else. */}
           <div className="fgrid">
             <article className="fcard">
-              <img src="/photos/richard.jpg" alt="Richard Roos, co-founder of StayBookt" width={280} height={280} />
+              <div className="fimg"><img src="/photos/richard.jpg" alt="Richard Roos, co-founder of StayBookt" width={280} height={280} /></div>
               <div className="nm">Richard Roos</div>
               <div className="ro">Operations, growth, and finance</div>
               <p className="bio">
@@ -227,7 +228,7 @@ export default function AboutPage() {
             </article>
 
             <article className="fcard">
-              <img className="hi" src="/photos/jacob.jpg" alt="Jacob Charendoff, co-founder of StayBookt" width={280} height={280} />
+              <div className="fimg"><img className="hi" src="/photos/jacob.jpg" alt="Jacob Charendoff, co-founder of StayBookt" width={280} height={280} /></div>
               <div className="nm">Jacob Charendoff</div>
               <div className="ro">Brand, product, and growth</div>
               <p className="bio">

@@ -110,14 +110,18 @@ const PAGE_CSS = `
    bright frame is nearly invisible — the one line that qualifies the whole page washed out
    (Emma, p4 ②). It is a DARK glass chip now: the near-white text and the brand dot separate
    cleanly over any frame, and it still reads as glass (blur + border + shadow). */
-.v4 header.scene .eyebrow{display:inline-flex;align-items:center;gap:9px;
+/* GRADIENT BORDER (Emma, p4 ②, her suggested mockup): a dark glass chip with the brand gradient
+   as its outline. Two backgrounds — the dark fill clipped to the padding box, the gradient to the
+   border box — so a 1.5px transparent border shows the gradient ring. The old solid brand dot is
+   dropped: the gradient ring is the brand signal now, and a dot plus a ring on one small pill is
+   two of the same idea. */
+.v4 header.scene .eyebrow{display:inline-flex;align-items:center;
   font-size:12.5px;font-weight:700;letter-spacing:.15em;color:#f4f6fa;
-  background:rgba(8,10,16,.42);border:1px solid rgba(255,255,255,.3);
-  border-radius:999px;padding:9px 18px 9px 13px;
+  border:1.5px solid transparent;
+  background:linear-gradient(rgba(8,10,16,.42),rgba(8,10,16,.42)) padding-box,var(--sb-grad) border-box;
+  border-radius:999px;padding:9px 18px;
   backdrop-filter:saturate(160%) blur(12px);-webkit-backdrop-filter:saturate(160%) blur(12px);
   box-shadow:0 8px 30px -12px rgba(0,0,0,.7);}
-.v4 header.scene .eyebrow::before{content:'';width:7px;height:7px;border-radius:50%;flex:0 0 auto;
-  background:var(--sb-grad);box-shadow:0 0 10px 1px rgba(16,185,129,.75);}
 /* THE TWO PIECES OF GLASS IN THE HERO, ON A PHONE. Both of these blur the hero photo behind
    them, which means the GPU reads back the frame under them on every composited frame of the
    first scroll on the site, at the exact moment the page is also decoding the still and
@@ -129,7 +133,7 @@ const PAGE_CSS = `
    Desktop keeps the glass. This block is 760px and down only. */
 @media(max-width:760px){
 .v4 header.scene .cta .pill{background:rgba(255,255,255,.22);backdrop-filter:none;-webkit-backdrop-filter:none;}
-.v4 header.scene .eyebrow{background:rgba(8,10,16,.55);backdrop-filter:none;-webkit-backdrop-filter:none;}
+.v4 header.scene .eyebrow{background:linear-gradient(rgba(8,10,16,.55),rgba(8,10,16,.55)) padding-box,var(--sb-grad) border-box;backdrop-filter:none;-webkit-backdrop-filter:none;}
 }
 .v4 .kicker{font-size:14px;font-weight:600;letter-spacing:.02em;margin-bottom:14px;background:linear-gradient(90deg,#0ea5e9,#06b6d4 34%,#14b8a6 66%,#10b981);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .v4 .sbwrap,.v4 .sb-clook{--grad:linear-gradient(90deg,#0ea5e9,#06b6d4 34%,#14b8a6 66%,#10b981);}

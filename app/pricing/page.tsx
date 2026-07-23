@@ -85,14 +85,17 @@ const CSS = `
 .facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,1.6vw,20px);max-width:900px;margin:clamp(38px,5vw,54px) auto 0;text-align:left;}
 @media(max-width:860px){.facts{grid-template-columns:repeat(2,minmax(0,1fr));}}
 @media(max-width:520px){.facts{grid-template-columns:1fr;}}
-/* These four are reassurances, not tabs. The old treatment gave each column a top accent
-   bar and lit the first one emerald, which read as the selected tab of a segmented control —
-   people tried to click it (Emma, p12). Each fact is now led by an emerald check: plainly
-   informational, and it carries the brand colour without pretending to be a control. */
-.fact{padding-top:2px;}
-.fact b{display:flex;align-items:flex-start;gap:9px;font-size:14.5px;font-weight:600;letter-spacing:-.01em;color:#fff;}
-.fact b::before{content:'✓';flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;margin-top:1px;border-radius:50%;background:rgba(16,185,129,.16);color:#34d399;font-size:11px;font-weight:800;line-height:1;}
-.fact span{display:block;margin-top:7px;padding-left:27px;font-size:13.5px;line-height:1.5;color:#8b93a5;}
+/* Emma p12 (built to her actual mockup): the four facts are an informational overview, not
+   clickable tabs. Each gets its OWN brand-hue top-accent bar — because all four differ and none
+   is highlighted, none reads as a "selected" tab, and the box that made them look interactive is
+   gone. Brighter gradient hues since this is the dark pricing hero. */
+.fact{padding-top:13px;border-top:2px solid var(--fc,#38bdf8);}
+.fact:nth-child(1){--fc:#38bdf8;}
+.fact:nth-child(2){--fc:#818cf8;}
+.fact:nth-child(3){--fc:#34d399;}
+.fact:nth-child(4){--fc:#a78bfa;}
+.fact b{display:block;font-size:14.5px;font-weight:600;letter-spacing:-.01em;color:#fff;}
+.fact span{display:block;margin-top:7px;font-size:13.5px;line-height:1.5;color:#8b93a5;}
 
 .pg-hero .more{margin-top:clamp(34px,4.4vw,44px);text-align:center;font-size:15px;}
 .pg-hero .more a{color:#5eead4;text-decoration:none;font-weight:600;}
