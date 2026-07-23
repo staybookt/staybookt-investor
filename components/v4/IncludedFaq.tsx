@@ -71,18 +71,9 @@ const QS: Q[] = [
     q: 'What do I own if we ever part ways?',
     a: 'All of it, and nothing here is held hostage. The website is yours permanently, the domain is in your name, and you keep the Google Business Profile login, your customer list exported whenever you want it, and your reviews, which were always yours anyway. If we vanish tomorrow, you keep all of it.',
   },
-  {
-    k: 'What is yours',
-    c: '#10b981',
-    q: 'Do my customers become your customers?',
-    /* THIS ANSWER USED TO DENY, EMPHATICALLY, THE THING WE ACTUALLY DO. It said "Your
-     customers pay you directly, the way they always have. We never sit between you and
-     your money." We take payment for the client (Jacob confirmed, July 2026), so that was
-     three false statements in one answer, under a heading about who owns the customer.
-     It is deliberately vague about WHERE the money settles, because that is a fact nobody
-     has written down yet. Do not add settlement mechanics here until terms says them. */
-    a: 'No. Your number stays your number, and nothing changes for the people who call it. We answer in your voice, under your name, using your prices. We take the payment for you, so nobody is chasing a card at the end of a job, but the customer is yours and the money is yours. We never take a cut of your work.',
-  },
+  {/* "Do my customers become your customers?" REMOVED ENTIRELY (Richard, Jul 23 2026): the
+      answer was about phone numbers and read oddly, and we do not want to plant a security /
+      "could I lose my customers" worry that nobody arrives with on their own. */}
   {
     k: 'What we do not do',
     c: '#7c3aed',
@@ -98,7 +89,7 @@ const QS: Q[] = [
   {
     k: 'What we do not do',
     c: '#7c3aed',
-    q: 'Do you spend my money on ads?',
+    q: 'Do I need a big advertising budget on top of this?',
     a: 'No. The plan is organic: your site, your Google presence, your reviews, your existing customers. If paid advertising ever makes sense, that is a separate conversation, and we will tell you honestly if we do not think you need it.',
   },
   {

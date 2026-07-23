@@ -367,14 +367,9 @@ export default function HomePage() {
           <Reveal>
             <h1>You built your business to enjoy your life.</h1>
           </Reveal>
-          <Reveal>
-            {/* The old sub said we "turn the work into something you can keep, pass on,
-                or sell", which reads like a business broker to a stranger. Say the job. */}
-            <p className="sub">
-              We answer your phone, book your jobs, and chase your quotes. You do the work. We run
-              everything around it.
-            </p>
-          </Reveal>
+          {/* THE HERO SUBHEAD IS GONE (Jacob + Richard, July 23 2026). The headline is the hook;
+              the tactical "we answer your phone…" line just held the reader up from Get Started,
+              and the very next screen shows what we do. Part of the site-wide no-subheadings call. */}
           <Reveal>
             <div className="cta">
               <a href={START_LINK} className="pill pill-white" style={{ padding: '14px 28px', fontSize: 15 }} data-cta="hero">Get Started</a>

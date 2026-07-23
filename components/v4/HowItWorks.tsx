@@ -17,7 +17,6 @@ import { track } from '@/lib/analytics';
    is the second sentence, so that is the half that gets the colour. */
 const HERO_H_A = 'You run the business. ';
 const HERO_H_B = 'We run the busywork.';
-const HERO_SUB = 'Three milestones, in order. Here is what happens at each one.';
 
 const LEARN_H = 'First, we learn your business.';
 const LEARN_P = 'We learn how you actually work: what you charge, which jobs you take, where you go, and how you talk to a customer. That becomes the playbook everything runs on, so when we answer, it sounds like you, not a call center.';
@@ -587,7 +586,8 @@ export default function HowItWorks() {
         <div className="wrap">
           <div className="eyebrow">How it works</div>
           <h1>{HERO_H_A}<span className="g">{HERO_H_B}</span></h1>
-          <p className="lead">{HERO_SUB}</p>
+          {/* Hero subhead removed (site-wide no-subheadings call, Jul 23 2026): the headline is
+              the hook, and the milestones start immediately below. */}
           {/* No buttons here. The nav already carries Get Started, and the page
               is a story: the ask belongs at the arrival, not before it starts. */}
         </div>

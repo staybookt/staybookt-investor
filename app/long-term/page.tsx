@@ -138,22 +138,17 @@ export default function LongTermPage() {
         <div className="wrap">
           <Reveal className="eyebrow" as="div">The one fact</Reveal>
           <Reveal><h2>If it cannot run without you, there is nothing to hand anyone.</h2></Reveal>
+          {/* First paragraph removed (Jacob + Richard, Jul 23 2026): the headline already lands
+              the fact; the "every call comes to you" build-up held the reader up from it. */}
           <Reveal>
             <p>
-              Every call comes to you. Every quote waits on you. On a Tuesday that is just the job.
-              It only becomes the problem on the day you want to step back, hand it to your
-              daughter, or sell it.
-            </p>
-          </Reveal>
-          <Reveal>
-            <p>
-              Because a buyer is not buying your van and your customer list. <b>They are buying
+              A buyer is not buying your van and your customer list. <b>They are buying
               whether any of it works when you are not standing there.</b> The more the answer to
               every question is you, the harder it is to hand over, and the less anyone will pay for
               it. That is not our opinion. Ask anyone who buys these businesses for a living.
             </p>
           </Reveal>
-          <Reveal><div className="lt-kick">You are the business. Nobody can buy that.</div></Reveal>
+          <Reveal><div className="lt-kick">Build long-term wealth, not a job.</div></Reveal>
         </div>
       </section>
 
@@ -181,37 +176,13 @@ export default function LongTermPage() {
           explaining the joke.
           The page now goes: the one fact -> the film -> we take none of it -> the door. */}
 
-      <section className="lt-none">
-        <div className="wrap">
-          <Reveal className="eyebrow" as="div">The part nobody believes</Reveal>
-          <Reveal><h2>And we take <span className="g">none of it.</span></h2></Reveal>
-          <Reveal>
-            <p>
-              We take no commission on your jobs, no share of your revenue, and no share of what
-              the business sells for if it ever sells. <b>$199 a month is the entire commercial
-              relationship</b>,
-              and it stays $199 whether the business doubles, triples, or you hand it to your
-              daughter on a Tuesday.
-            </p>
-          </Reveal>
-          <Reveal>
-            <p>
-              Everyone else circling this industry wants a piece of the upside, because the upside is
-              where the real money is. We would rather be easy to leave.
-            </p>
-          </Reveal>
-          {/* THE RULE. Do not put a number here, ever. */}
-          <Reveal>
-            <p>
-              <b>And we are not going to tell you what your business is worth.</b> We do not know,
-              and anybody who puts a number on that on a website has made it up.
-            </p>
-          </Reveal>
-        </div>
-      </section>
+      {/* "THE PART NOBODY BELIEVES / And we take none of it" SECTION REMOVED (Jacob, Jul 23
+          2026): it was more dense text after the film's drop-the-mic, and the no-commission /
+          no-share point is already made on pricing, the promises and the matrix. The page now
+          goes: the one fact → the film → the door. */}
 
-      {/* fromBlack: .lt-none directly above is #050506. Without it the CTA's photo opens at
-          a 60% scrim and hard-cuts out of solid black — the exact seam fromBlack dissolves. */}
+      {/* fromBlack: the RemovalTest film directly above ends on #050506, so the CTA still
+          dissolves out of solid black. */}
       <HeroCta fromBlack img="/close-lt.jpg" />
       </main>
       <SiteFooter />
