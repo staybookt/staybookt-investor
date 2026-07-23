@@ -643,44 +643,55 @@ opacity:0;transform:translateY(4px);transition:opacity .42s ease,transform .42s 
    The header does NOT vanish on mobile any more. It used to, and the arrow went with it, so
    the transfer argument would have existed only on desktop. It collapses to a single strip
    instead: today, arrow, us. Same sentence, one line. */
+/* EMMA'S MOBILE REDESIGN (p11). Her note: the stacked version "almost looks like a text chain",
+   and the fix is "a stronger distinction between the two columns" stated clearly. Her mockup
+   anchors the whole table on a persistent two-pill HEADER — a "today" pill and a "StayBookt"
+   pill with the transfer arrow between — then every row aligns to it: the job on the left, an
+   arrow, the green check on the right. The per-row "You" tag and the "Today / With StayBookt"
+   label on every cell are gone; repeating them down thirteen rows is what made it a chain.
+   Built to her structure, in our palette (violet not orange) with the real job names.
+   DESKTOP IS UNTOUCHED — every rule here lives inside this media query. */
 @media(max-width:760px){
-  .mx-scroll{overflow-x:visible;padding:clamp(12px,3vw,18px) clamp(12px,3vw,16px);}
+  .mx-scroll{overflow-x:visible;padding:clamp(14px,3.5vw,20px) clamp(12px,3vw,16px);}
   .mx-grid{min-width:0;}
-  .mx-hd{display:flex;align-items:center;gap:8px;padding-bottom:12px;}
+
+  /* the two columns, stated once: a violet pill, an arrow, a green pill */
+  .mx-hd{display:flex;align-items:stretch;gap:8px;padding-bottom:16px;}
   .mx-hd .mx-j{display:none;}
-  .mx-hd .mx-c{flex:1 1 0;padding:6px 4px;}
-  .mx-hd .mx-c b{font-size:11.5px;}
-  .mx-hd .mx-c.us{border-radius:999px;padding:8px 10px;}
-  .mx-hd .hd-lane{flex:0 0 52px;padding:0;}
-  .mx-r{grid-template-columns:1fr;align-items:stretch;gap:0;}
-  .mx-j{flex-direction:column;align-items:flex-start;gap:9px;padding:2px 0 10px;}
-  .mx-j .jt{font-size:16px;font-weight:600;letter-spacing:-.01em;}
-  .cue{margin-left:0;}
-  .mx-row>button{padding:14px 0 10px;}
-  .mx-c{justify-content:space-between;padding:7px 10px;border-radius:8px;}
-  .mx-c::before{content:attr(data-lbl);font-size:12.5px;font-weight:600;color:#69707d;letter-spacing:.01em;}
-  .mx-hd .mx-c::before{display:none;}
-  .mx-c.today::before{color:#6d28d9;}
-  /* the axis turns downward when the columns stack, so it still reads as a transfer */
-  .mx-row .mx-lane{padding:2px 0;justify-content:center;}
-  .mx-row .mx-lane::before{display:none;}
-  .mx-row .mx-lane::after{width:7px;height:7px;margin-left:0;transform:rotate(135deg);}
-  .mx-row .mx-c.us{background:rgba(16,185,129,.09);border:0;border-radius:8px;}
-  .mx-row .mx-c.us::before{color:#047857;font-weight:700;}
-  .mx-grid .mx-row:last-child .mx-c.us{border:0;border-radius:8px;}
+  .mx-hd .mx-c{flex:1 1 0;justify-content:center;gap:1px;padding:9px 10px;border-radius:14px;}
+  .mx-hd .mx-c b{font-size:11.5px;line-height:1.2;}
+  .mx-hd .mx-c.today{background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.35);}
+  .mx-hd .mx-c.us{background:rgba(16,185,129,.12);border:1px solid rgba(4,108,78,.35);border-radius:14px;padding:9px 10px;}
+  .mx-hd .hd-lane{flex:0 0 30px;padding:0;justify-content:center;}
+  .mx-hd .hd-lane .ax-t{display:none;}
+
+  /* every row mirrors the header: job + cue | arrow | check */
+  .mx-row .mx-r{grid-template-columns:minmax(0,1fr) auto auto;align-items:center;column-gap:14px;}
+  .mx-row .mx-j{flex-direction:column;align-items:flex-start;gap:8px;padding:2px 0;}
+  .mx-row .mx-j .jt{font-size:16px;font-weight:600;letter-spacing:-.01em;}
+  .mx-row .cue{margin-left:0;}
+  .mx-row>button{padding:15px 0;}
+  .mx-row .mx-c.today{display:none;}
+  .mx-row .mx-c{padding:0;}
+  .mx-row .mx-c::before{display:none;}
+  .mx-row .mx-lane{padding:0;justify-content:flex-end;}
+  .mx-row .mx-lane::before{content:'';display:block;flex:0 0 auto;width:20px;height:0;border-top:1.5px solid rgba(4,108,78,.55);}
+  .mx-row .mx-lane::after{content:'';flex:0 0 auto;width:6px;height:6px;margin-left:-3px;
+    border-top:1.5px solid rgba(4,108,78,.7);border-right:1.5px solid rgba(4,108,78,.7);transform:rotate(45deg);}
+  .mx-row .mx-c.us{background:transparent;border:0;border-radius:0;justify-content:center;}
+  .mx-grid .mx-row:last-child .mx-c.us{border:0;}
+
   .mx-body{padding-left:0;}
-  /* stacked: the empty slot keeps its Today label so it reads as the same card the
-     thirteen above it are, only with nothing in it. The green column and the lane go,
-     because there is nothing left to move across. */
-  .mx-close{padding:clamp(22px,6vw,32px) 0 4px;}
+
+  /* CLOSING BEAT keeps the empty-column payoff — that column emptying IS the point. Job heading
+     full width, then the ghost slot and the "$199" answer stacked beneath it. */
+  .mx-close{padding:clamp(24px,6vw,34px) 0 4px;}
+  .mx-close .mx-r{grid-template-columns:1fr;align-items:stretch;}
   .mx-close .mx-j{padding-right:0;}
-  /* Only the LANE dies on mobile. The value cell used to die with it, which silently
-     hid "All thirteen. Still $199 a month." on the primary viewport: the rule predates
-     the cell having anything in it. Caught in self-review, do not re-hide it. */
   .mx-close .mx-lane{display:none;}
-  .mx-close .mx-c.today{align-items:center;justify-content:center;padding:10px 0 4px;}
+  .mx-close .mx-c.today{display:flex;align-items:center;justify-content:center;padding:12px 0 4px;}
   .mx-close .mx-c.today::before{display:none;}
-  .mx-close .mx-c.us.cl-us{margin-top:10px;padding:14px 12px;border-radius:12px;}
+  .mx-close .mx-c.us.cl-us{margin-top:10px;padding:14px 12px;border-radius:12px;background:rgba(16,185,129,.09);}
   .cl-slot{font-size:16px;}
 }
 /* reduced motion: Fill never starts its timer, so the slot holds entry one. It is
