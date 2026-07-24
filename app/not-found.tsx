@@ -29,7 +29,7 @@ export default function NotFound() {
       <section className="pg-hero">
         <div className="wrap">
           <div className="eyebrow">404</div>
-          <h1>That page <span className="g">is not here.</span></h1>
+          <h1>That page <span className="g">is not here</span><span className="pd">.</span></h1>
           <p>
             Either we moved it or the link was wrong. Nothing is broken on your end. Most people
             who land here want one of these two.

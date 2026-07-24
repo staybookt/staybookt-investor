@@ -117,7 +117,7 @@ export default function LongTermPage() {
         <div className="wrap">
           <Reveal className="eyebrow" as="div">Long-term value</Reveal>
           <Reveal>
-            <h1>One day, this has to be <span className="g">worth something.</span></h1>
+            <h1>One day, this has to be <span className="g">worth something</span><span className="pd">.</span></h1>
           </Reveal>
           <Reveal>
             <p>

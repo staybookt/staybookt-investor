@@ -587,6 +587,11 @@ a, button, summary, label, input, select, textarea, [role="button"] {
   -webkit-font-smoothing:antialiased;line-height:1.5;}
 .v4 .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
 .v4 h1,.v4 h2,.v4 h3{font-weight:700;letter-spacing:-.045em;line-height:.98;}
+/* Purple-period, global (Jacob, Jul 23 2026): wherever a gradient headline word-set ends,
+   the terminal period pulls out of the gradient and lands in brand violet. Set once here so
+   every headline inherits it; markup is <span className="g">…</span><span className="pd">.</span>.
+   Home and pricing had their own scoped copies of this; those are now redundant but harmless. */
+.v4 .pd{color:var(--v4-violet);-webkit-text-fill-color:var(--v4-violet);}
 /* WHY THIS IS A LITERAL AND NOT var(--v4-muted), and why the token was NOT retuned.
    This rule used to resolve to var(--v4-muted) = #7a828f, which measures 3.58:1 on the
    cream #f6f6f3 and 3.88:1 on white. Both fail the 4.5:1 bar for text. It never rendered

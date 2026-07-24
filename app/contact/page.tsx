@@ -115,7 +115,7 @@ export default function ContactPage() {
         <div className="wrap">
           <div className="eyebrow">Contact</div>
           <h1>
-            There are two of us. <span className="g">You get one of us.</span>
+            There are two of us. <span className="g">You get one of us</span><span className="pd">.</span>
           </h1>
           <p>
             There is no contact form and no ticket number. You get an email address and a calendar,

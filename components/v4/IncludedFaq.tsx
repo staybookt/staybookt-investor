@@ -155,7 +155,7 @@ export default function IncludedFaq() {
                 and reads plainly (Jacob, live review, July 2026). Do not make it cute again. */}
             <div className="eyebrow">FAQ</div>
             <h2>
-              Questions, <span className="g">answered.</span>
+              Questions, <span className="g">answered</span><span className="pd">.</span>
             </h2>
             <p className="fa-p">
               That is the whole list. If something on it is not what you need, tell us on the call

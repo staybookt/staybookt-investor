@@ -16,7 +16,7 @@ import { track } from '@/lib/analytics';
 /* Split so the second half can carry the brand gradient. The whole promise of the page
    is the second sentence, so that is the half that gets the colour. */
 const HERO_H_A = 'You run the business. ';
-const HERO_H_B = 'We run the busywork.';
+const HERO_H_B = 'We run the busywork';
 
 const LEARN_H = 'First, we learn your business.';
 const LEARN_P = 'We learn how you actually work: what you charge, which jobs you take, where you go, and how you talk to a customer. That becomes the playbook everything runs on, so when we answer, it sounds like you, not a call center.';
@@ -581,7 +581,7 @@ export default function HowItWorks() {
       <header className="pg-hero">
         <div className="wrap">
           <div className="eyebrow">How it works</div>
-          <h1>{HERO_H_A}<span className="g">{HERO_H_B}</span></h1>
+          <h1>{HERO_H_A}<span className="g">{HERO_H_B}</span><span className="pd">.</span></h1>
           {/* Hero subhead removed (site-wide no-subheadings call, Jul 23 2026): the headline is
               the hook, and the milestones start immediately below. */}
           {/* No buttons here. The nav already carries Get Started, and the page
@@ -669,7 +669,7 @@ export default function HowItWorks() {
             <div className="faside">
               <div className="eyebrow">FAQ</div>
               <h2>
-                Questions, <span className="g">answered.</span>
+                Questions, <span className="g">answered</span><span className="pd">.</span>
               </h2>
               <p className="fa-p">
                 How the thing actually runs, in plain English. What it costs, what you own, and

@@ -122,7 +122,7 @@ export default function AboutPage() {
           <div className="eyebrow">About us</div>
           <h1>
             You should not have to choose between doing the work and{' '}
-            <span className="g">having a life.</span>
+            <span className="g">having a life</span><span className="pd">.</span>
           </h1>
           <p className="sub">
             That is the whole reason this company exists. Everything below is us explaining

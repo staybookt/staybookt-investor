@@ -64,7 +64,7 @@ export default function HomeFaq() {
           <div className="faside">
             <div className="eyebrow">FAQ</div>
             <h2>
-              Questions, <span className="g">answered.</span>
+              Questions, <span className="g">answered</span><span className="pd">.</span>
             </h2>
             <p className="fa-p">
               The first things everyone asks, answered here. The full sets live on the pages they

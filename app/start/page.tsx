@@ -187,7 +187,7 @@ export default function StartPage() {
                   not enough to cost it out to the dollar, and the leak calculator was killed
                   for exactly that overreach. */}
               <h1 className="st-h">
-                See where the work is <span className="g">slipping.</span>
+                See where the work is <span className="g">slipping</span><span className="pd">.</span>
               </h1>
             </Reveal>
             <Reveal>

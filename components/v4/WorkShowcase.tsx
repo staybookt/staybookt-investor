@@ -121,7 +121,7 @@ export default function WorkShowcase() {
         <div className="wrap">
           <Reveal as="div"><div className="eyebrow">The work</div></Reveal>
           <Reveal>
-            <h1>Go look at it <span className="g">yourself.</span></h1>
+            <h1>Go look at it <span className="g">yourself</span><span className="pd">.</span></h1>
           </Reveal>
           <Reveal>
             <p>
