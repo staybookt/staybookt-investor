@@ -94,7 +94,7 @@ const PAGE_CSS = `
    Nobody caught it because nobody had opened this site at phone width. Keep the horizontal
    padding here, or restate it if you ever change the vertical. */
 .v4 header.scene .inner{padding:15vh clamp(20px,4vw,32px) 0;text-align:center;max-width:940px;margin:0 auto;}
-.v4 header.scene h1{max-width:16ch;margin:20px auto 0;font-size:clamp(40px,6.6vw,88px);letter-spacing:-.03em;line-height:1.05;color:var(--v4-ink);}
+.v4 header.scene h1{max-width:none;margin:20px auto 0;font-size:clamp(20px,6.4vw,88px);letter-spacing:-.03em;line-height:1.02;text-align:center;color:var(--v4-ink);}
 .v4 header.scene p.sub{margin:24px auto 0;color:#52565e;max-width:46ch;}
 .v4 header.scene .cta{justify-content:center;}
 .ctanote{margin:20px auto 0;max-width:52ch;text-align:center;font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.62);}
@@ -159,7 +159,11 @@ const PAGE_CSS = `
    blur, then "Enjoy Life" lands on its own a beat later; the subhead and pill follow; the
    polaroids rise in, staggered, last. Only under no-preference — reduced motion gets the final
    state instantly (the from-states live inside the media query, so no-JS/no-motion is visible). */
-.v4 header.scene .hero-h1 .hl1,.v4 header.scene .hero-h1 .hl2{display:inline-block;}
+/* Two clean lines on every width (Jul 23 2026): line 1 "You built your business", line 2
+   "to Enjoy Life." Each half is its own block and never wraps, so the orphan "to" that made
+   it three lines is gone. Size is vw-driven with a low floor so line 1 still fits one line
+   down to ~320px phones; caps at 88px on desktop. */
+.v4 header.scene .hero-h1 .hl1,.v4 header.scene .hero-h1 .hl2{display:block;white-space:nowrap;}
 @media(prefers-reduced-motion:no-preference){
   .v4 header.scene .hero-h1 .hl1,.v4 header.scene .hero-h1 .hl2{opacity:0;filter:blur(10px);transform:translateY(18px);}
   .v4 header.scene .hero-h1 .hl1{animation:sbHeroIn 1s cubic-bezier(.16,1,.3,1) .15s forwards;}
@@ -397,8 +401,8 @@ export default function HomePage() {
               name. Animation lives in PAGE_CSS under prefers-reduced-motion:no-preference. */}
           <Reveal>
             <h1 className="hero-h1">
-              <span className="hl1">You built your business to</span>{' '}
-              <span className="hl2"><span className="g">Enjoy Life</span><span className="pd">.</span></span>
+              <span className="hl1">You built your business</span>
+              <span className="hl2">to <span className="g">Enjoy Life</span><span className="pd">.</span></span>
             </h1>
           </Reveal>
           {/* THE HERO SUBHEAD IS BACK, REWRITTEN (Jacob, July 23 2026). The old one held the
