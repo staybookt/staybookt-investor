@@ -368,9 +368,15 @@ export default function HomePage() {
           <Reveal>
             <h1>You built your business to enjoy your life.</h1>
           </Reveal>
-          {/* THE HERO SUBHEAD IS GONE (Jacob + Richard, July 23 2026). The headline is the hook;
-              the tactical "we answer your phone…" line just held the reader up from Get Started,
-              and the very next screen shows what we do. Part of the site-wide no-subheadings call. */}
+          {/* THE HERO SUBHEAD IS BACK, REWRITTEN (Jacob, July 23 2026). The old one held the
+              reader up because it restated the headline in three sentences. This one earns its
+              place: it adds the concrete "what we do" the aspirational headline leaves out, in
+              Apple's statement cadence — three parallel beats, each landing on a period, the
+              third flipping the same shape onto the payoff. Headline = the life; subhead = the
+              time that buys it. Do not lengthen it and do not break the "Every ___, ___." form. */}
+          <Reveal>
+            <p className="sub">Every call, answered. Every invoice, chased. Your time, your own.</p>
+          </Reveal>
           <Reveal>
             <div className="cta">
               <a href={START_LINK} className="pill pill-white" style={{ padding: '14px 28px', fontSize: 15 }} data-cta="hero">Get Started</a>
