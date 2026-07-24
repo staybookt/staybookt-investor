@@ -29,12 +29,12 @@ const OFC_ICON: Record<string, string> = {
   review: 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z',
   invoice: 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6 M9 13h6 M9 17h6',
 };
-const OFFICE: { ic: string; t: string; s: string; c: string }[] = [
-  { ic: 'call', t: 'Missed call', s: 'Answered', c: '#06b6d4' },
-  { ic: 'job', t: 'New job', s: 'Booked', c: '#10b981' },
-  { ic: 'quote', t: 'Quote sent', s: 'Followed up', c: '#0ea5e9' },
-  { ic: 'review', t: 'Finished job', s: '5-star review', c: '#7c3aed' },
-  { ic: 'invoice', t: 'Invoice', s: 'Paid', c: '#4f46e5' },
+const OFFICE: { ic: string; t: string; w: string; s: string; c: string }[] = [
+  { ic: 'call', t: 'Missed call', w: 'Ringing', s: 'Answered', c: '#06b6d4' },
+  { ic: 'job', t: 'New job', w: 'Scheduling', s: 'Booked', c: '#10b981' },
+  { ic: 'quote', t: 'Quote sent', w: 'Chasing', s: 'Followed up', c: '#0ea5e9' },
+  { ic: 'review', t: 'Finished job', w: 'Asking', s: '5-star review', c: '#7c3aed' },
+  { ic: 'invoice', t: 'Invoice', w: 'Sending', s: 'Paid', c: '#4f46e5' },
 ];
 
 const LEARN_H = 'First, we learn your business.';
@@ -159,11 +159,19 @@ const CSS = `
 .hiw .ofc-row.f3{--r:-1.3deg;--tx:-16px;--dur:7s;--fd:-2.5s;}
 .hiw .ofc-row.f4{--r:2.6deg;--tx:24px;--dur:6s;--fd:-.7s;}
 .hiw .ofc-row.f5{--r:-2deg;--tx:-20px;--dur:6.6s;--fd:-1.9s;}
-.hiw .ofc-ic{width:38px;height:38px;flex:0 0 auto;border-radius:11px;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 10px 20px -8px rgba(6,12,20,.4);}
+.hiw .ofc-ic{position:relative;width:38px;height:38px;flex:0 0 auto;border-radius:11px;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 10px 20px -8px rgba(6,12,20,.4);}
 .hiw .ofc-ic svg{width:20px;height:20px;}
+/* the ping the icon emits when its task fires, in the task's own colour */
+.hiw .ofc-ic::after{content:'';position:absolute;inset:0;border-radius:inherit;border:2px solid var(--ic,#10b981);opacity:0;}
 .hiw .ofc-t{font-size:15.5px;font-weight:600;color:var(--v4-ink);}
-.hiw .ofc-st{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:#059669;background:rgba(16,185,129,.14);border-radius:999px;padding:6px 11px;white-space:nowrap;}
-.hiw .ofc-st svg{width:13px;height:13px;}
+/* status = two stacked pills that cross-fade on a loop: a "working" state (indigo) flips to
+   "handled" (green), over and over, so you watch each task actually get done. Fixed width so
+   nothing reflows as the labels swap. */
+.hiw .ofc-st{position:relative;margin-left:auto;width:134px;height:28px;flex:0 0 auto;}
+.hiw .ofc-st .st-work,.hiw .ofc-st .st-done{position:absolute;top:0;right:0;display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 11px;border-radius:999px;font-size:12.5px;font-weight:700;white-space:nowrap;}
+.hiw .ofc-st .st-work{color:#4f46e5;background:rgba(79,70,229,.12);opacity:0;}
+.hiw .ofc-st .st-done{color:#059669;background:rgba(16,185,129,.14);opacity:1;}
+.hiw .ofc-st .st-done svg{width:13px;height:13px;}
 @media(max-width:560px){.hiw .ofc-row{--tx:0px !important;}}
 
 @media(prefers-reduced-motion:no-preference){
@@ -172,26 +180,28 @@ const CSS = `
   .hiw .pg-hero .hero-h1 .hl2{animation:hiwHeroIn 1s cubic-bezier(.16,1,.3,1) .8s forwards;}
   .hiw .pg-hero .wrap p.sub{opacity:0;filter:blur(6px);transform:translateY(12px);animation:hiwHeroIn .85s cubic-bezier(.16,1,.3,1) 1.3s forwards;}
   .hiw .hero-office::before{opacity:0;animation:ofcGlow 1.6s ease 1.5s forwards;}
-  /* fade in through focus (opacity + blur only) while already gently floating (transform) — no
-     conflict, so the cards drift the whole time and resolve into the scene. */
+  /* fade in through focus (opacity + blur only) while already gently floating (transform). */
   .hiw .hero-office .ofc-row{opacity:0;filter:blur(12px);animation:ofcIn .9s cubic-bezier(.16,1,.3,1) var(--in,1.6s) forwards,ofcFloat var(--dur) ease-in-out var(--fd) infinite;}
-  .hiw .ofc-row.f1{--in:1.6s;}
-  .hiw .ofc-row.f2{--in:1.78s;}
-  .hiw .ofc-row.f3{--in:1.96s;}
-  .hiw .ofc-row.f4{--in:2.14s;}
-  .hiw .ofc-row.f5{--in:2.32s;}
-  .hiw .hero-office .ofc-st{opacity:0;transform:scale(.5);transform-origin:center;animation:ofcCheck .55s cubic-bezier(.34,1.56,.64,1) forwards;}
-  .hiw .ofc-row.f1 .ofc-st{animation-delay:2.05s;}
-  .hiw .ofc-row.f2 .ofc-st{animation-delay:2.23s;}
-  .hiw .ofc-row.f3 .ofc-st{animation-delay:2.41s;}
-  .hiw .ofc-row.f4 .ofc-st{animation-delay:2.59s;}
-  .hiw .ofc-row.f5 .ofc-st{animation-delay:2.77s;}
+  .hiw .ofc-row.f1{--in:1.6s;--cd:0s;}
+  .hiw .ofc-row.f2{--in:1.78s;--cd:-.9s;}
+  .hiw .ofc-row.f3{--in:1.96s;--cd:-1.8s;}
+  .hiw .ofc-row.f4{--in:2.14s;--cd:-2.7s;}
+  .hiw .ofc-row.f5{--in:2.32s;--cd:-3.6s;}
+  /* the work loop: staggered down the stack (negative --cd) so the office reads as continuously
+     catching and clearing jobs, not a set of switches thrown at once. */
+  .hiw .ofc-st .st-work{animation:stWork 4.5s ease-in-out var(--cd,0s) infinite;}
+  .hiw .ofc-st .st-done{animation:stDone 4.5s ease-in-out var(--cd,0s) infinite;}
+  .hiw .ofc-ic{animation:icPulse 4.5s ease-in-out var(--cd,0s) infinite;}
+  .hiw .ofc-ic::after{animation:icRing 4.5s ease-out var(--cd,0s) infinite;}
 }
 @keyframes hiwHeroIn{to{opacity:1;filter:blur(0);transform:none;}}
 @keyframes ofcIn{to{opacity:1;filter:blur(0);}}
 @keyframes ofcFloat{0%,100%{transform:translateX(var(--tx)) rotate(var(--r)) translateY(0);}50%{transform:translateX(var(--tx)) rotate(var(--r)) translateY(-9px);}}
 @keyframes ofcGlow{to{opacity:.92;}}
-@keyframes ofcCheck{to{opacity:1;transform:scale(1);}}
+@keyframes stWork{0%{opacity:0;transform:translateY(4px);}8%,40%{opacity:1;transform:translateY(0);}50%,100%{opacity:0;transform:translateY(-4px);}}
+@keyframes stDone{0%,44%{opacity:0;transform:translateY(6px);}55%,92%{opacity:1;transform:translateY(0);}100%{opacity:0;transform:translateY(0);}}
+@keyframes icPulse{0%,34%{transform:scale(1);}44%{transform:scale(1.13);}56%,100%{transform:scale(1);}}
+@keyframes icRing{0%,38%{opacity:0;transform:scale(1);}46%{opacity:.55;transform:scale(1);}74%{opacity:0;transform:scale(1.55);}100%{opacity:0;transform:scale(1.55);}}
 
 /* learn */
 .hiw-learn{padding:clamp(80px,11vw,140px) 0;background:var(--v4-cream);}
@@ -673,13 +683,16 @@ export default function HowItWorks() {
           <div className="hero-office" aria-hidden="true">
             {OFFICE.map((o, i) => (
               <div className={`ofc-row f${i + 1}`} key={o.t}>
-                <span className="ofc-ic" style={{ backgroundColor: o.c }}>
+                <span className="ofc-ic" style={{ backgroundColor: o.c, ['--ic' as string]: o.c }}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><path d={OFC_ICON[o.ic]} /></svg>
                 </span>
                 <span className="ofc-t">{o.t}</span>
                 <span className="ofc-st">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
-                  {o.s}
+                  <span className="st-work">{o.w}</span>
+                  <span className="st-done">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+                    {o.s}
+                  </span>
                 </span>
               </div>
             ))}
