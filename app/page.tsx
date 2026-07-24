@@ -95,7 +95,10 @@ const PAGE_CSS = `
    padding here, or restate it if you ever change the vertical. */
 .v4 header.scene .inner{padding:clamp(84px,10vh,116px) clamp(20px,4vw,32px) 0;text-align:center;max-width:1200px;margin:0 auto;}
 .v4 header.scene h1{max-width:none;margin:20px auto 0;font-size:clamp(20px,6.4vw,88px);letter-spacing:-.03em;line-height:1.02;text-align:center;color:var(--v4-ink);}
-.v4 header.scene p.sub{margin:24px auto 0;color:#52565e;max-width:46ch;}
+/* SUBHEAD = ONE LINE, ALWAYS (global rule, Jacob Jul 23 2026). The max-width:46ch was forcing
+   a two-line wrap. No cap, nowrap, and vw-scaled font so the (short) subhead holds one line from
+   desktop down to phone. The rule's real teeth: keep subhead copy short. */
+.v4 header.scene p.sub{margin:22px auto 0;color:#52565e;max-width:none;white-space:nowrap;font-size:clamp(13px,3.1vw,21px);}
 .v4 header.scene .cta{justify-content:center;}
 .ctanote{margin:20px auto 0;max-width:52ch;text-align:center;font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.62);}
 @media(max-width:640px){.ctanote{font-size:13.5px;max-width:36ch;}}
@@ -419,7 +422,7 @@ export default function HomePage() {
               third flipping the same shape onto the payoff. Headline = the life; subhead = the
               time that buys it. Do not lengthen it and do not break the "Every ___, ___." form. */}
           <Reveal>
-            <p className="sub">Every call, answered. Every invoice, chased. Your time, your own.</p>
+            <p className="sub">Every call, answered. Every invoice, chased.</p>
           </Reveal>
           <Reveal>
             <div className="cta">

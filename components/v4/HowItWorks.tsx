@@ -142,40 +142,55 @@ const CSS = `
 .hiw .pg-hero .wrap h1 .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .hiw .pg-hero .wrap h1 .pd{color:var(--v4-violet);-webkit-text-fill-color:var(--v4-violet);}
 .hiw .pg-hero .hero-h1 .hl1,.hiw .pg-hero .hero-h1 .hl2{display:block;white-space:nowrap;}
-.hiw .pg-hero .wrap p.sub{margin:22px auto 0;max-width:42ch;font-size:clamp(16px,1.9vw,20px);line-height:1.5;color:#52565e;text-align:center;}
+/* SUBHEAD = ONE LINE, ALWAYS (global rule). No max-width, nowrap, vw-scaled font. */
+.hiw .pg-hero .wrap p.sub{margin:22px auto 0;max-width:none;white-space:nowrap;font-size:clamp(13px,3.1vw,21px);line-height:1.4;color:#52565e;text-align:center;}
 
 /* THE FRONT OFFICE, RUNNING (Jacob, Jul 23 2026). Replaces the bare gradient line — the graphic
    now supports the headline. Five things the front office handles stream in, each flipping to a
    handled state: a live picture of "the whole front office, off your plate." Illustrative task
    types, no invented numbers. */
-.hiw .hero-office{display:flex;flex-direction:column;gap:10px;max-width:440px;margin:clamp(28px,4vw,46px) auto 0;text-align:left;}
-.hiw .ofc-row{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #ececeb;border-radius:14px;padding:12px 14px;box-shadow:0 16px 34px -22px rgba(6,12,20,.4);}
-.hiw .ofc-ic{width:34px;height:34px;flex:0 0 auto;border-radius:9px;display:flex;align-items:center;justify-content:center;color:#fff;}
-.hiw .ofc-ic svg{width:18px;height:18px;}
-.hiw .ofc-t{font-size:15px;font-weight:600;color:var(--v4-ink);}
-.hiw .ofc-st{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:#059669;background:rgba(16,185,129,.12);border-radius:999px;padding:6px 11px;white-space:nowrap;}
+.hiw .hero-office{position:relative;display:flex;flex-direction:column;gap:14px;max-width:472px;margin:clamp(40px,6vw,70px) auto 0;text-align:left;}
+/* the light bloom the whole scene sits in */
+.hiw .hero-office::before{content:'';position:absolute;inset:-24% -18%;z-index:-1;background:radial-gradient(46% 52% at 50% 44%,rgba(16,185,129,.24),rgba(79,70,229,.18) 46%,transparent 72%);filter:blur(56px);opacity:.92;}
+/* glassy cards, each floating at its own angle/offset/rhythm (--r/--tx/--dur/--fd) */
+.hiw .ofc-row{--r:0deg;--tx:0px;--dur:6s;--fd:0s;display:flex;align-items:center;gap:13px;background:rgba(255,255,255,.9);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.7);border-radius:16px;padding:14px 16px;box-shadow:0 30px 50px -28px rgba(6,12,20,.5),0 8px 18px -12px rgba(6,12,20,.28);transform:translateX(var(--tx)) rotate(var(--r));will-change:transform;}
+.hiw .ofc-row.f1{--r:-2.4deg;--tx:-26px;--dur:6.4s;--fd:0s;}
+.hiw .ofc-row.f2{--r:1.8deg;--tx:22px;--dur:5.6s;--fd:-1.3s;}
+.hiw .ofc-row.f3{--r:-1.3deg;--tx:-16px;--dur:7s;--fd:-2.5s;}
+.hiw .ofc-row.f4{--r:2.6deg;--tx:24px;--dur:6s;--fd:-.7s;}
+.hiw .ofc-row.f5{--r:-2deg;--tx:-20px;--dur:6.6s;--fd:-1.9s;}
+.hiw .ofc-ic{width:38px;height:38px;flex:0 0 auto;border-radius:11px;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 10px 20px -8px rgba(6,12,20,.4);}
+.hiw .ofc-ic svg{width:20px;height:20px;}
+.hiw .ofc-t{font-size:15.5px;font-weight:600;color:var(--v4-ink);}
+.hiw .ofc-st{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:#059669;background:rgba(16,185,129,.14);border-radius:999px;padding:6px 11px;white-space:nowrap;}
 .hiw .ofc-st svg{width:13px;height:13px;}
+@media(max-width:560px){.hiw .ofc-row{--tx:0px !important;}}
 
 @media(prefers-reduced-motion:no-preference){
   .hiw .pg-hero .hero-h1 .hl1,.hiw .pg-hero .hero-h1 .hl2{opacity:0;filter:blur(10px);transform:translateY(18px);}
   .hiw .pg-hero .hero-h1 .hl1{animation:hiwHeroIn .9s cubic-bezier(.16,1,.3,1) .15s forwards;}
   .hiw .pg-hero .hero-h1 .hl2{animation:hiwHeroIn 1s cubic-bezier(.16,1,.3,1) .8s forwards;}
   .hiw .pg-hero .wrap p.sub{opacity:0;filter:blur(6px);transform:translateY(12px);animation:hiwHeroIn .85s cubic-bezier(.16,1,.3,1) 1.3s forwards;}
-  .hiw .hero-office .ofc-row{opacity:0;transform:translateY(20px);animation:ofcIn .7s cubic-bezier(.16,1,.3,1) forwards;}
-  .hiw .hero-office .ofc-row:nth-child(1){animation-delay:1.55s;}
-  .hiw .hero-office .ofc-row:nth-child(2){animation-delay:1.75s;}
-  .hiw .hero-office .ofc-row:nth-child(3){animation-delay:1.95s;}
-  .hiw .hero-office .ofc-row:nth-child(4){animation-delay:2.15s;}
-  .hiw .hero-office .ofc-row:nth-child(5){animation-delay:2.35s;}
-  .hiw .hero-office .ofc-st{opacity:0;transform:scale(.6);transform-origin:center;animation:ofcCheck .5s cubic-bezier(.16,1,.3,1) forwards;}
-  .hiw .hero-office .ofc-row:nth-child(1) .ofc-st{animation-delay:2s;}
-  .hiw .hero-office .ofc-row:nth-child(2) .ofc-st{animation-delay:2.2s;}
-  .hiw .hero-office .ofc-row:nth-child(3) .ofc-st{animation-delay:2.4s;}
-  .hiw .hero-office .ofc-row:nth-child(4) .ofc-st{animation-delay:2.6s;}
-  .hiw .hero-office .ofc-row:nth-child(5) .ofc-st{animation-delay:2.8s;}
+  .hiw .hero-office::before{opacity:0;animation:ofcGlow 1.6s ease 1.5s forwards;}
+  /* fade in through focus (opacity + blur only) while already gently floating (transform) — no
+     conflict, so the cards drift the whole time and resolve into the scene. */
+  .hiw .hero-office .ofc-row{opacity:0;filter:blur(12px);animation:ofcIn .9s cubic-bezier(.16,1,.3,1) var(--in,1.6s) forwards,ofcFloat var(--dur) ease-in-out var(--fd) infinite;}
+  .hiw .ofc-row.f1{--in:1.6s;}
+  .hiw .ofc-row.f2{--in:1.78s;}
+  .hiw .ofc-row.f3{--in:1.96s;}
+  .hiw .ofc-row.f4{--in:2.14s;}
+  .hiw .ofc-row.f5{--in:2.32s;}
+  .hiw .hero-office .ofc-st{opacity:0;transform:scale(.5);transform-origin:center;animation:ofcCheck .55s cubic-bezier(.34,1.56,.64,1) forwards;}
+  .hiw .ofc-row.f1 .ofc-st{animation-delay:2.05s;}
+  .hiw .ofc-row.f2 .ofc-st{animation-delay:2.23s;}
+  .hiw .ofc-row.f3 .ofc-st{animation-delay:2.41s;}
+  .hiw .ofc-row.f4 .ofc-st{animation-delay:2.59s;}
+  .hiw .ofc-row.f5 .ofc-st{animation-delay:2.77s;}
 }
 @keyframes hiwHeroIn{to{opacity:1;filter:blur(0);transform:none;}}
-@keyframes ofcIn{to{opacity:1;transform:none;}}
+@keyframes ofcIn{to{opacity:1;filter:blur(0);}}
+@keyframes ofcFloat{0%,100%{transform:translateX(var(--tx)) rotate(var(--r)) translateY(0);}50%{transform:translateX(var(--tx)) rotate(var(--r)) translateY(-9px);}}
+@keyframes ofcGlow{to{opacity:.92;}}
 @keyframes ofcCheck{to{opacity:1;transform:scale(1);}}
 
 /* learn */
@@ -654,10 +669,10 @@ export default function HowItWorks() {
             <span className="hl1">{HERO_H_A}</span>
             <span className="hl2"><span className="g">{HERO_H_B}</span><span className="pd">.</span></span>
           </h1>
-          <p className="sub">Every call, answered. Every job, booked. Every quote, chased.</p>
+          <p className="sub">Every call, answered. Every job, booked.</p>
           <div className="hero-office" aria-hidden="true">
-            {OFFICE.map((o) => (
-              <div className="ofc-row" key={o.t}>
+            {OFFICE.map((o, i) => (
+              <div className={`ofc-row f${i + 1}`} key={o.t}>
                 <span className="ofc-ic" style={{ backgroundColor: o.c }}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><path d={OFC_ICON[o.ic]} /></svg>
                 </span>
