@@ -21,7 +21,6 @@ import { START_LINK, EMAIL, PHONE_DISPLAY, PHONE_HREF } from '@/lib/site';
  * The work and Contact are footer-only, so they sit after the four the nav carries. */
 const SITE = [
   { href: '/how-it-works', label: 'How it works' },
-  { href: '/whats-included', label: "What's included" },
   { href: '/pricing', label: 'Pricing' },
   { href: '/long-term', label: 'Long-term value' },
   { href: '/work', label: 'The work' },

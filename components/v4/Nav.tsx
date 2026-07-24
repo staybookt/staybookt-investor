@@ -23,7 +23,9 @@ import { START_LINK } from '@/lib/site';
  * "Go deeper" grid is deliberately NOT a mirror any more, it is a curated four. */
 const LINKS = [
   { href: '/how-it-works', label: 'How it works' },
-  { href: '/whats-included', label: "What's included" },
+  /* "What's included" MERGED INTO Pricing (Jacob + Richard, Jul 23 2026). The chart page was
+     the stronger of the two, so it IS the pricing page now; /whats-included 308s to /pricing.
+     Five nav items. */
   { href: '/pricing', label: 'Pricing' },
   /* WAS 'Enjoy Life'. Richard: "Enjoy Life has a different connotation than I think the page
      is doing so it feels clunky... I would focus on long-term value as a stand alone." The

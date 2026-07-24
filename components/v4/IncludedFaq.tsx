@@ -98,6 +98,45 @@ const QS: Q[] = [
     q: 'Do you promise me a number of leads?',
     a: 'No, and anyone who does is guessing. What we promise is that nothing that comes in gets dropped, and that you see the real numbers every month.',
   },
+  /* THE MONEY + CATCH QUESTIONS, BLENDED IN (Jacob + Richard, Jul 23 2026). What's-Included and
+     Pricing merged into one page, so their two FAQ sets become one. These moved over from the
+     old PricingFaq; that component is no longer rendered. */
+  {
+    k: 'The money',
+    c: '#4f46e5',
+    q: 'Is there a contract?',
+    a: 'No. There is no term and nothing to be trapped in. Cancel any time on thirty days notice, with no penalty and no exit fee. We build your website before you have paid us a dollar, so the risk of this sits with us, which is where it belongs. We have to earn the next month, and the one after that, forever.',
+  },
+  {
+    k: 'The money',
+    c: '#4f46e5',
+    q: 'What if I want out in month seven?',
+    a: 'Then you are out in month seven. Thirty days notice, no penalty, no exit fee, no argument. And you do not leave empty-handed: the website, the domain, your Google Business Profile, your customer list and your reviews all go with you.',
+  },
+  {
+    k: 'The money',
+    c: '#4f46e5',
+    q: 'What if it just does not work?',
+    a: 'For the first ninety days you can change your mind for any reason at all, and we refund every month you paid. You do not have to prove we failed and we do not get to decide whether your reason is good enough. You email us and say so. The website is yours either way.',
+  },
+  {
+    k: 'The money',
+    c: '#4f46e5',
+    q: 'Is there a limit on calls and texts?',
+    a: 'No. Unlimited calls and texts, with no per-minute billing and no overage charges, however busy the season gets. Every answering service on earth bills you by the minute. Charging you more in your busiest month is a strange way to say we are on your side.',
+  },
+  {
+    k: 'The money',
+    c: '#4f46e5',
+    q: 'Is $199 really the whole number?',
+    a: 'Almost. It is $199 CAD a month plus applicable taxes, and two things sit outside that. Your domain registration, about twenty dollars a year, passed through at cost and yours anyway. And if you take card payments, Stripe or Square charge their own fee, in the region of 2.9% plus thirty cents, which comes out of what you collect exactly as it would with any card processing. That fee is theirs, not ours: we do not mark it up and we take no cut of it. There is no build fee, no setup fee, no menu of add-ons, no per-minute billing and no overage. And there is no back end: no commission on your jobs, no share of your revenue, and no share of what the business is worth if you ever sell it. We would rather tell you about twenty dollars and a card fee now than let you find them on an invoice later.',
+  },
+  {
+    k: 'The catch',
+    c: '#7c3aed',
+    q: 'So where is the catch?',
+    a: 'There is not one. We are two people rather than a hundred, so we are not paying for a sales team, an office or an ad budget. We build everything before you pay us, we grow slowly on purpose, and twenty clients we actually run properly beats a thousand we do not. If we ever start behaving like the agency that burned you, you can leave in thirty days and take everything with you.',
+  },
 ];
 
 export default function IncludedFaq() {

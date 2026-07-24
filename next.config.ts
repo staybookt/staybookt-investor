@@ -17,6 +17,10 @@ const GHOSTS: { source: string; destination: string }[] = [
   { source: '/why-a-website', destination: '/how-it-works' },
   { source: '/is-this-for-me', destination: '/how-it-works' },
   { source: '/economics', destination: '/pricing' },
+  // /whats-included MERGED INTO /pricing (Jacob + Richard, Jul 23 2026). The chart page was
+  // the stronger of the two pricing-ish pages, so it became /pricing. Permanent so Google
+  // drops /whats-included and passes its equity to the merged page.
+  { source: '/whats-included', destination: '/pricing' },
   // /long-term IS A REAL PAGE (Richard, review round 2, July 2026). It was a ghost, then the
   // same argument shipped at /enjoy-life, and Richard called that "the weakest part of the
   // site" because the title promised a feeling while the page argued economics. It is back at

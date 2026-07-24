@@ -43,7 +43,7 @@ const QS: Q[] = [
     k: 'What is yours', c: '#34d399',
     q: 'What do I own if we ever part ways?',
     a: 'All of it. The website is yours, your domain is in your name, your Google profile login is yours, and your customer list and reviews go with you. If we vanish tomorrow, you keep all of it.',
-    more: { href: '/whats-included', label: 'See what is included' },
+    more: { href: '/pricing', label: 'See what is included' },
   },
   {
     k: 'The service', c: '#38bdf8',

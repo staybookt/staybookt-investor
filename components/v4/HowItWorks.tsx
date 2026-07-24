@@ -678,16 +678,14 @@ export default function HowItWorks() {
                 Questions, <span className="g">answered.</span>
               </h2>
               <p className="fa-p">
-                How the thing actually runs, in plain English. The money questions live on the{' '}
-                <a href="/pricing">pricing page</a>, and what you own lives on{' '}
-                <a href="/whats-included">what&rsquo;s included</a>. Every page answers one thing.
+                How the thing actually runs, in plain English. What it costs, what you own, and
+                what we do not do all live on the <a href="/pricing">pricing page</a>.
               </p>
               <a className="fa-cta" href={START_LINK} data-cta="faq_how_it_works">
                 Ask a founder directly <span aria-hidden>&rarr;</span>
               </a>
               <div className="fa-links">
                 <a href="/pricing">See the pricing</a>
-                <a href="/whats-included">See everything that is included</a>
               </div>
             </div>
 
