@@ -93,7 +93,7 @@ const PAGE_CSS = `
    headline, the ICP badge and the sub-copy all ran flush to both edges.
    Nobody caught it because nobody had opened this site at phone width. Keep the horizontal
    padding here, or restate it if you ever change the vertical. */
-.v4 header.scene .inner{padding:15vh clamp(20px,4vw,32px) 0;text-align:center;max-width:940px;margin:0 auto;}
+.v4 header.scene .inner{padding:clamp(84px,10vh,116px) clamp(20px,4vw,32px) 0;text-align:center;max-width:1200px;margin:0 auto;}
 .v4 header.scene h1{max-width:none;margin:20px auto 0;font-size:clamp(20px,6.4vw,88px);letter-spacing:-.03em;line-height:1.02;text-align:center;color:var(--v4-ink);}
 .v4 header.scene p.sub{margin:24px auto 0;color:#52565e;max-width:46ch;}
 .v4 header.scene .cta{justify-content:center;}
@@ -132,15 +132,15 @@ const PAGE_CSS = `
    captions. Six frames drawn from three approved, self-hosted shots (repeated, no adjacent
    dupes); swap in more real photos and the roll de-dupes. --rot per frame is the tilt, kept
    through the entrance animation below. */
-.v4 header.scene .hero-roll{display:flex;justify-content:center;align-items:flex-start;flex-wrap:nowrap;margin:clamp(34px,5vw,64px) auto 0;max-width:1120px;padding:0 clamp(8px,2vw,24px);}
-.v4 header.scene .hero-roll .pol{--rot:0deg;flex:0 0 auto;background:#fff;padding:10px 10px 28px;border-radius:4px;
-  box-shadow:0 26px 52px -22px rgba(6,12,20,.42),0 4px 10px -6px rgba(6,12,20,.2);width:clamp(132px,15vw,200px);transform:rotate(var(--rot));}
+.v4 header.scene .hero-roll{display:flex;justify-content:center;align-items:flex-start;flex-wrap:nowrap;margin:clamp(16px,2.6vw,36px) auto 0;max-width:1120px;padding:0 clamp(8px,2vw,24px);}
+.v4 header.scene .hero-roll .pol{--rot:0deg;flex:0 0 auto;background:#fff;padding:8px 8px 22px;border-radius:4px;
+  box-shadow:0 26px 52px -22px rgba(6,12,20,.42),0 4px 10px -6px rgba(6,12,20,.2);width:min(clamp(104px,12vw,168px),21vh);transform:rotate(var(--rot));}
 .v4 header.scene .hero-roll .pol img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:2px;}
-.v4 header.scene .hero-roll .p1{--rot:-9deg;margin-top:44px;margin-right:-30px;z-index:1;}
-.v4 header.scene .hero-roll .p2{--rot:5deg;margin-top:8px;margin-right:-30px;z-index:3;}
-.v4 header.scene .hero-roll .p3{--rot:-3deg;margin-top:54px;margin-right:-30px;z-index:2;}
-.v4 header.scene .hero-roll .p4{--rot:7deg;margin-top:14px;margin-right:-30px;z-index:4;}
-.v4 header.scene .hero-roll .p5{--rot:-6deg;margin-top:48px;margin-right:-30px;z-index:2;}
+.v4 header.scene .hero-roll .p1{--rot:-9deg;margin-top:26px;margin-right:-26px;z-index:1;}
+.v4 header.scene .hero-roll .p2{--rot:5deg;margin-top:6px;margin-right:-26px;z-index:3;}
+.v4 header.scene .hero-roll .p3{--rot:-3deg;margin-top:32px;margin-right:-26px;z-index:2;}
+.v4 header.scene .hero-roll .p4{--rot:7deg;margin-top:10px;margin-right:-26px;z-index:4;}
+.v4 header.scene .hero-roll .p5{--rot:-6deg;margin-top:28px;margin-right:-26px;z-index:2;}
 .v4 header.scene .hero-roll .p6{--rot:4deg;margin-top:4px;z-index:5;}
 @media(max-width:760px){
   .v4 header.scene .hero-roll{max-width:100%;}
@@ -159,27 +159,34 @@ const PAGE_CSS = `
    blur, then "Enjoy Life" lands on its own a beat later; the subhead and pill follow; the
    polaroids rise in, staggered, last. Only under no-preference — reduced motion gets the final
    state instantly (the from-states live inside the media query, so no-JS/no-motion is visible). */
-/* Two clean lines on every width (Jul 23 2026): line 1 "You built your business", line 2
-   "to Enjoy Life." Each half is its own block and never wraps, so the orphan "to" that made
-   it three lines is gone. Size is vw-driven with a low floor so line 1 still fits one line
-   down to ~320px phones; caps at 88px on desktop. */
+/* Line 1 "You built your business to", line 2 "Enjoy Life." alone (Jacob, Jul 23 2026). Each
+   half is its own non-wrapping block. Container is wide enough (max-width 1200) that line 1
+   holds at the 88px cap; vw sizing shrinks it to fit down to ~320px. */
 .v4 header.scene .hero-h1 .hl1,.v4 header.scene .hero-h1 .hl2{display:block;white-space:nowrap;}
+.v4 header.scene .hero-h1 .hl2{position:relative;}
+/* CINEMATIC ENTRANCE (Jacob, Jul 23 2026 — "WAY more dramatic"). hl1 rises in; then "Enjoy Life."
+   makes a focus-pull entrance: it scales down from 1.35 as a heavy blur clears, with a soft light
+   bloom behind it. Sub, CTA, then the polaroids cascade in, staggered, last. Reduced motion gets
+   the end state. overflow-x:clip contains the bloom so it never spawns a scrollbar. */
+.v4 header.scene{overflow-x:clip;}
 @media(prefers-reduced-motion:no-preference){
-  .v4 header.scene .hero-h1 .hl1,.v4 header.scene .hero-h1 .hl2{opacity:0;filter:blur(10px);transform:translateY(18px);}
-  .v4 header.scene .hero-h1 .hl1{animation:sbHeroIn 1s cubic-bezier(.16,1,.3,1) .15s forwards;}
-  .v4 header.scene .hero-h1 .hl2{animation:sbHeroIn 1.1s cubic-bezier(.16,1,.3,1) .85s forwards;}
-  .v4 header.scene p.sub{opacity:0;filter:blur(6px);transform:translateY(12px);animation:sbHeroIn .9s cubic-bezier(.16,1,.3,1) 1.4s forwards;}
-  .v4 header.scene .cta{opacity:0;transform:translateY(12px);animation:sbHeroIn .9s cubic-bezier(.16,1,.3,1) 1.6s forwards;}
-  .v4 header.scene .hero-roll .pol{opacity:0;transform:translateY(34px) rotate(var(--rot));animation:sbPolIn 1s cubic-bezier(.16,1,.3,1) forwards;}
-  .v4 header.scene .hero-roll .p1{animation-delay:1.8s;}
-  .v4 header.scene .hero-roll .p2{animation-delay:1.9s;}
-  .v4 header.scene .hero-roll .p3{animation-delay:2s;}
-  .v4 header.scene .hero-roll .p4{animation-delay:2.1s;}
-  .v4 header.scene .hero-roll .p5{animation-delay:2.2s;}
-  .v4 header.scene .hero-roll .p6{animation-delay:2.3s;}
+  .v4 header.scene .hero-h1 .hl1{opacity:0;filter:blur(10px);transform:translateY(20px);animation:sbHeroIn .9s cubic-bezier(.16,1,.3,1) .2s forwards;}
+  .v4 header.scene .hero-h1 .hl2{opacity:0;filter:blur(32px);transform:translateY(16px) scale(1.35);transform-origin:center;animation:sbEnjoyIn 1.5s cubic-bezier(.19,1,.22,1) 1s forwards;}
+  .v4 header.scene .hero-h1 .hl2::before{content:'';position:absolute;inset:-34% -10%;z-index:-1;background:radial-gradient(56% 62% at 50% 54%,rgba(16,185,129,.32),rgba(79,70,229,.2) 46%,transparent 72%);filter:blur(36px);opacity:0;transform:scale(.7);animation:sbGlow 2s ease 1.05s forwards;}
+  .v4 header.scene p.sub{opacity:0;filter:blur(6px);transform:translateY(12px);animation:sbHeroIn .9s cubic-bezier(.16,1,.3,1) 1.7s forwards;}
+  .v4 header.scene .cta{opacity:0;transform:translateY(12px);animation:sbHeroIn .9s cubic-bezier(.16,1,.3,1) 1.95s forwards;}
+  .v4 header.scene .hero-roll .pol{opacity:0;transform:translateY(56px) scale(.86) rotate(var(--rot));animation:sbPolIn .9s cubic-bezier(.19,1,.22,1) forwards;}
+  .v4 header.scene .hero-roll .p1{animation-delay:2.15s;}
+  .v4 header.scene .hero-roll .p2{animation-delay:2.25s;}
+  .v4 header.scene .hero-roll .p3{animation-delay:2.35s;}
+  .v4 header.scene .hero-roll .p4{animation-delay:2.45s;}
+  .v4 header.scene .hero-roll .p5{animation-delay:2.55s;}
+  .v4 header.scene .hero-roll .p6{animation-delay:2.65s;}
 }
 @keyframes sbHeroIn{to{opacity:1;filter:blur(0);transform:none;}}
-@keyframes sbPolIn{to{opacity:1;transform:translateY(0) rotate(var(--rot));}}
+@keyframes sbEnjoyIn{0%{opacity:0;filter:blur(32px);transform:translateY(16px) scale(1.35);}55%{opacity:1;}100%{opacity:1;filter:blur(0);transform:translateY(0) scale(1);}}
+@keyframes sbGlow{0%{opacity:0;transform:scale(.7);}50%{opacity:.95;}100%{opacity:.62;transform:scale(1);}}
+@keyframes sbPolIn{to{opacity:1;transform:translateY(0) scale(1) rotate(var(--rot));}}
 .v4 .kicker{font-size:14px;font-weight:600;letter-spacing:.02em;margin-bottom:14px;background:linear-gradient(90deg,#0ea5e9,#06b6d4 34%,#14b8a6 66%,#10b981);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .v4 .sbwrap,.v4 .sb-clook{--grad:linear-gradient(90deg,#0ea5e9,#06b6d4 34%,#14b8a6 66%,#10b981);}
 .v4 .sb-clook{background:#fff;padding:clamp(80px,10vw,120px) 0;}
@@ -401,8 +408,8 @@ export default function HomePage() {
               name. Animation lives in PAGE_CSS under prefers-reduced-motion:no-preference. */}
           <Reveal>
             <h1 className="hero-h1">
-              <span className="hl1">You built your business</span>
-              <span className="hl2">to <span className="g">Enjoy Life</span><span className="pd">.</span></span>
+              <span className="hl1">You built your business to</span>
+              <span className="hl2"><span className="g">Enjoy Life</span><span className="pd">.</span></span>
             </h1>
           </Reveal>
           {/* THE HERO SUBHEAD IS BACK, REWRITTEN (Jacob, July 23 2026). The old one held the
