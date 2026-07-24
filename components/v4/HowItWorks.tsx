@@ -20,6 +20,23 @@ import { track } from '@/lib/analytics';
 const HERO_H_A = 'The whole front office,';
 const HERO_H_B = 'off your plate';
 
+/* The hero graphic: the front office running. Each row is a thing the front office handles,
+   flipping to a handled state. Illustrative task types only, no invented numbers. */
+const OFC_ICON: Record<string, string> = {
+  call: 'M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z',
+  job: 'M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z',
+  quote: 'M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z',
+  review: 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z',
+  invoice: 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6 M9 13h6 M9 17h6',
+};
+const OFFICE: { ic: string; t: string; s: string; c: string }[] = [
+  { ic: 'call', t: 'Missed call', s: 'Answered', c: '#06b6d4' },
+  { ic: 'job', t: 'New job', s: 'Booked', c: '#10b981' },
+  { ic: 'quote', t: 'Quote sent', s: 'Followed up', c: '#0ea5e9' },
+  { ic: 'review', t: 'Finished job', s: '5-star review', c: '#7c3aed' },
+  { ic: 'invoice', t: 'Invoice', s: 'Paid', c: '#4f46e5' },
+];
+
 const LEARN_H = 'First, we learn your business.';
 const LEARN_P = 'We learn how you actually work: what you charge, which jobs you take, where you go, and how you talk to a customer. That becomes the playbook everything runs on, so when we answer, it sounds like you, not a call center.';
 
@@ -114,10 +131,10 @@ const CSS = `
 .pg-hero{--hero-hue:6,182,212;}
 
 /* LIGHT HERO — match the homepage (Jul 23 2026). The shared .pg-hero is dark; here we flip it
-   to the cream light hero with the two-stage animated headline and a gradient path that draws
-   itself. .hiw .pg-hero (0,2,0) beats the global .pg-hero (0,1,0). The page's Nav is solidTop
-   now, since a transparent nav would vanish on the light surface. */
-.hiw .pg-hero{background:var(--v4-cream);color:var(--v4-ink);min-height:auto;padding:clamp(118px,15vh,178px) 0 clamp(46px,7vw,84px);text-align:center;}
+   to the cream light hero: gradient-border eyebrow pill, two-stage animated headline, a subhead,
+   and a supporting graphic — the front office running and getting handled, which is exactly what
+   the headline promises. .hiw .pg-hero (0,2,0) beats the global .pg-hero (0,1,0). Nav is solidTop. */
+.hiw .pg-hero{background:var(--v4-cream);color:var(--v4-ink);min-height:auto;padding:clamp(102px,13vh,150px) 0 clamp(46px,7vw,84px);text-align:center;}
 .hiw .pg-hero::before{display:none;}
 .hiw .pg-hero .wrap{max-width:1120px;}
 .hiw .pg-hero .wrap .eyebrow{display:inline-block;color:#42474f;border:1.5px solid transparent;background:linear-gradient(#fff,#fff) padding-box,var(--sb-grad) border-box;border-radius:999px;padding:9px 18px;box-shadow:0 6px 18px -10px rgba(6,12,20,.25);}
@@ -125,29 +142,41 @@ const CSS = `
 .hiw .pg-hero .wrap h1 .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .hiw .pg-hero .wrap h1 .pd{color:var(--v4-violet);-webkit-text-fill-color:var(--v4-violet);}
 .hiw .pg-hero .hero-h1 .hl1,.hiw .pg-hero .hero-h1 .hl2{display:block;white-space:nowrap;}
+.hiw .pg-hero .wrap p.sub{margin:22px auto 0;max-width:42ch;font-size:clamp(16px,1.9vw,20px);line-height:1.5;color:#52565e;text-align:center;}
 
-/* the gradient trail that draws itself, previewing Get found -> StayBookt -> Enjoy life */
-.hiw .hero-trail{margin:clamp(30px,5vw,54px) auto 0;max-width:min(640px,86vw);}
-.hiw .hero-trail svg{width:100%;height:auto;display:block;overflow:visible;}
-.hiw .hero-trail .ht-line{stroke-dasharray:760;stroke-dashoffset:0;}
-.hiw .hero-trail .ht-dot{stroke:#fff;stroke-width:3;}
-.hiw .hero-trail .ht-dot.d1{fill:#06b6d4;}
-.hiw .hero-trail .ht-dot.d2{fill:#10b981;}
-.hiw .hero-trail .ht-dot.d3{fill:#7c3aed;}
+/* THE FRONT OFFICE, RUNNING (Jacob, Jul 23 2026). Replaces the bare gradient line — the graphic
+   now supports the headline. Five things the front office handles stream in, each flipping to a
+   handled state: a live picture of "the whole front office, off your plate." Illustrative task
+   types, no invented numbers. */
+.hiw .hero-office{display:flex;flex-direction:column;gap:10px;max-width:440px;margin:clamp(28px,4vw,46px) auto 0;text-align:left;}
+.hiw .ofc-row{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #ececeb;border-radius:14px;padding:12px 14px;box-shadow:0 16px 34px -22px rgba(6,12,20,.4);}
+.hiw .ofc-ic{width:34px;height:34px;flex:0 0 auto;border-radius:9px;display:flex;align-items:center;justify-content:center;color:#fff;}
+.hiw .ofc-ic svg{width:18px;height:18px;}
+.hiw .ofc-t{font-size:15px;font-weight:600;color:var(--v4-ink);}
+.hiw .ofc-st{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:#059669;background:rgba(16,185,129,.12);border-radius:999px;padding:6px 11px;white-space:nowrap;}
+.hiw .ofc-st svg{width:13px;height:13px;}
 
 @media(prefers-reduced-motion:no-preference){
   .hiw .pg-hero .hero-h1 .hl1,.hiw .pg-hero .hero-h1 .hl2{opacity:0;filter:blur(10px);transform:translateY(18px);}
-  .hiw .pg-hero .hero-h1 .hl1{animation:hiwHeroIn 1s cubic-bezier(.16,1,.3,1) .15s forwards;}
-  .hiw .pg-hero .hero-h1 .hl2{animation:hiwHeroIn 1.1s cubic-bezier(.16,1,.3,1) .85s forwards;}
-  .hiw .hero-trail .ht-line{stroke-dashoffset:760;animation:htDraw 1.6s cubic-bezier(.16,1,.3,1) 1s forwards;}
-  .hiw .hero-trail .ht-dot{opacity:0;transform:scale(.4);transform-box:fill-box;transform-origin:center;animation:htPop .5s cubic-bezier(.16,1,.3,1) forwards;}
-  .hiw .hero-trail .ht-dot.d1{animation-delay:1.05s;}
-  .hiw .hero-trail .ht-dot.d2{animation-delay:1.65s;}
-  .hiw .hero-trail .ht-dot.d3{animation-delay:2.25s;}
+  .hiw .pg-hero .hero-h1 .hl1{animation:hiwHeroIn .9s cubic-bezier(.16,1,.3,1) .15s forwards;}
+  .hiw .pg-hero .hero-h1 .hl2{animation:hiwHeroIn 1s cubic-bezier(.16,1,.3,1) .8s forwards;}
+  .hiw .pg-hero .wrap p.sub{opacity:0;filter:blur(6px);transform:translateY(12px);animation:hiwHeroIn .85s cubic-bezier(.16,1,.3,1) 1.3s forwards;}
+  .hiw .hero-office .ofc-row{opacity:0;transform:translateY(20px);animation:ofcIn .7s cubic-bezier(.16,1,.3,1) forwards;}
+  .hiw .hero-office .ofc-row:nth-child(1){animation-delay:1.55s;}
+  .hiw .hero-office .ofc-row:nth-child(2){animation-delay:1.75s;}
+  .hiw .hero-office .ofc-row:nth-child(3){animation-delay:1.95s;}
+  .hiw .hero-office .ofc-row:nth-child(4){animation-delay:2.15s;}
+  .hiw .hero-office .ofc-row:nth-child(5){animation-delay:2.35s;}
+  .hiw .hero-office .ofc-st{opacity:0;transform:scale(.6);transform-origin:center;animation:ofcCheck .5s cubic-bezier(.16,1,.3,1) forwards;}
+  .hiw .hero-office .ofc-row:nth-child(1) .ofc-st{animation-delay:2s;}
+  .hiw .hero-office .ofc-row:nth-child(2) .ofc-st{animation-delay:2.2s;}
+  .hiw .hero-office .ofc-row:nth-child(3) .ofc-st{animation-delay:2.4s;}
+  .hiw .hero-office .ofc-row:nth-child(4) .ofc-st{animation-delay:2.6s;}
+  .hiw .hero-office .ofc-row:nth-child(5) .ofc-st{animation-delay:2.8s;}
 }
 @keyframes hiwHeroIn{to{opacity:1;filter:blur(0);transform:none;}}
-@keyframes htDraw{to{stroke-dashoffset:0;}}
-@keyframes htPop{to{opacity:1;transform:scale(1);}}
+@keyframes ofcIn{to{opacity:1;transform:none;}}
+@keyframes ofcCheck{to{opacity:1;transform:scale(1);}}
 
 /* learn */
 .hiw-learn{padding:clamp(80px,11vw,140px) 0;background:var(--v4-cream);}
@@ -625,20 +654,20 @@ export default function HowItWorks() {
             <span className="hl1">{HERO_H_A}</span>
             <span className="hl2"><span className="g">{HERO_H_B}</span><span className="pd">.</span></span>
           </h1>
-          <div className="hero-trail" aria-hidden="true">
-            <svg viewBox="0 0 640 120" fill="none" preserveAspectRatio="xMidYMid meet">
-              <defs>
-                <linearGradient id="hiwHeroGrad" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0" stopColor="#06b6d4" />
-                  <stop offset="0.52" stopColor="#10b981" />
-                  <stop offset="1" stopColor="#7c3aed" />
-                </linearGradient>
-              </defs>
-              <path className="ht-line" d="M20 96 C 150 96, 210 66, 320 62 S 500 44, 620 22" stroke="url(#hiwHeroGrad)" strokeWidth="3.5" strokeLinecap="round" />
-              <circle className="ht-dot d1" cx="20" cy="96" r="7" />
-              <circle className="ht-dot d2" cx="320" cy="62" r="7" />
-              <circle className="ht-dot d3" cx="620" cy="22" r="8.5" />
-            </svg>
+          <p className="sub">Every call, answered. Every job, booked. Every quote, chased.</p>
+          <div className="hero-office" aria-hidden="true">
+            {OFFICE.map((o) => (
+              <div className="ofc-row" key={o.t}>
+                <span className="ofc-ic" style={{ backgroundColor: o.c }}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><path d={OFC_ICON[o.ic]} /></svg>
+                </span>
+                <span className="ofc-t">{o.t}</span>
+                <span className="ofc-st">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+                  {o.s}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </header>
