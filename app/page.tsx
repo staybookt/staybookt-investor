@@ -128,21 +128,54 @@ const PAGE_CSS = `
   box-shadow:0 6px 18px -10px rgba(6,12,20,.25);}
 
 /* THE POLAROID CAMERA ROLL. Real photos of the life the business buys, framed as polaroids and
-   scattered like a camera roll on the surface under the copy. No captions — the pictures carry
-   it. Three approved, self-hosted lifestyle shots to start; the roll grows as more come in. */
-.v4 header.scene .hero-roll{display:flex;justify-content:center;align-items:flex-start;flex-wrap:nowrap;margin:clamp(30px,4.5vw,54px) auto 0;padding:0 clamp(8px,2vw,20px);}
-.v4 header.scene .hero-roll .pol{flex:0 0 auto;background:#fff;padding:11px 11px 30px;border-radius:4px;
-  box-shadow:0 26px 50px -22px rgba(6,12,20,.42),0 4px 10px -6px rgba(6,12,20,.2);width:clamp(128px,19vw,220px);}
+   scattered like a camera roll to FILL the space under the copy (Jacob: bigger cluster). No
+   captions. Six frames drawn from three approved, self-hosted shots (repeated, no adjacent
+   dupes); swap in more real photos and the roll de-dupes. --rot per frame is the tilt, kept
+   through the entrance animation below. */
+.v4 header.scene .hero-roll{display:flex;justify-content:center;align-items:flex-start;flex-wrap:nowrap;margin:clamp(34px,5vw,64px) auto 0;max-width:1120px;padding:0 clamp(8px,2vw,24px);}
+.v4 header.scene .hero-roll .pol{--rot:0deg;flex:0 0 auto;background:#fff;padding:10px 10px 28px;border-radius:4px;
+  box-shadow:0 26px 52px -22px rgba(6,12,20,.42),0 4px 10px -6px rgba(6,12,20,.2);width:clamp(132px,15vw,200px);transform:rotate(var(--rot));}
 .v4 header.scene .hero-roll .pol img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:2px;}
-.v4 header.scene .hero-roll .p1{transform:rotate(-7deg);margin-top:20px;margin-right:-24px;z-index:1;}
-.v4 header.scene .hero-roll .p2{transform:rotate(3deg);margin-right:-24px;z-index:3;}
-.v4 header.scene .hero-roll .p3{transform:rotate(-3deg);margin-top:28px;z-index:2;}
-@media(max-width:560px){
-  .v4 header.scene .hero-roll .pol{width:36vw;padding:8px 8px 22px;}
-  .v4 header.scene .hero-roll .p1{margin-top:14px;margin-right:-18px;}
-  .v4 header.scene .hero-roll .p2{margin-right:-18px;}
-  .v4 header.scene .hero-roll .p3{margin-top:20px;}
+.v4 header.scene .hero-roll .p1{--rot:-9deg;margin-top:44px;margin-right:-30px;z-index:1;}
+.v4 header.scene .hero-roll .p2{--rot:5deg;margin-top:8px;margin-right:-30px;z-index:3;}
+.v4 header.scene .hero-roll .p3{--rot:-3deg;margin-top:54px;margin-right:-30px;z-index:2;}
+.v4 header.scene .hero-roll .p4{--rot:7deg;margin-top:14px;margin-right:-30px;z-index:4;}
+.v4 header.scene .hero-roll .p5{--rot:-6deg;margin-top:48px;margin-right:-30px;z-index:2;}
+.v4 header.scene .hero-roll .p6{--rot:4deg;margin-top:4px;z-index:5;}
+@media(max-width:760px){
+  .v4 header.scene .hero-roll{max-width:100%;}
+  .v4 header.scene .hero-roll .pol{width:26vw;padding:7px 7px 18px;}
 }
+@media(max-width:520px){
+  .v4 header.scene .hero-roll .p5,.v4 header.scene .hero-roll .p6{display:none;}
+  .v4 header.scene .hero-roll .pol{width:33vw;margin-right:-22px;}
+}
+
+/* headline gradient + brand-violet period on the light hero */
+.v4 header.scene h1 .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.v4 header.scene h1 .pd{color:var(--v4-violet);}
+
+/* APPLE-GRADE ENTRANCE (Jacob, Jul 23 2026). Two-stage headline: the clause fades up from a soft
+   blur, then "Enjoy Life" lands on its own a beat later; the subhead and pill follow; the
+   polaroids rise in, staggered, last. Only under no-preference — reduced motion gets the final
+   state instantly (the from-states live inside the media query, so no-JS/no-motion is visible). */
+.v4 header.scene .hero-h1 .hl1,.v4 header.scene .hero-h1 .hl2{display:inline-block;}
+@media(prefers-reduced-motion:no-preference){
+  .v4 header.scene .hero-h1 .hl1,.v4 header.scene .hero-h1 .hl2{opacity:0;filter:blur(10px);transform:translateY(18px);}
+  .v4 header.scene .hero-h1 .hl1{animation:sbHeroIn 1s cubic-bezier(.16,1,.3,1) .15s forwards;}
+  .v4 header.scene .hero-h1 .hl2{animation:sbHeroIn 1.1s cubic-bezier(.16,1,.3,1) .85s forwards;}
+  .v4 header.scene p.sub{opacity:0;filter:blur(6px);transform:translateY(12px);animation:sbHeroIn .9s cubic-bezier(.16,1,.3,1) 1.4s forwards;}
+  .v4 header.scene .cta{opacity:0;transform:translateY(12px);animation:sbHeroIn .9s cubic-bezier(.16,1,.3,1) 1.6s forwards;}
+  .v4 header.scene .hero-roll .pol{opacity:0;transform:translateY(34px) rotate(var(--rot));animation:sbPolIn 1s cubic-bezier(.16,1,.3,1) forwards;}
+  .v4 header.scene .hero-roll .p1{animation-delay:1.8s;}
+  .v4 header.scene .hero-roll .p2{animation-delay:1.9s;}
+  .v4 header.scene .hero-roll .p3{animation-delay:2s;}
+  .v4 header.scene .hero-roll .p4{animation-delay:2.1s;}
+  .v4 header.scene .hero-roll .p5{animation-delay:2.2s;}
+  .v4 header.scene .hero-roll .p6{animation-delay:2.3s;}
+}
+@keyframes sbHeroIn{to{opacity:1;filter:blur(0);transform:none;}}
+@keyframes sbPolIn{to{opacity:1;transform:translateY(0) rotate(var(--rot));}}
 .v4 .kicker{font-size:14px;font-weight:600;letter-spacing:.02em;margin-bottom:14px;background:linear-gradient(90deg,#0ea5e9,#06b6d4 34%,#14b8a6 66%,#10b981);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .v4 .sbwrap,.v4 .sb-clook{--grad:linear-gradient(90deg,#0ea5e9,#06b6d4 34%,#14b8a6 66%,#10b981);}
 .v4 .sb-clook{background:#fff;padding:clamp(80px,10vw,120px) 0;}
@@ -359,8 +392,14 @@ export default function HomePage() {
             camera roll of the life the business buys, below. No full-bleed image behind the type. */}
         <div className="wrap inner">
           <Reveal className="eyebrow" as="div">For owner-operated service businesses</Reveal>
+          {/* Two-stage reveal (Jacob, Jul 23 2026): the clause fades up first, then "Enjoy Life"
+              — the brand payoff, in the gradient — lands on its own. Headline ends on the brand
+              name. Animation lives in PAGE_CSS under prefers-reduced-motion:no-preference. */}
           <Reveal>
-            <h1>You built your business to enjoy your life.</h1>
+            <h1 className="hero-h1">
+              <span className="hl1">You built your business to</span>{' '}
+              <span className="hl2"><span className="g">Enjoy Life</span><span className="pd">.</span></span>
+            </h1>
           </Reveal>
           {/* THE HERO SUBHEAD IS BACK, REWRITTEN (Jacob, July 23 2026). The old one held the
               reader up because it restated the headline in three sentences. This one earns its
@@ -387,8 +426,11 @@ export default function HomePage() {
           <Reveal>
             <div className="hero-roll" aria-hidden="true">
               <div className="pol p1"><img src="/life-boat.jpg" alt="" width={440} height={440} /></div>
-              <div className="pol p2"><img src="/life-shop.jpg" alt="" width={440} height={440} /></div>
-              <div className="pol p3"><img src="/life-dog.jpg" alt="" width={440} height={440} /></div>
+              <div className="pol p2"><img src="/life-dog.jpg" alt="" width={440} height={440} /></div>
+              <div className="pol p3"><img src="/life-shop.jpg" alt="" width={440} height={440} /></div>
+              <div className="pol p4"><img src="/life-boat.jpg" alt="" width={440} height={440} /></div>
+              <div className="pol p5"><img src="/life-dog.jpg" alt="" width={440} height={440} /></div>
+              <div className="pol p6"><img src="/life-shop.jpg" alt="" width={440} height={440} /></div>
             </div>
           </Reveal>
         </div>
