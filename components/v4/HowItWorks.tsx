@@ -15,8 +15,10 @@ import { track } from '@/lib/analytics';
 
 /* Split so the second half can carry the brand gradient. The whole promise of the page
    is the second sentence, so that is the half that gets the colour. */
-const HERO_H_A = 'You run the business. ';
-const HERO_H_B = 'We run the busywork';
+/* Two-stage hero, matching the homepage (Jul 23 2026): the solid clause lands, then the
+   gradient payoff. Light hero, gradient path drawing itself underneath. */
+const HERO_H_A = 'The whole front office,';
+const HERO_H_B = 'off your plate';
 
 const LEARN_H = 'First, we learn your business.';
 const LEARN_P = 'We learn how you actually work: what you charge, which jobs you take, where you go, and how you talk to a customer. That becomes the playbook everything runs on, so when we answer, it sounds like you, not a call center.';
@@ -110,6 +112,42 @@ const CSS = `
    plainly a header with a page under it.
    Cyan: this page opens on Get Found and is the mechanism of being found. */
 .pg-hero{--hero-hue:6,182,212;}
+
+/* LIGHT HERO — match the homepage (Jul 23 2026). The shared .pg-hero is dark; here we flip it
+   to the cream light hero with the two-stage animated headline and a gradient path that draws
+   itself. .hiw .pg-hero (0,2,0) beats the global .pg-hero (0,1,0). The page's Nav is solidTop
+   now, since a transparent nav would vanish on the light surface. */
+.hiw .pg-hero{background:var(--v4-cream);color:var(--v4-ink);min-height:auto;padding:clamp(118px,15vh,178px) 0 clamp(46px,7vw,84px);text-align:center;}
+.hiw .pg-hero::before{display:none;}
+.hiw .pg-hero .wrap{max-width:1120px;}
+.hiw .pg-hero .wrap .eyebrow{display:inline-block;color:#42474f;border:1.5px solid transparent;background:linear-gradient(#fff,#fff) padding-box,var(--sb-grad) border-box;border-radius:999px;padding:9px 18px;box-shadow:0 6px 18px -10px rgba(6,12,20,.25);}
+.hiw .pg-hero .wrap h1{margin:22px auto 0;max-width:none;font-size:clamp(20px,6.4vw,84px);line-height:1.02;letter-spacing:-.03em;text-align:center;color:var(--v4-ink);}
+.hiw .pg-hero .wrap h1 .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.hiw .pg-hero .wrap h1 .pd{color:var(--v4-violet);-webkit-text-fill-color:var(--v4-violet);}
+.hiw .pg-hero .hero-h1 .hl1,.hiw .pg-hero .hero-h1 .hl2{display:block;white-space:nowrap;}
+
+/* the gradient trail that draws itself, previewing Get found -> StayBookt -> Enjoy life */
+.hiw .hero-trail{margin:clamp(30px,5vw,54px) auto 0;max-width:min(640px,86vw);}
+.hiw .hero-trail svg{width:100%;height:auto;display:block;overflow:visible;}
+.hiw .hero-trail .ht-line{stroke-dasharray:760;stroke-dashoffset:0;}
+.hiw .hero-trail .ht-dot{stroke:#fff;stroke-width:3;}
+.hiw .hero-trail .ht-dot.d1{fill:#06b6d4;}
+.hiw .hero-trail .ht-dot.d2{fill:#10b981;}
+.hiw .hero-trail .ht-dot.d3{fill:#7c3aed;}
+
+@media(prefers-reduced-motion:no-preference){
+  .hiw .pg-hero .hero-h1 .hl1,.hiw .pg-hero .hero-h1 .hl2{opacity:0;filter:blur(10px);transform:translateY(18px);}
+  .hiw .pg-hero .hero-h1 .hl1{animation:hiwHeroIn 1s cubic-bezier(.16,1,.3,1) .15s forwards;}
+  .hiw .pg-hero .hero-h1 .hl2{animation:hiwHeroIn 1.1s cubic-bezier(.16,1,.3,1) .85s forwards;}
+  .hiw .hero-trail .ht-line{stroke-dashoffset:760;animation:htDraw 1.6s cubic-bezier(.16,1,.3,1) 1s forwards;}
+  .hiw .hero-trail .ht-dot{opacity:0;transform:scale(.4);transform-box:fill-box;transform-origin:center;animation:htPop .5s cubic-bezier(.16,1,.3,1) forwards;}
+  .hiw .hero-trail .ht-dot.d1{animation-delay:1.05s;}
+  .hiw .hero-trail .ht-dot.d2{animation-delay:1.65s;}
+  .hiw .hero-trail .ht-dot.d3{animation-delay:2.25s;}
+}
+@keyframes hiwHeroIn{to{opacity:1;filter:blur(0);transform:none;}}
+@keyframes htDraw{to{stroke-dashoffset:0;}}
+@keyframes htPop{to{opacity:1;transform:scale(1);}}
 
 /* learn */
 .hiw-learn{padding:clamp(80px,11vw,140px) 0;background:var(--v4-cream);}
@@ -577,15 +615,31 @@ export default function HowItWorks() {
         </div>
       </div>
 
-      {/* HERO */}
-      <header className="pg-hero">
+      {/* HERO — light, homepage-style (Jul 23 2026). Two-stage headline fade, then a gradient
+          path draws itself with three nodes, previewing the journey the full map details below.
+          No subhead, no buttons: the nav carries Get Started, the ask belongs at the arrival. */}
+      <header className="pg-hero hiw-hero">
         <div className="wrap">
           <div className="eyebrow">How it works</div>
-          <h1>{HERO_H_A}<span className="g">{HERO_H_B}</span><span className="pd">.</span></h1>
-          {/* Hero subhead removed (site-wide no-subheadings call, Jul 23 2026): the headline is
-              the hook, and the milestones start immediately below. */}
-          {/* No buttons here. The nav already carries Get Started, and the page
-              is a story: the ask belongs at the arrival, not before it starts. */}
+          <h1 className="hero-h1">
+            <span className="hl1">{HERO_H_A}</span>
+            <span className="hl2"><span className="g">{HERO_H_B}</span><span className="pd">.</span></span>
+          </h1>
+          <div className="hero-trail" aria-hidden="true">
+            <svg viewBox="0 0 640 120" fill="none" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <linearGradient id="hiwHeroGrad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stopColor="#06b6d4" />
+                  <stop offset="0.52" stopColor="#10b981" />
+                  <stop offset="1" stopColor="#7c3aed" />
+                </linearGradient>
+              </defs>
+              <path className="ht-line" d="M20 96 C 150 96, 210 66, 320 62 S 500 44, 620 22" stroke="url(#hiwHeroGrad)" strokeWidth="3.5" strokeLinecap="round" />
+              <circle className="ht-dot d1" cx="20" cy="96" r="7" />
+              <circle className="ht-dot d2" cx="320" cy="62" r="7" />
+              <circle className="ht-dot d3" cx="620" cy="22" r="8.5" />
+            </svg>
+          </div>
         </div>
       </header>
 

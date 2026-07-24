@@ -31,7 +31,9 @@ export const metadata = {
 export default function HowItWorksPage() {
   return (
     <div id="top" className="v4">
-      <Nav />
+      {/* solidTop: this page's hero is light now (Jul 23 2026), so a transparent nav would
+          leave the white wordmark and links invisible on the cream surface. */}
+      <Nav solidTop />
       <main id="main" tabIndex={-1}>
       <HowItWorks />
       {/* Every page closes the same way. This one used to just stop. */}
