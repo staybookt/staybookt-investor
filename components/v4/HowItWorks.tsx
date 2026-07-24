@@ -40,23 +40,23 @@ const STOPS: Stop[] = [
     beat: 'We build your site, fix your Google listing, and get you found on search, the map, and AI recommendations.',
     result: 'Found on search, the map, and AI answers.',
     steps: [
-      { t: 'We build you a proper website.', b: 'Fast, works on a phone, made to turn a visitor into a call. Built and hosted for you, nothing to manage.' },
-      { t: 'We fix your Google listing.', b: 'The thing that pops up when someone searches for what you do. We fill it out, keep it current, and get Google to trust it.' },
-      { t: 'We get you ranked, and recommended.', b: 'Your details match everywhere so you climb the map, and you show up when someone asks an AI assistant for what you do, nearby.' },
-      { t: 'We ask for the review.', b: 'Every finished job, at the moment the work is still fresh, which is the only time anyone actually says yes. More reviews means you climb higher and get picked more often.' },
+      { t: 'We build you a proper website.', b: 'Fast, mobile, built to turn a visitor into a call.' },
+      { t: 'We fix your Google listing.', b: 'Filled out, kept current, and trusted by Google.' },
+      { t: 'We get you ranked, and recommended.', b: 'You climb the map, and show up when someone asks an AI for what you do nearby.' },
+      { t: 'We ask for the review.', b: 'Right when the job is fresh, the only time people say yes.' },
     ],
   },
   {
     id: 'run', n: '2', label: 'StayBookt', promise: 'Every lead gets worked.', voice: 'It is 2 a.m. I am asleep. It is handled.',
     accent: '#10b981', accentD: '#059669', side: 'right', surface: 'staybookt',
     beat: 'We catch the missed call, book the job, chase the quote, win the review, and rebook the second job.',
-    result: 'Nothing gets dropped, and you get the full value out of every customer who calls you.',
+    result: 'Nothing gets dropped, and every customer is worked to full value.',
     steps: [
-      { t: 'We answer every call and text.', b: 'Day or night, in your voice. AI handles the everyday ones. A real person steps in on anything unusual, before it reaches your customer.' },
-      { t: 'We book, confirm, and remind.', b: 'Straight onto your calendar, confirmed with the customer, with reminders so they actually show up.' },
-      { t: 'We chase what is owed.', b: 'Every quote you send gets followed up until you get a yes or a no, and we chase unpaid invoices so the money lands.' },
-      { t: 'We grow every customer.', b: 'Reviews and referrals from the happy ones. The right upsell. Follow-up maintenance booked before they drift.' },
-      { t: 'We hand you one short brief a day.', b: 'What is booked, what needs a decision, what came in. Thirty seconds, then go run your day.' },
+      { t: 'We answer every call and text.', b: 'Day or night, in your voice. A real person steps in on anything unusual.' },
+      { t: 'We book, confirm, and remind.', b: 'Straight onto your calendar, so they actually show up.' },
+      { t: 'We chase what is owed.', b: 'Every quote followed up, every unpaid invoice chased, until the money lands.' },
+      { t: 'We grow every customer.', b: 'Reviews, referrals, the right upsell, repeat work booked before they drift.' },
+      { t: 'We hand you one short brief a day.', b: 'What is booked, what needs you, what came in. Thirty seconds.' },
     ],
   },
   {
@@ -68,16 +68,16 @@ const STOPS: Stop[] = [
      * purely the outcome: a business that runs without you, and no cut taken. */
     /* The banned phrase survived HERE, on the beat, which is the line that renders large,
        while the fix landed on the step below. Check the line that ships, not the nearest one. */
-    beat: 'After a year of this, the business keeps booking and earning when you are not standing in the middle of it. What you do with that is entirely your call. Most owners are not looking for a way out of this. They just want the good half of the job back.',
+    beat: 'After a year, the business books and earns whether you are standing in the middle of it or not. What you do with that is your call. Most owners just want the good half of the job back.',
     result: 'Do the part you love, hand it to family, or sell it.',
     steps: [
       /* "runs without you" is banned language (see app/layout.tsx) and it survived here.
          The whole control-preserving voice is "You run the business. We run the busywork"
          and "we take the busywork, not the business". This one line sidelined the owner. */
-      { t: 'We build something that keeps running when you step away.', b: 'Everything in the first year points at one thing: the phone gets answered, the jobs get booked and the money lands whether you are standing there or not.' },
-      { t: 'The work gets steady, not seasonal.', b: 'Recurring service work, and past customers coming back on their own, so the year stops starting from zero every January.' },
-      { t: 'You are the one deciding.', b: 'Keep it and go back to the work you love, hand it to a family member, or sell it. You never have to sell. You just get the choice.' },
-      { t: 'And we take no cut of it.', b: 'No commission on your jobs, no share of your revenue, no share of what the business is worth when you sell. The monthly fee is the whole deal. What you built stays yours.' },
+      { t: 'We build something that keeps running when you step away.', b: 'The phone answered, jobs booked, money landing without you standing there.' },
+      { t: 'The work gets steady, not seasonal.', b: 'Recurring jobs and repeat customers, so the year never restarts at zero.' },
+      { t: 'You are the one deciding.', b: 'Keep it, hand it to family, or sell. You never have to.' },
+      { t: 'And we take no cut of it.', b: 'No commission, no revenue share, no share of the sale. The monthly fee is the whole deal.' },
     ],
   },
 ];
@@ -173,12 +173,11 @@ const CSS = `
 .jstop .stage>*{position:relative;z-index:1;}
 .jstop .detail{margin-top:26px;}
 .jstop.right .detail{display:flex;flex-direction:column;align-items:flex-end;}
-.jstop .toggle{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid #e2e2df;color:var(--v4-ink);font-family:inherit;font-size:14px;font-weight:600;border-radius:999px;padding:10px 18px;cursor:pointer;transition:border-color .25s ease;}
-.jstop .toggle:hover{border-color:var(--acc);}
-.jstop .toggle .pl{font-size:17px;line-height:1;color:var(--acc);transition:transform .3s ease;}
-.jstop .detail.open .toggle .pl{transform:rotate(45deg);}
-.jstop .steps{max-height:0;overflow:hidden;transition:max-height .55s cubic-bezier(.16,1,.3,1),margin .4s ease;}
-.jstop .detail.open .steps{max-height:1200px;margin-top:24px;}
+/* Steps are always visible now (Richard, Jul 23 2026): the "See exactly how we do it"
+   toggle is gone. Hiding the mechanism behind a click was the opposite of what this
+   page is for. A small label heads the list instead of a button. */
+.jstop .steps-h{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--acd);margin-bottom:2px;}
+.jstop .steps{overflow:hidden;margin-top:16px;}
 .jstop .steps ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px;max-width:60ch;}
 .jstop .steps li{display:grid;grid-template-columns:30px 1fr;gap:13px;align-items:start;text-align:left;}
 .jstop .steps .num{width:30px;height:30px;border-radius:50%;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13.5px;font-weight:700;flex:0 0 auto;}
@@ -378,7 +377,7 @@ function EnjoyLifeScene() {
   );
 }
 
-function StopBlock({ s, open, onToggle, obsRef, pointRef }: { s: Stop; open: boolean; onToggle: () => void; obsRef: (el: HTMLDivElement | null) => void; pointRef: (el: HTMLDivElement | null) => void }) {
+function StopBlock({ s, obsRef, pointRef }: { s: Stop; obsRef: (el: HTMLDivElement | null) => void; pointRef: (el: HTMLDivElement | null) => void }) {
   return (
     <div className={`jstop ${s.side}`} id={s.id} ref={obsRef} style={{ '--acc': s.accent, '--acd': s.accentD } as CSSProperties}>
       <div className="node" ref={pointRef}>{s.n}</div>
@@ -401,10 +400,8 @@ function StopBlock({ s, open, onToggle, obsRef, pointRef }: { s: Stop; open: boo
           {s.surface === 'enjoy' && <EnjoyLifeScene />}
         </div>
 
-        <div className={`detail${open ? ' open' : ''}`}>
-          <button type="button" className="toggle" onClick={onToggle}>
-            See exactly how we do it <span className="pl">+</span>
-          </button>
+        <div className="detail open">
+          <div className="steps-h">How we do it</div>
           <div className="steps">
             <ol>
               {s.steps.map((st, i) => (
@@ -420,7 +417,6 @@ function StopBlock({ s, open, onToggle, obsRef, pointRef }: { s: Stop; open: boo
 
 export default function HowItWorks() {
   const [openF, setOpenF] = useState<number | null>(0);
-  const [openStop, setOpenStop] = useState<string | null>(null);
   const [active, setActive] = useState(0);
   const [hudOn, setHudOn] = useState(false);
   const rootRef = useRef<HTMLDivElement | null>(null);
@@ -642,8 +638,6 @@ export default function HowItWorks() {
                 <StopBlock
                   key={s.id}
                   s={s}
-                  open={openStop === s.id}
-                  onToggle={() => setOpenStop(openStop === s.id ? null : s.id)}
                   obsRef={(el) => { stopEls.current[s.id] = el; }}
                   pointRef={(el) => { pts.current[s.id] = el; }}
                 />
