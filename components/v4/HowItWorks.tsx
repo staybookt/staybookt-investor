@@ -151,28 +151,29 @@ const CSS = `
    types, no invented numbers. */
 .hiw .hero-office{position:relative;display:flex;flex-direction:column;gap:14px;max-width:472px;margin:clamp(40px,6vw,70px) auto 0;text-align:left;}
 /* the light bloom the whole scene sits in */
-.hiw .hero-office::before{content:'';position:absolute;inset:-24% -18%;z-index:-1;background:radial-gradient(46% 52% at 50% 44%,rgba(16,185,129,.24),rgba(79,70,229,.18) 46%,transparent 72%);filter:blur(56px);opacity:.92;}
-/* glassy cards, each floating at its own angle/offset/rhythm (--r/--tx/--dur/--fd) */
-.hiw .ofc-row{--r:0deg;--tx:0px;--dur:6s;--fd:0s;display:flex;align-items:center;gap:13px;background:rgba(255,255,255,.9);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.7);border-radius:16px;padding:14px 16px;box-shadow:0 30px 50px -28px rgba(6,12,20,.5),0 8px 18px -12px rgba(6,12,20,.28);transform:translateX(var(--tx)) rotate(var(--r));will-change:transform;}
-.hiw .ofc-row.f1{--r:-2.4deg;--tx:-26px;--dur:6.4s;--fd:0s;}
-.hiw .ofc-row.f2{--r:1.8deg;--tx:22px;--dur:5.6s;--fd:-1.3s;}
-.hiw .ofc-row.f3{--r:-1.3deg;--tx:-16px;--dur:7s;--fd:-2.5s;}
-.hiw .ofc-row.f4{--r:2.6deg;--tx:24px;--dur:6s;--fd:-.7s;}
-.hiw .ofc-row.f5{--r:-2deg;--tx:-20px;--dur:6.6s;--fd:-1.9s;}
-.hiw .ofc-ic{position:relative;width:38px;height:38px;flex:0 0 auto;border-radius:11px;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 10px 20px -8px rgba(6,12,20,.4);}
+.hiw .hero-office::before{content:'';position:absolute;inset:-20% -14%;z-index:-1;background:radial-gradient(48% 54% at 50% 44%,rgba(16,185,129,.14),rgba(79,70,229,.1) 48%,transparent 74%);filter:blur(60px);opacity:.9;}
+/* crisp premium cards, aligned; kept alive by motion, not scatter (--dur/--fd = float rhythm) */
+.hiw .ofc-row{--dur:7s;--fd:0s;position:relative;overflow:hidden;display:flex;align-items:center;gap:13px;background:#fff;border:1px solid rgba(6,12,20,.06);border-radius:18px;padding:15px 18px;box-shadow:0 1px 2px rgba(6,12,20,.04),0 18px 34px -20px rgba(6,12,20,.3);will-change:transform;}
+.hiw .ofc-row.f1{--fd:0s;}
+.hiw .ofc-row.f2{--fd:-1.4s;}
+.hiw .ofc-row.f3{--fd:-2.8s;}
+.hiw .ofc-row.f4{--fd:-4.2s;}
+.hiw .ofc-row.f5{--fd:-5.6s;}
+/* the progress line that fills along the card base while the task is being worked */
+.hiw .ofc-row::after{content:'';position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--ic,#10b981);transform:scaleX(0);transform-origin:left;opacity:0;}
+.hiw .ofc-ic{position:relative;width:40px;height:40px;flex:0 0 auto;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 8px 16px -8px rgba(6,12,20,.35);}
 .hiw .ofc-ic svg{width:20px;height:20px;}
-/* the ping the icon emits when its task fires, in the task's own colour */
-.hiw .ofc-ic::after{content:'';position:absolute;inset:0;border-radius:inherit;border:2px solid var(--ic,#10b981);opacity:0;}
-.hiw .ofc-t{font-size:15.5px;font-weight:600;color:var(--v4-ink);}
-/* status = two stacked pills that cross-fade on a loop: a "working" state (indigo) flips to
-   "handled" (green), over and over, so you watch each task actually get done. Fixed width so
-   nothing reflows as the labels swap. */
-.hiw .ofc-st{position:relative;margin-left:auto;width:134px;height:28px;flex:0 0 auto;}
-.hiw .ofc-st .st-work,.hiw .ofc-st .st-done{position:absolute;top:0;right:0;display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 11px;border-radius:999px;font-size:12.5px;font-weight:700;white-space:nowrap;}
-.hiw .ofc-st .st-work{color:#4f46e5;background:rgba(79,70,229,.12);opacity:0;}
-.hiw .ofc-st .st-done{color:#059669;background:rgba(16,185,129,.14);opacity:1;}
+/* the soft ping the icon emits when its task fires, in the task's own colour */
+.hiw .ofc-ic::after{content:'';position:absolute;inset:0;border-radius:inherit;border:1.5px solid var(--ic,#10b981);opacity:0;}
+.hiw .ofc-t{font-size:15.5px;font-weight:600;letter-spacing:-.01em;color:var(--v4-ink);}
+/* status: a calm "working" state (grey, live dot) resolves to "handled" (green, check). Stacked,
+   cross-fading; fixed width so nothing reflows. */
+.hiw .ofc-st{position:relative;margin-left:auto;width:132px;height:26px;flex:0 0 auto;}
+.hiw .ofc-st .st-work,.hiw .ofc-st .st-done{position:absolute;top:0;right:0;display:inline-flex;align-items:center;gap:7px;height:26px;padding:0 11px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap;}
+.hiw .ofc-st .st-work{color:#6b7280;background:rgba(6,12,20,.05);opacity:0;}
+.hiw .ofc-st .st-work .dot{width:6px;height:6px;border-radius:50%;background:var(--ic,#10b981);flex:0 0 auto;}
+.hiw .ofc-st .st-done{color:#047857;background:rgba(16,185,129,.13);font-weight:700;opacity:1;}
 .hiw .ofc-st .st-done svg{width:13px;height:13px;}
-@media(max-width:560px){.hiw .ofc-row{--tx:0px !important;}}
 
 @media(prefers-reduced-motion:no-preference){
   .hiw .pg-hero .hero-h1 .hl1,.hiw .pg-hero .hero-h1 .hl2{opacity:0;filter:blur(10px);transform:translateY(18px);}
@@ -181,27 +182,31 @@ const CSS = `
   .hiw .pg-hero .wrap p.sub{opacity:0;filter:blur(6px);transform:translateY(12px);animation:hiwHeroIn .85s cubic-bezier(.16,1,.3,1) 1.3s forwards;}
   .hiw .hero-office::before{opacity:0;animation:ofcGlow 1.6s ease 1.5s forwards;}
   /* fade in through focus (opacity + blur only) while already gently floating (transform). */
-  .hiw .hero-office .ofc-row{opacity:0;filter:blur(12px);animation:ofcIn .9s cubic-bezier(.16,1,.3,1) var(--in,1.6s) forwards,ofcFloat var(--dur) ease-in-out var(--fd) infinite;}
-  .hiw .ofc-row.f1{--in:1.6s;--cd:0s;}
-  .hiw .ofc-row.f2{--in:1.78s;--cd:-.9s;}
-  .hiw .ofc-row.f3{--in:1.96s;--cd:-1.8s;}
-  .hiw .ofc-row.f4{--in:2.14s;--cd:-2.7s;}
-  .hiw .ofc-row.f5{--in:2.32s;--cd:-3.6s;}
+  .hiw .hero-office .ofc-row{opacity:0;filter:blur(10px);animation:ofcIn .9s cubic-bezier(.16,1,.3,1) var(--in,1.6s) forwards,ofcFloat var(--dur) ease-in-out var(--fd) infinite;}
+  .hiw .ofc-row.f1{--in:1.55s;--cd:0s;}
+  .hiw .ofc-row.f2{--in:1.75s;--cd:-1s;}
+  .hiw .ofc-row.f3{--in:1.95s;--cd:-2s;}
+  .hiw .ofc-row.f4{--in:2.15s;--cd:-3s;}
+  .hiw .ofc-row.f5{--in:2.35s;--cd:-4s;}
   /* the work loop: staggered down the stack (negative --cd) so the office reads as continuously
-     catching and clearing jobs, not a set of switches thrown at once. */
-  .hiw .ofc-st .st-work{animation:stWork 4.5s ease-in-out var(--cd,0s) infinite;}
-  .hiw .ofc-st .st-done{animation:stDone 4.5s ease-in-out var(--cd,0s) infinite;}
-  .hiw .ofc-ic{animation:icPulse 4.5s ease-in-out var(--cd,0s) infinite;}
-  .hiw .ofc-ic::after{animation:icRing 4.5s ease-out var(--cd,0s) infinite;}
+     catching and clearing jobs, not switches thrown at once. */
+  .hiw .ofc-st .st-work{animation:stWork 5s ease-in-out var(--cd,0s) infinite;}
+  .hiw .ofc-st .st-done{animation:stDone 5s ease-in-out var(--cd,0s) infinite;}
+  .hiw .ofc-st .st-work .dot{animation:dotPulse 1.1s ease-in-out infinite;}
+  .hiw .ofc-row::after{animation:barFill 5s ease-in-out var(--cd,0s) infinite;}
+  .hiw .ofc-ic{animation:icPulse 5s ease-in-out var(--cd,0s) infinite;}
+  .hiw .ofc-ic::after{animation:icRing 5s ease-out var(--cd,0s) infinite;}
 }
 @keyframes hiwHeroIn{to{opacity:1;filter:blur(0);transform:none;}}
 @keyframes ofcIn{to{opacity:1;filter:blur(0);}}
-@keyframes ofcFloat{0%,100%{transform:translateX(var(--tx)) rotate(var(--r)) translateY(0);}50%{transform:translateX(var(--tx)) rotate(var(--r)) translateY(-9px);}}
-@keyframes ofcGlow{to{opacity:.92;}}
-@keyframes stWork{0%{opacity:0;transform:translateY(4px);}8%,40%{opacity:1;transform:translateY(0);}50%,100%{opacity:0;transform:translateY(-4px);}}
-@keyframes stDone{0%,44%{opacity:0;transform:translateY(6px);}55%,92%{opacity:1;transform:translateY(0);}100%{opacity:0;transform:translateY(0);}}
-@keyframes icPulse{0%,34%{transform:scale(1);}44%{transform:scale(1.13);}56%,100%{transform:scale(1);}}
-@keyframes icRing{0%,38%{opacity:0;transform:scale(1);}46%{opacity:.55;transform:scale(1);}74%{opacity:0;transform:scale(1.55);}100%{opacity:0;transform:scale(1.55);}}
+@keyframes ofcFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+@keyframes ofcGlow{to{opacity:.9;}}
+@keyframes stWork{0%,4%{opacity:0;}10%,42%{opacity:1;}50%,100%{opacity:0;}}
+@keyframes stDone{0%,46%{opacity:0;transform:translateY(4px);}56%,90%{opacity:1;transform:translateY(0);}100%{opacity:0;transform:translateY(0);}}
+@keyframes dotPulse{0%,100%{opacity:.4;transform:scale(.85);}50%{opacity:1;transform:scale(1);}}
+@keyframes barFill{0%,6%{transform:scaleX(0);opacity:0;}12%{opacity:1;}44%{transform:scaleX(1);opacity:1;}52%{transform:scaleX(1);opacity:0;}100%{transform:scaleX(1);opacity:0;}}
+@keyframes icPulse{0%,40%{transform:scale(1);}48%{transform:scale(1.08);}58%,100%{transform:scale(1);}}
+@keyframes icRing{0%,42%{opacity:0;transform:scale(1);}50%{opacity:.4;transform:scale(1);}80%{opacity:0;transform:scale(1.5);}100%{opacity:0;transform:scale(1.5);}}
 
 /* learn */
 .hiw-learn{padding:clamp(80px,11vw,140px) 0;background:var(--v4-cream);}
@@ -682,13 +687,13 @@ export default function HowItWorks() {
           <p className="sub">Every call, answered. Every job, booked.</p>
           <div className="hero-office" aria-hidden="true">
             {OFFICE.map((o, i) => (
-              <div className={`ofc-row f${i + 1}`} key={o.t}>
-                <span className="ofc-ic" style={{ backgroundColor: o.c, ['--ic' as string]: o.c }}>
+              <div className={`ofc-row f${i + 1}`} key={o.t} style={{ ['--ic' as string]: o.c }}>
+                <span className="ofc-ic" style={{ backgroundColor: o.c }}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><path d={OFC_ICON[o.ic]} /></svg>
                 </span>
                 <span className="ofc-t">{o.t}</span>
                 <span className="ofc-st">
-                  <span className="st-work">{o.w}</span>
+                  <span className="st-work"><i className="dot" />{o.w}</span>
                   <span className="st-done">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
                     {o.s}
