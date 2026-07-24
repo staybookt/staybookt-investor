@@ -43,7 +43,10 @@ const LINKS = [
  * THE SIX PAGES except by scrolling to the footer. Mobile is supposed to be the default
  * viewport. It shipped like that for weeks because every review was done on a laptop.
  * If you add a link to LINKS it appears in both the desktop row and this menu. */
-export default function Nav() {
+/* solidTop keeps the nav a solid dark bar from the very top, not transparent-over-hero. The
+   homepage passes it because its hero is light now (Jul 23 2026), so a transparent nav would
+   leave the white wordmark and links invisible on the light surface. */
+export default function Nav({ solidTop = false }: { solidTop?: boolean }) {
   const onStart = usePathname() === '/start';
   const [solid, setSolid] = useState(false);
   const [open, setOpen] = useState(false);
@@ -72,7 +75,7 @@ export default function Nav() {
   }, [open]);
 
   return (
-    <nav className={`v4-nav${solid || open ? ' solid' : ''}`}>
+    <nav className={`v4-nav${solid || open || solidTop ? ' solid' : ''}`}>
       <div className="wrap nav-in">
         <a href="/" className="mark" aria-label="StayBookt home" style={{ textDecoration: 'none' }}>
           Stay<span className="bk">Bookt</span>

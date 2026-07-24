@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react';
 import Nav from '@/components/v4/Nav';
-import HeroMedia from '@/components/v4/HeroMedia';
 import Reveal from '@/components/v4/Reveal';
 import JourneyMap from '@/components/v4/JourneyMap';
 import HomeFaq from '@/components/v4/HomeFaq';
@@ -80,11 +79,13 @@ const PAGE_CSS = `
 .v4 h1,.v4 h2,.v4 h3{font-weight:600;}
 .v4 .scene>video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
 .v4 .scene .reveal{opacity:1;transform:none;}
-/* HERO */
-.v4 header.scene{align-items:flex-start;}
-.v4 header.scene .grad-ov{background:linear-gradient(180deg,rgba(5,5,6,.55) 0%,rgba(5,5,6,.12) 36%,rgba(5,5,6,.38) 68%,rgba(5,5,6,.86) 90%,#050506 100%);}
-.v4 header.scene .cta .pill{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.28);backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);}
-.v4 header.scene .cta .pill:hover{background:rgba(255,255,255,.22);transform:translateY(-1px);}
+/* HERO — LIGHT NOW (Jul 23 2026). The dusk photo behind the headline is retired. The hero is
+   clean and light, Apple-homepage style: eyebrow + headline + subhead + one dark pill on a warm
+   surface, then a polaroid camera roll of the life it buys, below. Nav is forced solid on the
+   homepage (see <Nav solidTop />) so its white logo stays legible over the light hero. */
+.v4 header.scene{align-items:flex-start;background:var(--v4-cream,#f6f6f3);color:var(--v4-ink);min-height:auto;padding-bottom:clamp(40px,6vw,80px);}
+.v4 header.scene .cta .pill{background:var(--v4-ink);color:#fff;border:0;}
+.v4 header.scene .cta .pill:hover{transform:translateY(-1px);box-shadow:0 16px 34px -18px rgba(6,12,20,.5);}
 /* THE HOMEPAGE HERO HAD NO GUTTER ON A PHONE. This element is class="wrap inner".
    .v4 .wrap gives it padding:0 32px, and this rule is more specific, so padding:15vh 0 0
    silently wiped the horizontal half of it. On desktop you never see the bug: max-width:940
@@ -93,8 +94,8 @@ const PAGE_CSS = `
    Nobody caught it because nobody had opened this site at phone width. Keep the horizontal
    padding here, or restate it if you ever change the vertical. */
 .v4 header.scene .inner{padding:15vh clamp(20px,4vw,32px) 0;text-align:center;max-width:940px;margin:0 auto;}
-.v4 header.scene h1{max-width:16ch;margin:20px auto 0;font-size:clamp(40px,6.6vw,88px);letter-spacing:-.03em;line-height:1.05;color:#f5f5f7;}
-.v4 header.scene p.sub{margin:24px auto 0;color:#e9e9ec;max-width:46ch;}
+.v4 header.scene h1{max-width:16ch;margin:20px auto 0;font-size:clamp(40px,6.6vw,88px);letter-spacing:-.03em;line-height:1.05;color:var(--v4-ink);}
+.v4 header.scene p.sub{margin:24px auto 0;color:#52565e;max-width:46ch;}
 .v4 header.scene .cta{justify-content:center;}
 .ctanote{margin:20px auto 0;max-width:52ch;text-align:center;font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.62);}
 @media(max-width:640px){.ctanote{font-size:13.5px;max-width:36ch;}}
@@ -116,25 +117,31 @@ const PAGE_CSS = `
    border box — so a 1.5px transparent border shows the gradient ring. The old solid brand dot is
    dropped: the gradient ring is the brand signal now, and a dot plus a ring on one small pill is
    two of the same idea. */
+/* On the LIGHT hero the badge is a white chip with the brand gradient as its outline: dark
+   text, no blur, a soft light shadow. Same gradient-ring signal Emma asked for, inverted for
+   the light surface. */
 .v4 header.scene .eyebrow{display:inline-flex;align-items:center;
-  font-size:12.5px;font-weight:700;letter-spacing:.15em;color:#f4f6fa;
+  font-size:12.5px;font-weight:700;letter-spacing:.15em;color:#42474f;
   border:1.5px solid transparent;
-  background:linear-gradient(rgba(8,10,16,.42),rgba(8,10,16,.42)) padding-box,var(--sb-grad) border-box;
+  background:linear-gradient(#fff,#fff) padding-box,var(--sb-grad) border-box;
   border-radius:999px;padding:9px 18px;
-  backdrop-filter:saturate(160%) blur(12px);-webkit-backdrop-filter:saturate(160%) blur(12px);
-  box-shadow:0 8px 30px -12px rgba(0,0,0,.7);}
-/* THE TWO PIECES OF GLASS IN THE HERO, ON A PHONE. Both of these blur the hero photo behind
-   them, which means the GPU reads back the frame under them on every composited frame of the
-   first scroll on the site, at the exact moment the page is also decoding the still and
-   running the drift animation. It is the worst place on the site to spend that.
-   Dropping the blur alone would leave the pill and the badge nearly invisible over a bright
-   frame, so each carries its separation on its own: the white CTA pill goes .12 to .22, and
-   the badge, now a dark chip, goes a little more opaque (.42 to .55) to compensate for the
-   lost blur. Both keep their border and their light text.
-   Desktop keeps the glass. This block is 760px and down only. */
-@media(max-width:760px){
-.v4 header.scene .cta .pill{background:rgba(255,255,255,.22);backdrop-filter:none;-webkit-backdrop-filter:none;}
-.v4 header.scene .eyebrow{background:linear-gradient(rgba(8,10,16,.55),rgba(8,10,16,.55)) padding-box,var(--sb-grad) border-box;backdrop-filter:none;-webkit-backdrop-filter:none;}
+  box-shadow:0 6px 18px -10px rgba(6,12,20,.25);}
+
+/* THE POLAROID CAMERA ROLL. Real photos of the life the business buys, framed as polaroids and
+   scattered like a camera roll on the surface under the copy. No captions — the pictures carry
+   it. Three approved, self-hosted lifestyle shots to start; the roll grows as more come in. */
+.v4 header.scene .hero-roll{display:flex;justify-content:center;align-items:flex-start;flex-wrap:nowrap;margin:clamp(30px,4.5vw,54px) auto 0;padding:0 clamp(8px,2vw,20px);}
+.v4 header.scene .hero-roll .pol{flex:0 0 auto;background:#fff;padding:11px 11px 30px;border-radius:4px;
+  box-shadow:0 26px 50px -22px rgba(6,12,20,.42),0 4px 10px -6px rgba(6,12,20,.2);width:clamp(128px,19vw,220px);}
+.v4 header.scene .hero-roll .pol img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:2px;}
+.v4 header.scene .hero-roll .p1{transform:rotate(-7deg);margin-top:20px;margin-right:-24px;z-index:1;}
+.v4 header.scene .hero-roll .p2{transform:rotate(3deg);margin-right:-24px;z-index:3;}
+.v4 header.scene .hero-roll .p3{transform:rotate(-3deg);margin-top:28px;z-index:2;}
+@media(max-width:560px){
+  .v4 header.scene .hero-roll .pol{width:36vw;padding:8px 8px 22px;}
+  .v4 header.scene .hero-roll .p1{margin-top:14px;margin-right:-18px;}
+  .v4 header.scene .hero-roll .p2{margin-right:-18px;}
+  .v4 header.scene .hero-roll .p3{margin-top:20px;}
 }
 .v4 .kicker{font-size:14px;font-weight:600;letter-spacing:.02em;margin-bottom:14px;background:linear-gradient(90deg,#0ea5e9,#06b6d4 34%,#14b8a6 66%,#10b981);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .v4 .sbwrap,.v4 .sb-clook{--grad:linear-gradient(90deg,#0ea5e9,#06b6d4 34%,#14b8a6 66%,#10b981);}
@@ -342,27 +349,14 @@ export default function HomePage() {
   return (
     <div id="top" className="v4">
       <style>{min(PAGE_CSS)}</style>
-      <Nav />
+      <Nav solidTop />
       <main id="main" tabIndex={-1}>
 
       {/* 1 — HERO */}
       <header className="scene">
-        {/* Poster on a phone, film on a desktop. The video is 1.24MB and never played on
-            mobile before the visitor scrolled past it. See HeroMedia.tsx. */}
-        {/* The still is a father and a child fishing at dusk, not the couple on the
-            clifftop with wine that the video ends on. The headline is "You built your
-            business to enjoy your life" and our reader runs a service business under
-            $5M, so the picture has to be time, not wealth. It is also silhouetted and
-            low contrast, which is what lets white headline type sit on it cleanly. */}
-        {/* 1800x1200 is public/hero-home.jpg's real size, read off the file. */}
-        {/* THE VIDEO IS RETIRED (Tammer + Richard, July 2026). Its payoff scene was the
-            couple with wine on a clifftop balcony, which is the exact billionaire-register
-            image this round of feedback killed, and the clip carried visible AI-generation
-            tells besides. The fishing still with the ken-burns drift is on the approved
-            list (fishing), weighs 70KB against 1.24MB, and cannot be blocked by Low Power
-            Mode. Desktop and mobile now share one hero. */}
-        <HeroMedia poster="/hero-home.jpg" posterW={1800} posterH={1200} />
-        <div className="grad-ov" />
+        {/* THE DUSK FISHING PHOTO BEHIND THE HEADLINE IS RETIRED (Jacob, July 23 2026). The hero
+            is light and Apple-homepage style now: clean surface, copy on top, and a polaroid
+            camera roll of the life the business buys, below. No full-bleed image behind the type. */}
         <div className="wrap inner">
           <Reveal className="eyebrow" as="div">For owner-operated service businesses</Reveal>
           <Reveal>
@@ -388,6 +382,15 @@ export default function HomePage() {
               actually is now, not by a trick we do before it.
 
               Do not put a second line under this button. The hero has one job. */}
+          {/* THE POLAROID CAMERA ROLL. Aria-hidden: decorative lifestyle photos, no captions.
+              Three approved self-hosted shots; add more and they join the scatter. */}
+          <Reveal>
+            <div className="hero-roll" aria-hidden="true">
+              <div className="pol p1"><img src="/life-boat.jpg" alt="" width={440} height={440} /></div>
+              <div className="pol p2"><img src="/life-shop.jpg" alt="" width={440} height={440} /></div>
+              <div className="pol p3"><img src="/life-dog.jpg" alt="" width={440} height={440} /></div>
+            </div>
+          </Reveal>
         </div>
         {/* THE "Scroll" CUE IS GONE (Richard, review, July 2026). It sat at the foot of the
             hero, and the very next thing on the page is the film's first label, GET FOUND.
