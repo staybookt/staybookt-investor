@@ -140,11 +140,11 @@ const CSS = `
    to the cream light hero: gradient-border eyebrow pill, two-stage animated headline, a subhead,
    and a supporting graphic — the front office running and getting handled, which is exactly what
    the headline promises. .hiw .pg-hero (0,2,0) beats the global .pg-hero (0,1,0). Nav is solidTop. */
-.hiw .pg-hero{background:var(--v4-cream);color:var(--v4-ink);min-height:auto;padding:clamp(102px,13vh,150px) 0 clamp(46px,7vw,84px);text-align:center;}
+.hiw .pg-hero{background:var(--v4-cream);color:var(--v4-ink);min-height:auto;padding:clamp(84px,10vh,116px) 0 clamp(46px,7vw,84px);text-align:center;}
 .hiw .pg-hero::before{display:none;}
 .hiw .pg-hero .wrap{max-width:1120px;}
-.hiw .pg-hero .wrap .eyebrow{display:inline-block;color:#42474f;border:1.5px solid transparent;background:linear-gradient(#fff,#fff) padding-box,var(--sb-grad) border-box;border-radius:999px;padding:9px 18px;box-shadow:0 6px 18px -10px rgba(6,12,20,.25);}
-.hiw .pg-hero .wrap h1{margin:22px auto 0;max-width:none;font-size:clamp(20px,6.4vw,84px);line-height:1.02;letter-spacing:-.03em;text-align:center;color:var(--v4-ink);}
+.hiw .pg-hero .wrap .eyebrow{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.15em;color:#42474f;border:1.5px solid transparent;background:linear-gradient(#fff,#fff) padding-box,var(--sb-grad) border-box;border-radius:999px;padding:9px 18px;box-shadow:0 6px 18px -10px rgba(6,12,20,.25);}
+.hiw .pg-hero .wrap h1{margin:20px auto 0;max-width:none;font-size:clamp(20px,6.4vw,88px);line-height:1.02;letter-spacing:-.03em;text-align:center;color:var(--v4-ink);}
 .hiw .pg-hero .wrap h1 .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .hiw .pg-hero .wrap h1 .pd{color:var(--v4-violet);-webkit-text-fill-color:var(--v4-violet);}
 .hiw .pg-hero .hero-h1 .hl1,.hiw .pg-hero .hero-h1 .hl2{display:block;white-space:nowrap;}
@@ -155,10 +155,13 @@ const CSS = `
    reactor: recognizable work streams in from every edge as glowing tiles, dissolves into a big
    glowing StayBookt core (hot white seed, rotating sheen, rotating brand-gradient halo, breathing
    light field), and shockwave rings pulse back out = handled. Fixed 760x480 stage, scaled to fit. ===== */
-.hiw .eng-wrap{--sc:1;position:relative;width:calc(760px*var(--sc));height:calc(480px*var(--sc));margin:clamp(20px,3.5vw,44px) auto 0;}
+.hiw .eng-wrap{--sc:1;position:relative;width:calc(760px*var(--sc));height:calc(480px*var(--sc));margin:clamp(16px,2.6vw,36px) auto 0;}
 @media(max-width:840px){.hiw .eng-wrap{--sc:.8;}}
 @media(max-width:560px){.hiw .eng-wrap{--sc:.6;}}
 @media(max-width:400px){.hiw .eng-wrap{--sc:.48;}}
+/* keep the whole hero on one screen like the homepage: shrink the engine on shorter desktops */
+@media(min-width:841px) and (max-height:900px){.hiw .eng-wrap{--sc:.84;}}
+@media(min-width:841px) and (max-height:780px){.hiw .eng-wrap{--sc:.7;}}
 .hiw .engine{position:absolute;top:0;left:0;width:760px;height:480px;transform:scale(var(--sc));transform-origin:top left;overflow:hidden;}
 /* the light field the reactor sits in */
 .hiw .engine .field{position:absolute;left:50%;top:50%;width:720px;height:460px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle at 50% 50%,rgba(16,185,129,.24),rgba(79,70,229,.18) 40%,transparent 66%);filter:blur(4px);}
