@@ -29,12 +29,16 @@ const OFC_ICON: Record<string, string> = {
   review: 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z',
   invoice: 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6 M9 13h6 M9 17h6',
 };
-const OFFICE: { ic: string; t: string; w: string; s: string; c: string }[] = [
-  { ic: 'call', t: 'Missed call', w: 'Ringing', s: 'Answered', c: '#06b6d4' },
-  { ic: 'job', t: 'New job', w: 'Scheduling', s: 'Booked', c: '#10b981' },
-  { ic: 'quote', t: 'Quote sent', w: 'Chasing', s: 'Followed up', c: '#0ea5e9' },
-  { ic: 'review', t: 'Finished job', w: 'Asking', s: '5-star review', c: '#7c3aed' },
-  { ic: 'invoice', t: 'Invoice', w: 'Sending', s: 'Paid', c: '#4f46e5' },
+/* THE ENGINE. Recognizable work streams in from every edge and dissolves into the core.
+   sx/sy = the off-stage edge each chip flies from; dur/cd stagger the stream. */
+const CHIPS: { ic: string; c: string; sx: number; sy: number; dur: string; cd: string }[] = [
+  { ic: 'call', c: '#06b6d4', sx: -300, sy: -96, dur: '4.2s', cd: '0s' },
+  { ic: 'quote', c: '#0ea5e9', sx: 300, sy: -130, dur: '4.6s', cd: '-.6s' },
+  { ic: 'invoice', c: '#4f46e5', sx: -280, sy: 120, dur: '4s', cd: '-1.2s' },
+  { ic: 'review', c: '#7c3aed', sx: 300, sy: 108, dur: '4.4s', cd: '-1.8s' },
+  { ic: 'job', c: '#10b981', sx: -40, sy: -212, dur: '4.2s', cd: '-2.4s' },
+  { ic: 'call', c: '#06b6d4', sx: 70, sy: 210, dur: '4.5s', cd: '-3s' },
+  { ic: 'quote', c: '#0ea5e9', sx: -330, sy: 24, dur: '4.1s', cd: '-3.6s' },
 ];
 
 const LEARN_H = 'First, we learn your business.';
@@ -145,68 +149,44 @@ const CSS = `
 /* SUBHEAD = ONE LINE, ALWAYS (global rule). No max-width, nowrap, vw-scaled font. */
 .hiw .pg-hero .wrap p.sub{margin:22px auto 0;max-width:none;white-space:nowrap;font-size:clamp(13px,3.1vw,21px);line-height:1.4;color:#52565e;text-align:center;}
 
-/* THE FRONT OFFICE, RUNNING (Jacob, Jul 23 2026). Replaces the bare gradient line — the graphic
-   now supports the headline. Five things the front office handles stream in, each flipping to a
-   handled state: a live picture of "the whole front office, off your plate." Illustrative task
-   types, no invented numbers. */
-.hiw .hero-office{position:relative;display:flex;flex-direction:column;gap:14px;max-width:472px;margin:clamp(40px,6vw,70px) auto 0;text-align:left;}
-/* the light bloom the whole scene sits in */
-.hiw .hero-office::before{content:'';position:absolute;inset:-20% -14%;z-index:-1;background:radial-gradient(48% 54% at 50% 44%,rgba(16,185,129,.14),rgba(79,70,229,.1) 48%,transparent 74%);filter:blur(60px);opacity:.9;}
-/* crisp premium cards, aligned; kept alive by motion, not scatter (--dur/--fd = float rhythm) */
-.hiw .ofc-row{--dur:7s;--fd:0s;position:relative;overflow:hidden;display:flex;align-items:center;gap:13px;background:#fff;border:1px solid rgba(6,12,20,.06);border-radius:18px;padding:15px 18px;box-shadow:0 1px 2px rgba(6,12,20,.04),0 18px 34px -20px rgba(6,12,20,.3);will-change:transform;}
-.hiw .ofc-row.f1{--fd:0s;}
-.hiw .ofc-row.f2{--fd:-1.4s;}
-.hiw .ofc-row.f3{--fd:-2.8s;}
-.hiw .ofc-row.f4{--fd:-4.2s;}
-.hiw .ofc-row.f5{--fd:-5.6s;}
-/* the progress line that fills along the card base while the task is being worked */
-.hiw .ofc-row::after{content:'';position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--ic,#10b981);transform:scaleX(0);transform-origin:left;opacity:0;}
-.hiw .ofc-ic{position:relative;width:40px;height:40px;flex:0 0 auto;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 8px 16px -8px rgba(6,12,20,.35);}
-.hiw .ofc-ic svg{width:20px;height:20px;}
-/* the soft ping the icon emits when its task fires, in the task's own colour */
-.hiw .ofc-ic::after{content:'';position:absolute;inset:0;border-radius:inherit;border:1.5px solid var(--ic,#10b981);opacity:0;}
-.hiw .ofc-t{font-size:15.5px;font-weight:600;letter-spacing:-.01em;color:var(--v4-ink);}
-/* status: a calm "working" state (grey, live dot) resolves to "handled" (green, check). Stacked,
-   cross-fading; fixed width so nothing reflows. */
-.hiw .ofc-st{position:relative;margin-left:auto;width:132px;height:26px;flex:0 0 auto;}
-.hiw .ofc-st .st-work,.hiw .ofc-st .st-done{position:absolute;top:0;right:0;display:inline-flex;align-items:center;gap:7px;height:26px;padding:0 11px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap;}
-.hiw .ofc-st .st-work{color:#6b7280;background:rgba(6,12,20,.05);opacity:0;}
-.hiw .ofc-st .st-work .dot{width:6px;height:6px;border-radius:50%;background:var(--ic,#10b981);flex:0 0 auto;}
-.hiw .ofc-st .st-done{color:#047857;background:rgba(16,185,129,.13);font-weight:700;opacity:1;}
-.hiw .ofc-st .st-done svg{width:13px;height:13px;}
+/* ===== THE ENGINE (Jacob, Jul 24 2026). The front office as a machine: recognizable work —
+   calls, texts, quotes, reviews, invoices — streams in from every edge, dissolves into a glowing
+   StayBookt core, and calm light pulses back out (handled). Hybrid: recognizable icons resolving
+   into abstract light. A fixed 560x380 stage, scaled to fit; motion is pure transform/opacity. ===== */
+.hiw .eng-wrap{--sc:1;position:relative;width:calc(560px*var(--sc));height:calc(380px*var(--sc));margin:clamp(30px,5vw,54px) auto 0;}
+@media(max-width:640px){.hiw .eng-wrap{--sc:.72;}}
+@media(max-width:430px){.hiw .eng-wrap{--sc:.56;}}
+.hiw .engine{position:absolute;top:0;left:0;width:560px;height:380px;transform:scale(var(--sc));transform-origin:top left;overflow:hidden;}
+/* the field of light the core sits in */
+.hiw .engine .field{position:absolute;left:50%;top:50%;width:480px;height:340px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle at 50% 50%,rgba(16,185,129,.16),rgba(79,70,229,.12) 42%,transparent 68%);filter:blur(6px);}
+/* rings that pulse outward = handled, dispatched calmly */
+.hiw .engine .ring{position:absolute;left:50%;top:50%;width:96px;height:96px;transform:translate(-50%,-50%);border-radius:30px;border:1.5px solid rgba(16,185,129,.5);opacity:0;}
+/* the core: brand-gradient block with a rotating sheen and a calm white seed at its centre */
+.hiw .engine .core{position:absolute;left:50%;top:50%;width:96px;height:96px;transform:translate(-50%,-50%);border-radius:26px;background:linear-gradient(135deg,#06b6d4,#10b981 46%,#4f46e5 78%,#7c3aed);box-shadow:0 0 44px -4px rgba(16,185,129,.55),0 0 90px -10px rgba(79,70,229,.5),inset 0 2px 6px rgba(255,255,255,.35);overflow:hidden;}
+.hiw .engine .core .sheen{position:absolute;inset:-45%;background:conic-gradient(from 0deg,rgba(255,255,255,0) 0deg,rgba(255,255,255,.5) 40deg,rgba(255,255,255,0) 120deg);}
+.hiw .engine .core .seed{position:absolute;left:50%;top:50%;width:16px;height:16px;transform:translate(-50%,-50%);border-radius:50%;background:rgba(255,255,255,.95);box-shadow:0 0 12px rgba(255,255,255,.85);}
+/* incoming work: recognizable icon tiles that fly in and dissolve into the core */
+.hiw .engine .chip{position:absolute;left:50%;top:50%;margin:-22px 0 0 -22px;width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 10px 22px -8px rgba(6,12,20,.4);opacity:0;}
+.hiw .engine .chip svg{width:22px;height:22px;}
 
 @media(prefers-reduced-motion:no-preference){
   .hiw .pg-hero .hero-h1 .hl1,.hiw .pg-hero .hero-h1 .hl2{opacity:0;filter:blur(10px);transform:translateY(18px);}
   .hiw .pg-hero .hero-h1 .hl1{animation:hiwHeroIn .9s cubic-bezier(.16,1,.3,1) .15s forwards;}
   .hiw .pg-hero .hero-h1 .hl2{animation:hiwHeroIn 1s cubic-bezier(.16,1,.3,1) .8s forwards;}
   .hiw .pg-hero .wrap p.sub{opacity:0;filter:blur(6px);transform:translateY(12px);animation:hiwHeroIn .85s cubic-bezier(.16,1,.3,1) 1.3s forwards;}
-  .hiw .hero-office::before{opacity:0;animation:ofcGlow 1.6s ease 1.5s forwards;}
-  /* fade in through focus (opacity + blur only) while already gently floating (transform). */
-  .hiw .hero-office .ofc-row{opacity:0;filter:blur(10px);animation:ofcIn .9s cubic-bezier(.16,1,.3,1) var(--in,1.6s) forwards,ofcFloat var(--dur) ease-in-out var(--fd) infinite;}
-  .hiw .ofc-row.f1{--in:1.55s;--cd:0s;}
-  .hiw .ofc-row.f2{--in:1.75s;--cd:-1s;}
-  .hiw .ofc-row.f3{--in:1.95s;--cd:-2s;}
-  .hiw .ofc-row.f4{--in:2.15s;--cd:-3s;}
-  .hiw .ofc-row.f5{--in:2.35s;--cd:-4s;}
-  /* the work loop: staggered down the stack (negative --cd) so the office reads as continuously
-     catching and clearing jobs, not switches thrown at once. */
-  .hiw .ofc-st .st-work{animation:stWork 5s ease-in-out var(--cd,0s) infinite;}
-  .hiw .ofc-st .st-done{animation:stDone 5s ease-in-out var(--cd,0s) infinite;}
-  .hiw .ofc-st .st-work .dot{animation:dotPulse 1.1s ease-in-out infinite;}
-  .hiw .ofc-row::after{animation:barFill 5s ease-in-out var(--cd,0s) infinite;}
-  .hiw .ofc-ic{animation:icPulse 5s ease-in-out var(--cd,0s) infinite;}
-  .hiw .ofc-ic::after{animation:icRing 5s ease-out var(--cd,0s) infinite;}
+  .hiw .engine .field{animation:engBreathe 5s ease-in-out infinite;}
+  .hiw .engine .core{animation:engPulse 5s ease-in-out infinite;}
+  .hiw .engine .core .sheen{animation:engSpin 7s linear infinite;}
+  .hiw .engine .ring{animation:engRing 4.2s ease-out infinite;}
+  .hiw .engine .ring.r2{animation-delay:-2.1s;}
+  .hiw .engine .chip{animation:engChip var(--dur,4.2s) cubic-bezier(.45,0,.5,1) var(--cd,0s) infinite;}
 }
 @keyframes hiwHeroIn{to{opacity:1;filter:blur(0);transform:none;}}
-@keyframes ofcIn{to{opacity:1;filter:blur(0);}}
-@keyframes ofcFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
-@keyframes ofcGlow{to{opacity:.9;}}
-@keyframes stWork{0%,4%{opacity:0;}10%,42%{opacity:1;}50%,100%{opacity:0;}}
-@keyframes stDone{0%,46%{opacity:0;transform:translateY(4px);}56%,90%{opacity:1;transform:translateY(0);}100%{opacity:0;transform:translateY(0);}}
-@keyframes dotPulse{0%,100%{opacity:.4;transform:scale(.85);}50%{opacity:1;transform:scale(1);}}
-@keyframes barFill{0%,6%{transform:scaleX(0);opacity:0;}12%{opacity:1;}44%{transform:scaleX(1);opacity:1;}52%{transform:scaleX(1);opacity:0;}100%{transform:scaleX(1);opacity:0;}}
-@keyframes icPulse{0%,40%{transform:scale(1);}48%{transform:scale(1.08);}58%,100%{transform:scale(1);}}
-@keyframes icRing{0%,42%{opacity:0;transform:scale(1);}50%{opacity:.4;transform:scale(1);}80%{opacity:0;transform:scale(1.5);}100%{opacity:0;transform:scale(1.5);}}
+@keyframes engChip{0%{transform:translate(var(--sx),var(--sy)) scale(1);opacity:0;}14%{opacity:1;}66%{opacity:1;}88%{transform:translate(0,0) scale(.26);opacity:0;}100%{transform:translate(0,0) scale(.26);opacity:0;}}
+@keyframes engRing{0%{transform:translate(-50%,-50%) scale(1);opacity:.5;}70%{opacity:0;}100%{transform:translate(-50%,-50%) scale(2.7);opacity:0;}}
+@keyframes engPulse{0%,100%{box-shadow:0 0 44px -4px rgba(16,185,129,.55),0 0 90px -10px rgba(79,70,229,.5),inset 0 2px 6px rgba(255,255,255,.35);}50%{box-shadow:0 0 60px -2px rgba(16,185,129,.72),0 0 120px -6px rgba(79,70,229,.64),inset 0 2px 6px rgba(255,255,255,.4);}}
+@keyframes engBreathe{0%,100%{opacity:.85;transform:translate(-50%,-50%) scale(1);}50%{opacity:1;transform:translate(-50%,-50%) scale(1.06);}}
+@keyframes engSpin{to{transform:rotate(360deg);}}
 
 /* learn */
 .hiw-learn{padding:clamp(80px,11vw,140px) 0;background:var(--v4-cream);}
@@ -685,22 +665,22 @@ export default function HowItWorks() {
             <span className="hl2"><span className="g">{HERO_H_B}</span><span className="pd">.</span></span>
           </h1>
           <p className="sub">Every call, answered. Every job, booked.</p>
-          <div className="hero-office" aria-hidden="true">
-            {OFFICE.map((o, i) => (
-              <div className={`ofc-row f${i + 1}`} key={o.t} style={{ ['--ic' as string]: o.c }}>
-                <span className="ofc-ic" style={{ backgroundColor: o.c }}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><path d={OFC_ICON[o.ic]} /></svg>
-                </span>
-                <span className="ofc-t">{o.t}</span>
-                <span className="ofc-st">
-                  <span className="st-work"><i className="dot" />{o.w}</span>
-                  <span className="st-done">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
-                    {o.s}
-                  </span>
-                </span>
-              </div>
-            ))}
+          <div className="eng-wrap" aria-hidden="true">
+            <div className="engine">
+              <div className="field" />
+              <div className="ring r1" />
+              <div className="ring r2" />
+              <div className="core"><span className="sheen" /><span className="seed" /></div>
+              {CHIPS.map((ch, i) => (
+                <div
+                  className="chip"
+                  key={i}
+                  style={{ backgroundColor: ch.c, ['--sx' as string]: `${ch.sx}px`, ['--sy' as string]: `${ch.sy}px`, ['--dur' as string]: ch.dur, ['--cd' as string]: ch.cd } as CSSProperties}
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><path d={OFC_ICON[ch.ic]} /></svg>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </header>
