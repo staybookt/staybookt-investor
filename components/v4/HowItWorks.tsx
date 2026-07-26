@@ -32,13 +32,15 @@ const OFC_ICON: Record<string, string> = {
 /* THE ENGINE. Recognizable work streams in from every edge and dissolves into the core.
    sx/sy = the off-stage edge each chip flies from; dur/cd stagger the stream. */
 const CHIPS: { ic: string; c: string; sx: number; sy: number; dur: string; cd: string }[] = [
-  { ic: 'call', c: '#06b6d4', sx: -300, sy: -96, dur: '4.2s', cd: '0s' },
-  { ic: 'quote', c: '#0ea5e9', sx: 300, sy: -130, dur: '4.6s', cd: '-.6s' },
-  { ic: 'invoice', c: '#4f46e5', sx: -280, sy: 120, dur: '4s', cd: '-1.2s' },
-  { ic: 'review', c: '#7c3aed', sx: 300, sy: 108, dur: '4.4s', cd: '-1.8s' },
-  { ic: 'job', c: '#10b981', sx: -40, sy: -212, dur: '4.2s', cd: '-2.4s' },
-  { ic: 'call', c: '#06b6d4', sx: 70, sy: 210, dur: '4.5s', cd: '-3s' },
-  { ic: 'quote', c: '#0ea5e9', sx: -330, sy: 24, dur: '4.1s', cd: '-3.6s' },
+  { ic: 'call', c: '#06b6d4', sx: -400, sy: -130, dur: '3.8s', cd: '0s' },
+  { ic: 'quote', c: '#0ea5e9', sx: 400, sy: -170, dur: '4.1s', cd: '-.45s' },
+  { ic: 'invoice', c: '#4f46e5', sx: -380, sy: 150, dur: '3.6s', cd: '-.9s' },
+  { ic: 'review', c: '#7c3aed', sx: 400, sy: 150, dur: '4s', cd: '-1.35s' },
+  { ic: 'job', c: '#10b981', sx: -70, sy: -280, dur: '3.7s', cd: '-1.8s' },
+  { ic: 'call', c: '#06b6d4', sx: 110, sy: 280, dur: '4.2s', cd: '-2.25s' },
+  { ic: 'quote', c: '#0ea5e9', sx: -430, sy: 20, dur: '3.9s', cd: '-2.7s' },
+  { ic: 'invoice', c: '#4f46e5', sx: 430, sy: -30, dur: '3.7s', cd: '-3.15s' },
+  { ic: 'review', c: '#7c3aed', sx: 40, sy: 290, dur: '4s', cd: '-3.6s' },
 ];
 
 const LEARN_H = 'First, we learn your business.';
@@ -149,44 +151,50 @@ const CSS = `
 /* SUBHEAD = ONE LINE, ALWAYS (global rule). No max-width, nowrap, vw-scaled font. */
 .hiw .pg-hero .wrap p.sub{margin:22px auto 0;max-width:none;white-space:nowrap;font-size:clamp(13px,3.1vw,21px);line-height:1.4;color:#52565e;text-align:center;}
 
-/* ===== THE ENGINE (Jacob, Jul 24 2026). The front office as a machine: recognizable work —
-   calls, texts, quotes, reviews, invoices — streams in from every edge, dissolves into a glowing
-   StayBookt core, and calm light pulses back out (handled). Hybrid: recognizable icons resolving
-   into abstract light. A fixed 560x380 stage, scaled to fit; motion is pure transform/opacity. ===== */
-.hiw .eng-wrap{--sc:1;position:relative;width:calc(560px*var(--sc));height:calc(380px*var(--sc));margin:clamp(30px,5vw,54px) auto 0;}
-@media(max-width:640px){.hiw .eng-wrap{--sc:.72;}}
-@media(max-width:430px){.hiw .eng-wrap{--sc:.56;}}
-.hiw .engine{position:absolute;top:0;left:0;width:560px;height:380px;transform:scale(var(--sc));transform-origin:top left;overflow:hidden;}
-/* the field of light the core sits in */
-.hiw .engine .field{position:absolute;left:50%;top:50%;width:480px;height:340px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle at 50% 50%,rgba(16,185,129,.16),rgba(79,70,229,.12) 42%,transparent 68%);filter:blur(6px);}
-/* rings that pulse outward = handled, dispatched calmly */
-.hiw .engine .ring{position:absolute;left:50%;top:50%;width:96px;height:96px;transform:translate(-50%,-50%);border-radius:30px;border:1.5px solid rgba(16,185,129,.5);opacity:0;}
-/* the core: brand-gradient block with a rotating sheen and a calm white seed at its centre */
-.hiw .engine .core{position:absolute;left:50%;top:50%;width:96px;height:96px;transform:translate(-50%,-50%);border-radius:26px;background:linear-gradient(135deg,#06b6d4,#10b981 46%,#4f46e5 78%,#7c3aed);box-shadow:0 0 44px -4px rgba(16,185,129,.55),0 0 90px -10px rgba(79,70,229,.5),inset 0 2px 6px rgba(255,255,255,.35);overflow:hidden;}
-.hiw .engine .core .sheen{position:absolute;inset:-45%;background:conic-gradient(from 0deg,rgba(255,255,255,0) 0deg,rgba(255,255,255,.5) 40deg,rgba(255,255,255,0) 120deg);}
-.hiw .engine .core .seed{position:absolute;left:50%;top:50%;width:16px;height:16px;transform:translate(-50%,-50%);border-radius:50%;background:rgba(255,255,255,.95);box-shadow:0 0 12px rgba(255,255,255,.85);}
-/* incoming work: recognizable icon tiles that fly in and dissolve into the core */
-.hiw .engine .chip{position:absolute;left:50%;top:50%;margin:-22px 0 0 -22px;width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 10px 22px -8px rgba(6,12,20,.4);opacity:0;}
-.hiw .engine .chip svg{width:22px;height:22px;}
+/* ===== THE ENGINE (Jacob, Jul 24 2026 — bigger, bolder, cinematic). The front office as a
+   reactor: recognizable work streams in from every edge as glowing tiles, dissolves into a big
+   glowing StayBookt core (hot white seed, rotating sheen, rotating brand-gradient halo, breathing
+   light field), and shockwave rings pulse back out = handled. Fixed 760x480 stage, scaled to fit. ===== */
+.hiw .eng-wrap{--sc:1;position:relative;width:calc(760px*var(--sc));height:calc(480px*var(--sc));margin:clamp(20px,3.5vw,44px) auto 0;}
+@media(max-width:840px){.hiw .eng-wrap{--sc:.8;}}
+@media(max-width:560px){.hiw .eng-wrap{--sc:.6;}}
+@media(max-width:400px){.hiw .eng-wrap{--sc:.48;}}
+.hiw .engine{position:absolute;top:0;left:0;width:760px;height:480px;transform:scale(var(--sc));transform-origin:top left;overflow:hidden;}
+/* the light field the reactor sits in */
+.hiw .engine .field{position:absolute;left:50%;top:50%;width:720px;height:460px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle at 50% 50%,rgba(16,185,129,.24),rgba(79,70,229,.18) 40%,transparent 66%);filter:blur(4px);}
+/* shockwave rings that pulse outward = handled, dispatched */
+.hiw .engine .ring{position:absolute;left:50%;top:50%;width:140px;height:140px;transform:translate(-50%,-50%);border-radius:40px;border:2px solid rgba(16,185,129,.5);opacity:0;}
+/* rotating brand-gradient halo ring around the core */
+.hiw .engine .halo{position:absolute;left:50%;top:50%;width:224px;height:224px;transform:translate(-50%,-50%);border-radius:60px;background:conic-gradient(from 0deg,#06b6d4,#10b981,#4f46e5,#7c3aed,#06b6d4);-webkit-mask:radial-gradient(transparent 60%,#000 63%);mask:radial-gradient(transparent 60%,#000 63%);opacity:.5;}
+/* the core */
+.hiw .engine .core{position:absolute;left:50%;top:50%;width:140px;height:140px;transform:translate(-50%,-50%);border-radius:34px;background:linear-gradient(135deg,#06b6d4,#10b981 44%,#4f46e5 76%,#7c3aed);box-shadow:0 0 70px -2px rgba(16,185,129,.7),0 0 150px 0 rgba(79,70,229,.55),inset 0 3px 10px rgba(255,255,255,.45);overflow:hidden;}
+.hiw .engine .core .sheen{position:absolute;inset:-45%;background:conic-gradient(from 0deg,rgba(255,255,255,0) 0deg,rgba(255,255,255,.6) 40deg,rgba(255,255,255,0) 120deg);}
+.hiw .engine .core .seed{position:absolute;left:50%;top:50%;width:30px;height:30px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,#fff,rgba(255,255,255,.82));box-shadow:0 0 28px 6px rgba(255,255,255,.85);}
+/* incoming work: glowing recognizable tiles that fly in and dissolve into the core */
+.hiw .engine .chip{position:absolute;left:50%;top:50%;margin:-26px 0 0 -26px;width:52px;height:52px;border-radius:15px;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 12px 26px -8px rgba(6,12,20,.45),0 0 24px -4px var(--tc,rgba(6,12,20,.3));opacity:0;}
+.hiw .engine .chip svg{width:26px;height:26px;}
 
 @media(prefers-reduced-motion:no-preference){
   .hiw .pg-hero .hero-h1 .hl1,.hiw .pg-hero .hero-h1 .hl2{opacity:0;filter:blur(10px);transform:translateY(18px);}
   .hiw .pg-hero .hero-h1 .hl1{animation:hiwHeroIn .9s cubic-bezier(.16,1,.3,1) .15s forwards;}
   .hiw .pg-hero .hero-h1 .hl2{animation:hiwHeroIn 1s cubic-bezier(.16,1,.3,1) .8s forwards;}
   .hiw .pg-hero .wrap p.sub{opacity:0;filter:blur(6px);transform:translateY(12px);animation:hiwHeroIn .85s cubic-bezier(.16,1,.3,1) 1.3s forwards;}
-  .hiw .engine .field{animation:engBreathe 5s ease-in-out infinite;}
-  .hiw .engine .core{animation:engPulse 5s ease-in-out infinite;}
-  .hiw .engine .core .sheen{animation:engSpin 7s linear infinite;}
-  .hiw .engine .ring{animation:engRing 4.2s ease-out infinite;}
-  .hiw .engine .ring.r2{animation-delay:-2.1s;}
-  .hiw .engine .chip{animation:engChip var(--dur,4.2s) cubic-bezier(.45,0,.5,1) var(--cd,0s) infinite;}
+  .hiw .engine .field{animation:engBreathe 4.5s ease-in-out infinite;}
+  .hiw .engine .halo{animation:engSpinC 14s linear infinite;}
+  .hiw .engine .core{animation:engPulse 4.5s ease-in-out infinite;}
+  .hiw .engine .core .sheen{animation:engSpin 6s linear infinite;}
+  .hiw .engine .ring{animation:engRing 3.6s ease-out infinite;}
+  .hiw .engine .ring.r2{animation-delay:-1.2s;}
+  .hiw .engine .ring.r3{animation-delay:-2.4s;}
+  .hiw .engine .chip{animation:engChip var(--dur,3.8s) cubic-bezier(.4,0,.5,1) var(--cd,0s) infinite;}
 }
 @keyframes hiwHeroIn{to{opacity:1;filter:blur(0);transform:none;}}
-@keyframes engChip{0%{transform:translate(var(--sx),var(--sy)) scale(1);opacity:0;}14%{opacity:1;}66%{opacity:1;}88%{transform:translate(0,0) scale(.26);opacity:0;}100%{transform:translate(0,0) scale(.26);opacity:0;}}
-@keyframes engRing{0%{transform:translate(-50%,-50%) scale(1);opacity:.5;}70%{opacity:0;}100%{transform:translate(-50%,-50%) scale(2.7);opacity:0;}}
-@keyframes engPulse{0%,100%{box-shadow:0 0 44px -4px rgba(16,185,129,.55),0 0 90px -10px rgba(79,70,229,.5),inset 0 2px 6px rgba(255,255,255,.35);}50%{box-shadow:0 0 60px -2px rgba(16,185,129,.72),0 0 120px -6px rgba(79,70,229,.64),inset 0 2px 6px rgba(255,255,255,.4);}}
-@keyframes engBreathe{0%,100%{opacity:.85;transform:translate(-50%,-50%) scale(1);}50%{opacity:1;transform:translate(-50%,-50%) scale(1.06);}}
+@keyframes engChip{0%{transform:translate(var(--sx),var(--sy)) scale(1.06);opacity:0;}12%{opacity:1;}64%{opacity:1;}86%{transform:translate(0,0) scale(.2);opacity:0;}100%{transform:translate(0,0) scale(.2);opacity:0;}}
+@keyframes engRing{0%{transform:translate(-50%,-50%) scale(1);opacity:.55;}70%{opacity:0;}100%{transform:translate(-50%,-50%) scale(3.1);opacity:0;}}
+@keyframes engPulse{0%,100%{box-shadow:0 0 70px -2px rgba(16,185,129,.7),0 0 150px 0 rgba(79,70,229,.55),inset 0 3px 10px rgba(255,255,255,.45);}50%{box-shadow:0 0 104px 6px rgba(16,185,129,.85),0 0 210px 12px rgba(79,70,229,.7),inset 0 3px 10px rgba(255,255,255,.5);}}
+@keyframes engBreathe{0%,100%{opacity:.85;transform:translate(-50%,-50%) scale(1);}50%{opacity:1;transform:translate(-50%,-50%) scale(1.09);}}
 @keyframes engSpin{to{transform:rotate(360deg);}}
+@keyframes engSpinC{from{transform:translate(-50%,-50%) rotate(0);}to{transform:translate(-50%,-50%) rotate(360deg);}}
 
 /* learn */
 .hiw-learn{padding:clamp(80px,11vw,140px) 0;background:var(--v4-cream);}
@@ -670,12 +678,14 @@ export default function HowItWorks() {
               <div className="field" />
               <div className="ring r1" />
               <div className="ring r2" />
+              <div className="ring r3" />
+              <div className="halo" />
               <div className="core"><span className="sheen" /><span className="seed" /></div>
               {CHIPS.map((ch, i) => (
                 <div
                   className="chip"
                   key={i}
-                  style={{ backgroundColor: ch.c, ['--sx' as string]: `${ch.sx}px`, ['--sy' as string]: `${ch.sy}px`, ['--dur' as string]: ch.dur, ['--cd' as string]: ch.cd } as CSSProperties}
+                  style={{ backgroundColor: ch.c, ['--tc' as string]: ch.c, ['--sx' as string]: `${ch.sx}px`, ['--sy' as string]: `${ch.sy}px`, ['--dur' as string]: ch.dur, ['--cd' as string]: ch.cd } as CSSProperties}
                 >
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><path d={OFC_ICON[ch.ic]} /></svg>
                 </div>
