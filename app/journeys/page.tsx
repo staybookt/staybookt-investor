@@ -267,15 +267,18 @@ const CSS = `
 @keyframes jlDraw{to{stroke-dashoffset:0;}}
 /* the traveler: the owner's mini headshot rides the route; it "establishes" large at
    the start (scale settle) then travels. */
+/* SMOOTH HAND-OFF (Jacob: the pin-to-journey transition was jerky). The head holds
+   STATIONARY at the pin for the first 8% of the cycle (~0.5s), crossfading in at pin
+   size while the pin crossfades out, settles, and only then departs. */
 .jl-svg .jl-trav{opacity:0;offset-rotate:0deg;animation:jlTravel 6s linear infinite;}
-@keyframes jlTravel{0%{offset-distance:0%;opacity:0;transform:scale(1.5);}4%{opacity:1;transform:scale(1.5);}10%{transform:scale(1);}96%{opacity:1;}100%{offset-distance:100%;opacity:0;transform:scale(.8);}}
+@keyframes jlTravel{0%{offset-distance:0%;opacity:0;transform:scale(1.7);}8%{offset-distance:0%;opacity:1;transform:scale(1.5);}16%{transform:scale(1);}96%{opacity:1;}100%{offset-distance:100%;opacity:0;transform:scale(.85);}}
 
 /* THE HAND-OFF: the WHOLE pin (avatar + name chip) departs when its head hits the road,
    and comes home as the head arrives. Same 6s clock, same delays as line + traveler. */
 .jl-map > div:nth-of-type(1){animation:jlPinCycle 6s linear 3.95s infinite;}
 .jl-map > div:nth-of-type(2){animation:jlPinCycle 6s linear 4.2s infinite;}
 .jl-map > div:nth-of-type(3){animation:jlPinCycle 6s linear 4.45s infinite;}
-@keyframes jlPinCycle{0%{opacity:1;}5%{opacity:0;}92%{opacity:0;}100%{opacity:1;}}
+@keyframes jlPinCycle{0%{opacity:1;}3%{opacity:1;}14%{opacity:0;}88%{opacity:0;}100%{opacity:1;}}
 
 .pin{position:absolute;transform:translate(-50%,-40%);display:flex;flex-direction:column;align-items:center;gap:7px;z-index:2;}
 .pav{width:clamp(34px,4.6vw,52px);height:clamp(34px,4.6vw,52px);border-radius:50%;display:block;overflow:hidden;background:#fff;}
