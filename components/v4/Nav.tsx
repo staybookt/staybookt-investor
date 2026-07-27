@@ -21,22 +21,19 @@ import { START_LINK } from '@/lib/site';
  *
  * The footer mirrors this order. If you change one, change the other. The homepage
  * "Go deeper" grid is deliberately NOT a mirror any more, it is a curated four. */
+/* ORDER (Jacob, July 27 2026): About / Pricing / Journeys / How it works / Long-term
+   value. This replaced the earlier what-it-is→proof→who argument order. The footer
+   mirrors this — change one, change the other. */
 const LINKS = [
-  { href: '/how-it-works', label: 'How it works' },
-  /* "What's included" MERGED INTO Pricing (Jacob + Richard, Jul 23 2026). The chart page was
-     the stronger of the two, so it IS the pricing page now; /whats-included 308s to /pricing.
-     Five nav items. */
-  { href: '/pricing', label: 'Pricing' },
-  /* WAS 'Enjoy Life'. Richard: "Enjoy Life has a different connotation than I think the page
-     is doing so it feels clunky... I would focus on long-term value as a stand alone." The
-     label is his words. It is longer than the others and that is fine: clarity beats
-     cleverness, which is the same argument we had about the closing tag. */
-  { href: '/long-term', label: 'Long-term value' },
-  /* WAS 'Success stories' → /success-stories (one page, modal player). Jacob's July 27
-     restructure: 'Journeys' is the tab; a mini landing routes to three dedicated
-     profession pages (home-service / consultant / real-estate-agent). */
-  { href: '/journeys', label: 'Journeys' },
   { href: '/founders', label: 'About us' },
+  /* "What's included" MERGED INTO Pricing (Jacob + Richard, Jul 23 2026); /whats-included
+     308s to /pricing. */
+  { href: '/pricing', label: 'Pricing' },
+  /* 'Journeys': mini landing routing to three profession pages (July 27 restructure). */
+  { href: '/journeys', label: 'Journeys' },
+  { href: '/how-it-works', label: 'How it works' },
+  /* Label is Richard's words (July 14): "focus on long-term value as a stand alone." */
+  { href: '/long-term', label: 'Long-term value' },
 ];
 
 /* Fixed dark nav that solidifies (blur + border) once the user scrolls past

@@ -20,11 +20,13 @@ import { START_LINK, EMAIL, PHONE_DISPLAY, PHONE_HREF } from '@/lib/site';
  *
  * The work and Contact are footer-only, so they sit after the four the nav carries. */
 const SITE = [
-  { href: '/how-it-works', label: 'How it works' },
-  { href: '/pricing', label: 'Pricing' },
-  { href: '/long-term', label: 'Long-term value' },
-  { href: '/journeys', label: 'Journeys' },
+  /* mirrors the nav order (Jacob, July 27): About / Pricing / Journeys / How it works /
+     Long-term value. Change one, change the other. */
   { href: '/founders', label: 'About us' },
+  { href: '/pricing', label: 'Pricing' },
+  { href: '/journeys', label: 'Journeys' },
+  { href: '/how-it-works', label: 'How it works' },
+  { href: '/long-term', label: 'Long-term value' },
   { href: '/contact', label: 'Contact' },
 ];
 
