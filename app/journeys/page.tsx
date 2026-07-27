@@ -179,6 +179,19 @@ export default function JourneysPage() {
           </div>
           </div>
 
+          {/* the tee-up: same section pattern as About's "Two founders. One mission." —
+              eyebrow, head, short paragraph explaining what a journey IS before the cards */}
+          <div className="jl-teeup">
+            <div className="jl-eyebrow2">The journeys</div>
+            <h2>Three trades. One story.</h2>
+            <p>
+              A journey is one owner&rsquo;s year, start to finish: the week that was leaking, the moment
+              it broke, and what changed when StayBookt took the front of the business off their hands.
+              Ten chapters, a couple of minutes, receipts at the end. Start with whoever&rsquo;s week
+              looks like yours.
+            </p>
+          </div>
+
           <div className="jl-grid">
             {/* LinkedIn-profile anatomy (Jacob, July 27, with his own profile as the
                 reference): photographic cover banner (the owner's photo, B&W with the
@@ -262,6 +275,12 @@ const CSS = `
 .dcore{width:38%;height:38%;border-radius:50%;background:#fff;}
 .dlab{margin-top:8px;font-size:clamp(11px,1.4vw,15px);font-weight:700;letter-spacing:-.01em;color:var(--v4-ink,#06080d);background:rgba(255,255,255,.92);border:1px solid rgba(6,12,20,.08);border-radius:999px;padding:4px 12px;opacity:0;animation:jlUp .6s ease 4.05s forwards;}
 @keyframes jlPop{from{opacity:0;transform:scale(0);}to{opacity:1;transform:scale(1);}}
+
+/* tee-up (About "The team" section pattern) */
+.jl-teeup{max-width:1160px;margin:0 auto;padding:clamp(56px,9vh,100px) clamp(18px,3.6vw,40px) 0;}
+.jl-eyebrow2{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#69707d;}
+.jl-teeup h2{margin-top:14px;font-size:clamp(30px,4.6vw,56px);font-weight:600;letter-spacing:-.038em;line-height:1.02;}
+.jl-teeup p{margin-top:18px;font-size:clamp(15.5px,1.8vw,19px);line-height:1.65;color:#52565e;max-width:56ch;}
 
 /* cards */
 .jl-grid{max-width:1160px;margin:clamp(26px,4vh,42px) auto 0;padding:0 clamp(18px,3.6vw,40px);display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,22px);}
