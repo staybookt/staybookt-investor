@@ -362,6 +362,22 @@ export default function Journey({ id }: { id: string }) {
         </div>
       </div>
 
+      {/* THE FINALE — the movie's true last frame, IMMEDIATELY after the film (Jacob,
+          July 27: "the CTA card at the end of the movie" — it was originally parked at
+          the page bottom and never seen; do not move it back down). Full-screen gradient
+          takeover, THE question this journey earns, one CTA. The quote/cards/FAQ that
+          follow are the epilogue. HeroCta dock stays omitted on journey pages.
+          Question form is deliberate and allowed: "What would you do with X" cannot be
+          answered "no" (Richard's rule targets yes/no closes). */}
+      <section className="jy-finale">
+        <div className="jy-fin-in jy-rv">
+          <div className="jy-fin-kick">Your journey</div>
+          <h2 dangerouslySetInnerHTML={{ __html: d.finale }} />
+          <a className="jy-fin-cta" href={START_LINK} data-cta="journey_finale">Start your journey &rarr;</a>
+          <div className="jy-fin-note">Thirty minutes with a founder. It&rsquo;s free.</div>
+        </div>
+      </section>
+
       {/* QUOTE */}
       <figure className="jy-quote">
         <blockquote className="jy-rv" dangerouslySetInnerHTML={{ __html: d.quote }} />
@@ -434,21 +450,6 @@ export default function Journey({ id }: { id: string }) {
         </div>
       </section>
 
-      {/* THE FINALE — full-screen gradient takeover, THE question this journey earns,
-          one CTA (Jacob, July 27: "massive and bold about starting their journey...
-          differ this per journey"). This IS the journey pages' close; the sitewide
-          HeroCta dock does not follow it (two full closes would compete — documented
-          deviation from the per-page-close doctrine, for these three pages only).
-          Question form is deliberate and allowed: "What would you do with X" cannot be
-          answered "no" (Richard's rule targets yes/no closes). */}
-      <section className="jy-finale">
-        <div className="jy-fin-in jy-rv">
-          <div className="jy-fin-kick">Your journey</div>
-          <h2 dangerouslySetInnerHTML={{ __html: d.finale }} />
-          <a className="jy-fin-cta" href={START_LINK} data-cta="journey_finale">Start your journey &rarr;</a>
-          <div className="jy-fin-note">Thirty minutes with a founder. It&rsquo;s free.</div>
-        </div>
-      </section>
     </div>
   );
 }
