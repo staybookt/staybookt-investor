@@ -43,7 +43,7 @@ const CARDS = [
     href: '/journeys/home-service',
     img: '/face-marcus.jpg',
     banner: '/banner-toronto.jpg',
-    bpos: 'center 42%',
+    bpos: 'center',
     person: 'Marcus Bell',
     role: 'Owner · Seamless Electric',
     c: '#06b6d4',
@@ -56,7 +56,7 @@ const CARDS = [
     href: '/journeys/consultant',
     img: '/face-sean.jpg',
     banner: '/banner-chicago.jpg',
-    bpos: 'center 55%',
+    bpos: 'center',
     person: 'Sean Anderson',
     role: 'Founder · Anderson Consulting',
     c: '#4f46e5',
@@ -69,7 +69,7 @@ const CARDS = [
     href: '/journeys/real-estate-agent',
     img: '/face-kim.jpg',
     banner: '/banner-vancouver.jpg',
-    bpos: 'center 48%',
+    bpos: 'center',
     person: 'Kim Dempster',
     role: 'Realtor · Dempster Group',
     c: '#7c3aed',
@@ -187,11 +187,11 @@ export default function JourneysPage() {
           <div className="jl-teeup">
             <div className="jl-eyebrow2">The journeys</div>
             <h2>Three trades. One story.</h2>
+            {/* WAS a four-line re-explanation of what the hero and cards already say (Jacob:
+                "redundant from above text"). The tee-up's only unique job is the FORMAT. */}
             <p>
-              A journey is one owner&rsquo;s year, start to finish: the week that was leaking, the moment
-              it broke, and what changed when StayBookt took the front of the business off their hands.
-              Ten chapters, a couple of minutes, receipts at the end. Start with whoever&rsquo;s week
-              looks like yours.
+              Each one is an owner&rsquo;s year in ten short chapters: the leak, the breaking point,
+              the turn, the wins, and the receipts at the end. Two minutes, start to finish. Just scroll.
             </p>
           </div>
 
