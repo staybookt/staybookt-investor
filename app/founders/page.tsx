@@ -108,8 +108,11 @@ const CSS = `
 
 /* THE TWO FOUNDERS, SIDE BY SIDE. Richard left, Jacob right. Identical elements in
    each card so the grid stays even. */
-.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(26px,4vw,56px);align-items:start;}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(26px,4vw,56px);align-items:stretch;}
 @media(max-width:820px){.fgrid{grid-template-columns:1fr;gap:48px;}}
+/* equal-length cards: each card is a flex column and the quote bottom-aligns, so both cards end on
+   the same line no matter how the copy wraps (Jacob, Jul 24 2026). */
+.fcard{display:flex;flex-direction:column;}
 /* GRADIENT PHOTO BORDER (Emma, p15 ①, her primary shown suggestion): the brand gradient as a
    decorative ring around each founder photo. The wrapper carries the gradient and a 3px pad; the
    image sits inside at a slightly smaller radius so the ring shows evenly. Shadow + hover-lift
@@ -123,10 +126,10 @@ const CSS = `
 /* Roles BLACK, not green (Emma, p15 ②). She flagged the green as a contrast risk and asked for
    black; the gradient decorative role is carried by the photo border above, not the text. */
 .fcard .ro{margin-top:12px;font-size:14px;font-weight:600;letter-spacing:.02em;color:var(--v4-ink);}
-.fcard .bio{margin-top:18px;font-size:15.5px;line-height:1.7;color:#69707d;}
+.fcard .bio{margin:18px 0 24px;font-size:15.5px;line-height:1.7;color:#69707d;}
 /* each founder's quote, beneath their bio (Richard, Jul 24 2026). Brand-gradient left rule so it
    reads as ours, not a generic testimonial. */
-.fcard .fq{margin:20px 0 0;padding-left:clamp(16px,1.4vw,20px);border-left:3px solid transparent;border-image:var(--sb-grad-ink) 1;font-size:16px;line-height:1.6;font-weight:500;letter-spacing:-.01em;color:var(--v4-ink);}
+.fcard .fq{margin:auto 0 0;padding-left:clamp(16px,1.4vw,20px);border-left:3px solid transparent;border-image:var(--sb-grad-ink) 1;font-size:16px;line-height:1.6;font-weight:500;letter-spacing:-.01em;color:var(--v4-ink);}
 
 /* The source portraits are 3:4. Cover-cropping them into a 1:1 card from the
    default centre lands the crop window on the chest and takes the top of the head
@@ -240,7 +243,7 @@ export default function AboutPage() {
             <article className="fcard">
               <div className="fimg"><img className="hi" src="/photos/jacob.jpg" alt="Jacob Charendoff, co-founder of StayBookt" width={280} height={280} /></div>
               <div className="nm">Jacob Charendoff</div>
-              <div className="ro">Brand, product, and growth</div>
+              <div className="ro">Brand, product, and marketing</div>
               <p className="bio">
                 A decade spent as an entrepreneur and alongside service business owners across health,
                 hospitality, software, retail, and the trades. He works on the outside of the business:
@@ -248,11 +251,10 @@ export default function AboutPage() {
                 hand off.
               </p>
               <blockquote className="fq">
-                &ldquo;I have spent my career as an entrepreneur and alongside other entrepreneurs, most
-                of them brilliant at the work and buried by everything around it. StayBookt is how I get
-                to make a difference for them: we remove the barriers of not enough Time and not enough
-                Customers, so you get the most out of life while you build something great. Helping you
-                reach your version of success is the part I care about most.&rdquo;
+                &ldquo;I have spent my career as an entrepreneur and alongside other entrepreneurs,
+                brilliant at the work and buried by everything around it. StayBookt is how I make a
+                difference: we remove the barriers of not enough Time and not enough Customers, so you
+                get the most out of life on the way to building something great.&rdquo;
               </blockquote>
             </article>
           </div>
