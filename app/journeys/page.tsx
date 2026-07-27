@@ -100,15 +100,20 @@ export default function JourneysPage() {
           <div className="jl-fold">
           <div className="jl-hero">
             <div className="jl-pill">Journeys</div>
-            {/* WAS "Three owners. Three roads. / One destination." — clever about the page,
-                said nothing to the reader (Jacob: "it stinks"). This one is recognition:
-                line 1 names the visitor's own week, the punchline is the whole before/after
-                promise, and the map below becomes the proof instead of the explanation. */}
+            {/* THE POINT OF THIS PAGE IS BELIEF (Jacob, July 27 2026: "what is the point of
+                the journeys page, how do we exude that in the header"). Every other page
+                argues; this one exists for the owner who has stopped believing their week
+                can be different. So the headline says the thing that owner needs to hear,
+                and the punchline is what the page literally is: proof. Two earlier heads
+                died here: "Three roads / One destination" (described the page, not the
+                reader) and "Their week looked like yours / Then it didn't" (recognition
+                without emotion). Declarative on purpose — no questions in heads/closes
+                (Richard's rule). */}
             <h1>
-              <span className="hl1">Their week looked like yours.</span>
-              <span className="hl2 g">Then it didn&rsquo;t<span className="pd">.</span></span>
+              <span className="hl1">It doesn&rsquo;t have to be like this.</span>
+              <span className="hl2 g">They proved it<span className="pd">.</span></span>
             </h1>
-            <p className="jl-sub">Walk a year with the owner who sounds like you.</p>
+            <p className="jl-sub">Three owners got their lives back. Walk the year it happened.</p>
           </div>
 
           {/* THE GUIDED MAP */}
