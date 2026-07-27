@@ -32,7 +32,10 @@ const LINKS = [
      label is his words. It is longer than the others and that is fine: clarity beats
      cleverness, which is the same argument we had about the closing tag. */
   { href: '/long-term', label: 'Long-term value' },
-  { href: '/success-stories', label: 'Success stories' },
+  /* WAS 'Success stories' → /success-stories (one page, modal player). Jacob's July 27
+     restructure: 'Journeys' is the tab; a mini landing routes to three dedicated
+     profession pages (home-service / consultant / real-estate-agent). */
+  { href: '/journeys', label: 'Journeys' },
   { href: '/founders', label: 'About us' },
 ];
 
