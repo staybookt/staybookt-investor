@@ -48,35 +48,35 @@ const CSS = `
    the two people who run it, same rung as what's included. */
 .pg-hero{--hero-hue:16,185,129;}
 
-/* NEW LIGHT ANIMATED HEADER (Jul 24 2026), matching home + how-it-works, carrying Richard's
-   mission statement. Cream hero, gradient-border eyebrow pill, the mission line fading in, the
-   StayBookt / Enjoy Life lockup, then a rolling list of the outcomes. Nav is solidTop. */
+/* LIGHT ANIMATED HEADER (Jul 24 2026) on the LOCKED hero system (home + how-it-works): eyebrow
+   pill, two-line reveal-gradient headline (punchline alone on line 2), one-line subhead, then a
+   supporting animation. Here the animation is Richard's rolling list of outcomes. Nav is solidTop.
+   Richard's mission moved into the subhead; "improve lives" is the gradient payoff. */
 .abt .pg-hero{background:var(--v4-cream);color:var(--v4-ink);min-height:auto;padding:clamp(84px,10vh,116px) 0 clamp(58px,8vw,98px);text-align:center;}
 .abt .pg-hero::before{display:none;}
 .abt .pg-hero .wrap{max-width:1120px;}
 .abt .pg-hero .wrap .eyebrow{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.15em;color:#42474f;border:1.5px solid transparent;background:linear-gradient(#fff,#fff) padding-box,var(--sb-grad) border-box;border-radius:999px;padding:9px 18px;box-shadow:0 6px 18px -10px rgba(6,12,20,.25);}
-.abt .pg-hero .wrap h1.mission{margin:22px auto 0;max-width:20ch;font-size:clamp(26px,4vw,48px);line-height:1.14;letter-spacing:-.025em;font-weight:600;color:var(--v4-ink);}
-.abt .brandlock{margin:clamp(30px,4.5vw,52px) auto 0;line-height:1.02;}
-.abt .brandlock .bl-name,.abt .brandlock .bl-tag{display:block;font-size:clamp(42px,7vw,86px);font-weight:700;letter-spacing:-.04em;}
-.abt .brandlock .bl-name{color:var(--v4-ink);}
-.abt .brandlock .bl-name .pd{color:var(--v4-violet);}
-.abt .brandlock .bl-tag{margin-top:4px;}
-.abt .brandlock .bl-tag .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
-.abt .brandlock .bl-tag .pd{color:var(--v4-violet);-webkit-text-fill-color:var(--v4-violet);}
-/* rolling outcomes: a single line that cycles through what "Enjoy Life" means */
-.abt .roll{margin:clamp(24px,3.4vw,38px) auto 0;font-size:clamp(18px,2.2vw,26px);font-weight:700;}
+.abt .pg-hero .wrap h1{margin:20px auto 0;max-width:none;font-size:clamp(20px,6.4vw,88px);line-height:1.02;letter-spacing:-.03em;font-weight:600;text-align:center;color:var(--v4-ink);}
+.abt .pg-hero .hero-h1 .hl1,.abt .pg-hero .hero-h1 .hl2{display:block;white-space:nowrap;}
+.abt .pg-hero .wrap h1 .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.abt .pg-hero .wrap h1 .pd{color:var(--v4-violet);-webkit-text-fill-color:var(--v4-violet);}
+.abt .pg-hero .wrap p.sub{margin:22px auto 0;max-width:none;white-space:nowrap;font-size:clamp(13px,3.1vw,21px);line-height:1.4;color:#52565e;text-align:center;}
+/* supporting animation: a single line cycling through the outcomes */
+.abt .roll{margin:clamp(26px,3.6vw,42px) auto 0;font-size:clamp(19px,2.5vw,30px);font-weight:700;}
 .abt .roll .roll-words{position:relative;display:inline-block;height:1.4em;overflow:hidden;vertical-align:bottom;}
 .abt .roll .roll-list{display:flex;flex-direction:column;}
-.abt .roll .roll-list span{display:block;height:1.4em;line-height:1.4em;white-space:nowrap;background:var(--sb-grad-ink);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.abt .roll .roll-list span{display:block;height:1.4em;line-height:1.4em;white-space:nowrap;background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
 
 @media(prefers-reduced-motion:no-preference){
-  .abt .pg-hero .wrap h1.mission{opacity:0;filter:blur(8px);transform:translateY(14px);animation:abtIn .9s cubic-bezier(.16,1,.3,1) .15s forwards;}
-  .abt .brandlock .bl-name{opacity:0;filter:blur(10px);transform:translateY(16px);animation:abtIn .9s cubic-bezier(.16,1,.3,1) .7s forwards;}
-  .abt .brandlock .bl-tag{opacity:0;filter:blur(16px);transform:translateY(16px) scale(1.12);transform-origin:center;animation:abtIn 1.2s cubic-bezier(.19,1,.22,1) 1.05s forwards;}
-  .abt .roll{opacity:0;animation:abtFade .8s ease 1.6s forwards;}
-  .abt .roll .roll-list{animation:rollWords 13s cubic-bezier(.16,1,.3,1) 2.1s infinite;}
+  .abt .pg-hero .hero-h1 .hl1,.abt .pg-hero .hero-h1 .hl2{opacity:0;filter:blur(10px);transform:translateY(18px);}
+  .abt .pg-hero .hero-h1 .hl1{animation:abtIn .9s cubic-bezier(.16,1,.3,1) .15s forwards;}
+  .abt .pg-hero .hero-h1 .hl2{animation:abtEnjoy 1.2s cubic-bezier(.19,1,.22,1) .85s forwards;}
+  .abt .pg-hero .wrap p.sub{opacity:0;filter:blur(6px);transform:translateY(12px);animation:abtIn .85s cubic-bezier(.16,1,.3,1) 1.4s forwards;}
+  .abt .roll{opacity:0;animation:abtFade .8s ease 1.7s forwards;}
+  .abt .roll .roll-list{animation:rollWords 13s cubic-bezier(.16,1,.3,1) 2.2s infinite;}
 }
 @keyframes abtIn{to{opacity:1;filter:blur(0);transform:none;}}
+@keyframes abtEnjoy{0%{opacity:0;filter:blur(16px);transform:translateY(16px) scale(1.14);}55%{opacity:1;}100%{opacity:1;filter:blur(0);transform:translateY(0) scale(1);}}
 @keyframes abtFade{to{opacity:1;}}
 @keyframes rollWords{
   0%,14%{transform:translateY(0);}
@@ -164,14 +164,11 @@ export default function AboutPage() {
       <header className="pg-hero abt-hero">
         <div className="wrap">
           <div className="eyebrow">About us</div>
-          <h1 className="mission">
-            We&rsquo;re on a mission to improve the lives of small and mid-sized business owners and
-            their families.
+          <h1 className="hero-h1">
+            <span className="hl1">We&rsquo;re on a mission to</span>
+            <span className="hl2"><span className="g">improve lives</span><span className="pd">.</span></span>
           </h1>
-          <div className="brandlock" aria-label="StayBookt. Enjoy Life.">
-            <span className="bl-name">StayBookt<span className="pd">.</span></span>
-            <span className="bl-tag"><span className="g">Enjoy Life</span><span className="pd">.</span></span>
-          </div>
+          <p className="sub">For small business owners, and the families behind them.</p>
           <div className="roll" aria-hidden="true">
             <span className="roll-words"><span className="roll-list">
               <span>Grow the business.</span>
