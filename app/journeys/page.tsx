@@ -188,14 +188,17 @@ export default function JourneysPage() {
 
           {/* the tee-up: same section pattern as About's "Two founders. One mission." —
               eyebrow, head, short paragraph explaining what a journey IS before the cards */}
+          {/* THE TEE-UP CARRIES THE DIAGNOSIS — the one thing no other element on this page
+              says: WHY three different businesses are on the same map. Hero = outcome, map =
+              metaphor, cards = people; this block = the shared problem. (Two earlier versions
+              died here for restating the hero — Jacob, twice.) */}
           <div className="jl-teeup">
-            <div className="jl-eyebrow2">The journeys</div>
-            <h2>Three trades. One story.</h2>
-            {/* WAS a four-line re-explanation of what the hero and cards already say (Jacob:
-                "redundant from above text"). The tee-up's only unique job is the FORMAT. */}
+            <div className="jl-eyebrow2">The pattern</div>
+            <h2>Different trades. Same leak.</h2>
             <p>
-              Each one is an owner&rsquo;s year in ten short chapters: the leak, the breaking point,
-              the turn, the wins, and the receipts at the end. Two minutes, start to finish. Just scroll.
+              Not one of them had a work problem. They had a front-office problem: calls, quotes,
+              follow-ups and invoices all running through one busy owner. Each journey is that
+              problem, fixed, in a two-minute scroll. Pick the one that looks like your week.
             </p>
           </div>
 
