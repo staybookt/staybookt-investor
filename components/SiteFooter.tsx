@@ -23,7 +23,7 @@ const SITE = [
   { href: '/how-it-works', label: 'How it works' },
   { href: '/pricing', label: 'Pricing' },
   { href: '/long-term', label: 'Long-term value' },
-  { href: '/work', label: 'The work' },
+  { href: '/success-stories', label: 'Success stories' },
   { href: '/founders', label: 'About us' },
   { href: '/contact', label: 'Contact' },
 ];

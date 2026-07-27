@@ -32,7 +32,7 @@ const LINKS = [
      label is his words. It is longer than the others and that is fine: clarity beats
      cleverness, which is the same argument we had about the closing tag. */
   { href: '/long-term', label: 'Long-term value' },
-  { href: '/work', label: 'The work' },
+  { href: '/success-stories', label: 'Success stories' },
   { href: '/founders', label: 'About us' },
 ];
 

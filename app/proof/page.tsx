@@ -10,5 +10,5 @@ import { redirect } from 'next/navigation';
  * Do not rebuild a page here. If this route ever needs to mean something again,
  * delete the entry in GHOSTS first, on purpose. */
 export default function Page() {
-  redirect('/work');
+  redirect('/success-stories');
 }

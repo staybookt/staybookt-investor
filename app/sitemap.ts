@@ -11,7 +11,7 @@ const PATHS = [
   '/how-it-works',
   '/pricing',
   '/long-term',
-  '/work',
+  '/success-stories',
   '/founders',
   '/whats-included',
   '/start',

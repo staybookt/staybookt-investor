@@ -25,7 +25,8 @@ const GHOSTS: { source: string; destination: string }[] = [
   // same argument shipped at /enjoy-life, and Richard called that "the weakest part of the
   // site" because the title promised a feeling while the page argued economics. It is back at
   // the URL that always described it. /economics stays dead.
-  { source: '/proof', destination: '/work' },
+  { source: '/proof', destination: '/success-stories' },
+  { source: '/work', destination: '/success-stories' },
   // Investor-era pages. No investor surface right now, so they go home.
   { source: '/opportunity', destination: '/' },
   { source: '/brief', destination: '/' },
