@@ -100,11 +100,15 @@ export default function JourneysPage() {
           <div className="jl-fold">
           <div className="jl-hero">
             <div className="jl-pill">Journeys</div>
+            {/* WAS "Three owners. Three roads. / One destination." — clever about the page,
+                said nothing to the reader (Jacob: "it stinks"). This one is recognition:
+                line 1 names the visitor's own week, the punchline is the whole before/after
+                promise, and the map below becomes the proof instead of the explanation. */}
             <h1>
-              <span className="hl1">Three owners. Three roads.</span>
-              <span className="hl2 g">One destination<span className="pd">.</span></span>
+              <span className="hl1">Their week looked like yours.</span>
+              <span className="hl2 g">Then it didn&rsquo;t<span className="pd">.</span></span>
             </h1>
-            <p className="jl-sub">Pick the one who sounds like your week. Walk their year.</p>
+            <p className="jl-sub">Walk a year with the owner who sounds like you.</p>
           </div>
 
           {/* THE GUIDED MAP */}
