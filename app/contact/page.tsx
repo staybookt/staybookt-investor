@@ -141,7 +141,7 @@ export default function ContactPage() {
                 <a className="btn" href={START_LINK} data-cta="contact">
                   Pick a time <span aria-hidden>&rarr;</span>
                 </a>
-                <div className="sub">Free. No slides, and never a sales rep.</div>
+                <div className="sub">Free. Thirty minutes with a founder.</div>
               </div>
             </div>
 

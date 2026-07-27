@@ -158,8 +158,7 @@ export default function IncludedFaq() {
               Questions, <span className="g">answered</span><span className="pd">.</span>
             </h2>
             <p className="fa-p">
-              That is the whole list. If something on it is not what you need, tell us on the call
-              and we will say so. We would rather lose the sale than sell you the wrong thing.
+              That is the whole list. If something on it is not a fit for you, tell us on the call.
             </p>
             <a className="fa-cta" href={START_LINK} data-cta="faq_included">
               Get Started <span aria-hidden>&rarr;</span>

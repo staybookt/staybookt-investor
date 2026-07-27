@@ -61,7 +61,7 @@ export default function HeroCta({ fromBlack = false, img = HERO_IMG }: { fromBla
         <h2>Do the work you love. We&rsquo;ll run the rest.</h2>
         <p>We get you found and run the day to day. You get your time back.</p>
         <a className="hcta-btn" href={START_LINK} data-cta="closer">Get Started</a>
-        <div className="hcta-note">Thirty minutes with a founder. Never a sales rep.</div>
+        <div className="hcta-note">Thirty minutes with a founder. It&rsquo;s free.</div>
       </div>
     </section>
   );

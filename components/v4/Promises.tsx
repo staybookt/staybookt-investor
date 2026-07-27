@@ -35,31 +35,24 @@ const PROMISES: Vow[] = [
     cost: 'It costs us the easy wins. We will not raise your prices because the model says we can, or take jobs you would have turned down, or talk to your customers in a way you would not. Some of those things would make us more money. We do not get to do them.',
   },
   {
-    n: '03',
-    h: 'We would rather lose the sale.',
-    /* THE PROMISE SURVIVED. THE GIMMICK DID NOT. This used to describe the mystery
-     * shop, calling and texting the business before the call, as the proof of the
-     * promise. That framing is off the site now (Jacob, July 2026).
-     *
-     * The promise itself was never the trick. It is that we will say the unprofitable
-     * thing out loud. That still has a real price attached, which is the only thing
-     * that makes a promise worth publishing. */
-    p: 'We will tell you what we actually think on the call, even when what we think is that you do not need us. No pressure, no drip sequence afterwards, and no second call from somebody more persuasive.',
-    cost: 'It costs us the deals a sharper pitch would have closed. We will say “you are fine, do not hire us” to somebody who came to us ready to buy, and then we will not chase them. That is the deal.',
-  },
-  {
+    /* Promise 03 was "We would rather lose the sale" — an anti-pitch promise (we will tell you
+     * not to hire us, no second call from somebody more persuasive, we will not chase you).
+     * Cut, July 24 2026 (Jacob): for a $199/mo product that anti-sell theatre is disproportionate
+     * and reads as performative rather than authentic. We are going to pitch people; the honest
+     * move is to just be plain about the offer, not to announce that we won't sell. The board is
+     * four promises now. Do not re-add an "we won't sell you" promise. */
     /* This used to be "we only get properly paid if you actually get free", built on
      * the 20% value share. The value share is dead (Richard, July 14 2026), so the
      * promise it rested on had to go with it. This is what replaced it, and it has
      * the same shape: a promise with a real price attached, and one we have already
      * shipped rather than one we intend to keep. */
-    n: '04',
+    n: '03',
     h: 'We do not lock you in.',
     p: 'No term. No contract to be trapped in. No exit fee. Cancel any time on thirty days notice. And for the first ninety days you can change your mind for any reason at all, and we refund every month you paid. You never have to prove we failed.',
     cost: 'It costs us the safety net every subscription company is built on. We build your website before you have paid us a dollar, and then we have to earn the next month, and the one after that, forever. The day we stop being worth $199 you are gone inside thirty days, and you leave with the website, the domain, the customer list and the reviews. We wrote that deal on purpose.',
   },
   {
-    n: '05',
+    n: '04',
     h: 'We will never fake proof.',
     /* THE LAST SENTENCE USED TO BE "Where we illustrate the service, we say so, in writing,
        on the page." The footnotes that made that true were removed from the homepage and

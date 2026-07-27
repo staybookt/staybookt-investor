@@ -6,7 +6,7 @@ import SiteFooter from '@/components/SiteFooter';
 import { min } from '@/lib/css';
 
 const SHARE_DESCRIPTION =
-  'Thirty minutes with a founder. We will show you where the work is slipping, and what it would take to get your life back. No slides, no sales rep.';
+  'Thirty minutes with a founder. We will show you where the work is slipping, and what it would take to get your life back.';
 
 export const metadata = {
   title: 'See where the work is slipping',
@@ -51,8 +51,8 @@ export const metadata = {
 
 const FACTS: { k: string; v: string }[] = [
   { k: '30 minutes', v: 'That is the whole ask.' },
-  { k: 'With a founder', v: 'Richard or Jacob. Never a sales rep.' },
-  { k: 'No pitch', v: 'If you do not need us, we will say so.' },
+  { k: 'With a founder', v: 'Richard or Jacob. One of the two of us.' },
+  { k: 'You get a read', v: 'Where the work is slipping, and what we would do.' },
 ];
 
 const CSS = `
@@ -169,7 +169,7 @@ export default function StartPage() {
         <div className="wrap">
           <div className="st-copy">
             <Reveal as="div">
-              <div className="st-k"><span className="dot" aria-hidden />Free &middot; no pitch</div>
+              <div className="st-k"><span className="dot" aria-hidden />Free &middot; 30 minutes</div>
             </Reveal>
             <Reveal>
               {/* Was "Thirty minutes with a founder." That is the logistics of the call, not
@@ -192,8 +192,8 @@ export default function StartPage() {
             </Reveal>
             <Reveal>
               <p className="st-sub">
-                Thirty minutes with a founder. No slides and no sales rep. We will show you what is
-                slipping, and what it would take to get your life back.
+                Thirty minutes with a founder. We will show you what is slipping, and what it would
+                take to get your life back.
               </p>
             </Reveal>
             <Reveal>
