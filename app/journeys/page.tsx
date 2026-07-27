@@ -264,6 +264,16 @@ const CSS = `
 .jl-svg .jl-trav{opacity:0;offset-rotate:0deg;animation:jlTravel 6s linear infinite;}
 @keyframes jlTravel{0%{offset-distance:0%;opacity:0;transform:scale(1.5);}5%{opacity:1;transform:scale(1.5);}12%{transform:scale(1);}90%{opacity:1;}100%{offset-distance:100%;opacity:0;transform:scale(.75);}}
 
+/* THE HAND-OFF (Jacob: the original profile pic is the one that goes — it shifts).
+   While a route's traveler is on the road, its pin avatar is gone; it pops back home
+   when the loop restarts. Same 6s cycle, delays synced to each traveler
+   (route delay + 1.6s). Pins are the 1st-3rd divs in the map; .dest is the 4th. */
+.pin .pav{transform-origin:center bottom;}
+.jl-map > div:nth-of-type(1) .pav{animation:jlPinCycle 6s linear 3.95s infinite;}
+.jl-map > div:nth-of-type(2) .pav{animation:jlPinCycle 6s linear 4.2s infinite;}
+.jl-map > div:nth-of-type(3) .pav{animation:jlPinCycle 6s linear 4.45s infinite;}
+@keyframes jlPinCycle{0%{transform:scale(1);opacity:1;}4%{transform:scale(.15);opacity:0;}88%{transform:scale(.15);opacity:0;}95%{transform:scale(1.1);opacity:1;}100%{transform:scale(1);opacity:1;}}
+
 .pin{position:absolute;transform:translate(-50%,-40%);display:flex;flex-direction:column;align-items:center;gap:7px;z-index:2;}
 .pav{width:clamp(34px,4.6vw,52px);height:clamp(34px,4.6vw,52px);border-radius:50%;display:block;overflow:hidden;background:#fff;}
 .pav img{width:100%;height:100%;object-fit:cover;display:block;}
