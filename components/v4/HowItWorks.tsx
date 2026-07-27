@@ -178,10 +178,14 @@ const CSS = `
 .hiw .engine .chip svg{width:26px;height:26px;}
 
 @media(prefers-reduced-motion:no-preference){
-  .hiw .pg-hero .hero-h1 .hl1,.hiw .pg-hero .hero-h1 .hl2{opacity:0;filter:blur(10px);transform:translateY(18px);}
-  .hiw .pg-hero .hero-h1 .hl1{animation:hiwHeroIn .9s cubic-bezier(.16,1,.3,1) .15s forwards;}
-  .hiw .pg-hero .hero-h1 .hl2{animation:hiwHeroIn 1s cubic-bezier(.16,1,.3,1) .8s forwards;}
-  .hiw .pg-hero .wrap p.sub{opacity:0;filter:blur(6px);transform:translateY(12px);animation:hiwHeroIn .85s cubic-bezier(.16,1,.3,1) 1.3s forwards;}
+  /* THE CANONICAL HERO REVEAL (Jacob, July 27 2026: "make sure the reveal on homepage,
+     how it works, about us and now journeys is all identical"). Timings are the
+     homepage's, verbatim: hl1 .2s -> hl2 focus-pull 1s (1.5s, glow at 1.05s) -> sub 1.7s
+     -> graphic from 2.15s. If you touch these numbers, touch all four pages. */
+  .hiw .pg-hero .hero-h1 .hl1{opacity:0;filter:blur(10px);transform:translateY(20px);animation:hiwHeroIn .9s cubic-bezier(.16,1,.3,1) .2s forwards;}
+  .hiw .pg-hero .hero-h1 .hl2{position:relative;opacity:0;filter:blur(32px);transform:translateY(16px) scale(1.35);transform-origin:center;animation:hiwEnjoy 1.5s cubic-bezier(.19,1,.22,1) 1s forwards;}
+  .hiw .pg-hero .hero-h1 .hl2::before{content:'';position:absolute;inset:-34% -10%;z-index:-1;background:radial-gradient(56% 62% at 50% 54%,rgba(16,185,129,.32),rgba(79,70,229,.2) 46%,transparent 72%);filter:blur(36px);opacity:0;transform:scale(.7);animation:hiwGlow 2s ease 1.05s forwards;}
+  .hiw .pg-hero .wrap p.sub{opacity:0;filter:blur(6px);transform:translateY(12px);animation:hiwHeroIn .9s cubic-bezier(.16,1,.3,1) 1.7s forwards;}
   .hiw .engine .field{animation:engBreathe 4.5s ease-in-out infinite;}
   .hiw .engine .halo{animation:engSpinC 14s linear infinite;}
   .hiw .engine .core{animation:engPulse 4.5s ease-in-out infinite;}
@@ -192,6 +196,8 @@ const CSS = `
   .hiw .engine .chip{animation:engChip var(--dur,3.8s) cubic-bezier(.4,0,.5,1) var(--cd,0s) infinite;}
 }
 @keyframes hiwHeroIn{to{opacity:1;filter:blur(0);transform:none;}}
+@keyframes hiwEnjoy{0%{opacity:0;filter:blur(32px);transform:translateY(16px) scale(1.35);}55%{opacity:1;}100%{opacity:1;filter:blur(0);transform:translateY(0) scale(1);}}
+@keyframes hiwGlow{0%{opacity:0;transform:scale(.7);}50%{opacity:.95;}100%{opacity:.62;transform:scale(1);}}
 @keyframes engChip{0%{transform:translate(var(--sx),var(--sy)) scale(1.06);opacity:0;}12%{opacity:1;}64%{opacity:1;}86%{transform:translate(0,0) scale(.2);opacity:0;}100%{transform:translate(0,0) scale(.2);opacity:0;}}
 @keyframes engRing{0%{transform:translate(-50%,-50%) scale(1);opacity:.55;}70%{opacity:0;}100%{transform:translate(-50%,-50%) scale(3.1);opacity:0;}}
 @keyframes engPulse{0%,100%{box-shadow:0 0 70px -2px rgba(16,185,129,.7),0 0 150px 0 rgba(79,70,229,.55),inset 0 3px 10px rgba(255,255,255,.45);}50%{box-shadow:0 0 104px 6px rgba(16,185,129,.85),0 0 210px 12px rgba(79,70,229,.7),inset 0 3px 10px rgba(255,255,255,.5);}}

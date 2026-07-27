@@ -84,9 +84,9 @@ const PINS = [
 /* Manhattan-style routes (viewBox 1100x520), each from its pin to the destination pin.
    Rounded corners via quadratic joins, Google-Maps route language. */
 const ROUTES = [
-  { c: '#06b6d4', d: 'M104,110 L104,236 Q104,252 120,252 L400,252 Q416,252 416,268 L416,380 Q416,396 432,396 L520,396', delay: '.55s' },
-  { c: '#4f46e5', d: 'M540,68 L540,180 Q540,196 556,196 L560,196 Q548,196 548,212 L548,396 L550,396', delay: '.8s' },
-  { c: '#7c3aed', d: 'M958,132 L958,244 Q958,260 942,260 L680,260 Q664,260 664,276 L664,380 Q664,396 648,396 L580,396', delay: '1.05s' },
+  { c: '#06b6d4', d: 'M104,110 L104,236 Q104,252 120,252 L400,252 Q416,252 416,268 L416,380 Q416,396 432,396 L520,396', delay: '2.35s' },
+  { c: '#4f46e5', d: 'M540,68 L540,180 Q540,196 556,196 L560,196 Q548,196 548,212 L548,396 L550,396', delay: '2.6s' },
+  { c: '#7c3aed', d: 'M958,132 L958,244 Q958,260 942,260 L680,260 Q664,260 664,276 L664,380 Q664,396 648,396 L580,396', delay: '2.85s' },
 ];
 
 export default function JourneysPage() {
@@ -127,7 +127,7 @@ export default function JourneysPage() {
                   <g key={i}>
                     <path className="rt-under" d={r.d} />
                     <path className="rt" d={r.d} pathLength={1} style={{ stroke: r.c, animationDelay: r.delay }} />
-                    <circle className="dot" r="6" style={{ fill: r.c, offsetPath: `path('${r.d}')`, animationDelay: `calc(${r.delay} + 1.1s)` } as React.CSSProperties} />
+                    <circle className="dot" r="6" style={{ fill: r.c, offsetPath: `path('${r.d}')`, animationDelay: `calc(${r.delay} + 1.5s)` } as React.CSSProperties} />
                   </g>
                 ))}
               </svg>
@@ -184,16 +184,21 @@ const CSS = `
 
 /* locked hero: pill -> two-stage 2-line headline -> one-line sub */
 .jl-hero{max-width:1160px;margin:0 auto;padding:0 clamp(22px,5vw,44px);text-align:center;}
+/* THE CANONICAL HERO REVEAL — identical across homepage / how-it-works / about /
+   journeys (Jacob, July 27 2026). Homepage timings verbatim: hl1 .2s -> hl2 focus-pull
+   1s (1.5s, glow 1.05s) -> sub 1.7s -> graphic from 2.15s. Change all four or none. */
 .jl-pill{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#42474f;border:1.5px solid transparent;background:linear-gradient(#fff,#fff) padding-box,var(--sb-grad,linear-gradient(100deg,#06b6d4,#10b981,#4f46e5,#7c3aed)) border-box;border-radius:999px;padding:9px 18px;margin-bottom:26px;opacity:0;animation:jlUp .8s cubic-bezier(.16,1,.3,1) .05s forwards;}
 .jl-hero h1{font-size:clamp(20px,6.2vw,84px);font-weight:600;letter-spacing:-.045em;line-height:1.02;}
-.jl-hero .hl1{display:block;white-space:nowrap;opacity:0;animation:jlUp .9s cubic-bezier(.16,1,.3,1) .15s forwards;}
-.jl-hero .hl2{display:block;white-space:nowrap;opacity:0;animation:jlFocus 1s cubic-bezier(.16,1,.3,1) .5s forwards;}
-.jl-sub{margin-top:16px;font-size:clamp(13px,1.9vw,20px);color:#52565e;white-space:nowrap;opacity:0;animation:jlUp .9s cubic-bezier(.16,1,.3,1) .85s forwards;}
-@keyframes jlUp{from{opacity:0;transform:translateY(26px);}to{opacity:1;transform:none;}}
-@keyframes jlFocus{from{opacity:0;transform:scale(1.35);filter:blur(10px);}to{opacity:1;transform:none;filter:blur(0);}}
+.jl-hero .hl1{display:block;white-space:nowrap;opacity:0;filter:blur(10px);transform:translateY(20px);animation:jlUp .9s cubic-bezier(.16,1,.3,1) .2s forwards;}
+.jl-hero .hl2{display:block;white-space:nowrap;position:relative;opacity:0;filter:blur(32px);transform:translateY(16px) scale(1.35);transform-origin:center;animation:jlFocus 1.5s cubic-bezier(.19,1,.22,1) 1s forwards;}
+.jl-hero .hl2::before{content:'';position:absolute;inset:-34% -10%;z-index:-1;background:radial-gradient(56% 62% at 50% 54%,rgba(16,185,129,.32),rgba(79,70,229,.2) 46%,transparent 72%);filter:blur(36px);opacity:0;transform:scale(.7);animation:jlGlow 2s ease 1.05s forwards;}
+.jl-sub{margin-top:16px;font-size:clamp(13px,1.9vw,20px);color:#52565e;white-space:nowrap;opacity:0;filter:blur(6px);transform:translateY(12px);animation:jlUp .9s cubic-bezier(.16,1,.3,1) 1.7s forwards;}
+@keyframes jlUp{to{opacity:1;filter:blur(0);transform:none;}}
+@keyframes jlFocus{0%{opacity:0;filter:blur(32px);transform:translateY(16px) scale(1.35);}55%{opacity:1;}100%{opacity:1;filter:blur(0);transform:translateY(0) scale(1);}}
+@keyframes jlGlow{0%{opacity:0;transform:scale(.7);}50%{opacity:.95;}100%{opacity:.62;transform:scale(1);}}
 
 /* the guided map — transparent, blends into the page; sized to fit the fold */
-.jl-mapwrap{margin:clamp(22px,3.5vh,40px) auto 0;padding:0 clamp(14px,3vw,32px);opacity:0;animation:jlUp 1s cubic-bezier(.16,1,.3,1) 1.05s forwards;width:100%;}
+.jl-mapwrap{margin:clamp(22px,3.5vh,40px) auto 0;padding:0 clamp(14px,3vw,32px);opacity:0;transform:translateY(26px);animation:jlUp 1s cubic-bezier(.16,1,.3,1) 2.15s forwards;width:100%;}
 .jl-map{position:relative;margin:0 auto;width:min(1160px,94vw,calc(50svh * 2.115));aspect-ratio:1100/520;}
 .jl-svg{position:absolute;inset:0;width:100%;height:100%;
   -webkit-mask-image:radial-gradient(72% 78% at 50% 50%,#000 58%,transparent 97%);
@@ -212,11 +217,11 @@ const CSS = `
 .plab b{font-weight:700;color:var(--v4-ink,#06080d);margin-right:5px;}
 
 .dest{position:absolute;left:50%;top:76%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;z-index:2;}
-.dring{position:absolute;top:0;width:clamp(30px,4vw,46px);height:clamp(30px,4vw,46px);border-radius:50%;border:2px solid rgba(16,185,129,.5);animation:jlPulse 2s ease-out 2.3s infinite;opacity:0;}
+.dring{position:absolute;top:0;width:clamp(30px,4vw,46px);height:clamp(30px,4vw,46px);border-radius:50%;border:2px solid rgba(16,185,129,.5);animation:jlPulse 2s ease-out 4.2s infinite;opacity:0;}
 @keyframes jlPulse{0%{transform:scale(.7);opacity:.8;}100%{transform:scale(2.1);opacity:0;}}
-.dpin{width:clamp(30px,4vw,46px);height:clamp(30px,4vw,46px);border-radius:50%;background:var(--sb-grad,linear-gradient(135deg,#06b6d4,#10b981,#4f46e5,#7c3aed));display:flex;align-items:center;justify-content:center;box-shadow:0 12px 28px -8px rgba(79,70,229,.55);opacity:0;animation:jlPop .6s cubic-bezier(.34,1.56,.64,1) 2s forwards;}
+.dpin{width:clamp(30px,4vw,46px);height:clamp(30px,4vw,46px);border-radius:50%;background:var(--sb-grad,linear-gradient(135deg,#06b6d4,#10b981,#4f46e5,#7c3aed));display:flex;align-items:center;justify-content:center;box-shadow:0 12px 28px -8px rgba(79,70,229,.55);opacity:0;animation:jlPop .6s cubic-bezier(.34,1.56,.64,1) 3.85s forwards;}
 .dcore{width:38%;height:38%;border-radius:50%;background:#fff;}
-.dlab{margin-top:8px;font-size:clamp(11px,1.4vw,15px);font-weight:700;letter-spacing:-.01em;color:var(--v4-ink,#06080d);background:rgba(255,255,255,.92);border:1px solid rgba(6,12,20,.08);border-radius:999px;padding:4px 12px;opacity:0;animation:jlUp .6s ease 2.25s forwards;}
+.dlab{margin-top:8px;font-size:clamp(11px,1.4vw,15px);font-weight:700;letter-spacing:-.01em;color:var(--v4-ink,#06080d);background:rgba(255,255,255,.92);border:1px solid rgba(6,12,20,.08);border-radius:999px;padding:4px 12px;opacity:0;animation:jlUp .6s ease 4.05s forwards;}
 @keyframes jlPop{from{opacity:0;transform:scale(0);}to{opacity:1;transform:scale(1);}}
 
 /* cards */

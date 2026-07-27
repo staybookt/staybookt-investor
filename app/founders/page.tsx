@@ -78,24 +78,29 @@ const CSS = `
 @media(max-width:520px){.abt .memwall .m6,.abt .memwall .m7{display:none;}.abt .memwall .mpol{width:33vw;margin-right:-22px;}}
 
 @media(prefers-reduced-motion:no-preference){
-  .abt .pg-hero .hero-h1 .hl1,.abt .pg-hero .hero-h1 .hl2{opacity:0;filter:blur(10px);transform:translateY(18px);}
-  .abt .pg-hero .hero-h1 .hl1{animation:abtIn .9s cubic-bezier(.16,1,.3,1) .15s forwards;}
-  .abt .pg-hero .hero-h1 .hl2{animation:abtEnjoy 1.2s cubic-bezier(.19,1,.22,1) .85s forwards;}
-  .abt .pg-hero .wrap p.sub{opacity:0;filter:blur(6px);transform:translateY(12px);animation:abtIn .85s cubic-bezier(.16,1,.3,1) 1.4s forwards;}
+  /* THE CANONICAL HERO REVEAL — identical across homepage / how-it-works / about /
+     journeys (Jacob, July 27 2026). Homepage timings verbatim: hl1 .2s -> hl2
+     focus-pull 1s (1.5s, glow 1.05s) -> sub 1.7s -> graphic from 2.15s. Change all
+     four together or none. */
+  .abt .pg-hero .hero-h1 .hl1{opacity:0;filter:blur(10px);transform:translateY(20px);animation:abtIn .9s cubic-bezier(.16,1,.3,1) .2s forwards;}
+  .abt .pg-hero .hero-h1 .hl2{position:relative;opacity:0;filter:blur(32px);transform:translateY(16px) scale(1.35);transform-origin:center;animation:abtEnjoy 1.5s cubic-bezier(.19,1,.22,1) 1s forwards;}
+  .abt .pg-hero .hero-h1 .hl2::before{content:'';position:absolute;inset:-34% -10%;z-index:-1;background:radial-gradient(56% 62% at 50% 54%,rgba(16,185,129,.32),rgba(79,70,229,.2) 46%,transparent 72%);filter:blur(36px);opacity:0;transform:scale(.7);animation:abtGlow 2s ease 1.05s forwards;}
+  .abt .pg-hero .wrap p.sub{opacity:0;filter:blur(6px);transform:translateY(12px);animation:abtIn .9s cubic-bezier(.16,1,.3,1) 1.7s forwards;}
   /* each polaroid rises + settles (mpolIn), then the photo inside develops from washed white to
      full (mDevelop) a beat later. Staggered so the wall assembles one memory at a time. */
   .abt .memwall .mpol{opacity:0;transform:translateY(30px) rotate(var(--rot)) scale(.94);animation:mpolIn .9s cubic-bezier(.16,1,.3,1) forwards;}
   .abt .memwall .mpol img{filter:brightness(2.1) contrast(.45) saturate(.12) blur(5px);opacity:.35;animation:mDevelop 1.5s ease forwards;}
-  .abt .memwall .m1{animation-delay:1.9s;}.abt .memwall .m1 img{animation-delay:2.15s;}
-  .abt .memwall .m2{animation-delay:2.02s;}.abt .memwall .m2 img{animation-delay:2.27s;}
-  .abt .memwall .m3{animation-delay:2.14s;}.abt .memwall .m3 img{animation-delay:2.39s;}
-  .abt .memwall .m4{animation-delay:2.26s;}.abt .memwall .m4 img{animation-delay:2.51s;}
-  .abt .memwall .m5{animation-delay:2.38s;}.abt .memwall .m5 img{animation-delay:2.63s;}
-  .abt .memwall .m6{animation-delay:2.5s;}.abt .memwall .m6 img{animation-delay:2.75s;}
-  .abt .memwall .m7{animation-delay:2.62s;}.abt .memwall .m7 img{animation-delay:2.87s;}
+  .abt .memwall .m1{animation-delay:2.15s;}.abt .memwall .m1 img{animation-delay:2.4s;}
+  .abt .memwall .m2{animation-delay:2.27s;}.abt .memwall .m2 img{animation-delay:2.52s;}
+  .abt .memwall .m3{animation-delay:2.39s;}.abt .memwall .m3 img{animation-delay:2.64s;}
+  .abt .memwall .m4{animation-delay:2.51s;}.abt .memwall .m4 img{animation-delay:2.76s;}
+  .abt .memwall .m5{animation-delay:2.63s;}.abt .memwall .m5 img{animation-delay:2.88s;}
+  .abt .memwall .m6{animation-delay:2.75s;}.abt .memwall .m6 img{animation-delay:3s;}
+  .abt .memwall .m7{animation-delay:2.87s;}.abt .memwall .m7 img{animation-delay:3.12s;}
 }
 @keyframes abtIn{to{opacity:1;filter:blur(0);transform:none;}}
-@keyframes abtEnjoy{0%{opacity:0;filter:blur(16px);transform:translateY(16px) scale(1.14);}55%{opacity:1;}100%{opacity:1;filter:blur(0);transform:translateY(0) scale(1);}}
+@keyframes abtEnjoy{0%{opacity:0;filter:blur(32px);transform:translateY(16px) scale(1.35);}55%{opacity:1;}100%{opacity:1;filter:blur(0);transform:translateY(0) scale(1);}}
+@keyframes abtGlow{0%{opacity:0;transform:scale(.7);}50%{opacity:.95;}100%{opacity:.62;transform:scale(1);}}
 @keyframes mpolIn{to{opacity:1;transform:translateY(0) rotate(var(--rot)) scale(1);}}
 @keyframes mDevelop{to{filter:none;opacity:1;}}
 
