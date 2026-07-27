@@ -1,3 +1,4 @@
+import { type ReactNode } from 'react';
 import { START_LINK } from '@/lib/site';
 import { min } from '@/lib/css';
 
@@ -23,7 +24,9 @@ import { min } from '@/lib/css';
  * long table of old friends after /founders. One dock photo everywhere was efficient, not
  * considered. The dock stays the default: home ends on it, and any page that does not
  * pass `img` falls back to it. */
-export default function HeroCta({ fromBlack = false, img = HERO_IMG }: { fromBlack?: boolean; img?: string }) {
+/* heading / sub let a page override the close copy (About uses Richard's "operating partner"
+   line and passes sub={null} to drop the subtext). Default is the standard close. */
+export default function HeroCta({ fromBlack = false, img = HERO_IMG, heading, sub }: { fromBlack?: boolean; img?: string; heading?: ReactNode; sub?: ReactNode | null }) {
   return (
     <section className="hcta" data-fade={fromBlack ? 'black' : undefined}>
       <style>{min(CSS)}</style>
@@ -58,8 +61,8 @@ export default function HeroCta({ fromBlack = false, img = HERO_IMG }: { fromBla
             NOTE: the footer used to say "You do the work. We run the rest." — near-identical,
             200px below this, on every page. It now says "Enjoy Life." If you ever change this
             line back, check the footer again. */}
-        <h2>Do the work you love. We&rsquo;ll run the rest.</h2>
-        <p>We get you found and run the day to day. You get your time back.</p>
+        <h2>{heading ?? <>Do the work you love. We&rsquo;ll run the rest.</>}</h2>
+        {sub === null ? null : <p>{sub ?? <>We get you found and run the day to day. You get your time back.</>}</p>}
         <a className="hcta-btn" href={START_LINK} data-cta="closer">Get Started</a>
         <div className="hcta-note">Thirty minutes with a founder. It&rsquo;s free.</div>
       </div>

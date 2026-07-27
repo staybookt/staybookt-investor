@@ -1,7 +1,6 @@
 import Nav from '@/components/v4/Nav';
 import SiteFooter from '@/components/SiteFooter';
 import HeroCta from '@/components/v4/HeroCta';
-import { Promises } from '@/components/v4/Promises';
 import { min } from '@/lib/css';
 
 /* WHAT THIS PAGE IS FOR.
@@ -113,6 +112,9 @@ const CSS = `
    black; the gradient decorative role is carried by the photo border above, not the text. */
 .fcard .ro{margin-top:12px;font-size:14px;font-weight:600;letter-spacing:.02em;color:var(--v4-ink);}
 .fcard .bio{margin-top:18px;font-size:15.5px;line-height:1.7;color:#69707d;}
+/* each founder's quote, beneath their bio (Richard, Jul 24 2026). Brand-gradient left rule so it
+   reads as ours, not a generic testimonial. */
+.fcard .fq{margin:20px 0 0;padding-left:clamp(16px,1.4vw,20px);border-left:3px solid transparent;border-image:var(--sb-grad-ink) 1;font-size:16px;line-height:1.6;font-weight:500;letter-spacing:-.01em;color:var(--v4-ink);}
 
 /* The source portraits are 3:4. Cover-cropping them into a 1:1 card from the
    default centre lands the crop window on the chest and takes the top of the head
@@ -183,78 +185,20 @@ export default function AboutPage() {
         </div>
       </header>
 
-      {/* REVERTED to the two founder quotes (Richard, July 2026). This briefly ran a
-          scroll-scrubbed rangefinder film that converged two lenses into the wordmark.
-          Richard did not like it and asked for the original back. The quotes were always
-          the substance here: two real people saying the two halves of the same problem.
-          The eyebrow colour is the only thing NOT restored verbatim: it was #8a8f98,
-          which is 3.00:1 on cream and fails WCAG. It is #69707d now, 4.60:1. */}
-      {/* BOTH VOICES OPEN THE PAGE (Jacob, live review, July 2026). The section under
-          this one says "One of us saw this from the outside. One of us saw it from the
-          inside," and then the page never showed you those two people saying those two
-          things. Now it does, and it does it first.
-
-          Richard's is the full version of the line the homepage abbreviates to "there
-          was never enough time." Jacob's is the other half of the same problem: the
-          thing you bought to fix it made it worse. They are stronger together than
-          apart, which is why they are not split across two founder cards any more.
-
-          The lens labels live HERE, with the voices, not on the cards. Saying "the
-          inside lens" twice on one page is the exact redundancy this page was full of. */}
-      <section className="abt-quote">
-        <div className="wrap">
-          <div className="eyebrow">Why we built this</div>
-          <div className="q2">
-            <figure className="qq">
-              <div className="lens">The inside lens</div>
-              <blockquote>
-                &ldquo;In talking to entrepreneurs, one theme kept coming up: they didn&apos;t have
-                enough time to grow their business and enjoy the rewards they&apos;d hoped for.
-                StayBookt is our answer to &lsquo;not enough time.&rsquo; We get to build something
-                great while helping others realize their dreams and Enjoy Life more.&rdquo;
-              </blockquote>
-              <figcaption>
-                <span className="cn">Richard Roos</span>
-                <span className="cr">Co-founder</span>
-              </figcaption>
-            </figure>
-
-            <figure className="qq">
-              <div className="lens">The outside lens</div>
-              <blockquote>
-                &ldquo;Every owner I worked with tried to buy their way out of it. Another tool,
-                another login, another thing that promised to fix it. None of them ever did the
-                work. They just handed you one more job.&rdquo;
-              </blockquote>
-              <figcaption>
-                <span className="cn">Jacob Charendoff</span>
-                <span className="cr">Co-founder</span>
-              </figcaption>
-            </figure>
-          </div>
-        </div>
-      </section>
-
-      {/* 3 — WHO WE ARE */}
-      {/* THE FACES COME FIRST NOW (Jacob, July 14 2026). This page's whole job is
-          trust, and it used to make you read a 300-word essay before it showed you a
-          human being. It also argued the same point three separate times: an essay,
-          a second essay, and then both founder quotes. One idea, three passes, six
-          screens. The two essays are now one, and it sits AFTER the faces.
-
-          There is no stock photo here on purpose. Every image search for "two people
-          talking" returns men in suits in boardrooms, which is the exact visual
-          language of the agency we tell people we are not. The image on this page is
-          the two of us. */}
+      {/* 2 — TWO FOUNDERS, ONE MISSION (Richard, Jul 24 2026). One fold: photo, brief bio, and
+          each founder's own quote beneath it. The inside/outside lens labels and the separate
+          "why we built this" quote section are gone; the quotes live with the people who said
+          them. Richard's and Jacob's quotes share the same vocabulary, so two people read as one
+          company. */}
       <section className="abt-us">
         <div className="wrap">
           <div className="us-lead">
-            <div className="eyebrow">Who we are</div>
-            <h2>Two people. No layers.</h2>
+            <div className="eyebrow">The team</div>
+            <h2>Two founders. One mission.</h2>
             <p>
-              That is the whole company, and it is the entire qualification. We are not a fund, a
-              franchise, or an agency with a hundred logos on the wall. One of us saw this from the
-              outside, the other from the inside.
+              Helping entrepreneurs be more successful. That is the whole company: not a fund, not a
+              franchise, not an agency with a hundred logos on the wall. Two people who will actually
+              run your front office.
             </p>
           </div>
 
@@ -272,11 +216,17 @@ export default function AboutPage() {
               <div className="nm">Richard Roos</div>
               <div className="ro">Operations, growth, and finance</div>
               <p className="bio">
-                Two decades running operations inside fast-growing service businesses,
-                including leading the growth of Venterra from $15M to $500M+ in revenue.{/* CONFIRMED by Jacob, July 2026. Audits keep flagging this as the largest unsourced number on the site, which is a fair flag: it is a specific revenue claim about a third party on the page that hosts Promise 05. It has been checked with Richard and it stands. Do not soften it, and do not re-flag it. */} A CPA who
-                spent his career building the machine that answers every call and misses nothing.
-                He has run the front office most owner-operators will never be able to hire.
+                Two decades running operations inside fast-growing service businesses, including
+                leading the growth of Venterra from $15M to $500M+ in revenue.{/* CONFIRMED by Jacob, July 2026. Checked with Richard; it stands. Do not soften or re-flag. */} A CPA who spent his
+                career building the machine that answers every call and misses nothing.
               </p>
+              <blockquote className="fq">
+                &ldquo;I have always sought opportunities to make a difference in the lives of others.
+                StayBookt lets me do that by helping entrepreneurs realize their version of success. Our
+                role in your journey is to remove the barriers of not enough Time and not enough
+                Customers. We define success as helping you get the most out of life on the way to
+                building something great.&rdquo;
+              </blockquote>
             </article>
 
             <article className="fcard">
@@ -284,39 +234,36 @@ export default function AboutPage() {
               <div className="nm">Jacob Charendoff</div>
               <div className="ro">Brand, product, and growth</div>
               <p className="bio">
-                A decade spent standing next to service business owners across health, hospitality,
-                software, retail, and the trades. Different industries, the same conversation, every
-                single time. He works on the outside of the business: getting it found and making
-                it easy to hire, then turning that into something the owner can finally hand off.
+                A decade spent as an entrepreneur and alongside service business owners across health,
+                hospitality, software, retail, and the trades. He works on the outside of the business:
+                getting it found, making it easy to hire, then turning it into something the owner can
+                hand off.
               </p>
+              <blockquote className="fq">
+                &ldquo;I have spent my career as an entrepreneur and alongside other entrepreneurs, most
+                of them brilliant at the work and buried by everything around it. StayBookt is how I get
+                to make a difference for them: we remove the barriers of not enough Time and not enough
+                Customers, so you get the most out of life while you build something great. Helping you
+                reach your version of success is the part I care about most.&rdquo;
+              </blockquote>
             </article>
           </div>
         </div>
       </section>
 
-      {/* THE PROSE WALL IS GONE (Jacob, live review, July 2026). Two more essays sat
-          here: "The software was never the problem" and the five-jobs kick. Five
-          paragraphs of argument on a page whose only job is trust. The homepage and
-          how-it-works are the standard for this site and neither of them makes you read
-          an essay. The faces and the promises do this work. Do not put an essay back. */}
+      {/* THE PROMISES BOARD WAS REMOVED (Richard, Jul 24 2026: "delete this section"). It was the
+          section between the founders and the close. The Promises component still exists, just not
+          rendered here. */}
 
-      {/* 5 — THE PROMISES. The object. */}
-      <section className="abt-prm">
-        <div className="wrap">
-          <div className="eyebrow">Our promises</div>
-          <h2>What you can hold us to.</h2>
-          <p className="lead">
-            Anybody can publish values. The only thing that makes a promise worth anything is what it
-            costs to keep it, so each one opens to show you <b>exactly what it costs us.</b>
-          </p>
-
-          <Promises />
-        </div>
-      </section>
-
-      {/* Same CTA banner every other page lands on. */}
-      {/* fromBlack: .abt-prm directly above is #050506. Same seam as /long-term. */}
-      <HeroCta fromBlack img="/close-founders.jpg" />
+      {/* Close, Richard's copy: "We are your operating partner. To help you build something great."
+          Subtext dropped. NOT fromBlack any more: the section above is the light cream founders
+          section now, not the dark promise board. Image unchanged for now; Richard wants a
+          celebrating-success shot, which needs a real asset. */}
+      <HeroCta
+        img="/close-founders.jpg"
+        heading={<>We are your operating partner. To help you build something great.</>}
+        sub={null}
+      />
 
       </main>
 
