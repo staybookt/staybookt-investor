@@ -146,7 +146,7 @@ export default function Journey({ id }: { id: string }) {
         <h1>{d.heroA}<span className="l2 g">{d.heroB}<span className="pd">.</span></span></h1>
         <p className="jy-sub">{d.heroSub}</p>
         {chip}
-        <div className="jy-cue">Scroll · walk {d.her ? 'her' : 'his'} year</div>
+        <div className="jy-cue">Scroll · follow {d.her ? 'her' : 'his'} journey</div>
       </section>
 
       {/* THE FILM */}
@@ -297,7 +297,7 @@ export default function Journey({ id }: { id: string }) {
                 <div className="ot">{o.tag.replace('Journeys · ', 'The ').toLowerCase().replace('the ', 'The ')}</div>
                 <div className="on2" dangerouslySetInnerHTML={{ __html: heroLine(o.short, o.heroB) }} />
                 <p className="od">{o.heroSub}</p>
-                <span className="go">Walk {o.her ? 'her' : 'his'} year <span className="arw">&rarr;</span></span>
+                <span className="go">Follow {o.her ? 'her' : 'his'} journey <span className="arw">&rarr;</span></span>
               </a>
             ))}
           </div>

@@ -48,7 +48,7 @@ const CARDS = [
     tag: 'Home service',
     line: 'Marcus got his <span class="g">nights back</span>.',
     teaser: 'You’re the best in your trade for miles. So why does the phone keep going to voicemail while you’re on the tools?',
-    cta: 'Walk his year',
+    cta: 'Follow his journey',
   },
   {
     href: '/journeys/consultant',
@@ -59,7 +59,7 @@ const CARDS = [
     tag: 'Consultant',
     line: 'Sean stopped <span class="g">chasing</span>.',
     teaser: 'You’re brilliant at the work. But your best leads go cold while you’re heads-down delivering for someone else.',
-    cta: 'Walk his year',
+    cta: 'Follow his journey',
   },
   {
     href: '/journeys/real-estate-agent',
@@ -70,7 +70,7 @@ const CARDS = [
     tag: 'Real estate agent',
     line: 'Kim&rsquo;s first to <span class="g">every door</span>.',
     teaser: 'You’re one of the top agents in town. But the lead always tours with whoever calls back first.',
-    cta: 'Walk her year',
+    cta: 'Follow her journey',
   },
 ];
 
@@ -119,7 +119,7 @@ export default function JourneysPage() {
               <span className="hl1">Three owners got</span>
               <span className="hl2 g">their lives back<span className="pd">.</span></span>
             </h1>
-            <p className="jl-sub">Walk the year it happened.</p>
+            <p className="jl-sub">Follow their journeys.</p>
           </div>
 
           {/* THE GUIDED MAP */}
