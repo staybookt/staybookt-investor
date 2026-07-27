@@ -109,11 +109,17 @@ export default function JourneysPage() {
                 reader) and "Their week looked like yours / Then it didn't" (recognition
                 without emotion). Declarative on purpose — no questions in heads/closes
                 (Richard's rule). */}
+            {/* THE FAMILY THEME IS "LIFE" (Jacob, July 27 2026): every head on this site
+                lands there — "enjoy your life" (home), "off your plate" (HIW), "improve
+                lives" (About), "Do the work you love" (every close). Journeys is the page
+                where the life actually happened, so its gradient line joins the family.
+                Same two-stage incomplete-clause pattern as About's "We're on a mission to /
+                improve lives." */}
             <h1>
-              <span className="hl1">It doesn&rsquo;t have to be like this.</span>
-              <span className="hl2 g">They proved it<span className="pd">.</span></span>
+              <span className="hl1">Three owners got</span>
+              <span className="hl2 g">their lives back<span className="pd">.</span></span>
             </h1>
-            <p className="jl-sub">Three owners got their lives back. Walk the year it happened.</p>
+            <p className="jl-sub">Walk the year it happened.</p>
           </div>
 
           {/* THE GUIDED MAP */}
