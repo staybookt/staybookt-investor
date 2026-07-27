@@ -49,6 +49,45 @@ const CSS = `
    the two people who run it, same rung as what's included. */
 .pg-hero{--hero-hue:16,185,129;}
 
+/* NEW LIGHT ANIMATED HEADER (Jul 24 2026), matching home + how-it-works, carrying Richard's
+   mission statement. Cream hero, gradient-border eyebrow pill, the mission line fading in, the
+   StayBookt / Enjoy Life lockup, then a rolling list of the outcomes. Nav is solidTop. */
+.abt .pg-hero{background:var(--v4-cream);color:var(--v4-ink);min-height:auto;padding:clamp(84px,10vh,116px) 0 clamp(58px,8vw,98px);text-align:center;}
+.abt .pg-hero::before{display:none;}
+.abt .pg-hero .wrap{max-width:1120px;}
+.abt .pg-hero .wrap .eyebrow{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.15em;color:#42474f;border:1.5px solid transparent;background:linear-gradient(#fff,#fff) padding-box,var(--sb-grad) border-box;border-radius:999px;padding:9px 18px;box-shadow:0 6px 18px -10px rgba(6,12,20,.25);}
+.abt .pg-hero .wrap h1.mission{margin:22px auto 0;max-width:20ch;font-size:clamp(26px,4vw,48px);line-height:1.14;letter-spacing:-.025em;font-weight:600;color:var(--v4-ink);}
+.abt .brandlock{margin:clamp(30px,4.5vw,52px) auto 0;line-height:1.02;}
+.abt .brandlock .bl-name,.abt .brandlock .bl-tag{display:block;font-size:clamp(42px,7vw,86px);font-weight:700;letter-spacing:-.04em;}
+.abt .brandlock .bl-name{color:var(--v4-ink);}
+.abt .brandlock .bl-name .pd{color:var(--v4-violet);}
+.abt .brandlock .bl-tag{margin-top:4px;}
+.abt .brandlock .bl-tag .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.abt .brandlock .bl-tag .pd{color:var(--v4-violet);-webkit-text-fill-color:var(--v4-violet);}
+/* rolling outcomes: a single line that cycles through what "Enjoy Life" means */
+.abt .roll{margin:clamp(24px,3.4vw,38px) auto 0;font-size:clamp(18px,2.2vw,26px);font-weight:700;}
+.abt .roll .roll-words{position:relative;display:inline-block;height:1.4em;overflow:hidden;vertical-align:bottom;}
+.abt .roll .roll-list{display:flex;flex-direction:column;}
+.abt .roll .roll-list span{display:block;height:1.4em;line-height:1.4em;white-space:nowrap;background:var(--sb-grad-ink);-webkit-background-clip:text;background-clip:text;color:transparent;}
+
+@media(prefers-reduced-motion:no-preference){
+  .abt .pg-hero .wrap h1.mission{opacity:0;filter:blur(8px);transform:translateY(14px);animation:abtIn .9s cubic-bezier(.16,1,.3,1) .15s forwards;}
+  .abt .brandlock .bl-name{opacity:0;filter:blur(10px);transform:translateY(16px);animation:abtIn .9s cubic-bezier(.16,1,.3,1) .7s forwards;}
+  .abt .brandlock .bl-tag{opacity:0;filter:blur(16px);transform:translateY(16px) scale(1.12);transform-origin:center;animation:abtIn 1.2s cubic-bezier(.19,1,.22,1) 1.05s forwards;}
+  .abt .roll{opacity:0;animation:abtFade .8s ease 1.6s forwards;}
+  .abt .roll .roll-list{animation:rollWords 13s cubic-bezier(.16,1,.3,1) 2.1s infinite;}
+}
+@keyframes abtIn{to{opacity:1;filter:blur(0);transform:none;}}
+@keyframes abtFade{to{opacity:1;}}
+@keyframes rollWords{
+  0%,14%{transform:translateY(0);}
+  18%,32%{transform:translateY(-1.4em);}
+  36%,50%{transform:translateY(-2.8em);}
+  54%,68%{transform:translateY(-4.2em);}
+  72%,86%{transform:translateY(-5.6em);}
+  90%,100%{transform:translateY(-7em);}
+}
+
 
 /* ===== 3. WHO WE ARE ===== */
 .abt-us{padding:clamp(90px,12vw,150px) 0;background:var(--v4-cream);}
@@ -113,21 +152,34 @@ export default function AboutPage() {
        the word "Bookt" disappears entirely. */
     <div className="abt v4">
       <style>{min(CSS)}</style>
-      <Nav />
+      {/* solidTop: the hero is light now (Jul 24 2026), so the nav stays a solid dark bar. */}
+      <Nav solidTop />
       <main id="main" tabIndex={-1}>
 
-      {/* 1 — THE BELIEF */}
-      <header className="pg-hero">
+      {/* 1 — THE MISSION (Richard's About-Us feedback, Jul 24 2026). New light animated header
+          matching home + how-it-works: eyebrow pill, the mission line, the StayBookt / Enjoy Life
+          lockup, then a rolling list of the outcomes "Enjoy Life" actually means. */}
+      <header className="pg-hero abt-hero">
         <div className="wrap">
           <div className="eyebrow">About us</div>
-          <h1>
-            You should not have to choose between doing the work and{' '}
-            <span className="g">having a life</span><span className="pd">.</span>
+          <h1 className="mission">
+            We&rsquo;re on a mission to improve the lives of small and mid-sized business owners and
+            their families.
           </h1>
-          <p className="sub">
-            That is the whole reason this company exists. Everything below is us explaining
-            ourselves: who we are, why we are doing this, and exactly what you can hold us to.
-          </p>
+          <div className="brandlock" aria-label="StayBookt. Enjoy Life.">
+            <span className="bl-name">StayBookt<span className="pd">.</span></span>
+            <span className="bl-tag"><span className="g">Enjoy Life</span><span className="pd">.</span></span>
+          </div>
+          <div className="roll" aria-hidden="true">
+            <span className="roll-words"><span className="roll-list">
+              <span>Grow the business.</span>
+              <span>Enjoy your personal life.</span>
+              <span>Focus on meaningful work.</span>
+              <span>Buy fun things.</span>
+              <span>Pursue passion projects.</span>
+              <span>Grow the business.</span>
+            </span></span>
+          </div>
         </div>
       </header>
 
