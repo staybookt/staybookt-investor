@@ -26,6 +26,7 @@ export type JourneyData = {
   biz: string;
   img: string;
   imgPos: string;         // avatar object-position
+  banner: string;         // city skyline strip (their world, faint behind the dark opening)
   her: boolean;
   heroA: string;          // headline line 1 (solid)
   heroB: string;          // headline line 2 (gradient payoff, no period)
@@ -64,6 +65,7 @@ export const JOURNEYS: Record<string, JourneyData> = {
     biz: 'Seamless Electric',
     img: '/face-marcus.jpg',
     imgPos: 'center',
+    banner: '/banner-toronto.jpg',
     her: false,
     heroA: 'The best electrician for miles.',
     heroB: 'And nobody could reach him',
@@ -122,6 +124,7 @@ export const JOURNEYS: Record<string, JourneyData> = {
     biz: 'Anderson Consulting',
     img: '/face-sean.jpg',
     imgPos: 'center',
+    banner: '/banner-chicago.jpg',
     her: false,
     heroA: 'Brilliant at the work.',
     heroB: 'Losing the clients who wanted it',
@@ -180,6 +183,7 @@ export const JOURNEYS: Record<string, JourneyData> = {
     biz: 'Dempster Group',
     img: '/face-kim.jpg',
     imgPos: 'center',
+    banner: '/banner-vancouver.jpg',
     her: true,
     heroA: 'One of the top agents in town.',
     heroB: 'Always the second to call back',

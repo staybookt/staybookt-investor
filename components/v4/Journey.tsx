@@ -140,12 +140,20 @@ export default function Journey({ id }: { id: string }) {
     <div className="jy" ref={rootRef}>
       <style>{min(CSS)}</style>
 
-      {/* OPENING — the site's light hero, avatar as the imagery */}
+      {/* OPENING — DARK, lights already down (Jacob, July 27: "should this be a fully
+          dark page since it's an experience? and we dig right into the experience").
+          The cream lobby hero is gone: the page opens on ink with their city faint in
+          the dark behind them, and flows seamlessly into the film's dark first act.
+          The page then travels dark -> cream as the film's wins land: the design IS
+          the arc of their year. Canonical reveal timings still apply. */}
       <section className="jy-open">
-        <div className="jy-pill">{d.tag}</div>
-        <h1>{d.heroA}<span className="l2 g">{d.heroB}<span className="pd">.</span></span></h1>
-        <p className="jy-sub">{d.heroSub}</p>
-        {chip}
+        <div className="jy-obg"><img src={d.banner} alt="" /><span className="jy-oscrim" /></div>
+        <div className="jy-oin">
+          <div className="jy-pill">{d.tag}</div>
+          <h1><span className="l1">{d.heroA}</span><span className="l2 g">{d.heroB}<span className="pd">.</span></span></h1>
+          <p className="jy-sub">{d.heroSub}</p>
+          {chip}
+        </div>
         <div className="jy-cue">Scroll · follow {d.her ? 'her' : 'his'} journey</div>
       </section>
 
@@ -329,13 +337,27 @@ const CSS = `
 .jy-who{text-align:left;font-size:13.5px;font-weight:600;line-height:1.25;}
 .jy-who small{display:block;font-size:11.5px;font-weight:500;color:var(--jy-cap);}
 
-.jy-open{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 24px;position:relative;}
-.jy-pill{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#42474f;border:1.5px solid transparent;background:linear-gradient(#fff,#fff) padding-box,var(--sb-grad,linear-gradient(100deg,#06b6d4,#10b981,#4f46e5,#7c3aed)) border-box;border-radius:999px;padding:9px 18px;margin-bottom:26px;}
-.jy-open h1{font-size:clamp(34px,6.2vw,82px);font-weight:600;letter-spacing:-.045em;line-height:1.0;}
-.jy-open h1 .l2{display:block;}
-.jy-sub{margin-top:18px;font-size:clamp(16px,1.9vw,20px);color:var(--jy-sub);}
-.jy-open .jy-avchip{margin-top:28px;}
-.jy-cue{position:absolute;bottom:32px;left:0;right:0;text-align:center;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--jy-cap);animation:jyBob 2.4s ease-in-out infinite;}
+/* THE DARK OPENING — the experience starts at pixel one. City faint in the dark,
+   canonical reveal (hl1 .2s -> hl2 focus-pull 1s + glow -> sub 1.7s -> avatar 2.15s). */
+.jy-open{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 24px;position:relative;overflow:hidden;background:var(--jy-ink);color:#fff;}
+.jy-obg{position:absolute;inset:0;}
+.jy-obg img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) brightness(.32) contrast(1.05);}
+.jy-oscrim{position:absolute;inset:0;background:radial-gradient(90% 70% at 50% 42%,rgba(6,8,13,.32),rgba(6,8,13,.94) 85%),linear-gradient(180deg,rgba(6,8,13,.55),transparent 30%,transparent 70%,var(--jy-ink) 100%);}
+.jy-oin{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;}
+.jy-pill{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.3);background:rgba(6,8,13,.3);backdrop-filter:blur(6px);border-radius:999px;padding:9px 18px;margin-bottom:26px;opacity:0;animation:jyUp .8s cubic-bezier(.16,1,.3,1) .05s forwards;}
+.jy-open h1{font-size:clamp(34px,6.2vw,82px);font-weight:600;letter-spacing:-.045em;line-height:1.0;color:#fff;}
+.jy-open h1 .l1{display:block;opacity:0;filter:blur(10px);transform:translateY(20px);animation:jyUp .9s cubic-bezier(.16,1,.3,1) .2s forwards;}
+.jy-open h1 .l2{display:block;position:relative;opacity:0;filter:blur(32px);transform:translateY(16px) scale(1.35);transform-origin:center;animation:jyEnjoy 1.5s cubic-bezier(.19,1,.22,1) 1s forwards;}
+.jy-open h1 .l2::before{content:'';position:absolute;inset:-34% -10%;z-index:-1;background:radial-gradient(56% 62% at 50% 54%,rgba(16,185,129,.35),rgba(79,70,229,.22) 46%,transparent 72%);filter:blur(36px);opacity:0;transform:scale(.7);animation:jyGlow 2s ease 1.05s forwards;}
+.jy-open .pd{color:#a78bfa;-webkit-text-fill-color:#a78bfa;}
+.jy-sub{margin-top:18px;font-size:clamp(16px,1.9vw,20px);color:rgba(255,255,255,.78);opacity:0;filter:blur(6px);transform:translateY(12px);animation:jyUp .9s cubic-bezier(.16,1,.3,1) 1.7s forwards;}
+.jy-open .jy-avchip{margin-top:28px;opacity:0;transform:scale(1.45);animation:jyEstablish .8s cubic-bezier(.16,1,.3,1) 2.15s forwards;}
+.jy-open .jy-who{color:#fff;} .jy-open .jy-who small{color:rgba(255,255,255,.6);}
+.jy-cue{position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:2;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55);opacity:0;animation:jyUp .8s ease 2.7s forwards,jyBob 2.4s ease-in-out 3.5s infinite;}
+@keyframes jyUp{to{opacity:1;filter:blur(0);transform:none;}}
+@keyframes jyEnjoy{0%{opacity:0;filter:blur(32px);transform:translateY(16px) scale(1.35);}55%{opacity:1;}100%{opacity:1;filter:blur(0);transform:translateY(0) scale(1);}}
+@keyframes jyGlow{0%{opacity:0;transform:scale(.7);}50%{opacity:.95;}100%{opacity:.62;transform:scale(1);}}
+@keyframes jyEstablish{to{opacity:1;transform:scale(1);}}
 @keyframes jyBob{0%,100%{transform:translateY(0);opacity:.6;}50%{transform:translateY(8px);opacity:1;}}
 
 .jy-film{position:relative;height:1270vh;}
@@ -459,6 +481,8 @@ const CSS = `
 
 @media(prefers-reduced-motion:reduce){
   .jy-rv,.jy-leak,.jy-fl,.jy-stars span,.jy .fbody,.jy .pfq-q,.jy .pfq-q .pl{transition:none;}
-  .jy-cue{animation:none;}
+  .jy-cue{animation:none;opacity:1;}
+  .jy-pill,.jy-open h1 .l1,.jy-open h1 .l2,.jy-sub,.jy-open .jy-avchip{animation:none;opacity:1;transform:none;filter:none;}
+  .jy-open h1 .l2::before{animation:none;opacity:.62;transform:none;}
 }
 `;
