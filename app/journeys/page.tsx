@@ -45,6 +45,10 @@ const CARDS = [
     pos: '28% 30%',
     person: 'Marcus Bell',
     role: 'Owner · Seamless Electric',
+    c: '#06b6d4',
+    bpos: 'center 55%',
+    apos: '24% 26%',
+    azoom: 2.1,
     tag: 'Home service',
     line: 'Marcus got his <span class="g">nights back</span>.',
     teaser: 'You’re the best in your trade for miles. So why does the phone keep going to voicemail while you’re on the tools?',
@@ -56,6 +60,10 @@ const CARDS = [
     pos: 'center 25%',
     person: 'Sean Anderson',
     role: 'Founder · Anderson Consulting',
+    c: '#4f46e5',
+    bpos: 'center 30%',
+    apos: 'center 18%',
+    azoom: 1.9,
     tag: 'Consultant',
     line: 'Sean stopped <span class="g">chasing</span>.',
     teaser: 'You’re brilliant at the work. But your best leads go cold while you’re heads-down delivering for someone else.',
@@ -67,6 +75,10 @@ const CARDS = [
     pos: 'center 20%',
     person: 'Kim Dempster',
     role: 'Realtor · Dempster Group',
+    c: '#7c3aed',
+    bpos: 'center 35%',
+    apos: '52% 14%',
+    azoom: 1.8,
     tag: 'Real estate agent',
     line: 'Kim&rsquo;s first to <span class="g">every door</span>.',
     teaser: 'You’re one of the top agents in town. But the lead always tours with whoever calls back first.',
@@ -168,16 +180,28 @@ export default function JourneysPage() {
           </div>
 
           <div className="jl-grid">
+            {/* LinkedIn-profile anatomy (Jacob, July 27, with his own profile as the
+                reference): photographic cover banner (the owner's photo, B&W with the
+                journey hue washed over it), big headshot overlapping with a white ring
+                (tight face crop of the same photo), name over role. */}
             {CARDS.map((c) => (
               <a key={c.href} className="jl-card" href={c.href} data-cta="journeys_card">
-                <span className="jl-avchip">
-                  <span className="jl-av"><img src={c.img} alt={c.person} style={{ objectPosition: c.pos }} /></span>
-                  <span className="jl-who">{c.person}<small>{c.role}</small></span>
+                <span className="jl-banner">
+                  <img src={c.img} alt="" style={{ objectPosition: c.bpos }} />
+                  <span className="jl-bwash" style={{ background: `linear-gradient(135deg,${c.c}d9,#4f46e5b3 58%,#7c3aedcc)` }} />
                 </span>
-                <div className="jl-tag">{c.tag}</div>
-                <div className="jl-line" dangerouslySetInnerHTML={{ __html: c.line }} />
-                <p className="jl-teaser">{c.teaser}</p>
-                <span className="jl-go">{c.cta} <span className="arw">&rarr;</span></span>
+                <span className="jl-cbody">
+                  <span
+                    className="jl-pav"
+                    style={{ ['--ap' as string]: c.apos, ['--az' as string]: c.azoom, ['--ao' as string]: c.apos }}
+                  ><img src={c.img} alt={c.person} /></span>
+                  <span className="jl-name">{c.person}</span>
+                  <span className="jl-role">{c.role}</span>
+                  <div className="jl-tag">{c.tag}</div>
+                  <div className="jl-line" dangerouslySetInnerHTML={{ __html: c.line }} />
+                  <p className="jl-teaser">{c.teaser}</p>
+                  <span className="jl-go">{c.cta} <span className="arw">&rarr;</span></span>
+                </span>
               </a>
             ))}
           </div>
@@ -242,14 +266,19 @@ const CSS = `
 /* cards */
 .jl-grid{max-width:1160px;margin:clamp(26px,4vh,42px) auto 0;padding:0 clamp(18px,3.6vw,40px);display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,22px);}
 @media(max-width:960px){.jl-grid{grid-template-columns:1fr;max-width:560px;}}
-.jl-card{display:block;background:#fff;border:1px solid rgba(6,12,20,.08);border-radius:22px;padding:clamp(22px,2.6vw,30px);text-decoration:none;color:var(--v4-ink,#06080d);box-shadow:0 1px 2px rgba(6,12,20,.04),0 26px 54px -34px rgba(6,12,20,.35);transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s cubic-bezier(.16,1,.3,1);}
+.jl-card{display:block;background:#fff;border:1px solid rgba(6,12,20,.08);border-radius:22px;padding:0;overflow:hidden;text-decoration:none;color:var(--v4-ink,#06080d);box-shadow:0 1px 2px rgba(6,12,20,.04),0 26px 54px -34px rgba(6,12,20,.35);transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s cubic-bezier(.16,1,.3,1);}
 .jl-card:hover{transform:translateY(-5px);box-shadow:0 1px 2px rgba(6,12,20,.05),0 40px 74px -36px rgba(6,12,20,.45);}
-.jl-avchip{display:inline-flex;align-items:center;gap:11px;}
-.jl-av{width:46px;height:46px;border-radius:50%;padding:2.5px;background:var(--sb-grad,linear-gradient(100deg,#06b6d4,#10b981,#4f46e5,#7c3aed));display:inline-block;}
-.jl-av img{display:block;width:100%;height:100%;border-radius:50%;object-fit:cover;background:#fff;}
-.jl-who{text-align:left;font-size:13.5px;font-weight:600;line-height:1.25;}
-.jl-who small{display:block;font-size:11.5px;font-weight:500;color:#69707d;}
-.jl-tag{margin-top:18px;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#69707d;}
+.jl-banner{display:block;height:112px;position:relative;overflow:hidden;}
+.jl-banner img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.08);transition:transform .8s cubic-bezier(.16,1,.3,1);}
+.jl-card:hover .jl-banner img{transform:scale(1.05);}
+.jl-bwash{position:absolute;inset:0;mix-blend-mode:multiply;}
+.jl-banner::after{content:'';position:absolute;inset:0;background:radial-gradient(120% 95% at 76% 0%,rgba(255,255,255,.22),transparent 55%);}
+.jl-cbody{display:block;padding:0 clamp(20px,2.4vw,28px) clamp(22px,2.6vw,30px);}
+.jl-pav{display:block;width:104px;height:104px;border-radius:50%;margin-top:-52px;border:4px solid #fff;overflow:hidden;background:#fff;box-shadow:0 12px 28px rgba(6,12,20,.22);position:relative;z-index:1;}
+.jl-pav img{display:block;width:100%;height:100%;object-fit:cover;object-position:var(--ap,center);transform:scale(var(--az,1));transform-origin:var(--ao,center);}
+.jl-name{display:block;margin-top:12px;font-size:20px;font-weight:700;letter-spacing:-.022em;}
+.jl-role{display:block;margin-top:2px;font-size:13px;font-weight:500;color:#69707d;}
+.jl-tag{margin-top:16px;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#69707d;}
 .jl-line{margin-top:8px;font-size:clamp(21px,2.2vw,26px);font-weight:600;letter-spacing:-.03em;line-height:1.12;}
 .jl-teaser{margin-top:10px;font-size:14.5px;line-height:1.55;color:#52565e;}
 .jl-go{margin-top:16px;display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:600;color:var(--v4-ink,#06080d);}

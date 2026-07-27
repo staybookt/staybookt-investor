@@ -4,7 +4,7 @@ import Journey from '@/components/v4/Journey';
 import HeroCta from '@/components/v4/HeroCta';
 
 const SHARE =
-  'Kim is one of the top agents in town, and she was always the second to call back. Then StayBookt took the front of the business off her hands. Walk her year: every lead answered in seconds, the database warm all year, her evenings back.';
+  'Kim is one of the top agents in town, and she was always the second to call back. Then StayBookt took the front of the business off her hands. Follow her journey: every lead answered in seconds, the database warm all year, her evenings back.';
 
 export const metadata = {
   title: 'Real estate agent journey',

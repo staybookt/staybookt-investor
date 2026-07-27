@@ -4,7 +4,7 @@ import Journey from '@/components/v4/Journey';
 import HeroCta from '@/components/v4/HeroCta';
 
 const SHARE =
-  'Marcus runs a five-person electrical shop. Four of ten calls hit voicemail until StayBookt took the front of the business off his hands. Walk his year: every call answered, every quote chased, evenings returned.';
+  'Marcus runs a five-person electrical shop. Four of ten calls hit voicemail until StayBookt took the front of the business off his hands. Follow his journey: every call answered, every quote chased, evenings returned.';
 
 export const metadata = {
   title: 'Home service journey',
