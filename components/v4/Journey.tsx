@@ -647,26 +647,28 @@ const CSS = `
 .jy .fbody p{margin:0;padding:0 clamp(16px,2vw,22px) clamp(22px,2.6vw,28px);font-size:16px;line-height:1.65;color:#52565e;max-width:62ch;}
 
 .jy-others{background:var(--jy-cream);padding:0 clamp(22px,5vw,44px) clamp(80px,12vh,120px);}
-.jy-owrap{max-width:1060px;margin:0 auto;}
+/* two cards sized IDENTICALLY to the landing's three-up cards (~345px each), not
+   stretched to fill (Jacob, July 27: "they look stretched out here") */
+.jy-owrap{max-width:764px;margin:0 auto;}
 .jy-others h2{text-align:center;font-size:clamp(26px,4vw,46px);font-weight:600;letter-spacing:-.038em;}
 .jy-olede{margin:12px auto 0;text-align:center;font-size:15px;color:var(--jy-sub);}
 .jy-ogrid{margin-top:clamp(26px,4vh,40px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2.4vw,24px);}
 @media(max-width:720px){.jy-ogrid{grid-template-columns:1fr;}}
 .jy-ocard{display:block;background:#fff;border:1px solid rgba(6,12,20,.08);border-radius:22px;padding:0;overflow:hidden;text-decoration:none;color:var(--jy-ink);box-shadow:0 1px 2px rgba(6,12,20,.04),0 26px 54px -34px rgba(6,12,20,.35);transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s cubic-bezier(.16,1,.3,1);}
 .jy-ocard:hover{transform:translateY(-5px);box-shadow:0 1px 2px rgba(6,12,20,.05),0 40px 74px -36px rgba(6,12,20,.45);}
-.jy-obanner{display:block;height:96px;position:relative;overflow:hidden;}
+.jy-obanner{display:block;height:112px;position:relative;overflow:hidden;}
 .jy-obanner img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.08);transition:transform .8s cubic-bezier(.16,1,.3,1);}
 .jy-ocard:hover .jy-obanner img{transform:scale(1.05);}
 .jy-owash{position:absolute;inset:0;mix-blend-mode:multiply;}
 .jy-obanner::after{content:'';position:absolute;inset:0;background:radial-gradient(120% 95% at 76% 0%,rgba(255,255,255,.22),transparent 55%);}
 .jy-obody{display:block;padding:0 clamp(20px,2.4vw,28px) clamp(22px,2.6vw,30px);}
-.jy-opav{display:block;width:88px;height:88px;border-radius:50%;margin-top:-44px;border:4px solid #fff;overflow:hidden;background:#fff;box-shadow:0 10px 24px rgba(6,12,20,.2);position:relative;z-index:1;}
+.jy-opav{display:block;width:104px;height:104px;border-radius:50%;margin-top:-52px;border:4px solid #fff;overflow:hidden;background:#fff;box-shadow:0 12px 28px rgba(6,12,20,.22);position:relative;z-index:1;}
 .jy-opav img{display:block;width:100%;height:100%;object-fit:cover;}
-.jy-oname{display:block;margin-top:12px;font-size:19px;font-weight:700;letter-spacing:-.022em;}
+.jy-oname{display:block;margin-top:12px;font-size:20px;font-weight:700;letter-spacing:-.022em;}
 .jy-orole{display:block;margin-top:2px;font-size:13px;font-weight:500;color:var(--jy-cap);}
 .jy-ocard .ot{margin-top:16px;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--jy-cap);}
-.jy-ocard .on2{margin-top:8px;font-size:clamp(19px,2.1vw,24px);font-weight:600;letter-spacing:-.03em;line-height:1.1;white-space:nowrap;}
-.jy-ocard .od{margin-top:10px;font-size:15px;line-height:1.55;color:var(--jy-sub);}
+.jy-ocard .on2{margin-top:8px;font-size:clamp(17px,1.62vw,22.5px);font-weight:600;letter-spacing:-.03em;line-height:1.12;white-space:nowrap;}
+.jy-ocard .od{margin-top:10px;font-size:14.5px;line-height:1.55;color:var(--jy-sub);}
 .jy-ocard .go{margin-top:18px;display:inline-flex;align-items:center;gap:9px;font-size:14.5px;font-weight:600;color:var(--jy-ink);border:1.5px solid rgba(6,12,20,.16);border-radius:999px;padding:11px 20px;transition:border-color .3s ease,gap .3s ease;}
 .jy-ocard .go .arw{transition:transform .35s cubic-bezier(.16,1,.3,1);}
 .jy-ocard:hover .go{border-color:var(--hc,#4f46e5);gap:13px;}
