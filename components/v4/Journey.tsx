@@ -43,15 +43,18 @@ export default function Journey({ id }: { id: string }) {
   const roadProgRef = useRef<SVGPathElement>(null);
   const roadAvRef = useRef<SVGGElement>(null);
   const lastIdx = useRef(-1);
+  const recRan = useRef(false);
+  const recRaf = useRef<number | null>(null);
   const [faqOpen, setFaqOpen] = useState<number | null>(0);
 
   const others = JOURNEY_ORDER.filter((k) => k !== id).map((k) => JOURNEYS[k]);
 
-  /* chapters are data-driven: 3 setup + wins + receipt + payoff (8 with three wins —
-     tightened from 10, Jacob July 27: every chapter earns its scroll) */
-  const N = 5 + d.wins.length;
-  const starIdx = 3 + d.wins.findIndex((w) => w.stars);
-  const CHAPTERS = ['Before', 'Before', 'The turn', ...d.wins.map(() => 'The wins'), 'The receipt', 'After'];
+  /* chapters are data-driven: title card + 3 setup + wins + receipt + payoff.
+     The TITLE CARD IS BEAT 0 (Jacob, July 27: "should this be the beginning of the
+     film?") — the page is one continuous pinned film from the first pixel. */
+  const N = 6 + d.wins.length;
+  const starIdx = 4 + d.wins.findIndex((w) => w.stars);
+  const CHAPTERS = ['The owner', 'Before', 'Before', 'The turn', ...d.wins.map(() => 'The wins'), 'The receipt', 'After'];
 
   useEffect(() => {
     const film = filmRef.current, root = rootRef.current;
@@ -84,9 +87,15 @@ export default function Journey({ id }: { id: string }) {
           b.querySelectorAll('.jy-word.on,.jy-wsub.on,.jy-stamp.on').forEach((x) => x.classList.remove('on'));
           return;
         }
-        /* cinematic cut: enter rises, HOLD carries a slow camera push, exit lifts away */
+        /* cinematic cut: enter rises, HOLD carries a slow camera push, exit lifts away.
+           Beat 0 (the title card) has NO enter — it's on screen from page load; its
+           reveal is the load-time animation, and scroll only carries it away. */
         let o: number, ty: number, sc: number;
-        if (s < 0.22) { const k = smooth(s / 0.22); o = k; ty = (1 - k) * 44; sc = 0.985 + 0.015 * k; }
+        if (i === 0) {
+          if (s < 0.7) { o = 1; ty = 0; sc = 1 + 0.012 * smooth(s / 0.7); }
+          else { const k = smooth((s - 0.7) / 0.3); o = 1 - k; ty = -k * 40; sc = 1.012 + 0.008 * k; }
+        }
+        else if (s < 0.22) { const k = smooth(s / 0.22); o = k; ty = (1 - k) * 44; sc = 0.985 + 0.015 * k; }
         else if (s < 0.78) { o = 1; ty = 0; sc = 1 + 0.014 * smooth((s - 0.22) / 0.56); }
         else { const k = smooth((s - 0.78) / 0.22); o = 1 - k; ty = -k * 36; sc = 1.014 + 0.008 * k; }
         b.style.opacity = String(o);
@@ -99,14 +108,37 @@ export default function Journey({ id }: { id: string }) {
         const stamp = b.querySelector('.jy-stamp'); if (stamp) stamp.classList.toggle('on', s > 0.32);
       });
 
-      if (idx === 0) leaks.forEach((l, i) => l.classList.toggle('on', s > 0.18 + i * 0.13));
+      if (idx === 1) leaks.forEach((l, i) => l.classList.toggle('on', s > 0.18 + i * 0.13));
       if (stars) stars.classList.toggle('on', idx === starIdx && s > 0.25);
 
+      /* the title card's city fades as you push into the ledger; the scroll cue goes with it */
+      const fbg = root.querySelector('.jy-fbg') as HTMLElement | null;
+      if (fbg) fbg.style.opacity = idx === 0 ? (s < 0.5 ? '1' : String(1 - smooth((s - 0.5) / 0.5))) : '0';
+      const cue = root.querySelector('.jy-cue');
+      if (cue) cue.classList.toggle('off', !(idx === 0 && s < 0.55));
+
+      /* THE RECEIPT: time-based count, triggered on arrival (scroll-scrubbed counting
+         glitched when you flew past — Jacob. Now the numbers race to full in ~0.9s the
+         moment the chapter is active, stay full, and reset only on leaving). */
       if (idx === N - 2) {
-        const k = smooth(Math.min(1, Math.max(0, (s - 0.08) / 0.42)));
-        cntMoney.textContent = '$' + Math.round(d.receipt.moneyTo * k).toLocaleString() + (k >= 1 ? '+' : '');
-        cntTime.textContent = Math.round(d.receipt.timeTo * k) + d.receipt.timeSuffix;
-        recFlips.forEach((f, i) => f.classList.toggle('on', s > 0.5 + i * 0.12));
+        if (!recRan.current) {
+          recRan.current = true;
+          const t0 = performance.now();
+          const step = (tm: number) => {
+            let k = Math.min(1, (tm - t0) / 900); k = 1 - Math.pow(1 - k, 3);
+            cntMoney.textContent = '$' + Math.round(d.receipt.moneyTo * k).toLocaleString() + (k >= 1 ? '+' : '');
+            cntTime.textContent = Math.round(d.receipt.timeTo * k) + d.receipt.timeSuffix;
+            if (k < 1) recRaf.current = requestAnimationFrame(step);
+          };
+          recRaf.current = requestAnimationFrame(step);
+          recFlips.forEach((f) => f.classList.add('on'));
+        }
+      } else if (recRan.current) {
+        recRan.current = false;
+        if (recRaf.current) cancelAnimationFrame(recRaf.current);
+        cntMoney.textContent = '$0';
+        cntTime.textContent = '0' + d.receipt.timeSuffix;
+        recFlips.forEach((f) => f.classList.remove('on'));
       }
 
       /* the reward lands in the payoff chapter */
@@ -125,7 +157,7 @@ export default function Journey({ id }: { id: string }) {
       if (skip) skip.classList.toggle('off', idx >= N - 2);
 
       /* the grade: ink through the before, cream once the wins land */
-      const t = smooth(Math.min(1, Math.max(0, (p - 2.55 / N) / (0.9 / N))));
+      const t = smooth(Math.min(1, Math.max(0, (p - 3.55 / N) / (0.9 / N))));
       stage.style.backgroundColor = `rgb(${lerp(6, 246, t)},${lerp(8, 246, t)},${lerp(13, 243, t)})`;
       stage.classList.toggle('dk', t < 0.5);
       stage.classList.toggle('lt', t >= 0.5);
@@ -144,7 +176,7 @@ export default function Journey({ id }: { id: string }) {
         barTop.style.opacity = barBot.style.opacity = dark.toFixed(2);
       }
 
-      const isWin = idx >= 3 && idx <= N - 3;
+      const isWin = idx >= 4 && idx <= N - 3;
       bloom.style.opacity = isWin ? (0.5 + 0.5 * Math.sin(Math.PI * s)).toFixed(2) : idx >= N - 2 ? '0.6' : '0';
 
       hudCh.textContent = CHAPTERS[idx];
@@ -158,7 +190,11 @@ export default function Journey({ id }: { id: string }) {
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
     onScroll();
-    return () => { window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onScroll); };
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      if (recRaf.current) cancelAnimationFrame(recRaf.current);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
@@ -195,34 +231,32 @@ export default function Journey({ id }: { id: string }) {
     <div className="jy" ref={rootRef}>
       <style>{min(CSS)}</style>
 
-      {/* OPENING — DARK, lights already down (Jacob, July 27: "should this be a fully
-          dark page since it's an experience? and we dig right into the experience").
-          The cream lobby hero is gone: the page opens on ink with their city faint in
-          the dark behind them, and flows seamlessly into the film's dark first act.
-          The page then travels dark -> cream as the film's wins land: the design IS
-          the arc of their year. Canonical reveal timings still apply. */}
-      <section className="jy-open">
-        <div className="jy-obg"><img src={d.banner} alt="" /><span className="jy-oscrim" /></div>
-        <div className="jy-oin">
-          <div className="jy-pill">{d.tag}</div>
-          <h1><span className="l1">{d.heroA}</span><span className="l2 g">{d.heroB}<span className="pd">.</span></span></h1>
-          <p className="jy-sub">{d.heroSub}</p>
-          {/* the lead's title-card credit: he's the main character, sized like one */}
-          <span className="jy-avchip jy-herochip">
-            <span className="jy-av"><img src={d.img} alt={d.person} style={{ objectPosition: d.imgPos }} /></span>
-            <span className="jy-who">{d.person}<small>{d.role}</small></span>
-          </span>
-        </div>
-        <div className="jy-cue">Scroll · follow {d.her ? 'her' : 'his'} journey</div>
-      </section>
-
-      {/* THE FILM — pin length scales with chapter count */}
+      {/* THE FILM — pin length scales with chapter count. It opens on the TITLE CARD
+          (beat 0): dark, their city faint behind them, the lead's credit hero-sized.
+          The reveal plays on load; the first scroll pushes past the title into the
+          leak ledger with no seam. The page then travels dark -> cream as the wins
+          land: the design IS the arc of their year. */}
       <div className="jy-film" ref={filmRef} style={{ height: `${N * 127}vh` }}>
         <div className="jy-stage dk">
+          <div className="jy-fbg"><img src={d.banner} alt="" /><span className="jy-oscrim" /></div>
           <div className="jy-bloom" />
           <div className="jy-grain" style={{ backgroundImage: GRAIN }} />
           <div className="jy-bar jy-bar-top" />
           <div className="jy-bar jy-bar-bot" />
+
+          {/* CHAPTER 0 — the title card IS the film's first beat */}
+          <div className="jy-beat dkb jy-title" data-b={0}>
+            <div className="jy-bin">
+              <div className="jy-pill">{d.tag}</div>
+              <h1><span className="l1">{d.heroA}</span><span className="l2 g">{d.heroB}<span className="pd">.</span></span></h1>
+              <p className="jy-sub">{d.heroSub}</p>
+              <span className="jy-avchip jy-herochip">
+                <span className="jy-av"><img src={d.img} alt={d.person} style={{ objectPosition: d.imgPos }} /></span>
+                <span className="jy-who">{d.person}<small>{d.role}</small></span>
+              </span>
+            </div>
+          </div>
+          <div className="jy-cue">Scroll · follow {d.her ? 'her' : 'his'} journey</div>
           <div className="jy-hud">
             <span className="jy-avchip sm">
               <span className="jy-av"><img src={d.img} alt="" style={{ objectPosition: d.imgPos }} /></span>
@@ -252,7 +286,7 @@ export default function Journey({ id }: { id: string }) {
             </div>
           </div>
 
-          <div className="jy-beat dkb" data-b={0}>
+          <div className="jy-beat dkb" data-b={1}>
             <div className="jy-bin">
               <div className="jy-kick">Before</div>
               <div className="jy-huge" dangerouslySetInnerHTML={{ __html: d.leaksTitle }} />
@@ -264,7 +298,7 @@ export default function Journey({ id }: { id: string }) {
             </div>
           </div>
 
-          <div className="jy-beat dkb" data-b={1}>
+          <div className="jy-beat dkb" data-b={2}>
             <div className="jy-bin">
               <div className="jy-kick">{d.breakKick}</div>
               <div className="jy-huge" dangerouslySetInnerHTML={{ __html: d.breakBig }} />
@@ -272,7 +306,7 @@ export default function Journey({ id }: { id: string }) {
             </div>
           </div>
 
-          <div className="jy-beat dkb" data-b={2}>
+          <div className="jy-beat dkb" data-b={3}>
             <div className="jy-bin">
               <div className="jy-kick">The turn</div>
               <div className="jy-huge">Then StayBookt <span className="g">learned {d.her ? 'her' : 'his'} business</span>.</div>
@@ -281,7 +315,7 @@ export default function Journey({ id }: { id: string }) {
           </div>
 
           {d.wins.map((w, i) => (
-            <div key={w.word} className="jy-beat ltb jy-win" data-b={3 + i}>
+            <div key={w.word} className="jy-beat ltb jy-win" data-b={4 + i}>
               <div className="jy-bin">
                 <div className="jy-kick">{w.kick}</div>
                 <div className="jy-word">{w.word}</div>
@@ -294,7 +328,7 @@ export default function Journey({ id }: { id: string }) {
             </div>
           ))}
 
-          <div className="jy-beat ltb jy-rec" data-b={3 + d.wins.length}>
+          <div className="jy-beat ltb jy-rec" data-b={4 + d.wins.length}>
             <div className="jy-bin">
               <div className="jy-kick">The receipt</div>
               <div className="jy-rtots">
@@ -311,7 +345,7 @@ export default function Journey({ id }: { id: string }) {
             </div>
           </div>
 
-          <div className="jy-beat ltb jy-payoff" data-b={4 + d.wins.length}>
+          <div className="jy-beat ltb jy-payoff" data-b={5 + d.wins.length}>
             <div className="jy-bin">
               <div className="jy-kick">{d.payoffKick}</div>
               <div className="jy-huge" dangerouslySetInnerHTML={{ __html: d.payoffBig }} />
@@ -333,6 +367,28 @@ export default function Journey({ id }: { id: string }) {
         <blockquote className="jy-rv" dangerouslySetInnerHTML={{ __html: d.quote }} />
         <div className="jy-rv" style={{ display: 'flex', justifyContent: 'center', marginTop: 26 }}>{chip}</div>
       </figure>
+
+      {/* WALK ANOTHER JOURNEY — above the FAQ (Jacob, July 27) */}
+      <section className="jy-others">
+        <div className="jy-owrap">
+          <h2 className="jy-rv">Walk another journey<span className="pd">.</span></h2>
+          <p className="jy-olede jy-rv">Different trade, same flip.</p>
+          <div className="jy-ogrid">
+            {others.map((o) => (
+              <a key={o.id} className="jy-ocard jy-rv" href={o.path} data-cta="journey_next">
+                <span className="jy-avchip">
+                  <span className="jy-av"><img src={o.img} alt={o.person} style={{ objectPosition: o.imgPos }} /></span>
+                  <span className="jy-who">{o.person}<small>{o.role}</small></span>
+                </span>
+                <div className="ot">{o.tag.replace('Journeys · ', 'The ').toLowerCase().replace('the ', 'The ')}</div>
+                <div className="on2" dangerouslySetInnerHTML={{ __html: heroLine(o.short, o.heroB) }} />
+                <p className="od">{o.heroSub}</p>
+                <span className="go">Follow {o.her ? 'her' : 'his'} journey <span className="arw">&rarr;</span></span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* FAQ — the site's .pfq pattern */}
       <section className="pfq">
@@ -370,25 +426,19 @@ export default function Journey({ id }: { id: string }) {
         </div>
       </section>
 
-      {/* WALK ANOTHER JOURNEY */}
-      <section className="jy-others">
-        <div className="jy-owrap">
-          <h2 className="jy-rv">Walk another journey<span className="pd">.</span></h2>
-          <p className="jy-olede jy-rv">Different trade, same flip.</p>
-          <div className="jy-ogrid">
-            {others.map((o) => (
-              <a key={o.id} className="jy-ocard jy-rv" href={o.path} data-cta="journey_next">
-                <span className="jy-avchip">
-                  <span className="jy-av"><img src={o.img} alt={o.person} style={{ objectPosition: o.imgPos }} /></span>
-                  <span className="jy-who">{o.person}<small>{o.role}</small></span>
-                </span>
-                <div className="ot">{o.tag.replace('Journeys · ', 'The ').toLowerCase().replace('the ', 'The ')}</div>
-                <div className="on2" dangerouslySetInnerHTML={{ __html: heroLine(o.short, o.heroB) }} />
-                <p className="od">{o.heroSub}</p>
-                <span className="go">Follow {o.her ? 'her' : 'his'} journey <span className="arw">&rarr;</span></span>
-              </a>
-            ))}
-          </div>
+      {/* THE FINALE — full-screen gradient takeover, THE question this journey earns,
+          one CTA (Jacob, July 27: "massive and bold about starting their journey...
+          differ this per journey"). This IS the journey pages' close; the sitewide
+          HeroCta dock does not follow it (two full closes would compete — documented
+          deviation from the per-page-close doctrine, for these three pages only).
+          Question form is deliberate and allowed: "What would you do with X" cannot be
+          answered "no" (Richard's rule targets yes/no closes). */}
+      <section className="jy-finale">
+        <div className="jy-fin-in jy-rv">
+          <div className="jy-fin-kick">Your journey</div>
+          <h2 dangerouslySetInnerHTML={{ __html: d.finale }} />
+          <a className="jy-fin-cta" href={START_LINK} data-cta="journey_finale">Start your journey &rarr;</a>
+          <div className="jy-fin-note">Thirty minutes with a founder. It&rsquo;s free.</div>
         </div>
       </section>
     </div>
@@ -417,29 +467,30 @@ const CSS = `
 .jy-who{text-align:left;font-size:13.5px;font-weight:600;line-height:1.25;}
 .jy-who small{display:block;font-size:11.5px;font-weight:500;color:var(--jy-cap);}
 
-/* THE DARK OPENING — the experience starts at pixel one. City faint in the dark,
-   canonical reveal (hl1 .2s -> hl2 focus-pull 1s + glow -> sub 1.7s -> avatar 2.15s). */
-.jy-open{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 24px;position:relative;overflow:hidden;background:var(--jy-ink);color:#fff;}
-.jy-obg{position:absolute;inset:0;}
-.jy-obg img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) brightness(.32) contrast(1.05);transform:scale(1.09);animation:jyKen 3.4s cubic-bezier(.16,1,.3,1) forwards;}
+/* THE TITLE CARD (beat 0) — the film's first frame, on screen from load. City faint in
+   the dark, canonical reveal (hl1 .2s -> hl2 focus-pull 1s + glow -> sub 1.7s -> avatar
+   2.15s); scroll then carries it away like any other beat. */
+.jy-title{opacity:1;} /* no enter fade: visible at page load */
+.jy-fbg{position:absolute;inset:0;z-index:0;will-change:opacity;}
+.jy-fbg img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) brightness(.32) contrast(1.05);transform:scale(1.09);animation:jyKen 3.4s cubic-bezier(.16,1,.3,1) forwards;}
 @keyframes jyKen{to{transform:scale(1);}}
 .jy-oscrim{position:absolute;inset:0;background:radial-gradient(90% 70% at 50% 42%,rgba(6,8,13,.32),rgba(6,8,13,.94) 85%),linear-gradient(180deg,rgba(6,8,13,.55),transparent 30%,transparent 70%,var(--jy-ink) 100%);}
-.jy-oin{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;}
 .jy-pill{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.3);background:rgba(6,8,13,.3);backdrop-filter:blur(6px);border-radius:999px;padding:9px 18px;margin-bottom:26px;opacity:0;animation:jyUp .8s cubic-bezier(.16,1,.3,1) .05s forwards;}
-.jy-open h1{font-size:clamp(34px,6.2vw,82px);font-weight:600;letter-spacing:-.045em;line-height:1.0;color:#fff;}
-.jy-open h1 .l1{display:block;opacity:0;filter:blur(10px);transform:translateY(20px);animation:jyUp .9s cubic-bezier(.16,1,.3,1) .2s forwards;}
-.jy-open h1 .l2{display:block;position:relative;opacity:0;filter:blur(32px);transform:translateY(16px) scale(1.35);transform-origin:center;animation:jyEnjoy 1.5s cubic-bezier(.19,1,.22,1) 1s forwards;}
-.jy-open h1 .l2::before{content:'';position:absolute;inset:-34% -10%;z-index:-1;background:radial-gradient(56% 62% at 50% 54%,rgba(16,185,129,.35),rgba(79,70,229,.22) 46%,transparent 72%);filter:blur(36px);opacity:0;transform:scale(.7);animation:jyGlow 2s ease 1.05s forwards;}
-.jy-open .pd{color:#a78bfa;-webkit-text-fill-color:#a78bfa;}
+.jy-title h1{font-size:clamp(34px,6.2vw,82px);font-weight:600;letter-spacing:-.045em;line-height:1.0;color:#fff;}
+.jy-title h1 .l1{display:block;opacity:0;filter:blur(10px);transform:translateY(20px);animation:jyUp .9s cubic-bezier(.16,1,.3,1) .2s forwards;}
+.jy-title h1 .l2{display:block;position:relative;opacity:0;filter:blur(32px);transform:translateY(16px) scale(1.35);transform-origin:center;animation:jyEnjoy 1.5s cubic-bezier(.19,1,.22,1) 1s forwards;}
+.jy-title h1 .l2::before{content:'';position:absolute;inset:-34% -10%;z-index:-1;background:radial-gradient(56% 62% at 50% 54%,rgba(16,185,129,.35),rgba(79,70,229,.22) 46%,transparent 72%);filter:blur(36px);opacity:0;transform:scale(.7);animation:jyGlow 2s ease 1.05s forwards;}
+.jy-title .pd{color:#a78bfa;-webkit-text-fill-color:#a78bfa;}
 .jy-sub{margin-top:18px;font-size:clamp(16px,1.9vw,20px);color:rgba(255,255,255,.78);opacity:0;filter:blur(6px);transform:translateY(12px);animation:jyUp .9s cubic-bezier(.16,1,.3,1) 1.7s forwards;}
-.jy-open .jy-avchip{margin-top:32px;opacity:0;transform:scale(1.35);animation:jyEstablish .9s cubic-bezier(.16,1,.3,1) 2.15s forwards;}
-.jy-open .jy-who{color:#fff;} .jy-open .jy-who small{color:rgba(255,255,255,.6);}
+.jy-title .jy-avchip{margin-top:32px;opacity:0;transform:scale(1.35);animation:jyEstablish .9s cubic-bezier(.16,1,.3,1) 2.15s forwards;}
+.jy-title .jy-who{color:#fff;} .jy-title .jy-who small{color:rgba(255,255,255,.6);}
 /* the main character: stacked title-card credit, hero-sized */
 .jy-herochip{flex-direction:column;gap:14px;}
 .jy-herochip .jy-av{width:clamp(88px,9.5vw,116px);height:clamp(88px,9.5vw,116px);padding:3.5px;box-shadow:0 0 0 7px rgba(255,255,255,.06),0 0 44px -6px rgba(79,70,229,.45),0 20px 44px rgba(0,0,0,.5);}
 .jy-herochip .jy-who{text-align:center;font-size:clamp(16px,1.8vw,19px);line-height:1.3;}
 .jy-herochip .jy-who small{font-size:clamp(12.5px,1.4vw,14.5px);margin-top:2px;}
-.jy-cue{position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:2;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55);opacity:0;animation:jyUp .8s ease 2.7s forwards,jyBob 2.4s ease-in-out 3.5s infinite;}
+.jy-cue{position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:6;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55);opacity:0;animation:jyUp .8s ease 2.7s forwards,jyBob 2.4s ease-in-out 3.5s infinite;transition:opacity .4s ease;}
+.jy-cue.off{animation:none;opacity:0;pointer-events:none;}
 @keyframes jyUp{to{opacity:1;filter:blur(0);transform:none;}}
 @keyframes jyEnjoy{0%{opacity:0;filter:blur(32px);transform:translateY(16px) scale(1.35);}55%{opacity:1;}100%{opacity:1;filter:blur(0);transform:translateY(0) scale(1);}}
 @keyframes jyGlow{0%{opacity:0;transform:scale(.7);}50%{opacity:.95;}100%{opacity:.62;transform:scale(1);}}
@@ -519,15 +570,20 @@ const CSS = `
 .jy-stars span{opacity:0;transform:scale(.4);transition:opacity .4s ease,transform .5s cubic-bezier(.34,1.56,.64,1);}
 .jy-stars.on span{opacity:1;transform:none;}
 
-.jy-rec .jy-rtots{margin-top:22px;display:flex;justify-content:center;gap:clamp(28px,6vw,84px);flex-wrap:wrap;}
-.jy-rtot{text-align:center;}
-.jy-rn{font-size:clamp(52px,9vw,124px);font-weight:600;letter-spacing:-.05em;background:var(--sb-grad-ink,linear-gradient(100deg,#06b6d4,#10b981 46%,#4f46e5 78%,#7c3aed));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1;font-variant-numeric:tabular-nums;}
-.jy-rl{margin-top:10px;font-size:clamp(13.5px,1.5vw,15.5px);color:var(--jy-sub);max-width:24ch;}
-.jy-flips{margin:clamp(24px,4vh,40px) auto 0;max-width:620px;text-align:left;}
-.jy-fl{display:flex;align-items:baseline;gap:12px;padding:13px 4px;border-top:1px solid rgba(6,12,20,.08);flex-wrap:wrap;opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .6s cubic-bezier(.16,1,.3,1);}
+/* THE RECEIPT — clean and punchy (Jacob: it looked sloppy). Both totals side by side,
+   always one row; flips centered tight beneath, landing in a stagger. */
+.jy-rec .jy-rtots{margin-top:22px;display:flex;justify-content:center;align-items:flex-start;gap:clamp(22px,5vw,72px);flex-wrap:nowrap;}
+.jy-rtot{text-align:center;min-width:0;}
+.jy-rn{font-size:clamp(34px,7vw,104px);font-weight:600;letter-spacing:-.05em;background:var(--sb-grad-ink,linear-gradient(100deg,#06b6d4,#10b981 46%,#4f46e5 78%,#7c3aed));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap;}
+.jy-rl{margin:10px auto 0;font-size:clamp(13px,1.5vw,15.5px);color:var(--jy-sub);max-width:22ch;line-height:1.4;}
+.jy-flips{margin:clamp(24px,4vh,40px) auto 0;max-width:540px;text-align:left;}
+.jy-fl{display:flex;align-items:baseline;justify-content:center;gap:12px;padding:12px 4px;border-top:1px solid rgba(6,12,20,.08);flex-wrap:wrap;opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .6s cubic-bezier(.16,1,.3,1);}
 .jy-fl.on{opacity:1;transform:none;}
+.jy-flips .jy-fl:nth-child(1).on{transition-delay:.45s;}
+.jy-flips .jy-fl:nth-child(2).on{transition-delay:.62s;}
+.jy-flips .jy-fl:nth-child(3).on{transition-delay:.79s;}
 .jy-fl:first-of-type{border-top:0;}
-.jy-fl .fll{flex:0 0 122px;font-size:13.5px;font-weight:600;color:var(--jy-cap);}
+.jy-fl .fll{flex:0 0 118px;font-size:13.5px;font-weight:600;color:var(--jy-cap);text-align:right;}
 .jy-fl .flb{font-size:clamp(14.5px,1.7vw,17px);font-weight:500;color:#8a8f98;text-decoration:line-through;text-decoration-color:rgba(180,83,90,.55);}
 .jy-fl .fla-arr{color:var(--jy-cap);}
 .jy-fl .fla{font-size:clamp(14.5px,1.7vw,17px);font-weight:700;background:var(--sb-grad-ink,linear-gradient(100deg,#06b6d4,#10b981 46%,#4f46e5 78%,#7c3aed));-webkit-background-clip:text;background-clip:text;color:transparent;}
@@ -588,12 +644,22 @@ const CSS = `
 .jy-ocard .go .arw{width:29px;height:29px;border-radius:50%;background:var(--sb-grad,linear-gradient(100deg,#06b6d4,#10b981,#4f46e5,#7c3aed));color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;transition:transform .35s cubic-bezier(.16,1,.3,1);}
 .jy-ocard:hover .go .arw{transform:translateX(5px);}
 
+/* THE FINALE — the gradient takeover */
+.jy-finale{min-height:100vh;min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;padding:clamp(80px,12vh,140px) 24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#06b6d4,#10b981 38%,#4f46e5 72%,#7c3aed);color:#fff;}
+.jy-finale::before{content:'';position:absolute;inset:0;background:radial-gradient(80% 60% at 50% 8%,rgba(255,255,255,.22),transparent 60%),radial-gradient(90% 50% at 50% 100%,rgba(6,8,13,.28),transparent 70%);}
+.jy-fin-in{position:relative;z-index:1;}
+.jy-fin-kick{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.8);}
+.jy-finale h2{margin-top:18px;font-size:clamp(38px,7vw,100px);font-weight:600;letter-spacing:-.045em;line-height:1.02;text-shadow:0 2px 44px rgba(0,0,0,.3);}
+.jy-fin-cta{margin-top:clamp(30px,4.5vh,44px);display:inline-flex;align-items:center;gap:10px;background:#fff;color:var(--jy-ink);font-size:16.5px;font-weight:600;border-radius:999px;padding:18px 40px;text-decoration:none;box-shadow:0 22px 54px -18px rgba(0,0,0,.5);transition:transform .3s ease,box-shadow .3s ease;}
+.jy-fin-cta:hover{transform:translateY(-2px);box-shadow:0 30px 66px -18px rgba(0,0,0,.6);}
+.jy-fin-note{margin-top:16px;font-size:13px;color:rgba(255,255,255,.78);}
+
 @media(prefers-reduced-motion:reduce){
   .jy-rv,.jy-leak,.jy-fl,.jy-stars span,.jy .fbody,.jy .pfq-q,.jy .pfq-q .pl,.jy-word,.jy-wsub,.jy-stamp,.jy-payjoy{transition:none;}
   .jy-cue{animation:none;opacity:1;}
-  .jy-pill,.jy-open h1 .l1,.jy-open h1 .l2,.jy-sub,.jy-open .jy-avchip{animation:none;opacity:1;transform:none;filter:none;}
-  .jy-open h1 .l2::before{animation:none;opacity:.62;transform:none;}
-  .jy-obg img{animation:none;transform:none;}
+  .jy-pill,.jy-title h1 .l1,.jy-title h1 .l2,.jy-sub,.jy-title .jy-avchip{animation:none;opacity:1;transform:none;filter:none;}
+  .jy-title h1 .l2::before{animation:none;opacity:.62;transform:none;}
+  .jy-fbg img{animation:none;transform:none;}
   .jy-grain,.jy-bar{display:none;}
 }
 `;

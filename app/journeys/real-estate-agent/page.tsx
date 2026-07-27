@@ -1,7 +1,6 @@
 import Nav from '@/components/v4/Nav';
 import SiteFooter from '@/components/SiteFooter';
 import Journey from '@/components/v4/Journey';
-import HeroCta from '@/components/v4/HeroCta';
 
 const SHARE =
   'Kim is one of the top agents in town, and she was always the second to call back. Then StayBookt took the front of the business off her hands. Follow her journey: every lead answered in seconds, the database warm all year, her evenings back.';
@@ -28,7 +27,6 @@ export default function RealEstateAgentJourneyPage() {
       <Nav solidTop />
       <main id="main" tabIndex={-1}>
         <Journey id="real-estate-agent" />
-        <HeroCta />
       </main>
       <SiteFooter />
     </div>

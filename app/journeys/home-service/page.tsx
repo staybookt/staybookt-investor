@@ -1,7 +1,6 @@
 import Nav from '@/components/v4/Nav';
 import SiteFooter from '@/components/SiteFooter';
 import Journey from '@/components/v4/Journey';
-import HeroCta from '@/components/v4/HeroCta';
 
 const SHARE =
   'Marcus runs a five-person electrical shop. Four of ten calls hit voicemail until StayBookt took the front of the business off his hands. Follow his journey: every call answered, every quote chased, evenings returned.';
@@ -27,8 +26,9 @@ export default function HomeServiceJourneyPage() {
     <div id="top" className="v4">
       <Nav solidTop />
       <main id="main" tabIndex={-1}>
+        {/* Journey ends on its own full-screen gradient finale; the sitewide HeroCta
+            dock close is deliberately omitted on journey pages (two closes compete). */}
         <Journey id="home-service" />
-        <HeroCta />
       </main>
       <SiteFooter />
     </div>
