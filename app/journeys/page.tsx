@@ -219,8 +219,9 @@ export default function JourneysPage() {
             <h2>Different trades. Same leak.</h2>
             <p>
               Not one of them had a work problem. They had a front-office problem: calls, quotes,
-              follow-ups and invoices all running through one busy owner. Each journey is that
-              problem, fixed, in a two-minute scroll. Pick the one that looks like your week.
+              follow-ups and invoices all running through one busy owner. Pick the owner who looks
+              like your week and take the journey with them, from plugging the leak to earning back
+              their time, their money, and their freedom.
             </p>
           </div>
 
