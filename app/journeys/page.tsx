@@ -41,56 +41,50 @@ export const metadata = {
 const CARDS = [
   {
     href: '/journeys/home-service',
-    img: '/story-marcus.jpg',
-    pos: '28% 30%',
+    img: '/face-marcus.jpg',
+    banner: '/banner-toronto.jpg',
+    bpos: 'center 42%',
     person: 'Marcus Bell',
     role: 'Owner · Seamless Electric',
     c: '#06b6d4',
-    bpos: 'center 55%',
-    apos: '24% 26%',
-    azoom: 2.1,
     tag: 'Home service',
     line: 'Marcus got his <span class="g">nights back</span>.',
     teaser: 'You’re the best in your trade for miles. So why does the phone keep going to voicemail while you’re on the tools?',
-    cta: 'Follow his journey',
+    cta: 'From voicemail to booked',
   },
   {
     href: '/journeys/consultant',
-    img: '/story-sean.jpg',
-    pos: 'center 25%',
+    img: '/face-sean.jpg',
+    banner: '/banner-chicago.jpg',
+    bpos: 'center 55%',
     person: 'Sean Anderson',
     role: 'Founder · Anderson Consulting',
     c: '#4f46e5',
-    bpos: 'center 30%',
-    apos: 'center 18%',
-    azoom: 1.9,
     tag: 'Consultant',
     line: 'Sean stopped <span class="g">chasing</span>.',
     teaser: 'You’re brilliant at the work. But your best leads go cold while you’re heads-down delivering for someone else.',
-    cta: 'Follow his journey',
+    cta: 'From famine to steady',
   },
   {
     href: '/journeys/real-estate-agent',
-    img: '/story-kim.jpg',
-    pos: 'center 20%',
+    img: '/face-kim.jpg',
+    banner: '/banner-vancouver.jpg',
+    bpos: 'center 48%',
     person: 'Kim Dempster',
     role: 'Realtor · Dempster Group',
     c: '#7c3aed',
-    bpos: 'center 35%',
-    apos: '52% 14%',
-    azoom: 1.8,
     tag: 'Real estate agent',
     line: 'Kim&rsquo;s first to <span class="g">every door</span>.',
     teaser: 'You’re one of the top agents in town. But the lead always tours with whoever calls back first.',
-    cta: 'Follow her journey',
+    cta: 'From second to first',
   },
 ];
 
 /* map pins: avatar + hue + start corner (percent coords inside the map card) */
 const PINS = [
-  { img: '/story-marcus.jpg', pos: '28% 30%', name: 'Marcus', trade: 'Home service', c: '#06b6d4', left: '7%', top: '12%' },
-  { img: '/story-sean.jpg', pos: 'center 25%', name: 'Sean', trade: 'Consultant', c: '#4f46e5', left: '46.5%', top: '4%' },
-  { img: '/story-kim.jpg', pos: 'center 20%', name: 'Kim', trade: 'Real estate', c: '#7c3aed', left: '84%', top: '14%' },
+  { img: '/face-marcus.jpg', pos: 'center', name: 'Marcus', trade: 'Home service', c: '#06b6d4', left: '7%', top: '12%' },
+  { img: '/face-sean.jpg', pos: 'center', name: 'Sean', trade: 'Consultant', c: '#4f46e5', left: '46.5%', top: '4%' },
+  { img: '/face-kim.jpg', pos: 'center', name: 'Kim', trade: 'Real estate', c: '#7c3aed', left: '84%', top: '14%' },
 ];
 
 /* Manhattan-style routes (viewBox 1100x520), each from its pin to the destination pin.
@@ -198,16 +192,13 @@ export default function JourneysPage() {
                 journey hue washed over it), big headshot overlapping with a white ring
                 (tight face crop of the same photo), name over role. */}
             {CARDS.map((c) => (
-              <a key={c.href} className="jl-card" href={c.href} data-cta="journeys_card">
+              <a key={c.href} className="jl-card" href={c.href} data-cta="journeys_card" style={{ ['--hc' as string]: c.c }}>
                 <span className="jl-banner">
-                  <img src={c.img} alt="" style={{ objectPosition: c.bpos }} />
-                  <span className="jl-bwash" style={{ background: `linear-gradient(135deg,${c.c}d9,#4f46e5b3 58%,#7c3aedcc)` }} />
+                  <img src={c.banner} alt="" style={{ objectPosition: c.bpos }} />
+                  <span className="jl-bwash" style={{ background: `linear-gradient(135deg,${c.c}b3,#4f46e580 58%,#7c3aed99)` }} />
                 </span>
                 <span className="jl-cbody">
-                  <span
-                    className="jl-pav"
-                    style={{ ['--ap' as string]: c.apos, ['--az' as string]: c.azoom, ['--ao' as string]: c.apos }}
-                  ><img src={c.img} alt={c.person} /></span>
+                  <span className="jl-pav"><img src={c.img} alt={c.person} /></span>
                   <span className="jl-name">{c.person}</span>
                   <span className="jl-role">{c.role}</span>
                   <div className="jl-tag">{c.tag}</div>
@@ -294,15 +285,17 @@ const CSS = `
 .jl-banner::after{content:'';position:absolute;inset:0;background:radial-gradient(120% 95% at 76% 0%,rgba(255,255,255,.22),transparent 55%);}
 .jl-cbody{display:block;padding:0 clamp(20px,2.4vw,28px) clamp(22px,2.6vw,30px);}
 .jl-pav{display:block;width:104px;height:104px;border-radius:50%;margin-top:-52px;border:4px solid #fff;overflow:hidden;background:#fff;box-shadow:0 12px 28px rgba(6,12,20,.22);position:relative;z-index:1;}
-.jl-pav img{display:block;width:100%;height:100%;object-fit:cover;object-position:var(--ap,center);transform:scale(var(--az,1));transform-origin:var(--ao,center);}
+.jl-pav img{display:block;width:100%;height:100%;object-fit:cover;}
 .jl-name{display:block;margin-top:12px;font-size:20px;font-weight:700;letter-spacing:-.022em;}
 .jl-role{display:block;margin-top:2px;font-size:13px;font-weight:500;color:#69707d;}
 .jl-tag{margin-top:16px;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#69707d;}
 .jl-line{margin-top:8px;font-size:clamp(21px,2.2vw,26px);font-weight:600;letter-spacing:-.03em;line-height:1.12;}
 .jl-teaser{margin-top:10px;font-size:14.5px;line-height:1.55;color:#52565e;}
-.jl-go{margin-top:16px;display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:600;color:var(--v4-ink,#06080d);}
-.jl-go .arw{width:29px;height:29px;border-radius:50%;background:var(--sb-grad,linear-gradient(100deg,#06b6d4,#10b981,#4f46e5,#7c3aed));color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;transition:transform .35s cubic-bezier(.16,1,.3,1);}
-.jl-card:hover .jl-go .arw{transform:translateX(5px);}
+/* clean transparent pill, unique label per journey; hue arrives on hover only */
+.jl-go{margin-top:18px;display:inline-flex;align-items:center;gap:9px;font-size:14.5px;font-weight:600;color:var(--v4-ink,#06080d);border:1.5px solid rgba(6,12,20,.16);border-radius:999px;padding:11px 20px;transition:border-color .3s ease,gap .3s ease,color .3s ease;}
+.jl-go .arw{transition:transform .35s cubic-bezier(.16,1,.3,1);}
+.jl-card:hover .jl-go{border-color:var(--hc,#4f46e5);gap:13px;}
+.jl-card:hover .jl-go .arw{color:var(--hc,#4f46e5);}
 
 @media(prefers-reduced-motion:reduce){
   .jl-pill,.jl-hero .hl1,.jl-hero .hl2,.jl-sub,.jl-mapwrap,.dpin,.dlab{animation:none;opacity:1;}
