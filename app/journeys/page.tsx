@@ -1,6 +1,7 @@
 import Nav from '@/components/v4/Nav';
 import SiteFooter from '@/components/SiteFooter';
 import HeroCta from '@/components/v4/HeroCta';
+import JourneysFaq from '@/components/v4/JourneysFaq';
 import { min } from '@/lib/css';
 
 /* THE JOURNEYS LANDING — a mini landing page: locked hero format + one supporting
@@ -90,10 +91,13 @@ const PINS = [
 /* Organic winding routes (viewBox 1100x520): smooth cubic S-curves that dip and rise
    on the way to the destination — a journey with ups and downs, not a subway map
    (Jacob, July 27: "imply curves, ups and downs... still clean, just more organic"). */
+/* Lines PRE-DRAW with the graphic (dd = draw delay, right after the map fades in at
+   2.15s); the heads then travel the finished roads on a 6s loop (delay), with the pin
+   fading out while its head is en route (Jacob, July 27). */
 const ROUTES = [
-  { c: '#06b6d4', d: 'M104,118 C142,225 62,308 172,334 C262,356 298,252 386,270 C462,286 478,392 522,416', delay: '2.35s' },
-  { c: '#4f46e5', d: 'M540,74 C588,142 478,192 508,262 C532,318 592,334 566,384 C556,404 552,410 550,414', delay: '2.6s' },
-  { c: '#7c3aed', d: 'M958,140 C932,238 1012,292 898,320 C798,346 722,298 662,348 C622,380 606,398 578,416', delay: '2.85s' },
+  { c: '#06b6d4', d: 'M104,118 C142,225 62,308 172,334 C262,356 298,252 386,270 C462,286 478,392 522,416', dd: '2.35s', delay: '3.95s' },
+  { c: '#4f46e5', d: 'M540,74 C588,142 478,192 508,262 C532,318 592,334 566,384 C556,404 552,410 550,414', dd: '2.5s', delay: '4.2s' },
+  { c: '#7c3aed', d: 'M958,140 C932,238 1012,292 898,320 C798,346 722,298 662,348 C622,380 606,398 578,416', dd: '2.65s', delay: '4.45s' },
 ];
 
 export default function JourneysPage() {
@@ -153,8 +157,8 @@ export default function JourneysPage() {
                 {ROUTES.map((r, i) => (
                   <g key={i}>
                     <path className="rt-under" d={r.d} />
-                    <path className="rt" d={r.d} pathLength={1} style={{ stroke: r.c, animationDelay: r.delay }} />
-                    <g className="jl-trav" style={{ offsetPath: `path('${r.d}')`, animationDelay: `calc(${r.delay} + 1.6s)` } as React.CSSProperties}>
+                    <path className="rt" d={r.d} pathLength={1} style={{ stroke: r.c, animationDelay: r.dd }} />
+                    <g className="jl-trav" style={{ offsetPath: `path('${r.d}')`, animationDelay: r.delay } as React.CSSProperties}>
                       <circle r="17.5" fill="#fff" stroke={r.c} strokeWidth="2.5" />
                       <image href={PINS[i].img} x="-15" y="-15" width="30" height="30" clipPath="url(#jlcp)" preserveAspectRatio="xMidYMid slice" />
                     </g>
@@ -219,6 +223,7 @@ export default function JourneysPage() {
             ))}
           </div>
         </section>
+        <JourneysFaq />
         <HeroCta />
       </main>
       <SiteFooter />
@@ -257,22 +262,20 @@ const CSS = `
   mask-image:radial-gradient(72% 78% at 50% 50%,#000 58%,transparent 97%);}
 .jl-svg .grid line{stroke:rgba(6,12,20,.05);stroke-width:1.5;}
 .jl-svg .rt-under{fill:none;stroke:rgba(6,12,20,.07);stroke-width:9;stroke-linecap:round;stroke-linejoin:round;}
-.jl-svg .rt{fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:jlDraw 1.4s cubic-bezier(.45,0,.2,1) forwards;}
+/* routes pre-draw once, fast, as the graphic arrives — then stay */
+.jl-svg .rt{fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:jlDraw 1.1s cubic-bezier(.45,0,.2,1) forwards;}
 @keyframes jlDraw{to{stroke-dashoffset:0;}}
 /* the traveler: the owner's mini headshot rides the route; it "establishes" large at
    the start (scale settle) then travels. */
 .jl-svg .jl-trav{opacity:0;offset-rotate:0deg;animation:jlTravel 6s linear infinite;}
-@keyframes jlTravel{0%{offset-distance:0%;opacity:0;transform:scale(1.5);}5%{opacity:1;transform:scale(1.5);}12%{transform:scale(1);}90%{opacity:1;}100%{offset-distance:100%;opacity:0;transform:scale(.75);}}
+@keyframes jlTravel{0%{offset-distance:0%;opacity:0;transform:scale(1.5);}4%{opacity:1;transform:scale(1.5);}10%{transform:scale(1);}96%{opacity:1;}100%{offset-distance:100%;opacity:0;transform:scale(.8);}}
 
-/* THE HAND-OFF (Jacob: the original profile pic is the one that goes — it shifts).
-   While a route's traveler is on the road, its pin avatar is gone; it pops back home
-   when the loop restarts. Same 6s cycle, delays synced to each traveler
-   (route delay + 1.6s). Pins are the 1st-3rd divs in the map; .dest is the 4th. */
-.pin .pav{transform-origin:center bottom;}
-.jl-map > div:nth-of-type(1) .pav{animation:jlPinCycle 6s linear 3.95s infinite;}
-.jl-map > div:nth-of-type(2) .pav{animation:jlPinCycle 6s linear 4.2s infinite;}
-.jl-map > div:nth-of-type(3) .pav{animation:jlPinCycle 6s linear 4.45s infinite;}
-@keyframes jlPinCycle{0%{transform:scale(1);opacity:1;}4%{transform:scale(.15);opacity:0;}88%{transform:scale(.15);opacity:0;}95%{transform:scale(1.1);opacity:1;}100%{transform:scale(1);opacity:1;}}
+/* THE HAND-OFF: the WHOLE pin (avatar + name chip) departs when its head hits the road,
+   and comes home as the head arrives. Same 6s clock, same delays as line + traveler. */
+.jl-map > div:nth-of-type(1){animation:jlPinCycle 6s linear 3.95s infinite;}
+.jl-map > div:nth-of-type(2){animation:jlPinCycle 6s linear 4.2s infinite;}
+.jl-map > div:nth-of-type(3){animation:jlPinCycle 6s linear 4.45s infinite;}
+@keyframes jlPinCycle{0%{opacity:1;}5%{opacity:0;}92%{opacity:0;}100%{opacity:1;}}
 
 .pin{position:absolute;transform:translate(-50%,-40%);display:flex;flex-direction:column;align-items:center;gap:7px;z-index:2;}
 .pav{width:clamp(34px,4.6vw,52px);height:clamp(34px,4.6vw,52px);border-radius:50%;display:block;overflow:hidden;background:#fff;}
