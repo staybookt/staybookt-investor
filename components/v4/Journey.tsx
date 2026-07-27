@@ -207,7 +207,11 @@ export default function Journey({ id }: { id: string }) {
           <div className="jy-pill">{d.tag}</div>
           <h1><span className="l1">{d.heroA}</span><span className="l2 g">{d.heroB}<span className="pd">.</span></span></h1>
           <p className="jy-sub">{d.heroSub}</p>
-          {chip}
+          {/* the lead's title-card credit: he's the main character, sized like one */}
+          <span className="jy-avchip jy-herochip">
+            <span className="jy-av"><img src={d.img} alt={d.person} style={{ objectPosition: d.imgPos }} /></span>
+            <span className="jy-who">{d.person}<small>{d.role}</small></span>
+          </span>
         </div>
         <div className="jy-cue">Scroll · follow {d.her ? 'her' : 'his'} journey</div>
       </section>
@@ -428,8 +432,13 @@ const CSS = `
 .jy-open h1 .l2::before{content:'';position:absolute;inset:-34% -10%;z-index:-1;background:radial-gradient(56% 62% at 50% 54%,rgba(16,185,129,.35),rgba(79,70,229,.22) 46%,transparent 72%);filter:blur(36px);opacity:0;transform:scale(.7);animation:jyGlow 2s ease 1.05s forwards;}
 .jy-open .pd{color:#a78bfa;-webkit-text-fill-color:#a78bfa;}
 .jy-sub{margin-top:18px;font-size:clamp(16px,1.9vw,20px);color:rgba(255,255,255,.78);opacity:0;filter:blur(6px);transform:translateY(12px);animation:jyUp .9s cubic-bezier(.16,1,.3,1) 1.7s forwards;}
-.jy-open .jy-avchip{margin-top:28px;opacity:0;transform:scale(1.45);animation:jyEstablish .8s cubic-bezier(.16,1,.3,1) 2.15s forwards;}
+.jy-open .jy-avchip{margin-top:32px;opacity:0;transform:scale(1.35);animation:jyEstablish .9s cubic-bezier(.16,1,.3,1) 2.15s forwards;}
 .jy-open .jy-who{color:#fff;} .jy-open .jy-who small{color:rgba(255,255,255,.6);}
+/* the main character: stacked title-card credit, hero-sized */
+.jy-herochip{flex-direction:column;gap:14px;}
+.jy-herochip .jy-av{width:clamp(88px,9.5vw,116px);height:clamp(88px,9.5vw,116px);padding:3.5px;box-shadow:0 0 0 7px rgba(255,255,255,.06),0 0 44px -6px rgba(79,70,229,.45),0 20px 44px rgba(0,0,0,.5);}
+.jy-herochip .jy-who{text-align:center;font-size:clamp(16px,1.8vw,19px);line-height:1.3;}
+.jy-herochip .jy-who small{font-size:clamp(12.5px,1.4vw,14.5px);margin-top:2px;}
 .jy-cue{position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:2;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55);opacity:0;animation:jyUp .8s ease 2.7s forwards,jyBob 2.4s ease-in-out 3.5s infinite;}
 @keyframes jyUp{to{opacity:1;filter:blur(0);transform:none;}}
 @keyframes jyEnjoy{0%{opacity:0;filter:blur(32px);transform:translateY(16px) scale(1.35);}55%{opacity:1;}100%{opacity:1;filter:blur(0);transform:translateY(0) scale(1);}}
