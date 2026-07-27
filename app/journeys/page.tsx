@@ -174,8 +174,12 @@ export default function JourneysPage() {
                     <path className="rt-under" d={r.d} />
                     <path className="rt" d={r.d} pathLength={1} style={{ stroke: r.c, animationDelay: r.dd }} />
                     <g className="jl-trav" style={{ offsetPath: `path('${r.d}')`, animationDelay: r.delay } as React.CSSProperties}>
-                      <circle r="17.5" fill="#fff" stroke={r.c} strokeWidth="2.5" />
-                      <image href={PINS[i].img} x="-15" y="-15" width="30" height="30" clipPath="url(#jlcp)" preserveAspectRatio="xMidYMid slice" />
+                      {/* inner group so mobile can scale the traveler up without touching
+                          the offset-path animation on the outer group */}
+                      <g className="jl-tsz">
+                        <circle r="17.5" fill="#fff" stroke={r.c} strokeWidth="2.5" />
+                        <image href={PINS[i].img} x="-15" y="-15" width="30" height="30" clipPath="url(#jlcp)" preserveAspectRatio="xMidYMid slice" />
+                      </g>
                     </g>
                   </g>
                 ))}
@@ -356,6 +360,14 @@ const CSS = `
 .jl-go .arw{transition:transform .35s cubic-bezier(.16,1,.3,1);}
 .jl-card:hover .jl-go{border-color:var(--hc,#4f46e5);gap:13px;}
 .jl-card:hover .jl-go .arw{color:var(--hc,#4f46e5);}
+
+/* phone: the map's SVG scales down hard (367px wide vs 1100 viewBox), so the drawn
+   elements bulk up to stay legible — thicker roads, bigger travelers */
+@media(max-width:640px){
+  .jl-svg .rt{stroke-width:9;}
+  .jl-svg .rt-under{stroke-width:14;}
+  .jl-svg .jl-tsz{transform:scale(1.8);}
+}
 
 @media(prefers-reduced-motion:reduce){
   .jl-pill,.jl-hero .hl1,.jl-hero .hl2,.jl-sub,.jl-mapwrap,.dpin,.dlab{animation:none;opacity:1;}

@@ -491,9 +491,10 @@ const CSS = `
 @keyframes jyKen{to{transform:scale(1);}}
 .jy-oscrim{position:absolute;inset:0;background:radial-gradient(90% 70% at 50% 42%,rgba(6,8,13,.32),rgba(6,8,13,.94) 85%),linear-gradient(180deg,rgba(6,8,13,.55),transparent 30%,transparent 70%,var(--jy-ink) 100%);}
 .jy-pill{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.3);background:rgba(6,8,13,.3);backdrop-filter:blur(6px);border-radius:999px;padding:9px 18px;margin-bottom:26px;opacity:0;animation:jyUp .8s cubic-bezier(.16,1,.3,1) .05s forwards;}
-.jy-title h1{font-size:clamp(34px,6.2vw,82px);font-weight:600;letter-spacing:-.045em;line-height:1.0;color:#fff;}
-.jy-title h1 .l1{display:block;opacity:0;filter:blur(10px);transform:translateY(20px);animation:jyUp .9s cubic-bezier(.16,1,.3,1) .2s forwards;}
-.jy-title h1 .l2{display:block;position:relative;opacity:0;filter:blur(32px);transform:translateY(16px) scale(1.35);transform-origin:center;animation:jyEnjoy 1.5s cubic-bezier(.19,1,.22,1) 1s forwards;}
+/* locked hero law holds on phones too: both lines nowrap, size scales down instead */
+.jy-title h1{font-size:clamp(19px,6.4vw,82px);font-weight:600;letter-spacing:-.045em;line-height:1.02;color:#fff;}
+.jy-title h1 .l1{display:block;white-space:nowrap;opacity:0;filter:blur(10px);transform:translateY(20px);animation:jyUp .9s cubic-bezier(.16,1,.3,1) .2s forwards;}
+.jy-title h1 .l2{display:block;white-space:nowrap;position:relative;opacity:0;filter:blur(32px);transform:translateY(16px) scale(1.35);transform-origin:center;animation:jyEnjoy 1.5s cubic-bezier(.19,1,.22,1) 1s forwards;}
 .jy-title h1 .l2::before{content:'';position:absolute;inset:-34% -10%;z-index:-1;background:radial-gradient(56% 62% at 50% 54%,rgba(16,185,129,.35),rgba(79,70,229,.22) 46%,transparent 72%);filter:blur(36px);opacity:0;transform:scale(.7);animation:jyGlow 2s ease 1.05s forwards;}
 .jy-title .pd{color:#a78bfa;-webkit-text-fill-color:#a78bfa;}
 .jy-sub{margin-top:18px;font-size:clamp(16px,1.9vw,20px);color:rgba(255,255,255,.78);opacity:0;filter:blur(6px);transform:translateY(12px);animation:jyUp .9s cubic-bezier(.16,1,.3,1) 1.7s forwards;}
@@ -675,7 +676,7 @@ const CSS = `
 .jy-finale::before{content:'';position:absolute;inset:0;background:radial-gradient(80% 60% at 50% 8%,rgba(255,255,255,.22),transparent 60%),radial-gradient(90% 50% at 50% 100%,rgba(6,8,13,.28),transparent 70%);}
 .jy-fin-in{position:relative;z-index:1;}
 .jy-fin-kick{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.8);}
-.jy-finale h2{margin-top:18px;font-size:clamp(38px,7vw,100px);font-weight:600;letter-spacing:-.045em;line-height:1.02;text-shadow:0 2px 44px rgba(0,0,0,.3);}
+.jy-finale h2{margin-top:18px;font-size:clamp(29px,7.2vw,100px);font-weight:600;letter-spacing:-.045em;line-height:1.05;text-shadow:0 2px 44px rgba(0,0,0,.3);}
 .jy-fin-cta{margin-top:clamp(30px,4.5vh,44px);display:inline-flex;align-items:center;gap:10px;background:#fff;color:var(--jy-ink);font-size:16.5px;font-weight:600;border-radius:999px;padding:18px 40px;text-decoration:none;box-shadow:0 22px 54px -18px rgba(0,0,0,.5);transition:transform .3s ease,box-shadow .3s ease;}
 .jy-fin-cta:hover{transform:translateY(-2px);box-shadow:0 30px 66px -18px rgba(0,0,0,.6);}
 .jy-fin-note{margin-top:16px;font-size:13px;color:rgba(255,255,255,.78);}
