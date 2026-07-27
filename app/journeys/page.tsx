@@ -300,7 +300,9 @@ const CSS = `
 .jl-name{display:block;margin-top:12px;font-size:20px;font-weight:700;letter-spacing:-.022em;}
 .jl-role{display:block;margin-top:2px;font-size:13px;font-weight:500;color:#69707d;}
 .jl-tag{margin-top:16px;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#69707d;}
-.jl-line{margin-top:8px;font-size:clamp(21px,2.2vw,26px);font-weight:600;letter-spacing:-.03em;line-height:1.12;}
+/* ONE line, all three cards, always — the longest ("Marcus got his nights back.") sets
+   the size cap (Jacob: person cards must follow the exact same format). */
+.jl-line{margin-top:8px;font-size:clamp(17px,1.62vw,22.5px);font-weight:600;letter-spacing:-.03em;line-height:1.12;white-space:nowrap;}
 .jl-teaser{margin-top:10px;font-size:14.5px;line-height:1.55;color:#52565e;}
 /* clean transparent pill, unique label per journey; hue arrives on hover only */
 .jl-go{margin-top:18px;display:inline-flex;align-items:center;gap:9px;font-size:14.5px;font-weight:600;color:var(--v4-ink,#06080d);border:1.5px solid rgba(6,12,20,.16);border-radius:999px;padding:11px 20px;transition:border-color .3s ease,gap .3s ease,color .3s ease;}
