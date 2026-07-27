@@ -374,16 +374,24 @@ export default function Journey({ id }: { id: string }) {
           <h2 className="jy-rv">Walk another journey<span className="pd">.</span></h2>
           <p className="jy-olede jy-rv">Different trade, same flip.</p>
           <div className="jy-ogrid">
+            {/* LinkedIn-profile anatomy, identical to the landing cards (Jacob, July 27):
+                city banner + hue wash, big overlapping headshot, name/role, tag,
+                punchline, teaser, plain-result CTA. One card system everywhere. */}
             {others.map((o) => (
-              <a key={o.id} className="jy-ocard jy-rv" href={o.path} data-cta="journey_next">
-                <span className="jy-avchip">
-                  <span className="jy-av"><img src={o.img} alt={o.person} style={{ objectPosition: o.imgPos }} /></span>
-                  <span className="jy-who">{o.person}<small>{o.role}</small></span>
+              <a key={o.id} className="jy-ocard jy-rv" href={o.path} data-cta="journey_next" style={{ ['--hc' as string]: o.hue }}>
+                <span className="jy-obanner">
+                  <img src={o.banner} alt="" />
+                  <span className="jy-owash" style={{ background: `linear-gradient(135deg,${o.hue}b3,#4f46e580 58%,#7c3aed99)` }} />
                 </span>
-                <div className="ot">{o.tag.replace('Journeys · ', 'The ').toLowerCase().replace('the ', 'The ')}</div>
-                <div className="on2" dangerouslySetInnerHTML={{ __html: heroLine(o.short, o.heroB) }} />
-                <p className="od">{o.heroSub}</p>
-                <span className="go">Follow {o.her ? 'her' : 'his'} journey <span className="arw">&rarr;</span></span>
+                <span className="jy-obody">
+                  <span className="jy-opav"><img src={o.img} alt={o.person} /></span>
+                  <span className="jy-oname">{o.person}</span>
+                  <span className="jy-orole">{o.role}</span>
+                  <div className="ot">{o.tag.replace('Journeys · ', '')}</div>
+                  <div className="on2" dangerouslySetInnerHTML={{ __html: heroLine(o.short, o.heroB) }} />
+                  <p className="od">{o.heroSub}</p>
+                  <span className="go">{CARD_CTAS[o.short] ?? 'Follow the journey'} <span className="arw">&rarr;</span></span>
+                </span>
               </a>
             ))}
           </div>
@@ -455,6 +463,13 @@ function heroLine(short: string, heroB: string) {
   };
   return CARD_LINES[short] ?? heroB;
 }
+
+/* CTA law: the button states the plain result (same labels as the landing cards) */
+const CARD_CTAS: Record<string, string> = {
+  Marcus: 'Every call answered',
+  Sean: 'A full pipeline',
+  Kim: 'Every lead in seconds',
+};
 
 const CSS = `
 .jy{--jy-ink:#06080d;--jy-cream:#f6f6f3;--jy-sub:#52565e;--jy-cap:#69707d;background:var(--jy-cream);color:var(--jy-ink);}
@@ -635,14 +650,25 @@ const CSS = `
 .jy-olede{margin:12px auto 0;text-align:center;font-size:15px;color:var(--jy-sub);}
 .jy-ogrid{margin-top:clamp(26px,4vh,40px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2.4vw,24px);}
 @media(max-width:720px){.jy-ogrid{grid-template-columns:1fr;}}
-.jy-ocard{display:block;background:#fff;border:1px solid rgba(6,12,20,.08);border-radius:22px;padding:clamp(24px,3vw,34px);text-decoration:none;color:var(--jy-ink);box-shadow:0 1px 2px rgba(6,12,20,.04),0 26px 54px -34px rgba(6,12,20,.35);transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s cubic-bezier(.16,1,.3,1);}
+.jy-ocard{display:block;background:#fff;border:1px solid rgba(6,12,20,.08);border-radius:22px;padding:0;overflow:hidden;text-decoration:none;color:var(--jy-ink);box-shadow:0 1px 2px rgba(6,12,20,.04),0 26px 54px -34px rgba(6,12,20,.35);transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s cubic-bezier(.16,1,.3,1);}
 .jy-ocard:hover{transform:translateY(-5px);box-shadow:0 1px 2px rgba(6,12,20,.05),0 40px 74px -36px rgba(6,12,20,.45);}
-.jy-ocard .ot{margin-top:20px;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--jy-cap);}
-.jy-ocard .on2{margin-top:8px;font-size:clamp(22px,2.6vw,29px);font-weight:600;letter-spacing:-.03em;line-height:1.1;}
+.jy-obanner{display:block;height:96px;position:relative;overflow:hidden;}
+.jy-obanner img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.08);transition:transform .8s cubic-bezier(.16,1,.3,1);}
+.jy-ocard:hover .jy-obanner img{transform:scale(1.05);}
+.jy-owash{position:absolute;inset:0;mix-blend-mode:multiply;}
+.jy-obanner::after{content:'';position:absolute;inset:0;background:radial-gradient(120% 95% at 76% 0%,rgba(255,255,255,.22),transparent 55%);}
+.jy-obody{display:block;padding:0 clamp(20px,2.4vw,28px) clamp(22px,2.6vw,30px);}
+.jy-opav{display:block;width:88px;height:88px;border-radius:50%;margin-top:-44px;border:4px solid #fff;overflow:hidden;background:#fff;box-shadow:0 10px 24px rgba(6,12,20,.2);position:relative;z-index:1;}
+.jy-opav img{display:block;width:100%;height:100%;object-fit:cover;}
+.jy-oname{display:block;margin-top:12px;font-size:19px;font-weight:700;letter-spacing:-.022em;}
+.jy-orole{display:block;margin-top:2px;font-size:13px;font-weight:500;color:var(--jy-cap);}
+.jy-ocard .ot{margin-top:16px;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--jy-cap);}
+.jy-ocard .on2{margin-top:8px;font-size:clamp(19px,2.1vw,24px);font-weight:600;letter-spacing:-.03em;line-height:1.1;white-space:nowrap;}
 .jy-ocard .od{margin-top:10px;font-size:15px;line-height:1.55;color:var(--jy-sub);}
-.jy-ocard .go{margin-top:18px;display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:600;color:var(--jy-ink);}
-.jy-ocard .go .arw{width:29px;height:29px;border-radius:50%;background:var(--sb-grad,linear-gradient(100deg,#06b6d4,#10b981,#4f46e5,#7c3aed));color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;transition:transform .35s cubic-bezier(.16,1,.3,1);}
-.jy-ocard:hover .go .arw{transform:translateX(5px);}
+.jy-ocard .go{margin-top:18px;display:inline-flex;align-items:center;gap:9px;font-size:14.5px;font-weight:600;color:var(--jy-ink);border:1.5px solid rgba(6,12,20,.16);border-radius:999px;padding:11px 20px;transition:border-color .3s ease,gap .3s ease;}
+.jy-ocard .go .arw{transition:transform .35s cubic-bezier(.16,1,.3,1);}
+.jy-ocard:hover .go{border-color:var(--hc,#4f46e5);gap:13px;}
+.jy-ocard:hover .go .arw{color:var(--hc,#4f46e5);}
 
 /* THE FINALE — the gradient takeover */
 .jy-finale{min-height:100vh;min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;padding:clamp(80px,12vh,140px) 24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#06b6d4,#10b981 38%,#4f46e5 72%,#7c3aed);color:#fff;}
