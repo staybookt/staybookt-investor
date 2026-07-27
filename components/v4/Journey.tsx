@@ -31,6 +31,11 @@ import { JOURNEYS, JOURNEY_ORDER } from './journeyData';
 /* the mini road in the HUD: same winding language as the landing map, in miniature */
 const ROAD_D = 'M5,17 C28,4 46,27 78,14 C106,3 128,25 155,11';
 
+/* film grain for the dark acts (SVG noise, fades out as the world brightens).
+   Inline style on purpose — keeps the data URI away from the CSS minifier. */
+const GRAIN =
+  'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'160\' height=\'160\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.85\' numOctaves=\'2\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\'/%3E%3C/svg%3E")';
+
 export default function Journey({ id }: { id: string }) {
   const d = JOURNEYS[id];
   const filmRef = useRef<HTMLDivElement>(null);
@@ -73,14 +78,25 @@ export default function Journey({ id }: { id: string }) {
 
       beats.forEach((b) => {
         const i = +(b.dataset.b as string);
-        if (i !== idx) { b.style.opacity = '0'; b.style.pointerEvents = 'none'; return; }
-        let o: number, ty: number, sc = 1;
+        if (i !== idx) {
+          b.style.opacity = '0'; b.style.pointerEvents = 'none';
+          /* reset staged reveals so re-entry replays them */
+          b.querySelectorAll('.jy-word.on,.jy-wsub.on,.jy-stamp.on').forEach((x) => x.classList.remove('on'));
+          return;
+        }
+        /* cinematic cut: enter rises, HOLD carries a slow camera push, exit lifts away */
+        let o: number, ty: number, sc: number;
         if (s < 0.22) { const k = smooth(s / 0.22); o = k; ty = (1 - k) * 44; sc = 0.985 + 0.015 * k; }
-        else if (s < 0.78) { o = 1; ty = 0; }
-        else { const k = smooth((s - 0.78) / 0.22); o = 1 - k; ty = -k * 36; sc = 1 + 0.01 * k; }
+        else if (s < 0.78) { o = 1; ty = 0; sc = 1 + 0.014 * smooth((s - 0.22) / 0.56); }
+        else { const k = smooth((s - 0.78) / 0.22); o = 1 - k; ty = -k * 36; sc = 1.014 + 0.008 * k; }
         b.style.opacity = String(o);
         b.style.transform = `translateY(${ty}px) scale(${sc})`;
+        b.style.setProperty('--bty', `${ty}px`);
         b.style.pointerEvents = o > 0.5 ? 'auto' : 'none';
+        /* staged reveals inside the beat: word focus-pulls, sub follows, stamp lands */
+        const word = b.querySelector('.jy-word'); if (word) word.classList.toggle('on', s > 0.1);
+        const wsub = b.querySelector('.jy-wsub'); if (wsub) wsub.classList.toggle('on', s > 0.2);
+        const stamp = b.querySelector('.jy-stamp'); if (stamp) stamp.classList.toggle('on', s > 0.32);
       });
 
       if (idx === 0) leaks.forEach((l, i) => l.classList.toggle('on', s > 0.18 + i * 0.13));
@@ -113,6 +129,20 @@ export default function Journey({ id }: { id: string }) {
       stage.style.backgroundColor = `rgb(${lerp(6, 246, t)},${lerp(8, 246, t)},${lerp(13, 243, t)})`;
       stage.classList.toggle('dk', t < 0.5);
       stage.classList.toggle('lt', t >= 0.5);
+
+      /* HOLLYWOOD GRADE: letterbox mattes frame the dark acts, then dissolve as the
+         world brightens (the movie releases into daylight). Grain clears the same way. */
+      const dark = 1 - t;
+      const grain = root.querySelector('.jy-grain') as HTMLElement | null;
+      if (grain) grain.style.opacity = (0.08 * dark).toFixed(3);
+      const slide = Math.min(1, p * N * 0.9); // bars slide in across the first beat
+      const barTop = root.querySelector('.jy-bar-top') as HTMLElement | null;
+      const barBot = root.querySelector('.jy-bar-bot') as HTMLElement | null;
+      if (barTop && barBot) {
+        barTop.style.transform = `translateY(${-101 + 101 * slide}%)`;
+        barBot.style.transform = `translateY(${101 - 101 * slide}%)`;
+        barTop.style.opacity = barBot.style.opacity = dark.toFixed(2);
+      }
 
       const isWin = idx >= 3 && idx <= N - 3;
       bloom.style.opacity = isWin ? (0.5 + 0.5 * Math.sin(Math.PI * s)).toFixed(2) : idx >= N - 2 ? '0.6' : '0';
@@ -186,6 +216,9 @@ export default function Journey({ id }: { id: string }) {
       <div className="jy-film" ref={filmRef} style={{ height: `${N * 127}vh` }}>
         <div className="jy-stage dk">
           <div className="jy-bloom" />
+          <div className="jy-grain" style={{ backgroundImage: GRAIN }} />
+          <div className="jy-bar jy-bar-top" />
+          <div className="jy-bar jy-bar-bot" />
           <div className="jy-hud">
             <span className="jy-avchip sm">
               <span className="jy-av"><img src={d.img} alt="" style={{ objectPosition: d.imgPos }} /></span>
@@ -384,7 +417,8 @@ const CSS = `
    canonical reveal (hl1 .2s -> hl2 focus-pull 1s + glow -> sub 1.7s -> avatar 2.15s). */
 .jy-open{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 24px;position:relative;overflow:hidden;background:var(--jy-ink);color:#fff;}
 .jy-obg{position:absolute;inset:0;}
-.jy-obg img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) brightness(.32) contrast(1.05);}
+.jy-obg img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) brightness(.32) contrast(1.05);transform:scale(1.09);animation:jyKen 3.4s cubic-bezier(.16,1,.3,1) forwards;}
+@keyframes jyKen{to{transform:scale(1);}}
 .jy-oscrim{position:absolute;inset:0;background:radial-gradient(90% 70% at 50% 42%,rgba(6,8,13,.32),rgba(6,8,13,.94) 85%),linear-gradient(180deg,rgba(6,8,13,.55),transparent 30%,transparent 70%,var(--jy-ink) 100%);}
 .jy-oin{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;}
 .jy-pill{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.3);background:rgba(6,8,13,.3);backdrop-filter:blur(6px);border-radius:999px;padding:9px 18px;margin-bottom:26px;opacity:0;animation:jyUp .8s cubic-bezier(.16,1,.3,1) .05s forwards;}
@@ -406,6 +440,10 @@ const CSS = `
 .jy-film{position:relative;} /* height set inline: N * 127vh */
 .jy-stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:var(--jy-ink);will-change:background-color;}
 .jy-bloom{position:absolute;inset:0;background:radial-gradient(58% 44% at 50% 46%,rgba(16,185,129,.16),transparent 70%);opacity:0;will-change:opacity;}
+.jy-grain{position:absolute;inset:-20%;background-size:160px 160px;opacity:.08;mix-blend-mode:overlay;pointer-events:none;z-index:2;will-change:opacity;}
+.jy-bar{position:absolute;left:0;right:0;height:4.5vh;background:#050506;z-index:5;pointer-events:none;will-change:transform,opacity;}
+.jy-bar-top{top:0;transform:translateY(-101%);}
+.jy-bar-bot{bottom:0;transform:translateY(101%);}
 
 .jy-hud{position:absolute;top:0;left:0;right:0;z-index:6;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px clamp(16px,3vw,30px);}
 .jy-hud .jy-avchip.sm .jy-av{width:36px;height:36px;padding:2px;}
@@ -457,9 +495,16 @@ const CSS = `
 .jy-leak .x{flex:0 0 22px;height:22px;border-radius:50%;background:rgba(251,106,111,.14);color:#fb6a6f;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;}
 .jy-leak span:last-child{font-size:clamp(14px,1.6vw,16.5px);color:rgba(255,255,255,.85);font-weight:500;}
 
-.jy-word{margin-top:14px;font-size:clamp(64px,13vw,190px);font-weight:700;letter-spacing:-.055em;line-height:.9;background:var(--sb-grad-ink,linear-gradient(100deg,#06b6d4,#10b981 46%,#4f46e5 78%,#7c3aed));-webkit-background-clip:text;background-clip:text;color:transparent;}
-.jy-wsub{margin-top:20px;font-size:clamp(16px,2vw,22px);color:#2b2f36;font-weight:500;}
-.jy-stamp{margin-top:26px;display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--jy-ink);border:1.5px solid transparent;background:linear-gradient(#fff,#fff) padding-box,var(--sb-grad,linear-gradient(100deg,#06b6d4,#10b981,#4f46e5,#7c3aed)) border-box;border-radius:999px;padding:10px 20px;}
+/* the win word: Apple-keynote focus pull — blur resolving to sharp as you arrive */
+.jy-word{margin-top:14px;font-size:clamp(64px,13vw,190px);font-weight:700;letter-spacing:-.055em;line-height:.9;background:var(--sb-grad-ink,linear-gradient(100deg,#06b6d4,#10b981 46%,#4f46e5 78%,#7c3aed));-webkit-background-clip:text;background-clip:text;color:transparent;opacity:.12;filter:blur(22px);transform:scale(1.18);transition:opacity .5s ease,filter .8s cubic-bezier(.19,1,.22,1),transform .9s cubic-bezier(.19,1,.22,1);}
+.jy-word.on{opacity:1;filter:blur(0);transform:scale(1);}
+.jy-wsub{margin-top:20px;font-size:clamp(16px,2vw,22px);color:#2b2f36;font-weight:500;opacity:0;transform:translateY(10px);transition:opacity .5s ease .05s,transform .55s cubic-bezier(.16,1,.3,1) .05s;}
+.jy-wsub.on{opacity:1;transform:none;}
+.jy-stamp{margin-top:26px;display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--jy-ink);border:1.5px solid transparent;background:linear-gradient(#fff,#fff) padding-box,var(--sb-grad,linear-gradient(100deg,#06b6d4,#10b981,#4f46e5,#7c3aed)) border-box;border-radius:999px;padding:10px 20px;opacity:0;transform:translateY(10px) scale(.85);transition:opacity .4s ease,transform .55s cubic-bezier(.34,1.56,.64,1);}
+.jy-stamp.on{opacity:1;transform:none;}
+/* micro-parallax: layers drift at different rates inside a beat (depth) */
+.jy-beat .jy-kick{transform:translateY(calc(var(--bty,0px) * .5));}
+.jy-beat .jy-cap{transform:translateY(calc(var(--bty,0px) * .3));}
 .jy-stamp .dot{width:9px;height:9px;border-radius:50%;background:var(--sb-grad,linear-gradient(100deg,#06b6d4,#10b981,#4f46e5,#7c3aed));}
 .jy-stars{margin-top:16px;display:flex;justify-content:center;gap:8px;font-size:clamp(26px,4vw,44px);color:#f5b942;}
 .jy-stars span{opacity:0;transform:scale(.4);transition:opacity .4s ease,transform .5s cubic-bezier(.34,1.56,.64,1);}
@@ -535,9 +580,11 @@ const CSS = `
 .jy-ocard:hover .go .arw{transform:translateX(5px);}
 
 @media(prefers-reduced-motion:reduce){
-  .jy-rv,.jy-leak,.jy-fl,.jy-stars span,.jy .fbody,.jy .pfq-q,.jy .pfq-q .pl{transition:none;}
+  .jy-rv,.jy-leak,.jy-fl,.jy-stars span,.jy .fbody,.jy .pfq-q,.jy .pfq-q .pl,.jy-word,.jy-wsub,.jy-stamp,.jy-payjoy{transition:none;}
   .jy-cue{animation:none;opacity:1;}
   .jy-pill,.jy-open h1 .l1,.jy-open h1 .l2,.jy-sub,.jy-open .jy-avchip{animation:none;opacity:1;transform:none;filter:none;}
   .jy-open h1 .l2::before{animation:none;opacity:.62;transform:none;}
+  .jy-obg img{animation:none;transform:none;}
+  .jy-grain,.jy-bar{display:none;}
 }
 `;
