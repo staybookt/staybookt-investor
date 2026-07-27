@@ -94,10 +94,25 @@ const PINS = [
 /* Lines PRE-DRAW with the graphic (dd = draw delay, right after the map fades in at
    2.15s); the heads then travel the finished roads on a 6s loop (delay), with the pin
    fading out while its head is en route (Jacob, July 27). */
+/* Arrivals STAGGER 2s apart (6s cycle / 3 routes) so there is always a payoff landing:
+   Marcus, then Sean, then Kim, forever. */
 const ROUTES = [
   { c: '#06b6d4', d: 'M104,118 C142,225 62,308 172,334 C262,356 298,252 386,270 C462,286 478,392 522,416', dd: '2.35s', delay: '3.95s' },
-  { c: '#4f46e5', d: 'M540,74 C588,142 478,192 508,262 C532,318 592,334 566,384 C556,404 552,410 550,414', dd: '2.5s', delay: '4.2s' },
-  { c: '#7c3aed', d: 'M958,140 C932,238 1012,292 898,320 C798,346 722,298 662,348 C622,380 606,398 578,416', dd: '2.65s', delay: '4.45s' },
+  { c: '#4f46e5', d: 'M540,74 C588,142 478,192 508,262 C532,318 592,334 566,384 C556,404 552,410 550,414', dd: '2.5s', delay: '5.95s' },
+  { c: '#7c3aed', d: 'M958,140 C932,238 1012,292 898,320 C798,346 722,298 662,348 C622,380 606,398 578,416', dd: '2.65s', delay: '7.95s' },
+];
+
+/* THE ARRIVAL PAYOFF (Jacob, July 27): when each head reaches Enjoy Life, their reward
+   blooms from the destination — an icon of THEIR enjoyment, from their own story:
+   Marcus = family time (ten days east), Sean = golf (he picks his clients now),
+   Kim = dinner (her evenings back). Badge delay = route delay + 5.75s (the arrival). */
+const JOY = [
+  { key: 'family', c: '#06b6d4', left: '43%', delay: '9.7s', title: 'Family time',
+    svg: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>' },
+  { key: 'golf', c: '#4f46e5', left: '50%', delay: '11.7s', title: 'A tee time',
+    svg: '<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/>' },
+  { key: 'dinner', c: '#7c3aed', left: '57%', delay: '13.7s', title: 'Dinner at home',
+    svg: '<path d="M8 22h8"/><path d="M12 15v7"/><path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z"/>' },
 ];
 
 export default function JourneysPage() {
@@ -174,6 +189,13 @@ export default function JourneysPage() {
                   </span>
                   <span className="plab"><b>{p.name}</b>{p.trade}</span>
                 </div>
+              ))}
+
+              {/* arrival payoffs: each owner's enjoyment blooms from the destination */}
+              {JOY.map((j) => (
+                <span key={j.key} className="joy" title={j.title} style={{ left: j.left, animationDelay: j.delay, ['--jc' as string]: j.c }}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" dangerouslySetInnerHTML={{ __html: j.svg }} />
+                </span>
               ))}
 
               {/* destination */}
@@ -279,9 +301,14 @@ const CSS = `
 /* THE HAND-OFF: the WHOLE pin (avatar + name chip) departs when its head hits the road,
    and comes home as the head arrives. Same 6s clock, same delays as line + traveler. */
 .jl-map > div:nth-of-type(1){animation:jlPinCycle 6s linear 3.95s infinite;}
-.jl-map > div:nth-of-type(2){animation:jlPinCycle 6s linear 4.2s infinite;}
-.jl-map > div:nth-of-type(3){animation:jlPinCycle 6s linear 4.45s infinite;}
+.jl-map > div:nth-of-type(2){animation:jlPinCycle 6s linear 5.95s infinite;}
+.jl-map > div:nth-of-type(3){animation:jlPinCycle 6s linear 7.95s infinite;}
 @keyframes jlPinCycle{0%{opacity:1;}3%{opacity:1;}14%{opacity:0;}88%{opacity:0;}100%{opacity:1;}}
+
+/* the reward chip: blooms up from the destination on arrival, hangs, drifts off */
+.joy{position:absolute;top:66%;transform:translate(-50%,0);z-index:3;width:42px;height:42px;border-radius:50%;background:#fff;border:2px solid var(--jc,#4f46e5);color:var(--jc,#4f46e5);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px -8px rgba(6,12,20,.3);opacity:0;animation:jlJoy 6s ease-out infinite;}
+.joy svg{width:20px;height:20px;}
+@keyframes jlJoy{0%{opacity:0;transform:translate(-50%,10px) scale(.5);}5%{opacity:1;transform:translate(-50%,-8px) scale(1.08);}9%{transform:translate(-50%,-12px) scale(1);}26%{opacity:1;transform:translate(-50%,-18px) scale(1);}38%{opacity:0;transform:translate(-50%,-34px) scale(.85);}100%{opacity:0;transform:translate(-50%,-34px) scale(.85);}}
 
 .pin{position:absolute;transform:translate(-50%,-40%);display:flex;flex-direction:column;align-items:center;gap:7px;z-index:2;}
 .pav{width:clamp(34px,4.6vw,52px);height:clamp(34px,4.6vw,52px);border-radius:50%;display:block;overflow:hidden;background:#fff;}
@@ -332,6 +359,6 @@ const CSS = `
 @media(prefers-reduced-motion:reduce){
   .jl-pill,.jl-hero .hl1,.jl-hero .hl2,.jl-sub,.jl-mapwrap,.dpin,.dlab{animation:none;opacity:1;}
   .jl-svg .rt{animation:none;stroke-dashoffset:0;}
-  .jl-svg .jl-trav,.dring{animation:none;opacity:0;}
+  .jl-svg .jl-trav,.dring,.joy{animation:none;opacity:0;}
 }
 `;
