@@ -28,19 +28,25 @@ import { min } from '@/lib/css';
 import { track } from '@/lib/analytics';
 import { JOURNEYS, JOURNEY_ORDER } from './journeyData';
 
-const N = 10;
+/* the mini road in the HUD: same winding language as the landing map, in miniature */
+const ROAD_D = 'M5,17 C28,4 46,27 78,14 C106,3 128,25 155,11';
 
 export default function Journey({ id }: { id: string }) {
   const d = JOURNEYS[id];
   const filmRef = useRef<HTMLDivElement>(null);
   const rootRef = useRef<HTMLDivElement>(null);
+  const roadProgRef = useRef<SVGPathElement>(null);
+  const roadAvRef = useRef<SVGGElement>(null);
   const lastIdx = useRef(-1);
   const [faqOpen, setFaqOpen] = useState<number | null>(0);
 
   const others = JOURNEY_ORDER.filter((k) => k !== id).map((k) => JOURNEYS[k]);
-  const starIdx = 3 + d.wins.findIndex((w) => w.stars); // -1+3=2 (never matches a win) if none
 
-  const CHAPTERS = ['Before', 'Before', 'The turn', 'The wins', 'The wins', 'The wins', 'The wins', 'The wins', 'The receipt', 'After'];
+  /* chapters are data-driven: 3 setup + wins + receipt + payoff (8 with three wins —
+     tightened from 10, Jacob July 27: every chapter earns its scroll) */
+  const N = 5 + d.wins.length;
+  const starIdx = 3 + d.wins.findIndex((w) => w.stars);
+  const CHAPTERS = ['Before', 'Before', 'The turn', ...d.wins.map(() => 'The wins'), 'The receipt', 'After'];
 
   useEffect(() => {
     const film = filmRef.current, root = rootRef.current;
@@ -50,7 +56,6 @@ export default function Journey({ id }: { id: string }) {
     const hudCh = root.querySelector('.jy-hudch') as HTMLElement;
     const hudCt = root.querySelector('.jy-hudct') as HTMLElement;
     const beats = [...root.querySelectorAll('.jy-beat')] as HTMLElement[];
-    const segs = [...root.querySelectorAll('.jy-seg')] as HTMLElement[];
     const leaks = [...root.querySelectorAll('.jy-leak')] as HTMLElement[];
     const stars = root.querySelector('.jy-stars') as HTMLElement | null;
     const cntMoney = root.querySelector('.jy-cnt-money') as HTMLElement;
@@ -81,12 +86,27 @@ export default function Journey({ id }: { id: string }) {
       if (idx === 0) leaks.forEach((l, i) => l.classList.toggle('on', s > 0.18 + i * 0.13));
       if (stars) stars.classList.toggle('on', idx === starIdx && s > 0.25);
 
-      if (idx === 8) {
+      if (idx === N - 2) {
         const k = smooth(Math.min(1, Math.max(0, (s - 0.08) / 0.42)));
         cntMoney.textContent = '$' + Math.round(d.receipt.moneyTo * k).toLocaleString() + (k >= 1 ? '+' : '');
         cntTime.textContent = Math.round(d.receipt.timeTo * k) + d.receipt.timeSuffix;
         recFlips.forEach((f, i) => f.classList.toggle('on', s > 0.5 + i * 0.12));
       }
+
+      /* the reward lands in the payoff chapter */
+      const joyRow = root.querySelector('.jy-payjoy');
+      if (joyRow) joyRow.classList.toggle('on', idx === N - 1 && s > 0.35);
+
+      /* road HUD: progress line fills, the mini avatar drives it */
+      const rp = roadProgRef.current, ra = roadAvRef.current;
+      if (rp && ra) {
+        rp.style.strokeDashoffset = String(1 - p);
+        const L = rp.getTotalLength();
+        const pt = rp.getPointAtLength(Math.min(0.999, Math.max(0, p)) * L);
+        ra.setAttribute('transform', `translate(${pt.x},${pt.y})`);
+      }
+      const skip = root.querySelector('.jy-skip');
+      if (skip) skip.classList.toggle('off', idx >= N - 2);
 
       /* the grade: ink through the before, cream once the wins land */
       const t = smooth(Math.min(1, Math.max(0, (p - 2.55 / N) / (0.9 / N))));
@@ -94,12 +114,11 @@ export default function Journey({ id }: { id: string }) {
       stage.classList.toggle('dk', t < 0.5);
       stage.classList.toggle('lt', t >= 0.5);
 
-      const isWin = idx >= 3 && idx <= 7;
-      bloom.style.opacity = isWin ? (0.5 + 0.5 * Math.sin(Math.PI * s)).toFixed(2) : idx >= 8 ? '0.6' : '0';
+      const isWin = idx >= 3 && idx <= N - 3;
+      bloom.style.opacity = isWin ? (0.5 + 0.5 * Math.sin(Math.PI * s)).toFixed(2) : idx >= N - 2 ? '0.6' : '0';
 
       hudCh.textContent = CHAPTERS[idx];
       hudCt.textContent = idx + 1 + ' / ' + N;
-      segs.forEach((sg, i) => { sg.classList.toggle('done', i < idx); sg.classList.toggle('cur', i === idx); });
 
       if (idx !== lastIdx.current) {
         lastIdx.current = idx;
@@ -127,6 +146,12 @@ export default function Journey({ id }: { id: string }) {
     const film = filmRef.current; if (!film) return;
     const h = film.offsetHeight - window.innerHeight;
     window.scrollTo({ top: film.offsetTop + h * ((i + 0.5) / N), behavior: 'smooth' });
+  };
+
+  const roadClick = (e: React.MouseEvent<SVGSVGElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    const frac = (e.clientX - r.left) / r.width;
+    jump(Math.min(N - 1, Math.max(0, Math.floor(frac * N))));
   };
 
   const chip = (
@@ -157,8 +182,8 @@ export default function Journey({ id }: { id: string }) {
         <div className="jy-cue">Scroll · follow {d.her ? 'her' : 'his'} journey</div>
       </section>
 
-      {/* THE FILM */}
-      <div className="jy-film" ref={filmRef}>
+      {/* THE FILM — pin length scales with chapter count */}
+      <div className="jy-film" ref={filmRef} style={{ height: `${N * 127}vh` }}>
         <div className="jy-stage dk">
           <div className="jy-bloom" />
           <div className="jy-hud">
@@ -168,12 +193,25 @@ export default function Journey({ id }: { id: string }) {
             </span>
             <div className="jy-mid">
               <span className="jy-hudch">Before</span>
-              <div className="jy-segs">
-                {Array.from({ length: N }, (_, i) => (
-                  <button key={i} type="button" className="jy-seg" aria-label={`Chapter ${i + 1}`} onClick={() => jump(i)} />
-                ))}
-              </div>
+              {/* the road HUD: the map's winding road in miniature — the owner's mini
+                  avatar drives it as you scroll. Click anywhere on it to jump. */}
+              <svg className="jy-road" viewBox="0 0 160 28" onClick={roadClick} role="slider" aria-label="Film progress">
+                <defs><clipPath id={`jyrcp-${d.id}`}><circle r="6.5" /></clipPath></defs>
+                <path className="jy-road-under" d={ROAD_D} />
+                <path ref={roadProgRef} className="jy-road-prog" d={ROAD_D} pathLength={1} style={{ stroke: d.hue }} />
+                <g ref={roadAvRef} className="jy-road-av" transform="translate(5,17)">
+                  <circle r="8" fill="#fff" stroke={d.hue} strokeWidth="1.5" />
+                  <image href={d.img} x="-6.5" y="-6.5" width="13" height="13" clipPath={`url(#jyrcp-${d.id})`} preserveAspectRatio="xMidYMid slice" />
+                </g>
+              </svg>
               <span className="jy-hudct">1 / {N}</span>
+              <button
+                type="button"
+                className="jy-skip"
+                onClick={() => { track('journey_skip', { journey: d.id }); jump(N - 2); }}
+              >
+                Skip to the results &rarr;
+              </button>
             </div>
           </div>
 
@@ -219,7 +257,7 @@ export default function Journey({ id }: { id: string }) {
             </div>
           ))}
 
-          <div className="jy-beat ltb jy-rec" data-b={8}>
+          <div className="jy-beat ltb jy-rec" data-b={3 + d.wins.length}>
             <div className="jy-bin">
               <div className="jy-kick">The receipt</div>
               <div className="jy-rtots">
@@ -236,11 +274,16 @@ export default function Journey({ id }: { id: string }) {
             </div>
           </div>
 
-          <div className="jy-beat ltb jy-payoff" data-b={9}>
+          <div className="jy-beat ltb jy-payoff" data-b={4 + d.wins.length}>
             <div className="jy-bin">
               <div className="jy-kick">{d.payoffKick}</div>
               <div className="jy-huge" dangerouslySetInnerHTML={{ __html: d.payoffBig }} />
               <div className="jy-cap">{d.payoffCap}</div>
+              {/* the reward from the map, delivered: their enjoyment chip + the life it bought */}
+              <div className="jy-payjoy" style={{ ['--jc' as string]: d.hue }}>
+                <span className="jy-joychip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" dangerouslySetInnerHTML={{ __html: d.joy.svg }} /></span>
+                <span className="jy-joyline">{d.joy.line}</span>
+              </div>
               <a className="jy-cta" href={START_LINK} data-cta="journey_payoff">Start your journey &rarr;</a>
               <div className="jy-note">Thirty minutes with a founder. It&rsquo;s free.</div>
             </div>
@@ -360,7 +403,7 @@ const CSS = `
 @keyframes jyEstablish{to{opacity:1;transform:scale(1);}}
 @keyframes jyBob{0%,100%{transform:translateY(0);opacity:.6;}50%{transform:translateY(8px);opacity:1;}}
 
-.jy-film{position:relative;height:1270vh;}
+.jy-film{position:relative;} /* height set inline: N * 127vh */
 .jy-stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:var(--jy-ink);will-change:background-color;}
 .jy-bloom{position:absolute;inset:0;background:radial-gradient(58% 44% at 50% 46%,rgba(16,185,129,.16),transparent 70%);opacity:0;will-change:opacity;}
 
@@ -369,21 +412,33 @@ const CSS = `
 .jy-hud .jy-who{font-size:12.5px;} .jy-hud .jy-who small{font-size:10.5px;}
 .jy-mid{display:flex;align-items:center;gap:12px;}
 .jy-hudch{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;min-width:82px;text-align:right;}
-.jy-segs{display:flex;gap:6px;}
-.jy-seg{width:clamp(20px,3.2vw,40px);height:4px;border-radius:2px;border:0;cursor:pointer;padding:0;transition:background .3s ease;}
+/* the road HUD */
+.jy-road{width:clamp(110px,15vw,175px);height:28px;cursor:pointer;overflow:visible;flex:0 0 auto;}
+.jy-road-under{fill:none;stroke-width:3;stroke-linecap:round;}
+.jy-road-prog{fill:none;stroke-width:3;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;}
+.jy-road-av circle{filter:drop-shadow(0 2px 4px rgba(6,12,20,.35));}
 .jy-hudct{font-size:11px;font-weight:700;letter-spacing:.1em;min-width:44px;}
+.jy-skip{background:none;border:0;font-family:inherit;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;padding:0;margin-left:4px;opacity:.85;transition:opacity .3s ease;}
+.jy-skip:hover{text-decoration:underline;}
+.jy-skip.off{opacity:0;pointer-events:none;}
 .jy-stage.dk{color:#fff;}
 .jy-stage.dk .jy-hudch,.jy-stage.dk .jy-hudct{color:rgba(255,255,255,.6);}
-.jy-stage.dk .jy-seg{background:rgba(255,255,255,.18);}
-.jy-stage.dk .jy-seg.done{background:rgba(255,255,255,.55);}
+.jy-stage.dk .jy-road-under{stroke:rgba(255,255,255,.18);}
+.jy-stage.dk .jy-skip{color:rgba(255,255,255,.65);}
 .jy-stage.dk .jy-hud .jy-who{color:#fff;} .jy-stage.dk .jy-hud .jy-who small{color:rgba(255,255,255,.55);}
 .jy-stage.lt{color:var(--jy-ink);}
 .jy-stage.lt .jy-hudch,.jy-stage.lt .jy-hudct{color:var(--jy-cap);}
-.jy-stage.lt .jy-seg{background:rgba(6,12,20,.12);}
-.jy-stage.lt .jy-seg.done{background:rgba(6,12,20,.34);}
+.jy-stage.lt .jy-road-under{stroke:rgba(6,12,20,.12);}
+.jy-stage.lt .jy-skip{color:var(--jy-cap);}
 .jy-stage.lt .jy-hud .jy-who{color:var(--jy-ink);} .jy-stage.lt .jy-hud .jy-who small{color:var(--jy-cap);}
-.jy-seg.cur{background:var(--sb-grad,linear-gradient(100deg,#06b6d4,#10b981,#4f46e5,#7c3aed))!important;}
-@media(max-width:640px){.jy-hud .jy-who{display:none;}}
+@media(max-width:640px){.jy-hud .jy-who{display:none;}.jy-hudch,.jy-skip{display:none;}}
+
+/* the reward, delivered in the payoff */
+.jy-payjoy{margin-top:26px;display:flex;align-items:center;justify-content:center;gap:12px;opacity:0;transform:translateY(14px) scale(.85);transition:opacity .5s ease,transform .6s cubic-bezier(.34,1.56,.64,1);}
+.jy-payjoy.on{opacity:1;transform:none;}
+.jy-joychip{width:44px;height:44px;border-radius:50%;background:#fff;border:2px solid var(--jc,#4f46e5);color:var(--jc,#4f46e5);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px -8px rgba(6,12,20,.25);flex:0 0 44px;}
+.jy-joychip svg{width:20px;height:20px;}
+.jy-joyline{font-size:clamp(15px,1.8vw,19px);font-weight:600;color:var(--jy-ink);}
 
 .jy-beat{position:absolute;inset:0;z-index:4;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 clamp(22px,5vw,60px);opacity:0;pointer-events:none;will-change:opacity,transform;}
 .jy-bin{max-width:900px;}

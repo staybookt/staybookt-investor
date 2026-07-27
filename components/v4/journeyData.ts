@@ -13,6 +13,7 @@
  * Journey FAQs own persona objections; the aside links to /pricing for money. */
 
 export type Win = { kick: string; word: string; wsub: string; stamp: string; stars?: boolean };
+export type Joy = { svg: string; line: string };
 export type Flip = { label: string; before: string; after: string };
 export type FaqItem = { k: string; c: string; q: string; a: string };
 
@@ -27,6 +28,8 @@ export type JourneyData = {
   img: string;
   imgPos: string;         // avatar object-position
   banner: string;         // city skyline strip (their world, faint behind the dark opening)
+  hue: string;            // this journey's brand hue (road HUD, reward chip)
+  joy: Joy;               // the reward from the map, delivered in the payoff chapter
   her: boolean;
   heroA: string;          // headline line 1 (solid)
   heroB: string;          // headline line 2 (gradient payoff, no period)
@@ -66,6 +69,8 @@ export const JOURNEYS: Record<string, JourneyData> = {
     img: '/face-marcus.jpg',
     imgPos: 'center',
     banner: '/banner-toronto.jpg',
+    hue: '#06b6d4',
+    joy: { svg: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>', line: 'Ten days east with the family.' },
     her: false,
     heroA: 'The best electrician for miles.',
     heroB: 'And nobody could reach him',
@@ -82,12 +87,13 @@ export const JOURNEYS: Record<string, JourneyData> = {
     breakBig: 'A <span style="color:#fb6a6f">$14,000</span> job<br>went to voicemail.',
     breakCap: 'Both hands on a breaker, up a ladder. The homeowner hired the shop that picked up.',
     turnCap: 'Two weeks. His prices, his service area, how he talks to a customer. Then it took the front of the business off his hands.',
+    /* TIGHTENED 5 -> 3 (Jacob, July 27: every chapter earns its scroll). Paid merged
+       into Chased (both are the follow-up machine); Home's payoff folded into the
+       closing chapter, where the reward chip + life line land. */
     wins: [
       { kick: 'Win one', word: 'Answered.', wsub: 'Every call. In his voice. Even mid-job.', stamp: 'Missed calls → zero' },
-      { kick: 'Win two', word: 'Chased.', wsub: 'Every quote followed to a yes or a no.', stamp: 'No more dead quotes' },
-      { kick: 'Win three', word: 'Paid.', wsub: 'Invoices chased politely. Money inside a month.', stamp: '90 days → 30' },
-      { kick: 'Win four', word: 'Found.', wsub: 'A review asked after every finished job.', stamp: '7 reviews → 60+', stars: true },
-      { kick: 'Win five', word: 'Home.', wsub: 'One 30-second brief with his coffee. That’s his admin now.', stamp: 'Evenings, returned' },
+      { kick: 'Win two', word: 'Chased.', wsub: 'Quotes followed to a yes or a no. Invoices chased politely.', stamp: 'Paid in 30, not 90' },
+      { kick: 'Win three', word: 'Found.', wsub: 'A review asked after every finished job.', stamp: '7 reviews → 60+', stars: true },
     ],
     receipt: {
       moneyTo: 40000,
@@ -125,6 +131,8 @@ export const JOURNEYS: Record<string, JourneyData> = {
     img: '/face-sean.jpg',
     imgPos: 'center',
     banner: '/banner-chicago.jpg',
+    hue: '#4f46e5',
+    joy: { svg: '<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/>', line: 'Friday tee times, guilt-free.' },
     her: false,
     heroA: 'Brilliant at the work.',
     heroB: 'Losing the clients who wanted it',
@@ -142,11 +150,9 @@ export const JOURNEYS: Record<string, JourneyData> = {
     breakCap: 'Exactly his kind of client, sent by people who trusted him. He surfaced from delivery five days later. They were gone.',
     turnCap: 'Two weeks. His niche, his positioning, how he talks about the work. Then it took the front of the business off his hands.',
     wins: [
-      { kick: 'Win one', word: 'Answered.', wsub: 'Every inquiry, the same day. Even mid-sprint.', stamp: '5 days → same day' },
-      { kick: 'Win two', word: 'Booked.', wsub: 'Discovery calls straight to his calendar.', stamp: 'No more lost referrals' },
-      { kick: 'Win three', word: 'Warm.', wsub: 'A quiet nurture through every delivery week.', stamp: 'Leads stopped going cold' },
-      { kick: 'Win four', word: 'Proven.', wsub: 'The wins in his inbox, packaged into case studies that sell.', stamp: '0 case studies → a dozen' },
-      { kick: 'Win five', word: 'Steady.', wsub: 'Always two or three engagements deep.', stamp: 'The famine months, gone' },
+      { kick: 'Win one', word: 'Answered.', wsub: 'Every inquiry the same day, booked straight to his calendar. Even mid-sprint.', stamp: '5 days → same day' },
+      { kick: 'Win two', word: 'Warm.', wsub: 'A quiet nurture through every delivery week.', stamp: 'Leads stopped going cold' },
+      { kick: 'Win three', word: 'Steady.', wsub: 'His proof packaged into case studies. Always two or three engagements deep.', stamp: 'The famine months, gone' },
     ],
     receipt: {
       moneyTo: 30000,
@@ -184,6 +190,8 @@ export const JOURNEYS: Record<string, JourneyData> = {
     img: '/face-kim.jpg',
     imgPos: 'center',
     banner: '/banner-vancouver.jpg',
+    hue: '#7c3aed',
+    joy: { svg: '<path d="M8 22h8"/><path d="M12 15v7"/><path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z"/>', line: 'Dinner at home, phone face-down.' },
     her: true,
     heroA: 'One of the top agents in town.',
     heroB: 'Always the second to call back',
@@ -201,11 +209,9 @@ export const JOURNEYS: Record<string, JourneyData> = {
     breakCap: 'A couple her past client sent her personally. By the time she called back, they’d seen three homes with the agent who answered in ninety seconds.',
     turnCap: 'Two weeks. Her market, her price bands, how she talks to a nervous first-time buyer. Then it took the front of the business off her hands.',
     wins: [
-      { kick: 'Win one', word: 'Answered.', wsub: 'Every lead in seconds. In her voice. Even mid-showing.', stamp: 'Hours → seconds' },
-      { kick: 'Win two', word: 'Booked.', wsub: 'Showings straight to her calendar, confirmed and reminded.', stamp: 'No more phone tag' },
-      { kick: 'Win three', word: 'Warm.', wsub: 'Her database nurtured all year, not just at the sale.', stamp: 'Cold list → warm list' },
-      { kick: 'Win four', word: 'Referred.', wsub: 'Past clients kept close, so they keep sending people.', stamp: 'Repeat + referral, compounding', stars: true },
-      { kick: 'Win five', word: 'Present.', wsub: 'First to every door without living on her phone.', stamp: 'Evenings, returned' },
+      { kick: 'Win one', word: 'Answered.', wsub: 'Every lead in seconds, booked to a showing. Even mid-showing.', stamp: 'Hours → seconds' },
+      { kick: 'Win two', word: 'Warm.', wsub: 'Her database nurtured all year, not just at the sale.', stamp: 'Cold list → warm list' },
+      { kick: 'Win three', word: 'Referred.', wsub: 'Past clients kept close, so they keep sending people.', stamp: 'Repeat + referral, compounding', stars: true },
     ],
     receipt: {
       moneyTo: 25000,
