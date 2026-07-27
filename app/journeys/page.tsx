@@ -50,7 +50,7 @@ const CARDS = [
     tag: 'Home service',
     line: 'Marcus got his <span class="g">nights back</span>.',
     teaser: 'You’re the best in your trade for miles. So why does the phone keep going to voicemail while you’re on the tools?',
-    cta: 'From voicemail to booked',
+    cta: 'Every call answered',
   },
   {
     href: '/journeys/consultant',
@@ -63,7 +63,7 @@ const CARDS = [
     tag: 'Consultant',
     line: 'Sean stopped <span class="g">chasing</span>.',
     teaser: 'You’re brilliant at the work. But your best leads go cold while you’re heads-down delivering for someone else.',
-    cta: 'From famine to steady',
+    cta: 'A full pipeline',
   },
   {
     href: '/journeys/real-estate-agent',
@@ -76,7 +76,7 @@ const CARDS = [
     tag: 'Real estate agent',
     line: 'Kim&rsquo;s first to <span class="g">every door</span>.',
     teaser: 'You’re one of the top agents in town. But the lead always tours with whoever calls back first.',
-    cta: 'From second to first',
+    cta: 'Every lead in seconds',
   },
 ];
 
@@ -87,12 +87,13 @@ const PINS = [
   { img: '/face-kim.jpg', pos: 'center', name: 'Kim', trade: 'Real estate', c: '#7c3aed', left: '84%', top: '14%' },
 ];
 
-/* Manhattan-style routes (viewBox 1100x520), each from its pin to the destination pin.
-   Rounded corners via quadratic joins, Google-Maps route language. */
+/* Organic winding routes (viewBox 1100x520): smooth cubic S-curves that dip and rise
+   on the way to the destination — a journey with ups and downs, not a subway map
+   (Jacob, July 27: "imply curves, ups and downs... still clean, just more organic"). */
 const ROUTES = [
-  { c: '#06b6d4', d: 'M104,110 L104,236 Q104,252 120,252 L400,252 Q416,252 416,268 L416,380 Q416,396 432,396 L520,396', delay: '2.35s' },
-  { c: '#4f46e5', d: 'M540,68 L540,180 Q540,196 556,196 L560,196 Q548,196 548,212 L548,396 L550,396', delay: '2.6s' },
-  { c: '#7c3aed', d: 'M958,132 L958,244 Q958,260 942,260 L680,260 Q664,260 664,276 L664,380 Q664,396 648,396 L580,396', delay: '2.85s' },
+  { c: '#06b6d4', d: 'M104,118 C142,225 62,308 172,334 C262,356 298,252 386,270 C462,286 478,392 522,416', delay: '2.35s' },
+  { c: '#4f46e5', d: 'M540,74 C588,142 478,192 508,262 C532,318 592,334 566,384 C556,404 552,410 550,414', delay: '2.6s' },
+  { c: '#7c3aed', d: 'M958,140 C932,238 1012,292 898,320 C798,346 722,298 662,348 C622,380 606,398 578,416', delay: '2.85s' },
 ];
 
 export default function JourneysPage() {
@@ -132,6 +133,9 @@ export default function JourneysPage() {
           <div className="jl-mapwrap" aria-hidden="true">
             <div className="jl-map">
               <svg className="jl-svg" viewBox="0 0 1100 520" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                  <clipPath id="jlcp"><circle r="15" cx="0" cy="0" /></clipPath>
+                </defs>
                 {/* faint street grid */}
                 <g className="grid">
                   {[70, 140, 210, 280, 350, 420].map((y) => (
@@ -143,12 +147,17 @@ export default function JourneysPage() {
                   <line x1="0" y1="480" x2="1100" y2="330" />
                   <line x1="180" y1="0" x2="440" y2="520" />
                 </g>
-                {/* routes: base draw + traveling dot */}
+                {/* routes: base draw + the OWNER travels their own road (mini ringed
+                    headshot as the moving marker — Jacob: the profile pic is the one
+                    moving the map) */}
                 {ROUTES.map((r, i) => (
                   <g key={i}>
                     <path className="rt-under" d={r.d} />
                     <path className="rt" d={r.d} pathLength={1} style={{ stroke: r.c, animationDelay: r.delay }} />
-                    <circle className="dot" r="6" style={{ fill: r.c, offsetPath: `path('${r.d}')`, animationDelay: `calc(${r.delay} + 1.5s)` } as React.CSSProperties} />
+                    <g className="jl-trav" style={{ offsetPath: `path('${r.d}')`, animationDelay: `calc(${r.delay} + 1.6s)` } as React.CSSProperties}>
+                      <circle r="17.5" fill="#fff" stroke={r.c} strokeWidth="2.5" />
+                      <image href={PINS[i].img} x="-15" y="-15" width="30" height="30" clipPath="url(#jlcp)" preserveAspectRatio="xMidYMid slice" />
+                    </g>
                   </g>
                 ))}
               </svg>
@@ -250,8 +259,10 @@ const CSS = `
 .jl-svg .rt-under{fill:none;stroke:rgba(6,12,20,.07);stroke-width:9;stroke-linecap:round;stroke-linejoin:round;}
 .jl-svg .rt{fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:jlDraw 1.4s cubic-bezier(.45,0,.2,1) forwards;}
 @keyframes jlDraw{to{stroke-dashoffset:0;}}
-.jl-svg .dot{opacity:0;offset-rotate:0deg;animation:jlTravel 4.2s linear infinite;}
-@keyframes jlTravel{0%{offset-distance:0%;opacity:0;}6%{opacity:1;}92%{opacity:1;}100%{offset-distance:100%;opacity:0;}}
+/* the traveler: the owner's mini headshot rides the route; it "establishes" large at
+   the start (scale settle) then travels. */
+.jl-svg .jl-trav{opacity:0;offset-rotate:0deg;animation:jlTravel 6s linear infinite;}
+@keyframes jlTravel{0%{offset-distance:0%;opacity:0;transform:scale(1.5);}5%{opacity:1;transform:scale(1.5);}12%{transform:scale(1);}90%{opacity:1;}100%{offset-distance:100%;opacity:0;transform:scale(.75);}}
 
 .pin{position:absolute;transform:translate(-50%,-40%);display:flex;flex-direction:column;align-items:center;gap:7px;z-index:2;}
 .pav{width:clamp(34px,4.6vw,52px);height:clamp(34px,4.6vw,52px);border-radius:50%;display:block;overflow:hidden;background:#fff;}
@@ -300,6 +311,6 @@ const CSS = `
 @media(prefers-reduced-motion:reduce){
   .jl-pill,.jl-hero .hl1,.jl-hero .hl2,.jl-sub,.jl-mapwrap,.dpin,.dlab{animation:none;opacity:1;}
   .jl-svg .rt{animation:none;stroke-dashoffset:0;}
-  .jl-svg .dot,.dring{animation:none;opacity:0;}
+  .jl-svg .jl-trav,.dring{animation:none;opacity:0;}
 }
 `;
