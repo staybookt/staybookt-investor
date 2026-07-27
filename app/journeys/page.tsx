@@ -97,6 +97,7 @@ export default function JourneysPage() {
         <section className="jl">
           <style>{min(CSS)}</style>
 
+          <div className="jl-fold">
           <div className="jl-hero">
             <div className="jl-pill">Journeys</div>
             <h1>
@@ -149,6 +150,7 @@ export default function JourneysPage() {
               </div>
             </div>
           </div>
+          </div>
 
           <div className="jl-grid">
             {CARDS.map((c) => (
@@ -177,8 +179,11 @@ const CSS = `
 .jl .g{background:var(--sb-grad-ink,linear-gradient(100deg,#06b6d4,#10b981 46%,#4f46e5 78%,#7c3aed));-webkit-background-clip:text;background-clip:text;color:transparent;}
 .jl .pd{color:#7c3aed;-webkit-text-fill-color:#7c3aed;}
 
+/* THE FOLD: hero + map fit one screen, like the homepage and /how-it-works */
+.jl-fold{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:clamp(86px,11vh,120px) 0 clamp(18px,3vh,32px);}
+
 /* locked hero: pill -> two-stage 2-line headline -> one-line sub */
-.jl-hero{max-width:1160px;margin:0 auto;padding:clamp(110px,15vh,170px) clamp(22px,5vw,44px) 0;text-align:center;}
+.jl-hero{max-width:1160px;margin:0 auto;padding:0 clamp(22px,5vw,44px);text-align:center;}
 .jl-pill{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#42474f;border:1.5px solid transparent;background:linear-gradient(#fff,#fff) padding-box,var(--sb-grad,linear-gradient(100deg,#06b6d4,#10b981,#4f46e5,#7c3aed)) border-box;border-radius:999px;padding:9px 18px;margin-bottom:26px;opacity:0;animation:jlUp .8s cubic-bezier(.16,1,.3,1) .05s forwards;}
 .jl-hero h1{font-size:clamp(20px,6.2vw,84px);font-weight:600;letter-spacing:-.045em;line-height:1.02;}
 .jl-hero .hl1{display:block;white-space:nowrap;opacity:0;animation:jlUp .9s cubic-bezier(.16,1,.3,1) .15s forwards;}
@@ -187,10 +192,12 @@ const CSS = `
 @keyframes jlUp{from{opacity:0;transform:translateY(26px);}to{opacity:1;transform:none;}}
 @keyframes jlFocus{from{opacity:0;transform:scale(1.35);filter:blur(10px);}to{opacity:1;transform:none;filter:blur(0);}}
 
-/* the guided map */
-.jl-mapwrap{max-width:1160px;margin:clamp(30px,5vh,52px) auto 0;padding:0 clamp(18px,3.6vw,40px);opacity:0;animation:jlUp 1s cubic-bezier(.16,1,.3,1) 1.05s forwards;}
-.jl-map{position:relative;background:#fff;border:1px solid rgba(6,12,20,.08);border-radius:24px;box-shadow:0 1px 2px rgba(6,12,20,.04),0 40px 80px -46px rgba(6,12,20,.4);overflow:hidden;aspect-ratio:1100/520;}
-.jl-svg{position:absolute;inset:0;width:100%;height:100%;}
+/* the guided map — transparent, blends into the page; sized to fit the fold */
+.jl-mapwrap{margin:clamp(22px,3.5vh,40px) auto 0;padding:0 clamp(14px,3vw,32px);opacity:0;animation:jlUp 1s cubic-bezier(.16,1,.3,1) 1.05s forwards;width:100%;}
+.jl-map{position:relative;margin:0 auto;width:min(1160px,94vw,calc(50svh * 2.115));aspect-ratio:1100/520;}
+.jl-svg{position:absolute;inset:0;width:100%;height:100%;
+  -webkit-mask-image:radial-gradient(72% 78% at 50% 50%,#000 58%,transparent 97%);
+  mask-image:radial-gradient(72% 78% at 50% 50%,#000 58%,transparent 97%);}
 .jl-svg .grid line{stroke:rgba(6,12,20,.05);stroke-width:1.5;}
 .jl-svg .rt-under{fill:none;stroke:rgba(6,12,20,.07);stroke-width:9;stroke-linecap:round;stroke-linejoin:round;}
 .jl-svg .rt{fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:jlDraw 1.4s cubic-bezier(.45,0,.2,1) forwards;}
