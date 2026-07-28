@@ -43,16 +43,13 @@ const FAQ: [string, string][] = [
     'Is there a limit on calls and texts?',
     'No. Calls and texts are unlimited, with no per-minute billing and no overage charges, however busy the season gets.',
   ],
+  /* "What if the AI gets a price wrong?" REMOVED from the schema (Richard, Jul 28): the
+     question was deleted from every page — automated pricing makes buyers nervous and
+     consultants do not want it — and the schema must never advertise a question the
+     site no longer answers. */
   [
-    'What if the AI gets a price wrong?',
-    /* THIS SAID "You are never the one making that call." Read cold, "that call" is the
-       decision, so the sentence took back the decision the clause before it just handed
-       over: you decide what you want to honour, and then you are never the one deciding.
-       The call in question is the phone call, and /whats-included has always said so in
-       those exact words. The schema is the one surface where we do not control the
-       framing around the answer, so it is the last place that can afford the ambiguity.
-       Wording now matches IncludedFaq and /terms verbatim. Facts unchanged. */
-    'It answers price questions from your playbook: your prices, your jobs, your service area. If it is not sure, or the job is unusual or expensive, a real person pulls it before it ever reaches your customer. If a wrong number does get out, we bring it straight to you, you decide what you want to honour, and we are the ones who go back to the customer and sort it out. You are never the one making that phone call.',
+    'Who is StayBookt for?',
+    'Owner-run service, consulting and agent businesses where a lot of the business still runs through the owner. If you are already a big operation with a full front desk, you probably do not need us.',
   ],
 ];
 
