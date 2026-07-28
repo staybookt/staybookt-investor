@@ -24,10 +24,10 @@ const QS: Q[] = [
   {
     k: 'The service', c: '#38bdf8',
     q: 'Is it AI, or a real person?',
-    /* Richard's trim (FAQ doc, Jul 28): shorter, best-of-both framing. His scale worry
-       ("can we really promise a person steps in?") handled by present-tense fact, not
-       eternal guarantee. */
-    a: 'Both. The AI handles the everyday calls, texts and bookings in your voice, and our team steps in on anything unusual before it reaches your customer. All-human is too expensive to sell at $199 a month, and all-AI drops the calls that matter. You get the best of both at a price that works.',
+    /* RICHARD'S SUGGESTED WORDING, VERBATIM (FAQ doc suggestion-mode, Jul 28). He edits in
+       suggestions, not just comments, and he diffs the doc against the site word-for-word:
+       a paraphrase of his edit reads as "not implemented". Take his words exactly. */
+    a: 'Both. The AI handles the everyday calls, texts and bookings in your voice, and a real person on our team steps in on anything unusual before it reaches your customer. All-human puts a big dent in the bottom line. All-AI drops the calls that matter. You get the best of both worlds for a reasonable price.',
     more: { href: '/how-it-works', label: 'See how it runs' },
   },
   {

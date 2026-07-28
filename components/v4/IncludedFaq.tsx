@@ -110,9 +110,9 @@ const QS: Q[] = [
     k: 'The catch',
     c: '#7c3aed',
     q: 'Only $199 a month. So where is the catch?',
-    /* Richard's rewrite (Jul 28): the two-people paragraph was "long-winded and selling
-       too much." His version, human-voiced. */
-    a: 'There is not one. We have used technology to build a very efficient operation: very low overhead, and much of the platform built ourselves. That is what lets us offer this much at this price.',
+    /* RICHARD'S SUGGESTED WORDING, VERBATIM (FAQ doc suggestion-mode, Jul 28). The earlier
+       paraphrase of this read to him as "not implemented" — he diffs word-for-word. */
+    a: 'There is not one. We have leveraged technology to create a very efficient solution that allows relatively few people (very low overhead) and have built many aspects of the platform ourselves. This allows us to offer exceptional value at very attractive pricing.',
   },
 ];
 
