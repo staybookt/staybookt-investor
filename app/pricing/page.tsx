@@ -51,10 +51,14 @@ const ROLES: { role: string; pay: string }[] = [
   { role: 'A marketer', pay: '$54,000' },
 ];
 
+/* CHIP LABELS PER RICHARD (Jul 28 follow-up): "No lock-in" -> "Month-to-month" and the
+   refund chip -> "First 90 days, money back". Same terms, plainer words — this also
+   settled his 6-month / 90-vs-180 confusion: the terms ARE month-to-month with a
+   90-day money-back, and now the labels say so in his words. */
 const FACTS: { k: string; v: string }[] = [
   { k: 'Nothing upfront', v: 'No build fee, no setup fee, no menu. $199 CAD, plus applicable taxes.' },
-  { k: 'No lock-in', v: 'Cancel any time on thirty days notice. No penalty, no exit fee.' },
-  { k: 'Ninety days, any reason', v: 'Change your mind and we refund every month you paid.' },
+  { k: 'Month-to-month', v: 'No term. Cancel any time on thirty days notice. No penalty, no exit fee.' },
+  { k: 'First 90 days, money back', v: 'Change your mind for any reason and we refund every month you paid.' },
   { k: 'Unlimited calls and texts', v: 'No per-minute billing and no overage, however busy it gets.' },
 ];
 
