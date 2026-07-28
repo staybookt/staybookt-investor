@@ -107,16 +107,23 @@ const STOPS: Stop[] = [
   },
 ];
 
+/* THE PRODUCT FAQ (restructured per Richard, Jul 28): this page now owns the
+ * who-does-the-work questions that were cluttering /pricing ("feels like a features
+ * FAQ"). Money stays on /pricing. The texts-only phone paragraph was cut (Richard:
+ * "feels like too much"), the go-live promise is scoped to the WEBSITE only (Richard:
+ * "how do we promise 30 days when we don't have the solution" — he agreed with the
+ * website start timing), and the setup question answers his note honestly: there ARE
+ * setup expectations, and owners DO get a place to see quotes and customers. */
 const FAQ: { k: string; c: string; q: string; a: string }[] = [
+  { k: 'The service', c: '#0ea5e9', q: 'Is it AI, or a real person?', a: 'Both, on purpose. The AI does the everyday: routine calls, texts, bookings, confirmations, reminders and follow-ups, trained on your prices, your service area, the jobs you take and how you talk to a customer. It never sleeps, so an 11pm text gets the same answer as a 9am one. Our team steps in on anything unusual.' },
+  { k: 'The service', c: '#0ea5e9', q: 'What happens when it is out of its depth?', a: 'A person takes over. The AI knows when it is unsure, and if a job is unusual or off-script, someone on our team steps in before it reaches your customer. You are never the one picking up the slack.' },
   { k: 'The service', c: '#0ea5e9', q: 'How does it know how to talk about my business?', a: 'That is what the first couple of weeks are for. We learn your prices, your service area, the jobs you take, and how you talk to a customer. Everything after that runs on your playbook, not a generic script.' },
-  { k: 'The service', c: '#0ea5e9', q: 'What if I already have a website?', a: 'We will look at it. If it is doing the job, we build around it. If it is holding you back, we replace it. You are not stuck with something that never brings you a call.' },
-  { k: 'The service', c: '#0ea5e9', q: 'How does my phone actually get answered?', a: 'Your number stays your number, and nothing changes for the people who call it. You forward your existing line to us, which takes about five minutes with your carrier and which you can undo yourself at any time. We never take control of your number and we never make you move it. If you would rather we did not touch the phone at all and only handled texts, web forms and Google messages, we can do that too, and we will tell you honestly what you are giving up.' },
-  { k: 'The service', c: '#0ea5e9', q: 'How long until I am live?', a: 'About 30 days from the first call.' },
-  /* This used to be "What is the valuation at the end?", and it described valuing
-   * the business after year one. That only ever existed to justify the 20% value
-   * share, which is dead (Richard, July 14 2026). It was the last surviving piece
-   * of the fee anywhere on a live page. The honest question a reader actually has
-   * now is the opposite one, so we answer that instead. */
+  { k: 'The service', c: '#0ea5e9', q: 'How does my phone actually get answered?', a: 'Your number stays your number, and nothing changes for the people who call it. You forward your existing line to us, which takes about five minutes with your carrier and which you can undo yourself at any time. We never take control of your number and we never make you move it.' },
+  { k: 'Your part', c: '#10b981', q: 'What is required of me to get set up?', a: 'A little at the start, and we walk you through it: forwarding your phone takes about five minutes, and the first couple of weeks we learn your business, which takes a few conversations with you. After that, not much changes except your week gets lighter. You get one simple place to see your quotes, your customers and what went out, and a thirty-second brief each morning.' },
+  { k: 'Your part', c: '#10b981', q: 'What do I still have to do?', a: 'Short list, and if it grows we have built the wrong thing. You show up and do the job. You make the big calls: your prices, new services, who you hire, where you work. A couple of edge cases a week where we ask what you would do. And thirty seconds on the morning brief.' },
+  { k: 'Your part', c: '#10b981', q: 'Do you dispatch my crew?', a: 'No. We book the work and hand you a clean calendar. Who goes where, and in what truck, is still your call.' },
+  { k: 'The build', c: '#7c3aed', q: 'What if I already have a website?', a: 'We will look at it. If it is doing the job, we build around it. If it is holding you back, we replace it. You are not stuck with something that never brings you a call.' },
+  { k: 'The build', c: '#7c3aed', q: 'How long until my website is live?', a: 'About thirty days from the first call. Most of that is the first couple of weeks, where we learn your business so we get it right before it goes live.' },
 ];
 
 const CSS = `

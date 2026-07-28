@@ -24,7 +24,10 @@ const QS: Q[] = [
   {
     k: 'The service', c: '#38bdf8',
     q: 'Is it AI, or a real person?',
-    a: 'Both. The AI handles the everyday calls, texts and bookings in your voice. A real person on our team picks up anything unusual before it ever reaches your customer. Nobody can do this all-human at $199 a month, and all-AI drops the calls that matter.',
+    /* Richard's trim (FAQ doc, Jul 28): shorter, best-of-both framing. His scale worry
+       ("can we really promise a person steps in?") handled by present-tense fact, not
+       eternal guarantee. */
+    a: 'Both. The AI handles the everyday calls, texts and bookings in your voice, and our team steps in on anything unusual before it reaches your customer. All-human is too expensive to sell at $199 a month, and all-AI drops the calls that matter. You get the best of both at a price that works.',
     more: { href: '/how-it-works', label: 'See how it runs' },
   },
   {
@@ -45,11 +48,15 @@ const QS: Q[] = [
     a: 'All of it. The website is yours, your domain is in your name, your Google profile login is yours, and your customer list and reviews go with you. If we vanish tomorrow, you keep all of it.',
     more: { href: '/pricing', label: 'See what is included' },
   },
+  /* "How long until I am live?" DELETED (Richard, Jul 28): "How do we promise 30 days
+     anywhere when we don't have the solution... we will need to talk to everyone
+     individually." Website-only timing survives on /how-it-works. */
   {
-    k: 'The service', c: '#38bdf8',
-    q: 'How long until I am live?',
-    a: 'About thirty days from the first call. The first couple of weeks are us learning your business, your prices, your service area and how you talk, so that when we answer, it sounds like you and not a call center.',
-    more: { href: '/how-it-works', label: 'See how it runs' },
+    k: 'The fit', c: '#a78bfa',
+    q: 'Who is this actually for?',
+    /* Approved addition (Richard: "Ok to add"). */
+    a: 'Owner-run service, consulting and agent businesses: the outfit where a lot of the business still runs through the owner’s phone and you know every customer by name. If that is you, it fits. If you are already a big operation with a full front desk, you probably do not need us.',
+    more: { href: '/journeys', label: 'See owners like you' },
   },
 ];
 

@@ -34,67 +34,42 @@ import { track } from '@/lib/analytics';
 
 type Q = { k: string; c: string; q: string; a: string };
 
+/* RESTRUCTURED PER RICHARD (FAQ doc, Jul 28): "this is really Pricing and Features...
+ * feels like a features explanation." Product questions (AI/person, out-of-depth,
+ * still-have-to-do, dispatch) MOVED to /how-it-works; "What if it gets a price wrong?"
+ * DELETED ENTIRELY (Richard: automated pricing "will make them nervous and may be a
+ * barrier... consultants aren't going to want this"); "Do you do my books?" deleted
+ * (Richard: "I doubt we get this question"). This page is money-only now.
+ *
+ * PARKED, DO NOT TOUCH until Jacob + Richard settle the offer terms (Richard thought
+ * there was a 6-month commitment and asked "90 or 180 days? do they get their money
+ * back or not?"): the contract / month-seven / does-not-work answers below stay
+ * exactly as published. */
 const QS: Q[] = [
-  {
-    k: 'Who does the work',
-    c: '#0ea5e9',
-    q: 'Is it AI, or a real person?',
-    a: 'Both, on purpose. Nobody can do this all with people at this price, and nobody can do it all with AI and keep the quality up. Anyone who tells you different is selling you something. The AI does the everyday: the routine calls, texts, bookings, confirmations, reminders and follow-ups. It is trained on your prices, your service area, the jobs you take and how you talk to a customer. It never sleeps, so an 11pm text gets the same answer as a 9am one.',
-  },
-  {
-    k: 'Who does the work',
-    c: '#0ea5e9',
-    q: 'What happens when it is out of its depth?',
-    a: 'A person takes over. The AI knows when it is unsure, and if a job is unusual or off-script, someone on our team steps in before it ever reaches your customer. That is the whole point of the safety net. You are never the one picking up the slack.',
-  },
-  {
-    k: 'Who does the work',
-    c: '#0ea5e9',
-    q: 'What if it gets a price wrong?',
-    /* MISSED IN THE DRAFT-QUOTES PURGE. This still said the AI quotes "before it goes
-     * out", which implies we draft and send a quote document. We do not, and we took
-     * that claim off six other surfaces (July 2026).
-     *
-     * What is true is narrower and worth saying precisely: the AI answers a price
-     * QUESTION from the owner's playbook. It does not write the quote. */
-    a: 'It answers price questions from your playbook: your prices, your jobs, your service area. Anything outside that gets caught by a person before it ever reaches your customer. If a wrong number ever does get through, we bring it straight to you, you decide what you want to honour, and we are the ones who go back to them and sort it out. You will hear it from us before you hear it from them, and you are never the one making that phone call.',
-  },
-  {
-    k: 'Who does the work',
-    c: '#0ea5e9',
-    q: 'What do I still have to do?',
-    a: 'Short list, and if it grows we have built the wrong thing. You show up and do the job. You make the big calls: your prices, new services, who you hire, where you work. A couple of edge cases a week where we ask what you would do. And thirty seconds on the morning brief. That is it.',
-  },
   {
     k: 'What is yours',
     c: '#10b981',
     q: 'What do I own if we ever part ways?',
     a: 'All of it, and nothing here is held hostage. The website is yours permanently, the domain is in your name, and you keep the Google Business Profile login, your customer list exported whenever you want it, and your reviews, which were always yours anyway. If we vanish tomorrow, you keep all of it.',
   },
-  /* "Do my customers become your customers?" REMOVED ENTIRELY (Richard, Jul 23 2026): the
-     answer was about phone numbers and read oddly, and we do not want to plant a security /
-     "could I lose my customers" worry that nobody arrives with on their own. */
+  /* "Do my customers become your customers?" REMOVED ENTIRELY (Richard, Jul 23 2026). */
   {
-    k: 'What we do not do',
-    c: '#7c3aed',
-    q: 'Do you do my books?',
-    a: 'No. We chase what is owed and we show you what came in. We are not your bookkeeper and we do not file your taxes.',
+    k: 'The money',
+    c: '#4f46e5',
+    q: 'When does the $199 start?',
+    /* Approved addition (Richard: "Ok to add" + "Agree with the start timing"). */
+    a: 'When you go live, not before. We build everything up front, and the monthly fee starts once we are actually answering your calls and running the work.',
   },
   {
-    k: 'What we do not do',
-    c: '#7c3aed',
-    q: 'Do you dispatch my crew?',
-    a: 'No. We book the work and hand you a clean calendar. Who goes where, and in what truck, is still your call.',
-  },
-  {
-    k: 'What we do not do',
-    c: '#7c3aed',
+    k: 'The money',
+    c: '#4f46e5',
     q: 'Do I need a big advertising budget on top of this?',
-    a: 'No. The plan is organic: your site, your Google presence, your reviews, your existing customers. If paid advertising ever makes sense, that is a separate conversation, and we will tell you honestly if we do not think you need it.',
+    /* Richard's rewrite (Jul 28): organic/earned focus, ads optional. */
+    a: 'No. The plan runs on what you already have: your site, your Google presence, your reviews, your existing customers. Our focus is organic and earned traffic, which closes at a higher rate and costs less per lead. You can always choose to run paid ads, but the program does not require them.',
   },
   {
-    k: 'What we do not do',
-    c: '#7c3aed',
+    k: 'The money',
+    c: '#4f46e5',
     q: 'Do you promise me a number of leads?',
     a: 'No, and anyone who does is guessing. What we promise is that nothing that comes in gets dropped, and that you see the real numbers every month.',
   },
@@ -134,8 +109,10 @@ const QS: Q[] = [
   {
     k: 'The catch',
     c: '#7c3aed',
-    q: 'So where is the catch?',
-    a: 'There is not one. We are two people rather than a hundred, so we are not paying for a sales team, an office or an ad budget. We build everything before you pay us, we grow slowly on purpose, and twenty clients we actually run properly beats a thousand we do not. If we ever start behaving like the agency that burned you, you can leave in thirty days and take everything with you.',
+    q: 'Only $199 a month. So where is the catch?',
+    /* Richard's rewrite (Jul 28): the two-people paragraph was "long-winded and selling
+       too much." His version, human-voiced. */
+    a: 'There is not one. We have used technology to build a very efficient operation: very low overhead, and much of the platform built ourselves. That is what lets us offer this much at this price.',
   },
 ];
 
