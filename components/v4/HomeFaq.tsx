@@ -27,25 +27,25 @@ const QS: Q[] = [
     /* RICHARD'S SUGGESTED WORDING, VERBATIM (FAQ doc suggestion-mode, Jul 28). He edits in
        suggestions, not just comments, and he diffs the doc against the site word-for-word:
        a paraphrase of his edit reads as "not implemented". Take his words exactly. */
-    a: 'Both. The AI handles the everyday calls, texts and bookings in your voice, and a real person on our team steps in on anything unusual before it reaches your customer. All-human puts a big dent in the bottom line. All-AI drops the calls that matter. You get the best of both worlds for a reasonable price.',
+    a: 'Both. The AI handles the everyday calls, texts, and bookings in your voice, and a real person on our team steps in on anything unusual before it reaches your customer. All-human costs put a big dent in the bottom line. All-AI drops the calls that matter. You get the best of both worlds for a reasonable price.',
     more: { href: '/how-it-works', label: 'See how it runs' },
   },
   {
     k: 'The service', c: '#38bdf8',
     q: 'How does my phone actually get answered?',
-    a: 'Your number stays your number. You forward your existing line to us, which takes about five minutes with your carrier and which you can undo yourself at any time. We never take control of your number and we never make you move it.',
+    a: 'Your number stays your number. You forward your existing line to us; it takes about 5 minutes with your carrier, and you can undo it yourself anytime. We never take control of your number, and we never make you move it.',
     more: { href: '/how-it-works', label: 'See how it runs' },
   },
   {
     k: 'The money', c: '#818cf8',
     q: 'What does it cost, and is there a contract?',
-    a: 'One plan: $199 a month, plus applicable taxes. Nothing upfront, no build fee, and no contract. Cancel any time on thirty days notice, and for the first ninety days you can change your mind for any reason and we refund every month you paid. There is no commission and no share of your revenue.',
+    a: '$199 a month plus tax, and no contract. Nothing upfront and no build fee. Cancel any time on thirty days notice, and for the first ninety days you can change your mind for any reason, and we refund every month you paid: no commission and no share of your revenue.',
     more: { href: '/pricing', label: 'See the pricing' },
   },
   {
     k: 'What is yours', c: '#34d399',
     q: 'What do I own if we ever part ways?',
-    a: 'All of it. The website is yours, your domain is in your name, your Google profile login is yours, and your customer list and reviews go with you. If we vanish tomorrow, you keep all of it.',
+    a: 'All of it. The website is yours; your domain is in your name; your Google profile login is yours; and your customer list and reviews go with you. If we disappeared tomorrow, you would keep every bit of it.',
     more: { href: '/pricing', label: 'See what is included' },
   },
   /* "How long until I am live?" DELETED (Richard, Jul 28): "How do we promise 30 days
@@ -55,7 +55,7 @@ const QS: Q[] = [
     k: 'The fit', c: '#a78bfa',
     q: 'Who is this actually for?',
     /* Approved addition (Richard: "Ok to add"). */
-    a: 'Owner-run service, consulting and agent businesses: the outfit where a lot of the business still runs through the owner’s phone and you know every customer by name. If that is you, it fits. If you are already a big operation with a full front desk, you probably do not need us.',
+    a: 'Owner-run service/consulting/agent businesses: the outfit where the owner still has a lot of the business running through their cell phone and knows every customer by name. If that is you, it fits. If you are already a big operation with a full front desk, you probably do not need us.',
     more: { href: '/journeys', label: 'See owners like you' },
   },
 ];

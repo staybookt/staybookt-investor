@@ -33,7 +33,8 @@ const FAQ: [string, string][] = [
        the opposite word, in the one place that is eligible for a Google rich result: the
        flat "Yes" could surface in search while the honest answer sat on the page. This file
        is what Google actually reads, so it has to say what the pages say. */
-    'Almost. It is $199 CAD a month plus applicable taxes, and two things sit outside that. Your domain registration, about twenty dollars a year, passed through at cost and yours anyway. And if you take card payments, Stripe or Square charge their own fee, in the region of 2.9% plus thirty cents, which is theirs and not ours: we do not mark it up and we take no cut of it. That is the entire list. There is no build fee, no setup fee, no per-minute billing and no overage. We do not take a commission on your jobs, a share of your revenue, or a share of what your business is worth.',
+    /* Byte-matched to Richard's FAQ doc + the /pricing answer (doc-sync, Jul 28 late). */
+    'Almost. It is $199 CAD a month plus tax, and two things sit outside that. Your domain registration, about twenty dollars a year, passed through at cost and yours anyway. And if you take card payments, Stripe or Square charge their own fee, around 2.9% plus thirty cents, taken out of what you collect like any card processing. That fee is theirs, not ours: we do not mark it up, and we take no cut of it. No build fee, no setup fee, no add-ons, no per-minute billing, no overage. And no back end either: no commission on your jobs, no share of your revenue, and no share of what the business is worth if you sell it.',
   ],
   [
     'What is included in the plan?',

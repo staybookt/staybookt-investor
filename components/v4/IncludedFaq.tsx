@@ -50,7 +50,10 @@ const QS: Q[] = [
     k: 'What is yours',
     c: '#10b981',
     q: 'What do I own if we ever part ways?',
-    a: 'All of it, and nothing here is held hostage. The website is yours permanently, the domain is in your name, and you keep the Google Business Profile login, your customer list exported whenever you want it, and your reviews, which were always yours anyway. If we vanish tomorrow, you keep all of it.',
+    /* DOC-SYNC (Jul 28, late): every answer below is BYTE-MATCHED to Richard's FAQ Google
+       Doc after he accepted his suggestions — the doc is the master text and he diffs it
+       against the site word-for-word. Do not "improve" these; edit the doc first. */
+    a: 'All of it, and none of it is held hostage. The website is yours for good; the domain is in your name; and you keep your Google Business Profile login, your customer list exported whenever you want, and your reviews, which were always yours. If we disappeared tomorrow, you would keep it all.',
   },
   /* "Do my customers become your customers?" REMOVED ENTIRELY (Richard, Jul 23 2026). */
   {
@@ -58,7 +61,7 @@ const QS: Q[] = [
     c: '#4f46e5',
     q: 'When does the $199 start?',
     /* Approved addition (Richard: "Ok to add" + "Agree with the start timing"). */
-    a: 'When you go live, not before. We build everything up front, and the monthly fee starts once we are actually answering your calls and running the work.',
+    a: 'When you go live, not before; we build everything up front, and the monthly fee starts once we are actually answering your calls and running the work.',
   },
   {
     k: 'The money',
@@ -71,7 +74,7 @@ const QS: Q[] = [
     k: 'The money',
     c: '#4f46e5',
     q: 'Do you promise me a number of leads?',
-    a: 'No, and anyone who does is guessing. What we promise is that nothing that comes in gets dropped, and that you see the real numbers every month.',
+    a: 'No, and anyone who does is guessing. What we promise is that nothing coming in gets dropped, and that you see the real numbers every month.',
   },
   /* THE MONEY + CATCH QUESTIONS, BLENDED IN (Jacob + Richard, Jul 23 2026). What's-Included and
      Pricing merged into one page, so their two FAQ sets become one. These moved over from the
@@ -80,7 +83,7 @@ const QS: Q[] = [
     k: 'The money',
     c: '#4f46e5',
     q: 'Is there a contract?',
-    a: 'No. There is no term and nothing to be trapped in. Cancel any time on thirty days notice, with no penalty and no exit fee. We build your website before you have paid us a dollar, so the risk of this sits with us, which is where it belongs. We have to earn the next month, and the one after that, forever.',
+    a: 'No. There is no term and nothing to be trapped in. Cancel any time on thirty days notice, with no penalty and no exit fee. We build your website before you have paid us a dollar, so the risk sits with us, which is where it belongs.',
   },
   {
     k: 'The money',
@@ -89,25 +92,25 @@ const QS: Q[] = [
        Richard's open comment: naming month seven implies a 6-month commitment. Retitled
        so the question works under month-to-month; answer body unchanged in substance. */
     q: 'What if I want out after a few months?',
-    a: 'Then you are out. Thirty days notice, no penalty, no exit fee, no argument. And you do not leave empty-handed: the website, the domain, your Google Business Profile, your customer list and your reviews all go with you.',
+    a: 'Then you are out: thirty days notice, no penalty, no exit fee, no argument. And you do not leave empty-handed: the website, the domain, your Google Business Profile, your customer list and your reviews all go with you.',
   },
   {
     k: 'The money',
     c: '#4f46e5',
     q: 'What if it just does not work?',
-    a: 'For the first ninety days you can change your mind for any reason at all, and we refund every month you paid. You do not have to prove we failed and we do not get to decide whether your reason is good enough. You email us and say so. The website is yours either way.',
+    a: 'For the first 90 days, you can change your mind for any reason, and we refund every month you paid. You do not have to prove we failed, and we do not get to decide whether your reason is good enough. You email us and say so. The website is yours either way.',
   },
   {
     k: 'The money',
     c: '#4f46e5',
     q: 'Is there a limit on calls and texts?',
-    a: 'No. Unlimited calls and texts, with no per-minute billing and no overage charges, however busy the season gets. Every answering service on earth bills you by the minute. Charging you more in your busiest month is a strange way to say we are on your side.',
+    a: 'No. Unlimited calls and texts, with no per-minute billing and no overage charges, however busy the season gets. Charging you more in your busiest month is a strange way to say we are on your side.',
   },
   {
     k: 'The money',
     c: '#4f46e5',
     q: 'Is $199 really the whole number?',
-    a: 'Almost. It is $199 CAD a month plus applicable taxes, and two things sit outside that. Your domain registration, about twenty dollars a year, passed through at cost and yours anyway. And if you take card payments, Stripe or Square charge their own fee, in the region of 2.9% plus thirty cents, which comes out of what you collect exactly as it would with any card processing. That fee is theirs, not ours: we do not mark it up and we take no cut of it. There is no build fee, no setup fee, no menu of add-ons, no per-minute billing and no overage. And there is no back end: no commission on your jobs, no share of your revenue, and no share of what the business is worth if you ever sell it. We would rather tell you about twenty dollars and a card fee now than let you find them on an invoice later.',
+    a: 'Almost. It is $199 CAD a month plus tax, and two things sit outside that. Your domain registration, about twenty dollars a year, passed through at cost and yours anyway. And if you take card payments, Stripe or Square charge their own fee, around 2.9% plus thirty cents, taken out of what you collect like any card processing. That fee is theirs, not ours: we do not mark it up, and we take no cut of it. No build fee, no setup fee, no add-ons, no per-minute billing, no overage. And no back end either: no commission on your jobs, no share of your revenue, and no share of what the business is worth if you sell it. We would rather tell you about twenty dollars and a card fee now than have you find them on an invoice later.',
   },
   {
     k: 'The catch',
@@ -115,7 +118,7 @@ const QS: Q[] = [
     q: 'Only $199 a month. So where is the catch?',
     /* RICHARD'S SUGGESTED WORDING, VERBATIM (FAQ doc suggestion-mode, Jul 28). The earlier
        paraphrase of this read to him as "not implemented" — he diffs word-for-word. */
-    a: 'There is not one. We have leveraged technology to create a very efficient solution that allows relatively few people (very low overhead) and have built many aspects of the platform ourselves. This allows us to offer exceptional value at very attractive pricing.',
+    a: 'There is not one. We have leveraged technology to create a very efficient solution that allows relatively few people (very low overhead) and have built many aspects of the platform ourselves. This allows us to be able to offer exceptional value at very attractive pricing.',
   },
 ];
 
