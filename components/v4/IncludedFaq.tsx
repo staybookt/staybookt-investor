@@ -41,10 +41,10 @@ type Q = { k: string; c: string; q: string; a: string };
  * barrier... consultants aren't going to want this"); "Do you do my books?" deleted
  * (Richard: "I doubt we get this question"). This page is money-only now.
  *
- * PARKED, DO NOT TOUCH until Jacob + Richard settle the offer terms (Richard thought
- * there was a 6-month commitment and asked "90 or 180 days? do they get their money
- * back or not?"): the contract / month-seven / does-not-work answers below stay
- * exactly as published. */
+ * TERMS SETTLED (Richard, Jul 28 follow-up): month-to-month + first-90-days money back,
+ * in his own chip wording on the hero. The old "month seven" question was a relic of the
+ * abandoned 6-month term and Richard's open comment nailed it ("This implies a 6 month
+ * commitment... Our messaging is confusing") — retitled below so no term is implied. */
 const QS: Q[] = [
   {
     k: 'What is yours',
@@ -64,8 +64,8 @@ const QS: Q[] = [
     k: 'The money',
     c: '#4f46e5',
     q: 'Do I need a big advertising budget on top of this?',
-    /* Richard's rewrite (Jul 28): organic/earned focus, ads optional. */
-    a: 'No. The plan runs on what you already have: your site, your Google presence, your reviews, your existing customers. Our focus is organic and earned traffic, which closes at a higher rate and costs less per lead. You can always choose to run paid ads, but the program does not require them.',
+    /* Richard's rewrite (Jul 28), VERBATIM — he diffs the doc against the site word-for-word. */
+    a: 'No. The plan runs on what you already have: your site, your Google presence, your reviews, your existing customers. Our focus is on organic or earned traffic that has a higher closing ratio and a lower cost per lead. You can always choose to do paid ads, but our program does not require them.',
   },
   {
     k: 'The money',
@@ -85,8 +85,11 @@ const QS: Q[] = [
   {
     k: 'The money',
     c: '#4f46e5',
-    q: 'What if I want out in month seven?',
-    a: 'Then you are out in month seven. Thirty days notice, no penalty, no exit fee, no argument. And you do not leave empty-handed: the website, the domain, your Google Business Profile, your customer list and your reviews all go with you.',
+    /* WAS "What if I want out in month seven?" — a relic of the abandoned 6-month term.
+       Richard's open comment: naming month seven implies a 6-month commitment. Retitled
+       so the question works under month-to-month; answer body unchanged in substance. */
+    q: 'What if I want out after a few months?',
+    a: 'Then you are out. Thirty days notice, no penalty, no exit fee, no argument. And you do not leave empty-handed: the website, the domain, your Google Business Profile, your customer list and your reviews all go with you.',
   },
   {
     k: 'The money',
