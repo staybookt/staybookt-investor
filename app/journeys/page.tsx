@@ -257,7 +257,14 @@ export default function JourneysPage() {
           </div>
         </section>
         <JourneysFaq />
-        <HeroCta />
+        {/* Richard wrote this saying + picked the bike for "The Work" ("represents the
+            journey and something people like to do as pleasure"). /work is benched and
+            Journeys is its overhaul, so his close lands here — the journey page. */}
+        <HeroCta
+          img="/close-work.jpg"
+          heading={<>Building a business is a long journey.<br />Get the tools that help you win.</>}
+          sub={null}
+        />
       </main>
       <SiteFooter />
     </div>

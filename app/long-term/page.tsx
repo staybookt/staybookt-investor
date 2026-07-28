@@ -183,7 +183,15 @@ export default function LongTermPage() {
 
       {/* fromBlack: the RemovalTest film directly above ends on #050506, so the CTA still
           dissolves out of solid black. */}
-      <HeroCta fromBlack img="/close-lt.jpg" />
+      {/* Richard (Images doc, Jul 28): the campfire read "campsite", he wants a wealth
+          angle — "a cottage that is nice but not Muskoka nice." Warm autumn lakeside
+          cottage (Pexels 314670) + his two lines, no subtext. */}
+      <HeroCta
+        fromBlack
+        img="/close-lt-cottage.jpg"
+        heading={<>Create a memorable legacy.<br />Build your wealth.</>}
+        sub={null}
+      />
       </main>
       <SiteFooter />
     </div>

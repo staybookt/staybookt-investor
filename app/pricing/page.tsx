@@ -181,11 +181,18 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* 4 — THE QUESTIONS. Service, ownership, boundaries and money, blended into one set. */}
-      <IncludedFaq />
+      {/* 4 — THE CALL, BEFORE THE FAQ (Richard, Images doc Jul 28: "Does the CTA image
+          have to be after the FAQ — I would rather have the CTA sooner. I don't love
+          dragging everyone through the FAQs..."). Golf photo stays: "I like the golf
+          image." His saying, no subtext. FAQ moves to last word, like /how-it-works. */}
+      <HeroCta
+        img="/close-pricing.jpg"
+        heading={<>A solution that offers undeniable value.<br />And more time for simple pleasures.</>}
+        sub={null}
+      />
 
-      {/* 5 — THE CALL. Same banner every page lands on. */}
-      <HeroCta img="/close-pricing.jpg" />
+      {/* 5 — THE QUESTIONS. Service, ownership, boundaries and money, blended into one set. */}
+      <IncludedFaq />
 
       </main>
 

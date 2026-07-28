@@ -570,7 +570,12 @@ export default function HomePage() {
       <HomeFaq />
 
       {/* HomeFaq is #050506, so fromBlack still grades correctly out of it. */}
-      <HeroCta fromBlack />
+      {/* Close saying per Richard (Images doc, Jul 28): "I like the image" + his two
+          lines. "Enjoy Life" capitalized: it is the brand, not a phrase. */}
+      <HeroCta
+        fromBlack
+        heading={<>Helping your business run better.<br />So that you Enjoy Life more.</>}
+      />
 
       </main>
 

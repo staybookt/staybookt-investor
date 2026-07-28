@@ -19,7 +19,11 @@ import { min } from '@/lib/css';
  * We never invent a result it produced. */
 
 
-const ARRIVE_IMG = '/closer-dock.jpg'; /* same earned-evening dock as the closer; it was the same image twice before, too */
+/* WAS the dock again — Richard (Images doc, Jul 28): "Repeating image for the first that
+   comes up — trying to find something that relates to a business consultant." His preferred
+   pick was the glass-wall strategy meeting ("feels more like background image to support
+   text"). Pexels 4623501, same shot family as his doc embed. */
+const ARRIVE_IMG = '/hiw-arrival.jpg';
 
 function useOnView<T extends HTMLElement>(threshold = 0.35) {
   const ref = useRef<T | null>(null);
@@ -398,24 +402,21 @@ export function Arrival() {
       <div className="arr-in">
         <span className="arr-dot" aria-hidden />
         <div className="arr-k">The end of the map</div>
+        {/* RICHARD'S RESTRUCTURE (Images doc, Jul 28): "I don't love that we have two image
+            folds at the bottom... After the animation I would have the saying below with an
+            image and the CTA. Then the FAQ after that." So this scene IS the close now:
+            his saying, no subtext ("we just showed that above"), straight to the button
+            with the founder note under it. HeroCta was REMOVED from /how-it-works in the
+            same commit — putting it back recreates the double fold he called clumsy. */}
         <h2>
-          Do the work you love.
+          Do what you love.
           <br />
           We&apos;ll run the rest.
         </h2>
-        <p>
-          Calls get answered and jobs get booked while you are somewhere else, and the reviews
-          keep coming in. None of it needs you standing in the middle of it.
-        </p>
-        <div className="arr-f">That was always the point.</div>
-        {/* THE BESPOKE CTA IS GONE. This scene ended in a "Start the journey" button on the
-            same Pexels photo HeroCta uses, one screen before HeroCta says almost the same
-            thing with the same footnote. Two closing CTAs, a third button label, and the
-            cream FAQ stranded between two dark full-viewport scenes.
-            Worse: the headline above it was "Go enjoy the life you built it for." — the line
-            Richard rejected ("I have to reread it to think I get it"). It was fixed in
-            HeroCta and survived here. One closing CTA site-wide: HeroCta. The scene ends on
-            "That was always the point." */}
+        <div className="arr-cta">
+          <a href={START_LINK} data-cta="hiw_arrival">Get Started</a>
+          <span className="arr-note">Thirty minutes with a founder. It&rsquo;s free.</span>
+        </div>
       </div>
     </section>
   );

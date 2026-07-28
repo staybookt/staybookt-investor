@@ -1,7 +1,6 @@
 import Nav from '@/components/v4/Nav';
 import SiteFooter from '@/components/SiteFooter';
 import HowItWorks from '@/components/v4/HowItWorks';
-import HeroCta from '@/components/v4/HeroCta';
 
 const SHARE =
   'We run the front of your business for you: your website, an AI receptionist, booking, quotes, reviews and a daily brief. There is nothing for you to learn. Here is exactly how it runs, step by step.';
@@ -36,8 +35,11 @@ export default function HowItWorksPage() {
       <Nav solidTop />
       <main id="main" tabIndex={-1}>
       <HowItWorks />
-      {/* Every page closes the same way. This one used to just stop. */}
-      <HeroCta img="/close-hiw.jpg" />
+      {/* NO HeroCta HERE, ON PURPOSE (Richard, Images doc Jul 28): "I don't love that we
+          have two image folds at the bottom... feels too clumsy at the end." The Arrival
+          scene inside HowItWorks is the close now — his saying, the CTA button, the
+          founder note — and the FAQ is the last word. He also disliked this fold's photo
+          ("the guy reading a book"). Re-adding a closer here recreates the double fold. */}
       </main>
       <SiteFooter />
     </div>

@@ -61,7 +61,9 @@ export default function HeroCta({ fromBlack = false, img = HERO_IMG, heading, su
             NOTE: the footer used to say "You do the work. We run the rest." — near-identical,
             200px below this, on every page. It now says "Enjoy Life." If you ever change this
             line back, check the footer again. */}
-        <h2>{heading ?? <>Do the work you love. We&rsquo;ll run the rest.</>}</h2>
+        {/* Custom headings arrive with their own <br/> line breaks (Richard writes his
+            sayings as two lines), so the 15ch cap that shapes the default line comes off. */}
+        <h2 className={heading ? 'w' : undefined}>{heading ?? <>Do the work you love. We&rsquo;ll run the rest.</>}</h2>
         {sub === null ? null : <p>{sub ?? <>We get you found and run the day to day. You get your time back.</>}</p>}
         <a className="hcta-btn" href={START_LINK} data-cta="closer">Get Started</a>
         <div className="hcta-note">Thirty minutes with a founder. It&rsquo;s free.</div>
@@ -90,6 +92,7 @@ const CSS = `
   padding:0 clamp(20px,4vw,40px) clamp(72px,9vw,110px);text-align:center;}
 .hcta-in h2{font-size:clamp(34px,5.4vw,74px);font-weight:600;letter-spacing:-.035em;line-height:1.03;
   color:#fff;max-width:15ch;margin:0 auto;text-shadow:0 2px 34px rgba(0,0,0,.55);}
+.hcta-in h2.w{max-width:none;font-size:clamp(30px,5vw,68px);}
 .hcta-in p{margin:20px auto 0;font-size:clamp(16px,1.9vw,20px);line-height:1.5;color:#eef1f5;max-width:38ch;
   text-shadow:0 1px 22px rgba(0,0,0,.6);}
 
