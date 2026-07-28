@@ -218,14 +218,15 @@ export default function JourneysPage() {
               says: WHY three different businesses are on the same map. Hero = outcome, map =
               metaphor, cards = people; this block = the shared problem. (Two earlier versions
               died here for restating the hero — Jacob, twice.) */}
+          {/* RICHARD'S PASS (Jul 28): "trades" -> services (they are all services); "leak"
+              was RevOps-speak, "missed opportunity" is the customer's word; the "pick the
+              owner..." close was verbose and prescriptive — the cards do that work now. */}
           <div className="jl-teeup">
             <div className="jl-eyebrow2">The pattern</div>
-            <h2>Different trades. Same leak.</h2>
+            <h2>Different services. Same missed opportunities.</h2>
             <p>
               Not one of them had a work problem. They had a front-office problem: calls, quotes,
-              follow-ups and invoices all running through one busy owner. Pick the owner who looks
-              like your week and take the journey with them, from plugging the leak to earning back
-              their time, their money, and their freedom.
+              follow-ups and invoices all running through one busy owner.
             </p>
           </div>
 
@@ -234,8 +235,11 @@ export default function JourneysPage() {
                 reference): photographic cover banner (the owner's photo, B&W with the
                 journey hue washed over it), big headshot overlapping with a white ring
                 (tight face crop of the same photo), name over role. */}
+            {/* the SERVICE TYPE leads, above the image, prominent — people self-associate
+                on sight and the header does the work (Richard, Jul 28) */}
             {CARDS.map((c) => (
               <a key={c.href} className="jl-card" href={c.href} data-cta="journeys_card" style={{ ['--hc' as string]: c.c }}>
+                <span className="jl-svc" style={{ color: c.c }}>{c.tag}</span>
                 <span className="jl-banner">
                   <img src={c.banner} alt="" style={{ objectPosition: c.bpos }} />
                   <span className="jl-bwash" style={{ background: `linear-gradient(135deg,${c.c}b3,#4f46e580 58%,#7c3aed99)` }} />
@@ -244,8 +248,7 @@ export default function JourneysPage() {
                   <span className="jl-pav"><img src={c.img} alt={c.person} /></span>
                   <span className="jl-name">{c.person}</span>
                   <span className="jl-role">{c.role}</span>
-                  <div className="jl-tag">{c.tag}</div>
-                  <div className="jl-line" dangerouslySetInnerHTML={{ __html: c.line }} />
+                  <div className="jl-line" style={{ marginTop: 14 }} dangerouslySetInnerHTML={{ __html: c.line }} />
                   <p className="jl-teaser">{c.teaser}</p>
                   <span className="jl-go">{c.cta} <span className="arw">&rarr;</span></span>
                 </span>
@@ -340,6 +343,7 @@ const CSS = `
 @media(max-width:960px){.jl-grid{grid-template-columns:1fr;max-width:560px;}}
 .jl-card{display:block;background:#fff;border:1px solid rgba(6,12,20,.08);border-radius:22px;padding:0;overflow:hidden;text-decoration:none;color:var(--v4-ink,#06080d);box-shadow:0 1px 2px rgba(6,12,20,.04),0 26px 54px -34px rgba(6,12,20,.35);transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s cubic-bezier(.16,1,.3,1);}
 .jl-card:hover{transform:translateY(-5px);box-shadow:0 1px 2px rgba(6,12,20,.05),0 40px 74px -36px rgba(6,12,20,.45);}
+.jl-svc{display:block;text-align:center;font-size:17px;font-weight:700;letter-spacing:-.015em;padding:14px 12px 12px;}
 .jl-banner{display:block;height:112px;position:relative;overflow:hidden;}
 .jl-banner img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.08);transition:transform .8s cubic-bezier(.16,1,.3,1);}
 .jl-card:hover .jl-banner img{transform:scale(1.05);}
