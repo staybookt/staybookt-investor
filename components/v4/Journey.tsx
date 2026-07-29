@@ -387,8 +387,12 @@ export default function Journey({ id }: { id: string }) {
       {/* WALK ANOTHER JOURNEY — above the FAQ (Jacob, July 27) */}
       <section className="jy-others">
         <div className="jy-owrap">
+          {/* Was "Different trade, same flip." — a stray typo (flip) plus the same
+              trade/leak language Richard flagged on the landing page (Jul 28 video +
+              Images doc). This footer copy lives here, separate from the landing tee-up,
+              and got missed in that fix. Matched to the landing page's corrected line. */}
           <h2 className="jy-rv">Walk another journey<span className="pd">.</span></h2>
-          <p className="jy-olede jy-rv">Different trade, same flip.</p>
+          <p className="jy-olede jy-rv">Different service, same missed opportunity.</p>
           <div className="jy-ogrid">
             {/* LinkedIn-profile anatomy, identical to the landing cards (Jacob, July 27):
                 city banner + hue wash, big overlapping headshot, name/role, tag,
