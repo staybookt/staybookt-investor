@@ -509,6 +509,16 @@ const CSS = `
 .jy-title .pd{color:#a78bfa;-webkit-text-fill-color:#a78bfa;}
 .jy-sub{margin-top:18px;font-size:clamp(16px,1.9vw,20px);color:rgba(255,255,255,.78);opacity:0;filter:blur(6px);transform:translateY(12px);animation:jyUp .9s cubic-bezier(.16,1,.3,1) 1.7s forwards;}
 .jy-title .jy-avchip{margin-top:32px;opacity:0;transform:scale(1.35);animation:jyEstablish .9s cubic-bezier(.16,1,.3,1) 2.15s forwards;}
+/* BUG FIX (Jul 29, caught re-auditing Richard's videos): the title h1 is nowrap + a
+   900px .jy-bin. At the 82px font ceiling, longer heroB strings (Sean's "Losing the
+   clients who wanted it" at ~1082px, Kim's "Always the second to call back" at
+   ~987px) are wider than 900px. Because .l2 is background-clip:text on a flex item,
+   Chrome paints the overflow as if clipped to the box even though overflow is
+   visible — verified live: text just vanishes past the 900px edge, not a scroll-
+   animation artifact. Widening the title's own bin is the fix; every other beat
+   keeps the 900px measure. 1200px comfortably fits the longest string at the font
+   ceiling with room to spare, confirmed live on staybookt.com. */
+.jy-title .jy-bin{max-width:1200px;}
 .jy-title .jy-who{color:#fff;} .jy-title .jy-who small{color:rgba(255,255,255,.6);}
 /* the main character: stacked title-card credit, hero-sized */
 .jy-herochip{flex-direction:column;gap:14px;}
