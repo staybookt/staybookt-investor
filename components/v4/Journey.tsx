@@ -397,8 +397,14 @@ export default function Journey({ id }: { id: string }) {
             {/* LinkedIn-profile anatomy, identical to the landing cards (Jacob, July 27):
                 city banner + hue wash, big overlapping headshot, name/role, tag,
                 punchline, teaser, plain-result CTA. One card system everywhere. */}
+            {/* Service type now leads, above the image, same fix as the landing page cards
+                (Richard, Jul 28: "highlight the type of service provided more prominently
+                above the image and they will self associate quickly... let the headers do
+                the work over text"). This grid is the same card system, so it gets the
+                same swap for consistency. */}
             {others.map((o) => (
               <a key={o.id} className="jy-ocard jy-rv" href={o.path} data-cta="journey_next" style={{ ['--hc' as string]: o.hue }}>
+                <span className="jy-osvc" style={{ color: o.hue }}>{o.tag.replace('Journeys · ', '')}</span>
                 <span className="jy-obanner">
                   <img src={o.banner} alt="" />
                   <span className="jy-owash" style={{ background: `linear-gradient(135deg,${o.hue}b3,#4f46e580 58%,#7c3aed99)` }} />
@@ -407,7 +413,6 @@ export default function Journey({ id }: { id: string }) {
                   <span className="jy-opav"><img src={o.img} alt={o.person} /></span>
                   <span className="jy-oname">{o.person}</span>
                   <span className="jy-orole">{o.role}</span>
-                  <div className="ot">{o.tag.replace('Journeys · ', '')}</div>
                   <div className="on2" dangerouslySetInnerHTML={{ __html: heroLine(o.short, o.heroB) }} />
                   <p className="od">{o.heroSub}</p>
                   <span className="go">{CARD_CTAS[o.short] ?? 'Follow the journey'} <span className="arw">&rarr;</span></span>
@@ -660,6 +665,7 @@ const CSS = `
 @media(max-width:720px){.jy-ogrid{grid-template-columns:1fr;}}
 .jy-ocard{display:block;background:#fff;border:1px solid rgba(6,12,20,.08);border-radius:22px;padding:0;overflow:hidden;text-decoration:none;color:var(--jy-ink);box-shadow:0 1px 2px rgba(6,12,20,.04),0 26px 54px -34px rgba(6,12,20,.35);transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s cubic-bezier(.16,1,.3,1);}
 .jy-ocard:hover{transform:translateY(-5px);box-shadow:0 1px 2px rgba(6,12,20,.05),0 40px 74px -36px rgba(6,12,20,.45);}
+.jy-osvc{display:block;text-align:center;padding:14px 12px 12px;font-size:17px;font-weight:700;letter-spacing:-.015em;}
 .jy-obanner{display:block;height:112px;position:relative;overflow:hidden;}
 .jy-obanner img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.08);transition:transform .8s cubic-bezier(.16,1,.3,1);}
 .jy-ocard:hover .jy-obanner img{transform:scale(1.05);}
@@ -670,7 +676,6 @@ const CSS = `
 .jy-opav img{display:block;width:100%;height:100%;object-fit:cover;}
 .jy-oname{display:block;margin-top:12px;font-size:20px;font-weight:700;letter-spacing:-.022em;}
 .jy-orole{display:block;margin-top:2px;font-size:13px;font-weight:500;color:var(--jy-cap);}
-.jy-ocard .ot{margin-top:16px;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--jy-cap);}
 .jy-ocard .on2{margin-top:8px;font-size:clamp(17px,1.62vw,22.5px);font-weight:600;letter-spacing:-.03em;line-height:1.12;white-space:nowrap;}
 .jy-ocard .od{margin-top:10px;font-size:14.5px;line-height:1.55;color:var(--jy-sub);}
 .jy-ocard .go{margin-top:18px;display:inline-flex;align-items:center;gap:9px;font-size:14.5px;font-weight:600;color:var(--jy-ink);border:1.5px solid rgba(6,12,20,.16);border-radius:999px;padding:11px 20px;transition:border-color .3s ease,gap .3s ease;}
