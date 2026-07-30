@@ -178,14 +178,11 @@ const CSS = `
 .abt-value h2{margin-top:14px;font-size:clamp(28px,4.2vw,54px);line-height:1.04;}
 .abt-value p{margin-top:16px;font-size:clamp(17px,1.9vw,20px);line-height:1.6;color:#69707d;}
 .abt-value p b{font-weight:600;color:var(--v4-ink);}
-/* THE ONE GRAPHIC MOVE THIS SECTION NEEDS. Three prior rounds each added another device (a
-   card, then numerals, then a stagger animation) trying to make a five-item list feel as good
-   as the rest of the page. The list is gone now (see the JSX comment — its content is what
-   RemovalTest already shows), and the kick quote goes back to being the section's one visual
-   beat, same treatment as .abt-quote's blockquote elsewhere on this page: nothing more. */
-.abt-value .kick{margin-top:clamp(28px,3.4vw,38px);padding-left:clamp(16px,1.4vw,20px);
-  border-left:3px solid transparent;border-image:var(--sb-grad-ink) 1;
-  font-size:clamp(19px,2.3vw,28px);font-weight:600;letter-spacing:-.02em;line-height:1.3;color:var(--v4-ink);}
+/* .kick REMOVED (Jacob, same day: "Build long-term wealth, not a job. — this should be the
+   eyebrow"). That line moved into the eyebrow slot in the JSX and is no longer said twice, so
+   the gradient-border pull-quote treatment it used to carry has nothing left to style — the
+   eyebrow now uses .v4 .eyebrow's own default (12px, wide-tracked, uppercase, #69707d), same
+   as "The team" and "About us" elsewhere on this page. No local override needed. */
 
 /* ===== 5. THE PROMISES. The one object on the page. ===== */
 .abt-prm{background:#050506;padding:clamp(90px,12vw,150px) 0;}
@@ -350,7 +347,12 @@ export default function AboutPage() {
       <section className="abt-value" id="long-term-value">
         <div className="wrap">
           <div className="value-lead">
-          <Reveal className="eyebrow" as="div">The one fact</Reveal>
+          {/* EYEBROW SWAPPED (Jacob, same day): "Build long-term wealth, not a job." is the
+              eyebrow now, not "The one fact." The line no longer repeats itself at the bottom
+              as a separate kick quote — it only ever said once now, up top, doing the job an
+              eyebrow does everywhere else on this page: the one-line frame the reader gets
+              before the headline, not a second punchline after the paragraph. */}
+          <Reveal className="eyebrow" as="div">Build long-term wealth, not a job.</Reveal>
           <Reveal><h2>If it cannot run without you, there is nothing to hand anyone.</h2></Reveal>
           <Reveal>
             <p>
@@ -359,7 +361,6 @@ export default function AboutPage() {
               today, for a business you can actually sell.
             </p>
           </Reveal>
-          <Reveal><div className="kick">Build long-term wealth, not a job.</div></Reveal>
           </div>
         </div>
       </section>
