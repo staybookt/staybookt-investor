@@ -478,9 +478,11 @@ export default function HomeJourney() {
     if (!trail || !L) return;
     trail.style.strokeDashoffset = String(L * (1 - p));
     if (dot || ring) {
-      const pt = trail.getPointAtLength(L * Math.max(0, Math.min(1, p)));
-      if (dot) { dot.setAttribute('cx', String(pt.x)); dot.setAttribute('cy', String(pt.y)); }
-      if (ring) { ring.setAttribute('cx', String(pt.x)); ring.setAttribute('cy', String(pt.y)); }
+      const t = Math.max(0, Math.min(1, p));
+      const pt = trail.getPointAtLength(L * t);
+      const col = gradColor(t);
+      if (dot) { dot.setAttribute('cx', String(pt.x)); dot.setAttribute('cy', String(pt.y)); dot.setAttribute('stroke', col); }
+      if (ring) { ring.setAttribute('cx', String(pt.x)); ring.setAttribute('cy', String(pt.y)); ring.setAttribute('stroke', col); }
     }
   };
 

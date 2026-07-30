@@ -366,11 +366,16 @@ const NS_CSS = `
 .nsb.sys{align-self:center;align-items:center;max-width:96%;margin-top:6px;}
 .nsb-b{display:inline-block;padding:8px 13px;border-radius:19px;font-size:13.5px;line-height:1.35;}
 .nsb.them .nsb-b{background:#e9e9eb;color:#000;border-bottom-left-radius:5px;}
-/* SMS green, because a stranger texting a business line is not on iMessage. */
-.nsb.us .nsb-b{background:#34c759;color:#fff;border-bottom-right-radius:5px;}
+/* WAS SMS green (#34c759) — the reasoning was "a stranger texting a business line
+   is not on iMessage," which is technically correct but read wrong: Jacob, Jul 30
+   2026, wants the real iPhone blue. #0a84ff is not a new color for this mockup —
+   it is the exact same blue already used two lines up for .nsp-back, the phone's
+   own iOS back-chevron — so this just makes the bubble match a color already
+   sitting in the same screen instead of introducing a second one. */
+.nsb.us .nsb-b{background:#0a84ff;color:#fff;border-bottom-right-radius:5px;}
 .nsb-tag{margin-top:4px;font-size:9.5px;font-weight:700;color:#047857;letter-spacing:.02em;}
 .nsb-sys{display:block;text-align:center;font-size:10.5px;line-height:1.45;font-weight:600;color:#8e8e93;padding:0 10px;}
-.nsb-b.typing{display:flex;gap:3px;align-items:center;padding:11px 14px;background:#34c759;}
+.nsb-b.typing{display:flex;gap:3px;align-items:center;padding:11px 14px;background:#0a84ff;}
 .nsb-b.typing i{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.9);animation:nstype 1.1s ease-in-out infinite;}
 .nsb-b.typing i:nth-child(2){animation-delay:.15s;}
 .nsb-b.typing i:nth-child(3){animation-delay:.3s;}
