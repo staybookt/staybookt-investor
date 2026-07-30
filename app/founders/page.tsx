@@ -153,19 +153,26 @@ const CSS = `
    off. .fcard img biases the window upward; Jacob's frame sits higher still, so he
    gets .hi (center top). */
 
-/* ===== 4. WHY THIS MATTERS LONG-TERM. Ported from /long-term (Jul 30 2026), same
-   .lt-sec/.lt-kick values that page shipped with, renamed into this page's own .abt-value
-   namespace. Explicit cream background (matches .abt-us right above it) so the founders
-   section and this one read as one continuous light zone before RemovalTest's dark film
-   breaks it up — the same two-tone rhythm /long-term itself used (light section, then the
-   dark pinned film, then the dark closing door). ===== */
-.abt-value{padding:clamp(80px,11vw,140px) 0;border-top:1px solid #e6e6e1;background:var(--v4-cream);}
-.abt-value h2{margin-top:14px;font-size:clamp(30px,4.4vw,56px);line-height:1.03;max-width:18ch;}
-.abt-value p{margin-top:22px;font-size:clamp(16.5px,1.9vw,20px);line-height:1.65;color:#42474f;max-width:62ch;}
+/* ===== 4. WHY THIS MATTERS LONG-TERM. Ported from /long-term (Jul 30 2026).
+   RE-ALIGNED (Jacob, same day: "formatting of headlines and spacing is inconsistent once
+   we get to the merged section... re-align it to StayBookt spec"). He was right — the first
+   pass kept /long-term's own numbers (90px vs this page's 90px section padding read the
+   same at a glance, but 80px did not; 28px vs 30px h2; #69707d vs #42474f body color; 16px
+   vs 22px paragraph margin; a hairline divider .abt-us never uses), so the page visibly
+   shifted scale and rhythm the moment this section started. Every value below is now
+   copied from .abt-us's OWN tokens (this page's established spec, not the old page's), and
+   the content sits inside a `.value-lead` wrapper at the same 680px measure as `.us-lead`
+   above it, instead of each element carrying its own one-off max-width. Border-top dropped:
+   .abt-us doesn't use one either, and both sections are the same cream, so a hairline
+   between them separated nothing. */
+.abt-value{padding:clamp(90px,12vw,150px) 0;background:var(--v4-cream);}
+.abt-value .value-lead{max-width:680px;}
+.abt-value h2{margin-top:14px;font-size:clamp(28px,4.2vw,54px);line-height:1.04;}
+.abt-value p{margin-top:16px;font-size:clamp(17px,1.9vw,20px);line-height:1.6;color:#69707d;}
 .abt-value p b{font-weight:600;color:var(--v4-ink);}
-.abt-value .kick{margin-top:clamp(34px,4vw,46px);padding-left:clamp(16px,2vw,22px);border-left:3px solid transparent;
-  border-image:var(--sb-grad-ink) 1;font-size:clamp(20px,2.6vw,32px);font-weight:600;letter-spacing:-.025em;
-  line-height:1.25;color:var(--v4-ink);max-width:24ch;}
+.abt-value .kick{margin-top:clamp(28px,3.4vw,38px);padding-left:clamp(16px,1.4vw,20px);border-left:3px solid transparent;
+  border-image:var(--sb-grad-ink) 1;font-size:clamp(19px,2.3vw,28px);font-weight:600;letter-spacing:-.02em;
+  line-height:1.3;color:var(--v4-ink);}
 
 /* ===== 5. THE PROMISES. The one object on the page. ===== */
 .abt-prm{background:#050506;padding:clamp(90px,12vw,150px) 0;}
@@ -302,6 +309,9 @@ export default function AboutPage() {
           quote per his own feedback), then the RemovalTest film as the proof, not just prose. */}
       <section className="abt-value" id="long-term-value">
         <div className="wrap">
+          {/* .value-lead: same 680px measure as .us-lead above, so the two sections share
+             one column width instead of each picking its own max-width. */}
+          <div className="value-lead">
           <Reveal className="eyebrow" as="div">The one fact</Reveal>
           <Reveal><h2>If it cannot run without you, there is nothing to hand anyone.</h2></Reveal>
           <Reveal>
@@ -338,6 +348,7 @@ export default function AboutPage() {
               grow.
             </p>
           </Reveal>
+          </div>
         </div>
       </section>
 
