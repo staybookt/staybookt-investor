@@ -253,7 +253,16 @@ const AB_CSS = `
 type Msg = { side: 'them' | 'us' | 'sys'; text: string; tag?: string };
 
 const THREAD: Msg[] = [
-  { side: 'them', text: 'Hey, my kitchen sink is leaking everywhere. Can someone come out?' },
+  /* WAS "Hey, my kitchen sink is leaking everywhere. Can someone come out?" (Richard's
+     feedback via Jacob, round 14, Jul 30 2026: "examples are skewed to home services").
+     Reworded to an urgent scheduling request that does not name a trade, so it reads
+     naturally whether the "us" on the other end is a home service, a consultant fitting
+     in a session, or an agent fitting in a showing. The reply below ("$180 for the
+     visit") was left as-is: generic enough already, and this is a text-message mockup,
+     not marketing copy — a full rewrite of the whole exchange for three different
+     pricing models (flat visit fee / session / commission) was more than this specific
+     complaint asked for. */
+  { side: 'them', text: 'Hey, any chance you could fit me in this week? Kind of urgent.' },
   { side: 'us', text: 'It’s $180 for the visit and you’re well inside our area. I can do Thursday 8:30 AM.', /* WAS 'Sent by StayBookt · 9 seconds'. We have never measured a response time. The
      illustration disclaimer on this page covers "this is not a customer's screenshot";
      it does not cover "this is how fast we are". An illustration of an invented

@@ -35,12 +35,31 @@ import { min } from '@/lib/css';
 
 type Stop = {
   id: string; n: string; label: string; promise: string; voice: string; accent: string; accentD: string;
-  side: 'left' | 'right'; surface: 'getfound' | 'staybookt' | 'enjoy'; beat: string;
+  side: 'left' | 'right'; surface: 'getfound' | 'staybookt' | 'reputation'; beat: string;
 };
 
-/* Content is the same three milestones as HowItWorks.tsx's STOPS, byte-matched, minus
- * the `steps` field (dropped per the simplification above). Keep in sync if either
- * copy is edited: this is the one that ships now, but the sentences originated there.
+/* Content ORIGINATED as the same three milestones as HowItWorks.tsx's STOPS, minus the
+ * `steps` field (dropped per the simplification above) — no longer byte-matched as of
+ * the Richard feedback pass below.
+ *
+ * RICHARD'S HOMEPAGE FEEDBACK (relayed by Jacob, Jul 30 2026), milestone 3 retheme:
+ * his note was "the milestones might be light on selling key benefits — what if
+ * milestone 3 was building a great reputation that drives referrals/repeat business,
+ * and milestone 4 related to getting rid of paperwork/admin." Real gap: the pricing
+ * page's own included list has two whole pillars — the review/referral engine and the
+ * CRM/admin/morning-brief layer — with zero presence anywhere on the homepage. Jacob's
+ * call: keep 3 milestones rather than add a 4th (less engineering risk on the road's
+ * curve math, see build() below). Milestone 3 becomes Reputation (was Enjoy Life);
+ * admin/invoice-chasing folds into milestone 2's beat instead of getting its own card.
+ * "Enjoy Life" does not disappear — it was already duplicated between this milestone
+ * and the closing "Twelve months later" bookend below (see the round 9/10 comments on
+ * the jhead a few screens down), so dropping it as a milestone card and letting the
+ * bookend carry the full freedom/exit payoff alone REMOVES a redundancy instead of
+ * adding one. The bookend now also carries the EnjoyLifeScene choice card and the
+ * "what it's worth later" link that used to live on this milestone.
+ *
+ * Keep in sync with HowItWorks.tsx if that page's copy is ever revived: this is the
+ * version that ships now, but milestones 1 and 2 still originated there.
  *
  * `side` (left/right alternation) — went through two wrong fixes before landing here.
  * Round 1 (Jacob: "the map looks sloppy") deleted the zigzag for one straight rail —
@@ -73,14 +92,21 @@ const STOPS: Stop[] = [
     beat: 'We build the site, fix the Google listing, and get you showing up first: on search, on the map, and in AI answers.',
   },
   {
+    /* Beat rewritten (round 14, Richard's admin feedback): dropped "win the review, and
+       rebook the second one" — that is milestone 3's job now, saying it twice read as
+       an echo once reputation got its own milestone. Added the invoice, which used to
+       have no home on the homepage at all despite being one of the pricing page's
+       thirteen included jobs. */
     id: 'run', n: '2', label: 'StayBookt', promise: 'Every lead gets worked.', voice: 'It is 2 a.m. I am asleep. It is handled.',
     accent: '#10b981', accentD: '#059669', side: 'right', surface: 'staybookt',
-    beat: 'We catch the missed call, book the job, chase the quote, win the review, and rebook the second one. Nothing gets dropped.',
+    beat: 'We catch the missed call, book the job onto your calendar, chase the quote until you get an answer, and chase the invoice until it is paid. Nothing gets dropped, and nothing sits in a drawer.',
   },
   {
-    id: 'free', n: '3', label: 'Enjoy life', promise: 'You choose.', voice: 'I could actually sell this. Or not. My call.',
-    accent: '#7c3aed', accentD: '#6d28d9', side: 'left', surface: 'enjoy',
-    beat: 'After a year, the business books and earns whether you are standing in the middle of it or not. Keep the part you love, hand it off, or sell it: your call.',
+    /* WAS "Enjoy life" (id 'free', surface 'enjoy'). Retheme per Richard's feedback,
+       round 14 (Jul 30 2026): see the block comment above STOPS. */
+    id: 'reputation', n: '3', label: 'Reputation', promise: 'Every job earns the next one.', voice: 'Half my new customers already knew someone I worked for.',
+    accent: '#7c3aed', accentD: '#6d28d9', side: 'left', surface: 'reputation',
+    beat: 'After every job we ask for the review, answer every one in your voice, and bring past customers back before they drift to someone else.',
   },
 ];
 
@@ -108,7 +134,17 @@ function RoleIcon({ id }: { id: string }) {
 }
 
 /* Get Found scene: results climb, you land at #1, an AI assistant names you.
- * Ported verbatim from HowItWorks.tsx (GetFoundScene). */
+ * Originally ported from HowItWorks.tsx (GetFoundScene).
+ *
+ * DE-PLUMBED (Richard's feedback via Jacob, round 14, Jul 30 2026): "examples are
+ * skewed to home services." This was the single most concrete instance — the search
+ * query and every business name were literally plumbing ("plumber near me", "Drain &
+ * Sons", "Rapid Rooter"). Jacob's call was to neutralize the wording rather than swap
+ * to a different single persona, since /journeys already carries deep persona-specific
+ * proof for all three ICPs. The underlying mechanic (climb a local map-pack search,
+ * get named by an AI assistant) is universal to any locally-searched business — home
+ * service, consulting, or real estate — so only the trade-specific nouns needed to go,
+ * not the scene itself. */
 function GetFoundScene() {
   const ref = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
@@ -123,19 +159,19 @@ function GetFoundScene() {
       <div className="gfwin">
         <div className="gftop">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9298a1" strokeWidth={2}><circle cx="11" cy="11" r="7" /><line x1="21" y1="21" x2="16.5" y2="16.5" /></svg>
-          <span className="q">plumber near me</span>
+          <span className="q">best rated near me</span>
         </div>
         <div className="gflist">
-          <div className="srow r1"><span className="pin" /><span className="nm">City Wide Plumbing</span><span className="rt">&#9733; 4.1</span></div>
-          <div className="srow r2"><span className="pin" /><span className="nm">Drain &amp; Sons</span><span className="rt">&#9733; 3.8</span></div>
-          <div className="srow r3"><span className="pin" /><span className="nm">Rapid Rooter</span><span className="rt">&#9733; 4.0</span></div>
-          <div className="srow tc"><span className="badge">#1</span><span className="pin" /><span className="nm">Redwater Plumbing</span><span className="rt">&#9733; 4.9 &middot; Open now</span></div>
+          <div className="srow r1"><span className="pin" /><span className="nm">City Wide Services</span><span className="rt">&#9733; 4.1</span></div>
+          <div className="srow r2"><span className="pin" /><span className="nm">Carter &amp; Sons</span><span className="rt">&#9733; 3.8</span></div>
+          <div className="srow r3"><span className="pin" /><span className="nm">Rapid Response Co</span><span className="rt">&#9733; 4.0</span></div>
+          <div className="srow tc"><span className="badge">#1</span><span className="pin" /><span className="nm">Redwater Services</span><span className="rt">&#9733; 4.9 &middot; Open now</span></div>
         </div>
       </div>
       <div className="ai">
         <div className="k">Asked an AI assistant</div>
-        <div className="q2">&ldquo;Who is a good plumber near me?&rdquo;</div>
-        <div className="a2">Redwater Plumbing. 4.9 stars, open now, and one tap to call.</div>
+        <div className="q2">&ldquo;Who is the best one near me?&rdquo;</div>
+        <div className="a2">Redwater Services. 4.9 stars, open now, and one tap to call.</div>
       </div>
       <div className="chips">
         <span className="chip">New text &middot; booked</span>
@@ -189,6 +225,42 @@ function EnjoyLifeScene() {
   );
 }
 
+/* Reputation scene, new for the milestone 3 retheme (round 14, Jul 30 2026): a review
+ * landing in the owner's voice, then the two outcomes that actually pay for the ask —
+ * a repeat booking and a referral. Deliberately not a message-bubble mockup like
+ * NightShift (milestone 2 already owns that visual grammar); this is closer to
+ * GetFoundScene's "real UI surface" approach, a Google-review-style card, so each
+ * milestone reads as its own distinct proof rather than three phones in a row. */
+function ReputationScene() {
+  const ref = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) el.classList.add('on'); }), { threshold: 0.4 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return (
+    <div className="rp" ref={ref}>
+      <div className="rpwin">
+        <div className="rptop">Sent the day the job finished</div>
+        <div className="rpreview">
+          <div className="rpstars" aria-hidden>&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <div className="rptext">
+            &ldquo;Showed up on time, texted when he was five minutes out. Already booked
+            him again for the fall.&rdquo;
+          </div>
+          <div className="rpreply"><span className="rpr-badge">Replied</span> in your voice, same day</div>
+        </div>
+      </div>
+      <div className="chips">
+        <span className="chip">Rebooked &middot; 14 months later</span>
+        <span className="chip">Referred a neighbour</span>
+      </div>
+    </div>
+  );
+}
+
 function StopBody({ s }: { s: Stop }) {
   return (
     <div className="body">
@@ -196,13 +268,10 @@ function StopBody({ s }: { s: Stop }) {
       <div className="promise">{s.promise}</div>
       <div className="voice">&ldquo;{s.voice}&rdquo;</div>
       <div className="beat">{s.beat}</div>
-      {s.id === 'free' && (
-        <a className="jgo" href="/long-term">What it is worth later <span>&rarr;</span></a>
-      )}
       <div className="stage">
         {s.surface === 'getfound' && <GetFoundScene />}
         {s.surface === 'staybookt' && <NightShift />}
-        {s.surface === 'enjoy' && <EnjoyLifeScene />}
+        {s.surface === 'reputation' && <ReputationScene />}
       </div>
     </div>
   );
@@ -291,6 +360,12 @@ const CSS = `
    and .hjc-price below — one gradient-text move, reused everywhere it means "the payoff." */
 .hj-jrny .jhead h2 .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .hj-jrny .jhead p{margin-top:16px;font-size:clamp(16px,1.9vw,20px);color:#69707d;line-height:1.6;max-width:56ch;}
+/* The persona jump-link, understated on purpose (Jacob: "one contextual inline link",
+   not the card grid he killed earlier). Smaller than the intro paragraph, reads as a
+   footnote to it, not a second headline. */
+.hj-jrny .jhead .jhead-who{margin-top:14px;font-size:14.5px;line-height:1.5;color:#69707d;max-width:56ch;}
+.hj-jrny .jhead .jhead-who a{color:var(--v4-ink,#06080d);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(6,12,20,.2);transition:border-color .25s ease;}
+.hj-jrny .jhead .jhead-who a:hover{border-color:var(--v4-ink,#06080d);}
 .hj-jmap{position:relative;max-width:940px;margin:0 auto;}
 .hj-jsvg{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:visible;}
 /* THE ROAD, Maps-style: a dashed grey "not yet driven" line underneath, and a solid
@@ -333,6 +408,19 @@ const CSS = `
 .hj-jend .ej-h{margin-top:16px;font-size:clamp(32px,4.8vw,58px);font-weight:600;letter-spacing:-.03em;line-height:1.08;color:var(--v4-ink,#06080d);}
 .hj-jend .ej-h .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .hj-jend .ej-sub{margin:18px auto 0;font-size:clamp(15px,1.7vw,18px);line-height:1.55;color:#69707d;max-width:46ch;}
+/* EnjoyLifeScene + the long-term link, moved in from the old milestone 3 (round 14).
+   .el already centers itself via the parent's flex column; just give it breathing
+   room above. The .jgo pill reuses .jstop .jgo's look but that rule is scoped to
+   .jstop and keys off --acc/--acd custom props set there, which this bookend does not
+   have — so it gets its own rule here with the violet accent hardcoded to match .edot. */
+.hj-jend .el{margin:32px auto 0;max-width:100%;}
+.hj-jend .jgo{display:flex;width:fit-content;align-items:center;gap:8px;margin:24px auto 0;padding:9px 16px;
+  border:1px solid rgba(6,12,20,.14);border-radius:999px;background:#fff;
+  font-size:14px;font-weight:600;color:var(--v4-ink,#06080d);text-decoration:none;
+  transition:border-color .25s ease,transform .25s ease,box-shadow .25s ease;}
+.hj-jend .jgo span{color:#6d28d9;transition:transform .25s ease;}
+.hj-jend .jgo:hover{border-color:#6d28d9;transform:translateY(-1px);box-shadow:0 12px 26px -18px rgba(6,12,20,.5);}
+.hj-jend .jgo:hover span{transform:translateX(3px);}
 
 /* THE ROAD IS BACK TO EDGE-TO-EDGE (Jacob, round 3: "it's too linear, I loved the
    swerving thing that wrapped around the section"). Each block runs close to full
@@ -425,6 +513,23 @@ const CSS = `
 .el .choice .cl{margin-top:13px;font-size:16px;font-weight:600;color:var(--v4-ink,#06080d);}
 .el .choice .cd{margin-top:8px;font-size:12.5px;line-height:1.45;color:#69707d;}
 @media(max-width:520px){.el .choices{grid-template-columns:1fr;}}
+
+/* ===== SCENE: Reputation (review card + repeat/referral outcome) ===== */
+.rp{width:min(400px,100%);}
+.rp .rpwin{background:#fff;border-radius:18px;border:1px solid #ececf0;box-shadow:0 44px 90px -44px rgba(0,0,0,.4);padding:20px 22px;text-align:left;}
+.rp .rptop{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8a8f98;}
+.rp .rpreview{margin-top:14px;}
+.rp .rpstars{font-size:17px;letter-spacing:2px;color:#f59e0b;opacity:0;transform:translateY(6px);transition:opacity .6s ease,transform .6s ease;}
+.rp.on .rpstars{opacity:1;transform:none;}
+.rp .rptext{margin-top:10px;font-size:15px;line-height:1.55;color:var(--v4-ink,#06080d);opacity:0;transform:translateY(8px);transition:opacity .6s .15s ease,transform .6s .15s ease;}
+.rp.on .rptext{opacity:1;transform:none;}
+.rp .rpreply{margin-top:14px;font-size:12.5px;color:#69707d;opacity:0;transition:opacity .6s .5s ease;}
+.rp.on .rpreply{opacity:1;}
+.rp .rpr-badge{display:inline-block;margin-right:6px;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#6d28d9;background:rgba(124,58,237,.1);border-radius:999px;padding:3px 9px;}
+.rp .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+.rp .chip{font-size:11.5px;font-weight:600;color:#6d28d9;background:rgba(124,58,237,.1);border-radius:999px;padding:6px 12px;opacity:0;transform:translateY(6px);transition:opacity .5s ease,transform .5s ease;}
+.rp.on .chip{opacity:1;transform:none;}
+.rp.on .chip:nth-child(1){transition-delay:.75s;}.rp.on .chip:nth-child(2){transition-delay:.9s;}
 
 /* ===== WHAT IT COSTS — the one dark section left on the page, on purpose (Jacob, round
    4: relight everything else, keep this one the contrast slab so the payoff still lands
@@ -731,14 +836,33 @@ export default function HomeJourney() {
              * Enjoy Life." is short enough (22 characters) to sit on one line at this
              * section's font size, same way it already does in the nav wordmark, so the
              * forced 2-line split here was unnecessary; it wraps on its own if a viewport
-             * ever gets too narrow to hold it. */}
+             * ever gets too narrow to hold it.
+             *
+             * Round 14 (Richard's feedback via Jacob, Jul 30 2026): two additions, h2
+             * unchanged — the locked "StayBookt. Enjoy Life." tagline stays exactly where
+             * it is; Richard's suggested line was scoped as new supporting copy, not a
+             * tagline replacement (Jacob's call). (1) The paragraph now opens with
+             * Richard's actual line, adapted from a standalone tagline into a sentence
+             * that leads into the existing "here's what changes" copy, instead of sitting
+             * beside it unconnected. (2) A new second line addresses the "examples are
+             * skewed to home services" feedback at the moment it matters most — right
+             * before a visitor starts scanning the (now de-plumbed, see GetFoundScene/
+             * NightShift) milestone scenes and wondering if this is for their kind of
+             * business. One inline text link, not a card grid — Jacob killed the old
+             * card-grid explore section a few hours earlier this same session specifically
+             * because it duplicated the real nav bar; this reads as copy, not a second
+             * nav. */}
           <div className="jhead">
             <div className="eyebrow">The three milestones</div>
             <h2><span className="g">StayBookt.</span> Enjoy Life.</h2>
             <p>
-              StayBookt answers your phone, books the job, and chases the invoice, day or
-              night. Here is exactly what changes at each of the three milestones, and what
-              it means for you.
+              Building a business where you do not do everything is what makes running one
+              fun again. Here is exactly what changes at each of the three milestones, and
+              what it means for you.
+            </p>
+            <p className="jhead-who">
+              Home service, consulting, or real estate: see exactly how it plays out for
+              someone like you. <a href="/journeys">Find your story <span aria-hidden>&rarr;</span></a>
             </p>
           </div>
           <div className="hj-jmap" ref={mapRef}>
@@ -761,7 +885,14 @@ export default function HomeJourney() {
                 <span className="sdot" ref={(el) => { pts.current.start = el; }} />
                 <div>
                   <div className="st">Day one &middot; You are here</div>
-                  <div className="sh">The phone barely rings.</div>
+                  {/* WAS "The phone barely rings." (Richard's feedback, round 14, Jul 30
+                     2026): "not everyone's problem is the phone not ringing. The universal
+                     problem is the business runs all through them and it consumes their
+                     life." A missed-calls framing only lands for the owner whose actual
+                     bottleneck is lead volume; it says nothing to a consultant or agent
+                     already booked solid who is drowning in the follow-up and admin
+                     instead. This is the pain every ICP shares. */}
+                  <div className="sh">Everything runs through you.</div>
                 </div>
               </div>
 
@@ -786,6 +917,14 @@ export default function HomeJourney() {
                   Not what is left over after the business is fed. The time that was always
                   supposed to be yours.
                 </p>
+                {/* MOVED HERE from milestone 3 (round 14, Jul 30 2026): the EnjoyLifeScene
+                   card and the "what it's worth later" link used to live on the Enjoy Life
+                   milestone. Now that milestone 3 is Reputation, this bookend is the only
+                   place the freedom/exit payoff lands — so it gets the real content instead
+                   of just a headline, which also answers the brief's ask to elevate this
+                   moment rather than just resize it. */}
+                <EnjoyLifeScene />
+                <a className="jgo" href="/long-term">What it is worth later <span aria-hidden>&rarr;</span></a>
               </div>
             </div>
           </div>
