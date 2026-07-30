@@ -408,14 +408,15 @@ export default function HomePage() {
               Jul 30 2026: "Enjoy Life" moved OUT of the hero and into the journey section
               below (see HomeJourney.tsx round 10) — it was reading as an abstract payoff next
               to the very concrete subhead. "What You Love" replaces it as the gradient
-              punchline: more specific, still ends the sentence started by hl1. hl1 grew from
-              "to" -&gt; "to do more of" (12 more chars); hl2 grew from "Enjoy Life" -&gt; "What You
-              Love" (3 more chars) — both still well inside the nowrap budget line 1 already
-              proved out down to a 320px viewport (see the vw-clamp comment below), so the
-              shrink-to-fit mechanics don't need to change, only the words. */}
+              punchline, still ending the sentence started by hl1. First pass added "to do more
+              of" to hl1 (12 extra chars) and clipped mid-word on a 1549px viewport — hl1's
+              nowrap+clamp sizing was tuned tight for the original 27-char line, no headroom
+              for +44% length. Trimmed to "to do" (+3 chars only): "You built your business to
+              do What You Love." is the same grammatical sentence, minus "more of," and stays
+              inside the width the original already proved safe down to 320px. */}
           <Reveal>
             <h1 className="hero-h1">
-              <span className="hl1">You built your business to do more of</span>
+              <span className="hl1">You built your business to do</span>
               <span className="hl2"><span className="g">What You Love</span><span className="pd">.</span></span>
             </h1>
           </Reveal>
