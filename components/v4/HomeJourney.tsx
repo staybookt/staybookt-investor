@@ -667,12 +667,24 @@ export default function HomeJourney() {
              * app/page.tsx's h1 entirely, replaced there by "What You Love" (see the round
              * 10 comment in page.tsx). That freed "Enjoy Life." back up here: it no longer
              * echoes anything above it, so this line reverts to exactly the site's own
-             * tagline, both halves gradient — round 8's version. "Do more of what you
-             * love." moved to the hero instead of living in two places at once. */}
+             * tagline — round 8's version. "Do more of what you love." moved to the hero
+             * instead of living in two places at once.
+             *
+             * Round 11 (Jacob, same day): only "StayBookt." — the wordmark — gets the
+             * gradient, per the round 8 rule. "Enjoy Life." on line 2 is plain dark text
+             * now: it's the rest of the tagline, not a second brand mark, so it does not
+             * get the same treatment. Subhead expanded from one short beat line to two
+             * plain sentences that actually say what StayBookt does (answers the phone,
+             * books the job, chases the invoice — pulled from the same three jobs named in
+             * the price ledger below) before pointing at the map. */}
           <div className="jhead">
             <div className="eyebrow">The three milestones</div>
-            <h2><span className="g">StayBookt.</span><br /><span className="g">Enjoy Life.</span></h2>
-            <p>The phone rings. The work gets done. Your call.</p>
+            <h2><span className="g">StayBookt.</span><br />Enjoy Life.</h2>
+            <p>
+              StayBookt answers your phone, books the job, and chases the invoice, day or
+              night. Here is exactly what changes at each of the three milestones, and what
+              it means for you.
+            </p>
           </div>
           <div className="hj-jmap" ref={mapRef}>
             <svg className="hj-jsvg" ref={svgRef} preserveAspectRatio="none" aria-hidden="true">
