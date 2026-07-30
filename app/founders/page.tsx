@@ -178,65 +178,14 @@ const CSS = `
 .abt-value h2{margin-top:14px;font-size:clamp(28px,4.2vw,54px);line-height:1.04;}
 .abt-value p{margin-top:16px;font-size:clamp(17px,1.9vw,20px);line-height:1.6;color:#69707d;}
 .abt-value p b{font-weight:600;color:var(--v4-ink);}
-.abt-value .kick{margin-top:0;padding-left:clamp(16px,1.4vw,20px);border-left:3px solid transparent;
-  border-image:var(--sb-grad-ink) 1;font-size:clamp(19px,2.3vw,28px);font-weight:600;letter-spacing:-.02em;
-  line-height:1.3;color:var(--v4-ink);}
-
-/* PAYOFF SPLIT, added same day the section got de-densified (see the comment above the JSX).
-   Left column keeps reading as prose (the kick quote + one tightened paragraph). Right column
-   is a short list, not more paragraphs — that contrast (prose vs. a plain stacked list) is what
-   breaks the "novel" feeling, the same job the RemovalTest film does one scroll later. Full
-   .wrap width (1080px), not the 680px .value-lead measure above it — this is the same move
-   .abt-us makes going from its own single-column .us-lead into the two-up .fgrid.
-
-   FIRST PASS PUT THIS LIST IN A WHITE CARD (bg, border-radius, box-shadow, dot bullets, hairline
-   footer). Jacob, same day: "this doesn't pass the Apple test." He's right — nothing else on
-   this page sits in a boxed card, and a shadowed white box with an uppercase label and colored
-   dot bullets is the generic B2B-SaaS feature-card pattern, not this site's language. Reworked
-   as a plain spec-sheet list instead: no background, no border-radius, no shadow, no bullets.
-   Hairline rules run BETWEEN rows only (the way a spec table divides rows, not the way a card
-   draws a boundary around itself) so it still reads as a distinct object next to the prose
-   without ever putting a box on the page. */
-.abt-value .vgrid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
-  gap:clamp(32px,5vw,64px);align-items:start;margin-top:clamp(40px,5.5vw,60px);}
-@media(max-width:820px){.abt-value .vgrid{grid-template-columns:1fr;gap:36px;}}
-.abt-value .checklist{padding-top:clamp(4px,.6vw,8px);}
-.abt-value .cc-k{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#69707d;}
-.abt-value .cc-list{list-style:none;margin:20px 0 0;padding:0;display:flex;flex-direction:column;}
-.abt-value .cc-list li{display:flex;align-items:baseline;gap:clamp(14px,1.6vw,20px);
-  padding:clamp(15px,1.7vw,19px) 0;border-top:1px solid rgba(6,8,13,.1);}
-.abt-value .cc-list li:first-child{border-top:none;}
-/* GRADIENT NUMERAL, the graphic anchor the row was missing (Jacob: "non graphic/animation,
-   doesn't pass Emma's sniff test"). Same --sb-grad-ink text-clip already used for every other
-   gradient numeral/wordmark on this site (see the note at the top of globals.css) — nothing
-   new invented, just applied here so the list has a color/weight anchor instead of five
-   identical rows of body-weight black text. */
-.abt-value .cc-n{flex:0 0 auto;min-width:1.6ch;font-size:clamp(19px,2.1vw,25px);font-weight:700;
-  letter-spacing:-.02em;font-variant-numeric:tabular-nums;
-  background:var(--sb-grad-ink);-webkit-background-clip:text;background-clip:text;color:transparent;}
-.abt-value .cc-t{font-size:clamp(16.5px,1.7vw,19px);font-weight:600;letter-spacing:-.01em;
-  line-height:1.35;color:var(--v4-ink);}
-/* STAGGER-IN, keyed off the Reveal wrapper's own "in" class rather than wrapping each <li> in
-   its own Reveal: Reveal's as prop only supports div/section, and a Reveal-per-row would also
-   mean nesting a <div> inside this <ul>, which is invalid HTML. Pure CSS gets the same cascade
-   with none of that — BUT Reveal renders its OWN div around {children}, so "in" lands on that
-   wrapper, one level ABOVE .checklist, not on .checklist itself. .checklist.in (compound, same
-   element) never matches anything; .reveal.in .checklist (ancestor, two elements) does. First
-   push had the compound version — list sat at opacity:0 forever, invisible on the live site.
-   Caught reading the DOM after deploy, not from the diff. */
-.abt-value .checklist .cc-list li{opacity:0;transform:translateY(14px);
-  transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1);}
-.abt-value .reveal.in .checklist .cc-list li{opacity:1;transform:none;}
-.abt-value .reveal.in .checklist .cc-list li:nth-child(1){transition-delay:.05s;}
-.abt-value .reveal.in .checklist .cc-list li:nth-child(2){transition-delay:.13s;}
-.abt-value .reveal.in .checklist .cc-list li:nth-child(3){transition-delay:.21s;}
-.abt-value .reveal.in .checklist .cc-list li:nth-child(4){transition-delay:.29s;}
-.abt-value .reveal.in .checklist .cc-list li:nth-child(5){transition-delay:.37s;}
-@media(prefers-reduced-motion:reduce){.abt-value .checklist .cc-list li{opacity:1;transform:none;transition:none;}}
-/* CLOSING LINE MOVED HERE from the bottom of the checklist (was .cc-close) so the left column
-   ends on a beat instead of stopping a full row of whitespace above where the right column
-   ends — the "unbalanced" half of the same note. */
-.abt-value .vcol .vclose{margin-top:clamp(20px,2.4vw,26px);font-weight:600;color:var(--v4-ink);}
+/* THE ONE GRAPHIC MOVE THIS SECTION NEEDS. Three prior rounds each added another device (a
+   card, then numerals, then a stagger animation) trying to make a five-item list feel as good
+   as the rest of the page. The list is gone now (see the JSX comment — its content is what
+   RemovalTest already shows), and the kick quote goes back to being the section's one visual
+   beat, same treatment as .abt-quote's blockquote elsewhere on this page: nothing more. */
+.abt-value .kick{margin-top:clamp(28px,3.4vw,38px);padding-left:clamp(16px,1.4vw,20px);
+  border-left:3px solid transparent;border-image:var(--sb-grad-ink) 1;
+  font-size:clamp(19px,2.3vw,28px);font-weight:600;letter-spacing:-.02em;line-height:1.3;color:var(--v4-ink);}
 
 /* ===== 5. THE PROMISES. The one object on the page. ===== */
 .abt-prm{background:#050506;padding:clamp(90px,12vw,150px) 0;}
@@ -368,77 +317,49 @@ export default function AboutPage() {
           rendered here. */}
 
       {/* 3 — WHY THIS MATTERS LONG-TERM. Merged in from /long-term (Jul 30 2026, see the page-top
-          comment). RESHAPED same day (Jacob: "super text dense... any way you see consolidating,
-          or making it more visually stimulating, formatting it in a way to not look like reading
-          a novel"). It was five stacked paragraphs in one 680px column with the right half of the
-          page empty. Nothing here got invented: it's the same fact, the same lt-kick pull-quote,
-          and every one of Richard's points, just re-cut. One paragraph was dropped outright — "if
-          your business would go backwards without you, a buyer won't pay you a lot" said the same
-          thing the opener and the pull-quote already said, three times in a row is not emphasis,
-          it's the thing Jacob flagged. The buyer-diligence checklist (repeatable channel revenue,
-          repeat business, referrals, systems, online presence) was prose pretending to be a list —
-          it's a real list now, using the dead space on the right instead of more lines of gray
-          text. Intro stays single-column at the .us-lead measure like before; the payoff splits
-          two-up, same move .abt-us already makes going from us-lead into fgrid.
+          comment). THREE ROUNDS of patching this same section (paragraphs → two-column
+          card+list → two-column plain list w/ numerals + stagger), each one fixing the specific
+          complaint that shipped and each one still wrong, because every round was decoration on
+          the same bones: an information-dense list trying to coexist with prose in a section that
+          is supposed to be one quiet beat, not an explainer. Jacob, round 4: "too dense, looks
+          ridiculous, doesn't look and feel like the high-end beautiful work we've done for the
+          rest of the page." He's right, and the fix this time is structural, not another layer.
 
-          SECOND PASS (same day): the card got stripped per [[staybookt-no-card-chrome]] (see the
-          CSS comment below), but Jacob's next note was "looks unbalanced, non graphic/animation,
-          doesn't pass Emma's sniff test" — and he was right about that too. A plain hairline list
-          next to two short paragraphs left the left column ending a foot above the right one, and
-          five identical rows of bold text with nothing but dividers is still flat, no graphic
-          anchor, no motion. Two fixes, neither one a card: (1) each row now carries a light
-          gradient numeral (01–05) as the graphic element the section was missing — same
-          --sb-grad-ink text-clip technique used on every other gradient numeral/heading on this
-          site, nothing new invented; (2) the closing punchline moved from the bottom of the list
-          to the bottom of the left column, so both sides end on a beat instead of the right column
-          trailing on 100px past the left one empty. The stagger-in animation on the five rows is
-          in the CSS block below (.cc-list li), keyed off the existing Reveal wrapper's own
-          in-view class so it needed no changes to Reveal.tsx itself. */}
+          THE ACTUAL PROBLEM: the buyer-diligence checklist (repeatable channel revenue, repeat
+          business, referrals, systems, online presence) is the SAME six ideas RemovalTest already
+          shows, one scroll below — check its own D[] array in RemovalTest.tsx: "Keeps running"
+          (systems), "They come back" (repeat business), "The list is yours" (systemized customer
+          data), "Work arrives" (channel revenue / online presence), "Reputation" (referrals),
+          "Handover" (the whole point). Two sections back to back making the same argument, one in
+          a beautiful cinematic wireframe film and one in a list of bold gray rows, is why this
+          kept feeling dense no matter how the rows were dressed. The checklist is CUT from here,
+          not lost — it is what RemovalTest already dramatizes far better than prose can.
+
+          NOTE FOR RICHARD: his literal checklist paragraph (added the same day as the pull-quote,
+          "I like the combo") is the content that moved. If he wants that specific language kept
+          verbatim somewhere rather than folded into RemovalTest's existing six drivers, flag it —
+          this was Claude's call under Jacob's "redesign it" instruction, not a unilateral deletion,
+          and it is fully reversible from git history.
+
+          WHAT'S LEFT: eyebrow, h2, one tightened paragraph, the kick pull-quote. Same single
+          .value-lead column as before, same measure as .us-lead above it — no two-column split,
+          no list, no card, no numerals. Four elements, generous whitespace, then straight into
+          RemovalTest. This is the same restraint the hero and the founders section already use
+          (eyebrow → headline → one line → one visual moment) — the section was trying to be a
+          mini-essay when everything else on this page is a single confident beat. */}
       <section className="abt-value" id="long-term-value">
         <div className="wrap">
-          {/* .value-lead: same 680px measure as .us-lead above. */}
           <div className="value-lead">
           <Reveal className="eyebrow" as="div">The one fact</Reveal>
           <Reveal><h2>If it cannot run without you, there is nothing to hand anyone.</h2></Reveal>
           <Reveal>
             <p>
               A buyer is not buying your van and your customer list. <b>They are buying
-              whether any of it works when you are not standing there.</b> The more the answer to
-              every question is you, the harder it is to hand over, and the less anyone will pay for
-              it. That is not our opinion. Ask anyone who buys these businesses for a living.
+              whether any of it works when you are not standing there.</b> So you need to plan
+              today, for a business you can actually sell.
             </p>
           </Reveal>
-          </div>
-
-          {/* Payoff splits two-up: the pull-quote, the "why", and the closing line on the left;
-             the buyer's actual checklist on the right. Both columns now end on a beat instead of
-             one trailing empty past the other. */}
-          <div className="vgrid">
-            <Reveal>
-              <div className="vcol">
-                <div className="kick">Build long-term wealth, not a job.</div>
-                <p>
-                  So you need to plan today, to have a business to sell in the future: one
-                  that is not just assets and a customer list that goes quiet the moment you
-                  leave. Buyers want a business that works whether you are standing there or not.
-                </p>
-                <p className="vclose">
-                  Most buyers do not want to buy a job. They want a business that has a path to grow.
-                </p>
-              </div>
-            </Reveal>
-            <Reveal>
-              <div className="checklist">
-                <div className="cc-k">What a buyer actually checks</div>
-                <ul className="cc-list">
-                  <li><span className="cc-n">01</span><span className="cc-t">Repeatable channel revenue</span></li>
-                  <li><span className="cc-n">02</span><span className="cc-t">Strong repeat business</span></li>
-                  <li><span className="cc-n">03</span><span className="cc-t">Healthy referral levels</span></li>
-                  <li><span className="cc-n">04</span><span className="cc-t">Operations run by systems, not sheer will</span></li>
-                  <li><span className="cc-n">05</span><span className="cc-t">An online presence tied to the business, not the owner</span></li>
-                </ul>
-              </div>
-            </Reveal>
+          <Reveal><div className="kick">Build long-term wealth, not a job.</div></Reveal>
           </div>
         </div>
       </section>
