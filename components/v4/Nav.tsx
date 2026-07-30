@@ -23,7 +23,12 @@ import { START_LINK } from '@/lib/site';
  * "Go deeper" grid is deliberately NOT a mirror any more, it is a curated four. */
 /* ORDER (Jacob, July 27 2026): About / Pricing / Journeys / How it works / Long-term
    value. This replaced the earlier what-it-is→proof→who argument order. The footer
-   mirrors this — change one, change the other. */
+   mirrors this — change one, change the other.
+
+   HOW IT WORKS DROPPED FROM THE NAV (Jacob + Richard, Jul 30 2026). The homepage now
+   opens with the concrete customer journey that page used to own — see HomeJourney.tsx
+   and app/page.tsx. Keeping a tab for a page whose entire content now lives one scroll
+   into the homepage would just be two doors to the same room. Four tabs, not five. */
 const LINKS = [
   { href: '/founders', label: 'About us' },
   /* "What's included" MERGED INTO Pricing (Jacob + Richard, Jul 23 2026); /whats-included
@@ -31,7 +36,6 @@ const LINKS = [
   { href: '/pricing', label: 'Pricing' },
   /* 'Journeys': mini landing routing to three profession pages (July 27 restructure). */
   { href: '/journeys', label: 'Journeys' },
-  { href: '/how-it-works', label: 'How it works' },
   /* Label is Richard's words (July 14): "focus on long-term value as a stand alone." */
   { href: '/long-term', label: 'Long-term value' },
 ];

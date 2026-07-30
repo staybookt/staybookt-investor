@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import Nav from '@/components/v4/Nav';
 import Reveal from '@/components/v4/Reveal';
-import JourneyMap from '@/components/v4/JourneyMap';
+import HomeJourney from '@/components/v4/HomeJourney';
 import HomeFaq from '@/components/v4/HomeFaq';
 import HeroCta from '@/components/v4/HeroCta';
 import SiteFooter from '@/components/SiteFooter';
@@ -26,10 +26,11 @@ const SHARE_DESCRIPTION =
    (Emma, p6). `tint` is the icon chip's faint fill, pre-baked as rgba so Lightning CSS has no
    colour-mix() to downlevel. */
 const EXPLORE: { k: string; t: string; d: string; href: string; c: string; ic: string; tint: string }[] = [
-  /* Was four cards. "What's included" merged into "Pricing" (Jul 23 2026), so the list and
-     the price are one card now — three cards, three distinct pages. */
-  { k: 'THE PRODUCT', t: 'How it works', d: 'The website, the front office, and how the whole thing fits together.', href: '/how-it-works', c: '#38bdf8', ic: 'workflow', tint: 'rgba(56,189,248,.12)' },
+  /* WAS "How it works" (Jul 30 2026). The journey above IS how it works now — the whole
+     point of retiring /how-it-works was that a stranger no longer has to click away to see
+     it. Swapped for Journeys: real owner stories, still a distinct page worth a card. */
   { k: 'PRICING', t: 'Pricing', d: 'Everything the $199 a month buys, what stays yours, and what it does not cost you.', href: '/pricing', c: '#34d399', ic: 'tag', tint: 'rgba(52,211,153,.12)' },
+  { k: 'REAL STORIES', t: 'Journeys', d: 'Three owners, three weeks, the same leak. See how it played out.', href: '/journeys', c: '#38bdf8', ic: 'workflow', tint: 'rgba(56,189,248,.12)' },
   { k: 'THE TEAM', t: 'About us', d: 'The two founders behind StayBookt, and why we built it.', href: '/founders', c: '#a78bfa', ic: 'users', tint: 'rgba(167,139,250,.12)' },
 ];
 
@@ -469,8 +470,13 @@ export default function HomePage() {
           its own screen, which is now beat 3 of the film itself.
           Do not put a card back here. */}
 
-      {/* 3 — THE SECRET SAUCE (the story) */}
-      <JourneyMap />
+      {/* 3 — THE JOURNEY. Was JourneyMap.tsx: an abstract 4-beat pinned scroll-scrub
+          (wheel graphic, photo cross-dissolves). Retired (Jacob + Richard, Jul 30 2026) for
+          the concrete customer journey that used to live only on /how-it-works — real
+          scenes, an owner-voice line per milestone, ordinary scroll instead of a pinned
+          track. /how-it-works is retiring because this IS how it works now. See the header
+          comment in HomeJourney.tsx for the full reasoning. */}
+      <HomeJourney />
 
       {/* THE PAYOFF. The film ends on the $199 reveal, on black, and dissolves straight
              into this scene: the life the whole thing is for. fromBlack makes the image

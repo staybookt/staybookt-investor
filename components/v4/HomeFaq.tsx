@@ -28,7 +28,9 @@ const QS: Q[] = [
        suggestions, not just comments, and he diffs the doc against the site word-for-word:
        a paraphrase of his edit reads as "not implemented". Take his words exactly. */
     a: 'Both. The AI handles the everyday calls, texts, and bookings in your voice, and a real person on our team steps in on anything unusual before it reaches your customer. All-human costs put a big dent in the bottom line. All-AI drops the calls that matter. You get the best of both worlds for a reasonable price.',
-    more: { href: '/how-it-works', label: 'See how it runs' },
+    /* WAS /how-it-works (Jul 30 2026: page retired, its content is now the journey right
+       above this FAQ on this same page). Repointed to the included ledger. */
+    more: { href: '/pricing', label: 'See what is included' },
   },
   {
     k: 'The service', c: '#38bdf8',
@@ -38,7 +40,9 @@ const QS: Q[] = [
        every FAQ on the site follows this, this one just slipped through. */
     q: 'Do I need to get a new cell phone number?',
     a: 'No. Your number stays your number: you forward your existing line to us, which takes about five minutes with your carrier, and you can undo it yourself any time. We never take control of your number, and we never make you move it.',
-    more: { href: '/how-it-works', label: 'See how it runs' },
+    /* WAS /how-it-works (Jul 30 2026: page retired, its content is now the journey right
+       above this FAQ on this same page). Repointed to the included ledger. */
+    more: { href: '/pricing', label: 'See what is included' },
   },
   {
     k: 'The money', c: '#818cf8',

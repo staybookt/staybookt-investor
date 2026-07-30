@@ -13,9 +13,11 @@ const GHOSTS: { source: string; destination: string }[] = [
   { source: '/about', destination: '/founders' },
   { source: '/team', destination: '/founders' },
   { source: '/manifesto', destination: '/founders' },
-  { source: '/platform', destination: '/how-it-works' },
-  { source: '/why-a-website', destination: '/how-it-works' },
-  { source: '/is-this-for-me', destination: '/how-it-works' },
+  // WAS -> /how-it-works. That page is retiring (see BENCHED below); repointed to the
+  // homepage, which now carries the journey these three used to send people to read.
+  { source: '/platform', destination: '/' },
+  { source: '/why-a-website', destination: '/' },
+  { source: '/is-this-for-me', destination: '/' },
   { source: '/economics', destination: '/pricing' },
   // /whats-included MERGED INTO /pricing (Jacob + Richard, Jul 23 2026). The chart page was
   // the stronger of the two pricing-ish pages, so it became /pricing. Permanent so Google
@@ -52,6 +54,11 @@ const GHOSTS: { source: string; destination: string }[] = [
  * The page moved to /long-term. If that name survives a month, this can become a 308. */
 const BENCHED: { source: string; destination: string }[] = [
   { source: '/enjoy-life', destination: '/long-term' },
+  // /how-it-works RETIRED (Jacob + Richard, Jul 30 2026): its content is now the homepage
+  // journey (HomeJourney.tsx). 307 not 308 on purpose, same discipline as every other
+  // volatile route on this file — this is a same-day call, not yet a month-proven one.
+  // Promote to GHOSTS (permanent) once it has survived a review cycle.
+  { source: '/how-it-works', destination: '/' },
 ];
 
 const nextConfig: NextConfig = {

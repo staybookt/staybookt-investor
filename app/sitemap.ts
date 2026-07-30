@@ -8,7 +8,8 @@ const BASE = 'https://www.staybookt.com';
  * live site rather than the fabricated before/after it used to. */
 const PATHS = [
   '/',
-  '/how-it-works',
+  // /how-it-works retired (Jul 30 2026), 307 to '/' — see next.config.ts. Its content is
+  // now the homepage journey, so this line drops per the rule above.
   '/pricing',
   '/long-term',
   '/journeys',

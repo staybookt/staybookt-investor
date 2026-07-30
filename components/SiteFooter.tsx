@@ -25,7 +25,8 @@ const SITE = [
   { href: '/founders', label: 'About us' },
   { href: '/pricing', label: 'Pricing' },
   { href: '/journeys', label: 'Journeys' },
-  { href: '/how-it-works', label: 'How it works' },
+  // How it works dropped (Jul 30 2026) — mirrors Nav.tsx. The homepage carries the
+  // journey now. See the note in Nav.tsx for the reasoning.
   { href: '/long-term', label: 'Long-term value' },
   { href: '/contact', label: 'Contact' },
 ];
