@@ -164,8 +164,16 @@ const CSS = `
    the content sits inside a .value-lead wrapper at the same 680px measure as .us-lead
    above it, instead of each element carrying its own one-off max-width. Border-top dropped:
    .abt-us doesn't use one either, and both sections are the same cream, so a hairline
-   between them separated nothing. */
-.abt-value{padding:clamp(90px,12vw,150px) 0;background:var(--v4-cream);}
+   between them separated nothing.
+
+   TOP PADDING TIGHTENED (Jacob, same day: "look slike too big of a gap here", pointing at
+   the space between the founder quotes and THE ONE FACT eyebrow). Both sections use the
+   standard clamp(90px,12vw,150px) section padding, so back to back on the same cream
+   background that stacked to as much as 300px of blank space with nothing to break it up
+   — a real section boundary elsewhere on the site usually gets that much room because the
+   background or a divider is doing work too, and here neither was. Bottom padding stays
+   full: that edge transitions into RemovalTest's dark film and still needs the room. */
+.abt-value{padding:clamp(20px,2.5vw,32px) 0 clamp(90px,12vw,150px);background:var(--v4-cream);}
 .abt-value .value-lead{max-width:680px;}
 .abt-value h2{margin-top:14px;font-size:clamp(28px,4.2vw,54px);line-height:1.04;}
 .abt-value p{margin-top:16px;font-size:clamp(17px,1.9vw,20px);line-height:1.6;color:#69707d;}
