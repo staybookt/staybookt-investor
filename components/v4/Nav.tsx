@@ -33,8 +33,15 @@ import { START_LINK } from '@/lib/site';
    LONG-TERM VALUE DROPPED FROM THE NAV TOO (Jacob + Richard, same day). Its content
    merged into /founders instead of staying a fourth standalone page — Richard's feedback
    on the content ("I like the combo") led to the follow-up call to stop giving it its own
-   door. /long-term 307s to /founders#long-term-value. Three tabs now, not four. */
+   door. /long-term 307s to /founders#long-term-value. Three tabs now, not four.
+
+   HOME ADDED (Jacob, Jul 30 2026): "we need a home tab in the nav." The wordmark itself
+   already links to "/" (see the `<a href="/" className="mark">` below), but that is not
+   obviously clickable-as-navigation to every visitor — a wordmark reads as a logo first,
+   a link second. An explicit Home tab removes the ambiguity. Goes first, ahead of About
+   us: it is where the argument starts, not a fourth stop after it. Four tabs now. */
 const LINKS = [
+  { href: '/', label: 'Home' },
   { href: '/founders', label: 'About us' },
   /* "What's included" MERGED INTO Pricing (Jacob + Richard, Jul 23 2026); /whats-included
      308s to /pricing. */

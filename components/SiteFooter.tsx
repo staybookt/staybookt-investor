@@ -22,6 +22,9 @@ import { START_LINK, EMAIL, PHONE_DISPLAY, PHONE_HREF } from '@/lib/site';
 const SITE = [
   /* mirrors the nav order (Jacob, July 27): About / Pricing / Journeys. Change one,
      change the other. */
+  // Home added (Jacob, Jul 30 2026) — mirrors Nav.tsx, same reasoning: the wordmark
+  // above already links here, but an explicit tab removes the ambiguity. Goes first.
+  { href: '/', label: 'Home' },
   { href: '/founders', label: 'About us' },
   { href: '/pricing', label: 'Pricing' },
   { href: '/journeys', label: 'Journeys' },
