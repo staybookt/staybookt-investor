@@ -658,16 +658,20 @@ export default function HomeJourney() {
              * two locked lines: wordmark on line 1, payoff on line 2.
              *
              * Round 9 (Jacob, same day): "Enjoy Life." on line 2 was now redundant — the
-             * hero directly above already pays off on those exact words, so saying them
-             * again immediately below reads as an echo, not a second beat. Swapped for
-             * "Do more of what you love," which says the same outcome without repeating
-             * the hero's own words, and rhymes with copy already living in the Enjoy Life
-             * milestone's choice card below ("Keep it, and love it — go back to the part
-             * of the work you actually enjoy"), so the payoff now points at content on
-             * this page instead of pointing back at the hero. */}
+             * hero directly above already paid off on those exact words, so saying them
+             * again immediately below read as an echo, not a second beat. Swapped for "Do
+             * more of what you love."
+             *
+             * Round 10 (Jacob, same day): resolved the redundancy from the other end
+             * instead. The hero's own payoff line changed — "Enjoy Life" moved out of
+             * app/page.tsx's h1 entirely, replaced there by "What You Love" (see the round
+             * 10 comment in page.tsx). That freed "Enjoy Life." back up here: it no longer
+             * echoes anything above it, so this line reverts to exactly the site's own
+             * tagline, both halves gradient — round 8's version. "Do more of what you
+             * love." moved to the hero instead of living in two places at once. */}
           <div className="jhead">
             <div className="eyebrow">The three milestones</div>
-            <h2><span className="g">StayBookt.</span><br /><span className="g">Do more of what you love.</span></h2>
+            <h2><span className="g">StayBookt.</span><br /><span className="g">Enjoy Life.</span></h2>
             <p>The phone rings. The work gets done. Your call.</p>
           </div>
           <div className="hj-jmap" ref={mapRef}>

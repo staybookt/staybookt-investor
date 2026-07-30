@@ -402,13 +402,21 @@ export default function HomePage() {
             camera roll of the life the business buys, below. No full-bleed image behind the type. */}
         <div className="wrap inner">
           <Reveal className="eyebrow" as="div">For owner-operated service businesses</Reveal>
-          {/* Two-stage reveal (Jacob, Jul 23 2026): the clause fades up first, then "Enjoy Life"
-              — the brand payoff, in the gradient — lands on its own. Headline ends on the brand
-              name. Animation lives in PAGE_CSS under prefers-reduced-motion:no-preference. */}
+          {/* Two-stage reveal (Jacob, Jul 23 2026): the clause fades up first, then the payoff
+              lands on its own in the gradient. Animation lives in PAGE_CSS under
+              prefers-reduced-motion:no-preference.
+              Jul 30 2026: "Enjoy Life" moved OUT of the hero and into the journey section
+              below (see HomeJourney.tsx round 10) — it was reading as an abstract payoff next
+              to the very concrete subhead. "What You Love" replaces it as the gradient
+              punchline: more specific, still ends the sentence started by hl1. hl1 grew from
+              "to" -&gt; "to do more of" (12 more chars); hl2 grew from "Enjoy Life" -&gt; "What You
+              Love" (3 more chars) — both still well inside the nowrap budget line 1 already
+              proved out down to a 320px viewport (see the vw-clamp comment below), so the
+              shrink-to-fit mechanics don't need to change, only the words. */}
           <Reveal>
             <h1 className="hero-h1">
-              <span className="hl1">You built your business to</span>
-              <span className="hl2"><span className="g">Enjoy Life</span><span className="pd">.</span></span>
+              <span className="hl1">You built your business to do more of</span>
+              <span className="hl2"><span className="g">What You Love</span><span className="pd">.</span></span>
             </h1>
           </Reveal>
           {/* THE HERO SUBHEAD IS BACK, REWRITTEN (Jacob, July 23 2026). The old one held the
