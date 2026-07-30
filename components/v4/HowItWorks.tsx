@@ -124,7 +124,10 @@ const FAQ: { k: string; c: string; q: string; a: string }[] = [
      answer-first opener. Missed in the earlier doc-sync pass; caught when he flagged the
      live page still showing the old question. */
   { k: 'The service', c: '#0ea5e9', q: 'Do I need to get a new cell phone number?', a: 'No. Your number stays your number, and nothing changes for the people who call it. You forward your existing line to us, which takes about five minutes with your carrier, and you can undo it yourself any time. We never take control of your number, and we never make you move it.' },
-  { k: 'Your part', c: '#10b981', q: 'What is required of me to implement StayBookt?', a: 'A little at the start, and we walk you through it: forwarding your phone takes about five minutes, and the first couple of weeks we learn your business, which takes a few conversations with you. After that, not much changes except your week gets lighter. You get one simple place to see your quotes, your customers and what went out, and a thirty-second brief each morning.' },
+  /* RICHARD'S SUGGESTED WORDING, VERBATIM (FAQ doc, Jul 28 10:26am): full answer replaced,
+     opens "Limited." (his edit from "No"), then explains. Shorter and more concrete than
+     the earlier version. */
+  { k: 'Your part', c: '#10b981', q: 'What is required of me to implement StayBookt?', a: 'Limited. There is no app to learn from and nothing to log in to unless you want to. We run the work. You get one short brief a day, and you make the calls only you can make.' },
   { k: 'Your part', c: '#10b981', q: 'What do I still have to do?', a: 'Short list, and if it grows, we built the wrong thing. You show up and do the job. You make the big calls: your prices, new services, who you hire, where you work. A couple of times a week we ask what you would do on an odd one. And thirty seconds on the morning brief. That is it.' },
   { k: 'Your part', c: '#10b981', q: 'Do you dispatch my crew?', a: 'No. We book the work and hand you a clean calendar. Who goes where, and in which truck, is still your call.' },
   { k: 'The build', c: '#7c3aed', q: 'What if I already have a website?', a: 'We take a look at it first. If it is doing the job, we build around it. If it is holding you back, we replace it. Either way, you are not stuck with something that never brings you a call.' },
