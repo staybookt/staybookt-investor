@@ -184,23 +184,29 @@ const CSS = `
 
 /* PAYOFF SPLIT, added same day the section got de-densified (see the comment above the JSX).
    Left column keeps reading as prose (the kick quote + one tightened paragraph). Right column
-   is a distinct white card, not more paragraphs — that contrast (text vs. object) is what breaks
-   the "novel" feeling, the same job the RemovalTest film does one scroll later. Full .wrap width
-   (1080px), not the 680px .value-lead measure above it — this is the same move .abt-us makes
-   going from its own single-column .us-lead into the two-up .fgrid. */
+   is a short list, not more paragraphs — that contrast (prose vs. a plain stacked list) is what
+   breaks the "novel" feeling, the same job the RemovalTest film does one scroll later. Full
+   .wrap width (1080px), not the 680px .value-lead measure above it — this is the same move
+   .abt-us makes going from its own single-column .us-lead into the two-up .fgrid.
+
+   FIRST PASS PUT THIS LIST IN A WHITE CARD (bg, border-radius, box-shadow, dot bullets, hairline
+   footer). Jacob, same day: "this doesn't pass the Apple test." He's right — nothing else on
+   this page sits in a boxed card, and a shadowed white box with an uppercase label and colored
+   dot bullets is the generic B2B-SaaS feature-card pattern, not this site's language. Reworked
+   as a plain spec-sheet list instead: no background, no border-radius, no shadow, no bullets.
+   Hairline rules run BETWEEN rows only (the way a spec table divides rows, not the way a card
+   draws a boundary around itself) so it still reads as a distinct object next to the prose
+   without ever putting a box on the page. */
 .abt-value .vgrid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
   gap:clamp(32px,5vw,64px);align-items:start;margin-top:clamp(40px,5.5vw,60px);}
 @media(max-width:820px){.abt-value .vgrid{grid-template-columns:1fr;gap:36px;}}
-.abt-value .checkcard{background:#fff;border:1px solid #ececeb;border-radius:20px;
-  padding:clamp(24px,3vw,32px);box-shadow:0 26px 54px -34px rgba(6,12,20,.2);}
+.abt-value .checklist{padding-top:clamp(4px,.6vw,8px);}
 .abt-value .cc-k{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#69707d;}
-.abt-value .cc-list{list-style:none;margin:18px 0 0;padding:0;display:flex;flex-direction:column;gap:14px;}
-.abt-value .cc-list li{display:flex;align-items:flex-start;gap:11px;font-size:15.5px;font-weight:600;
-  letter-spacing:-.01em;color:var(--v4-ink);line-height:1.4;}
-.abt-value .cc-list li::before{content:'';flex:0 0 auto;width:8px;height:8px;margin-top:7px;
-  border-radius:50%;background:var(--sb-grad);}
-.abt-value .cc-close{margin-top:18px;padding-top:16px;border-top:1px solid #ececeb;
-  font-size:14px;line-height:1.5;color:#69707d;}
+.abt-value .cc-list{list-style:none;margin:20px 0 0;padding:0;display:flex;flex-direction:column;}
+.abt-value .cc-list li{padding:clamp(13px,1.5vw,16px) 0;font-size:clamp(16.5px,1.7vw,19px);font-weight:600;
+  letter-spacing:-.01em;line-height:1.35;color:var(--v4-ink);border-top:1px solid rgba(6,8,13,.1);}
+.abt-value .cc-list li:first-child{border-top:none;}
+.abt-value .cc-close{margin-top:clamp(20px,2.4vw,26px);font-size:15px;line-height:1.55;color:#69707d;}
 
 /* ===== 5. THE PROMISES. The one object on the page. ===== */
 .abt-prm{background:#050506;padding:clamp(90px,12vw,150px) 0;}
@@ -374,7 +380,7 @@ export default function AboutPage() {
               </div>
             </Reveal>
             <Reveal>
-              <div className="checkcard">
+              <div className="checklist">
                 <div className="cc-k">What a buyer actually checks</div>
                 <ul className="cc-list">
                   <li>Repeatable channel revenue</li>
