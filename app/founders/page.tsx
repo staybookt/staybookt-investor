@@ -180,8 +180,14 @@ const CSS = `
    before shipping a dark section on this page, they are the working reference for what "dark
    done right" looks like here, and this glow is lifted from them, not invented. */
 .abt-value{position:relative;overflow:hidden;padding:clamp(20px,2.5vw,32px) 0 clamp(90px,12vw,150px);background:#050506;}
+/* BOOSTED (same round): Jacob, live: "looks identical, no highlight gradient anywhere." He was
+   right to push back — .18 opacity anchored at 96% down the box put the bright core mostly past
+   where anyone actually looks before scrolling on. This is not a subtle tweak, it is 2-3x the
+   strength and twice the spread, with a mid-stop so the falloff reads as a real bloom instead of
+   fading out before it registers. Confirm with real pixel sampling after deploy, not just "the
+   CSS is technically there" — that is what shipped a technically-correct glow nobody could see. */
 .abt-value::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
-  background:radial-gradient(60% 55% at 50% 96%,rgba(79,70,229,.18),transparent 66%);}
+  background:radial-gradient(85% 80% at 50% 90%,rgba(99,91,244,.45),rgba(79,70,229,.22) 42%,transparent 74%);}
 .abt-value .wrap{position:relative;z-index:1;}
 .abt-value .value-lead{max-width:680px;}
 .abt-value .eyebrow{color:#86868b;}
