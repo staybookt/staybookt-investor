@@ -32,8 +32,12 @@ const QS: Q[] = [
   },
   {
     k: 'The service', c: '#38bdf8',
-    q: 'How does my phone actually get answered?',
-    a: 'Your number stays your number. You forward your existing line to us; it takes about 5 minutes with your carrier, and you can undo it yourself anytime. We never take control of your number, and we never make you move it.',
+    /* RICHARD'S EDIT (FAQ doc, Jul 28 9:56am): replaced the question and added the "No."
+       answer-first opener. Missed in the earlier doc-sync pass; caught when he flagged the
+       live page still showing the old question. Answer the question first, then explain:
+       every FAQ on the site follows this, this one just slipped through. */
+    q: 'Do I need to get a new cell phone number?',
+    a: 'No. Your number stays your number: you forward your existing line to us, which takes about five minutes with your carrier, and you can undo it yourself any time. We never take control of your number, and we never make you move it.',
     more: { href: '/how-it-works', label: 'See how it runs' },
   },
   {
