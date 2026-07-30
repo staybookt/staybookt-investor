@@ -924,7 +924,10 @@ export default function HomeJourney() {
                    of just a headline, which also answers the brief's ask to elevate this
                    moment rather than just resize it. */}
                 <EnjoyLifeScene />
-                <a className="jgo" href="/long-term">What it is worth later <span aria-hidden>&rarr;</span></a>
+                {/* /long-term merged into /founders (Jul 30 2026, later same session) —
+                   repointed to the merged section's own anchor instead of the now-retired
+                   standalone page. See next.config.ts for the 307. */}
+                <a className="jgo" href="/founders#long-term-value">What it is worth later <span aria-hidden>&rarr;</span></a>
               </div>
             </div>
           </div>

@@ -1,6 +1,8 @@
 import Nav from '@/components/v4/Nav';
 import SiteFooter from '@/components/SiteFooter';
 import HeroCta from '@/components/v4/HeroCta';
+import Reveal from '@/components/v4/Reveal';
+import RemovalTest from '@/components/v4/RemovalTest';
 import { min } from '@/lib/css';
 
 /* WHAT THIS PAGE IS FOR.
@@ -11,7 +13,17 @@ import { min } from '@/lib/css';
  * About costume, and the four things an About page actually owes — why we exist,
  * who we are, why we are doing this, what we promise — were crammed underneath.
  *
- * So it is inverted. Belief. People. Origin. Promises. Nothing else. */
+ * So it is inverted. Belief. People. Origin. Promises. Nothing else.
+ *
+ * /LONG-TERM MERGED IN HERE (Jacob + Richard, Jul 30 2026). Richard's feedback on that
+ * page's content was "my suggestions would come after the quotes... I like the combo... I
+ * think it was a good suggestion" — his call on where his added paragraphs sit relative to
+ * the page's own pull-quote. The follow-up call, once that content was in, was to stop
+ * running it as a fourth standalone page and fold it into this one instead: read the
+ * founders, trust the people, then hear the actual business case for why long-term value
+ * is the whole point, one page instead of two. /long-term now 307s to
+ * /founders#long-term-value — see next.config.ts. The section below is a straight port of
+ * that page's "one fact" copy and its RemovalTest film, unchanged in substance. */
 
 const SHARE =
   'You should not have to choose between doing the work and having a life. That is the whole reason StayBookt exists.';
@@ -140,6 +152,20 @@ const CSS = `
    default centre lands the crop window on the chest and takes the top of the head
    off. .fcard img biases the window upward; Jacob's frame sits higher still, so he
    gets .hi (center top). */
+
+/* ===== 4. WHY THIS MATTERS LONG-TERM. Ported from /long-term (Jul 30 2026), same
+   .lt-sec/.lt-kick values that page shipped with, renamed into this page's own .abt-value
+   namespace. Explicit cream background (matches .abt-us right above it) so the founders
+   section and this one read as one continuous light zone before RemovalTest's dark film
+   breaks it up — the same two-tone rhythm /long-term itself used (light section, then the
+   dark pinned film, then the dark closing door). ===== */
+.abt-value{padding:clamp(80px,11vw,140px) 0;border-top:1px solid #e6e6e1;background:var(--v4-cream);}
+.abt-value h2{margin-top:14px;font-size:clamp(30px,4.4vw,56px);line-height:1.03;max-width:18ch;}
+.abt-value p{margin-top:22px;font-size:clamp(16.5px,1.9vw,20px);line-height:1.65;color:#42474f;max-width:62ch;}
+.abt-value p b{font-weight:600;color:var(--v4-ink);}
+.abt-value .kick{margin-top:clamp(34px,4vw,46px);padding-left:clamp(16px,2vw,22px);border-left:3px solid transparent;
+  border-image:var(--sb-grad-ink) 1;font-size:clamp(20px,2.6vw,32px);font-weight:600;letter-spacing:-.025em;
+  line-height:1.25;color:var(--v4-ink);max-width:24ch;}
 
 /* ===== 5. THE PROMISES. The one object on the page. ===== */
 .abt-prm{background:#050506;padding:clamp(90px,12vw,150px) 0;}
@@ -270,11 +296,62 @@ export default function AboutPage() {
           section between the founders and the close. The Promises component still exists, just not
           rendered here. */}
 
+      {/* 3 — WHY THIS MATTERS LONG-TERM. Merged in from /long-term (Jul 30 2026, see the page-top
+          comment). Content unchanged from what shipped there: the one fact, the lt-kick
+          pull-quote, Richard's three expanded paragraphs (added the same day, right after the
+          quote per his own feedback), then the RemovalTest film as the proof, not just prose. */}
+      <section className="abt-value" id="long-term-value">
+        <div className="wrap">
+          <Reveal className="eyebrow" as="div">The one fact</Reveal>
+          <Reveal><h2>If it cannot run without you, there is nothing to hand anyone.</h2></Reveal>
+          <Reveal>
+            <p>
+              A buyer is not buying your van and your customer list. <b>They are buying
+              whether any of it works when you are not standing there.</b> The more the answer to
+              every question is you, the harder it is to hand over, and the less anyone will pay for
+              it. That is not our opinion. Ask anyone who buys these businesses for a living.
+            </p>
+          </Reveal>
+          <Reveal><div className="kick">Build long-term wealth, not a job.</div></Reveal>
+          <Reveal>
+            <p>
+              If your business would go backwards without you, a buyer is not going to pay
+              you a lot of money. So you need to plan today, to have a business to sell in
+              the future.
+            </p>
+          </Reveal>
+          <Reveal>
+            <p>
+              To maximize your business value, you do not want to be in a position where you
+              are selling assets and a customer list. That happens when the business is run
+              on your cell phone and the customers go away when you leave. Buyers want
+              businesses that can work when the owner is not standing there. Otherwise, what
+              are they buying?
+            </p>
+          </Reveal>
+          <Reveal>
+            <p>
+              You need to demonstrate repeatable channel revenue, strong repeat business,
+              healthy referral levels, day-to-day operations run by systems, not sheer will,
+              and an impressive online presence associated with the business, not the owner.
+              Most buyers do not want to buy a job. They want a business that has a path to
+              grow.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      <RemovalTest />
+
       {/* Close, Richard's copy: "We are your operating partner. To help you build something great."
-          Subtext dropped. NOT fromBlack any more: the section above is the light cream founders
-          section now, not the dark promise board. Image unchanged for now; Richard wants a
-          celebrating-success shot, which needs a real asset. */}
+          Subtext dropped. fromBlack IS BACK (Jul 30 2026): it was correctly dropped when the
+          section right above this was the light cream founders section, but the /long-term merge
+          just inserted RemovalTest directly above this CTA, and that film ends on solid #050506
+          (see its own comment on /long-term's old HeroCta call, ported verbatim below) — without
+          fromBlack this would fade in from cream over black, a visible seam. Image unchanged for
+          now; Richard wants a celebrating-success shot, which needs a real asset. */}
       <HeroCta
+        fromBlack
         img="/close-founders.jpg"
         heading={<>We are your operating partner. To help you build something great.</>}
         sub={null}

@@ -10,8 +10,9 @@ const PATHS = [
   '/',
   // /how-it-works retired (Jul 30 2026), 307 to '/' — see next.config.ts. Its content is
   // now the homepage journey, so this line drops per the rule above.
+  // /long-term retired too (Jul 30 2026, same day), 307 to /founders#long-term-value —
+  // merged into the About Us page. Same rule, this line drops.
   '/pricing',
-  '/long-term',
   '/journeys',
   '/journeys/home-service',
   '/journeys/consultant',

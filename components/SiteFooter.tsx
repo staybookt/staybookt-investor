@@ -20,14 +20,15 @@ import { START_LINK, EMAIL, PHONE_DISPLAY, PHONE_HREF } from '@/lib/site';
  *
  * The work and Contact are footer-only, so they sit after the four the nav carries. */
 const SITE = [
-  /* mirrors the nav order (Jacob, July 27): About / Pricing / Journeys / How it works /
-     Long-term value. Change one, change the other. */
+  /* mirrors the nav order (Jacob, July 27): About / Pricing / Journeys. Change one,
+     change the other. */
   { href: '/founders', label: 'About us' },
   { href: '/pricing', label: 'Pricing' },
   { href: '/journeys', label: 'Journeys' },
   // How it works dropped (Jul 30 2026) — mirrors Nav.tsx. The homepage carries the
   // journey now. See the note in Nav.tsx for the reasoning.
-  { href: '/long-term', label: 'Long-term value' },
+  // Long-term value dropped too (Jul 30 2026, same day) — merged into /founders instead
+  // of staying a standalone page. See Nav.tsx for the reasoning.
   { href: '/contact', label: 'Contact' },
 ];
 

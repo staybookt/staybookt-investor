@@ -28,7 +28,12 @@ import { START_LINK } from '@/lib/site';
    HOW IT WORKS DROPPED FROM THE NAV (Jacob + Richard, Jul 30 2026). The homepage now
    opens with the concrete customer journey that page used to own — see HomeJourney.tsx
    and app/page.tsx. Keeping a tab for a page whose entire content now lives one scroll
-   into the homepage would just be two doors to the same room. Four tabs, not five. */
+   into the homepage would just be two doors to the same room.
+
+   LONG-TERM VALUE DROPPED FROM THE NAV TOO (Jacob + Richard, same day). Its content
+   merged into /founders instead of staying a fourth standalone page — Richard's feedback
+   on the content ("I like the combo") led to the follow-up call to stop giving it its own
+   door. /long-term 307s to /founders#long-term-value. Three tabs now, not four. */
 const LINKS = [
   { href: '/founders', label: 'About us' },
   /* "What's included" MERGED INTO Pricing (Jacob + Richard, Jul 23 2026); /whats-included
@@ -36,8 +41,6 @@ const LINKS = [
   { href: '/pricing', label: 'Pricing' },
   /* 'Journeys': mini landing routing to three profession pages (July 27 restructure). */
   { href: '/journeys', label: 'Journeys' },
-  /* Label is Richard's words (July 14): "focus on long-term value as a stand alone." */
-  { href: '/long-term', label: 'Long-term value' },
 ];
 
 /* Fixed dark nav that solidifies (blur + border) once the user scrolls past

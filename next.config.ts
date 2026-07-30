@@ -23,10 +23,11 @@ const GHOSTS: { source: string; destination: string }[] = [
   // the stronger of the two pricing-ish pages, so it became /pricing. Permanent so Google
   // drops /whats-included and passes its equity to the merged page.
   { source: '/whats-included', destination: '/pricing' },
-  // /long-term IS A REAL PAGE (Richard, review round 2, July 2026). It was a ghost, then the
-  // same argument shipped at /enjoy-life, and Richard called that "the weakest part of the
-  // site" because the title promised a feeling while the page argued economics. It is back at
-  // the URL that always described it. /economics stays dead.
+  // /long-term WAS its own real page (Richard, review round 2, July 2026), then got merged
+  // into /founders (Jul 30 2026): Richard's feedback on its content ("my suggestions would
+  // come after the quotes... I like the combo") led to combining the two rather than keeping
+  // both. See its 307 in BENCHED below — temporary, not permanent, same volatility discipline
+  // as every route on this file that has moved more than once. /economics stays dead.
   { source: '/proof', destination: '/journeys' },
   { source: '/work', destination: '/journeys' },
   { source: '/success-stories', destination: '/journeys' },
@@ -51,14 +52,23 @@ const GHOSTS: { source: string; destination: string }[] = [
 /* /enjoy-life is 307 (TEMPORARY) on purpose. This route has been a ghost, then a real page,
  * then renamed, all inside one day. A 308 is cached by the browser forever and tells Google
  * to drop the URL; using one on a route this volatile poisons it for anyone who saw it once.
- * The page moved to /long-term. If that name survives a month, this can become a 308. */
+ * The page moved to /long-term, and /long-term has now merged into /founders (Jul 30 2026,
+ * see below) — repointed directly to /founders so this does not chain through a dead middle
+ * hop. If /founders proves stable as the final home for this content, this can become a 308. */
 const BENCHED: { source: string; destination: string }[] = [
-  { source: '/enjoy-life', destination: '/long-term' },
+  { source: '/enjoy-life', destination: '/founders' },
   // /how-it-works RETIRED (Jacob + Richard, Jul 30 2026): its content is now the homepage
   // journey (HomeJourney.tsx). 307 not 308 on purpose, same discipline as every other
   // volatile route on this file — this is a same-day call, not yet a month-proven one.
   // Promote to GHOSTS (permanent) once it has survived a review cycle.
   { source: '/how-it-works', destination: '/' },
+  // /long-term RETIRED (Jacob + Richard, Jul 30 2026): merged into /founders as the
+  // "why this matters long-term" section, right after the founders are introduced. Richard's
+  // feedback on the content itself ("my suggestions would come after the quotes... I like the
+  // combo") was the trigger — once his added paragraphs were in and reviewed, folding the
+  // whole page into About Us rather than keeping two pages was the follow-up call. 307, same
+  // not-yet-month-proven discipline as /how-it-works above.
+  { source: '/long-term', destination: '/founders#long-term-value' },
 ];
 
 const nextConfig: NextConfig = {
