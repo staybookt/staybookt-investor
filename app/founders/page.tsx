@@ -216,19 +216,22 @@ const CSS = `
   background:var(--sb-grad-ink);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .abt-value .cc-t{font-size:clamp(16.5px,1.7vw,19px);font-weight:600;letter-spacing:-.01em;
   line-height:1.35;color:var(--v4-ink);}
-/* STAGGER-IN, keyed off the Reveal wrapper's own "in" class (added to .checklist once it
-   crosses the IntersectionObserver threshold — see Reveal.tsx) rather than wrapping each <li>
-   in its own Reveal: Reveal's as prop only supports div/section, and a Reveal-per-row would
-   also mean nesting a <div> inside this <ul>, which is invalid HTML. Pure CSS gets the same
-   cascade with none of that. */
+/* STAGGER-IN, keyed off the Reveal wrapper's own "in" class rather than wrapping each <li> in
+   its own Reveal: Reveal's as prop only supports div/section, and a Reveal-per-row would also
+   mean nesting a <div> inside this <ul>, which is invalid HTML. Pure CSS gets the same cascade
+   with none of that — BUT Reveal renders its OWN div around {children}, so "in" lands on that
+   wrapper, one level ABOVE .checklist, not on .checklist itself. .checklist.in (compound, same
+   element) never matches anything; .reveal.in .checklist (ancestor, two elements) does. First
+   push had the compound version — list sat at opacity:0 forever, invisible on the live site.
+   Caught reading the DOM after deploy, not from the diff. */
 .abt-value .checklist .cc-list li{opacity:0;transform:translateY(14px);
   transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1);}
-.abt-value .checklist.in .cc-list li{opacity:1;transform:none;}
-.abt-value .checklist.in .cc-list li:nth-child(1){transition-delay:.05s;}
-.abt-value .checklist.in .cc-list li:nth-child(2){transition-delay:.13s;}
-.abt-value .checklist.in .cc-list li:nth-child(3){transition-delay:.21s;}
-.abt-value .checklist.in .cc-list li:nth-child(4){transition-delay:.29s;}
-.abt-value .checklist.in .cc-list li:nth-child(5){transition-delay:.37s;}
+.abt-value .reveal.in .checklist .cc-list li{opacity:1;transform:none;}
+.abt-value .reveal.in .checklist .cc-list li:nth-child(1){transition-delay:.05s;}
+.abt-value .reveal.in .checklist .cc-list li:nth-child(2){transition-delay:.13s;}
+.abt-value .reveal.in .checklist .cc-list li:nth-child(3){transition-delay:.21s;}
+.abt-value .reveal.in .checklist .cc-list li:nth-child(4){transition-delay:.29s;}
+.abt-value .reveal.in .checklist .cc-list li:nth-child(5){transition-delay:.37s;}
 @media(prefers-reduced-motion:reduce){.abt-value .checklist .cc-list li{opacity:1;transform:none;transition:none;}}
 /* CLOSING LINE MOVED HERE from the bottom of the checklist (was .cc-close) so the left column
    ends on a beat instead of stopping a full row of whitespace above where the right column
