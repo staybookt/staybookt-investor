@@ -110,15 +110,21 @@ const QS: Q[] = [
     k: 'The money',
     c: '#4f46e5',
     q: 'Is $199 really the whole number?',
-    a: 'Almost. It is $199 CAD a month plus tax, and two things sit outside that. Your domain registration, about twenty dollars a year, passed through at cost and yours anyway. And if you take card payments, Stripe or Square charge their own fee, around 2.9% plus thirty cents, taken out of what you collect like any card processing. That fee is theirs, not ours: we do not mark it up, and we take no cut of it. No build fee, no setup fee, no add-ons, no per-minute billing, no overage. And no back end either: no commission on your jobs, no share of your revenue, and no share of what the business is worth if you sell it. We would rather tell you about twenty dollars and a card fee now than have you find them on an invoice later.',
+    /* Richard, FAQ doc, Jul 28 10:14am: deleted the closing line "We would rather tell you
+       about twenty dollars and a card fee now than have you find them on an invoice
+       later." Answer ends on the back-end list now. */
+    a: 'Almost. It is $199 CAD a month plus tax, and two things sit outside that. Your domain registration, about twenty dollars a year, passed through at cost and yours anyway. And if you take card payments, Stripe or Square charge their own fee, around 2.9% plus thirty cents, taken out of what you collect like any card processing. That fee is theirs, not ours: we do not mark it up, and we take no cut of it. No build fee, no setup fee, no add-ons, no per-minute billing, no overage. And no back end either: no commission on your jobs, no share of your revenue, and no share of what the business is worth if you sell it.',
   },
   {
     k: 'The catch',
     c: '#7c3aed',
-    q: 'Only $199 a month. So where is the catch?',
-    /* RICHARD'S SUGGESTED WORDING, VERBATIM (FAQ doc suggestion-mode, Jul 28). The earlier
-       paraphrase of this read to him as "not implemented" — he diffs word-for-word. */
-    a: 'There is not one. We have leveraged technology to create a very efficient solution that allows relatively few people (very low overhead) and have built many aspects of the platform ourselves. This allows us to be able to offer exceptional value at very attractive pricing.',
+    /* RICHARD'S SUGGESTED WORDING, VERBATIM (FAQ doc suggestion-mode, Jul 28 10:14-10:15am).
+       Question rewritten as a real question, in the site's $199/mth price format ("Only
+       $199 a month." was a statement); "where" replaced with "what's". Answer opens with
+       the direct "None." then explains, same answer-first pattern as every other FAQ. The
+       earlier paraphrase of this read to him as "not implemented" — he diffs word-for-word. */
+    q: "Only $199/mth? So what's the catch?",
+    a: 'None. We have leveraged technology to create a very efficient solution that allows relatively few people (very low overhead) and have built many aspects of the platform ourselves. This allows us to be able to offer exceptional value at very attractive pricing.',
   },
 ];
 
