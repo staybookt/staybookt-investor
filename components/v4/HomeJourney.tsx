@@ -671,15 +671,21 @@ export default function HomeJourney() {
              * instead of living in two places at once.
              *
              * Round 11 (Jacob, same day): only "StayBookt." — the wordmark — gets the
-             * gradient, per the round 8 rule. "Enjoy Life." on line 2 is plain dark text
-             * now: it's the rest of the tagline, not a second brand mark, so it does not
-             * get the same treatment. Subhead expanded from one short beat line to two
-             * plain sentences that actually say what StayBookt does (answers the phone,
-             * books the job, chases the invoice — pulled from the same three jobs named in
-             * the price ledger below) before pointing at the map. */}
+             * gradient, per the round 8 rule. "Enjoy Life." is plain dark text now: it's
+             * the rest of the tagline, not a second brand mark, so it does not get the same
+             * treatment. Subhead expanded from one short beat line to two plain sentences
+             * that actually say what StayBookt does (answers the phone, books the job,
+             * chases the invoice — pulled from the same three jobs named in the price
+             * ledger below) before pointing at the map.
+             *
+             * Round 12 (Jacob, same day): dropped the forced line break — "StayBookt.
+             * Enjoy Life." is short enough (22 characters) to sit on one line at this
+             * section's font size, same way it already does in the nav wordmark, so the
+             * forced 2-line split here was unnecessary; it wraps on its own if a viewport
+             * ever gets too narrow to hold it. */}
           <div className="jhead">
             <div className="eyebrow">The three milestones</div>
-            <h2><span className="g">StayBookt.</span><br />Enjoy Life.</h2>
+            <h2><span className="g">StayBookt.</span> Enjoy Life.</h2>
             <p>
               StayBookt answers your phone, books the job, and chases the invoice, day or
               night. Here is exactly what changes at each of the three milestones, and what
