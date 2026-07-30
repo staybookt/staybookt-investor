@@ -60,7 +60,10 @@ const QS: Q[] = [
     k: 'The money',
     c: '#4f46e5',
     q: 'When does the $199 start?',
-    /* Approved addition (Richard: "Ok to add" + "Agree with the start timing"). */
+    /* Approved addition (Richard: "Ok to add" + "Agree with the start timing"). Richard
+       flagged this with "confirm the billing trigger before publishing" (FAQ doc, Jul 28
+       10:26am). Confirmed by Jacob: you do not pay until the platform is up and running.
+       No text change needed, the answer already said this; the flag is resolved. */
     a: 'When you go live, not before; we build everything up front, and the monthly fee starts once we are actually answering your calls and running the work.',
   },
   {
