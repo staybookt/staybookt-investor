@@ -203,10 +203,37 @@ const CSS = `
 .abt-value .checklist{padding-top:clamp(4px,.6vw,8px);}
 .abt-value .cc-k{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#69707d;}
 .abt-value .cc-list{list-style:none;margin:20px 0 0;padding:0;display:flex;flex-direction:column;}
-.abt-value .cc-list li{padding:clamp(13px,1.5vw,16px) 0;font-size:clamp(16.5px,1.7vw,19px);font-weight:600;
-  letter-spacing:-.01em;line-height:1.35;color:var(--v4-ink);border-top:1px solid rgba(6,8,13,.1);}
+.abt-value .cc-list li{display:flex;align-items:baseline;gap:clamp(14px,1.6vw,20px);
+  padding:clamp(15px,1.7vw,19px) 0;border-top:1px solid rgba(6,8,13,.1);}
 .abt-value .cc-list li:first-child{border-top:none;}
-.abt-value .cc-close{margin-top:clamp(20px,2.4vw,26px);font-size:15px;line-height:1.55;color:#69707d;}
+/* GRADIENT NUMERAL, the graphic anchor the row was missing (Jacob: "non graphic/animation,
+   doesn't pass Emma's sniff test"). Same --sb-grad-ink text-clip already used for every other
+   gradient numeral/wordmark on this site (see the note at the top of globals.css) — nothing
+   new invented, just applied here so the list has a color/weight anchor instead of five
+   identical rows of body-weight black text. */
+.abt-value .cc-n{flex:0 0 auto;min-width:1.6ch;font-size:clamp(19px,2.1vw,25px);font-weight:700;
+  letter-spacing:-.02em;font-variant-numeric:tabular-nums;
+  background:var(--sb-grad-ink);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.abt-value .cc-t{font-size:clamp(16.5px,1.7vw,19px);font-weight:600;letter-spacing:-.01em;
+  line-height:1.35;color:var(--v4-ink);}
+/* STAGGER-IN, keyed off the Reveal wrapper's own "in" class (added to .checklist once it
+   crosses the IntersectionObserver threshold — see Reveal.tsx) rather than wrapping each <li>
+   in its own Reveal: Reveal's as prop only supports div/section, and a Reveal-per-row would
+   also mean nesting a <div> inside this <ul>, which is invalid HTML. Pure CSS gets the same
+   cascade with none of that. */
+.abt-value .checklist .cc-list li{opacity:0;transform:translateY(14px);
+  transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1);}
+.abt-value .checklist.in .cc-list li{opacity:1;transform:none;}
+.abt-value .checklist.in .cc-list li:nth-child(1){transition-delay:.05s;}
+.abt-value .checklist.in .cc-list li:nth-child(2){transition-delay:.13s;}
+.abt-value .checklist.in .cc-list li:nth-child(3){transition-delay:.21s;}
+.abt-value .checklist.in .cc-list li:nth-child(4){transition-delay:.29s;}
+.abt-value .checklist.in .cc-list li:nth-child(5){transition-delay:.37s;}
+@media(prefers-reduced-motion:reduce){.abt-value .checklist .cc-list li{opacity:1;transform:none;transition:none;}}
+/* CLOSING LINE MOVED HERE from the bottom of the checklist (was .cc-close) so the left column
+   ends on a beat instead of stopping a full row of whitespace above where the right column
+   ends — the "unbalanced" half of the same note. */
+.abt-value .vcol .vclose{margin-top:clamp(20px,2.4vw,26px);font-weight:600;color:var(--v4-ink);}
 
 /* ===== 5. THE PROMISES. The one object on the page. ===== */
 .abt-prm{background:#050506;padding:clamp(90px,12vw,150px) 0;}
@@ -347,9 +374,23 @@ export default function AboutPage() {
           thing the opener and the pull-quote already said, three times in a row is not emphasis,
           it's the thing Jacob flagged. The buyer-diligence checklist (repeatable channel revenue,
           repeat business, referrals, systems, online presence) was prose pretending to be a list —
-          it's a real list now, in a card, using the dead space on the right instead of more lines
-          of gray text. Intro stays single-column at the .us-lead measure like before; the payoff
-          splits two-up, same move .abt-us already makes going from us-lead into fgrid. */}
+          it's a real list now, using the dead space on the right instead of more lines of gray
+          text. Intro stays single-column at the .us-lead measure like before; the payoff splits
+          two-up, same move .abt-us already makes going from us-lead into fgrid.
+
+          SECOND PASS (same day): the card got stripped per [[staybookt-no-card-chrome]] (see the
+          CSS comment below), but Jacob's next note was "looks unbalanced, non graphic/animation,
+          doesn't pass Emma's sniff test" — and he was right about that too. A plain hairline list
+          next to two short paragraphs left the left column ending a foot above the right one, and
+          five identical rows of bold text with nothing but dividers is still flat, no graphic
+          anchor, no motion. Two fixes, neither one a card: (1) each row now carries a light
+          gradient numeral (01–05) as the graphic element the section was missing — same
+          --sb-grad-ink text-clip technique used on every other gradient numeral/heading on this
+          site, nothing new invented; (2) the closing punchline moved from the bottom of the list
+          to the bottom of the left column, so both sides end on a beat instead of the right column
+          trailing on 100px past the left one empty. The stagger-in animation on the five rows is
+          in the CSS block below (.cc-list li), keyed off the existing Reveal wrapper's own
+          in-view class so it needed no changes to Reveal.tsx itself. */}
       <section className="abt-value" id="long-term-value">
         <div className="wrap">
           {/* .value-lead: same 680px measure as .us-lead above. */}
@@ -366,8 +407,9 @@ export default function AboutPage() {
           </Reveal>
           </div>
 
-          {/* Payoff splits two-up: the pull-quote and the "why" on the left, the buyer's actual
-             checklist as a scannable card on the right, not a fifth paragraph. */}
+          {/* Payoff splits two-up: the pull-quote, the "why", and the closing line on the left;
+             the buyer's actual checklist on the right. Both columns now end on a beat instead of
+             one trailing empty past the other. */}
           <div className="vgrid">
             <Reveal>
               <div className="vcol">
@@ -377,21 +419,21 @@ export default function AboutPage() {
                   that is not just assets and a customer list that goes quiet the moment you
                   leave. Buyers want a business that works whether you are standing there or not.
                 </p>
+                <p className="vclose">
+                  Most buyers do not want to buy a job. They want a business that has a path to grow.
+                </p>
               </div>
             </Reveal>
             <Reveal>
               <div className="checklist">
                 <div className="cc-k">What a buyer actually checks</div>
                 <ul className="cc-list">
-                  <li>Repeatable channel revenue</li>
-                  <li>Strong repeat business</li>
-                  <li>Healthy referral levels</li>
-                  <li>Operations run by systems, not sheer will</li>
-                  <li>An online presence tied to the business, not the owner</li>
+                  <li><span className="cc-n">01</span><span className="cc-t">Repeatable channel revenue</span></li>
+                  <li><span className="cc-n">02</span><span className="cc-t">Strong repeat business</span></li>
+                  <li><span className="cc-n">03</span><span className="cc-t">Healthy referral levels</span></li>
+                  <li><span className="cc-n">04</span><span className="cc-t">Operations run by systems, not sheer will</span></li>
+                  <li><span className="cc-n">05</span><span className="cc-t">An online presence tied to the business, not the owner</span></li>
                 </ul>
-                <p className="cc-close">
-                  Most buyers do not want to buy a job. They want a business that has a path to grow.
-                </p>
               </div>
             </Reveal>
           </div>
