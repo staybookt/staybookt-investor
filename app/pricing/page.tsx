@@ -169,9 +169,11 @@ export default function PricingPage() {
               </div>
               <div className="swap-us">
                 <span className="usl">All five jobs, done for you</span>
-                {/* /mo not /month: one price format sitewide (Richard, Jul 28) —
-                    prose says "$199 a month", compact labels say "$199/mo". */}
-                <span className="usp">$199<em>&nbsp;/mo</em></span>
+                {/* /mth: one price format sitewide for compact labels (Richard, Jul 28 +
+                    Jul 28 4:30pm follow-up flagging $199 / $199 a month / $199/mth /
+                    $199/month all live on the site at once). Prose sentences still say
+                    "$199 a month"; every compact label says "$199/mth". */}
+                <span className="usp">$199<em>&nbsp;/mth</em></span>
               </div>
             </div>
 

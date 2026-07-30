@@ -5,7 +5,7 @@ import { EMAIL } from '@/lib/site';
 
 /* DRAFT. Written in plain English on purpose: a service business owner has to be
  * able to read this without a lawyer. It reflects what we promise everywhere else
- *  * on the site (nothing upfront, $199/mo, NO term, 30-day cancel, unconditional 90-day refund, you own
+ *  * on the site (nothing upfront, $199/mth, NO term, 30-day cancel, unconditional 90-day refund, you own
  * your stuff) so the marketing and the contract cannot drift apart.
  *
  * NOT reviewed by a lawyer. Do that before the first paying client. */

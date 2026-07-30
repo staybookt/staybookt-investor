@@ -249,7 +249,7 @@ const ROWS: Row[] = [
    best line on the page. */
 const COLS: { k: keyof Pick<Row, 'you' | 'sb'>; label: string; sub: string; short: string }[] = [
   { k: 'you', label: 'On your plate today', sub: 'at nine at night', short: 'Today' },
-  { k: 'sb', label: 'With StayBookt', sub: '$199/mo', short: 'With StayBookt' },
+  { k: 'sb', label: 'With StayBookt', sub: '$199/mth', short: 'With StayBookt' },
 ];
 
 /* THE WHOLE CHART ANNOUNCED AS NOTHING.
