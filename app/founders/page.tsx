@@ -153,36 +153,26 @@ const CSS = `
    off. .fcard img biases the window upward; Jacob's frame sits higher still, so he
    gets .hi (center top). */
 
-/* ===== 4. WHY THIS MATTERS LONG-TERM. Ported from /long-term (Jul 30 2026).
-   RE-ALIGNED (Jacob, same day: "formatting of headlines and spacing is inconsistent once
-   we get to the merged section... re-align it to StayBookt spec"). He was right — the first
-   pass kept /long-term's own numbers (90px vs this page's 90px section padding read the
-   same at a glance, but 80px did not; 28px vs 30px h2; #69707d vs #42474f body color; 16px
-   vs 22px paragraph margin; a hairline divider .abt-us never uses), so the page visibly
-   shifted scale and rhythm the moment this section started. Every value below is now
-   copied from .abt-us's OWN tokens (this page's established spec, not the old page's), and
-   the content sits inside a .value-lead wrapper at the same 680px measure as .us-lead
-   above it, instead of each element carrying its own one-off max-width. Border-top dropped:
-   .abt-us doesn't use one either, and both sections are the same cream, so a hairline
-   between them separated nothing.
+/* ===== 4. WHY THIS MATTERS LONG-TERM. Ported from /long-term (Jul 30 2026), then rebuilt
+   twice more the same day (see the earlier rounds documented in git history — the JSX comment
+   above this section has the full account: card → plain list → cut entirely).
 
-   TOP PADDING TIGHTENED (Jacob, same day: "look slike too big of a gap here", pointing at
-   the space between the founder quotes and THE ONE FACT eyebrow). Both sections use the
-   standard clamp(90px,12vw,150px) section padding, so back to back on the same cream
-   background that stacked to as much as 300px of blank space with nothing to break it up
-   — a real section boundary elsewhere on the site usually gets that much room because the
-   background or a divider is doing work too, and here neither was. Bottom padding stays
-   full: that edge transitions into RemovalTest's dark film and still needs the room. */
-.abt-value{padding:clamp(20px,2.5vw,32px) 0 clamp(90px,12vw,150px);background:var(--v4-cream);}
+   FLIPPED TO DARK MODE (Jacob, same day, round 5): "this header section needs to be in dark
+   mode since it kind of transitions the content... the text and the graphic element blend
+   together." He's right — this section is the setup for RemovalTest's film immediately below
+   it, not a separate topic, and keeping it cream forced a hard light-to-dark cut at exactly
+   the moment the page should feel like one continuous passage into the proof. Same #050506
+   canvas RemovalTest already uses (and the same tokens .abt-prm below already established for
+   dark type on this page: white h2, #86868b eyebrow, #9ba2ae body — reused verbatim, nothing
+   invented). The light/dark seam didn't disappear, it just moved one boundary earlier, to
+   between .abt-us (light) and this section — a normal seam, same kind this page already has
+   elsewhere, not a new problem. */
+.abt-value{padding:clamp(20px,2.5vw,32px) 0 clamp(90px,12vw,150px);background:#050506;}
 .abt-value .value-lead{max-width:680px;}
-.abt-value h2{margin-top:14px;font-size:clamp(28px,4.2vw,54px);line-height:1.04;}
-.abt-value p{margin-top:16px;font-size:clamp(17px,1.9vw,20px);line-height:1.6;color:#69707d;}
-.abt-value p b{font-weight:600;color:var(--v4-ink);}
-/* .kick REMOVED (Jacob, same day: "Build long-term wealth, not a job. — this should be the
-   eyebrow"). That line moved into the eyebrow slot in the JSX and is no longer said twice, so
-   the gradient-border pull-quote treatment it used to carry has nothing left to style — the
-   eyebrow now uses .v4 .eyebrow's own default (12px, wide-tracked, uppercase, #69707d), same
-   as "The team" and "About us" elsewhere on this page. No local override needed. */
+.abt-value .eyebrow{color:#86868b;}
+.abt-value h2{margin-top:14px;font-size:clamp(28px,4.2vw,54px);line-height:1.04;color:#fff;}
+.abt-value p{margin-top:16px;font-size:clamp(17px,1.9vw,20px);line-height:1.6;color:#9ba2ae;}
+.abt-value p b{font-weight:600;color:#fff;}
 
 /* ===== 5. THE PROMISES. The one object on the page. ===== */
 .abt-prm{background:#050506;padding:clamp(90px,12vw,150px) 0;}
