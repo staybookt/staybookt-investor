@@ -309,14 +309,30 @@ const CSS = `
 
 /* Bookends sit dead center — the road only swerves between two edge-anchored
    milestones; the single start and end points don't need a side to swerve toward. */
-.hj-jstart,.hj-jend{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;}
-.hj-jstart{padding-bottom:clamp(26px,4vw,44px);}
-.hj-jend{padding-top:clamp(30px,5vw,52px);}
+.hj-jstart,.hj-jend{display:flex;flex-direction:column;align-items:center;text-align:center;}
+.hj-jstart{gap:12px;padding-bottom:clamp(26px,4vw,44px);}
 .hj-jstart .sdot{width:16px;height:16px;border-radius:50%;background:var(--v4-ink,#06080d);position:relative;z-index:2;}
-.hj-jend .edot{width:20px;height:20px;border-radius:50%;background:#7c3aed;position:relative;z-index:2;box-shadow:0 0 0 6px rgba(124,58,237,.16);}
 .hj-jstart .st{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#69707d;}
 .hj-jstart .sh{margin-top:3px;font-size:clamp(17px,2vw,20px);font-weight:600;color:var(--v4-ink,#06080d);}
-.hj-jend .eh{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02em;color:var(--v4-ink,#06080d);max-width:16ch;}
+
+/* Round 13 (Jacob, same day): "the payoff is so lame — what does it actually MEAN?"
+   Fair. "Twelve months later." was a timestamp, not a payoff, and at 18-24px it was
+   physically the smallest text in the whole section — backwards, since this bookend
+   is the emotional peak the three milestones have been building to. Rebuilt as its own
+   moment: an eyebrow (small, matches the milestone label pattern), a big two-line
+   headline that says the actual concrete thing an owner gets back (not "enjoy life"
+   restated again — evenings, weekends, and the work they'd choose, which is the same
+   idea the hero and the Enjoy Life milestone already established, just finally spelled
+   out here), and one grounding line under it. Soft violet/emerald glow behind it gives
+   it real presence instead of sitting flat on the cream, same technique as .hjc's glow
+   below but sized for a light surface. */
+.hj-jend{position:relative;padding:clamp(46px,6.5vw,84px) clamp(20px,4vw,40px) clamp(16px,2.4vw,28px);max-width:760px;margin:0 auto;}
+.hj-jend::before{content:'';position:absolute;inset:-16% -30% -6%;z-index:-1;background:radial-gradient(55% 65% at 50% 38%,rgba(124,58,237,.16),rgba(16,185,129,.09) 55%,transparent 76%);filter:blur(52px);pointer-events:none;}
+.hj-jend .edot{width:20px;height:20px;border-radius:50%;background:#7c3aed;position:relative;z-index:2;box-shadow:0 0 0 6px rgba(124,58,237,.16);}
+.hj-jend .ej-eyebrow{margin-top:20px;font-size:12.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#6d28d9;}
+.hj-jend .ej-h{margin-top:16px;font-size:clamp(32px,4.8vw,58px);font-weight:600;letter-spacing:-.03em;line-height:1.08;color:var(--v4-ink,#06080d);}
+.hj-jend .ej-h .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.hj-jend .ej-sub{margin:18px auto 0;font-size:clamp(15px,1.7vw,18px);line-height:1.55;color:#69707d;max-width:46ch;}
 
 /* THE ROAD IS BACK TO EDGE-TO-EDGE (Jacob, round 3: "it's too linear, I loved the
    swerving thing that wrapped around the section"). Each block runs close to full
@@ -458,6 +474,37 @@ const CSS = `
 .hjc-cta:hover{transform:translateY(-1px);box-shadow:0 18px 36px -18px rgba(16,185,129,.5);}
 @media(prefers-reduced-motion:reduce){.hjc-job,.hjc-num,.hjc-jobs,.hjc-num::before,.hjc-price{transition:none;}}
 `;
+
+/* Jacob, Jul 30 2026: "can the nav dot be the violet wordmark period, or a person-with-
+ * briefcase icon walking the road?" — neither, and here's the objective call. A walking
+ * icon breaks the one rule this whole build has followed without exception: every other
+ * visual on the page is REAL (real photos in the hero, a real browser mockup for search,
+ * real choice cards for Enjoy Life) or plainly abstract (the road itself, the milestone
+ * dots) — never illustrative/mascot. A cartoon figure would be the one stock-clipart
+ * moment on a page that otherwise earns its restraint. The wordmark's violet period is
+ * closer in spirit (reuse a brand element instead of inventing one), but it is literally
+ * milestone 3's accent color, so it would look wrong sitting on the still-cyan or
+ * still-emerald stretch of road early in the trip. This keeps the "it's a brand mark, not
+ * a maps pin" idea but makes it correct everywhere: the dot's color is sampled from the
+ * SAME gradient stops as the trail itself (cyan -> emerald -> violet, see hjgrad above),
+ * so it is always exactly the color of the road it is currently sitting on. */
+const GRAD_STOPS: [number, [number, number, number]][] = [
+  [0, [14, 165, 233]],   // #0ea5e9
+  [0.55, [16, 185, 129]], // #10b981
+  [1, [124, 58, 237]],   // #7c3aed
+];
+function gradColor(p: number): string {
+  const t = Math.max(0, Math.min(1, p));
+  let i = 0;
+  while (i < GRAD_STOPS.length - 2 && t > GRAD_STOPS[i + 1][0]) i++;
+  const [p0, c0] = GRAD_STOPS[i];
+  const [p1, c1] = GRAD_STOPS[i + 1];
+  const lt = p1 === p0 ? 0 : (t - p0) / (p1 - p0);
+  const r = Math.round(c0[0] + (c1[0] - c0[0]) * lt);
+  const g = Math.round(c0[1] + (c1[1] - c0[1]) * lt);
+  const b = Math.round(c0[2] + (c1[2] - c0[2]) * lt);
+  return `rgb(${r},${g},${b})`;
+}
 
 export default function HomeJourney() {
   const [active, setActive] = useState(0);
@@ -729,7 +776,16 @@ export default function HomeJourney() {
 
               <div className="hj-jend">
                 <span className="edot" ref={(el) => { pts.current.end = el; }} />
-                <div className="eh">Twelve months later.</div>
+                <div className="ej-eyebrow">Twelve months later</div>
+                <h3 className="ej-h">
+                  Your evenings back. Your weekends back.
+                  <br />
+                  <span className="g">The work you actually love.</span>
+                </h3>
+                <p className="ej-sub">
+                  Not what is left over after the business is fed. The time that was always
+                  supposed to be yours.
+                </p>
               </div>
             </div>
           </div>

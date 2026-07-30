@@ -16,7 +16,15 @@ import { track } from '@/lib/analytics';
  * the site reads as one thing.
  *
  * If you are tempted to grow this past five or six, do not. Put the new question on
- * its home page instead. The whole point of this block is that it is a taster. */
+ * its home page instead. The whole point of this block is that it is a taster.
+ *
+ * RELIT TO CREAM (Jacob, Jul 30 2026: "FAQ should be light mode"). Was the last dark
+ * section on the page, styled to match a price payoff and an explore grid that were
+ * also dark at the time — both have since relit to cream, so this was the one holdout
+ * left standing alone. Every color below flips from the dark-mode value to the same
+ * light-mode value already used across the rest of this page (whyus, explore, the
+ * journey section). See app/page.tsx for the matching fix to HeroCta's `fromBlack`
+ * prop, which assumed the section directly above it was black — it no longer is. */
 
 type Q = { k: string; c: string; q: string; a: string; more: { href: string; label: string } };
 
@@ -127,38 +135,38 @@ export default function HomeFaq() {
 }
 
 const CSS = `
-.hfq{padding:clamp(90px,12vw,150px) 0;background:#050506;color:#f4f5f7;position:relative;}
-.hfq::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(60% 60% at 50% 0%,rgba(16,185,129,.07),transparent 60%);}
+.hfq{padding:clamp(90px,12vw,150px) 0;background:var(--v4-cream,#f6f6f3);color:var(--v4-ink,#06080d);position:relative;}
+.hfq::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(60% 60% at 50% 0%,rgba(16,185,129,.1),transparent 60%);}
 .hfq .wrap{position:relative;z-index:1;width:100%;max-width:1080px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
-.hfq .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#8a8f98;}
+.hfq .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#69707d;}
 .hfq .fgrid{display:grid;grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr);gap:clamp(32px,6vw,84px);align-items:start;}
 @media(max-width:900px){.hfq .fgrid{grid-template-columns:1fr;gap:36px;}}
 .hfq .faside{position:sticky;top:clamp(96px,12vh,130px);}
 @media(max-width:900px){.hfq .faside{position:static;}}
-.hfq h2{font-size:clamp(34px,4.6vw,60px);font-weight:600;letter-spacing:-.035em;line-height:1.0;margin:14px 0 0;max-width:9ch;color:#fff;}
+.hfq h2{font-size:clamp(34px,4.6vw,60px);font-weight:600;letter-spacing:-.035em;line-height:1.0;margin:14px 0 0;max-width:9ch;color:var(--v4-ink,#06080d);}
 .hfq h2 .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
-.hfq .fa-p{margin-top:20px;font-size:16.5px;line-height:1.6;color:#9aa3b2;max-width:32ch;}
-.hfq .fa-cta{display:inline-flex;align-items:center;gap:9px;margin-top:26px;background:var(--sb-grad);background-size:200% 100%;background-position:0% 50%;color:#fff;font-size:15px;font-weight:600;border-radius:999px;padding:15px 28px;text-decoration:none;box-shadow:0 16px 40px -18px rgba(16,185,129,.7);transition:background-position .6s ease,gap .3s ease,transform .3s ease;}
+.hfq .fa-p{margin-top:20px;font-size:16.5px;line-height:1.6;color:#69707d;max-width:32ch;}
+.hfq .fa-cta{display:inline-flex;align-items:center;gap:9px;margin-top:26px;background:var(--sb-grad);background-size:200% 100%;background-position:0% 50%;color:#fff;font-size:15px;font-weight:600;border-radius:999px;padding:15px 28px;text-decoration:none;box-shadow:0 16px 40px -18px rgba(16,185,129,.4);transition:background-position .6s ease,gap .3s ease,transform .3s ease;}
 .hfq .fa-cta:hover{background-position:100% 50%;gap:14px;transform:translateY(-1px);}
 
 .hfq .list{display:flex;flex-direction:column;gap:8px;}
-.hfq-q{--fc:#5eead4;position:relative;background:transparent;border:1px solid transparent;border-radius:18px;
+.hfq-q{--fc:#0891b2;position:relative;background:transparent;border:1px solid transparent;border-radius:18px;
   transition:background .35s ease,border-color .35s ease,box-shadow .35s ease,transform .35s ease;}
-.hfq-q::after{content:'';position:absolute;left:clamp(16px,2vw,22px);right:clamp(16px,2vw,22px);bottom:0;height:1px;background:rgba(255,255,255,.08);transition:opacity .3s ease;}
+.hfq-q::after{content:'';position:absolute;left:clamp(16px,2vw,22px);right:clamp(16px,2vw,22px);bottom:0;height:1px;background:rgba(6,12,20,.08);transition:opacity .3s ease;}
 .hfq-q:last-child::after{opacity:0;}
-.hfq-q:hover{background:rgba(255,255,255,.03);}
-.hfq-q.open{background:linear-gradient(180deg,#0d1219,#0a0d13);border-color:rgba(255,255,255,.09);box-shadow:0 30px 60px -34px rgba(0,0,0,.7);transform:translateY(-1px);}
+.hfq-q:hover{background:rgba(6,12,20,.025);}
+.hfq-q.open{background:#fff;border-color:#ececf0;box-shadow:0 24px 50px -30px rgba(6,12,20,.2);transform:translateY(-1px);}
 .hfq-q.open::after{opacity:0;}
 .hfq-q button{width:100%;display:grid;grid-template-columns:minmax(0,1fr) 34px;gap:16px;align-items:center;
-  background:transparent;border:0;color:#f4f5f7;font-family:inherit;text-align:left;
+  background:transparent;border:0;color:var(--v4-ink,#06080d);font-family:inherit;text-align:left;
   padding:clamp(20px,2.4vw,26px) clamp(16px,2vw,22px);cursor:pointer;}
 .hfq-q .fk{display:block;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--fc);opacity:.9;}
-.hfq-q .fq{display:block;margin-top:7px;font-size:clamp(17px,1.9vw,21px);font-weight:600;letter-spacing:-.02em;line-height:1.28;color:#f4f5f7;}
-.hfq-q .pl{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.18);color:#8a8f98;
+.hfq-q .fq{display:block;margin-top:7px;font-size:clamp(17px,1.9vw,21px);font-weight:600;letter-spacing:-.02em;line-height:1.28;color:var(--v4-ink,#06080d);}
+.hfq-q .pl{width:34px;height:34px;border-radius:50%;border:1px solid rgba(6,12,20,.14);color:#69707d;
   display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:300;line-height:1;
   transition:transform .4s cubic-bezier(.16,1,.3,1),background .35s ease,color .35s ease,border-color .35s ease;}
 .hfq-q:hover .pl{border-color:var(--fc);color:var(--fc);}
-.hfq-q.open .pl{transform:rotate(45deg);background:var(--fc);border-color:transparent;color:#04110d;box-shadow:0 8px 20px -8px var(--fc);}
+.hfq-q.open .pl{transform:rotate(45deg);background:var(--fc);border-color:transparent;color:#fff;box-shadow:0 8px 20px -8px var(--fc);}
 
 /* max-height:0 + overflow:hidden CLIPS PIXELS. It does not touch the accessibility tree.
    So every collapsed answer here was still being read aloud, in full, while aria-expanded
@@ -172,7 +180,7 @@ const CSS = `
   transition:max-height .55s cubic-bezier(.16,1,.3,1),visibility 0s linear .55s;}
 .hfq-q.open .fbody{max-height:520px;visibility:visible;
   transition:max-height .55s cubic-bezier(.16,1,.3,1),visibility 0s;}
-.hfq .fbody p{margin:0;padding:0 clamp(16px,2vw,22px) 0;font-size:16px;line-height:1.65;color:#aeb6c4;max-width:62ch;}
+.hfq .fbody p{margin:0;padding:0 clamp(16px,2vw,22px) 0;font-size:16px;line-height:1.65;color:#69707d;max-width:62ch;}
 .hfq .fbody .fmore{display:inline-block;margin:14px clamp(16px,2vw,22px) clamp(22px,2.6vw,28px);font-size:14px;font-weight:600;color:var(--fc);text-decoration:none;}
 .hfq .fbody .fmore:hover{text-decoration:underline;}
 

@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react';
 import Nav from '@/components/v4/Nav';
 import Reveal from '@/components/v4/Reveal';
 import HomeJourney from '@/components/v4/HomeJourney';
@@ -19,21 +18,6 @@ const SHARE_DESCRIPTION =
 
    The order mirrors the nav on purpose. A person should not have to learn a second
    ordering halfway down the page. */
-/* Each card carries a lucide-style icon (drawn inline in ExploreIcon below, so there is no
-   iOS/Apple glyph and no new dependency) and its own accent in the brand family. The fourth
-   used to be a near-white grey, which read as "the odd one out" rather than a fourth colour;
-   it is violet now so the row spans cyan → indigo → green → violet and the four read as four
-   (Emma, p6). `tint` is the icon chip's faint fill, pre-baked as rgba so Lightning CSS has no
-   colour-mix() to downlevel. */
-const EXPLORE: { k: string; t: string; d: string; href: string; c: string; ic: string; tint: string }[] = [
-  /* WAS "How it works" (Jul 30 2026). The journey above IS how it works now — the whole
-     point of retiring /how-it-works was that a stranger no longer has to click away to see
-     it. Swapped for Journeys: real owner stories, still a distinct page worth a card. */
-  { k: 'PRICING', t: 'Pricing', d: 'Everything the $199 a month buys, what stays yours, and what it does not cost you.', href: '/pricing', c: '#34d399', ic: 'tag', tint: 'rgba(52,211,153,.12)' },
-  { k: 'REAL STORIES', t: 'Journeys', d: 'Three owners, three weeks, the same leak. See how it played out.', href: '/journeys', c: '#38bdf8', ic: 'workflow', tint: 'rgba(56,189,248,.12)' },
-  { k: 'THE TEAM', t: 'About us', d: 'The two founders behind StayBookt, and why we built it.', href: '/founders', c: '#a78bfa', ic: 'users', tint: 'rgba(167,139,250,.12)' },
-];
-
 export const metadata = {
   title: 'StayBookt. Enjoy Life.',
   description: SHARE_DESCRIPTION,
@@ -48,24 +32,6 @@ export const metadata = {
   },
   twitter: { card: 'summary_large_image', title: 'StayBookt. Enjoy Life.', description: SHARE_DESCRIPTION },
 };
-
-/* lucide-style line icons, drawn inline so the deep-link cards carry a real glyph without an
-   iOS emoji or a new npm dependency. currentColor lets each one take its card's accent. */
-function ExploreIcon({ name }: { name: string }): ReactNode {
-  const common = { viewBox: '0 0 24 24', width: 22, height: 22, fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const, 'aria-hidden': true };
-  switch (name) {
-    case 'workflow':
-      return (<svg {...common}><rect width="8" height="8" x="3" y="3" rx="2" /><path d="M7 11v4a2 2 0 0 0 2 2h4" /><rect width="8" height="8" x="13" y="13" rx="2" /></svg>);
-    case 'list':
-      return (<svg {...common}><path d="m3 17 2 2 4-4" /><path d="m3 7 2 2 4-4" /><path d="M13 6h8" /><path d="M13 12h8" /><path d="M13 18h8" /></svg>);
-    case 'tag':
-      return (<svg {...common}><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" /><circle cx="7.5" cy="7.5" r=".5" fill="currentColor" /></svg>);
-    case 'users':
-      return (<svg {...common}><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>);
-    default:
-      return null;
-  }
-}
 
 const PAGE_CSS = `
 .v4{--v4-muted:#86868b;}
@@ -359,28 +325,10 @@ const PAGE_CSS = `
 .v4 .price .pill-ink{background:#f5f5f7;color:#050506;}
 .v4 .price{text-align:center;}
 .v4 .price .priceline{font-size:clamp(18px,2.2vw,25px);color:#c7ccd6;margin:18px auto 0;max-width:38ch;line-height:1.42;}
-/* GO DEEPER / explore navigation */
-/* RELIT (Jacob, round 4, Jul 30 2026), superseding the "left dark on purpose" call
-   below. That call was right at the time: the FAQ under this section was also dark, and
-   restyling three cards for cream without a plan would have gone invisible mid-flight.
-   The plan is now explicit — dark mode confines to the price payoff on HomeJourney,
-   full stop, and this section relit with it. Cards are real cards now: white, bordered,
-   soft-shadowed, on cream, matching /pricing and /journeys rather than fighting them. */
-.v4 .explore{background:var(--v4-cream,#f6f6f3);padding:clamp(78px,10vw,128px) 0 clamp(64px,8vw,104px);text-align:center;}
-.v4 .explore .eyebrow{color:#69707d;}
-.v4 .explore h2{margin-top:14px;font-size:clamp(26px,3.4vw,42px);letter-spacing:-.03em;color:var(--v4-ink,#06080d);font-weight:600;}
-.v4 .explore .xgrid{margin:clamp(38px,5vw,58px) auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:960px;text-align:left;}
-@media(max-width:860px){.v4 .explore .xgrid{grid-template-columns:1fr;max-width:440px;}}
-.v4 .explore .xcard{display:block;height:100%;text-decoration:none;background:#fff;border:1px solid #ececf0;border-radius:20px;padding:clamp(24px,3vw,34px);box-shadow:0 20px 44px -30px rgba(6,12,20,.16);transition:border-color .3s ease,transform .3s ease,box-shadow .3s ease;}
-.v4 .explore .xcard:hover{transform:translateY(-2px);border-color:#dcdfe4;box-shadow:0 28px 54px -26px rgba(6,12,20,.22);}
-.v4 .explore .xicon{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;border:1px solid transparent;margin-bottom:20px;transition:transform .3s ease;}
-.v4 .explore .xcard:hover .xicon{transform:translateY(-1px) scale(1.04);}
-.v4 .explore .xk{font-size:12px;font-weight:700;letter-spacing:.16em;}
-.v4 .explore .xt{margin-top:12px;font-size:clamp(20px,2.2vw,26px);font-weight:600;letter-spacing:-.02em;color:var(--v4-ink,#06080d);}
-.v4 .explore .xt .ar{color:#9aa0ab;display:inline-block;transition:transform .3s ease;}
-.v4 .explore .xcard:hover .xt .ar{transform:translate(3px,-3px);}
-.v4 .explore .xd{margin-top:10px;font-size:15px;line-height:1.5;color:#69707d;max-width:36ch;}
-@media(max-width:720px){.v4 .explore .xgrid{grid-template-columns:1fr;}}
+/* WAS "GO DEEPER / explore navigation" — the whole .explore section (Pricing / Journeys
+   / About us card grid) removed Jul 30 2026 (Jacob: "get rid of this" — a second in-page
+   nav duplicating the real nav bar). CSS below deleted with it; nothing renders .explore
+   anymore. */
 
 /* honesty footnote */
 .v4 .illus{background:#050506;padding:0 0 clamp(50px,6vw,74px);}
@@ -548,40 +496,24 @@ export default function HomePage() {
              can click. Illustrating what the service DOES is fine. Illustrating what it
              ACHIEVED is not, footnote or no footnote. */}
 
-      {/* 6 — GO DEEPER (navigation) */}
-      <section className="explore">
-        <div className="wrap">
-          <Reveal className="eyebrow" as="div">Go deeper</Reveal>
-          <Reveal>
-            <h2>Start anywhere.</h2>
-          </Reveal>
-          <div className="xgrid">
-            {EXPLORE.map((x) => (
-              <Reveal key={x.href}>
-                <a href={x.href} className="xcard">
-                  <div className="xicon" style={{ color: x.c, background: x.tint, borderColor: x.tint }}><ExploreIcon name={x.ic} /></div>
-                  <div className="xk" style={{ color: x.c }}>{x.k}</div>
-                  <div className="xt">
-                    {x.t} <span className="ar">↗</span>
-                  </div>
-                  <div className="xd">{x.d}</div>
-                </a>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* WAS "6 — GO DEEPER" (Pricing / Journeys / About us card grid, "Start anywhere.").
+          DROPPED (Jacob, Jul 30 2026, "get rid of this") — a second in-page nav competing
+          with the actual nav bar four lines above the fold. EXPLORE/ExploreIcon removed
+          below with it; nothing else referenced them. */}
 
-      {/* FAQ — the last thing before the footer, in dark mode to match the page
-             (Jacob, live review, July 2026). A curated cross-section only; the full
-             sets live on the deep pages. */}
+      {/* FAQ — the last thing before the footer. A curated cross-section only; the full
+             sets live on the deep pages. RELIT TO CREAM (Jacob, Jul 30 2026) — was dark
+             to match a price payoff and an explore grid that were also dark at the time;
+             both have since relit, this was the one holdout. See HomeFaq.tsx for the CSS. */}
       <HomeFaq />
 
-      {/* HomeFaq is #050506, so fromBlack still grades correctly out of it. */}
+      {/* fromBlack DROPPED — it forced HeroCta's top edge to open on solid black so it
+          would dissolve seamlessly out of HomeFaq, which used to be #050506. HomeFaq is
+          cream now, so a black band here would be a seam, not a continuation; the
+          standard (light-predecessor) grade is correct again. */}
       {/* Close saying per Richard (Images doc, Jul 28): "I like the image" + his two
           lines. "Enjoy Life" capitalized: it is the brand, not a phrase. */}
       <HeroCta
-        fromBlack
         heading={<>Helping your business run better.<br />So that you Enjoy Life more.</>}
       />
 
