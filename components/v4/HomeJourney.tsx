@@ -35,7 +35,7 @@ import { min } from '@/lib/css';
 
 type Stop = {
   id: string; n: string; label: string; promise: string; voice: string; accent: string; accentD: string;
-  side: 'left' | 'right'; surface: 'getfound' | 'staybookt' | 'enjoy'; beat: string; result: string;
+  side: 'left' | 'right'; surface: 'getfound' | 'staybookt' | 'enjoy'; beat: string;
 };
 
 /* Content is the same three milestones as HowItWorks.tsx's STOPS, byte-matched, minus
@@ -58,25 +58,29 @@ type Stop = {
  * row the headline sits on. build() below now bends the corner INSIDE the empty gap
  * between one block's bottom and the next block's top (measured from their actual
  * rendered rects, not guessed), and arrives at each pin moving straight down instead of
- * sideways. Same wide edge-to-edge swerve, the turn just happens in the whitespace. */
+ * sideways. Same wide edge-to-edge swerve, the turn just happens in the whitespace.
+ *
+ * `beat` was `beat` + a separate `result` line (Jacob, round 4: "simplify, be more
+ * specific about what we do and how we do it"). The two usually said the same thing
+ * twice — milestone 1's beat already ended on "found on search, the map, and AI
+ * recommendations," then result repeated "found on search, the map, and AI answers."
+ * `result` is gone; each `beat` is now the one sentence that carries both the mechanism
+ * and the outcome. */
 const STOPS: Stop[] = [
   {
     id: 'found', n: '1', label: 'Get found', promise: 'Impossible to miss.', voice: 'Finally. The phone is ringing again.',
     accent: '#0ea5e9', accentD: '#0284c7', side: 'left', surface: 'getfound',
-    beat: 'We build your site, fix your Google listing, and get you found on search, the map, and AI recommendations.',
-    result: 'Found on search, the map, and AI answers.',
+    beat: 'We build the site, fix the Google listing, and get you showing up first: on search, on the map, and in AI answers.',
   },
   {
     id: 'run', n: '2', label: 'StayBookt', promise: 'Every lead gets worked.', voice: 'It is 2 a.m. I am asleep. It is handled.',
     accent: '#10b981', accentD: '#059669', side: 'right', surface: 'staybookt',
-    beat: 'We catch the missed call, book the job, chase the quote, win the review, and rebook the second job.',
-    result: 'Nothing gets dropped, and every customer is worked to full value.',
+    beat: 'We catch the missed call, book the job, chase the quote, win the review, and rebook the second one. Nothing gets dropped.',
   },
   {
     id: 'free', n: '3', label: 'Enjoy life', promise: 'You choose.', voice: 'I could actually sell this. Or not. My call.',
     accent: '#7c3aed', accentD: '#6d28d9', side: 'left', surface: 'enjoy',
-    beat: 'After a year, the business books and earns whether you are standing in the middle of it or not. What you do with that is your call. Most owners just want the good half of the job back.',
-    result: 'Do the part you love, hand it to family, or sell it.',
+    beat: 'After a year, the business books and earns whether you are standing in the middle of it or not. Keep the part you love, hand it off, or sell it: your call.',
   },
 ];
 
@@ -192,7 +196,6 @@ function StopBody({ s }: { s: Stop }) {
       <div className="promise">{s.promise}</div>
       <div className="voice">&ldquo;{s.voice}&rdquo;</div>
       <div className="beat">{s.beat}</div>
-      <div className="result">&rarr; {s.result}</div>
       {s.id === 'free' && (
         <a className="jgo" href="/long-term">What it is worth later <span>&rarr;</span></a>
       )}
@@ -264,7 +267,7 @@ function PriceReveal() {
           ))}
         </div>
         <div className="hjc-num">
-          <div className="hjc-fig"><span className="hjc-dol">$</span>199<span className="hjc-per">/mth</span></div>
+          <div className="hjc-fig"><span className="hjc-dol">$</span><span className="hjc-price">199</span><span className="hjc-per">/mth</span></div>
           <p className="hjc-sub">Nothing upfront. Cancel on thirty days notice.</p>
         </div>
         <a className="hjc-cta" href="/pricing" data-cta="home_journey_price">See the full plan <span aria-hidden>&rarr;</span></a>
@@ -332,7 +335,6 @@ const CSS = `
 .jstop .promise{margin-top:8px;font-size:clamp(28px,4vw,50px);font-weight:600;line-height:1.02;letter-spacing:-.03em;color:var(--v4-ink,#06080d);}
 .jstop .voice{margin-top:14px;font-size:clamp(16px,1.9vw,20px);font-style:italic;color:#5b616b;max-width:34ch;}
 .jstop .beat{margin-top:16px;font-size:clamp(15px,1.6vw,17px);line-height:1.5;color:#69707d;max-width:48ch;}
-.jstop .result{display:inline-block;margin-top:16px;font-size:14.5px;font-weight:600;color:var(--acd);}
 .jstop .jgo{display:flex;width:fit-content;align-items:center;gap:8px;margin-top:16px;padding:9px 16px;
   border:1px solid rgba(6,12,20,.14);border-radius:999px;background:#fff;
   font-size:14px;font-weight:600;color:var(--v4-ink,#06080d);text-decoration:none;
@@ -405,7 +407,13 @@ const CSS = `
 .el .choice .cd{margin-top:8px;font-size:12.5px;line-height:1.45;color:#69707d;}
 @media(max-width:520px){.el .choices{grid-template-columns:1fr;}}
 
-/* ===== WHAT IT COSTS — dark, static, on-view reveal (the site's contrast slab) ===== */
+/* ===== WHAT IT COSTS — the one dark section left on the page, on purpose (Jacob, round
+   4: relight everything else, keep this one the contrast slab so the payoff still lands
+   as a payoff). Round 4 also asked for it to look more like the brand: the $199 used to
+   be plain white and every job icon was the same teal, disconnected from the actual
+   brand palette. Now the number carries the brand gradient (sweeping in on reveal, same
+   background-position trick as .fa-cta's hover), and the five icons cycle through the
+   four brand hues instead of repeating one color five times. ===== */
 .hjc{background:#050506;padding:clamp(90px,12vw,150px) 0;text-align:center;position:relative;overflow:hidden;}
 .hjc::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(60% 60% at 50% 0%,rgba(16,185,129,.14),transparent 62%);}
 .hjc .wrap{position:relative;z-index:1;max-width:620px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
@@ -416,19 +424,36 @@ const CSS = `
 .hjc-job{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);
   display:flex;align-items:center;gap:14px;width:min(340px,86%);margin:0 auto;text-align:left;}
 .hjc-job.on{opacity:1;transform:none;}
-.hjc-ic{flex:0 0 auto;width:44px;height:44px;border-radius:14px;display:grid;place-items:center;color:#5eead4;background:rgba(94,234,212,.08);border:1px solid rgba(94,234,212,.18);}
+.hjc-ic{flex:0 0 auto;width:44px;height:44px;border-radius:14px;display:grid;place-items:center;border:1px solid transparent;}
+/* Five jobs, four brand hues (cyan/emerald/indigo/violet) — cycles rather than repeats,
+   so the reveal itself paints through the palette on its way to the gradient number. */
+.hjc-job:nth-child(1) .hjc-ic{color:#38bdf8;background:rgba(14,165,233,.1);border-color:rgba(14,165,233,.22);}
+.hjc-job:nth-child(2) .hjc-ic{color:#34d399;background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.22);}
+.hjc-job:nth-child(3) .hjc-ic{color:#818cf8;background:rgba(79,70,229,.12);border-color:rgba(79,70,229,.24);}
+.hjc-job:nth-child(4) .hjc-ic{color:#a78bfa;background:rgba(124,58,237,.1);border-color:rgba(124,58,237,.22);}
+.hjc-job:nth-child(5) .hjc-ic{color:#38bdf8;background:rgba(14,165,233,.1);border-color:rgba(14,165,233,.22);}
 .hjc-txt{display:flex;flex-direction:column;min-width:0;}
 .hjc-r{font-size:19px;font-weight:600;letter-spacing:-.02em;color:#f5f5f7;}
 .hjc-d{margin-top:2px;font-size:13px;color:#8b93a5;}
-.hjc-num{margin-top:34px;opacity:0;transform:translateY(16px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+.hjc-num{position:relative;margin-top:34px;opacity:0;transform:translateY(16px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
 .hjc.priced .hjc-num{opacity:1;transform:none;}
-.hjc-fig{display:flex;align-items:flex-start;justify-content:center;gap:2px;color:#fff;font-weight:700;letter-spacing:-.055em;line-height:.88;font-size:clamp(64px,10vw,120px);font-variant-numeric:tabular-nums;}
+/* THE GLOW. A soft brand-gradient blob behind the number, blurred and dim until the
+   figure settles in, then blooms — the "big moment" gets a beat of visual weight behind
+   it instead of sitting flat on the black. */
+.hjc-num::before{content:'';position:absolute;inset:-30% -10%;z-index:-1;background:radial-gradient(55% 60% at 50% 55%,rgba(16,185,129,.28),rgba(79,70,229,.16) 55%,transparent 75%);filter:blur(46px);opacity:0;transform:scale(.75);transition:opacity 1.1s ease,transform 1.1s cubic-bezier(.16,1,.3,1);}
+.hjc.priced .hjc-num::before{opacity:1;transform:scale(1);}
+.hjc-fig{display:flex;align-items:flex-start;justify-content:center;gap:2px;font-weight:700;letter-spacing:-.055em;line-height:.88;font-size:clamp(64px,10vw,120px);font-variant-numeric:tabular-nums;}
 .hjc-dol{font-size:.34em;font-weight:600;margin-top:.16em;color:#8b93a5;}
+/* THE SWEEP. background-size is wider than the text, parked off to one side; when
+   .priced lands, it slides into place — the same technique as .fa-cta's hover sweep,
+   just triggered by the reveal instead of a pointer. */
+.hjc-price{background:var(--sb-grad);background-size:230% 100%;background-position:100% 50%;-webkit-background-clip:text;background-clip:text;color:transparent;transition:background-position 1.3s cubic-bezier(.16,1,.3,1);}
+.hjc.priced .hjc-price{background-position:0% 50%;}
 .hjc-per{align-self:flex-end;margin-bottom:.2em;margin-left:8px;font-size:.16em;font-weight:600;color:#8b93a5;}
 .hjc-sub{margin:14px auto 0;font-size:clamp(15px,1.7vw,18px);font-weight:600;color:#d7dce4;}
-.hjc-cta{display:inline-flex;align-items:center;gap:9px;margin-top:30px;background:#fff;color:#050506;font-size:15px;font-weight:600;border-radius:999px;padding:15px 30px;text-decoration:none;transition:transform .3s ease;}
-.hjc-cta:hover{transform:translateY(-1px);}
-@media(prefers-reduced-motion:reduce){.hjc-job,.hjc-num,.hjc-jobs{transition:none;}}
+.hjc-cta{display:inline-flex;align-items:center;gap:9px;margin-top:30px;background:#fff;color:#050506;font-size:15px;font-weight:600;border-radius:999px;padding:15px 30px;text-decoration:none;transition:transform .3s ease,box-shadow .3s ease;}
+.hjc-cta:hover{transform:translateY(-1px);box-shadow:0 18px 36px -18px rgba(16,185,129,.5);}
+@media(prefers-reduced-motion:reduce){.hjc-job,.hjc-num,.hjc-jobs,.hjc-num::before,.hjc-price{transition:none;}}
 `;
 
 export default function HomeJourney() {

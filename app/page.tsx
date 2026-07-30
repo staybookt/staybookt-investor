@@ -49,14 +49,6 @@ export const metadata = {
   twitter: { card: 'summary_large_image', title: 'StayBookt. Enjoy Life.', description: SHARE_DESCRIPTION },
 };
 
-function ArrowUpRight(): ReactNode {
-  return (
-    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth={2.2} style={{ display: 'inline-block', verticalAlign: '-2px', marginLeft: 5 }} aria-hidden="true">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M9 7h8v8" />
-    </svg>
-  );
-}
-
 /* lucide-style line icons, drawn inline so the deep-link cards carry a real glyph without an
    iOS emoji or a new npm dependency. currentColor lets each one take its card's accent. */
 function ExploreIcon({ name }: { name: string }): ReactNode {
@@ -330,20 +322,25 @@ const PAGE_CSS = `
 /* LADDER */
 .v4 .price h2{font-weight:600;letter-spacing:-.025em;}
 .v4 .price .seefull a{color:#0891b2;}
-/* WHY US */
-/* One black. This band used to render as var(--v4-ink) (#06080d) between two
-   #050506 sections, which read as a stray black rectangle sitting on the page. */
-.v4 .whyus{background:#050506;padding:clamp(84px,11vw,140px) 0;text-align:center;position:relative;overflow:hidden;}
-.v4 .whyus::before{content:'';position:absolute;inset:0;background:radial-gradient(50% 60% at 20% 0%,rgba(6,182,212,.12),transparent 60%),radial-gradient(50% 60% at 85% 110%,rgba(16,185,129,.12),transparent 60%);pointer-events:none;}
+/* WHY US — RELIT (Jacob, round 4: "remove dark mode from the rest of the page,"
+   keeping only the price section on HomeJourney dark). This band and the explore grid
+   right after it used to be the same near-black as the price payoff, back to back, so
+   the payoff had no contrast to pay off AGAINST — and the explore grid's low-contrast
+   dark-on-dark text was genuinely hard to read (Jacob: "the weird nav section under
+   Richard's quote"). Cream now, matching the rest of the page. */
+.v4 .whyus{background:var(--v4-cream,#f6f6f3);padding:clamp(84px,11vw,140px) 0;text-align:center;position:relative;overflow:hidden;}
+.v4 .whyus::before{content:'';position:absolute;inset:0;background:radial-gradient(50% 60% at 20% 0%,rgba(14,165,233,.10),transparent 60%),radial-gradient(50% 60% at 85% 110%,rgba(16,185,129,.10),transparent 60%);pointer-events:none;}
 .v4 .whyus .wrap{position:relative;z-index:1;}
-.v4 .whyus .eyebrow{color:#86868b;}
-.v4 .whyus blockquote{margin:22px auto 0;font-size:clamp(26px,3.4vw,44px);font-weight:600;letter-spacing:-.03em;line-height:1.14;color:#f5f5f7;max-width:18ch;}
-.v4 .whyus .qsub{margin:22px auto 0;font-size:clamp(16px,1.9vw,19px);font-weight:400;line-height:1.55;color:#aeb4c0;max-width:48ch;}
-.v4 .whyus cite{display:block;margin-top:26px;font-style:normal;font-size:15px;font-weight:600;color:#86868b;}
-.v4 .whyus .learn{color:#38bdf8;}
-.v4 .learn{display:inline-block;margin-top:22px;color:#0891b2;font-weight:600;font-size:15px;text-decoration:none;}
-/* ===== ALL-DARK CINEMATIC CONSISTENCY PASS ===== */
-.v4{font-family:var(--font-display),'Inter Tight','Helvetica Neue',Arial,sans-serif;background:#050506;}
+.v4 .whyus .eyebrow{color:#69707d;}
+.v4 .whyus blockquote{margin:22px auto 0;font-size:clamp(26px,3.4vw,44px);font-weight:600;letter-spacing:-.03em;line-height:1.14;color:var(--v4-ink,#06080d);max-width:18ch;}
+.v4 .whyus .qsub{margin:22px auto 0;font-size:clamp(16px,1.9vw,19px);font-weight:400;line-height:1.55;color:#52565e;max-width:48ch;}
+.v4 .whyus cite{display:block;margin-top:26px;font-style:normal;font-size:15px;font-weight:600;color:#69707d;}
+/* ===== CINEMATIC CONSISTENCY PASS ===== */
+/* Base background flipped from #050506 to cream (Jacob, round 4): with dark mode
+   confined to the price section now, a black base here was only ever visible as a
+   flash on load or an iOS overscroll bounce, but it flashed black on a page that is
+   light everywhere it's opaque — the base should match what visitors actually see. */
+.v4{font-family:var(--font-display),'Inter Tight','Helvetica Neue',Arial,sans-serif;background:var(--v4-cream,#f6f6f3);}
 .v4 p,.v4 a,.v4 span,.v4 div,.v4 li,.v4 blockquote,.v4 cite,.v4 button{font-family:inherit;}
 .v4 .seam{background:linear-gradient(180deg,rgba(5,5,6,0) 0%,rgba(5,5,6,.55) 45%,#050506 88%) !important;}
 .v4 .sb-clook{background:#050506;}
@@ -362,29 +359,27 @@ const PAGE_CSS = `
 .v4 .price .pill-ink{background:#f5f5f7;color:#050506;}
 .v4 .price{text-align:center;}
 .v4 .price .priceline{font-size:clamp(18px,2.2vw,25px);color:#c7ccd6;margin:18px auto 0;max-width:38ch;line-height:1.42;}
-/* WHY US supporting line */
-.v4 .whyus .qsub{margin:22px auto 0;font-weight:400;line-height:1.55;color:#aeb4c0;}
 /* GO DEEPER / explore navigation */
-/* LEFT DARK ON PURPOSE. A design pass flagged that the homepage is the only page in the set
-   with no cream on it. True, but flipping this section is not the fix: every .xcard below is
-   built for dark (rgba(255,255,255,.045) fills, light text) and would go invisible on cream,
-   and the FAQ underneath is dark because Jacob asked for it dark. The homepage is a dark
-   cinematic page by decision, not by drift. If the cream ever comes back to this page, it
-   needs the cards restyled with it, not a one-line background swap. */
-.v4 .explore{background:#050506;padding:clamp(78px,10vw,128px) 0 clamp(64px,8vw,104px);text-align:center;}
-.v4 .explore .eyebrow{color:#86868b;}
-.v4 .explore h2{margin-top:14px;font-size:clamp(26px,3.4vw,42px);letter-spacing:-.03em;color:#f5f5f7;font-weight:600;}
+/* RELIT (Jacob, round 4, Jul 30 2026), superseding the "left dark on purpose" call
+   below. That call was right at the time: the FAQ under this section was also dark, and
+   restyling three cards for cream without a plan would have gone invisible mid-flight.
+   The plan is now explicit — dark mode confines to the price payoff on HomeJourney,
+   full stop, and this section relit with it. Cards are real cards now: white, bordered,
+   soft-shadowed, on cream, matching /pricing and /journeys rather than fighting them. */
+.v4 .explore{background:var(--v4-cream,#f6f6f3);padding:clamp(78px,10vw,128px) 0 clamp(64px,8vw,104px);text-align:center;}
+.v4 .explore .eyebrow{color:#69707d;}
+.v4 .explore h2{margin-top:14px;font-size:clamp(26px,3.4vw,42px);letter-spacing:-.03em;color:var(--v4-ink,#06080d);font-weight:600;}
 .v4 .explore .xgrid{margin:clamp(38px,5vw,58px) auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:960px;text-align:left;}
 @media(max-width:860px){.v4 .explore .xgrid{grid-template-columns:1fr;max-width:440px;}}
-.v4 .explore .xcard{display:block;height:100%;text-decoration:none;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.018));border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:clamp(24px,3vw,34px);transition:border-color .3s ease,transform .3s ease,background .3s ease;}
-.v4 .explore .xcard:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.22);background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.02));}
+.v4 .explore .xcard{display:block;height:100%;text-decoration:none;background:#fff;border:1px solid #ececf0;border-radius:20px;padding:clamp(24px,3vw,34px);box-shadow:0 20px 44px -30px rgba(6,12,20,.16);transition:border-color .3s ease,transform .3s ease,box-shadow .3s ease;}
+.v4 .explore .xcard:hover{transform:translateY(-2px);border-color:#dcdfe4;box-shadow:0 28px 54px -26px rgba(6,12,20,.22);}
 .v4 .explore .xicon{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;border:1px solid transparent;margin-bottom:20px;transition:transform .3s ease;}
 .v4 .explore .xcard:hover .xicon{transform:translateY(-1px) scale(1.04);}
 .v4 .explore .xk{font-size:12px;font-weight:700;letter-spacing:.16em;}
-.v4 .explore .xt{margin-top:12px;font-size:clamp(20px,2.2vw,26px);font-weight:600;letter-spacing:-.02em;color:#f5f5f7;}
-.v4 .explore .xt .ar{color:#86868b;display:inline-block;transition:transform .3s ease;}
+.v4 .explore .xt{margin-top:12px;font-size:clamp(20px,2.2vw,26px);font-weight:600;letter-spacing:-.02em;color:var(--v4-ink,#06080d);}
+.v4 .explore .xt .ar{color:#9aa0ab;display:inline-block;transition:transform .3s ease;}
 .v4 .explore .xcard:hover .xt .ar{transform:translate(3px,-3px);}
-.v4 .explore .xd{margin-top:10px;font-size:15px;line-height:1.5;color:#9aa0ab;max-width:36ch;}
+.v4 .explore .xd{margin-top:10px;font-size:15px;line-height:1.5;color:#69707d;max-width:36ch;}
 @media(max-width:720px){.v4 .explore .xgrid{grid-template-columns:1fr;}}
 
 /* honesty footnote */
@@ -527,11 +522,9 @@ export default function HomePage() {
           <Reveal>
             <cite>Richard, Co-founder</cite>
           </Reveal>
-          <Reveal>
-            <div>
-              <a href="/founders" className="learn">Meet the founders<ArrowUpRight /></a>
-            </div>
-          </Reveal>
+          {/* "Meet the founders" link DROPPED (Jacob, round 4). The About us card in the
+              explore grid immediately below points at the same page — one destination,
+              one door, not a link and then a card for it four inches later. */}
         </div>
       </section>
 
