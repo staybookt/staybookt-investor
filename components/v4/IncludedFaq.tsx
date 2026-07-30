@@ -116,17 +116,24 @@ const QS: Q[] = [
     /* Richard, FAQ doc, Jul 28 10:14am: deleted the closing line "We would rather tell you
        about twenty dollars and a card fee now than have you find them on an invoice
        later." Answer ends on the back-end list now. */
-    a: 'Almost. It is $199 CAD a month plus tax, and two things sit outside that. Your domain registration, about twenty dollars a year, passed through at cost and yours anyway. And if you take card payments, Stripe or Square charge their own fee, around 2.9% plus thirty cents, taken out of what you collect like any card processing. That fee is theirs, not ours: we do not mark it up, and we take no cut of it. No build fee, no setup fee, no add-ons, no per-minute billing, no overage. And no back end either: no commission on your jobs, no share of your revenue, and no share of what the business is worth if you sell it.',
+    a: 'Almost. It is $199 a month plus tax, and two things sit outside that. Your domain registration, about twenty dollars a year, passed through at cost and yours anyway. And if you take card payments, Stripe or Square charge their own fee, around 2.9% plus thirty cents, taken out of what you collect like any card processing. That fee is theirs, not ours: we do not mark it up, and we take no cut of it. No build fee, no setup fee, no add-ons, no per-minute billing, no overage. And no back end either: no commission on your jobs, no share of your revenue, and no share of what the business is worth if you sell it.',
   },
   {
     k: 'The catch',
     c: '#7c3aed',
-    /* RICHARD'S SUGGESTED WORDING, VERBATIM (FAQ doc suggestion-mode, Jul 28 10:14-10:15am).
-       Question rewritten as a real question, in the site's $199/mth price format ("Only
-       $199 a month." was a statement); "where" replaced with "what's". Answer opens with
-       the direct "None." then explains, same answer-first pattern as every other FAQ. The
-       earlier paraphrase of this read to him as "not implemented" — he diffs word-for-word. */
-    q: "Only $199/mth? So what's the catch?",
+    /* RICHARD'S SUGGESTED WORDING, adapted (FAQ doc suggestion-mode, Jul 28 10:14-10:15am).
+       Question rewritten as a real question ("Only $199 a month." was a statement); "where"
+       replaced with "what's". Answer opens with the direct "None." then explains, same
+       answer-first pattern as every other FAQ. The earlier paraphrase of this read to him
+       as "not implemented" — he diffs word-for-word, so keep it close to his wording.
+       PRICE FORMAT FIX (Jacob, Jul 30 2026, flagged via screenshot: "still inconsistent on
+       pricing formatting"): this had drifted to "$199/mth", the compact-label shorthand,
+       inside a full prose question. Site rule (see app/pricing/page.tsx, the .usp comment):
+       prose sentences say "$199 a month"; only compact price chips/labels use "$199/mth".
+       A spoken question is prose. Also dropped a stray "CAD" from the answer above this one
+       (line ~119) — no other price mention on the site includes a currency code, so it read
+       as a fourth, unmatched format. */
+    q: "Only $199 a month? So what's the catch?",
     a: 'None. We have leveraged technology to create a very efficient solution that allows relatively few people (very low overhead) and have built many aspects of the platform ourselves. This allows us to be able to offer exceptional value at very attractive pricing.',
   },
 ];
