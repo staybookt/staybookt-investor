@@ -166,8 +166,23 @@ const CSS = `
    dark type on this page: white h2, #86868b eyebrow, #9ba2ae body — reused verbatim, nothing
    invented). The light/dark seam didn't disappear, it just moved one boundary earlier, to
    between .abt-us (light) and this section — a normal seam, same kind this page already has
-   elsewhere, not a new problem. */
-.abt-value{padding:clamp(20px,2.5vw,32px) 0 clamp(90px,12vw,150px);background:#050506;}
+   elsewhere, not a new problem.
+
+   THE GLOW (round 6, same day): flat #050506 still didn't read as one space with RemovalTest
+   below it — Jacob: "the header text area should be the same colour background as the graphic
+   so it looks unified." Looked closer: RemovalTest isn't flat black either. Its .rt-stage has
+   its own radial-gradient glow (rgba(79,70,229,.16), indigo, anchored near its top), and
+   HomeJourney.tsx's .hjc does the same thing before its own big-number reveal. Flat black next
+   to a glowing indigo canvas is two different darks stacked, not one. Same glow now lives here
+   too, same color, anchored near the BOTTOM of this section instead of the top, so the two
+   sections' glows meet at the seam instead of one just stopping where the other starts — this
+   is also the fix Jacob asked for in the same message: check HomeJourney.tsx and RemovalTest.tsx
+   before shipping a dark section on this page, they are the working reference for what "dark
+   done right" looks like here, and this glow is lifted from them, not invented. */
+.abt-value{position:relative;overflow:hidden;padding:clamp(20px,2.5vw,32px) 0 clamp(90px,12vw,150px);background:#050506;}
+.abt-value::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(60% 55% at 50% 96%,rgba(79,70,229,.18),transparent 66%);}
+.abt-value .wrap{position:relative;z-index:1;}
 .abt-value .value-lead{max-width:680px;}
 .abt-value .eyebrow{color:#86868b;}
 .abt-value h2{margin-top:14px;font-size:clamp(28px,4.2vw,54px);line-height:1.04;color:#fff;}
