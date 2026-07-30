@@ -35,28 +35,37 @@ import { min } from '@/lib/css';
 
 type Stop = {
   id: string; n: string; label: string; promise: string; voice: string; accent: string; accentD: string;
-  side: 'left' | 'right'; surface: 'getfound' | 'staybookt' | 'enjoy'; beat: string; result: string;
+  surface: 'getfound' | 'staybookt' | 'enjoy'; beat: string; result: string;
 };
 
 /* Content is the same three milestones as HowItWorks.tsx's STOPS, byte-matched, minus
  * the `steps` field (dropped per the simplification above). Keep in sync if either
- * copy is edited: this is the one that ships now, but the sentences originated there. */
+ * copy is edited: this is the one that ships now, but the sentences originated there.
+ *
+ * `side` (left/right alternation) DROPPED (Jacob, Jul 30 2026: "the map looks sloppy").
+ * The zigzag put the SVG trail on a straight diagonal sweep across the full content
+ * width between alternating nodes, so it cut directly through headline text on
+ * milestones 2 ("MILESTONE 2 · STAYBOOKT" had a line drawn through it) — and it
+ * right-aligned body copy on the right-side stops, which is just harder to read. One
+ * consistent left rail fixes both: the trail stays in its own lane and never crosses
+ * a word, and every stop reads the same direction. This is also what mobile already
+ * forced everything into, so this is one layout, not two. */
 const STOPS: Stop[] = [
   {
     id: 'found', n: '1', label: 'Get found', promise: 'Impossible to miss.', voice: 'Finally. The phone is ringing again.',
-    accent: '#0ea5e9', accentD: '#0284c7', side: 'left', surface: 'getfound',
+    accent: '#0ea5e9', accentD: '#0284c7', surface: 'getfound',
     beat: 'We build your site, fix your Google listing, and get you found on search, the map, and AI recommendations.',
     result: 'Found on search, the map, and AI answers.',
   },
   {
     id: 'run', n: '2', label: 'StayBookt', promise: 'Every lead gets worked.', voice: 'It is 2 a.m. I am asleep. It is handled.',
-    accent: '#10b981', accentD: '#059669', side: 'right', surface: 'staybookt',
+    accent: '#10b981', accentD: '#059669', surface: 'staybookt',
     beat: 'We catch the missed call, book the job, chase the quote, win the review, and rebook the second job.',
     result: 'Nothing gets dropped, and every customer is worked to full value.',
   },
   {
     id: 'free', n: '3', label: 'Enjoy life', promise: 'You choose.', voice: 'I could actually sell this. Or not. My call.',
-    accent: '#7c3aed', accentD: '#6d28d9', side: 'left', surface: 'enjoy',
+    accent: '#7c3aed', accentD: '#6d28d9', surface: 'enjoy',
     beat: 'After a year, the business books and earns whether you are standing in the middle of it or not. What you do with that is your call. Most owners just want the good half of the job back.',
     result: 'Do the part you love, hand it to family, or sell it.',
   },
@@ -169,7 +178,7 @@ function EnjoyLifeScene() {
 
 function StopBlock({ s, obsRef, pointRef }: { s: Stop; obsRef: (el: HTMLDivElement | null) => void; pointRef: (el: HTMLDivElement | null) => void }) {
   return (
-    <div className={`jstop ${s.side}`} id={s.id} ref={obsRef} style={{ '--acc': s.accent, '--acd': s.accentD } as CSSProperties}>
+    <div className="jstop" id={s.id} ref={obsRef} style={{ '--acc': s.accent, '--acd': s.accentD } as CSSProperties}>
       <div className="node" ref={pointRef}>{s.n}</div>
       <div className="body">
         <div className="plabel">Milestone {s.n} &middot; {s.label}</div>
@@ -247,10 +256,15 @@ function PriceReveal() {
 const CSS = `
 /* ===== JOURNEY (ordinary scroll, damped hand-drawn trail — not pinned) ===== */
 .hj-jrny{padding:clamp(56px,7vw,96px) 0 clamp(70px,9vw,120px);background:linear-gradient(180deg,#f6f6f3 0%,#f6f8fb 40%,#f4f1fb 100%);}
-.hj-jrny .jhead{text-align:center;max-width:640px;margin:0 auto clamp(30px,4vw,52px);}
+/* LEFT-ALIGNED, matching the section-intro pattern the rest of the site uses (About's
+   "Two founders. One mission." — .abt-us .us-lead: eyebrow, h2, a real paragraph, not
+   centered). Jacob, Jul 30 2026: this used to be a centered one-line teaser, which read
+   as an afterthought next to the map below it. Widened to 680 and given a second
+   sentence so it actually tees the section up instead of just labeling it. */
+.hj-jrny .jhead{text-align:left;max-width:680px;margin:0 0 clamp(36px,5vw,60px);}
 .hj-jrny .jhead .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#69707d;}
 .hj-jrny .jhead h2{font-size:clamp(30px,4.4vw,54px);font-weight:600;letter-spacing:-.03em;line-height:1.05;margin-top:14px;color:var(--v4-ink,#06080d);}
-.hj-jrny .jhead p{margin-top:16px;font-size:clamp(16px,1.8vw,19px);color:#69707d;line-height:1.5;}
+.hj-jrny .jhead p{margin-top:16px;font-size:clamp(16px,1.9vw,20px);color:#69707d;line-height:1.6;max-width:56ch;}
 .hj-jmap{position:relative;max-width:940px;margin:0 auto;}
 .hj-jsvg{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:visible;}
 .hj-jsvg .bg{fill:none;stroke:rgba(10,14,26,.1);stroke-width:2.5;stroke-linecap:round;}
@@ -259,20 +273,19 @@ const CSS = `
 .hj-jrows{position:relative;z-index:1;}
 @media(prefers-reduced-motion:reduce){.hj-jsvg .tr{stroke-dashoffset:0 !important;}}
 
-.hj-jstart,.hj-jend{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;}
+/* ONE RAIL, straight down the left edge — start dot, three milestone nodes, end dot all
+   share the same 60px column, so the SVG trail below runs in a clean lane that never
+   crosses text (see the STOPS comment above for why the old alternating layout did). */
+.hj-jstart,.hj-jend{display:grid;grid-template-columns:60px minmax(0,1fr);align-items:center;gap:clamp(16px,3vw,40px);text-align:left;}
 .hj-jstart{padding-bottom:clamp(26px,4vw,44px);}
 .hj-jend{padding-top:clamp(30px,5vw,52px);}
-.hj-jstart .sdot{width:16px;height:16px;border-radius:50%;background:var(--v4-ink,#06080d);position:relative;z-index:2;}
-.hj-jend .edot{width:20px;height:20px;border-radius:50%;background:#7c3aed;position:relative;z-index:2;box-shadow:0 0 0 6px rgba(124,58,237,.16);}
+.hj-jstart .sdot{width:16px;height:16px;border-radius:50%;background:var(--v4-ink,#06080d);position:relative;z-index:2;margin:0 auto;}
+.hj-jend .edot{width:20px;height:20px;border-radius:50%;background:#7c3aed;position:relative;z-index:2;box-shadow:0 0 0 6px rgba(124,58,237,.16);margin:0 auto;}
 .hj-jstart .st{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#69707d;}
 .hj-jstart .sh{margin-top:3px;font-size:clamp(17px,2vw,20px);font-weight:600;color:var(--v4-ink,#06080d);}
 .hj-jend .eh{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02em;color:var(--v4-ink,#06080d);max-width:16ch;}
 
-.jstop{display:grid;gap:clamp(16px,3vw,40px);align-items:start;padding:clamp(30px,5vw,54px) 0;opacity:.45;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease;}
-.jstop.left{grid-template-columns:56px minmax(0,1fr);}
-.jstop.right{grid-template-columns:minmax(0,1fr) 56px;}
-.jstop.right .node{order:2;}
-.jstop.right .body{order:1;}
+.jstop{display:grid;grid-template-columns:60px minmax(0,1fr);gap:clamp(16px,3vw,40px);align-items:start;padding:clamp(30px,5vw,54px) 0;opacity:.45;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease;}
 .jstop.on{opacity:1;transform:none;}
 .jstop .node{width:46px;height:46px;border-radius:50%;background:#e6e8ec;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;margin:0 auto;border:4px solid #f6f6f3;position:relative;z-index:2;transition:background .5s ease;box-shadow:0 4px 16px -6px rgba(6,12,20,.3);}
 .jstop.on .node{background:var(--acc);animation:hjpulse 1.4s ease-out .1s 1;}
@@ -291,17 +304,11 @@ const CSS = `
 .jstop .jgo:hover{border-color:var(--acd);transform:translateY(-1px);box-shadow:0 12px 26px -18px rgba(6,12,20,.5);}
 .jstop .jgo:hover span{transform:translateX(3px);}
 .jstop .stage{position:relative;margin:30px 0 6px;display:flex;justify-content:flex-start;}
-.jstop.right .stage{justify-content:flex-end;}
-.jstop.right .body{text-align:right;}
-.jstop.right .voice,.jstop.right .beat{margin-left:auto;}
 .jstop .stage::before{content:'';position:absolute;inset:-8% -6% 2% -6%;background:radial-gradient(50% 55% at 42% 45%,rgba(0,0,0,.06),transparent 72%);filter:blur(40px);z-index:0;}
 .jstop .stage>*{position:relative;z-index:1;}
 @media(max-width:640px){
-  .jstop.left,.jstop.right{grid-template-columns:40px minmax(0,1fr);gap:16px;}
-  .jstop.right .node{order:0;}.jstop.right .body{order:0;text-align:left;}
-  .jstop.right .stage{justify-content:center;}
-  .jstop.right .voice,.jstop.right .beat{margin-left:0;}
-  .jstop .node{width:38px;height:38px;font-size:15px;}.jstop .stage{justify-content:center;}
+  .hj-jstart,.hj-jend,.jstop{grid-template-columns:40px minmax(0,1fr);gap:16px;}
+  .jstop .node{width:38px;height:38px;font-size:15px;}
 }
 
 /* corner mini-map HUD */
@@ -518,7 +525,10 @@ export default function HomeJourney() {
           <div className="jhead">
             <div className="eyebrow">The three milestones</div>
             <h2>Follow the path.</h2>
-            <p>Every customer, and your whole business, travels this route.</p>
+            <p>
+              Every customer, and your whole business, travels the same three-stop route. Here is
+              exactly what happens at each one, and what it means for you.
+            </p>
           </div>
           <div className="hj-jmap" ref={mapRef}>
             <svg className="hj-jsvg" ref={svgRef} preserveAspectRatio="none" aria-hidden="true">
