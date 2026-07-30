@@ -287,6 +287,9 @@ const CSS = `
 .hj-jrny .jhead{text-align:left;max-width:680px;margin:0 0 clamp(36px,5vw,60px);}
 .hj-jrny .jhead .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#69707d;}
 .hj-jrny .jhead h2{font-size:clamp(30px,4.4vw,54px);font-weight:600;letter-spacing:-.03em;line-height:1.05;margin-top:14px;color:var(--v4-ink,#06080d);}
+/* Same technique as the real hero's second line (app/page.tsx .v4 header.scene h1 .g)
+   and .hjc-price below — one gradient-text move, reused everywhere it means "the payoff." */
+.hj-jrny .jhead h2 .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .hj-jrny .jhead p{margin-top:16px;font-size:clamp(16px,1.9vw,20px);color:#69707d;line-height:1.6;max-width:56ch;}
 .hj-jmap{position:relative;max-width:940px;margin:0 auto;}
 .hj-jsvg{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:visible;}
@@ -631,13 +634,25 @@ export default function HomeJourney() {
              * hero already built. Landed here instead: name the three milestones outright,
              * in their own labels ("Get found" / "StayBookt" / "Enjoy life" below), as a
              * triptych that extends the "StayBookt. Enjoy Life." tagline already sitting
-             * in the nav and page title rather than duplicating it. Subhead trimmed to one
-             * sentence — it used to re-say "three stops," which is now redundant with the
-             * headline spelling them out. */}
+             * in the nav and page title rather than duplicating it.
+             *
+             * Round 7 (Jacob, same day): two fixes. (1) The wrap was an accident, not a
+             * choice — "Enjoy" was bleeding onto line one and orphaning "Life." alone on
+             * line two, which breaks [[staybookt-hero-format]], the site's own locked rule
+             * that a headline is a deliberate 2-line break with the punchline ALONE on
+             * line 2. Forced the break after "StayBookt." and gave "Enjoy Life." the same
+             * gradient-text treatment as the real hero's second line (`.g`, same --sb-grad
+             * technique as `header.scene h1 .g` in app/page.tsx and `.hjc-price` below) —
+             * so this header now visually rhymes with the hero instead of just quoting it.
+             * (2) The subhead was narrating the section instead of saying something —
+             * "here is exactly what happens" describes the copy rather than being copy.
+             * Replaced with three short present-tense beats, one per milestone, ending on
+             * a deliberate double meaning ("your call" = the phone AND the decision,
+             * echoing milestone 3's own voice line "my call"). */}
           <div className="jhead">
             <div className="eyebrow">The three milestones</div>
-            <h2>Get Found. StayBookt. Enjoy Life.</h2>
-            <p>Here is exactly what happens at each one, and what it means for you.</p>
+            <h2>Get Found. StayBookt.<br /><span className="g">Enjoy Life.</span></h2>
+            <p>The phone rings. The work gets done. Your call.</p>
           </div>
           <div className="hj-jmap" ref={mapRef}>
             <svg className="hj-jsvg" ref={svgRef} preserveAspectRatio="none" aria-hidden="true">
