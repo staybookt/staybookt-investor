@@ -42,20 +42,23 @@ type Stop = {
  * the `steps` field (dropped per the simplification above). Keep in sync if either
  * copy is edited: this is the one that ships now, but the sentences originated there.
  *
- * `side` (left/right alternation) — REDESIGNED, not dropped (Jacob, Jul 30 2026, round 2:
- * "I like the zig-zag, that was immersive, but it was cutting over things. It should be
- * an unlinear journey and look like Google Maps navigation.") The first attempt at fixing
- * the overlap deleted the zigzag entirely and ran one straight rail down the left edge —
- * that fixed the collision but lost the winding, wayfinding feel Jacob actually wanted.
+ * `side` (left/right alternation) — went through two wrong fixes before landing here.
+ * Round 1 (Jacob: "the map looks sloppy") deleted the zigzag for one straight rail —
+ * fixed the collision, killed the swerve. Round 2 (Jacob: "I loved the zig-zag, make it
+ * look like Maps nav") brought the swerve back but confined the road to a timid center
+ * gutter — fixed the collision again, but read as too linear, lost the wide "wraps
+ * around the section" swoop he actually liked.
  *
- * The real fix: the trail was crossing text because the alternating nodes sat at the far
- * LEFT and RIGHT edges of a 940px-wide container, so the path had to sweep the entire
- * width to connect them, cutting straight through whatever content sat in the middle.
- * Now the road lives in a narrow CENTER lane (see .jroad below) and content sits in the
- * flanking columns, well outside the lane the road is ever allowed to occupy. `side` still
- * alternates — it picks which flanking column the content sits in, and nudges the pin a
- * few px toward that column, like a dropped pin leaning toward the place it marks — but
- * the road's total sweep never leaves its own gutter, so it can no longer touch a word. */
+ * Round 3, the real fix (Jacob: "start straight, veer left around the bend of the first
+ * block, cross over, veer right around the next"): the layout goes back to exactly what
+ * was live originally — each block near-full-width, the pin at the block's own far edge,
+ * order-swapped by `side`. What was actually wrong was never the layout, it was the
+ * curve: the old math bent HORIZONTALLY right as it arrived at the next pin, and the
+ * next pin sits beside that block's own headline — so the sweep sliced across the exact
+ * row the headline sits on. build() below now bends the corner INSIDE the empty gap
+ * between one block's bottom and the next block's top (measured from their actual
+ * rendered rects, not guessed), and arrives at each pin moving straight down instead of
+ * sideways. Same wide edge-to-edge swerve, the turn just happens in the whitespace. */
 const STOPS: Stop[] = [
   {
     id: 'found', n: '1', label: 'Get found', promise: 'Impossible to miss.', voice: 'Finally. The phone is ringing again.',
@@ -202,17 +205,16 @@ function StopBody({ s }: { s: Stop }) {
   );
 }
 
-/* Three columns: content, road, content. Only one flanking column is ever populated
- * (per `side`) — the other renders empty so the grid keeps a fixed, predictable center
- * lane for the road on every single stop, at every viewport down to the 640px
- * breakpoint where it collapses to a single column. The pin sits in the ALWAYS-EMPTY
- * center lane, nudged a few px toward whichever side is populated. */
+/* Edge-anchored, alternating — this is the layout Jacob actually liked ("the swerving
+ * thing that wrapped around the section"): each block runs close to full width, and the
+ * pin sits at the far LEFT edge for a "left" stop or the far RIGHT edge for a "right"
+ * one, order-swapped via CSS. What changed is NOT the layout — it is how build() below
+ * draws the line BETWEEN two pins on opposite edges. See the comment on build(). */
 function StopBlock({ s, obsRef, pointRef }: { s: Stop; obsRef: (el: HTMLDivElement | null) => void; pointRef: (el: HTMLDivElement | null) => void }) {
   return (
     <div className={`jstop ${s.side}`} id={s.id} ref={obsRef} style={{ '--acc': s.accent, '--acd': s.accentD } as CSSProperties}>
-      <div className="jcol jcol-l">{s.side === 'left' && <StopBody s={s} />}</div>
-      <div className="jroad"><div className="node" ref={pointRef}><span>{s.n}</span></div></div>
-      <div className="jcol jcol-r">{s.side === 'right' && <StopBody s={s} />}</div>
+      <div className="node" ref={pointRef}>{s.n}</div>
+      <StopBody s={s} />
     </div>
   );
 }
@@ -299,8 +301,8 @@ const CSS = `
 .hj-jrows{position:relative;z-index:1;}
 @media(prefers-reduced-motion:reduce){.hj-jsvg .tr{stroke-dashoffset:0 !important;}.hj-jsvg .jring{animation:none;opacity:0;}}
 
-/* Bookends sit dead center — same x as the road's center column below, so the trail
-   starts and ends on the true centerline, no zigzag needed for a single point. */
+/* Bookends sit dead center — the road only swerves between two edge-anchored
+   milestones; the single start and end points don't need a side to swerve toward. */
 .hj-jstart,.hj-jend{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;}
 .hj-jstart{padding-bottom:clamp(26px,4vw,44px);}
 .hj-jend{padding-top:clamp(30px,5vw,52px);}
@@ -310,34 +312,26 @@ const CSS = `
 .hj-jstart .sh{margin-top:3px;font-size:clamp(17px,2vw,20px);font-weight:600;color:var(--v4-ink,#06080d);}
 .hj-jend .eh{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02em;color:var(--v4-ink,#06080d);max-width:16ch;}
 
-/* THE WINDING ROAD. Three columns: content / road / content. Only one flanking column
-   is populated per stop (see StopBlock) — the road always occupies its own narrow 72px
-   center lane, and content always sits a full column-gap outside it, so the pin can lean
-   toward its content without the road itself ever reaching text. This is what makes the
-   zigzag immersive again without the collision Jacob flagged. */
-.jstop{display:grid;grid-template-columns:1fr 72px 1fr;grid-template-areas:"l road r";column-gap:clamp(22px,3.4vw,40px);align-items:start;padding:clamp(30px,5vw,54px) 0;opacity:.45;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease;}
+/* THE ROAD IS BACK TO EDGE-TO-EDGE (Jacob, round 3: "it's too linear, I loved the
+   swerving thing that wrapped around the section"). Each block runs close to full
+   width; the pin sits at the block's own far edge (left for a "left" stop, right for
+   a "right" one, order-swapped) — same layout that was live before the center-lane
+   attempt. The fix for the collision lives in build()'s curve math now, not in
+   shrinking the swerve down to a timid center gutter. */
+.jstop{display:grid;gap:clamp(16px,3vw,40px);align-items:start;padding:clamp(30px,5vw,54px) 0;opacity:.45;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease;}
+.jstop.left{grid-template-columns:56px minmax(0,1fr);}
+.jstop.right{grid-template-columns:minmax(0,1fr) 56px;}
+.jstop.right .node{order:2;}
+.jstop.right .body{order:1;}
 .jstop.on{opacity:1;transform:none;}
-.jstop .jcol-l{grid-area:l;}
-.jstop .jcol-r{grid-area:r;}
-.jstop .jroad{grid-area:road;display:flex;justify-content:center;padding-top:2px;}
-.jstop .node{width:46px;height:46px;border-radius:50%;background:#e6e8ec;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;border:4px solid #f6f6f3;position:relative;z-index:2;transition:background .5s ease,transform .5s ease;box-shadow:0 4px 16px -6px rgba(6,12,20,.3);}
-/* THE LEAN. The pin nudges a few px toward whichever side carries its content — a
-   dropped pin tilting toward the place it marks — and this is the ONLY thing that
-   alternates left/right now. It stays well inside the road's own gutter. */
-.jstop.left .node{transform:translateX(-16px);}
-.jstop.right .node{transform:translateX(16px);}
+.jstop .node{width:46px;height:46px;border-radius:50%;background:#e6e8ec;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;margin:0 auto;border:4px solid #f6f6f3;position:relative;z-index:2;transition:background .5s ease;box-shadow:0 4px 16px -6px rgba(6,12,20,.3);}
 .jstop.on .node{background:var(--acc);animation:hjpulse 1.4s ease-out .1s 1;}
 @keyframes hjpulse{0%{box-shadow:0 0 0 0 rgba(0,0,0,.3);}100%{box-shadow:0 0 0 22px rgba(0,0,0,0);}}
-/* leader nub — a small triangle off the pin pointing at its content, a lightweight Maps
-   callout so the pin-to-card relationship reads even before the lean is noticed. */
-.jstop.left .node::after{content:'';position:absolute;top:50%;right:100%;transform:translateY(-50%);border:5px solid transparent;border-right-color:var(--acc);opacity:0;transition:opacity .5s ease;}
-.jstop.right .node::after{content:'';position:absolute;top:50%;left:100%;transform:translateY(-50%);border:5px solid transparent;border-left-color:var(--acc);opacity:0;transition:opacity .5s ease;}
-.jstop.on .node::after{opacity:.6;}
 @media(prefers-reduced-motion:reduce){.jstop{opacity:1;transform:none;}.jstop.on .node{animation:none;}}
 .jstop .plabel{font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--acd);}
 .jstop .promise{margin-top:8px;font-size:clamp(28px,4vw,50px);font-weight:600;line-height:1.02;letter-spacing:-.03em;color:var(--v4-ink,#06080d);}
 .jstop .voice{margin-top:14px;font-size:clamp(16px,1.9vw,20px);font-style:italic;color:#5b616b;max-width:34ch;}
-.jstop .beat{margin-top:16px;font-size:clamp(15px,1.6vw,17px);line-height:1.5;color:#69707d;max-width:44ch;}
+.jstop .beat{margin-top:16px;font-size:clamp(15px,1.6vw,17px);line-height:1.5;color:#69707d;max-width:48ch;}
 .jstop .result{display:inline-block;margin-top:16px;font-size:14.5px;font-weight:600;color:var(--acd);}
 .jstop .jgo{display:flex;width:fit-content;align-items:center;gap:8px;margin-top:16px;padding:9px 16px;
   border:1px solid rgba(6,12,20,.14);border-radius:999px;background:#fff;
@@ -347,16 +341,17 @@ const CSS = `
 .jstop .jgo:hover{border-color:var(--acd);transform:translateY(-1px);box-shadow:0 12px 26px -18px rgba(6,12,20,.5);}
 .jstop .jgo:hover span{transform:translateX(3px);}
 .jstop .stage{position:relative;margin:30px 0 6px;display:flex;justify-content:flex-start;}
+.jstop.right .stage{justify-content:flex-end;}
+.jstop.right .body{text-align:right;}
+.jstop.right .voice,.jstop.right .beat{margin-left:auto;}
 .jstop .stage::before{content:'';position:absolute;inset:-8% -6% 2% -6%;background:radial-gradient(50% 55% at 42% 45%,rgba(0,0,0,.06),transparent 72%);filter:blur(40px);z-index:0;}
 .jstop .stage>*{position:relative;z-index:1;}
 @media(max-width:640px){
-  /* No room for two flanking columns at phone width. Both content slots collapse onto
-     one shared area next to a slim road — only one is ever populated, so they never
-     actually overlap — and the lean/nub retire since there is nothing left to lean past. */
-  .jstop{grid-template-columns:40px minmax(0,1fr);grid-template-areas:"road body";column-gap:16px;}
-  .jstop .jcol-l,.jstop .jcol-r{grid-area:body;}
-  .jstop .node{width:38px;height:38px;font-size:15px;transform:none;}
-  .jstop .node::after{display:none;}
+  .jstop.left,.jstop.right{grid-template-columns:40px minmax(0,1fr);gap:16px;}
+  .jstop.right .node{order:0;}.jstop.right .body{order:0;text-align:left;}
+  .jstop.right .stage{justify-content:center;}
+  .jstop.right .voice,.jstop.right .beat{margin-left:0;}
+  .jstop .node{width:38px;height:38px;font-size:15px;}.jstop .stage{justify-content:center;}
 }
 
 /* corner mini-map HUD */
@@ -474,11 +469,44 @@ export default function HomeJourney() {
       return { x: r.left + r.width / 2 - mr.left, y: r.top + r.height / 2 - mr.top };
     }).filter(Boolean) as { x: number; y: number }[];
     if (P.length < 2) return;
+
+    /* The actual top/bottom of each milestone's rendered block (not just its pin),
+     * relative to the map. This is how the corner below finds the real empty gap
+     * between two blocks instead of guessing a percentage of the distance between
+     * their pins — the gap's height changes with viewport (clamp() padding), so a
+     * guess drifts off target exactly when it matters. rowOrder mirrors STOPS. */
+    const rowOrder = ['found', 'run', 'free'];
+    const rows = rowOrder.map((k) => {
+      const el = stopEls.current[k];
+      if (!el) return null;
+      const r = el.getBoundingClientRect();
+      return { top: r.top - mr.top, bottom: r.bottom - mr.top };
+    });
+
     let d = `M ${P[0].x.toFixed(1)} ${P[0].y.toFixed(1)}`;
     for (let i = 1; i < P.length; i++) {
       const a = P[i - 1], b = P[i];
-      const corner = Math.min(Math.max((b.y - a.y) * 0.45, 40), 130);
-      d += ` C ${a.x.toFixed(1)} ${(b.y - corner).toFixed(1)}, ${a.x.toFixed(1)} ${b.y.toFixed(1)}, ${b.x.toFixed(1)} ${b.y.toFixed(1)}`;
+      const aRow = rows[i - 2] ?? null; // the block point `a` belongs to, if any
+      const bRow = rows[i - 1] ?? null; // the block point `b` belongs to, if any
+      /* THE CORNER. Leave `a` straight down, do the entire left-right swerve at one
+       * fixed height (crossY), arrive at `b` straight down. Old version bent toward
+       * `b`'s own x/y together, so the sideways motion finished exactly AT the next
+       * pin — which sits beside that block's headline, so the line sliced the text.
+       * Putting both control points at the SAME crossY, picked from the real gap
+       * between blocks, means the sideways motion happens and finishes in the
+       * whitespace, and the last stretch into `b` is a plain vertical drop. */
+      let crossY: number;
+      if (aRow && bRow) {
+        crossY = (aRow.bottom + bRow.top) / 2;
+      } else if (bRow) {
+        crossY = Math.max(a.y + 30, bRow.top - 24); // start -> first milestone
+      } else if (aRow) {
+        crossY = Math.min(b.y - 30, aRow.bottom + 24); // last milestone -> end
+      } else {
+        crossY = a.y + (b.y - a.y) * 0.5;
+      }
+      crossY = Math.min(Math.max(crossY, a.y + 16), b.y - 16);
+      d += ` C ${a.x.toFixed(1)} ${crossY.toFixed(1)}, ${b.x.toFixed(1)} ${crossY.toFixed(1)}, ${b.x.toFixed(1)} ${b.y.toFixed(1)}`;
     }
     svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
     bg.setAttribute('d', d);
