@@ -161,7 +161,7 @@ const CSS = `
    vs 22px paragraph margin; a hairline divider .abt-us never uses), so the page visibly
    shifted scale and rhythm the moment this section started. Every value below is now
    copied from .abt-us's OWN tokens (this page's established spec, not the old page's), and
-   the content sits inside a `.value-lead` wrapper at the same 680px measure as `.us-lead`
+   the content sits inside a .value-lead wrapper at the same 680px measure as .us-lead
    above it, instead of each element carrying its own one-off max-width. Border-top dropped:
    .abt-us doesn't use one either, and both sections are the same cream, so a hairline
    between them separated nothing. */
