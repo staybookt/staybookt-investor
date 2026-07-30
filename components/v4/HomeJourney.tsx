@@ -35,37 +35,43 @@ import { min } from '@/lib/css';
 
 type Stop = {
   id: string; n: string; label: string; promise: string; voice: string; accent: string; accentD: string;
-  surface: 'getfound' | 'staybookt' | 'enjoy'; beat: string; result: string;
+  side: 'left' | 'right'; surface: 'getfound' | 'staybookt' | 'enjoy'; beat: string; result: string;
 };
 
 /* Content is the same three milestones as HowItWorks.tsx's STOPS, byte-matched, minus
  * the `steps` field (dropped per the simplification above). Keep in sync if either
  * copy is edited: this is the one that ships now, but the sentences originated there.
  *
- * `side` (left/right alternation) DROPPED (Jacob, Jul 30 2026: "the map looks sloppy").
- * The zigzag put the SVG trail on a straight diagonal sweep across the full content
- * width between alternating nodes, so it cut directly through headline text on
- * milestones 2 ("MILESTONE 2 · STAYBOOKT" had a line drawn through it) — and it
- * right-aligned body copy on the right-side stops, which is just harder to read. One
- * consistent left rail fixes both: the trail stays in its own lane and never crosses
- * a word, and every stop reads the same direction. This is also what mobile already
- * forced everything into, so this is one layout, not two. */
+ * `side` (left/right alternation) — REDESIGNED, not dropped (Jacob, Jul 30 2026, round 2:
+ * "I like the zig-zag, that was immersive, but it was cutting over things. It should be
+ * an unlinear journey and look like Google Maps navigation.") The first attempt at fixing
+ * the overlap deleted the zigzag entirely and ran one straight rail down the left edge —
+ * that fixed the collision but lost the winding, wayfinding feel Jacob actually wanted.
+ *
+ * The real fix: the trail was crossing text because the alternating nodes sat at the far
+ * LEFT and RIGHT edges of a 940px-wide container, so the path had to sweep the entire
+ * width to connect them, cutting straight through whatever content sat in the middle.
+ * Now the road lives in a narrow CENTER lane (see .jroad below) and content sits in the
+ * flanking columns, well outside the lane the road is ever allowed to occupy. `side` still
+ * alternates — it picks which flanking column the content sits in, and nudges the pin a
+ * few px toward that column, like a dropped pin leaning toward the place it marks — but
+ * the road's total sweep never leaves its own gutter, so it can no longer touch a word. */
 const STOPS: Stop[] = [
   {
     id: 'found', n: '1', label: 'Get found', promise: 'Impossible to miss.', voice: 'Finally. The phone is ringing again.',
-    accent: '#0ea5e9', accentD: '#0284c7', surface: 'getfound',
+    accent: '#0ea5e9', accentD: '#0284c7', side: 'left', surface: 'getfound',
     beat: 'We build your site, fix your Google listing, and get you found on search, the map, and AI recommendations.',
     result: 'Found on search, the map, and AI answers.',
   },
   {
     id: 'run', n: '2', label: 'StayBookt', promise: 'Every lead gets worked.', voice: 'It is 2 a.m. I am asleep. It is handled.',
-    accent: '#10b981', accentD: '#059669', surface: 'staybookt',
+    accent: '#10b981', accentD: '#059669', side: 'right', surface: 'staybookt',
     beat: 'We catch the missed call, book the job, chase the quote, win the review, and rebook the second job.',
     result: 'Nothing gets dropped, and every customer is worked to full value.',
   },
   {
     id: 'free', n: '3', label: 'Enjoy life', promise: 'You choose.', voice: 'I could actually sell this. Or not. My call.',
-    accent: '#7c3aed', accentD: '#6d28d9', surface: 'enjoy',
+    accent: '#7c3aed', accentD: '#6d28d9', side: 'left', surface: 'enjoy',
     beat: 'After a year, the business books and earns whether you are standing in the middle of it or not. What you do with that is your call. Most owners just want the good half of the job back.',
     result: 'Do the part you love, hand it to family, or sell it.',
   },
@@ -176,25 +182,37 @@ function EnjoyLifeScene() {
   );
 }
 
+function StopBody({ s }: { s: Stop }) {
+  return (
+    <div className="body">
+      <div className="plabel">Milestone {s.n} &middot; {s.label}</div>
+      <div className="promise">{s.promise}</div>
+      <div className="voice">&ldquo;{s.voice}&rdquo;</div>
+      <div className="beat">{s.beat}</div>
+      <div className="result">&rarr; {s.result}</div>
+      {s.id === 'free' && (
+        <a className="jgo" href="/long-term">What it is worth later <span>&rarr;</span></a>
+      )}
+      <div className="stage">
+        {s.surface === 'getfound' && <GetFoundScene />}
+        {s.surface === 'staybookt' && <NightShift />}
+        {s.surface === 'enjoy' && <EnjoyLifeScene />}
+      </div>
+    </div>
+  );
+}
+
+/* Three columns: content, road, content. Only one flanking column is ever populated
+ * (per `side`) — the other renders empty so the grid keeps a fixed, predictable center
+ * lane for the road on every single stop, at every viewport down to the 640px
+ * breakpoint where it collapses to a single column. The pin sits in the ALWAYS-EMPTY
+ * center lane, nudged a few px toward whichever side is populated. */
 function StopBlock({ s, obsRef, pointRef }: { s: Stop; obsRef: (el: HTMLDivElement | null) => void; pointRef: (el: HTMLDivElement | null) => void }) {
   return (
-    <div className="jstop" id={s.id} ref={obsRef} style={{ '--acc': s.accent, '--acd': s.accentD } as CSSProperties}>
-      <div className="node" ref={pointRef}>{s.n}</div>
-      <div className="body">
-        <div className="plabel">Milestone {s.n} &middot; {s.label}</div>
-        <div className="promise">{s.promise}</div>
-        <div className="voice">&ldquo;{s.voice}&rdquo;</div>
-        <div className="beat">{s.beat}</div>
-        <div className="result">&rarr; {s.result}</div>
-        {s.id === 'free' && (
-          <a className="jgo" href="/long-term">What it is worth later <span>&rarr;</span></a>
-        )}
-        <div className="stage">
-          {s.surface === 'getfound' && <GetFoundScene />}
-          {s.surface === 'staybookt' && <NightShift />}
-          {s.surface === 'enjoy' && <EnjoyLifeScene />}
-        </div>
-      </div>
+    <div className={`jstop ${s.side}`} id={s.id} ref={obsRef} style={{ '--acc': s.accent, '--acd': s.accentD } as CSSProperties}>
+      <div className="jcol jcol-l">{s.side === 'left' && <StopBody s={s} />}</div>
+      <div className="jroad"><div className="node" ref={pointRef}><span>{s.n}</span></div></div>
+      <div className="jcol jcol-r">{s.side === 'right' && <StopBody s={s} />}</div>
     </div>
   );
 }
@@ -267,34 +285,59 @@ const CSS = `
 .hj-jrny .jhead p{margin-top:16px;font-size:clamp(16px,1.9vw,20px);color:#69707d;line-height:1.6;max-width:56ch;}
 .hj-jmap{position:relative;max-width:940px;margin:0 auto;}
 .hj-jsvg{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:visible;}
-.hj-jsvg .bg{fill:none;stroke:rgba(10,14,26,.1);stroke-width:2.5;stroke-linecap:round;}
-.hj-jsvg .tr{fill:none;stroke:url(#hjgrad);stroke-width:3.4;stroke-linecap:round;}
+/* THE ROAD, Maps-style: a dashed grey "not yet driven" line underneath, and a solid
+   gradient route filling in on top as you scroll — the same visual grammar as a walking
+   route in Maps, dashed ahead / solid behind you. */
+.hj-jsvg .bg{fill:none;stroke:#c9cdd6;stroke-width:3;stroke-linecap:round;stroke-dasharray:1 13;}
+.hj-jsvg .tr{fill:none;stroke:url(#hjgrad);stroke-width:4;stroke-linecap:round;}
 .hj-jsvg .jdot{fill:#fff;stroke:#10b981;stroke-width:3;filter:drop-shadow(0 3px 10px rgba(16,185,129,.5));}
+/* THE CURRENT-LOCATION PUCK. A ring that expands and fades around the travel dot on a
+   loop, same read as a live-location blip on a nav app: "this is where you are, right
+   now, moving." Radius/opacity are CSS-animatable SVG properties in evergreen Chrome. */
+.hj-jsvg .jring{fill:none;stroke:#10b981;stroke-width:2.5;opacity:0;animation:hjring 1.8s ease-out infinite;}
+@keyframes hjring{0%{r:8.5;opacity:.5;}100%{r:22;opacity:0;}}
 .hj-jrows{position:relative;z-index:1;}
-@media(prefers-reduced-motion:reduce){.hj-jsvg .tr{stroke-dashoffset:0 !important;}}
+@media(prefers-reduced-motion:reduce){.hj-jsvg .tr{stroke-dashoffset:0 !important;}.hj-jsvg .jring{animation:none;opacity:0;}}
 
-/* ONE RAIL, straight down the left edge — start dot, three milestone nodes, end dot all
-   share the same 60px column, so the SVG trail below runs in a clean lane that never
-   crosses text (see the STOPS comment above for why the old alternating layout did). */
-.hj-jstart,.hj-jend{display:grid;grid-template-columns:60px minmax(0,1fr);align-items:center;gap:clamp(16px,3vw,40px);text-align:left;}
+/* Bookends sit dead center — same x as the road's center column below, so the trail
+   starts and ends on the true centerline, no zigzag needed for a single point. */
+.hj-jstart,.hj-jend{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;}
 .hj-jstart{padding-bottom:clamp(26px,4vw,44px);}
 .hj-jend{padding-top:clamp(30px,5vw,52px);}
-.hj-jstart .sdot{width:16px;height:16px;border-radius:50%;background:var(--v4-ink,#06080d);position:relative;z-index:2;margin:0 auto;}
-.hj-jend .edot{width:20px;height:20px;border-radius:50%;background:#7c3aed;position:relative;z-index:2;box-shadow:0 0 0 6px rgba(124,58,237,.16);margin:0 auto;}
+.hj-jstart .sdot{width:16px;height:16px;border-radius:50%;background:var(--v4-ink,#06080d);position:relative;z-index:2;}
+.hj-jend .edot{width:20px;height:20px;border-radius:50%;background:#7c3aed;position:relative;z-index:2;box-shadow:0 0 0 6px rgba(124,58,237,.16);}
 .hj-jstart .st{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#69707d;}
 .hj-jstart .sh{margin-top:3px;font-size:clamp(17px,2vw,20px);font-weight:600;color:var(--v4-ink,#06080d);}
 .hj-jend .eh{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02em;color:var(--v4-ink,#06080d);max-width:16ch;}
 
-.jstop{display:grid;grid-template-columns:60px minmax(0,1fr);gap:clamp(16px,3vw,40px);align-items:start;padding:clamp(30px,5vw,54px) 0;opacity:.45;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease;}
+/* THE WINDING ROAD. Three columns: content / road / content. Only one flanking column
+   is populated per stop (see StopBlock) — the road always occupies its own narrow 72px
+   center lane, and content always sits a full column-gap outside it, so the pin can lean
+   toward its content without the road itself ever reaching text. This is what makes the
+   zigzag immersive again without the collision Jacob flagged. */
+.jstop{display:grid;grid-template-columns:1fr 72px 1fr;grid-template-areas:"l road r";column-gap:clamp(22px,3.4vw,40px);align-items:start;padding:clamp(30px,5vw,54px) 0;opacity:.45;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease;}
 .jstop.on{opacity:1;transform:none;}
-.jstop .node{width:46px;height:46px;border-radius:50%;background:#e6e8ec;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;margin:0 auto;border:4px solid #f6f6f3;position:relative;z-index:2;transition:background .5s ease;box-shadow:0 4px 16px -6px rgba(6,12,20,.3);}
+.jstop .jcol-l{grid-area:l;}
+.jstop .jcol-r{grid-area:r;}
+.jstop .jroad{grid-area:road;display:flex;justify-content:center;padding-top:2px;}
+.jstop .node{width:46px;height:46px;border-radius:50%;background:#e6e8ec;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;border:4px solid #f6f6f3;position:relative;z-index:2;transition:background .5s ease,transform .5s ease;box-shadow:0 4px 16px -6px rgba(6,12,20,.3);}
+/* THE LEAN. The pin nudges a few px toward whichever side carries its content — a
+   dropped pin tilting toward the place it marks — and this is the ONLY thing that
+   alternates left/right now. It stays well inside the road's own gutter. */
+.jstop.left .node{transform:translateX(-16px);}
+.jstop.right .node{transform:translateX(16px);}
 .jstop.on .node{background:var(--acc);animation:hjpulse 1.4s ease-out .1s 1;}
 @keyframes hjpulse{0%{box-shadow:0 0 0 0 rgba(0,0,0,.3);}100%{box-shadow:0 0 0 22px rgba(0,0,0,0);}}
+/* leader nub — a small triangle off the pin pointing at its content, a lightweight Maps
+   callout so the pin-to-card relationship reads even before the lean is noticed. */
+.jstop.left .node::after{content:'';position:absolute;top:50%;right:100%;transform:translateY(-50%);border:5px solid transparent;border-right-color:var(--acc);opacity:0;transition:opacity .5s ease;}
+.jstop.right .node::after{content:'';position:absolute;top:50%;left:100%;transform:translateY(-50%);border:5px solid transparent;border-left-color:var(--acc);opacity:0;transition:opacity .5s ease;}
+.jstop.on .node::after{opacity:.6;}
 @media(prefers-reduced-motion:reduce){.jstop{opacity:1;transform:none;}.jstop.on .node{animation:none;}}
 .jstop .plabel{font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--acd);}
 .jstop .promise{margin-top:8px;font-size:clamp(28px,4vw,50px);font-weight:600;line-height:1.02;letter-spacing:-.03em;color:var(--v4-ink,#06080d);}
 .jstop .voice{margin-top:14px;font-size:clamp(16px,1.9vw,20px);font-style:italic;color:#5b616b;max-width:34ch;}
-.jstop .beat{margin-top:16px;font-size:clamp(15px,1.6vw,17px);line-height:1.5;color:#69707d;max-width:48ch;}
+.jstop .beat{margin-top:16px;font-size:clamp(15px,1.6vw,17px);line-height:1.5;color:#69707d;max-width:44ch;}
 .jstop .result{display:inline-block;margin-top:16px;font-size:14.5px;font-weight:600;color:var(--acd);}
 .jstop .jgo{display:flex;width:fit-content;align-items:center;gap:8px;margin-top:16px;padding:9px 16px;
   border:1px solid rgba(6,12,20,.14);border-radius:999px;background:#fff;
@@ -307,8 +350,13 @@ const CSS = `
 .jstop .stage::before{content:'';position:absolute;inset:-8% -6% 2% -6%;background:radial-gradient(50% 55% at 42% 45%,rgba(0,0,0,.06),transparent 72%);filter:blur(40px);z-index:0;}
 .jstop .stage>*{position:relative;z-index:1;}
 @media(max-width:640px){
-  .hj-jstart,.hj-jend,.jstop{grid-template-columns:40px minmax(0,1fr);gap:16px;}
-  .jstop .node{width:38px;height:38px;font-size:15px;}
+  /* No room for two flanking columns at phone width. Both content slots collapse onto
+     one shared area next to a slim road — only one is ever populated, so they never
+     actually overlap — and the lean/nub retire since there is nothing left to lean past. */
+  .jstop{grid-template-columns:40px minmax(0,1fr);grid-template-areas:"road body";column-gap:16px;}
+  .jstop .jcol-l,.jstop .jcol-r{grid-area:body;}
+  .jstop .node{width:38px;height:38px;font-size:15px;transform:none;}
+  .jstop .node::after{display:none;}
 }
 
 /* corner mini-map HUD */
@@ -396,19 +444,20 @@ export default function HomeJourney() {
   const bgRef = useRef<SVGPathElement | null>(null);
   const trailRef = useRef<SVGPathElement | null>(null);
   const dotRef = useRef<SVGCircleElement | null>(null);
+  const ringRef = useRef<SVGCircleElement | null>(null);
   const lenRef = useRef(0);
   const pRef = useRef(0);
   const pts = useRef<Record<string, HTMLElement | null>>({});
   const stopEls = useRef<Record<string, HTMLDivElement | null>>({});
 
   const apply = (p: number) => {
-    const trail = trailRef.current, dot = dotRef.current, L = lenRef.current;
+    const trail = trailRef.current, dot = dotRef.current, ring = ringRef.current, L = lenRef.current;
     if (!trail || !L) return;
     trail.style.strokeDashoffset = String(L * (1 - p));
-    if (dot) {
+    if (dot || ring) {
       const pt = trail.getPointAtLength(L * Math.max(0, Math.min(1, p)));
-      dot.setAttribute('cx', String(pt.x));
-      dot.setAttribute('cy', String(pt.y));
+      if (dot) { dot.setAttribute('cx', String(pt.x)); dot.setAttribute('cy', String(pt.y)); }
+      if (ring) { ring.setAttribute('cx', String(pt.x)); ring.setAttribute('cy', String(pt.y)); }
     }
   };
 
@@ -541,6 +590,7 @@ export default function HomeJourney() {
               </defs>
               <path className="bg" ref={bgRef} d="" />
               <path className="tr" ref={trailRef} d="" />
+              <circle className="jring" ref={ringRef} r="8.5" cx="-10" cy="-10" />
               <circle className="jdot" ref={dotRef} r="8.5" cx="-10" cy="-10" />
             </svg>
 
