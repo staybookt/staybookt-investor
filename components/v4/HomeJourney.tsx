@@ -624,19 +624,20 @@ export default function HomeJourney() {
 
       <section className="hj-jrny">
         <div className="wrap">
-          {/* Round 5 (Jacob, Jul 30 2026): "Follow the path" read cultish, not Apple. The
-             * hero above this section already says "You built your business to Enjoy
-             * Life" / "Every call, answered. Every invoice, chased." — a plain, concrete
-             * promise. This header is the next sentence in that voice: state the payoff,
-             * don't issue an instruction. "Milestones" and "stops" stay (they describe the
-             * map below); "path"/"route" are gone. */}
+          {/* Round 6 (Jacob, Jul 30 2026): considered promoting "Here's what changes" to
+             * the page-level hero and demoting the real hero ("You built your business to
+             * Enjoy Life") down here — decided against it, the hero's emotional hook has
+             * to come first and the mid-page line only works as a payoff to tension the
+             * hero already built. Landed here instead: name the three milestones outright,
+             * in their own labels ("Get found" / "StayBookt" / "Enjoy life" below), as a
+             * triptych that extends the "StayBookt. Enjoy Life." tagline already sitting
+             * in the nav and page title rather than duplicating it. Subhead trimmed to one
+             * sentence — it used to re-say "three stops," which is now redundant with the
+             * headline spelling them out. */}
           <div className="jhead">
             <div className="eyebrow">The three milestones</div>
-            <h2>Here&rsquo;s what changes.</h2>
-            <p>
-              Every customer, and your whole business, moves through the same three stops. Here
-              is exactly what happens at each one, and what it means for you.
-            </p>
+            <h2>Get Found. StayBookt. Enjoy Life.</h2>
+            <p>Here is exactly what happens at each one, and what it means for you.</p>
           </div>
           <div className="hj-jmap" ref={mapRef}>
             <svg className="hj-jsvg" ref={svgRef} preserveAspectRatio="none" aria-hidden="true">
