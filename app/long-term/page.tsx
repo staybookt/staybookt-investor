@@ -149,6 +149,41 @@ export default function LongTermPage() {
             </p>
           </Reveal>
           <Reveal><div className="lt-kick">Build long-term wealth, not a job.</div></Reveal>
+          {/* ADDED (Richard's feedback, relayed by Jacob, Jul 30 2026, via an "Edit to the
+              above:" rewrite): "my suggestions would come after the quotes... I like the
+              combo." His call was to add this after the lt-kick pull-quote rather than
+              replace the shorter paragraph above it — the short version lands the fact fast,
+              this expands on why it is true and what a buyer actually checks for. Trimmed
+              one line from his draft: it closed on "That is not our opinion. Ask anyone who
+              buys these businesses for a living.", the same sentence already sitting at the
+              end of the paragraph directly above the quote — kept once, not twice. Also
+              fixed "shear will" -> "sheer will" and de-contracted ("don't" -> "do not") to
+              match this section's own register, which already runs uncontracted. */}
+          <Reveal>
+            <p>
+              If your business would go backwards without you, a buyer is not going to pay
+              you a lot of money. So you need to plan today, to have a business to sell in
+              the future.
+            </p>
+          </Reveal>
+          <Reveal>
+            <p>
+              To maximize your business value, you do not want to be in a position where you
+              are selling assets and a customer list. That happens when the business is run
+              on your cell phone and the customers go away when you leave. Buyers want
+              businesses that can work when the owner is not standing there. Otherwise, what
+              are they buying?
+            </p>
+          </Reveal>
+          <Reveal>
+            <p>
+              You need to demonstrate repeatable channel revenue, strong repeat business,
+              healthy referral levels, day-to-day operations run by systems, not sheer will,
+              and an impressive online presence associated with the business, not the owner.
+              Most buyers do not want to buy a job. They want a business that has a path to
+              grow.
+            </p>
+          </Reveal>
         </div>
       </section>
 
