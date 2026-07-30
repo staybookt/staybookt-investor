@@ -178,9 +178,29 @@ const CSS = `
 .abt-value h2{margin-top:14px;font-size:clamp(28px,4.2vw,54px);line-height:1.04;}
 .abt-value p{margin-top:16px;font-size:clamp(17px,1.9vw,20px);line-height:1.6;color:#69707d;}
 .abt-value p b{font-weight:600;color:var(--v4-ink);}
-.abt-value .kick{margin-top:clamp(28px,3.4vw,38px);padding-left:clamp(16px,1.4vw,20px);border-left:3px solid transparent;
+.abt-value .kick{margin-top:0;padding-left:clamp(16px,1.4vw,20px);border-left:3px solid transparent;
   border-image:var(--sb-grad-ink) 1;font-size:clamp(19px,2.3vw,28px);font-weight:600;letter-spacing:-.02em;
   line-height:1.3;color:var(--v4-ink);}
+
+/* PAYOFF SPLIT, added same day the section got de-densified (see the comment above the JSX).
+   Left column keeps reading as prose (the kick quote + one tightened paragraph). Right column
+   is a distinct white card, not more paragraphs — that contrast (text vs. object) is what breaks
+   the "novel" feeling, the same job the RemovalTest film does one scroll later. Full .wrap width
+   (1080px), not the 680px .value-lead measure above it — this is the same move .abt-us makes
+   going from its own single-column .us-lead into the two-up .fgrid. */
+.abt-value .vgrid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  gap:clamp(32px,5vw,64px);align-items:start;margin-top:clamp(40px,5.5vw,60px);}
+@media(max-width:820px){.abt-value .vgrid{grid-template-columns:1fr;gap:36px;}}
+.abt-value .checkcard{background:#fff;border:1px solid #ececeb;border-radius:20px;
+  padding:clamp(24px,3vw,32px);box-shadow:0 26px 54px -34px rgba(6,12,20,.2);}
+.abt-value .cc-k{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#69707d;}
+.abt-value .cc-list{list-style:none;margin:18px 0 0;padding:0;display:flex;flex-direction:column;gap:14px;}
+.abt-value .cc-list li{display:flex;align-items:flex-start;gap:11px;font-size:15.5px;font-weight:600;
+  letter-spacing:-.01em;color:var(--v4-ink);line-height:1.4;}
+.abt-value .cc-list li::before{content:'';flex:0 0 auto;width:8px;height:8px;margin-top:7px;
+  border-radius:50%;background:var(--sb-grad);}
+.abt-value .cc-close{margin-top:18px;padding-top:16px;border-top:1px solid #ececeb;
+  font-size:14px;line-height:1.5;color:#69707d;}
 
 /* ===== 5. THE PROMISES. The one object on the page. ===== */
 .abt-prm{background:#050506;padding:clamp(90px,12vw,150px) 0;}
@@ -312,13 +332,21 @@ export default function AboutPage() {
           rendered here. */}
 
       {/* 3 — WHY THIS MATTERS LONG-TERM. Merged in from /long-term (Jul 30 2026, see the page-top
-          comment). Content unchanged from what shipped there: the one fact, the lt-kick
-          pull-quote, Richard's three expanded paragraphs (added the same day, right after the
-          quote per his own feedback), then the RemovalTest film as the proof, not just prose. */}
+          comment). RESHAPED same day (Jacob: "super text dense... any way you see consolidating,
+          or making it more visually stimulating, formatting it in a way to not look like reading
+          a novel"). It was five stacked paragraphs in one 680px column with the right half of the
+          page empty. Nothing here got invented: it's the same fact, the same lt-kick pull-quote,
+          and every one of Richard's points, just re-cut. One paragraph was dropped outright — "if
+          your business would go backwards without you, a buyer won't pay you a lot" said the same
+          thing the opener and the pull-quote already said, three times in a row is not emphasis,
+          it's the thing Jacob flagged. The buyer-diligence checklist (repeatable channel revenue,
+          repeat business, referrals, systems, online presence) was prose pretending to be a list —
+          it's a real list now, in a card, using the dead space on the right instead of more lines
+          of gray text. Intro stays single-column at the .us-lead measure like before; the payoff
+          splits two-up, same move .abt-us already makes going from us-lead into fgrid. */}
       <section className="abt-value" id="long-term-value">
         <div className="wrap">
-          {/* .value-lead: same 680px measure as .us-lead above, so the two sections share
-             one column width instead of each picking its own max-width. */}
+          {/* .value-lead: same 680px measure as .us-lead above. */}
           <div className="value-lead">
           <Reveal className="eyebrow" as="div">The one fact</Reveal>
           <Reveal><h2>If it cannot run without you, there is nothing to hand anyone.</h2></Reveal>
@@ -330,32 +358,36 @@ export default function AboutPage() {
               it. That is not our opinion. Ask anyone who buys these businesses for a living.
             </p>
           </Reveal>
-          <Reveal><div className="kick">Build long-term wealth, not a job.</div></Reveal>
-          <Reveal>
-            <p>
-              If your business would go backwards without you, a buyer is not going to pay
-              you a lot of money. So you need to plan today, to have a business to sell in
-              the future.
-            </p>
-          </Reveal>
-          <Reveal>
-            <p>
-              To maximize your business value, you do not want to be in a position where you
-              are selling assets and a customer list. That happens when the business is run
-              on your cell phone and the customers go away when you leave. Buyers want
-              businesses that can work when the owner is not standing there. Otherwise, what
-              are they buying?
-            </p>
-          </Reveal>
-          <Reveal>
-            <p>
-              You need to demonstrate repeatable channel revenue, strong repeat business,
-              healthy referral levels, day-to-day operations run by systems, not sheer will,
-              and an impressive online presence associated with the business, not the owner.
-              Most buyers do not want to buy a job. They want a business that has a path to
-              grow.
-            </p>
-          </Reveal>
+          </div>
+
+          {/* Payoff splits two-up: the pull-quote and the "why" on the left, the buyer's actual
+             checklist as a scannable card on the right, not a fifth paragraph. */}
+          <div className="vgrid">
+            <Reveal>
+              <div className="vcol">
+                <div className="kick">Build long-term wealth, not a job.</div>
+                <p>
+                  So you need to plan today, to have a business to sell in the future: one
+                  that is not just assets and a customer list that goes quiet the moment you
+                  leave. Buyers want a business that works whether you are standing there or not.
+                </p>
+              </div>
+            </Reveal>
+            <Reveal>
+              <div className="checkcard">
+                <div className="cc-k">What a buyer actually checks</div>
+                <ul className="cc-list">
+                  <li>Repeatable channel revenue</li>
+                  <li>Strong repeat business</li>
+                  <li>Healthy referral levels</li>
+                  <li>Operations run by systems, not sheer will</li>
+                  <li>An online presence tied to the business, not the owner</li>
+                </ul>
+                <p className="cc-close">
+                  Most buyers do not want to buy a job. They want a business that has a path to grow.
+                </p>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
