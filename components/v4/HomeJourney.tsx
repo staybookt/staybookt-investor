@@ -640,18 +640,25 @@ export default function HomeJourney() {
              * choice — "Enjoy" was bleeding onto line one and orphaning "Life." alone on
              * line two, which breaks [[staybookt-hero-format]], the site's own locked rule
              * that a headline is a deliberate 2-line break with the punchline ALONE on
-             * line 2. Forced the break after "StayBookt." and gave "Enjoy Life." the same
-             * gradient-text treatment as the real hero's second line (`.g`, same --sb-grad
-             * technique as `header.scene h1 .g` in app/page.tsx and `.hjc-price` below) —
-             * so this header now visually rhymes with the hero instead of just quoting it.
-             * (2) The subhead was narrating the section instead of saying something —
-             * "here is exactly what happens" describes the copy rather than being copy.
-             * Replaced with three short present-tense beats, one per milestone, ending on
-             * a deliberate double meaning ("your call" = the phone AND the decision,
-             * echoing milestone 3's own voice line "my call"). */}
+             * line 2. Forced the break and gave the gradient-text treatment used on the
+             * real hero's second line (`.g`, same --sb-grad technique as `header.scene h1
+             * .g` in app/page.tsx and `.hjc-price` below). (2) The subhead was narrating
+             * the section instead of saying something — "here is exactly what happens"
+             * describes the copy rather than being copy. Replaced with three short
+             * present-tense beats, one per milestone, ending on a deliberate double
+             * meaning ("your call" = the phone AND the decision, echoing milestone 3's own
+             * voice line "my call").
+             *
+             * Round 8 (Jacob, same day): "StayBookt." itself — the wordmark, not just the
+             * payoff word — always gets the gradient treatment wherever it appears as
+             * display copy, same as the nav logo. Three concepts on one line ("Get Found.
+             * StayBookt. Enjoy Life.") didn't fit cleanly, so "Get Found." dropped —
+             * milestone 1 already carries that label two lines down — leaving the header
+             * as exactly the site's own tagline, both halves gradient, split across the
+             * two locked lines: wordmark on line 1, payoff on line 2. */}
           <div className="jhead">
             <div className="eyebrow">The three milestones</div>
-            <h2>Get Found. StayBookt.<br /><span className="g">Enjoy Life.</span></h2>
+            <h2><span className="g">StayBookt.</span><br /><span className="g">Enjoy Life.</span></h2>
             <p>The phone rings. The work gets done. Your call.</p>
           </div>
           <div className="hj-jmap" ref={mapRef}>
