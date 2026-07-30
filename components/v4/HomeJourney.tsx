@@ -624,12 +624,18 @@ export default function HomeJourney() {
 
       <section className="hj-jrny">
         <div className="wrap">
+          {/* Round 5 (Jacob, Jul 30 2026): "Follow the path" read cultish, not Apple. The
+             * hero above this section already says "You built your business to Enjoy
+             * Life" / "Every call, answered. Every invoice, chased." — a plain, concrete
+             * promise. This header is the next sentence in that voice: state the payoff,
+             * don't issue an instruction. "Milestones" and "stops" stay (they describe the
+             * map below); "path"/"route" are gone. */}
           <div className="jhead">
             <div className="eyebrow">The three milestones</div>
-            <h2>Follow the path.</h2>
+            <h2>Here&rsquo;s what changes.</h2>
             <p>
-              Every customer, and your whole business, travels the same three-stop route. Here is
-              exactly what happens at each one, and what it means for you.
+              Every customer, and your whole business, moves through the same three stops. Here
+              is exactly what happens at each one, and what it means for you.
             </p>
           </div>
           <div className="hj-jmap" ref={mapRef}>
