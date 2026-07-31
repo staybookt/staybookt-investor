@@ -35,7 +35,7 @@ import { min } from '@/lib/css';
 
 type Stop = {
   id: string; n: string; label: string; promise: string; voice: string; accent: string; accentD: string;
-  side: 'left' | 'right'; surface: 'getfound' | 'staybookt' | 'reputation'; beat: string;
+  side: 'left' | 'right'; surface: 'getfound' | 'staybookt' | 'reputation' | 'admin'; beat: string;
 };
 
 /* Content ORIGINATED as the same three milestones as HowItWorks.tsx's STOPS, minus the
@@ -47,12 +47,28 @@ type Stop = {
  * milestone 3 was building a great reputation that drives referrals/repeat business,
  * and milestone 4 related to getting rid of paperwork/admin." Real gap: the pricing
  * page's own included list has two whole pillars — the review/referral engine and the
- * CRM/admin/morning-brief layer — with zero presence anywhere on the homepage. Jacob's
- * call: keep 3 milestones rather than add a 4th (less engineering risk on the road's
- * curve math, see build() below). Milestone 3 becomes Reputation (was Enjoy Life);
- * admin/invoice-chasing folds into milestone 2's beat instead of getting its own card.
- * "Enjoy Life" does not disappear — it was already duplicated between this milestone
- * and the closing "Twelve months later" bookend below (see the round 9/10 comments on
+ * CRM/admin/morning-brief layer — with zero presence anywhere on the homepage.
+ *
+ * ROUND 14 call was to keep 3 milestones and fold admin into milestone 2's beat instead
+ * of a 4th card, to avoid engineering risk on the road's curve math (build() below).
+ * ROUND 16 (same day): Richard re-raised the identical ask, catalogued and verbatim,
+ * independent of round 14 — this was not a one-off idea. Reopening the call: reading
+ * build() below to actually assess the risk (rather than estimate it) turned up two
+ * things. First, it is not the fixed-3-stop math it was assumed to be — `P`, `rows`, and
+ * every downstream loop are built by mapping over an `order`/`rowOrder` array of ids,
+ * generically, with no arithmetic keyed to a stop count. Second, that "generic" claim was
+ * already broken in a way nobody had noticed: `order` and `rowOrder` still said 'free',
+ * the PRE-retheme id for this milestone — milestone 3's own pin has been silently
+ * skipped from the road since round 14 shipped, the line running found -> run -> end
+ * with no corner at reputation's row at all. So the "less risk" call was protecting
+ * against a defect the file already had. Fixing the stale id (see build() below) and
+ * adding a 4th entry to `order`/`rowOrder` is the same-sized change either way. Milestone
+ * 3 stays Reputation; milestone 4 is admin/paperwork, its own card, own scene
+ * (AdminScene), taking back the invoice/quote-chasing content that had been folded into
+ * milestone 2's beat, so milestone 2 goes back to being about the lead alone.
+ *
+ * "Enjoy Life" does not disappear — it was already duplicated between the old milestone
+ * 3 and the closing "Twelve months later" bookend below (see the round 9/10 comments on
  * the jhead a few screens down), so dropping it as a milestone card and letting the
  * bookend carry the full freedom/exit payoff alone REMOVES a redundancy instead of
  * adding one. The bookend now also carries the EnjoyLifeScene choice card and the
@@ -92,14 +108,12 @@ const STOPS: Stop[] = [
     beat: 'We build the site, fix the Google listing, and get you showing up first: on search, on the map, and in AI answers.',
   },
   {
-    /* Beat rewritten (round 14, Richard's admin feedback): dropped "win the review, and
-       rebook the second one" — that is milestone 3's job now, saying it twice read as
-       an echo once reputation got its own milestone. Added the invoice, which used to
-       have no home on the homepage at all despite being one of the pricing page's
-       thirteen included jobs. */
+    /* Beat trimmed back (round 16): the quote/invoice-chasing this used to carry moved
+       to milestone 4, its own card, below. This milestone is the lead alone again — the
+       missed call, caught and booked, same day. */
     id: 'run', n: '2', label: 'StayBookt', promise: 'Every lead gets worked.', voice: 'It is 2 a.m. I am asleep. It is handled.',
     accent: '#10b981', accentD: '#059669', side: 'right', surface: 'staybookt',
-    beat: 'We catch the missed call, book the job onto your calendar, chase the quote until you get an answer, and chase the invoice until it is paid. Nothing gets dropped, and nothing sits in a drawer.',
+    beat: 'We catch the missed call and book the job onto your calendar before you even see it come in.',
   },
   {
     /* WAS "Enjoy life" (id 'free', surface 'enjoy'). Retheme per Richard's feedback,
@@ -107,6 +121,18 @@ const STOPS: Stop[] = [
     id: 'reputation', n: '3', label: 'Reputation', promise: 'Every job earns the next one.', voice: 'Half my new customers already knew someone I worked for.',
     accent: '#7c3aed', accentD: '#6d28d9', side: 'left', surface: 'reputation',
     beat: 'After every job we ask for the review, answer every one in your voice, and bring past customers back before they drift to someone else.',
+  },
+  {
+    /* NEW, round 16 (Richard's re-raised feedback): the admin/paperwork milestone.
+       Promise reuses "nothing sits in a drawer" — that phrase already existed in
+       milestone 2's old beat and tested well enough to keep, just moved to where it
+       actually belongs now that it has its own card. Indigo, not violet: this site's
+       four named brand hues are cyan/emerald/indigo/violet (see the pricing page's own
+       four terms chips), and indigo is already the "commitment / the books" hue there —
+       closer to what this milestone is than reputation's violet. */
+    id: 'admin', n: '4', label: 'Paperwork', promise: 'Nothing sits in a drawer.', voice: 'I have not chased an invoice in months.',
+    accent: '#4f46e5', accentD: '#4338ca', side: 'right', surface: 'admin',
+    beat: 'We follow up every quote until you get an answer, chase every invoice until it is paid, and send you the week’s numbers before you ask.',
   },
 ];
 
@@ -270,6 +296,52 @@ function ReputationScene() {
   );
 }
 
+/* Admin scene, new for milestone 4 (round 16, Jul 30 2026, Richard's re-raised
+ * feedback — see the block comment above STOPS for the full call). Same "real UI
+ * surface" family as GetFoundScene/ReputationScene rather than another phone thread
+ * (NightShift already owns that grammar for milestone 2) — a checklist card, because
+ * the actual argument here is quiet and cumulative: three ordinary things that did not
+ * need you, not one dramatic save. Copy pulls straight from PJOBS' own Assistant/
+ * Collections roles below rather than inventing new claims. */
+function AdminScene() {
+  const ref = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) el.classList.add('on'); }), { threshold: 0.4 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  const ROWS: { l: string; d: string }[] = [
+    { l: 'Quote followed up', d: 'No answer yet, nudged again' },
+    { l: 'Invoice sent', d: 'Paid in two days' },
+    { l: 'This week’s numbers', d: 'Sent to your phone, unprompted' },
+  ];
+  return (
+    <div className="ad" ref={ref}>
+      <div className="adwin">
+        <div className="adtop">While you were out</div>
+        <div className="adlist">
+          {ROWS.map((r, i) => (
+            <div className="adrow" key={r.l} style={{ '--i': i } as CSSProperties}>
+              <span className="adchk" aria-hidden>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 12l5 5L20 6" />
+                </svg>
+              </span>
+              <span className="adtxt"><b>{r.l}</b><i>{r.d}</i></span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="chips">
+        <span className="chip">Nothing sits in a drawer</span>
+        <span className="chip">Sent before you are up</span>
+      </div>
+    </div>
+  );
+}
+
 function StopBody({ s }: { s: Stop }) {
   return (
     <div className="body">
@@ -281,6 +353,7 @@ function StopBody({ s }: { s: Stop }) {
         {s.surface === 'getfound' && <GetFoundScene />}
         {s.surface === 'staybookt' && <NightShift />}
         {s.surface === 'reputation' && <ReputationScene />}
+        {s.surface === 'admin' && <AdminScene />}
       </div>
     </div>
   );
@@ -540,6 +613,25 @@ const CSS = `
 .rp.on .chip{opacity:1;transform:none;}
 .rp.on .chip:nth-child(1){transition-delay:.75s;}.rp.on .chip:nth-child(2){transition-delay:.9s;}
 
+/* Admin scene (milestone 4). Same card chrome as .gf/.rp (white, rounded, one shadow) so
+   all four milestones read as one visual family. Rows stagger via --i instead of named
+   nth-child delays, since ROWS is a plain array, not fixed elements like .rp's stars/
+   text/reply. */
+.ad{width:min(400px,100%);}
+.ad .adwin{background:#fff;border-radius:18px;border:1px solid #ececf0;box-shadow:0 44px 90px -44px rgba(0,0,0,.4);padding:20px 22px;text-align:left;}
+.ad .adtop{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8a8f98;}
+.ad .adlist{margin-top:14px;display:flex;flex-direction:column;gap:14px;}
+.ad .adrow{display:flex;align-items:flex-start;gap:11px;opacity:0;transform:translateY(8px);transition:opacity .6s ease,transform .6s ease;transition-delay:calc(var(--i) * .18s + .15s);}
+.ad.on .adrow{opacity:1;transform:none;}
+.ad .adchk{flex:0 0 auto;width:20px;height:20px;border-radius:50%;background:rgba(79,70,229,.12);color:#4338ca;display:flex;align-items:center;justify-content:center;margin-top:1px;}
+.ad .adtxt{display:flex;flex-direction:column;}
+.ad .adtxt b{font-size:14.5px;font-weight:600;color:var(--v4-ink,#06080d);}
+.ad .adtxt i{margin-top:2px;font-style:normal;font-size:12.5px;color:#8a8f98;}
+.ad .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;}
+.ad .chip{font-size:11.5px;font-weight:600;color:#4338ca;background:rgba(79,70,229,.1);border-radius:999px;padding:6px 12px;opacity:0;transform:translateY(6px);transition:opacity .5s ease,transform .5s ease;}
+.ad.on .chip{opacity:1;transform:none;}
+.ad.on .chip:nth-child(1){transition-delay:.9s;}.ad.on .chip:nth-child(2){transition-delay:1.05s;}
+
 /* ===== WHAT IT COSTS — the one dark section left on the page, on purpose (Jacob, round
    4: relight everything else, keep this one the contrast slab so the payoff still lands
    as a payoff). Round 4 also asked for it to look more like the brand: the $199 used to
@@ -602,10 +694,14 @@ const CSS = `
  * a maps pin" idea but makes it correct everywhere: the dot's color is sampled from the
  * SAME gradient stops as the trail itself (cyan -> emerald -> violet, see hjgrad above),
  * so it is always exactly the color of the road it is currently sitting on. */
+/* Extended for milestone 4 (round 16): a 4th stop, indigo, between emerald and violet —
+ * matching the new milestone's accent (#4f46e5). gradColor() below is written generic
+ * over GRAD_STOPS.length already, so this is the only change this function needed. */
 const GRAD_STOPS: [number, [number, number, number]][] = [
-  [0, [14, 165, 233]],   // #0ea5e9
-  [0.55, [16, 185, 129]], // #10b981
-  [1, [124, 58, 237]],   // #7c3aed
+  [0, [14, 165, 233]],    // #0ea5e9
+  [0.35, [16, 185, 129]], // #10b981
+  [0.68, [79, 70, 229]],  // #4f46e5
+  [1, [124, 58, 237]],    // #7c3aed
 ];
 function gradColor(p: number): string {
   const t = Math.max(0, Math.min(1, p));
@@ -652,7 +748,12 @@ export default function HomeJourney() {
     if (!map || !svg || !trail || !bg) return;
     const mr = map.getBoundingClientRect();
     const W = map.clientWidth, H = map.clientHeight;
-    const order = ['start', 'found', 'run', 'free', 'end'];
+    /* WAS ['start','found','run','free','end'] — 'free' is the PRE-retheme id (see the
+       block comment above STOPS). Because it no longer matches any registered point,
+       this array was silently skipping milestone 3's own pin from the road for the
+       whole time reputation has existed — the line ran found -> run -> end with no
+       corner at reputation's row. Fixed alongside adding milestone 4's id, round 16. */
+    const order = ['start', 'found', 'run', 'reputation', 'admin', 'end'];
     const P = order.map((k) => {
       const el = pts.current[k];
       if (!el) return null;
@@ -666,7 +767,7 @@ export default function HomeJourney() {
      * between two blocks instead of guessing a percentage of the distance between
      * their pins — the gap's height changes with viewport (clamp() padding), so a
      * guess drifts off target exactly when it matters. rowOrder mirrors STOPS. */
-    const rowOrder = ['found', 'run', 'free'];
+    const rowOrder = ['found', 'run', 'reputation', 'admin'];
     const rows = rowOrder.map((k) => {
       const el = stopEls.current[k];
       if (!el) return null;
@@ -862,11 +963,11 @@ export default function HomeJourney() {
              * because it duplicated the real nav bar; this reads as copy, not a second
              * nav. */}
           <div className="jhead">
-            <div className="eyebrow">The three milestones</div>
+            <div className="eyebrow">The four milestones</div>
             <h2><span className="g">StayBookt.</span> Enjoy Life.</h2>
             <p>
               Building a business where you do not do everything is what makes running one
-              fun again. Here is exactly what changes at each of the three milestones, and
+              fun again. Here is exactly what changes at each of the four milestones, and
               what it means for you.
             </p>
             <p className="jhead-who">
@@ -879,7 +980,8 @@ export default function HomeJourney() {
               <defs>
                 <linearGradient id="hjgrad" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0" stopColor="#0ea5e9" />
-                  <stop offset="0.55" stopColor="#10b981" />
+                  <stop offset="0.35" stopColor="#10b981" />
+                  <stop offset="0.68" stopColor="#4f46e5" />
                   <stop offset="1" stopColor="#7c3aed" />
                 </linearGradient>
               </defs>
