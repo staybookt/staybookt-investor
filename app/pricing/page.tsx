@@ -1,6 +1,7 @@
 import Nav from '@/components/v4/Nav';
 import SiteFooter from '@/components/SiteFooter';
 import Matrix from '@/components/v4/Matrix';
+import PayrollSwap from '@/components/v4/PayrollSwap';
 import IncludedFaq from '@/components/v4/IncludedFaq';
 import HeroCta from '@/components/v4/HeroCta';
 import { min } from '@/lib/css';
@@ -32,24 +33,20 @@ export const metadata = {
  * (next.config). Structure:
  *   1. the headline "What you get for $199 a month." + the four terms chips
  *   2. the transfer chart (Matrix)
- *   3. why it can be $199 (the five-salaries argument), moved to AFTER the chart
+ *   3. why it can be $199 (the five-salaries argument, PayrollSwap.tsx)
  *   4. the money + service FAQ, blended into IncludedFaq
  *   5. the call
  *
- * The five-salaries block is still prose here. Rebuilding it as the crossed-out visual
- * Stephanie sketched is a fast-follow; it needs a call on whether to show (invented) salary
- * figures, given this site's standing rule against made-up numbers. */
-
-/* Real median Canadian pay per role (Job Bank, 2025), rounded conservatively. These are
-   market rates, not figures we invented; the whole site rule is no made-up numbers. Sum is
-   exact: 44 + 50 + 52 + 56 + 54 = 256. */
-const ROLES: { role: string; pay: string }[] = [
-  { role: 'A receptionist', pay: '$44,000' },
-  { role: 'A scheduler', pay: '$50,000' },
-  { role: 'An assistant', pay: '$52,000' },
-  { role: 'A collections clerk', pay: '$56,000' },
-  { role: 'A marketer', pay: '$54,000' },
-];
+ * SAME-TREATMENT PASS (Jacob, Jul 30 2026): "the pricing page has not yet gotten the same
+ * treatment as the homepage, about us, journeys." Two real gaps versus those pages: the hero
+ * was the plain, unanimated variant of .pg-hero (no split hl1/hl2 reveal, no pill eyebrow, no
+ * sub line — every other flagship page uses the canonical reveal, see /founders), and the
+ * five-salaries argument was a boxed white card (border+radius+shadow), which is exactly the
+ * "card chrome" this site's own rule bans elsewhere. Fixed: the hero below now runs the same
+ * hl1/hl2/sub/graphic reveal as /founders (ported verbatim, re-hued indigo per this page's
+ * existing --hero-hue), and the five-salaries section is now PayrollSwap.tsx, a scroll-
+ * triggered reveal (same on-view/IntersectionObserver technique as the homepage's own
+ * PriceReveal) with plain hairline rows instead of a card. */
 
 /* CHIP LABELS PER RICHARD (Jul 28 follow-up): "No lock-in" -> "Month-to-month" and the
    refund chip -> "First 90 days, money back". Same terms, plainer words — this also
@@ -78,6 +75,24 @@ const CSS = `
 .pg-hero{--hero-hue:79,70,229;}
 .pg-hero .wrap h1 .pd{color:var(--v4-violet);}
 
+/* THE CANONICAL HERO REVEAL, ported from /founders (same technique, same timings — Jul 30
+   2026 same-treatment pass). This hero has no photo wall; the four terms chips below are its
+   "supporting graphic" beat and stagger in from 2.15s the same way founders' memwall does. */
+.prc .pg-hero .wrap .eyebrow{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.15em;text-transform:none;color:#42474f;border:1.5px solid transparent;background:linear-gradient(#fff,#fff) padding-box,var(--sb-grad) border-box;border-radius:999px;padding:9px 18px;box-shadow:0 6px 18px -10px rgba(6,12,20,.25);}
+.prc .pg-hero .wrap h1{margin:20px auto 0;font-size:clamp(20px,6.4vw,88px);line-height:1.02;letter-spacing:-.03em;font-weight:600;}
+.prc .pg-hero .hero-h1 .hl1,.prc .pg-hero .hero-h1 .hl2{display:block;white-space:nowrap;}
+.prc .pg-hero .wrap p.sub{margin:22px auto 0;font-size:clamp(13px,3.1vw,21px);line-height:1.4;color:#52565e;}
+@media(prefers-reduced-motion:no-preference){
+  .prc .pg-hero .hero-h1 .hl1{opacity:0;filter:blur(10px);transform:translateY(20px);animation:abtIn .9s cubic-bezier(.16,1,.3,1) .2s forwards;}
+  .prc .pg-hero .hero-h1 .hl2{position:relative;opacity:0;filter:blur(32px);transform:translateY(16px) scale(1.35);transform-origin:center;animation:abtEnjoy 1.5s cubic-bezier(.19,1,.22,1) 1s forwards;}
+  .prc .pg-hero .hero-h1 .hl2::before{content:'';position:absolute;inset:-34% -10%;z-index:-1;background:radial-gradient(56% 62% at 50% 54%,rgba(79,70,229,.32),rgba(16,185,129,.2) 46%,transparent 72%);filter:blur(36px);opacity:0;transform:scale(.7);animation:abtGlow 2s ease 1.05s forwards;}
+  .prc .pg-hero .wrap p.sub{opacity:0;filter:blur(6px);transform:translateY(12px);animation:abtIn .9s cubic-bezier(.16,1,.3,1) 1.7s forwards;}
+  .prc .facts{opacity:0;transform:translateY(16px);animation:abtIn .9s cubic-bezier(.16,1,.3,1) 2.15s forwards;}
+}
+@keyframes abtIn{to{opacity:1;filter:blur(0);transform:none;}}
+@keyframes abtEnjoy{0%{opacity:0;filter:blur(32px);transform:translateY(16px) scale(1.35);}55%{opacity:1;}100%{opacity:1;filter:blur(0);transform:translateY(0) scale(1);}}
+@keyframes abtGlow{0%{opacity:0;transform:scale(.7);}50%{opacity:.95;}100%{opacity:.62;transform:scale(1);}}
+
 /* the four terms, right under the headline. Each carries its own brand-hue top-accent bar so
    the row reads as an informational overview, not clickable tabs (Emma p12). */
 .facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,1.6vw,20px);max-width:900px;margin:clamp(30px,4vw,44px) auto 0;text-align:left;}
@@ -90,33 +105,6 @@ const CSS = `
 .fact:nth-child(4){--fc:#a78bfa;}
 .fact b{display:block;font-size:14.5px;font-weight:600;letter-spacing:-.01em;color:#fff;}
 .fact span{display:block;margin-top:7px;font-size:13.5px;line-height:1.5;color:#8b93a5;}
-
-/* ===== THE PAYROLL SWAP — the five-salaries argument as a visual (Jul 23 2026).
-   White section to break the cream chart above and the FAQ below. The five roles a big
-   company puts on payroll to run its front office, each struck through at real median
-   Canadian pay (Job Bank 2025), swapped for one line: $199 a month. The numbers are real
-   and sourced; nothing here is invented, which is the standing site rule. The strike is a
-   muted grey, not red: brand orange/red is retired, and the pop belongs to the $199. ===== */
-.prc-swap{background:#fff;padding:clamp(80px,11vw,140px) 0;border-top:1px solid #e6e6e1;}
-.prc-swap .inner{max-width:720px;margin:0 auto;}
-.prc-swap h2{margin-top:14px;font-size:clamp(30px,4.4vw,56px);line-height:1.03;max-width:16ch;}
-.prc-swap .lede{margin-top:24px;font-size:clamp(17px,2vw,21px);line-height:1.6;color:#42474f;max-width:56ch;}
-.swap{margin-top:clamp(38px,5vw,56px);border:1px solid #e9e9e4;border-radius:20px;overflow:hidden;box-shadow:0 30px 70px -40px rgba(6,12,20,.35);}
-.swap .srow{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:15px clamp(18px,3vw,28px);border-bottom:1px solid #f0f0ec;}
-.swap .srow .rname{font-size:clamp(15px,1.9vw,18px);font-weight:500;color:#6b7280;}
-.swap .srow .rpay{font-size:clamp(15px,1.9vw,18px);font-weight:600;color:#9aa0a8;white-space:nowrap;}
-.swap .srow .rpay s{text-decoration:line-through;text-decoration-color:#c3c8d0;text-decoration-thickness:2px;}
-.swap .srow .rpay em{font-style:normal;font-weight:500;color:#b6bcc4;font-size:.8em;}
-.swap .srow.total{background:#faf9f7;border-bottom:0;}
-.swap .srow.total .rname{font-weight:700;color:var(--v4-ink);}
-.swap .srow.total .rpay{color:var(--v4-ink);font-size:clamp(17px,2.2vw,22px);}
-.swap .srow.total .rpay s{text-decoration-thickness:2.5px;}
-.swap .swap-us{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:clamp(22px,3vw,30px) clamp(18px,3vw,28px);background:var(--v4-ink);color:#fff;}
-.swap .swap-us .usl{font-size:clamp(15px,1.9vw,18px);font-weight:600;}
-.swap .swap-us .usp{font-size:clamp(30px,4.4vw,48px);font-weight:700;letter-spacing:-.03em;background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;white-space:nowrap;}
-.swap .swap-us .usp em{font-style:normal;font-size:.4em;font-weight:600;color:#fff;-webkit-text-fill-color:#fff;letter-spacing:0;}
-.prc-swap .swap-src{margin-top:20px;font-size:13px;line-height:1.55;color:#9aa0a8;max-width:56ch;}
-@media(max-width:520px){.swap .srow,.swap .swap-us{padding-left:16px;padding-right:16px;}}
 `;
 
 export default function PricingPage() {
@@ -126,11 +114,16 @@ export default function PricingPage() {
       <Nav />
       <main id="main" tabIndex={-1}>
 
-      {/* 1 — THE HEADLINE + THE TERMS */}
+      {/* 1 — THE HEADLINE + THE TERMS. Same reveal as /founders: hl1 -> hl2 focus-pull ->
+          sub -> facts (the "graphic" beat here, no photo wall on this page). */}
       <header className="pg-hero">
         <div className="wrap">
           <div className="eyebrow">Pricing</div>
-          <h1>What you get for <span className="g">$199 a month</span><span className="pd">.</span></h1>
+          <h1 className="hero-h1">
+            <span className="hl1">What you get for</span>
+            <span className="hl2"><span className="g">$199 a month</span><span className="pd">.</span></span>
+          </h1>
+          <p className="sub">Every job on the list below, handled, no matter how busy it gets.</p>
           <div className="facts">
             {FACTS.map((f) => (
               <div className="fact" key={f.k}>
@@ -145,49 +138,9 @@ export default function PricingPage() {
       {/* 2 — THE CHART. Thirteen jobs, on your plate today, on ours tomorrow, for $199. */}
       <Matrix />
 
-      {/* 3 — WHY IT CAN BE $199. The five-salaries argument, now a visual (Jul 23 2026):
-          the five roles a big company puts on payroll to run its front office, each struck
-          through at real median Canadian pay (Job Bank 2025), swapped for one line, $199 a
-          month. Numbers are real and sourced; nothing invented (standing site rule). */}
-      <section className="prc-swap">
-        <div className="wrap">
-          <div className="inner">
-            <div className="eyebrow">Why so cheap</div>
-            <h2>It was never software. It was five salaries.</h2>
-            <p className="lede">
-              A big company answers every call, books every job, chases every quote and chases the
-              money. It is not smarter than you. It just has five people on payroll doing it, which
-              is the one thing you could never buy.
-            </p>
-
-            <div className="swap">
-              {ROLES.map((r) => (
-                <div className="srow" key={r.role}>
-                  <span className="rname">{r.role}</span>
-                  <span className="rpay"><s>{r.pay}</s><em>&nbsp;/year</em></span>
-                </div>
-              ))}
-              <div className="srow total">
-                <span className="rname">Five people on payroll</span>
-                <span className="rpay"><s>$256,000</s><em>&nbsp;/year</em></span>
-              </div>
-              <div className="swap-us">
-                <span className="usl">All five jobs, done for you</span>
-                {/* /mth: one price format sitewide for compact labels (Richard, Jul 28 +
-                    Jul 28 4:30pm follow-up flagging $199 / $199 a month / $199/mth /
-                    $199/month all live on the site at once). Prose sentences still say
-                    "$199 a month"; every compact label says "$199/mth". */}
-                <span className="usp">$199<em>&nbsp;/mth</em></span>
-              </div>
-            </div>
-
-            <p className="swap-src">
-              Each figure is median Canadian pay for that role (Job Bank, 2025). We are not five new
-              hires. We are the outcome those hires would give you, bought a different way.
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* 3 — WHY IT CAN BE $199. The five-salaries argument, scroll-triggered — see
+          PayrollSwap.tsx for the mechanism and the card-chrome-removal rationale. */}
+      <PayrollSwap />
 
       {/* 4 — THE CALL, BEFORE THE FAQ (Richard, Images doc Jul 28: "Does the CTA image
           have to be after the FAQ — I would rather have the CTA sooner. I don't love
