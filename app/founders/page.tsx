@@ -1,4 +1,5 @@
 import Nav from '@/components/v4/Nav';
+import Reveal from '@/components/v4/Reveal';
 import SiteFooter from '@/components/SiteFooter';
 import HeroCta from '@/components/v4/HeroCta';
 import RemovalTest from '@/components/v4/RemovalTest';
