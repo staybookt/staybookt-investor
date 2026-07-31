@@ -53,7 +53,7 @@ const PAGE_CSS = `
    headline, the ICP badge and the sub-copy all ran flush to both edges.
    Nobody caught it because nobody had opened this site at phone width. Keep the horizontal
    padding here, or restate it if you ever change the vertical. */
-.v4 header.scene .inner{padding:clamp(84px,10vh,116px) clamp(20px,4vw,32px) 0;text-align:center;max-width:1200px;margin:0 auto;}
+.v4 header.scene .inner{position:relative;padding:clamp(84px,10vh,116px) clamp(20px,4vw,32px) 0;text-align:center;max-width:1200px;margin:0 auto;}
 .v4 header.scene h1{max-width:none;margin:20px auto 0;font-size:clamp(20px,6.4vw,88px);letter-spacing:-.03em;line-height:1.02;text-align:center;color:var(--v4-ink);}
 /* SUBHEAD = ONE LINE, ALWAYS (global rule, Jacob Jul 23 2026). The max-width:46ch was forcing
    a two-line wrap. No cap, nowrap, and vw-scaled font so the (short) subhead holds one line from
@@ -90,29 +90,52 @@ const PAGE_CSS = `
   border-radius:999px;padding:9px 18px;
   box-shadow:0 6px 18px -10px rgba(6,12,20,.25);}
 
-/* THE POLAROID CAMERA ROLL. Real photos of the life the business buys, framed as polaroids and
-   scattered like a camera roll to FILL the space under the copy (Jacob: bigger cluster). No
-   captions. Six frames drawn from three approved, self-hosted shots (repeated, no adjacent
-   dupes); swap in more real photos and the roll de-dupes. --rot per frame is the tilt, kept
-   through the entrance animation below. */
-.v4 header.scene .hero-roll{display:flex;justify-content:center;align-items:flex-start;flex-wrap:nowrap;margin:clamp(16px,2.6vw,36px) auto 0;max-width:1120px;padding:0 clamp(8px,2vw,24px);}
-.v4 header.scene .hero-roll .pol{--rot:0deg;flex:0 0 auto;background:#fff;padding:8px 8px 22px;border-radius:4px;
-  box-shadow:0 26px 52px -22px rgba(6,12,20,.42),0 4px 10px -6px rgba(6,12,20,.2);width:min(clamp(104px,12vw,168px),21vh);transform:rotate(var(--rot));}
-.v4 header.scene .hero-roll .pol img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:2px;}
-.v4 header.scene .hero-roll .p1{--rot:-9deg;margin-top:26px;margin-right:-26px;z-index:1;}
-.v4 header.scene .hero-roll .p2{--rot:5deg;margin-top:6px;margin-right:-26px;z-index:3;}
-.v4 header.scene .hero-roll .p3{--rot:-3deg;margin-top:32px;margin-right:-26px;z-index:2;}
-.v4 header.scene .hero-roll .p4{--rot:7deg;margin-top:10px;margin-right:-26px;z-index:4;}
-.v4 header.scene .hero-roll .p5{--rot:-6deg;margin-top:28px;margin-right:-26px;z-index:2;}
-.v4 header.scene .hero-roll .p6{--rot:4deg;margin-top:4px;z-index:5;}
-@media(max-width:760px){
-  .v4 header.scene .hero-roll{max-width:100%;}
-  .v4 header.scene .hero-roll .pol{width:26vw;padding:7px 7px 18px;}
+/* THE CLEARING (Jacob, Jul 31 2026, round 4 — design-reviewed against Journeys and Founders
+   before building). The polaroid roll that used to live here is gone for good: polaroids are
+   the About-us memwall's device now, and a first-time visitor hasn't met anyone yet, so showing
+   them the founders' own vacation photos before they know who those people are was the wrong
+   kind of intimacy. An earlier "Builder's Line" replacement (a hand-drawn stroke sweeping under
+   the headline) was cut before shipping — it reused Journeys' exact pen-and-path grammar at
+   smaller scale, which would have diluted Journeys rather than given the homepage a third voice.
+
+   This is genuinely a third device: not a path (Journeys), not a photo object (Founders), but a
+   field that subtracts. ~11 thin ruled hairlines — a ledger page — sit behind the headline on
+   load. They clear in two waves, timed to when each headline line lands: the upper rows (behind
+   "You built your business to do") wipe away first, the lower rows (behind "What You Love.")
+   wipe a beat later. Three short accent marks survive, pushed out to the hero's outer margins —
+   top-left, mid-right (brand gradient — the one that "made it"), bottom-left. The ruled page is
+   the record of everything built; the cleared cream and the three surviving marks are the room
+   it leaves. Pure CSS transforms, no SVG, no photography, no icon set. Reduced-motion end state
+   is the finished composition already in place — cream, three marks — not a compromise. */
+.v4 header.scene .clearing{position:absolute;left:0;right:0;top:2%;height:78%;pointer-events:none;overflow:hidden;}
+.v4 header.scene .cl-row{position:absolute;left:0;height:1px;background:#dcdcd6;}
+.v4 header.scene .cl-row:nth-child(1){top:2%;width:88%;}
+.v4 header.scene .cl-row:nth-child(2){top:11%;width:64%;}
+.v4 header.scene .cl-row:nth-child(3){top:20%;width:97%;}
+.v4 header.scene .cl-row:nth-child(4){top:29%;width:55%;}
+.v4 header.scene .cl-row:nth-child(5){top:38%;width:80%;}
+.v4 header.scene .cl-row:nth-child(6){top:52%;width:100%;}
+.v4 header.scene .cl-row:nth-child(7){top:61%;width:62%;}
+.v4 header.scene .cl-row:nth-child(8){top:70%;width:86%;}
+.v4 header.scene .cl-row:nth-child(9){top:79%;width:70%;}
+.v4 header.scene .cl-row:nth-child(10){top:88%;width:92%;}
+.v4 header.scene .cl-row:nth-child(11){top:97%;width:58%;}
+.v4 header.scene .cl-mark{position:absolute;height:2px;width:34px;border-radius:2px;opacity:0;background:#c4c4be;}
+.v4 header.scene .cl-m1{left:1%;top:6%;}
+.v4 header.scene .cl-m2{right:1%;top:48%;background:var(--sb-grad);}
+.v4 header.scene .cl-m3{left:1%;top:92%;}
+@media(prefers-reduced-motion:no-preference){
+  .v4 header.scene .cl-row{transform:scaleX(1);}
+  .v4 header.scene .cl-row:nth-child(-n+5){transform-origin:right;animation:clWipe .8s cubic-bezier(.65,0,.35,1) 1.3s forwards;}
+  .v4 header.scene .cl-row:nth-child(n+6){transform-origin:left;animation:clWipe .8s cubic-bezier(.65,0,.35,1) 2.7s forwards;}
+  .v4 header.scene .cl-mark{animation:clMarkIn .5s cubic-bezier(.19,1,.22,1) forwards;}
+  .v4 header.scene .cl-m1{animation-delay:2.15s;}
+  .v4 header.scene .cl-m2{animation-delay:3.55s;}
+  .v4 header.scene .cl-m3{animation-delay:3.7s;}
 }
-@media(max-width:520px){
-  .v4 header.scene .hero-roll .p5,.v4 header.scene .hero-roll .p6{display:none;}
-  .v4 header.scene .hero-roll .pol{width:33vw;margin-right:-22px;}
-}
+@media(prefers-reduced-motion:reduce){.v4 header.scene .cl-row{display:none;}.v4 header.scene .cl-mark{opacity:1;}}
+@keyframes clWipe{to{transform:scaleX(0);}}
+@keyframes clMarkIn{0%{opacity:0;transform:scaleX(0);}100%{opacity:1;transform:scaleX(1);}}
 
 /* headline gradient + brand-violet period on the light hero. (Jul 31 2026: tried filling "What
    You Love" with closer-dock.jpg via background-clip:text instead — Jacob's call after seeing
@@ -141,18 +164,10 @@ const PAGE_CSS = `
   .v4 header.scene .hero-h1 .hl2::before{content:'';position:absolute;inset:-34% -10%;z-index:-1;background:radial-gradient(56% 62% at 50% 54%,rgba(16,185,129,.32),rgba(79,70,229,.2) 46%,transparent 72%);filter:blur(36px);opacity:0;transform:scale(.7);animation:sbGlow 2s ease 1.05s forwards;}
   .v4 header.scene p.sub{opacity:0;filter:blur(6px);transform:translateY(12px);animation:sbHeroIn .9s cubic-bezier(.16,1,.3,1) 1.7s forwards;}
   .v4 header.scene .cta{opacity:0;transform:translateY(12px);animation:sbHeroIn .9s cubic-bezier(.16,1,.3,1) 1.95s forwards;}
-  .v4 header.scene .hero-roll .pol{opacity:0;transform:translateY(56px) scale(.86) rotate(var(--rot));animation:sbPolIn .9s cubic-bezier(.19,1,.22,1) forwards;}
-  .v4 header.scene .hero-roll .p1{animation-delay:2.15s;}
-  .v4 header.scene .hero-roll .p2{animation-delay:2.25s;}
-  .v4 header.scene .hero-roll .p3{animation-delay:2.35s;}
-  .v4 header.scene .hero-roll .p4{animation-delay:2.45s;}
-  .v4 header.scene .hero-roll .p5{animation-delay:2.55s;}
-  .v4 header.scene .hero-roll .p6{animation-delay:2.65s;}
 }
 @keyframes sbHeroIn{to{opacity:1;filter:blur(0);transform:none;}}
 @keyframes sbEnjoyIn{0%{opacity:0;filter:blur(32px);transform:translateY(16px) scale(1.35);}55%{opacity:1;}100%{opacity:1;filter:blur(0);transform:translateY(0) scale(1);}}
 @keyframes sbGlow{0%{opacity:0;transform:scale(.7);}50%{opacity:.95;}100%{opacity:.62;transform:scale(1);}}
-@keyframes sbPolIn{to{opacity:1;transform:translateY(0) scale(1) rotate(var(--rot));}}
 
 .v4 .kicker{font-size:14px;font-weight:600;letter-spacing:.02em;margin-bottom:14px;background:linear-gradient(90deg,#0ea5e9,#06b6d4 34%,#14b8a6 66%,#10b981);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .v4 .sbwrap,.v4 .sb-clook{--grad:linear-gradient(90deg,#0ea5e9,#06b6d4 34%,#14b8a6 66%,#10b981);}
@@ -351,9 +366,18 @@ export default function HomePage() {
       {/* 1 — HERO */}
       <header className="scene">
         {/* THE DUSK FISHING PHOTO BEHIND THE HEADLINE IS RETIRED (Jacob, July 23 2026). The hero
-            is light and Apple-homepage style now: clean surface, copy on top, and a polaroid
-            camera roll of the life the business buys, below. No full-bleed image behind the type. */}
+            is light and Apple-homepage style now: clean surface, copy on top. THE CLEARING (see
+            PAGE_CSS) sits behind the headline — a ruled field that wipes itself away as the two
+            headline lines land, leaving three short marks at the margins. No full-bleed image,
+            no photo roll, behind the type. */}
         <div className="wrap inner">
+          <div className="clearing" aria-hidden="true">
+            <span className="cl-row" /><span className="cl-row" /><span className="cl-row" />
+            <span className="cl-row" /><span className="cl-row" /><span className="cl-row" />
+            <span className="cl-row" /><span className="cl-row" /><span className="cl-row" />
+            <span className="cl-row" /><span className="cl-row" />
+            <span className="cl-mark cl-m1" /><span className="cl-mark cl-m2" /><span className="cl-mark cl-m3" />
+          </div>
           <Reveal className="eyebrow" as="div">For owner-operated service businesses</Reveal>
           {/* Two-stage reveal (Jacob, Jul 23 2026): the clause fades up first, then the payoff
               lands on its own in the gradient. Animation lives in PAGE_CSS under
@@ -393,18 +417,6 @@ export default function HomePage() {
               actually is now, not by a trick we do before it.
 
               Do not put a second line under this button. The hero has one job. */}
-          {/* THE POLAROID CAMERA ROLL. Aria-hidden: decorative lifestyle photos, no captions.
-              Three approved self-hosted shots; add more and they join the scatter. */}
-          <Reveal>
-            <div className="hero-roll" aria-hidden="true">
-              <div className="pol p1"><img src="/life-boat.jpg" alt="" width={440} height={440} /></div>
-              <div className="pol p2"><img src="/life-dog.jpg" alt="" width={440} height={440} /></div>
-              <div className="pol p3"><img src="/life-shop.jpg" alt="" width={440} height={440} /></div>
-              <div className="pol p4"><img src="/life-boat.jpg" alt="" width={440} height={440} /></div>
-              <div className="pol p5"><img src="/life-dog.jpg" alt="" width={440} height={440} /></div>
-              <div className="pol p6"><img src="/life-shop.jpg" alt="" width={440} height={440} /></div>
-            </div>
-          </Reveal>
         </div>
         {/* THE "Scroll" CUE IS GONE (Richard, review, July 2026). It sat at the foot of the
             hero, and the very next thing on the page is the film's first label, GET FOUND.
