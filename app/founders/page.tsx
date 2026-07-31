@@ -1,7 +1,6 @@
 import Nav from '@/components/v4/Nav';
 import SiteFooter from '@/components/SiteFooter';
 import HeroCta from '@/components/v4/HeroCta';
-import Reveal from '@/components/v4/Reveal';
 import RemovalTest from '@/components/v4/RemovalTest';
 import { min } from '@/lib/css';
 
@@ -22,8 +21,9 @@ import { min } from '@/lib/css';
  * running it as a fourth standalone page and fold it into this one instead: read the
  * founders, trust the people, then hear the actual business case for why long-term value
  * is the whole point, one page instead of two. /long-term now 307s to
- * /founders#long-term-value — see next.config.ts. The section below is a straight port of
- * that page's "one fact" copy and its RemovalTest film, unchanged in substance. */
+ * /founders#long-term-value — see next.config.ts. That page's RemovalTest film runs below;
+ * its "one fact" copy no longer runs as a section before it — see RemovalTest.tsx's own
+ * "THE OPENING BEAT" note for where that copy actually lives now. */
 
 const SHARE =
   'You should not have to choose between doing the work and having a life. That is the whole reason StayBookt exists.';
@@ -153,47 +153,21 @@ const CSS = `
    off. .fcard img biases the window upward; Jacob's frame sits higher still, so he
    gets .hi (center top). */
 
-/* ===== 4. WHY THIS MATTERS LONG-TERM. Ported from /long-term (Jul 30 2026), then rebuilt
-   twice more the same day (see the earlier rounds documented in git history — the JSX comment
-   above this section has the full account: card → plain list → cut entirely).
-
-   FLIPPED TO DARK MODE (Jacob, same day, round 5): "this header section needs to be in dark
-   mode since it kind of transitions the content... the text and the graphic element blend
-   together." He's right — this section is the setup for RemovalTest's film immediately below
-   it, not a separate topic, and keeping it cream forced a hard light-to-dark cut at exactly
-   the moment the page should feel like one continuous passage into the proof. Same #050506
-   canvas RemovalTest already uses (and the same tokens .abt-prm below already established for
-   dark type on this page: white h2, #86868b eyebrow, #9ba2ae body — reused verbatim, nothing
-   invented). The light/dark seam didn't disappear, it just moved one boundary earlier, to
-   between .abt-us (light) and this section — a normal seam, same kind this page already has
-   elsewhere, not a new problem.
-
-   THE GLOW (round 6, same day): flat #050506 still didn't read as one space with RemovalTest
-   below it — Jacob: "the header text area should be the same colour background as the graphic
-   so it looks unified." Looked closer: RemovalTest isn't flat black either. Its .rt-stage has
-   its own radial-gradient glow (rgba(79,70,229,.16), indigo, anchored near its top), and
-   HomeJourney.tsx's .hjc does the same thing before its own big-number reveal. Flat black next
-   to a glowing indigo canvas is two different darks stacked, not one. Same glow now lives here
-   too, same color, anchored near the BOTTOM of this section instead of the top, so the two
-   sections' glows meet at the seam instead of one just stopping where the other starts — this
-   is also the fix Jacob asked for in the same message: check HomeJourney.tsx and RemovalTest.tsx
-   before shipping a dark section on this page, they are the working reference for what "dark
-   done right" looks like here, and this glow is lifted from them, not invented. */
-.abt-value{position:relative;overflow:hidden;padding:clamp(20px,2.5vw,32px) 0 clamp(90px,12vw,150px);background:#050506;}
-/* BOOSTED (same round): Jacob, live: "looks identical, no highlight gradient anywhere." He was
-   right to push back — .18 opacity anchored at 96% down the box put the bright core mostly past
-   where anyone actually looks before scrolling on. This is not a subtle tweak, it is 2-3x the
-   strength and twice the spread, with a mid-stop so the falloff reads as a real bloom instead of
-   fading out before it registers. Confirm with real pixel sampling after deploy, not just "the
-   CSS is technically there" — that is what shipped a technically-correct glow nobody could see. */
-.abt-value::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
-  background:radial-gradient(85% 80% at 50% 90%,rgba(99,91,244,.45),rgba(79,70,229,.22) 42%,transparent 74%);}
-.abt-value .wrap{position:relative;z-index:1;}
-.abt-value .value-lead{max-width:680px;}
-.abt-value .eyebrow{color:#86868b;}
-.abt-value h2{margin-top:14px;font-size:clamp(28px,4.2vw,54px);line-height:1.04;color:#fff;}
-.abt-value p{margin-top:16px;font-size:clamp(17px,1.9vw,20px);line-height:1.6;color:#9ba2ae;}
-.abt-value p b{font-weight:600;color:#fff;}
+/* ===== 4. WHY THIS MATTERS LONG-TERM — RETIRED AS A SECTION (Jul 30 2026). Ported from
+   /long-term, then rebuilt FIVE times the same day chasing the same underlying problem: it was
+   a standalone dark text section styled to look like it belonged to RemovalTest's film right
+   below it (matching background, then a hand-tuned glow chasing RemovalTest's own glow), and
+   no amount of colour-matching ever stopped reading as a seam, because it was genuinely two
+   things — two DOM sections, two scroll contexts — trying to look like one.
+   Jacob, after the glow still read as "a paper mache mix of garbage" tuned to a hair's width:
+   "make this the opening parallax scene to the animation and have it all look like one unified
+   experience." So its copy (eyebrow, headline, paragraph) now lives INSIDE RemovalTest.tsx as
+   beat -1 — see "THE OPENING BEAT" at the top of that file for the full account, including why
+   its body copy was tightened rather than ported verbatim (it was making almost the same point
+   as the film's own "Take a week off" beat, redundant once they share one film).
+   Nothing renders here anymore; the anchor id moved with the copy (RemovalTest anchorId=
+   "long-term-value" below), so /long-term's redirect and HomeJourney.tsx's "what it is worth
+   later" link still land on the right place. */
 
 /* ===== 5. THE PROMISES. The one object on the page. ===== */
 .abt-prm{background:#050506;padding:clamp(90px,12vw,150px) 0;}
@@ -324,59 +298,12 @@ export default function AboutPage() {
           section between the founders and the close. The Promises component still exists, just not
           rendered here. */}
 
-      {/* 3 — WHY THIS MATTERS LONG-TERM. Merged in from /long-term (Jul 30 2026, see the page-top
-          comment). THREE ROUNDS of patching this same section (paragraphs → two-column
-          card+list → two-column plain list w/ numerals + stagger), each one fixing the specific
-          complaint that shipped and each one still wrong, because every round was decoration on
-          the same bones: an information-dense list trying to coexist with prose in a section that
-          is supposed to be one quiet beat, not an explainer. Jacob, round 4: "too dense, looks
-          ridiculous, doesn't look and feel like the high-end beautiful work we've done for the
-          rest of the page." He's right, and the fix this time is structural, not another layer.
-
-          THE ACTUAL PROBLEM: the buyer-diligence checklist (repeatable channel revenue, repeat
-          business, referrals, systems, online presence) is the SAME six ideas RemovalTest already
-          shows, one scroll below — check its own D[] array in RemovalTest.tsx: "Keeps running"
-          (systems), "They come back" (repeat business), "The list is yours" (systemized customer
-          data), "Work arrives" (channel revenue / online presence), "Reputation" (referrals),
-          "Handover" (the whole point). Two sections back to back making the same argument, one in
-          a beautiful cinematic wireframe film and one in a list of bold gray rows, is why this
-          kept feeling dense no matter how the rows were dressed. The checklist is CUT from here,
-          not lost — it is what RemovalTest already dramatizes far better than prose can.
-
-          NOTE FOR RICHARD: his literal checklist paragraph (added the same day as the pull-quote,
-          "I like the combo") is the content that moved. If he wants that specific language kept
-          verbatim somewhere rather than folded into RemovalTest's existing six drivers, flag it —
-          this was Claude's call under Jacob's "redesign it" instruction, not a unilateral deletion,
-          and it is fully reversible from git history.
-
-          WHAT'S LEFT: eyebrow, h2, one tightened paragraph, the kick pull-quote. Same single
-          .value-lead column as before, same measure as .us-lead above it — no two-column split,
-          no list, no card, no numerals. Four elements, generous whitespace, then straight into
-          RemovalTest. This is the same restraint the hero and the founders section already use
-          (eyebrow → headline → one line → one visual moment) — the section was trying to be a
-          mini-essay when everything else on this page is a single confident beat. */}
-      <section className="abt-value" id="long-term-value">
-        <div className="wrap">
-          <div className="value-lead">
-          {/* EYEBROW SWAPPED (Jacob, same day): "Build long-term wealth, not a job." is the
-              eyebrow now, not "The one fact." The line no longer repeats itself at the bottom
-              as a separate kick quote — it only ever said once now, up top, doing the job an
-              eyebrow does everywhere else on this page: the one-line frame the reader gets
-              before the headline, not a second punchline after the paragraph. */}
-          <Reveal className="eyebrow" as="div">Build long-term wealth, not a job.</Reveal>
-          <Reveal><h2>If it cannot run without you, there is nothing to hand anyone.</h2></Reveal>
-          <Reveal>
-            <p>
-              A buyer is not buying your van and your customer list. <b>They are buying
-              whether any of it works when you are not standing there.</b> So you need to plan
-              today, for a business you can actually sell.
-            </p>
-          </Reveal>
-          </div>
-        </div>
-      </section>
-
-      <RemovalTest />
+      {/* 3 — WHY THIS MATTERS LONG-TERM. Used to be its own section here (see the page-top and
+          CSS comments for the full five-round account of why that never read as unified with
+          the film beneath it). That copy is now RemovalTest's own opening beat — anchorId keeps
+          /long-term's redirect and HomeJourney.tsx's "what it is worth later" link landing in
+          the right place even though there's no section here to land ON anymore. */}
+      <RemovalTest anchorId="long-term-value" />
 
       {/* Close, Richard's copy: "We are your operating partner. To help you build something great."
           Subtext dropped. fromBlack IS BACK (Jul 30 2026): it was correctly dropped when the

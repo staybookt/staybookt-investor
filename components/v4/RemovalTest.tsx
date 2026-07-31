@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import { min } from '@/lib/css';
 
 /* THE REMOVAL TEST — the cinematic core of /long-term.
@@ -30,9 +30,27 @@ import { min } from '@/lib/css';
  * TRACK LENGTH. Clamped in PIXELS, not vh — same fix as the homepage film, same reason.
  * Richard navigates with the DOWN ARROW KEY (~40px/press), and a vh track means a BIGGER
  * MONITOR COSTS MORE PRESSES: 360vh was ~50 presses at 900px and ~59 at 1200px. Backwards.
- * Clamped, this is ~22-29 presses at any viewport and a big screen costs fewer.
+ * Clamped, this is ~32-44 presses at any viewport (was ~22-29 before the opening beat below
+ * added its own ~22% of the track) and a big screen still costs fewer.
  * Measure this film in PRESSES, never pixels, and test it with the keyboard — a scrollbar
  * drag covers the whole track in one gesture and hides the cost completely.
+ *
+ * THE OPENING BEAT (Jul 30 2026). /founders used to run a separate dark text section
+ * ("the one fact": eyebrow, headline, paragraph) THEN this film. Two sections trying to
+ * look like one — matching background colour, matching glow — kept reading as a seam no
+ * matter how closely the glow was tuned, because they WERE two things: two DOM sections,
+ * two scroll contexts. Jacob: "make this the opening parallax scene to the animation and
+ * have it all look like one unified experience." So the claim is not a section before the
+ * film, it is the film's own beat -1: same sticky stage, same track, same driver. There is
+ * nothing left to unify because there is nothing left to seam.
+ * Its continuous variable is --intro (0 to 1, driven by B0 below): the SVG fades and grows
+ * in as the reader moves through the claim, arriving fully drawn exactly as beat 0's pulse
+ * starts — the picture materialising as the argument resolves into it. Same rule as every
+ * other beat: give it something continuous or do not add it.
+ * Its copy deliberately does NOT repeat beat 1's "here is what a buyer sees" framing — the
+ * old standalone section made almost that exact point, which is redundant read back to back
+ * with beat 1 now that they share one film. The opening line states the stakes and hands off
+ * to the diagram ("watch what happens to all six"), it does not pre-empt the buyer beat.
  *
  * THE RULE THIS PAGE EXISTS UNDER: no valuation numbers. The lights going out say "worth
  * less" without ever putting a figure on it, which is exactly why the metaphor earns its
@@ -98,7 +116,9 @@ const clen = (d: Driver) => {
 };
 const MLEN: number[] = M.map(clen);
 
-const BEATS = [
+type Beat = { k: string; h: string; s: ReactNode; eyebrow?: string };
+
+const BEATS: Beat[] = [
   { k: 'Right now', h: 'Every one of these runs through you.', s: 'Six things decide whether this is a business or a job with a van. Today, all six are wired to one person.' },
   { k: 'Take a week off', h: 'And here is what a buyer sees.', s: 'A buyer is not looking at your van or your tools. They are looking at what happens when you are not standing there.' },
   /* WAS "Five of those wires stop being yours." Richard: "why is it not 6?" Because it was
@@ -109,7 +129,25 @@ const BEATS = [
   { k: 'The difference', h: 'Not one of them runs through you now.', s: 'The lights stay on whether you are on a roof or on a beach. You are still connected, and nothing falls over when you step away.' },
 ];
 
+/* BEAT -1. The claim the rest of the film proves. Ported from /founders' old standalone
+   "one fact" section — see the opening-beat note above for why it lives here now instead. */
+const INTRO: Beat = {
+  k: 'The claim',
+  eyebrow: 'Build long-term wealth, not a job.',
+  h: 'If it cannot run without you, there is nothing to hand anyone.',
+  s: 'Six things make a business worth having. Watch what happens to all six the moment you step out of it.',
+};
+
 const B = [0, 0.34, 0.68, 1];
+/* Share of the WHOLE track spent on the opening beat before the three beats above begin.
+   Everything below that reads B[] keeps reading it unchanged — p is rescaled to p2 first
+   (see apply()), so the three-beat math is byte-for-byte what it was before this beat
+   existed and inherits none of the new beat's risk. */
+const B0 = 0.22;
+/* Snap markers for the WHOLE track: intro start, the three old B[] boundaries rescaled into
+   the post-intro remainder, and the end. Replaces a bare B.map() for the same reason B0
+   exists — B[] alone no longer spans the full track. */
+const SNAP = [0, B0, B0 + (1 - B0) * B[1], B0 + (1 - B0) * B[2], 1];
 const clamp = (n: number) => Math.min(Math.max(n, 0), 1);
 
 /* The three topics, in order — the orientation HUD reads position off this ("01 / 03 — Right
@@ -117,7 +155,9 @@ const clamp = (n: number) => Math.min(Math.max(n, 0), 1);
 const CHAPTERS = ['Right now', 'Take a week off', 'The difference'];
 
 const CSS = `
-.rt-track{position:relative;--trk:clamp(1500px,230vh,2100px);height:var(--trk);background:#050506;}
+/* --trk grew by 1/(1-B0) (roughly *1.28) so the three original beats keep the exact press
+   budget they had before B0's opening beat was added on top — see B0 above. */
+.rt-track{position:relative;--trk:clamp(1925px,295vh,2700px);height:var(--trk);background:#050506;}
 /* iOS. 100vh is the LARGE viewport (URL bar hidden), so the pinned stage stood ~86px
    taller than the screen and the beat labels along the bottom sat under Safari's bar.
    100svh is the small viewport, which is the one that is always actually visible. The
@@ -126,7 +166,7 @@ const CSS = `
    film's entire travel, and in svh it would shrink and the film would collapse. */
 .rt-stage{position:sticky;top:0;height:100vh;height:100svh;min-height:600px;overflow:hidden;display:flex;
   flex-direction:column;align-items:center;justify-content:center;color:#f5f5f7;
-  --p0:0;--lift:0;--wire:0;--acc:#22d3ee;}
+  --p0:0;--lift:0;--wire:0;--intro:0;--acc:#22d3ee;}
 /* The HUD accent follows the film: cyan while the lights are the owner's, green once they
    re-route to StayBookt in beat 2. Same colours the wires and nodes already use. */
 .rt-stage[data-beat="2"]{--acc:#34d399;}
@@ -134,7 +174,10 @@ const CSS = `
   background:radial-gradient(60% 50% at 50% 8%,rgba(79,70,229,.16),transparent 64%);}
 
 .rt-in{position:relative;z-index:2;width:min(1040px,94%);display:flex;flex-direction:column;align-items:center;gap:clamp(14px,2.4vh,28px);}
-.rt-svg{width:100%;height:auto;max-height:46vh;overflow:visible;}
+/* Fades and grows in across the opening beat only (--intro 0->1), fully drawn the moment
+   beat 0's pulse starts. Fixed at 1 for every other beat, so this is a no-op past the intro. */
+.rt-svg{width:100%;height:auto;max-height:46vh;overflow:visible;
+  opacity:var(--intro);transform:scale(calc(.96 + .04 * var(--intro)));transition:none;}
 
 /* WIRES. dashoffset is the whole trick: 0 = connected, full = retracted. Beat 0 runs a
    travelling pulse along them so the diagram is alive before anything has happened. */
@@ -168,6 +211,10 @@ const CSS = `
 
 /* COPY PANEL */
 .rt-copy{text-align:center;max-width:60ch;}
+/* Only the opening beat sets copy.eyebrow, so this only ever renders there. Same 13px/700/
+   .18em/#69707d as every other eyebrow on the site (globals.css' 11px base is not what
+   actually ships anywhere — see .abt .eyebrow, .hjc .eyebrow, etc). */
+.rt-kick{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#69707d;margin-bottom:8px;}
 .rt-h{font-size:clamp(24px,3.4vw,44px);font-weight:600;letter-spacing:-.035em;line-height:1.05;color:#fff;}
 .rt-s{margin:12px auto 0;font-size:clamp(14.5px,1.6vw,18px);line-height:1.5;color:#aeb6c4;max-width:52ch;}
 
@@ -181,7 +228,10 @@ const CSS = `
    ones dimmed — so the reader knows where they are and that they can move. This replaces both
    the old decorative dot row AND the kicker that used to sit atop the copy panel repeating the
    same word, which is the redundancy Emma flagged as noise (p13). */
-.rt-nav{display:flex;flex-direction:column;align-items:center;gap:9px;}
+/* Hidden during the opening beat: nothing to orient within yet, the three real chapters
+   start at beat 0. Fades in rather than popping once the diagram (and beat 0) arrives. */
+.rt-nav{display:flex;flex-direction:column;align-items:center;gap:9px;transition:opacity .4s ease;}
+.rt-stage[data-beat="-1"] .rt-nav{opacity:0;pointer-events:none;}
 .rt-nav-meta{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;justify-content:center;}
 .rt-idx{font-size:12px;font-weight:500;letter-spacing:.04em;color:#6b7280;font-variant-numeric:tabular-nums;}
 .rt-idx b{color:var(--acc);font-weight:700;transition:color .5s ease;}
@@ -219,7 +269,9 @@ const CSS = `
    The track collapses: no 100vh stage, no sticky, no scrub. */
 .rt-flat{height:auto;padding:clamp(64px,9vw,110px) 0;}
 .rt-flat .wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
+.rt-st-kick{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#69707d;margin-bottom:10px;}
 .rt-static h3{font-size:clamp(24px,3.4vw,42px);font-weight:600;letter-spacing:-.035em;line-height:1.05;color:#fff;max-width:18ch;}
+.rt-st-lead{margin-top:14px;font-size:16px;line-height:1.6;color:#aeb6c4;max-width:60ch;}
 .rt-st-beat{margin-top:clamp(26px,3vw,38px);}
 .rt-st-beat h4{font-size:clamp(17px,1.9vw,21px);font-weight:600;letter-spacing:-.02em;color:#fff;}
 .rt-st-beat p{margin-top:8px;font-size:16px;line-height:1.6;color:#aeb6c4;max-width:60ch;}
@@ -250,7 +302,7 @@ const CSS = `
 }
 `;
 
-export default function RemovalTest() {
+export default function RemovalTest({ anchorId }: { anchorId?: string } = {}) {
   const trackRef = useRef<HTMLElement | null>(null);
   /* The pinned stage, measured by the driver below instead of window.innerHeight. */
   const stageRef = useRef<HTMLDivElement | null>(null);
@@ -270,11 +322,14 @@ export default function RemovalTest() {
   /* Defaults to FALSE so the server render and the first client render both draw the desktop
      box and React has nothing to complain about. The phone layout arrives on mount. */
   const [mobile, setMobile] = useState(false);
-  const [beat, setBeat] = useState(0);
+  /* beat starts at -1: the opening claim, before any of the three original beats begin.
+     See B0/INTRO above. */
+  const [beat, setBeat] = useState(-1);
   const [p0, setP0] = useState(0);
   const [lift, setLift] = useState(0);
   const [wire, setWire] = useState(0);
   const [lit, setLit] = useState(6);
+  const [intro, setIntro] = useState(0);
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -322,8 +377,23 @@ export default function RemovalTest() {
       return total > 0 ? scrolled / total : 0;
     };
     const apply = (p: number) => {
-        const b = p < B[1] ? 0 : p < B[2] ? 1 : 2;
-        const lp = clamp((p - B[b]) / (B[b + 1] - B[b]));
+        /* --intro rides the WHOLE track's progress, not just the opening beat's slice, so it
+           is already 1 (not clamped-then-stuck) the instant p passes B0 — no separate branch
+           needed to hold it there. */
+        setIntro(clamp(p / B0));
+        if (p < B0) {
+          /* THE OPENING BEAT. Nothing has happened yet: hub lit, wires idle, no pulse — the
+             exact "before beat 0" state the old code already defaulted to. Only --intro moves. */
+          setBeat(-1);
+          setP0(0); setLift(0); setWire(0); setLit(6);
+          return;
+        }
+        /* Beyond this point p2 replays the ORIGINAL 0..1 progress across the three beats
+           below, byte-for-byte the same math this file has always run — B0 above is the
+           only thing that changed, everything past it is untouched. */
+        const p2 = (p - B0) / (1 - B0);
+        const b = p2 < B[1] ? 0 : p2 < B[2] ? 1 : 2;
+        const lp = clamp((p2 - B[b]) / (B[b + 1] - B[b]));
         setBeat(b);
         /* Beat 0: the pulse travels. Beat 1: the owner lifts and the wires retract. Beat 2:
            the wires redraw to StayBookt. Nothing here is a timer, so the reader sets the
@@ -372,27 +442,32 @@ export default function RemovalTest() {
     const total = el.offsetHeight - vh;
     if (total <= 0) return;
     const absTop = el.getBoundingClientRect().top + window.scrollY;
-    const p = Math.min(B[i] + 0.02, 0.999);
+    /* B[i] is a fraction of the post-intro remainder, not of the whole track — rescale by
+       B0 the same way apply() does, just inverted. */
+    const p = Math.min(B0 + (1 - B0) * (B[i] + 0.02), 0.999);
     window.scrollTo({ top: Math.round(absTop + total * p), behavior: 'smooth' });
   };
 
-  const style = { '--p0': p0, '--lift': lift, '--wire': wire } as CSSProperties;
+  const style = { '--p0': p0, '--lift': lift, '--wire': wire, '--intro': intro } as CSSProperties;
   /* One object so there is exactly one place the two layouts differ. Desktop values are the
      literals that were inline before. */
   const g = mobile
     ? { vb: '0 0 420 440', nodes: M, wire: mpath, len: (i: number) => MLEN[i], hub: MHUB, hubR: 54, hubDy: 8, lblDy: -30, rOn: 11, rOff: 7, halo: 20 }
     : { vb: '0 0 900 430', nodes: D, wire: path, len: (_i: number) => 420, hub: HUB, hubR: 34, hubDy: 5, lblDy: -26, rOn: 9, rOff: 6, halo: 17 };
-  const copy = BEATS[beat];
+  const copy = beat === -1 ? INTRO : BEATS[beat];
   /* On beat 1 the truth line follows the light that just went out. On beat 2 it follows the
-     one that just came back. Either way it is the node the eye is already on. */
-  const idx = beat === 0 ? -1 : beat === 1 ? Math.min(5, 6 - lit - 1) : Math.min(5, lit - 1);
+     one that just came back. Either way it is the node the eye is already on. beat -1 (the
+     opening claim) and beat 0 (the pulse, nothing has gone dark yet) both show nothing. */
+  const idx = beat <= 0 ? -1 : beat === 1 ? Math.min(5, 6 - lit - 1) : Math.min(5, lit - 1);
   const truth = idx < 0 ? '' : beat === 1 ? D[idx].you : D[idx].sb;
 
   /* EVERY beat and all twelve driver lines. Shown for reduced motion, .sr-only otherwise.
      This is the whole page in text — if the film vanished tomorrow this would still argue. */
   const Static = () => (
     <div className={reduce ? 'rt-static' : 'sr-only'}>
-      <h3>Six things decide whether this is a business or a job with a van.</h3>
+      <p className="rt-st-kick">{INTRO.eyebrow}</p>
+      <h3>{INTRO.h}</h3>
+      <p className="rt-st-lead">{INTRO.s}</p>
       {BEATS.map((b) => (
         <div key={b.k} className="rt-st-beat">
           <h4>{b.k}: {b.h}</h4>
@@ -412,7 +487,7 @@ export default function RemovalTest() {
   /* Reduced motion: no track, no pin, no scrub — just the argument, in order. */
   if (reduce) {
     return (
-      <section className="rt-track rt-flat" aria-label="What happens when you take yourself out of the business">
+      <section className="rt-track rt-flat" id={anchorId} aria-label="What happens when you take yourself out of the business">
         <style>{min(CSS)}</style>
         <div className="wrap"><Static /></div>
       </section>
@@ -420,14 +495,15 @@ export default function RemovalTest() {
   }
 
   return (
-    <section className="rt-track" ref={trackRef} aria-label="What happens when you take yourself out of the business">
+    <section className="rt-track" id={anchorId} ref={trackRef} aria-label="What happens when you take yourself out of the business">
       <style>{min(CSS)}</style>
       {/* SNAP MARKERS. Invisible, zero-size, aria-hidden: snap targets and nothing else.
-          Positioned off B so they land on the same boundaries the driver uses, and off
-          --trk so they land inside the same track height. The travel is the track minus
-          the pinned stage, which is what the driver divides by. The reduced-motion branch
-          returns above this, so they never render there. */}
-      {B.map((f, i) => (
+          Positioned off SNAP (the whole track's boundaries, opening beat included — see B0
+          above) so they land on the same boundaries the driver uses, and off --trk so they
+          land inside the same track height. The travel is the track minus the pinned stage,
+          which is what the driver divides by. The reduced-motion branch returns above this,
+          so they never render there. */}
+      {SNAP.map((f, i) => (
         <i key={i} aria-hidden="true" className="rt-snap" style={{ top: `calc((var(--trk) - 100svh) * ${f})` }} />
       ))}
       <Static />
@@ -474,6 +550,7 @@ export default function RemovalTest() {
           </svg>
 
           <div className="rt-copy">
+            {copy.eyebrow && <div className="rt-kick">{copy.eyebrow}</div>}
             <div className="rt-h">{copy.h}</div>
             <div className="rt-s">{copy.s}</div>
             <div className="rt-truth">{truth}</div>
@@ -484,8 +561,12 @@ export default function RemovalTest() {
               a keyboard/screen-reader reader gets the linear twin, where jumping is moot. */}
           <div className="rt-nav">
             <div className="rt-nav-meta">
-              <span className="rt-idx"><b>{String(beat + 1).padStart(2, '0')}</b> / 03</span>
-              <span className="rt-cur">{CHAPTERS[beat]}</span>
+              {/* beat is -1 during the opening claim, but .rt-nav is opacity:0 + pointer-events:
+                  none there (see .rt-stage[data-beat="-1"] .rt-nav above) — this text is never
+                  actually seen at beat -1, these guards just keep it sane while invisible
+                  rather than rendering "00 / 03" or an undefined chapter name. */}
+              <span className="rt-idx"><b>{String(Math.max(beat, 0) + 1).padStart(2, '0')}</b> / 03</span>
+              <span className="rt-cur">{beat >= 0 ? CHAPTERS[beat] : CHAPTERS[0]}</span>
               <span className="rt-hint">Jump to any part</span>
             </div>
             <div className="rt-dots">
