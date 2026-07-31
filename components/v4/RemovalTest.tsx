@@ -202,10 +202,12 @@ const CSS = `
 /* Fades and grows in across the SECOND half of the opening beat only (--introB 0->1), after
    the headline has had its solo gradient moment on --introA — see "OPENING BEAT, ROUND 2"
    above. Fully drawn the moment beat 0's pulse starts. --introB is pinned at 1 for every other
-   beat, so max-height/opacity/scale are all no-ops past the intro, identical to before. */
+   beat, so max-height/opacity/scale are all no-ops past the intro, identical to before.
+   Floored at 20% opacity / half its box, not 0 — see the "FLOORED, NOT 0-100" note on the
+   copy-panel rules below for why nothing in this beat animates from true invisibility. */
 .rt-svg{width:100%;height:auto;overflow:visible;transition:none;
-  max-height:calc(6vh + 40vh * var(--introB));
-  opacity:var(--introB);transform:scale(calc(.9 + .1 * var(--introB)));}
+  max-height:calc(23vh + 23vh * var(--introB));
+  opacity:calc(.2 + .8 * var(--introB));transform:scale(calc(.94 + .06 * var(--introB)));}
 
 /* WIRES. dashoffset is the whole trick: 0 = connected, full = retracted. Beat 0 runs a
    travelling pulse along them so the diagram is alive before anything has happened. */
@@ -249,22 +251,32 @@ const CSS = `
 /* THE OPENING BEAT'S TWO-PHASE REVEAL. Scoped to [data-beat="-1"] only — every other beat's
    .rt-kick/.rt-h/.rt-s are untouched by any of this. See "OPENING BEAT, ROUND 2" at the top
    of the file. --introA drives the headline's own solo moment, --introB drives the settle +
-   handoff into the diagram (see .rt-svg above). */
-.rt-stage[data-beat="-1"] .rt-kick,.rt-stage[data-beat="-1"] .rt-s{opacity:var(--introB);
+   handoff into the diagram (see .rt-svg above).
+   FLOORED, NOT 0-100 (same day, round 3): --intro/--introA/--introB all start at exactly 0 the
+   ENTIRE time this section is scrolling into view from below — position:sticky means .rt-stage
+   is on screen, scrolling up like normal content, for up to a full viewport height BEFORE the
+   pin engages and scroll progress through the track starts moving at all. Every one of these
+   opacities going to true 0 meant the section rendered as a solid black rectangle for that
+   whole approach — Jacob: "now it's just a blank screen." Fixed by never letting anything
+   bottom out at invisible: eyebrow/paragraph/diagram floor at 35-45% and the payoff clause
+   floors at 55%, softly blurred rather than gone, so there is always something to look at the
+   instant the section appears on screen — the --introA/--introB choreography still fully plays
+   out once scrolling continues, it just no longer has an invisible starting line. */
+.rt-stage[data-beat="-1"] .rt-kick,.rt-stage[data-beat="-1"] .rt-s{opacity:calc(.4 + .6 * var(--introB));
   transform:translateY(calc(10px * (1 - var(--introB))));transition:none;}
 .rt-stage[data-beat="-1"] .rt-h{transform:scale(calc(1.28 - .28 * var(--introB)));transform-origin:center;transition:none;}
 /* The setup clause just fades up with --introA — no gradient, that's reserved for the payoff,
    same split as the hero's hl1 (plain) / hl2 (gradient). */
-.rt-hl-plain{display:inline-block;opacity:var(--introA);transition:none;}
+.rt-hl-plain{display:inline-block;opacity:calc(.45 + .55 * var(--introA));transition:none;}
 /* The payoff clause: same var(--sb-grad) text-clip and the same radial-gradient bloom colours/
    blur as the hero's hl2 (.abt .pg-hero .hero-h1 .hl2::before) — lifted, not invented, just
    scroll-driven off --introA instead of a keyframe delay. */
 .rt-hl{position:relative;display:inline-block;background:var(--sb-grad);-webkit-background-clip:text;
-  background-clip:text;color:transparent;opacity:var(--introA);
-  filter:blur(calc(14px * (1 - var(--introA))));transition:none;}
+  background-clip:text;color:transparent;opacity:calc(.55 + .45 * var(--introA));
+  filter:blur(calc(6px * (1 - var(--introA))));transition:none;}
 .rt-hl::before{content:'';position:absolute;inset:-40% -12%;z-index:-1;pointer-events:none;
   background:radial-gradient(56% 62% at 50% 54%,rgba(16,185,129,.32),rgba(79,70,229,.2) 46%,transparent 72%);
-  filter:blur(36px);opacity:calc(.85 * var(--introA));transform:scale(calc(.72 + .3 * var(--introA)));transition:none;}
+  filter:blur(36px);opacity:calc(.3 + .55 * var(--introA));transform:scale(calc(.85 + .15 * var(--introA)));transition:none;}
 
 /* THE LINE THAT LANDS. On beat 1 each dark node gets its "you, today" truth. This is the
    best writing on the page and it used to sit greyed out in a table column. */
