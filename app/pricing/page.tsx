@@ -77,9 +77,19 @@ const CSS = `
 
 /* THE CANONICAL HERO REVEAL, ported from /founders (same technique, same timings — Jul 30
    2026 same-treatment pass). This hero has no photo wall; the four terms chips below are its
-   "supporting graphic" beat and stagger in from 2.15s the same way founders' memwall does. */
+   "supporting graphic" beat and stagger in from 2.15s the same way founders' memwall does.
+   FIX (same day, Jacob: "the header is dark mode, doesn't look like any of the other pages"):
+   the FIRST pass ported every child selector (eyebrow/h1/sub) but never flipped the hero's own
+   background/text off globals.css's site-wide default — .pg-hero is documented there as "the
+   dark header, every page except the two films," and founders/how-it-works are the pages that
+   opt OUT of it into cream. That opt-out line (.abt .pg-hero{background:var(--v4-cream)...})
+   is exactly what was missing here, so this hero silently rendered dark while founders/home/
+   journeys are cream. Porting it now, plus the two colors that were only legible on dark
+   (h1's color, and .fact b's #fff) and would have gone invisible-on-cream otherwise. */
+.prc .pg-hero{background:var(--v4-cream);color:var(--v4-ink);min-height:auto;padding:clamp(84px,10vh,116px) 0 clamp(26px,4vw,56px);overflow-x:clip;}
+.prc .pg-hero::before{display:none;}
 .prc .pg-hero .wrap .eyebrow{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.15em;text-transform:none;color:#42474f;border:1.5px solid transparent;background:linear-gradient(#fff,#fff) padding-box,var(--sb-grad) border-box;border-radius:999px;padding:9px 18px;box-shadow:0 6px 18px -10px rgba(6,12,20,.25);}
-.prc .pg-hero .wrap h1{margin:20px auto 0;font-size:clamp(20px,6.4vw,88px);line-height:1.02;letter-spacing:-.03em;font-weight:600;}
+.prc .pg-hero .wrap h1{margin:20px auto 0;font-size:clamp(20px,6.4vw,88px);line-height:1.02;letter-spacing:-.03em;font-weight:600;color:var(--v4-ink);}
 .prc .pg-hero .hero-h1 .hl1,.prc .pg-hero .hero-h1 .hl2{display:block;white-space:nowrap;}
 .prc .pg-hero .wrap p.sub{margin:22px auto 0;font-size:clamp(13px,3.1vw,21px);line-height:1.4;color:#52565e;}
 @media(prefers-reduced-motion:no-preference){
@@ -103,8 +113,8 @@ const CSS = `
 .fact:nth-child(2){--fc:#818cf8;}
 .fact:nth-child(3){--fc:#34d399;}
 .fact:nth-child(4){--fc:#a78bfa;}
-.fact b{display:block;font-size:14.5px;font-weight:600;letter-spacing:-.01em;color:#fff;}
-.fact span{display:block;margin-top:7px;font-size:13.5px;line-height:1.5;color:#8b93a5;}
+.fact b{display:block;font-size:14.5px;font-weight:600;letter-spacing:-.01em;color:var(--v4-ink);}
+.fact span{display:block;margin-top:7px;font-size:13.5px;line-height:1.5;color:#52565e;}
 `;
 
 export default function PricingPage() {
