@@ -114,12 +114,12 @@ const PAGE_CSS = `
   .v4 header.scene .hero-roll .pol{width:33vw;margin-right:-22px;}
 }
 
-/* "What You Love" is filled with the photo, not the brand gradient — see the long note below
-   the keyframes for why. background-attachment left off on purpose: it must scroll WITH the
-   text, not stay fixed to the viewport, or the image swims independently of the letters. */
-.v4 header.scene h1 .g{background-image:url(/closer-dock.jpg);background-size:240% auto;background-position:38% 46%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gDockPan 14s ease-in-out infinite;}
+/* headline gradient + brand-violet period on the light hero. (Jul 31 2026: tried filling "What
+   You Love" with closer-dock.jpg via background-clip:text instead — Jacob's call after seeing
+   it live was that the flat gradient reads better and the photo-mask was the dissonant part,
+   not the polaroids below. Reverted same session; see staybookt-hero-photo-mask memory.) */
+.v4 header.scene h1 .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .v4 header.scene h1 .pd{color:var(--v4-violet);}
-@media(prefers-reduced-motion:reduce){.v4 header.scene h1 .g{animation:none;}}
 
 /* APPLE-GRADE ENTRANCE (Jacob, Jul 23 2026). Two-stage headline: the clause fades up from a soft
    blur, then "Enjoy Life" lands on its own a beat later; the subhead and pill follow; the
@@ -138,7 +138,7 @@ const PAGE_CSS = `
 @media(prefers-reduced-motion:no-preference){
   .v4 header.scene .hero-h1 .hl1{opacity:0;filter:blur(10px);transform:translateY(20px);animation:sbHeroIn .9s cubic-bezier(.16,1,.3,1) .2s forwards;}
   .v4 header.scene .hero-h1 .hl2{opacity:0;filter:blur(32px);transform:translateY(16px) scale(1.35);transform-origin:center;animation:sbEnjoyIn 1.5s cubic-bezier(.19,1,.22,1) 1s forwards;}
-  .v4 header.scene .hero-h1 .hl2::before{content:'';position:absolute;inset:-34% -10%;z-index:-1;background:radial-gradient(56% 62% at 50% 54%,rgba(245,158,11,.34),rgba(217,119,6,.18) 46%,transparent 72%);filter:blur(36px);opacity:0;transform:scale(.7);animation:sbGlow 2s ease 1.05s forwards;}
+  .v4 header.scene .hero-h1 .hl2::before{content:'';position:absolute;inset:-34% -10%;z-index:-1;background:radial-gradient(56% 62% at 50% 54%,rgba(16,185,129,.32),rgba(79,70,229,.2) 46%,transparent 72%);filter:blur(36px);opacity:0;transform:scale(.7);animation:sbGlow 2s ease 1.05s forwards;}
   .v4 header.scene p.sub{opacity:0;filter:blur(6px);transform:translateY(12px);animation:sbHeroIn .9s cubic-bezier(.16,1,.3,1) 1.7s forwards;}
   .v4 header.scene .cta{opacity:0;transform:translateY(12px);animation:sbHeroIn .9s cubic-bezier(.16,1,.3,1) 1.95s forwards;}
   .v4 header.scene .hero-roll .pol{opacity:0;transform:translateY(56px) scale(.86) rotate(var(--rot));animation:sbPolIn .9s cubic-bezier(.19,1,.22,1) forwards;}
@@ -154,20 +154,6 @@ const PAGE_CSS = `
 @keyframes sbGlow{0%{opacity:0;transform:scale(.7);}50%{opacity:.95;}100%{opacity:.62;transform:scale(1);}}
 @keyframes sbPolIn{to{opacity:1;transform:translateY(0) scale(1) rotate(var(--rot));}}
 
-/* "WHAT YOU LOVE" IS THE PHOTOGRAPH (Jacob, Jul 31 2026, round 2 — the icon-cluster version
-   above was cut same-day: floating icons dissolving into gradient text is the stock move
-   every AI site-builder reaches for, not a StayBookt original). This is the actual signature
-   move: the words are not colored with the brand gradient anymore, they are FILLED with
-   closer-dock.jpg — the two chairs at dusk, the one photo already doing this exact emotional
-   job everywhere else on the site (founders' memwall, the homepage's own closing CTA, growth).
-   Reusing the site's own recurring "this is what enjoying your life looks like" photograph,
-   masked into the literal words "What You Love," is a specific, ownable, un-templatable move
-   — nobody else's stock hero has this photo. bgPan drifts it almost imperceptibly, forever
-   (not a one-shot entrance like the rest of the hero — this one stays alive after landing),
-   so it reads as a living photograph seen through a keyhole of type, not a static swap-in.
-   The glow behind it (sbGlow, above) shifted from cool brand teal/indigo to warm amber/copper
-   to match the dusk photo instead of clashing against it. */
-@keyframes gDockPan{0%{background-position:38% 46%;}50%{background-position:64% 58%;}100%{background-position:38% 46%;}}
 .v4 .kicker{font-size:14px;font-weight:600;letter-spacing:.02em;margin-bottom:14px;background:linear-gradient(90deg,#0ea5e9,#06b6d4 34%,#14b8a6 66%,#10b981);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .v4 .sbwrap,.v4 .sb-clook{--grad:linear-gradient(90deg,#0ea5e9,#06b6d4 34%,#14b8a6 66%,#10b981);}
 .v4 .sb-clook{background:#fff;padding:clamp(80px,10vw,120px) 0;}
