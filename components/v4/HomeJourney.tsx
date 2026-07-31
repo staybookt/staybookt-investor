@@ -240,6 +240,15 @@ function ReputationScene() {
     obs.observe(el);
     return () => obs.disconnect();
   }, []);
+  /* Richard, round 15 (Jul 30 2026): "homepage still reads way too heavy on service based
+     businesses... need to be broader so we don't disqualify." "Showed up on time, texted
+     when he was five minutes out" is a truck-arrival courtesy text — a consultant or agent
+     doesn't have a "five minutes out" moment. "Booked him again for the fall" names a
+     seasonal service-visit cadence (furnace tune-up season, lawn season), which a
+     consultant's retainer or an agent's next listing doesn't run on. Reworded to the thing
+     every one of the three ICP archetypes actually has: questions answered, something sent
+     the same day, hired again next quarter. Same fix logic on "Referred a neighbour" below —
+     "neighbour" reads residential/local-trade specifically; "a friend" doesn't. */
   return (
     <div className="rp" ref={ref}>
       <div className="rpwin">
@@ -247,15 +256,15 @@ function ReputationScene() {
         <div className="rpreview">
           <div className="rpstars" aria-hidden>&#9733;&#9733;&#9733;&#9733;&#9733;</div>
           <div className="rptext">
-            &ldquo;Showed up on time, texted when he was five minutes out. Already booked
-            him again for the fall.&rdquo;
+            &ldquo;Answered every question, sent everything the same day. Already booked
+            him again for next quarter.&rdquo;
           </div>
           <div className="rpreply"><span className="rpr-badge">Replied</span> in your voice, same day</div>
         </div>
       </div>
       <div className="chips">
         <span className="chip">Rebooked &middot; 14 months later</span>
-        <span className="chip">Referred a neighbour</span>
+        <span className="chip">Referred a friend</span>
       </div>
     </div>
   );

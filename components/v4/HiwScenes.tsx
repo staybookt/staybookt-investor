@@ -257,13 +257,19 @@ const THREAD: Msg[] = [
      feedback via Jacob, round 14, Jul 30 2026: "examples are skewed to home services").
      Reworded to an urgent scheduling request that does not name a trade, so it reads
      naturally whether the "us" on the other end is a home service, a consultant fitting
-     in a session, or an agent fitting in a showing. The reply below ("$180 for the
-     visit") was left as-is: generic enough already, and this is a text-message mockup,
-     not marketing copy — a full rewrite of the whole exchange for three different
-     pricing models (flat visit fee / session / commission) was more than this specific
-     complaint asked for. */
+     in a session, or an agent fitting in a showing.
+
+     ROUND 15, same day: Richard flagged it again — "homepage still reads way too heavy on
+     service based businesses... need to be broader so we don't disqualify." The "them" line
+     above was already fixed last round; what was still doing the damage was the reply below.
+     "$180 for the visit" names a site-visit fee (a home-service billing model) and "well
+     inside our area" names a truck dispatch radius — neither exists for a consultant fitting
+     in a session or an agent fitting in a showing. Cut both nouns, kept the one thing that
+     made the line feel real: an actual dollar figure and an actual time. Same fix logic
+     applied to the sys line below — "Triaged, not an emergency" is ER/dispatch triage
+     language, cut for the same reason. */
   { side: 'them', text: 'Hey, any chance you could fit me in this week? Kind of urgent.' },
-  { side: 'us', text: 'It’s $180 for the visit and you’re well inside our area. I can do Thursday 8:30 AM.', /* WAS 'Sent by StayBookt · 9 seconds'. We have never measured a response time. The
+  { side: 'us', text: 'It’s $180, and I can do Thursday 8:30 AM.', /* WAS 'Sent by StayBookt · 9 seconds'. We have never measured a response time. The
      illustration disclaimer on this page covers "this is not a customer's screenshot";
      it does not cover "this is how fast we are". An illustration of an invented
      capability is still a claim. The scene's argument is that it happened at 6:47 PM
@@ -279,7 +285,7 @@ const THREAD: Msg[] = [
     tag: 'You did not send this' },
   { side: 'them', text: 'That works. Please book it.' },
   { side: 'us', text: 'Done. Thursday 8:30 AM. You’ll get a confirmation and a reminder the night before.' },
-  { side: 'sys', text: '2:14 AM · Call answered. Triaged, not an emergency. Booked 7:00 AM.' },
+  { side: 'sys', text: '2:14 AM · Call answered while you slept. Booked for 7:00 AM.' },
 ];
 
 export function NightShift() {
