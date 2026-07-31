@@ -114,9 +114,12 @@ const PAGE_CSS = `
   .v4 header.scene .hero-roll .pol{width:33vw;margin-right:-22px;}
 }
 
-/* headline gradient + brand-violet period on the light hero */
-.v4 header.scene h1 .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+/* "What You Love" is filled with the photo, not the brand gradient — see the long note below
+   the keyframes for why. background-attachment left off on purpose: it must scroll WITH the
+   text, not stay fixed to the viewport, or the image swims independently of the letters. */
+.v4 header.scene h1 .g{background-image:url(/closer-dock.jpg);background-size:240% auto;background-position:38% 46%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gDockPan 14s ease-in-out infinite;}
 .v4 header.scene h1 .pd{color:var(--v4-violet);}
+@media(prefers-reduced-motion:reduce){.v4 header.scene h1 .g{animation:none;}}
 
 /* APPLE-GRADE ENTRANCE (Jacob, Jul 23 2026). Two-stage headline: the clause fades up from a soft
    blur, then "Enjoy Life" lands on its own a beat later; the subhead and pill follow; the
@@ -135,7 +138,7 @@ const PAGE_CSS = `
 @media(prefers-reduced-motion:no-preference){
   .v4 header.scene .hero-h1 .hl1{opacity:0;filter:blur(10px);transform:translateY(20px);animation:sbHeroIn .9s cubic-bezier(.16,1,.3,1) .2s forwards;}
   .v4 header.scene .hero-h1 .hl2{opacity:0;filter:blur(32px);transform:translateY(16px) scale(1.35);transform-origin:center;animation:sbEnjoyIn 1.5s cubic-bezier(.19,1,.22,1) 1s forwards;}
-  .v4 header.scene .hero-h1 .hl2::before{content:'';position:absolute;inset:-34% -10%;z-index:-1;background:radial-gradient(56% 62% at 50% 54%,rgba(16,185,129,.32),rgba(79,70,229,.2) 46%,transparent 72%);filter:blur(36px);opacity:0;transform:scale(.7);animation:sbGlow 2s ease 1.05s forwards;}
+  .v4 header.scene .hero-h1 .hl2::before{content:'';position:absolute;inset:-34% -10%;z-index:-1;background:radial-gradient(56% 62% at 50% 54%,rgba(245,158,11,.34),rgba(217,119,6,.18) 46%,transparent 72%);filter:blur(36px);opacity:0;transform:scale(.7);animation:sbGlow 2s ease 1.05s forwards;}
   .v4 header.scene p.sub{opacity:0;filter:blur(6px);transform:translateY(12px);animation:sbHeroIn .9s cubic-bezier(.16,1,.3,1) 1.7s forwards;}
   .v4 header.scene .cta{opacity:0;transform:translateY(12px);animation:sbHeroIn .9s cubic-bezier(.16,1,.3,1) 1.95s forwards;}
   .v4 header.scene .hero-roll .pol{opacity:0;transform:translateY(56px) scale(.86) rotate(var(--rot));animation:sbPolIn .9s cubic-bezier(.19,1,.22,1) forwards;}
@@ -151,47 +154,20 @@ const PAGE_CSS = `
 @keyframes sbGlow{0%{opacity:0;transform:scale(.7);}50%{opacity:.95;}100%{opacity:.62;transform:scale(1);}}
 @keyframes sbPolIn{to{opacity:1;transform:translateY(0) scale(1) rotate(var(--rot));}}
 
-/* THE NOISE CLEARS (Jacob, Jul 31 2026 — "wow factor animation that subsumes the whole
-   StayBookt experience"). Founders has the polaroids, Journeys has the road map; the hero
-   had nothing of its own — just text. This is its signature moment.
-   Six line-icons (missed call, invoice, calendar reminder, review, checklist, message) drift
-   and jitter around the headline like static — a small, literal picture of "every call,
-   answered, every invoice, chased" before it's answered or chased. Each one is timed to get
-   pulled inward and dissolve into the light bloom that already sits behind "What You Love"
-   (sbGlow, above) — the glow was decorative before; now it is the thing doing the absorbing.
-   By the time the bloom settles (~3s) the noise is gone and the headline is the only thing
-   left standing. Pure CSS, same one-shot entrance pattern as the rest of this hero — no JS,
-   no re-trigger on scroll. Hidden entirely outside prefers-reduced-motion:no-preference: a
-   scattering of icons that never animates or clears would just read as clutter, so reduced-
-   motion visitors get the plain, calm headline instead — arguably the better version anyway. */
-.v4 header.scene .inner{position:relative;}
-.v4 header.scene .hero-noise{position:absolute;left:0;right:0;top:0;height:clamp(300px,40vw,480px);pointer-events:none;display:none;}
-.v4 header.scene .hn{position:absolute;display:flex;align-items:center;justify-content:center;
-  width:clamp(28px,3.2vw,40px);height:clamp(28px,3.2vw,40px);color:#8b93a5;}
-.v4 header.scene .hn svg{width:100%;height:100%;}
-.v4 header.scene .hn1{left:6%;top:9%;}
-.v4 header.scene .hn2{right:7%;top:15%;}
-.v4 header.scene .hn3{left:3%;top:57%;}
-.v4 header.scene .hn4{right:4%;top:63%;}
-.v4 header.scene .hn5{left:17%;top:87%;}
-.v4 header.scene .hn6{right:19%;top:81%;}
-@media(prefers-reduced-motion:no-preference){
-  .v4 header.scene .hero-noise{display:block;}
-  .v4 header.scene .hn{opacity:0;animation:hnLife 2.3s cubic-bezier(.4,0,.2,1) forwards;}
-  .v4 header.scene .hn1{animation-delay:.05s;}
-  .v4 header.scene .hn2{animation-delay:.2s;}
-  .v4 header.scene .hn3{animation-delay:.35s;}
-  .v4 header.scene .hn4{animation-delay:.5s;}
-  .v4 header.scene .hn5{animation-delay:.65s;}
-  .v4 header.scene .hn6{animation-delay:.8s;}
-}
-@keyframes hnLife{
-  0%{opacity:0;transform:translate(0,0) scale(.5);}
-  16%{opacity:.55;transform:translate(var(--jx),var(--jy)) scale(1);}
-  38%{opacity:.5;transform:translate(calc(var(--jx) * -1),calc(var(--jy) * -.8)) scale(1);}
-  60%{opacity:.6;transform:translate(calc(var(--jx) * .6),calc(var(--jy) * .5)) scale(1.05);}
-  100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(.1);}
-}
+/* "WHAT YOU LOVE" IS THE PHOTOGRAPH (Jacob, Jul 31 2026, round 2 — the icon-cluster version
+   above was cut same-day: floating icons dissolving into gradient text is the stock move
+   every AI site-builder reaches for, not a StayBookt original). This is the actual signature
+   move: the words are not colored with the brand gradient anymore, they are FILLED with
+   closer-dock.jpg — the two chairs at dusk, the one photo already doing this exact emotional
+   job everywhere else on the site (founders' memwall, the homepage's own closing CTA, growth).
+   Reusing the site's own recurring "this is what enjoying your life looks like" photograph,
+   masked into the literal words "What You Love," is a specific, ownable, un-templatable move
+   — nobody else's stock hero has this photo. bgPan drifts it almost imperceptibly, forever
+   (not a one-shot entrance like the rest of the hero — this one stays alive after landing),
+   so it reads as a living photograph seen through a keyhole of type, not a static swap-in.
+   The glow behind it (sbGlow, above) shifted from cool brand teal/indigo to warm amber/copper
+   to match the dusk photo instead of clashing against it. */
+@keyframes gDockPan{0%{background-position:38% 46%;}50%{background-position:64% 58%;}100%{background-position:38% 46%;}}
 .v4 .kicker{font-size:14px;font-weight:600;letter-spacing:.02em;margin-bottom:14px;background:linear-gradient(90deg,#0ea5e9,#06b6d4 34%,#14b8a6 66%,#10b981);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .v4 .sbwrap,.v4 .sb-clook{--grad:linear-gradient(90deg,#0ea5e9,#06b6d4 34%,#14b8a6 66%,#10b981);}
 .v4 .sb-clook{background:#fff;padding:clamp(80px,10vw,120px) 0;}
@@ -392,29 +368,6 @@ export default function HomePage() {
             is light and Apple-homepage style now: clean surface, copy on top, and a polaroid
             camera roll of the life the business buys, below. No full-bleed image behind the type. */}
         <div className="wrap inner">
-          {/* THE NOISE CLEARS — see PAGE_CSS. Six drifting icons (missed call, invoice, calendar,
-              review, checklist, message) that get pulled into the glow behind "What You Love"
-              and vanish. aria-hidden: purely decorative, the subhead already says this in words. */}
-          <div className="hero-noise" aria-hidden="true">
-            <span className="hn hn1" style={{ '--jx': '8px', '--jy': '-6px', '--tx': '110px', '--ty': '150px' } as CSSProperties}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
-            </span>
-            <span className="hn hn2" style={{ '--jx': '-7px', '--jy': '-5px', '--tx': '-100px', '--ty': '140px' } as CSSProperties}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 2h16v20l-3-2-3 2-3-2-3 2-3-2-1 2z" /><line x1="8" y1="7" x2="16" y2="7" /><line x1="8" y1="11" x2="16" y2="11" /></svg>
-            </span>
-            <span className="hn hn3" style={{ '--jx': '9px', '--jy': '6px', '--tx': '130px', '--ty': '-30px' } as CSSProperties}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>
-            </span>
-            <span className="hn hn4" style={{ '--jx': '-8px', '--jy': '5px', '--tx': '-125px', '--ty': '-40px' } as CSSProperties}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-            </span>
-            <span className="hn hn5" style={{ '--jx': '6px', '--jy': '-7px', '--tx': '85px', '--ty': '-120px' } as CSSProperties}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="4" width="16" height="18" rx="2" /><path d="M9 3h6a1 1 0 0 1 1 1v1H8V4a1 1 0 0 1 1-1z" /><path d="m9 13 2 2 4-4" /></svg>
-            </span>
-            <span className="hn hn6" style={{ '--jx': '-6px', '--jy': '-8px', '--tx': '-75px', '--ty': '-95px' } as CSSProperties}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" /></svg>
-            </span>
-          </div>
           <Reveal className="eyebrow" as="div">For owner-operated service businesses</Reveal>
           {/* Two-stage reveal (Jacob, Jul 23 2026): the clause fades up first, then the payoff
               lands on its own in the gradient. Animation lives in PAGE_CSS under
