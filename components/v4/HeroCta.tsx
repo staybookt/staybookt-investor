@@ -26,7 +26,7 @@ import { min } from '@/lib/css';
  * pass `img` falls back to it. */
 /* heading / sub let a page override the close copy (About uses Richard's "operating partner"
    line and passes sub={null} to drop the subtext). Default is the standard close. */
-export default function HeroCta({ fromBlack = false, img = HERO_IMG, heading, sub }: { fromBlack?: boolean; img?: string; heading?: ReactNode; sub?: ReactNode | null }) {
+export default function HeroCta({ fromBlack = false, img = HERO_IMG, heading, headingClass, sub }: { fromBlack?: boolean; img?: string; heading?: ReactNode; headingClass?: string; sub?: ReactNode | null }) {
   return (
     <section className="hcta" data-fade={fromBlack ? 'black' : undefined}>
       <style>{min(CSS)}</style>
@@ -63,7 +63,7 @@ export default function HeroCta({ fromBlack = false, img = HERO_IMG, heading, su
             line back, check the footer again. */}
         {/* Custom headings arrive with their own <br/> line breaks (Richard writes his
             sayings as two lines), so the 15ch cap that shapes the default line comes off. */}
-        <h2 className={heading ? 'w' : undefined}>{heading ?? <>Do the work you love. We&rsquo;ll run the rest.</>}</h2>
+        <h2 className={[heading ? 'w' : '', headingClass ?? ''].filter(Boolean).join(' ') || undefined}>{heading ?? <>Do the work you love. We&rsquo;ll run the rest.</>}</h2>
         {sub === null ? null : <p>{sub ?? <>We get you found and run the day to day. You get your time back.</>}</p>}
         <a className="hcta-btn" href={START_LINK} data-cta="closer">Get Started</a>
         <div className="hcta-note">Thirty minutes with a founder. It&rsquo;s free.</div>
@@ -93,6 +93,11 @@ const CSS = `
 .hcta-in h2{font-size:clamp(34px,5.4vw,74px);font-weight:600;letter-spacing:-.035em;line-height:1.03;
   color:#fff;max-width:15ch;margin:0 auto;text-shadow:0 2px 34px rgba(0,0,0,.55);}
 .hcta-in h2.w{max-width:none;font-size:clamp(30px,5vw,68px);}
+/* pricing's line 1 ("A solution that offers undeniable value.") is longer than every other
+   page's custom heading and was wrapping into 2 sub-lines on its own, making the whole thing
+   render as 3 lines instead of 2 (Jacob, Jul 31 2026). Scoped to .tight, not the shared .w
+   rule above, so /founders, /long-term, /journeys and the homepage close keep their own size. */
+.hcta-in h2.tight{font-size:clamp(26px,4.3vw,56px);}
 .hcta-in p{margin:20px auto 0;font-size:clamp(16px,1.9vw,20px);line-height:1.5;color:#eef1f5;max-width:38ch;
   text-shadow:0 1px 22px rgba(0,0,0,.6);}
 

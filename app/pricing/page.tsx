@@ -178,6 +178,7 @@ export default function PricingPage() {
       <HeroCta
         img="/close-pricing.jpg"
         heading={<>A solution that offers undeniable value.<br />And more time for simple pleasures.</>}
+        headingClass="tight"
         sub={null}
       />
 
