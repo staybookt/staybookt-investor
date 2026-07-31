@@ -219,11 +219,11 @@ export default function AboutPage() {
           <p className="sub">For small business owners, and the families behind them.</p>
           <div className="memwall" aria-hidden="true">
             <div className="mpol m1"><img src="/close-founders.jpg" alt="" width={280} height={280} /></div>
-            <div className="mpol m2"><img src="/life-boat.jpg" alt="" width={280} height={280} /></div>
-            <div className="mpol m3"><img src="/close-lt.jpg" alt="" width={280} height={280} /></div>
-            <div className="mpol m4"><img src="/life-dog.jpg" alt="" width={280} height={280} /></div>
-            <div className="mpol m5"><img src="/close-inc.jpg" alt="" width={280} height={280} /></div>
-            <div className="mpol m6"><img src="/life-shop.jpg" alt="" width={280} height={280} /></div>
+            <div className="mpol m2"><img src="/closer-dock.jpg" alt="" width={280} height={280} /></div>
+            <div className="mpol m3"><img src="/close-lt-cottage.jpg" alt="" width={280} height={280} /></div>
+            <div className="mpol m4"><img src="/close-pricing.jpg" alt="" width={280} height={280} /></div>
+            <div className="mpol m5"><img src="/close-work.jpg" alt="" width={280} height={280} /></div>
+            <div className="mpol m6"><img src="/close-founders.jpg" alt="" width={280} height={280} /></div>
             <div className="mpol m7"><img src="/closer-dock.jpg" alt="" width={280} height={280} /></div>
           </div>
         </div>
