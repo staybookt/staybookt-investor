@@ -290,7 +290,11 @@ const CSS = `
    is what stacks them onto two lines without needing an explicit <br/>. */
 .rt-stage[data-beat="-1"] .rt-h{margin-top:20px;font-size:clamp(20px,6.4vw,88px);line-height:1.02;
   letter-spacing:-.03em;font-weight:600;transform:none;}
-.rt-hl-plain,.rt-hl{display:block;white-space:nowrap;}
+/* NOT white-space:nowrap, unlike the hero's own hl1/hl2 — the hero's copy is always authored
+   short enough to fit one line at 88px ("improve lives."); this beat's payoff clause ("there is
+   nothing to hand anyone.") is longer and Jacob's copy call, not something to shorten to fit a
+   CSS rule. Wraps naturally inside .rt-copy's max-width instead of clipping off the edge. */
+.rt-hl-plain,.rt-hl{display:block;}
 /* The setup clause just fades up with --introA — no gradient, that's reserved for the payoff,
    same split as the hero's hl1 (plain) / hl2 (gradient/.g). */
 .rt-hl-plain{opacity:calc(.45 + .55 * var(--introA));transition:none;}
