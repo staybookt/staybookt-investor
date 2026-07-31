@@ -159,28 +159,16 @@ const INTRO: Beat = {
       <span className="rt-hl">there is nothing to hand anyone.</span>
     </>
   ),
-  /* Jul 31 2026: the one-liner is gone. Richard's "Edit to the above" doc (About Us.docx) is
-     the real copy for this claim, ported verbatim (house-style fixes already applied to this
-     exact passage on the old /long-term page carried over: "shear will" -> "sheer will",
-     "don't" -> "do not" to match this section's uncontracted register). Four short paragraphs,
-     not the one-liner "watch what happens to all six" — see the CSS note on .rt-s below for
-     how the beat's layout changed to make room for real prose instead of a single hero-style
-     line. */
-  s: (
-    <>
-      <p>If your business would go backwards without you, a buyer is not going to pay you a
-        lot of money. So you need to plan today, to have a business to sell in the future.</p>
-      <p>To maximize your business value, you do not want to be in a position where you are
-        selling assets and a customer list. That happens when the business is run on your cell
-        phone and the customers go away when you leave. Buyers want businesses that can work
-        when the owner is not standing there. Otherwise, what are they buying?</p>
-      <p>You need to demonstrate repeatable channel revenue, strong repeat business, healthy
-        referral levels, day-to-day operations run by systems, not sheer will, and an
-        impressive online presence associated with the business, not the owner. Most buyers do
-        not want to buy a job. They want a business that has a path to grow.</p>
-      <p>That is not our opinion. Ask anyone who buys these businesses for a living.</p>
-    </>
-  ),
+  /* Jul 31 2026, round 2: TRIED putting Richard's four-paragraph "Edit to the above" doc
+     straight into this beat and measured it at 1716px tall — over 4x this stage's own 100vh
+     pinned viewport (position:sticky, overflow:hidden) even after tightening every knob
+     available (smaller type, tighter gaps, a shrunk diagram). It would have clipped almost
+     the whole thing. Reverted to the one-liner. The real doc content now lives in its own
+     plain, unpinned section on the founders page (.abt-ltv, above <RemovalTest/> in
+     app/founders/page.tsx) — ordinary document flow has no height budget to blow. This beat
+     keeps doing what it was always built to do: one line setting up the diagram, not a home
+     for paragraphs. */
+  s: 'Watch what happens to all six the moment you step out of it.',
 };
 
 const B = [0, 0.34, 0.68, 1];
@@ -332,22 +320,12 @@ const CSS = `
 .rt-hl::before{content:'';position:absolute;inset:-40% -12%;z-index:-1;pointer-events:none;
   background:radial-gradient(56% 62% at 50% 54%,rgba(16,185,129,.32),rgba(79,70,229,.2) 46%,transparent 72%);
   filter:blur(36px);opacity:calc(.3 + .55 * var(--introA));transform:scale(calc(.85 + .15 * var(--introA)));transition:none;}
-/* THE SUB, ROUND 2 (Jul 31 2026): was the hero's own single-nowrap-line sub sizing, tuned for
-   INTRO's old one-liner. Now holds Richard's real four-paragraph copy instead, so nowrap and
-   the huge hero-scale font are both gone — real body-copy sizing, wraps in a readable column,
-   space between paragraphs. This made beat -1 taller than a one-liner allowed, so two things
-   changed to keep it inside the sticky stage's fixed viewport height without clipping: the
-   gap between eyebrow/headline/sub/diagram tightened (.rt-in override just below), and the
-   diagram's box shrank for THIS beat only (.rt-svg override further below) — beats 0/1/2 keep
-   their full 46vh, untouched. The diagram itself is still at full opacity/scale immediately
-   (no more fade-in — see the .rt-svg note above), just a smaller fixed box here so four
-   paragraphs of real copy and a full-opacity diagram both fit on one screen without a scrollbar
-   inside the pinned stage. */
-.rt-stage[data-beat="-1"] .rt-s{margin:18px auto 0;font-size:clamp(13px,1.55vw,15.5px);line-height:1.52;
-  max-width:58ch;color:#9ba2ae;display:flex;flex-direction:column;gap:10px;text-align:left;
+/* THE SUB — hero's own sub sizing: nowrap, no ch cap, same clamp. INTRO.s is a true one-liner
+   on purpose (see the "TRIED putting Richard's four paragraphs here" note on INTRO above —
+   this beat's fixed 100vh pinned viewport cannot hold real prose, only ever a single line). */
+.rt-stage[data-beat="-1"] .rt-s{margin:22px auto 0;font-size:clamp(13px,3.1vw,21px);line-height:1.4;
+  white-space:nowrap;max-width:none;color:#9ba2ae;
   opacity:calc(.4 + .6 * var(--introB));transform:translateY(calc(10px * (1 - var(--introB))));transition:none;}
-.rt-stage[data-beat="-1"] .rt-in{gap:clamp(10px,1.6vh,18px);}
-.rt-stage[data-beat="-1"] .rt-svg{max-height:26vh;}
 
 /* THE LINE THAT LANDS. On beat 1 each dark node gets its "you, today" truth. This is the
    best writing on the page and it used to sit greyed out in a table column. */

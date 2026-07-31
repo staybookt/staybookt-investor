@@ -193,6 +193,20 @@ const CSS = `
   padding-left:clamp(19px,2vw,25px);}
 .abt-quote figcaption .cn{font-size:15.5px;font-weight:600;letter-spacing:-.01em;color:var(--v4-ink);}
 .abt-quote figcaption .cr{font-size:13.5px;font-weight:600;color:#69707d;}
+
+/* LONG-TERM VALUE, Richard's own copy (About Us.docx, "Edit to the above"). Ported straight
+   into RemovalTest's beat -1 first — measured that beat's content at 1716px tall against a
+   100vh pinned/sticky stage with overflow:hidden. It would have clipped almost the whole
+   thing. Plain, unpinned section instead: ordinary document flow, no height budget to blow.
+   No card chrome (house rule) — hairline top border to separate it from the quotes above,
+   plain type, nothing boxed. Sits between the founders' quotes and the RemovalTest film,
+   which keeps its own headline and diagram exactly as they were; this doesn't touch either. */
+.abt-ltv{padding:clamp(70px,9vw,110px) 0;background:var(--v4-cream,#f6f6f3);border-top:1px solid #e6e6e1;}
+.abt-ltv .eyebrow{color:#69707d;}
+.abt-ltv .ltv-body{margin-top:clamp(22px,3vw,34px);max-width:64ch;}
+.abt-ltv .ltv-body p{font-size:clamp(16px,1.7vw,19px);line-height:1.6;color:#42474f;}
+.abt-ltv .ltv-body p+p{margin-top:16px;}
+.abt-ltv .ltv-body p:last-child{font-weight:600;color:var(--v4-ink);}
 `;
 
 export default function AboutPage() {
@@ -298,12 +312,44 @@ export default function AboutPage() {
           section between the founders and the close. The Promises component still exists, just not
           rendered here. */}
 
-      {/* 3 — WHY THIS MATTERS LONG-TERM. Used to be its own section here (see the page-top and
-          CSS comments for the full five-round account of why that never read as unified with
-          the film beneath it). That copy is now RemovalTest's own opening beat — anchorId keeps
-          /long-term's redirect and HomeJourney.tsx's "what it is worth later" link landing in
-          the right place even though there's no section here to land ON anymore. */}
-      <RemovalTest anchorId="long-term-value" />
+      {/* 3 — WHY THIS MATTERS LONG-TERM. Richard's real doc copy (About Us.docx, "Edit to the
+          above"), back in a plain section of its own (Jul 31 2026) — tried folding it into
+          RemovalTest's beat -1 first, measured real overflow (1716px of content inside a
+          100vh pinned stage), reverted that attempt and put the prose here instead, in normal
+          document flow where there's no fixed-height ceiling to hit. The anchor moved to this
+          section (RemovalTest keeps rendering right after it, undecorated) so /long-term's
+          redirect and HomeJourney.tsx's "what it is worth later" link still land in the right
+          place. */}
+      <section className="abt-ltv" id="long-term-value">
+        <div className="wrap">
+          <Reveal className="eyebrow" as="div">Long-term value</Reveal>
+          <div className="ltv-body">
+            <Reveal>
+              <p>If your business would go backwards without you, a buyer is not going to pay
+                you a lot of money. So you need to plan today, to have a business to sell in
+                the future.</p>
+            </Reveal>
+            <Reveal>
+              <p>To maximize your business value, you do not want to be in a position where
+                you are selling assets and a customer list. That happens when the business is
+                run on your cell phone and the customers go away when you leave. Buyers want
+                businesses that can work when the owner is not standing there. Otherwise, what
+                are they buying?</p>
+            </Reveal>
+            <Reveal>
+              <p>You need to demonstrate repeatable channel revenue, strong repeat business,
+                healthy referral levels, day-to-day operations run by systems, not sheer will,
+                and an impressive online presence associated with the business, not the owner.
+                Most buyers do not want to buy a job. They want a business that has a path to
+                grow.</p>
+            </Reveal>
+            <Reveal>
+              <p>That is not our opinion. Ask anyone who buys these businesses for a living.</p>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+      <RemovalTest />
 
       {/* Close, Richard's copy: "We are your operating partner. To help you build something great."
           Subtext dropped. fromBlack IS BACK (Jul 30 2026): it was correctly dropped when the
