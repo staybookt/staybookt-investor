@@ -52,6 +52,22 @@ import { min } from '@/lib/css';
  * with beat 1 now that they share one film. The opening line states the stakes and hands off
  * to the diagram ("watch what happens to all six"), it does not pre-empt the buyer beat.
  *
+ * THE OPENING BEAT, ROUND 2 (same day). Jacob, after seeing it live: "big bold gradient
+ * highlight like a headline essentially then fade into the animation stuff, seamless
+ * beautiful transitions." Originally the headline just sat there in plain white while --intro
+ * faded the diagram in behind it — correct mechanically, flat as an entrance. Now --intro's
+ * own 0-1 range is split into two beats-within-the-beat, both still driven off the one
+ * scroll-scrubbed value (nothing new to test, no new discrete state):
+ *   --introA = the FIRST half of --intro (0->1, then holds at 1). The claim's payoff clause
+ *   gets the exact gradient text-clip the homepage hero uses on its own punchline (var(--sb-
+ *   grad), background-clip:text), plus the same radial-gradient bloom the hero's hl2 glows in
+ *   with (see .abt .pg-hero .hero-h1 .hl2::before) — same colours, same blur, scroll-driven
+ *   instead of keyframed. Headline alone, scaled up, nothing else on screen.
+ *   --introB = the SECOND half (0->1). The headline settles back to its normal scale as the
+ *   eyebrow, paragraph AND the diagram all fade/grow in together — "fade into the animation
+ *   stuff" is literal: --introB is what the SVG's opacity/scale reads now, not raw --intro, so
+ *   the diagram doesn't start forming until the headline has already had its moment alone.
+ *
  * THE RULE THIS PAGE EXISTS UNDER: no valuation numbers. The lights going out say "worth
  * less" without ever putting a figure on it, which is exactly why the metaphor earns its
  * place. Do not add a counter, a multiple, or a range. */
@@ -116,7 +132,7 @@ const clen = (d: Driver) => {
 };
 const MLEN: number[] = M.map(clen);
 
-type Beat = { k: string; h: string; s: ReactNode; eyebrow?: string };
+type Beat = { k: string; h: ReactNode; s: ReactNode; eyebrow?: string };
 
 const BEATS: Beat[] = [
   { k: 'Right now', h: 'Every one of these runs through you.', s: 'Six things decide whether this is a business or a job with a van. Today, all six are wired to one person.' },
@@ -134,7 +150,16 @@ const BEATS: Beat[] = [
 const INTRO: Beat = {
   k: 'The claim',
   eyebrow: 'Build long-term wealth, not a job.',
-  h: 'If it cannot run without you, there is nothing to hand anyone.',
+  /* Split like the hero's hl1/hl2: the setup plain, the payoff clause gradient-lit. Only
+     .rt-hl and .rt-hl-plain get any special treatment, and only at data-beat="-1" — see the
+     "OPENING BEAT, ROUND 2" note above. */
+  h: (
+    <>
+      <span className="rt-hl-plain">If it cannot run without you,</span>
+      <br />
+      <span className="rt-hl">there is nothing to hand anyone.</span>
+    </>
+  ),
   s: 'Six things make a business worth having. Watch what happens to all six the moment you step out of it.',
 };
 
@@ -166,7 +191,7 @@ const CSS = `
    film's entire travel, and in svh it would shrink and the film would collapse. */
 .rt-stage{position:sticky;top:0;height:100vh;height:100svh;min-height:600px;overflow:hidden;display:flex;
   flex-direction:column;align-items:center;justify-content:center;color:#f5f5f7;
-  --p0:0;--lift:0;--wire:0;--intro:0;--acc:#22d3ee;}
+  --p0:0;--lift:0;--wire:0;--intro:0;--introA:0;--introB:0;--acc:#22d3ee;}
 /* The HUD accent follows the film: cyan while the lights are the owner's, green once they
    re-route to StayBookt in beat 2. Same colours the wires and nodes already use. */
 .rt-stage[data-beat="2"]{--acc:#34d399;}
@@ -174,10 +199,13 @@ const CSS = `
   background:radial-gradient(60% 50% at 50% 8%,rgba(79,70,229,.16),transparent 64%);}
 
 .rt-in{position:relative;z-index:2;width:min(1040px,94%);display:flex;flex-direction:column;align-items:center;gap:clamp(14px,2.4vh,28px);}
-/* Fades and grows in across the opening beat only (--intro 0->1), fully drawn the moment
-   beat 0's pulse starts. Fixed at 1 for every other beat, so this is a no-op past the intro. */
-.rt-svg{width:100%;height:auto;max-height:46vh;overflow:visible;
-  opacity:var(--intro);transform:scale(calc(.96 + .04 * var(--intro)));transition:none;}
+/* Fades and grows in across the SECOND half of the opening beat only (--introB 0->1), after
+   the headline has had its solo gradient moment on --introA — see "OPENING BEAT, ROUND 2"
+   above. Fully drawn the moment beat 0's pulse starts. --introB is pinned at 1 for every other
+   beat, so max-height/opacity/scale are all no-ops past the intro, identical to before. */
+.rt-svg{width:100%;height:auto;overflow:visible;transition:none;
+  max-height:calc(6vh + 40vh * var(--introB));
+  opacity:var(--introB);transform:scale(calc(.9 + .1 * var(--introB)));}
 
 /* WIRES. dashoffset is the whole trick: 0 = connected, full = retracted. Beat 0 runs a
    travelling pulse along them so the diagram is alive before anything has happened. */
@@ -217,6 +245,26 @@ const CSS = `
 .rt-kick{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#69707d;margin-bottom:8px;}
 .rt-h{font-size:clamp(24px,3.4vw,44px);font-weight:600;letter-spacing:-.035em;line-height:1.05;color:#fff;}
 .rt-s{margin:12px auto 0;font-size:clamp(14.5px,1.6vw,18px);line-height:1.5;color:#aeb6c4;max-width:52ch;}
+
+/* THE OPENING BEAT'S TWO-PHASE REVEAL. Scoped to [data-beat="-1"] only — every other beat's
+   .rt-kick/.rt-h/.rt-s are untouched by any of this. See "OPENING BEAT, ROUND 2" at the top
+   of the file. --introA drives the headline's own solo moment, --introB drives the settle +
+   handoff into the diagram (see .rt-svg above). */
+.rt-stage[data-beat="-1"] .rt-kick,.rt-stage[data-beat="-1"] .rt-s{opacity:var(--introB);
+  transform:translateY(calc(10px * (1 - var(--introB))));transition:none;}
+.rt-stage[data-beat="-1"] .rt-h{transform:scale(calc(1.28 - .28 * var(--introB)));transform-origin:center;transition:none;}
+/* The setup clause just fades up with --introA — no gradient, that's reserved for the payoff,
+   same split as the hero's hl1 (plain) / hl2 (gradient). */
+.rt-hl-plain{display:inline-block;opacity:var(--introA);transition:none;}
+/* The payoff clause: same var(--sb-grad) text-clip and the same radial-gradient bloom colours/
+   blur as the hero's hl2 (.abt .pg-hero .hero-h1 .hl2::before) — lifted, not invented, just
+   scroll-driven off --introA instead of a keyframe delay. */
+.rt-hl{position:relative;display:inline-block;background:var(--sb-grad);-webkit-background-clip:text;
+  background-clip:text;color:transparent;opacity:var(--introA);
+  filter:blur(calc(14px * (1 - var(--introA))));transition:none;}
+.rt-hl::before{content:'';position:absolute;inset:-40% -12%;z-index:-1;pointer-events:none;
+  background:radial-gradient(56% 62% at 50% 54%,rgba(16,185,129,.32),rgba(79,70,229,.2) 46%,transparent 72%);
+  filter:blur(36px);opacity:calc(.85 * var(--introA));transform:scale(calc(.72 + .3 * var(--introA)));transition:none;}
 
 /* THE LINE THAT LANDS. On beat 1 each dark node gets its "you, today" truth. This is the
    best writing on the page and it used to sit greyed out in a table column. */
@@ -448,7 +496,13 @@ export default function RemovalTest({ anchorId }: { anchorId?: string } = {}) {
     window.scrollTo({ top: Math.round(absTop + total * p), behavior: 'smooth' });
   };
 
-  const style = { '--p0': p0, '--lift': lift, '--wire': wire, '--intro': intro } as CSSProperties;
+  /* --intro's own 0-1 range split at its midpoint into two sub-phases — see "OPENING BEAT,
+     ROUND 2" at the top of the file. Derived here, not a separate scroll-driven state: both
+     are pure functions of --intro, so there is nothing new for the driver's damping/easing to
+     get wrong, only new CSS reading the same eased value differently. */
+  const introA = clamp(intro * 2);
+  const introB = clamp(intro * 2 - 1);
+  const style = { '--p0': p0, '--lift': lift, '--wire': wire, '--intro': intro, '--introA': introA, '--introB': introB } as CSSProperties;
   /* One object so there is exactly one place the two layouts differ. Desktop values are the
      literals that were inline before. */
   const g = mobile
