@@ -130,7 +130,7 @@ const STOPS: Stop[] = [
        four named brand hues are cyan/emerald/indigo/violet (see the pricing page's own
        four terms chips), and indigo is already the "commitment / the books" hue there —
        closer to what this milestone is than reputation's violet. */
-    id: 'admin', n: '4', label: 'Paperwork', promise: 'Every invoice chases itself.', voice: 'I have not chased an invoice in months.',
+    id: 'admin', n: '4', label: 'Paperwork', promise: 'Spend way less time on paperwork.', voice: 'I have not chased an invoice in months.',
     accent: '#4f46e5', accentD: '#4338ca', side: 'right', surface: 'admin',
     beat: 'We follow up every quote until you get an answer, chase every invoice until it is paid, and send you the week’s numbers before you ask.',
   },
@@ -335,7 +335,7 @@ function AdminScene() {
         </div>
       </div>
       <div className="chips">
-        <span className="chip">Every invoice chases itself</span>
+        <span className="chip">Way less time on paperwork</span>
         <span className="chip">Sent before you are up</span>
       </div>
     </div>
