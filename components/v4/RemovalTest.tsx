@@ -156,11 +156,13 @@ const INTRO: Beat = {
   h: (
     <>
       <span className="rt-hl-plain">If it cannot run without you,</span>
-      <br />
       <span className="rt-hl">there is nothing to hand anyone.</span>
     </>
   ),
-  s: 'Six things make a business worth having. Watch what happens to all six the moment you step out of it.',
+  /* Short one-liner, on purpose — the locked hero format (.pg-hero .wrap p.sub) is a single
+     nowrap line, not a two-sentence paragraph. "Six things" now lives in the eyebrow's job
+     of setting up the picture the diagram itself shows, not repeated in prose here too. */
+  s: 'Watch what happens to all six the moment you step out of it.',
 };
 
 const B = [0, 0.34, 0.68, 1];
@@ -262,21 +264,50 @@ const CSS = `
    floors at 55%, softly blurred rather than gone, so there is always something to look at the
    instant the section appears on screen — the --introA/--introB choreography still fully plays
    out once scrolling continues, it just no longer has an invisible starting line. */
-.rt-stage[data-beat="-1"] .rt-kick,.rt-stage[data-beat="-1"] .rt-s{opacity:calc(.4 + .6 * var(--introB));
-  transform:translateY(calc(10px * (1 - var(--introB))));transition:none;}
-.rt-stage[data-beat="-1"] .rt-h{transform:scale(calc(1.28 - .28 * var(--introB)));transform-origin:center;transition:none;}
+/* OPENING BEAT, ROUND 4 (same day). Jacob: "this section should literally act like a header
+   section of a page, except in dark mode — same font size, same gradient styling, same
+   everything." Round 2/3 invented its own smaller type scale and a scale()-based "big" trick
+   instead of just USING the site's one locked hero format (.abt .pg-hero, home/how-it-works/
+   founders all share it) — that's why it read as a cramped, bespoke treatment instead of a
+   real header. Every rule below is the hero's own values, copied verbatim (font-size clamps,
+   the eyebrow pill's exact padding/radius/gradient-border technique, the sub's nowrap sizing),
+   recoloured for a dark canvas instead of invented fresh. If the locked hero format changes,
+   change it here too. */
+.rt-stage[data-beat="-1"] .rt-copy{order:1;max-width:1120px;}
+.rt-stage[data-beat="-1"] .rt-svg{order:2;margin-top:clamp(28px,4vw,52px);}
+/* THE EYEBROW PILL — identical construction to .abt .pg-hero .wrap .eyebrow: a gradient
+   border via the padding-box/border-box double-background trick (border-image can't do this on
+   a fully-rounded pill, it ignores border-radius), recoloured for dark: white fill -> #050506
+   fill, near-black text -> light text. Floored/faded exactly like round 3, not re-litigated. */
+.rt-stage[data-beat="-1"] .rt-kick{display:inline-block;font-size:12.5px;font-weight:700;
+  letter-spacing:.15em;text-transform:uppercase;color:#d7dae2;border:1.5px solid transparent;
+  border-radius:999px;padding:9px 18px;margin-bottom:0;
+  background:linear-gradient(#050506,#050506) padding-box,var(--sb-grad) border-box;
+  box-shadow:0 6px 18px -10px rgba(0,0,0,.55);
+  opacity:calc(.4 + .6 * var(--introB));transform:translateY(calc(10px * (1 - var(--introB))));transition:none;}
+/* THE HEADLINE — hero's own h1 clamp, not a smaller one, and no scale() trick: this IS the
+   size, same as every other page's h1. hl1/hl2 are block-level exactly like the hero's, which
+   is what stacks them onto two lines without needing an explicit <br/>. */
+.rt-stage[data-beat="-1"] .rt-h{margin-top:20px;font-size:clamp(20px,6.4vw,88px);line-height:1.02;
+  letter-spacing:-.03em;font-weight:600;transform:none;}
+.rt-hl-plain,.rt-hl{display:block;white-space:nowrap;}
 /* The setup clause just fades up with --introA — no gradient, that's reserved for the payoff,
-   same split as the hero's hl1 (plain) / hl2 (gradient). */
-.rt-hl-plain{display:inline-block;opacity:calc(.45 + .55 * var(--introA));transition:none;}
-/* The payoff clause: same var(--sb-grad) text-clip and the same radial-gradient bloom colours/
-   blur as the hero's hl2 (.abt .pg-hero .hero-h1 .hl2::before) — lifted, not invented, just
+   same split as the hero's hl1 (plain) / hl2 (gradient/.g). */
+.rt-hl-plain{opacity:calc(.45 + .55 * var(--introA));transition:none;}
+/* The payoff clause: hero's own .g — var(--sb-grad) text-clip — plus the same radial-gradient
+   bloom colours/blur the hero's hl2 glows in with (.abt .pg-hero .hero-h1 .hl2::before),
    scroll-driven off --introA instead of a keyframe delay. */
-.rt-hl{position:relative;display:inline-block;background:var(--sb-grad);-webkit-background-clip:text;
+.rt-hl{position:relative;background:var(--sb-grad);-webkit-background-clip:text;
   background-clip:text;color:transparent;opacity:calc(.55 + .45 * var(--introA));
   filter:blur(calc(6px * (1 - var(--introA))));transition:none;}
 .rt-hl::before{content:'';position:absolute;inset:-40% -12%;z-index:-1;pointer-events:none;
   background:radial-gradient(56% 62% at 50% 54%,rgba(16,185,129,.32),rgba(79,70,229,.2) 46%,transparent 72%);
   filter:blur(36px);opacity:calc(.3 + .55 * var(--introA));transform:scale(calc(.85 + .15 * var(--introA)));transition:none;}
+/* THE SUB — hero's own sub sizing: nowrap, no ch cap, same clamp. INTRO.s was shortened to a
+   true one-liner to fit this (see the "Short one-liner, on purpose" note on INTRO above). */
+.rt-stage[data-beat="-1"] .rt-s{margin:22px auto 0;font-size:clamp(13px,3.1vw,21px);line-height:1.4;
+  white-space:nowrap;max-width:none;color:#9ba2ae;
+  opacity:calc(.4 + .6 * var(--introB));transform:translateY(calc(10px * (1 - var(--introB))));transition:none;}
 
 /* THE LINE THAT LANDS. On beat 1 each dark node gets its "you, today" truth. This is the
    best writing on the page and it used to sit greyed out in a table column. */
