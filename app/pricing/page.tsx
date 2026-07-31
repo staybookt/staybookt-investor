@@ -95,26 +95,45 @@ const CSS = `
 @media(prefers-reduced-motion:no-preference){
   .prc .pg-hero .hero-h1 .hl1{opacity:0;filter:blur(10px);transform:translateY(20px);animation:abtIn .9s cubic-bezier(.16,1,.3,1) .2s forwards;}
   .prc .pg-hero .hero-h1 .hl2{position:relative;opacity:0;filter:blur(32px);transform:translateY(16px) scale(1.35);transform-origin:center;animation:abtEnjoy 1.5s cubic-bezier(.19,1,.22,1) 1s forwards;}
-  .prc .pg-hero .hero-h1 .hl2::before{content:'';position:absolute;inset:-34% -10%;z-index:-1;background:radial-gradient(56% 62% at 50% 54%,rgba(79,70,229,.32),rgba(16,185,129,.2) 46%,transparent 72%);filter:blur(36px);opacity:0;transform:scale(.7);animation:abtGlow 2s ease 1.05s forwards;}
   .prc .pg-hero .wrap p.sub{opacity:0;filter:blur(6px);transform:translateY(12px);animation:abtIn .9s cubic-bezier(.16,1,.3,1) 1.7s forwards;}
   .prc .facts{opacity:0;transform:translateY(16px);animation:abtIn .9s cubic-bezier(.16,1,.3,1) 2.15s forwards;}
 }
 @keyframes abtIn{to{opacity:1;filter:blur(0);transform:none;}}
 @keyframes abtEnjoy{0%{opacity:0;filter:blur(32px);transform:translateY(16px) scale(1.35);}55%{opacity:1;}100%{opacity:1;filter:blur(0);transform:translateY(0) scale(1);}}
-@keyframes abtGlow{0%{opacity:0;transform:scale(.7);}50%{opacity:.95;}100%{opacity:.62;transform:scale(1);}}
+
+/* NO GLOW BLOOM HERE (Jacob, same day: "this is where the section breaks from... do we
+   actually even need this?"). The hl2::before radial-gradient bloom that founders uses was
+   tuned against a near-black background, where a soft colour wash reads as atmosphere. On
+   this cream hero the same rgba/blur settled at a permanent .62 opacity and left a visible
+   tinted patch under the wide "$199 a month." line — the seam he flagged. Cut it rather than
+   re-tune it: not every hero needs the bloom, and this page has a better, content-specific
+   motion beat available instead (below). */
 
 /* the four terms, right under the headline. Each carries its own brand-hue top-accent bar so
-   the row reads as an informational overview, not clickable tabs (Emma p12). */
+   the row reads as an informational overview, not clickable tabs (Emma p12).
+   THE DRAW-IN (replaces the cut glow bloom, same pass): each bar is a line being written, not
+   a static rule — the four terms of the deal drawing themselves in left to right, one after
+   another, right after the chips themselves settle. Content-specific motion instead of
+   decoration: this section IS the terms, so the animation IS the terms being set down. */
 .facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,1.6vw,20px);max-width:900px;margin:clamp(30px,4vw,44px) auto 0;text-align:left;}
 @media(max-width:860px){.facts{grid-template-columns:repeat(2,minmax(0,1fr));}}
 @media(max-width:520px){.facts{grid-template-columns:1fr;}}
-.fact{padding-top:13px;border-top:2px solid var(--fc,#38bdf8);}
+.fact{position:relative;padding-top:13px;}
+.fact::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--fc,#38bdf8);transform:scaleX(1);transform-origin:left;}
 .fact:nth-child(1){--fc:#38bdf8;}
 .fact:nth-child(2){--fc:#818cf8;}
 .fact:nth-child(3){--fc:#34d399;}
 .fact:nth-child(4){--fc:#a78bfa;}
 .fact b{display:block;font-size:14.5px;font-weight:600;letter-spacing:-.01em;color:var(--v4-ink);}
 .fact span{display:block;margin-top:7px;font-size:13.5px;line-height:1.5;color:#52565e;}
+@media(prefers-reduced-motion:no-preference){
+  .prc .fact::before{transform:scaleX(0);animation:factDraw .7s cubic-bezier(.16,1,.3,1) forwards;}
+  .prc .fact:nth-child(1)::before{animation-delay:2.5s;}
+  .prc .fact:nth-child(2)::before{animation-delay:2.62s;}
+  .prc .fact:nth-child(3)::before{animation-delay:2.74s;}
+  .prc .fact:nth-child(4)::before{animation-delay:2.86s;}
+}
+@keyframes factDraw{to{transform:scaleX(1);}}
 `;
 
 export default function PricingPage() {
