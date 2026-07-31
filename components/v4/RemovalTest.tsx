@@ -272,9 +272,18 @@ const CSS = `
    real header. Every rule below is the hero's own values, copied verbatim (font-size clamps,
    the eyebrow pill's exact padding/radius/gradient-border technique, the sub's nowrap sizing),
    recoloured for a dark canvas instead of invented fresh. If the locked hero format changes,
-   change it here too. */
-.rt-stage[data-beat="-1"] .rt-copy{order:1;max-width:1120px;}
-.rt-stage[data-beat="-1"] .rt-svg{order:2;margin-top:clamp(28px,4vw,52px);}
+   change it here too.
+   ROUND 5, same day: round 4 also put the diagram AFTER the text via flex order, matching
+   the hero's own eyebrow/h1/sub-then-graphic sequence. Jacob, after seeing it: "not a smooth
+   transition, from this point snaps too quickly." Flex order cannot be transitioned — the instant
+   beat flips from -1 to 0, the diagram had to physically teleport from below the text back to
+   above it in a single frame, on top of the text's own size/colour swap. Dropped the reorder:
+   the diagram stays in its normal position (same as beats 0/1/2) through the whole opening
+   beat. It is still small/faint early via --introB's own floor-to-full curve and reaches full
+   size and opacity by the same moment beat 0 needs it there anyway, so nothing has to jump
+   position at the handoff — only the text itself changes, the same kind of instant swap beats
+   0/1/2 already do between each other without incident. */
+.rt-stage[data-beat="-1"] .rt-copy{max-width:1120px;}
 /* THE EYEBROW PILL — identical construction to .abt .pg-hero .wrap .eyebrow: a gradient
    border via the padding-box/border-box double-background trick (border-image can't do this on
    a fully-rounded pill, it ignores border-radius), recoloured for dark: white fill -> #050506
