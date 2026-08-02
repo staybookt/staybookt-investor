@@ -5,7 +5,6 @@ import HomeJourney from '@/components/v4/HomeJourney';
 import HomeFaq from '@/components/v4/HomeFaq';
 import HeroCta from '@/components/v4/HeroCta';
 import SiteFooter from '@/components/SiteFooter';
-import { START_LINK } from '@/lib/site';
 import { min } from '@/lib/css';
 
 const SHARE_DESCRIPTION =
@@ -368,11 +367,10 @@ export default function HomePage() {
                 characters, matching the length budget the old line already proved safe. */}
             <p className="sub">Less busywork. More time growing the business.</p>
           </Reveal>
-          <Reveal>
-            <div className="cta">
-              <a href={START_LINK} className="pill pill-white" style={{ padding: '14px 28px', fontSize: 15 }} data-cta="hero">Get Started</a>
-            </div>
-          </Reveal>
+          {/* HERO "GET STARTED" PILL DROPPED (Jacob, round 7, Aug 2 2026). Nav already carries
+              a "Get Started" pill on every page, and the sticky "Call now" bar shows up after
+              the hero on every page too — a third CTA stacked directly under the subhead was
+              one too many asks before the dashboard below has even made its case. */}
           {/* THE DASHBOARD IN THE HEADER — round 6 (Jacob, Aug 2 2026): "have that as a
               dashboard within the header like a CRM, red before then green after, horizontal
               so it fits the same formatting as journeys and about us." Round 5's standalone
