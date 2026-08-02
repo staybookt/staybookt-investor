@@ -1,5 +1,6 @@
 import Nav from '@/components/v4/Nav';
 import Reveal from '@/components/v4/Reveal';
+import ChaosClarity from '@/components/v4/ChaosClarity';
 import HomeJourney from '@/components/v4/HomeJourney';
 import HomeFaq from '@/components/v4/HomeFaq';
 import HeroCta from '@/components/v4/HeroCta';
@@ -393,6 +394,15 @@ export default function HomePage() {
           beats ARE. "What you do" is the payoff, not a feature. "What it costs" got
           its own screen, which is now beat 3 of the film itself.
           Do not put a card back here. */}
+
+      {/* 2 — CHAOS TO CLARITY. New section, round 4 (Jacob, Aug 2 2026, right after round 3
+          shipped): "something more unique, more tech, more iconography, more morphing —
+          chaos to clarity — the journeys example is top tier, shows not tells." Reuses
+          HomeJourney's proven on-view-stagger mechanism (one IntersectionObserver, CSS
+          transitions, no scroll-scrub) and resolves into the same checklist chrome as
+          AdminScene below — see ChaosClarity.tsx's header comment for the full reasoning,
+          including why this is NOT a repeat of HeroPayoff.tsx's rejected build. */}
+      <ChaosClarity />
 
       {/* 3 — THE JOURNEY. Was JourneyMap.tsx: an abstract 4-beat pinned scroll-scrub
           (wheel graphic, photo cross-dissolves). Retired (Jacob + Richard, Jul 30 2026) for
