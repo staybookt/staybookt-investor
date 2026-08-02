@@ -1,6 +1,6 @@
 import Nav from '@/components/v4/Nav';
 import Reveal from '@/components/v4/Reveal';
-import ChaosClarity from '@/components/v4/ChaosClarity';
+import HeroDashboard from '@/components/v4/HeroDashboard';
 import HomeJourney from '@/components/v4/HomeJourney';
 import HomeFaq from '@/components/v4/HomeFaq';
 import HeroCta from '@/components/v4/HeroCta';
@@ -373,6 +373,16 @@ export default function HomePage() {
               <a href={START_LINK} className="pill pill-white" style={{ padding: '14px 28px', fontSize: 15 }} data-cta="hero">Get Started</a>
             </div>
           </Reveal>
+          {/* THE DASHBOARD IN THE HEADER — round 6 (Jacob, Aug 2 2026): "have that as a
+              dashboard within the header like a CRM, red before then green after, horizontal
+              so it fits the same formatting as journeys and about us." Round 5's standalone
+              "From chaos to clarity" section (its own headline + vertical checklist card) is
+              retired — ChaosClarity.tsx stays in the repo unused, same convention as
+              HeroPayoff.tsx. This is the mechanism moved up into the hero itself: a single
+              horizontal glass bar, five KPIs, each number ticking from a red "chaos" value to
+              green "clarity" value once the hero's own headline choreography finishes. See
+              HeroDashboard.tsx for the full reasoning. */}
+          <HeroDashboard />
         </div>
         {/* THE "Scroll" CUE IS GONE (Richard, review, July 2026). It sat at the foot of the
             hero, and the very next thing on the page is the film's first label, GET FOUND.
@@ -395,16 +405,7 @@ export default function HomePage() {
           its own screen, which is now beat 3 of the film itself.
           Do not put a card back here. */}
 
-      {/* 2 — CHAOS TO CLARITY. New section, round 4 (Jacob, Aug 2 2026, right after round 3
-          shipped): "something more unique, more tech, more iconography, more morphing —
-          chaos to clarity — the journeys example is top tier, shows not tells." Reuses
-          HomeJourney's proven on-view-stagger mechanism (one IntersectionObserver, CSS
-          transitions, no scroll-scrub) and resolves into the same checklist chrome as
-          AdminScene below — see ChaosClarity.tsx's header comment for the full reasoning,
-          including why this is NOT a repeat of HeroPayoff.tsx's rejected build. */}
-      <ChaosClarity />
-
-      {/* 3 — THE JOURNEY. Was JourneyMap.tsx: an abstract 4-beat pinned scroll-scrub
+      {/* 2 — THE JOURNEY. Was JourneyMap.tsx: an abstract 4-beat pinned scroll-scrub
           (wheel graphic, photo cross-dissolves). Retired (Jacob + Richard, Jul 30 2026) for
           the concrete customer journey that used to live only on /how-it-works — real
           scenes, an owner-voice line per milestone, ordinary scroll instead of a pinned
