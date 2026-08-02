@@ -1,36 +1,37 @@
 'use client';
 
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode, type KeyboardEvent } from 'react';
+import { useEffect, useState, type CSSProperties, type ReactNode, type KeyboardEvent } from 'react';
 import { min } from '@/lib/css';
 
 /* THE DASHBOARD — full history:
  *
  * Round 6 (Jacob): pull round 5's standalone "chaos to clarity" section up into the hero
  * itself, as a horizontal CRM-style strip — "red before, green after."
- * Round 7 (Jacob): the dark-glass guess didn't match the rest of the site. White elevated
- * card (same token as GetFoundScene/ReputationScene/AdminScene in HomeJourney.tsx), and
- * the count/color transition slowed down substantially.
+ * Round 7 (Jacob): white elevated card, slowed count/color transitions.
  * Round 8 (Jacob): "background still on the muskoka chairs... lack of icons... looks bush
- * league." Pulled out of the hero into its own cream section (see app/page.tsx), on-view
- * IntersectionObserver reveal instead of a mount timer, per-stat icon badges added.
- * Round 9: the photo hero itself retired — irrelevant to this file, noted for the record.
+ * league." Pulled out of the (then-photo) hero onto cream, icon badges added.
+ * Round 9: the photo hero retired; homepage hero matches the locked /journeys format.
+ * Round 10 (Jacob): "more cinematic, more engaging, more interactive" — segments became
+ * real controls (hover/tap "how" line), icons spring in, hue-tinted hover lift.
  *
- * ROUND 10 (Jacob, Aug 2 2026): "what can you do if you were Apple to elevate this
- * experience, make it more cinematic, more engaging, more interactive?" Three real moves,
- * not decoration:
- *   1. INTERACTIVE: each segment is now a real control (button semantics, keyboard
- *      operable, aria-expanded). Hover on desktop or tap on mobile reveals a one-line
- *      "how" underneath the label — the same click-to-expand grammar the site already
- *      uses on .sb-clook .cli (PAGE_CSS in app/page.tsx: a collapsed description that
- *      slides open), not a new interaction pattern.
- *   2. CINEMATIC: the icon badges spring into place (overshoot easing, the same
- *      cubic-bezier(.34,1.56,.64,1) spring already used for .dpin/.jlPop on /journeys)
- *      staggered just ahead of their own counter, so the reveal reads as one choreographed
- *      beat — icon arrives, then its number counts down — rather than five numbers
- *      appearing simultaneously.
- *   3. ENGAGING: hovering/opening a segment lifts it and tints its border with its own
- *      brand hue (read off the same --i-cycled palette the icon badge already uses), so
- *      the strip responds to attention instead of sitting inert once the counters land. */
+ * ROUND 11 (Jacob, Aug 2 2026): "spacing issues... still doesn't feel as cinematic,
+ * dramatic, elevated as possible — referencing the homepage [vs the journeys page]."
+ * The real gap was STRUCTURAL, not stylistic: /journeys composes its whole first
+ * viewport as ONE scene (.jl-fold: 100svh flex column — pill, headline, sub, then a big
+ * supporting graphic that fills the rest of the fold, entering at 2.15s as the final
+ * beat of one choreography). The homepage was a headline, dead air, then a small strip
+ * in a separate section that revealed whenever the observer happened to fire. So:
+ *   - This component moved BACK inside the hero fold (app/page.tsx wraps hero copy +
+ *     this in a .jl-fold-equivalent). Round 8's complaint was the PHOTO behind it, not
+ *     the hero itself; the photo is gone.
+ *   - Entrance timing is the Journeys graphic's, verbatim: wrapper rises in at 2.15s
+ *     (after pill .05s / hl1 .2s / hl2 1s / sub 1.7s), so the fold reads as one film.
+ *     Mount-timed again — it is above the fold at t=0, no scroll gate to wait for.
+ *   - Scaled up to graphic presence (wider bar, bigger numbers, taller segments) and
+ *     given an ambient brand-gradient glow behind it, same device as the hero
+ *     headline's own hl2 glow and .hjc-num's price glow — it reads as the fold's
+ *     centerpiece artifact, not a widget.
+ * All of round 10's interactivity (hover/tap "how" line, keyboard, springs) survives. */
 
 type Stat = { id: string; label: string; from: number; to: number; prefix?: string; suffix?: string; icon: string; how: string };
 
@@ -53,7 +54,7 @@ function StatIcon({ id }: { id: string }) {
     star: <path {...c} d="M12 3.3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17.2l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3.3z" />,
     clock: <><circle {...c} cx="12" cy="12" r="8.2" /><path {...c} d="M12 7.5V12l3.2 1.9" /></>,
   };
-  return <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">{paths[id]}</svg>;
+  return <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">{paths[id]}</svg>;
 }
 
 function Counter({ from, to, prefix = '', suffix = '', start, delay, duration = 900 }: {
@@ -83,17 +84,13 @@ function Counter({ from, to, prefix = '', suffix = '', start, delay, duration = 
 }
 
 export default function HeroDashboard() {
-  const ref = useRef<HTMLDivElement | null>(null);
   const [on, setOn] = useState(false);
   const [openIdx, setOpenIdx] = useState<number | null>(null);
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver((es) => es.forEach((e) => {
-      if (e.isIntersecting) { setOn(true); obs.disconnect(); }
-    }), { threshold: 0.4 });
-    obs.observe(el);
-    return () => obs.disconnect();
+    // Mount-timed again (round 11): this lives inside the hero fold, visible at t=0.
+    // The choreography lives in the delays below — wrapper at 2.15s, then icons, then
+    // counters — mirroring how /journeys' map enters after its headline settles.
+    setOn(true);
   }, []);
 
   const toggle = (i: number) => setOpenIdx((cur) => (cur === i ? null : i));
@@ -102,60 +99,71 @@ export default function HeroDashboard() {
   };
 
   return (
-    <section className={`hd-sec${on ? ' on' : ''}`} ref={ref}>
+    <div className={`hd-fold${on ? ' on' : ''}`}>
       <style>{min(CSS)}</style>
-      <div className="wrap">
-        <div className="hd-cap">While you were out</div>
-        <div className="hd-bar">
-          {STATS.map((s, i) => (
-            <div
-              className={`hd-seg${openIdx === i ? ' open' : ''}`}
-              key={s.id}
-              style={{ '--i': i } as CSSProperties}
-              role="button"
-              tabIndex={0}
-              aria-expanded={openIdx === i}
-              onClick={() => toggle(i)}
-              onKeyDown={onKey(i)}
-            >
-              <span className="hd-ic"><StatIcon id={s.icon} /></span>
-              <Counter from={s.from} to={s.to} prefix={s.prefix} suffix={s.suffix} start={on} delay={i * 260 + 700} duration={2400} />
-              <span className="hd-lbl">{s.label}</span>
-              <span className="hd-how">{s.how}</span>
-            </div>
-          ))}
-        </div>
+      <div className="hd-cap">While you were out</div>
+      <div className="hd-glow" aria-hidden="true" />
+      <div className="hd-bar">
+        {STATS.map((s, i) => (
+          <div
+            className={`hd-seg${openIdx === i ? ' open' : ''}`}
+            key={s.id}
+            style={{ '--i': i } as CSSProperties}
+            role="button"
+            tabIndex={0}
+            aria-expanded={openIdx === i}
+            onClick={() => toggle(i)}
+            onKeyDown={onKey(i)}
+          >
+            <span className="hd-ic"><StatIcon id={s.icon} /></span>
+            <Counter from={s.from} to={s.to} prefix={s.prefix} suffix={s.suffix} start={on} delay={i * 260 + 2900} duration={2400} />
+            <span className="hd-lbl">{s.label}</span>
+            <span className="hd-how">{s.how}</span>
+          </div>
+        ))}
       </div>
-    </section>
+    </div>
   );
 }
 
 const CSS = `
-/* SPACING FIX, round 10 (Jacob: "spacing looks off"). Top padding here was stacking on
-   top of the hero's own padding-bottom (app/page.tsx .v4 header.scene), leaving a ~150px
-   dead gap between the subhead and this section's own cap once the photo hero (which
-   needed that breathing room to not crowd the scrim) was retired in round 9. Tightened
-   here; the hero's padding-bottom was tightened to match in app/page.tsx. */
-.hd-sec{background:var(--v4-cream,#f6f6f3);padding:clamp(20px,3vw,32px) 0 clamp(28px,4vw,44px);}
+/* ONE FOLD (round 11): this block is the hero fold's supporting graphic, exactly like
+   .jl-mapwrap on /journeys — margin-top instead of section padding, entrance at the
+   SAME 2.15s beat the Journeys map uses, after the headline choreography settles. The
+   old .hd-sec section wrapper (own background + section padding) is gone; the fold in
+   app/page.tsx owns the layout now. */
+.hd-fold{position:relative;margin:clamp(30px,5vh,54px) auto 0;width:100%;max-width:920px;
+  padding:0 clamp(14px,3vw,32px);
+  opacity:0;transform:translateY(26px);}
+@media(prefers-reduced-motion:no-preference){
+  .hd-fold{animation:hdIn 1s cubic-bezier(.16,1,.3,1) 2.15s forwards;}
+}
+@media(prefers-reduced-motion:reduce){.hd-fold{opacity:1;transform:none;}}
+@keyframes hdIn{to{opacity:1;transform:none;}}
 
-.hd-cap{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#69707d;
-  text-align:center;margin-bottom:18px;
-  opacity:0;transform:translateY(10px);transition:opacity .7s ease,transform .7s ease;}
-.hd-sec.on .hd-cap{opacity:1;transform:none;}
+.hd-cap{font-size:12.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#69707d;
+  text-align:center;margin-bottom:16px;}
 
-.hd-bar{display:flex;max-width:760px;margin:0 auto;background:#fff;
-  border:1px solid #ececf0;border-radius:20px;
+/* AMBIENT GLOW (round 11): the same brand-gradient bloom device the hero's own "What
+   You Love" line and the price reveal already use (.hl2::before / .hjc-num::before),
+   sized for the bar — makes the artifact read as lit, not pasted on the cream. */
+.hd-glow{position:absolute;inset:-30% -6% -34%;z-index:0;pointer-events:none;
+  background:radial-gradient(52% 58% at 50% 58%,rgba(16,185,129,.16),rgba(79,70,229,.1) 52%,transparent 74%);
+  filter:blur(48px);opacity:0;transform:scale(.8);}
+@media(prefers-reduced-motion:no-preference){
+  .hd-fold.on .hd-glow{animation:hdGlow 1.6s ease 2.4s forwards;}
+}
+@keyframes hdGlow{to{opacity:1;transform:scale(1);}}
+
+.hd-bar{position:relative;z-index:1;display:flex;background:#fff;
+  border:1px solid #ececf0;border-radius:22px;
   overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;
-  box-shadow:0 44px 90px -44px rgba(0,0,0,.4);
-  opacity:0;transform:translateY(18px);transition:opacity .8s .1s ease,transform .8s .1s ease;}
-.hd-sec.on .hd-bar{opacity:1;transform:none;}
+  box-shadow:0 44px 90px -44px rgba(0,0,0,.4);}
 .hd-bar::-webkit-scrollbar{display:none;}
 
-/* INTERACTIVE, round 10: each segment is a real control now (role=button). Hover/open
-   lifts it and tints the border with its own brand hue, read off the same --hc custom
-   prop the icon badge below already sets per segment — one source of truth for "this
-   segment's color," not two. */
-.hd-seg{flex:1 0 132px;scroll-snap-align:start;padding:22px 16px 20px;text-align:center;
+/* INTERACTIVE (round 10, kept): each segment is a real control. Hover/open lifts it and
+   tints with its own brand hue (--hc, one source of truth with the icon badge). */
+.hd-seg{flex:1 0 148px;scroll-snap-align:start;padding:26px 18px 22px;text-align:center;
   border-left:1px solid #ececf0;cursor:pointer;outline:none;
   transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s ease,background .35s ease;}
 .hd-seg:first-child{border-left:0;}
@@ -163,11 +171,9 @@ const CSS = `
   box-shadow:0 14px 28px -18px rgba(6,12,20,.28);}
 .hd-seg:focus-visible{box-shadow:0 0 0 2px var(--hc,#4f46e5);}
 
-/* Icon badges: same tokens as HomeJourney.tsx's .hjc-job:nth-child(n) .hjc-ic cycle, so
-   this strip and the price reveal read as the same design system. Each rule also sets
-   --hc, the segment's own hue, reused by the hover/focus states above. */
-.hd-ic{display:flex;align-items:center;justify-content:center;width:34px;height:34px;
-  border-radius:11px;margin:0 auto 10px;border:1px solid transparent;
+/* Icon badges: same tokens as HomeJourney.tsx's .hjc-job .hjc-ic cycle. */
+.hd-ic{display:flex;align-items:center;justify-content:center;width:38px;height:38px;
+  border-radius:12px;margin:0 auto 12px;border:1px solid transparent;
   opacity:0;transform:scale(.4);}
 .hd-seg:nth-child(1){--hc:#0ea5e9;}
 .hd-seg:nth-child(2){--hc:#10b981;}
@@ -180,35 +186,34 @@ const CSS = `
 .hd-seg:nth-child(4) .hd-ic{color:#a78bfa;background:rgba(124,58,237,.1);border-color:rgba(124,58,237,.22);}
 .hd-seg:nth-child(5) .hd-ic{color:#38bdf8;background:rgba(14,165,233,.1);border-color:rgba(14,165,233,.22);}
 
-/* CINEMATIC, round 10: the badge springs in (overshoot easing, same curve as .dpin/jlPop
-   on /journeys) staggered just ahead of its own Counter (delay = i*260+700 below), so the
-   badge visibly arrives, THEN its number starts counting — one choreographed beat per
-   segment instead of five numbers landing at once. */
-.hd-sec.on .hd-seg .hd-ic{animation:hdPop .55s cubic-bezier(.34,1.56,.64,1) forwards;
-  animation-delay:calc(var(--i) * .26s + .35s);}
+/* CINEMATIC (round 10, retimed round 11): badge springs in (same overshoot curve as
+   .dpin/jlPop on /journeys) staggered just ahead of its own Counter — after the 2.15s
+   wrapper entrance, so the order is: fold rises, icons pop one by one, numbers count. */
+.hd-fold.on .hd-seg .hd-ic{animation:hdPop .55s cubic-bezier(.34,1.56,.64,1) forwards;
+  animation-delay:calc(var(--i) * .26s + 2.55s);}
 @keyframes hdPop{0%{opacity:0;transform:scale(.4);}65%{opacity:1;transform:scale(1.14);}100%{opacity:1;transform:scale(1);}}
 
-/* Color eases red -> green once its own Counter has landed. transition-delay is kept in
-   sync by hand with the Counter's own delay+duration math above (i*260+700 start,
-   2400ms run -> lands at i*260+3100ms). */
-.hd-num{display:block;font-variant-numeric:tabular-nums;font-size:clamp(21px,2.4vw,27px);font-weight:700;
-  letter-spacing:-.02em;color:#dc2626;}
-.hd-sec.on .hd-bar .hd-seg .hd-num{color:#059669;transition:color 1.3s ease;transition-delay:calc(var(--i) * .26s + 3.1s);}
-.hd-lbl{display:block;margin-top:5px;font-size:12px;color:#69707d;white-space:nowrap;}
+/* Color eases red -> green once its own Counter has landed. transition-delay kept in
+   sync by hand with the Counter math above (i*260+2900 start, 2400ms run -> lands at
+   i*260+5300ms). */
+.hd-num{display:block;font-variant-numeric:tabular-nums;font-size:clamp(24px,2.8vw,33px);font-weight:700;
+  letter-spacing:-.025em;color:#dc2626;}
+.hd-fold.on .hd-bar .hd-seg .hd-num{color:#059669;transition:color 1.3s ease;transition-delay:calc(var(--i) * .26s + 5.3s);}
+.hd-lbl{display:block;margin-top:6px;font-size:12.5px;color:#69707d;white-space:nowrap;}
 
-/* The "how" micro-copy: collapsed by default, same slide-open grammar as .sb-clook .cli
-   .cl-desc in app/page.tsx (max-height 0 -> a real value, opacity, margin-top). */
+/* The "how" micro-copy: collapsed by default, same slide-open grammar as .sb-clook
+   .cli .cl-desc in app/page.tsx. */
 .hd-how{display:block;max-height:0;overflow:hidden;opacity:0;margin-top:0;
-  font-size:11.5px;line-height:1.4;color:#52565e;
+  font-size:12px;line-height:1.4;color:#52565e;
   transition:max-height .4s ease,opacity .4s ease,margin-top .4s ease;}
-.hd-seg:hover .hd-how,.hd-seg.open .hd-how{max-height:52px;opacity:1;margin-top:7px;}
+.hd-seg:hover .hd-how,.hd-seg.open .hd-how{max-height:52px;opacity:1;margin-top:8px;}
 
 @media(prefers-reduced-motion:reduce){
-  .hd-cap,.hd-bar,.hd-seg{transition:none;}
+  .hd-seg{transition:none;}
   .hd-seg .hd-ic{animation:none;opacity:1;transform:none;}
+  .hd-glow{animation:none;opacity:0;}
 }
 @media(max-width:640px){
-  .hd-bar{max-width:100%;}
-  .hd-seg{flex:0 0 126px;}
+  .hd-seg{flex:0 0 132px;padding:22px 14px 18px;}
 }
 `;

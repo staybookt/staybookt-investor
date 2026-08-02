@@ -55,21 +55,24 @@ const PAGE_CSS = `
    (closer-dock.jpg, same asset as HeroCta's default close and half of About Us's polaroid
    roll) sat full-bleed behind the headline, darkened with a scrim so white type read clean
    at every width. That's the exact thing round 9 reverses. */
-/* SPACING FIX, round 10 (Jacob: "spacing looks off"). This padding-bottom used to give
-   the photo hero (round 3) room to breathe before its scrim ended; with the photo gone
-   (round 9) it was stacking with HeroDashboard's own top padding into a ~150px dead gap
-   between the subhead and "While you were out." Tightened to match — see the matching
-   note in HeroDashboard.tsx's CSS. */
-.v4 header.scene{align-items:flex-start;background:var(--v4-cream,#f6f6f3);color:var(--v4-ink,#06080d);min-height:auto;
-  padding-bottom:clamp(4px,1.2vw,16px);position:relative;overflow:hidden;}
+/* ONE FOLD, round 11 (Jacob: "spacing issues... still doesn't feel as cinematic, dramatic,
+   elevated as possible — referencing [the journeys page]"). Rounds 8-10 kept adjusting
+   paddings between the hero and a separate dashboard section; the actual difference from
+   /journeys was structural. .jl-fold composes its entire first viewport as ONE scene:
+   min-height 100svh, flex column, centered — pill, headline, sub, then the supporting
+   graphic filling the rest of the fold, all entering as one choreography. This is that,
+   verbatim (same clamp values as .jl-fold): the hero IS the fold, and HeroDashboard is
+   its supporting graphic, back inside the header. Round 10's padding-bottom fix is
+   superseded — flex centering owns the vertical rhythm now, no padding arithmetic. */
+.v4 header.scene{background:var(--v4-cream,#f6f6f3);color:var(--v4-ink,#06080d);
+  min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:clamp(86px,11vh,120px) 0 clamp(18px,3vh,32px);position:relative;overflow:hidden;}
 /* THE HOMEPAGE HERO HAD NO GUTTER ON A PHONE. This element is class="wrap inner".
-   .v4 .wrap gives it padding:0 32px, and this rule is more specific, so padding:15vh 0 0
-   silently wiped the horizontal half of it. On desktop you never see the bug: max-width:940
-   inside an 1180 container leaves gutters for free. At 390px there is nothing spare, so the
-   headline, the ICP badge and the sub-copy all ran flush to both edges.
-   Nobody caught it because nobody had opened this site at phone width. Keep the horizontal
-   padding here, or restate it if you ever change the vertical. */
-.v4 header.scene .inner{position:relative;z-index:1;padding:clamp(84px,10vh,116px) clamp(20px,4vw,32px) 0;text-align:center;max-width:1200px;margin:0 auto;}
+   .v4 .wrap gives it padding:0 32px, and this rule is more specific, so a padding shorthand
+   with 0 for the horizontal silently wiped it at phone width (nobody caught it because
+   nobody had opened the site at 390px). Keep the horizontal padding here, or restate it if
+   you ever change the vertical. Vertical padding moved to the fold (header.scene) above. */
+.v4 header.scene .inner{position:relative;z-index:1;padding:0 clamp(20px,4vw,32px);text-align:center;max-width:1200px;margin:0 auto;width:100%;}
 .v4 header.scene h1{max-width:none;margin:20px auto 0;font-size:clamp(20px,6.4vw,88px);letter-spacing:-.03em;line-height:1.02;text-align:center;color:var(--v4-ink,#06080d);}
 /* SUBHEAD = ONE LINE, ALWAYS (global rule, Jacob Jul 23 2026). The max-width:46ch was forcing
    a two-line wrap. No cap, nowrap, and vw-scaled font so the (short) subhead holds one line from
@@ -382,6 +385,13 @@ export default function HomePage() {
               the hero on every page too — a third CTA stacked directly under the subhead was
               one too many asks before the dashboard below has even made its case. */}
         </div>
+        {/* THE DASHBOARD IS THE FOLD'S SUPPORTING GRAPHIC — round 11 (Jacob, Aug 2 2026).
+            Round 8 pulled it out of the hero because the photo was behind it; the photo is
+            gone (round 9), and the /journeys reference Jacob pointed at composes headline +
+            graphic as one 100svh scene. Back inside the header, entering at the same 2.15s
+            beat the Journeys map uses. Round 10's interactivity (hover/tap "how" lines,
+            keyboard, icon springs) survives — see HeroDashboard.tsx. */}
+        <HeroDashboard />
         {/* THE "Scroll" CUE IS GONE (Richard, review, July 2026). It sat at the foot of the
             hero, and the very next thing on the page is the film's first label, GET FOUND.
             So you read "Scroll / GET FOUND" as one phrase and stopped to work out whether
@@ -394,18 +404,6 @@ export default function HomePage() {
             photograph. It is a 190px header now, like every other page except this one and
             /long-term, so there is no cue left anywhere on the site. */}
       </header>
-
-      {/* THE DASHBOARD MOVED OUT OF THE HERO — round 8 (Jacob, Aug 2 2026): "background
-          still on the muskoka chairs, should be white like Journeys, same container." Round
-          7 fixed the CARD (white, elevated) but not the SCENE — it was still floating over
-          the hero's photo, which is exactly the mismatch. A white card over a photo reads
-          fine for a single card (that's literally GetFoundScene over the Journeys section)
-          but wrong for a full-width strip. It is its own section now, cream background,
-          same `.wrap` container every other section already uses. See HeroDashboard.tsx for
-          the section markup, the switch to an on-view IntersectionObserver reveal (no longer
-          racing the hero's headline now that it's not inside the hero), and the new per-stat
-          icons (Jacob, same message: "lack of icons... looks bush league"). */}
-      <HeroDashboard />
 
       {/* THE "IN PLAIN ENGLISH" CARD IS GONE (Jacob, July 14 2026).
           Three columns of bullets sat between the hero and the journey: the only
