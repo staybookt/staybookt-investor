@@ -1,10 +1,10 @@
 import Nav from '@/components/v4/Nav';
 import Reveal from '@/components/v4/Reveal';
-import HeroAnswerField from '@/components/v4/HeroAnswerField';
 import HomeJourney from '@/components/v4/HomeJourney';
 import HomeFaq from '@/components/v4/HomeFaq';
 import HeroCta from '@/components/v4/HeroCta';
 import SiteFooter from '@/components/SiteFooter';
+import { START_LINK } from '@/lib/site';
 import { min } from '@/lib/css';
 
 const SHARE_DESCRIPTION =
@@ -38,13 +38,24 @@ const PAGE_CSS = `
 .v4 h1,.v4 h2,.v4 h3{font-weight:600;}
 .v4 .scene>video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
 .v4 .scene .reveal{opacity:1;transform:none;}
-/* HERO — LIGHT NOW (Jul 23 2026). The dusk photo behind the headline is retired. The hero is
-   clean and light, Apple-homepage style: eyebrow + headline + subhead + one dark pill on a warm
-   surface, then a polaroid camera roll of the life it buys, below. Nav is forced solid on the
-   homepage (see <Nav solidTop />) so its white logo stays legible over the light hero. */
-.v4 header.scene{align-items:flex-start;background:var(--v4-cream,#f6f6f3);color:var(--v4-ink);min-height:auto;padding-bottom:clamp(40px,6vw,80px);}
-.v4 header.scene .cta .pill{background:var(--v4-ink);color:#fff;border:0;}
-.v4 header.scene .cta .pill:hover{transform:translateY(-1px);box-shadow:0 16px 34px -18px rgba(6,12,20,.5);}
+/* HERO — REAL PHOTO AGAIN, ROUND 3 (Jacob, Aug 2 2026). The light cream hero (Jul 23) and
+   seven rounds of a device tucked under the CTA (see the JSX comment below) are both retired.
+   Jacob's own "crazy idea" mid-build: stop trying to earn the payoff photo through a mechanism
+   at all — just make it the hero's background, the way Apple actually builds most of its
+   photographic heroes (one real image, confident type on top, no reveal gimmick). The
+   dock-chairs photo (closer-dock.jpg, same asset as HeroCta's default close and half of About
+   Us's polaroid roll) sits full-bleed behind the headline, darkened with a scrim so white type
+   reads clean at every width. Nav drops solidTop and goes back to its natural transparent-over-
+   photo state — that prop existed only because the cream hero couldn't carry a white wordmark. */
+.v4 header.scene{align-items:flex-start;background:#06080d;color:#fff;min-height:auto;
+  padding-bottom:clamp(40px,6vw,80px);position:relative;overflow:hidden;}
+.v4 header.scene .hero-bg{position:absolute;inset:0;z-index:0;}
+.v4 header.scene .hero-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  object-position:center 12%;}
+.v4 header.scene .hero-bg::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(6,8,13,.72) 0%,rgba(6,8,13,.5) 42%,rgba(6,8,13,.72) 100%);}
+.v4 header.scene .cta .pill{background:#fff;color:var(--v4-ink);border:0;}
+.v4 header.scene .cta .pill:hover{transform:translateY(-1px);box-shadow:0 16px 34px -18px rgba(0,0,0,.5);}
 /* THE HOMEPAGE HERO HAD NO GUTTER ON A PHONE. This element is class="wrap inner".
    .v4 .wrap gives it padding:0 32px, and this rule is more specific, so padding:15vh 0 0
    silently wiped the horizontal half of it. On desktop you never see the bug: max-width:940
@@ -52,12 +63,12 @@ const PAGE_CSS = `
    headline, the ICP badge and the sub-copy all ran flush to both edges.
    Nobody caught it because nobody had opened this site at phone width. Keep the horizontal
    padding here, or restate it if you ever change the vertical. */
-.v4 header.scene .inner{position:relative;padding:clamp(84px,10vh,116px) clamp(20px,4vw,32px) 0;text-align:center;max-width:1200px;margin:0 auto;}
-.v4 header.scene h1{max-width:none;margin:20px auto 0;font-size:clamp(20px,6.4vw,88px);letter-spacing:-.03em;line-height:1.02;text-align:center;color:var(--v4-ink);}
+.v4 header.scene .inner{position:relative;z-index:1;padding:clamp(84px,10vh,116px) clamp(20px,4vw,32px) 0;text-align:center;max-width:1200px;margin:0 auto;}
+.v4 header.scene h1{max-width:none;margin:20px auto 0;font-size:clamp(20px,6.4vw,88px);letter-spacing:-.03em;line-height:1.02;text-align:center;color:#fff;}
 /* SUBHEAD = ONE LINE, ALWAYS (global rule, Jacob Jul 23 2026). The max-width:46ch was forcing
    a two-line wrap. No cap, nowrap, and vw-scaled font so the (short) subhead holds one line from
    desktop down to phone. The rule's real teeth: keep subhead copy short. */
-.v4 header.scene p.sub{margin:22px auto 0;color:#52565e;max-width:none;white-space:nowrap;font-size:clamp(13px,3.1vw,21px);}
+.v4 header.scene p.sub{margin:22px auto 0;color:rgba(255,255,255,.82);max-width:none;white-space:nowrap;font-size:clamp(13px,3.1vw,21px);text-shadow:0 2px 16px rgba(0,0,0,.3);}
 .v4 header.scene .cta{justify-content:center;}
 .ctanote{margin:20px auto 0;max-width:52ch;text-align:center;font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.62);}
 @media(max-width:640px){.ctanote{font-size:13.5px;max-width:36ch;}}
@@ -79,53 +90,20 @@ const PAGE_CSS = `
    border box — so a 1.5px transparent border shows the gradient ring. The old solid brand dot is
    dropped: the gradient ring is the brand signal now, and a dot plus a ring on one small pill is
    two of the same idea. */
-/* On the LIGHT hero the badge is a white chip with the brand gradient as its outline: dark
-   text, no blur, a soft light shadow. Same gradient-ring signal Emma asked for, inverted for
-   the light surface. */
+/* PHOTO HERO IS BACK (round 3, Aug 2 2026), so the badge goes back to the dark-glass
+   treatment described above: near-white text, blur, brand-gradient ring, legible over any
+   frame of the photo rather than tuned to one bright spot in it. */
 .v4 header.scene .eyebrow{display:inline-flex;align-items:center;
-  font-size:12.5px;font-weight:700;letter-spacing:.15em;color:#42474f;
-  border:1.5px solid transparent;
-  background:linear-gradient(#fff,#fff) padding-box,var(--sb-grad) border-box;
+  font-size:12.5px;font-weight:700;letter-spacing:.15em;color:rgba(255,255,255,.92);
+  border:1.5px solid transparent;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  background:linear-gradient(rgba(6,8,13,.55),rgba(6,8,13,.55)) padding-box,var(--sb-grad) border-box;
   border-radius:999px;padding:9px 18px;
-  box-shadow:0 6px 18px -10px rgba(6,12,20,.25);}
+  box-shadow:0 6px 18px -10px rgba(0,0,0,.4);}
 
-/* THE ANSWER FIELD (Jacob, Aug 2 2026, take 4). The Clearing (take 3 — ruled hairlines that
-   wiped away on load, leaving 3 faint marks) shipped, and Jacob killed it looking at the real
-   page: "looks ridiculous... nothing that even comes close to the About Us and Journeys ones."
-   Diagnosis against real screenshots of all three pages: Journeys and About Us both leave a
-   PERMANENT, content-carrying object under the subhead — the winding 3-road map, the fanned
-   polaroid stack. The Clearing was a one-shot animation that resolved to near-empty space, the
-   only one of the three devices that left nothing behind at rest.
-
-   This is a dense, permanent field of short reader phrases — what "What You Love" actually
-   means, phrase by phrase, in a slightly odd, specific register instead of generic aspiration
-   ("freedom", "balance") — living in components/v4/HeroAnswerField.tsx, same slot the sibling
-   devices occupy. One phrase is always lit in the brand gradient, auto-cycling until the reader
-   touches one, then it follows them. Hovering/tapping a phrase (desktop only, see that file's
-   comment) also rewrites the headline itself. Third grammar on purpose: Journeys is geography,
-   About Us is photography, this is language — and it's the one device of the three that's
-   actually about the reader, not about other owners or about us. Full reasoning, the mobile
-   safety approach for the nowrap headline, and the phrase list all live in that file. */
-.v4 header.scene .hero-h1 .hl2{font-size:calc(1em * var(--hl2Scale,1));transition:font-size .3s cubic-bezier(.4,0,.2,1);}
-.v4 header.scene .hero-h1 .hl2 .g,.v4 header.scene .hero-h1 .hl2 .pd{transition:opacity .15s ease;}
-.v4 header.scene .hero-h1 .hl2.fading .g,.v4 header.scene .hero-h1 .hl2.fading .pd{opacity:0;}
-.v4 header.scene .answer-field{margin-top:clamp(52px,6.4vw,78px);}
-.v4 header.scene .answer-field .af-cap{margin:0 0 20px;font-size:12.5px;font-weight:700;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--v4-muted);}
-.v4 header.scene .answer-field .af-grid{list-style:none;margin:0 auto;padding:0;max-width:760px;
-  display:grid;grid-template-columns:repeat(3,1fr);gap:13px 30px;text-align:left;}
-.v4 header.scene .answer-field .af-item{all:unset;cursor:pointer;display:inline-block;font-weight:500;
-  font-size:16px;line-height:1.45;letter-spacing:-.008em;color:var(--v4-ink);opacity:.4;
-  transition:opacity .25s ease;}
-.v4 header.scene .answer-field .af-item:hover,.v4 header.scene .answer-field .af-item:focus-visible{opacity:.85;}
-.v4 header.scene .answer-field .af-item.anchor{font-weight:600;font-size:18.5px;opacity:.62;}
-.v4 header.scene .answer-field .af-item.active{opacity:1;background:var(--sb-grad);
-  -webkit-background-clip:text;background-clip:text;color:transparent;}
-@media(max-width:640px){
-  .v4 header.scene .answer-field .af-grid{grid-template-columns:repeat(2,1fr);gap:10px 20px;max-width:400px;}
-  .v4 header.scene .answer-field .af-item{font-size:14px;}
-  .v4 header.scene .answer-field .af-item.anchor{font-size:16px;}
-}
+/* THE HERO PAYOFF DEVICE (takes 1-7) MOVED OUT OF THE HERO (Jacob, Aug 2 2026). All the
+   .hero-converge/.hc-* rules that used to live here are gone with it — the device is now its
+   own component, HeroPayoff.tsx, with its own styles. See the JSX comment above the closing
+   </header> for the full history and reasoning. */
 
 /* headline gradient + brand-violet period on the light hero. (Jul 31 2026: tried filling "What
    You Love" with closer-dock.jpg via background-clip:text instead — Jacob's call after seeing
@@ -350,25 +328,50 @@ export default function HomePage() {
   return (
     <div id="top" className="v4">
       <style>{min(PAGE_CSS)}</style>
-      <Nav solidTop />
+      <Nav />
       <main id="main" tabIndex={-1}>
 
       {/* 1 — HERO */}
       <header className="scene">
-        {/* THE DUSK FISHING PHOTO BEHIND THE HEADLINE IS RETIRED (Jacob, July 23 2026). The hero
-            is light and Apple-homepage style now: clean surface, copy on top. THE CLEARING (see
-            PAGE_CSS) sits behind the headline — a ruled field that wipes itself away as the two
-            headline lines land, leaving three short marks at the margins. No full-bleed image,
-            no photo roll, behind the type. */}
+        {/* ROUND 3 (Jacob, Aug 2 2026): the real photo, straight in the hero, no mechanism.
+            Full history — the light cream hero (Jul 23), then seven rejected rounds of a
+            device tucked under the CTA, then one round of promoting that device into its own
+            scroll-driven section (still rejected: "definitely not Apple quality" — the
+            hand-drawn chair silhouette regressed from take 7's line art, and the notification-
+            card visual language read as generic SaaS dashboard chrome, not Apple) — lives in
+            the PAGE_CSS comment above and in memory (staybookt-hero-the-clearing.md,
+            staybookt-hero-answer-field.md). Jacob's own call: stop earning this photo through
+            a mechanism, just use it — one real image, confident type on top, the way Apple
+            actually builds most of its photographic heroes. See PAGE_CSS for the scrim/type
+            treatment. HeroPayoff.tsx (the retired scroll section) stays in the repo unused,
+            in case its card concept is useful somewhere else later. */}
+        <div className="hero-bg"><img src="/closer-dock.jpg" alt="" /></div>
         <div className="wrap inner">
           <Reveal className="eyebrow" as="div">For owner-operated service businesses</Reveal>
-          {/* HERO TAKE 4 (Jacob, Aug 2 2026): h1 / subhead / CTA / device all now live in
-              HeroAnswerField.tsx — see that file's header comment for why. Copy is
-              unchanged ("You built your business to do What You Love." / "Every call,
-              answered. Every invoice, chased." / "Get Started"); only the device below the
-              CTA is new. Takes 1-3 (icon cluster, photo-mask, "The Clearing") are in that
-              file's comment and in memory (staybookt-hero-the-clearing.md, superseded). */}
-          <HeroAnswerField />
+          <Reveal>
+            <h1 className="hero-h1">
+              <span className="hl1">You built your business to do</span>
+              <span className="hl2"><span className="g">What You Love</span><span className="pd">.</span></span>
+            </h1>
+          </Reveal>
+          <Reveal>
+            {/* Subhead rewritten round 3 (Jacob, verbatim thesis, Aug 2 2026): StayBookt takes
+                the admin and the time-eating parts out of the equation so the owner spends
+                time on what actually GROWS the business, not just what keeps it running —
+                revenue-generating work, not revenue-supporting busywork. The old subhead
+                ("Every call, answered. Every invoice, chased.") named two service mechanics
+                but never said that distinction out loud. First draft of this line ran ~76
+                characters and would have overflowed the hero's hard-locked one-line/nowrap
+                mobile rule (~200px past the available width at 375px) — the comment on
+                p.sub says "keep subhead copy short" for exactly this reason. Cut to 48
+                characters, matching the length budget the old line already proved safe. */}
+            <p className="sub">Less busywork. More time growing the business.</p>
+          </Reveal>
+          <Reveal>
+            <div className="cta">
+              <a href={START_LINK} className="pill pill-white" style={{ padding: '14px 28px', fontSize: 15 }} data-cta="hero">Get Started</a>
+            </div>
+          </Reveal>
         </div>
         {/* THE "Scroll" CUE IS GONE (Richard, review, July 2026). It sat at the foot of the
             hero, and the very next thing on the page is the film's first label, GET FOUND.
