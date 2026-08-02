@@ -3,12 +3,12 @@
 import { useEffect, useState, type CSSProperties } from 'react';
 import { min } from '@/lib/css';
 
-/* THE DASHBOARD IN THE HEADER — round 6, same day (Jacob, Aug 2 2026), reacting to round 5's
- * standalone "From chaos to clarity" section (checklist card, five animated counters, its own
- * headline). His call: pull the mechanism UP into the hero itself, as a horizontal CRM-style
- * dashboard strip — "red before, then StayBookt comes in, then goes to green" — matching the
- * horizontal formatting the site already uses (the pricing page's `.facts` row, the homepage
- * Journeys' `.el .choices` row): a single strip, side by side, not a stacked list.
+/* THE DASHBOARD IN THE HEADER — round 6 (Jacob, Aug 2 2026), reacting to round 5's standalone
+ * "From chaos to clarity" section (checklist card, five animated counters, its own headline).
+ * His call: pull the mechanism UP into the hero itself, as a horizontal CRM-style dashboard
+ * strip — "red before, then StayBookt comes in, then goes to green" — matching the horizontal
+ * formatting the site already uses (the pricing page's `.facts` row, the homepage Journeys'
+ * `.el .choices` row): a single strip, side by side, not a stacked list.
  *
  * This retires ChaosClarity.tsx as the live homepage component (the file stays in the repo,
  * same convention as HeroPayoff.tsx from earlier rounds — its <Counter> logic is the direct
@@ -23,10 +23,16 @@ import { min } from '@/lib/css';
  * self-contained rAF <Counter> as ChaosClarity: no scroll position ever read, so none of
  * ProductScrub.tsx's abandoned-pin risk applies here either.
  *
- * Glass, not card chrome (site rule: no boxed-copy cards — see the "no card chrome" standard
- * applied everywhere else). One dark glass bar, five segments, hairline dividers — a CRM top
- * bar, not five separate tiles. Scrolls horizontally on narrow viewports instead of wrapping to
- * a second row, so it stays literally horizontal at every width, per Jacob's instruction. */
+ * ROUND 7, same day (Jacob): "revert the background to white so it matches the rest of the
+ * site" — the dark glass bar (round 6's guess at "reads as part of the photo") is gone. White
+ * card, real border, real shadow — the SAME elevated-white-card-over-a-scene treatment already
+ * proven on this exact page (GetFoundScene/ReputationScene/AdminScene in HomeJourney.tsx: white
+ * bg, `#ececf0` border, `0 44px 90px -44px rgba(0,0,0,.4)` shadow), not a new pattern. That's
+ * what "matches our UI/UX more closely" means literally here: reuse the token, don't invent one.
+ * Also per round 7: "the transformation piece happens way too fast." The count duration and the
+ * red-to-green color transition are both slowed substantially (900ms counters -> 2.4s, .6s color
+ * ease -> 1.3s, tighter 220ms stagger -> 300ms) so five numbers landing reads as a considered
+ * reveal, not a flicker. */
 
 type Stat = { id: string; label: string; from: number; to: number; prefix?: string; suffix?: string };
 
@@ -79,7 +85,7 @@ export default function HeroDashboard() {
       <div className={`hd-bar${on ? ' on' : ''}`}>
         {STATS.map((s, i) => (
           <div className="hd-seg" key={s.id} style={{ '--i': i } as CSSProperties}>
-            <Counter from={s.from} to={s.to} prefix={s.prefix} suffix={s.suffix} start={on} delay={i * 220 + 2200} />
+            <Counter from={s.from} to={s.to} prefix={s.prefix} suffix={s.suffix} start={on} delay={i * 300 + 2600} duration={2400} />
             <span className="hd-lbl">{s.label}</span>
           </div>
         ))}
@@ -89,35 +95,40 @@ export default function HeroDashboard() {
 }
 
 const CSS = `
-.hd-wrap{margin-top:clamp(28px,4vw,44px);opacity:0;transform:translateY(14px);filter:blur(6px);}
+.hd-wrap{margin-top:clamp(30px,4.5vw,48px);opacity:0;transform:translateY(16px);filter:blur(6px);}
 @media(prefers-reduced-motion:no-preference){
-  .hd-wrap{animation:hdIn .9s cubic-bezier(.16,1,.3,1) 2.05s forwards;}
+  .hd-wrap{animation:hdIn 1.1s cubic-bezier(.16,1,.3,1) 2.1s forwards;}
 }
 @media(prefers-reduced-motion:reduce){.hd-wrap{opacity:1;transform:none;filter:blur(0);}}
 @keyframes hdIn{to{opacity:1;transform:none;filter:blur(0);}}
 
-.hd-cap{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);
-  text-align:center;margin-bottom:10px;}
+.hd-cap{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.62);
+  text-align:center;margin-bottom:12px;text-shadow:0 2px 10px rgba(0,0,0,.3);}
 
-.hd-bar{display:flex;max-width:760px;margin:0 auto;background:rgba(255,255,255,.07);
-  border:1px solid rgba(255,255,255,.14);border-radius:18px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+/* WHITE, ELEVATED — round 7 (Jacob): reuses the exact card token already proven elsewhere on
+   this page for "white surface floating over a photographic/dark scene" (GetFoundScene /
+   ReputationScene / AdminScene in HomeJourney.tsx), rather than the round 6 dark-glass guess. */
+.hd-bar{display:flex;max-width:760px;margin:0 auto;background:#fff;
+  border:1px solid #ececf0;border-radius:20px;
   overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;
-  box-shadow:0 20px 50px -28px rgba(0,0,0,.5);}
+  box-shadow:0 44px 90px -44px rgba(0,0,0,.4);}
 .hd-bar::-webkit-scrollbar{display:none;}
-.hd-seg{flex:1 0 128px;scroll-snap-align:start;padding:16px 14px;text-align:center;
-  border-left:1px solid rgba(255,255,255,.12);}
+.hd-seg{flex:1 0 132px;scroll-snap-align:start;padding:20px 16px;text-align:center;
+  border-left:1px solid #ececf0;}
 .hd-seg:first-child{border-left:0;}
 /* Color eases red -> green once its own Counter has landed. The class flips to .on almost
    immediately after mount (no scroll gate), so the delay lives entirely in transition-delay —
-   same validated approach as ChaosClarity.tsx's .cc-num, just tuned to this bar's later start
-   (the hero's own headline choreography runs first; see the file header comment). */
-.hd-num{display:block;font-variant-numeric:tabular-nums;font-size:clamp(21px,2.4vw,26px);font-weight:700;
-  letter-spacing:-.02em;color:#fca5a5;}
-.hd-bar.on .hd-seg .hd-num{color:#6ee7b7;transition:color .6s ease;transition-delay:calc(var(--i) * .22s + 3.1s);}
-.hd-lbl{display:block;margin-top:4px;font-size:11.5px;color:rgba(255,255,255,.6);white-space:nowrap;}
+   same approach as ChaosClarity.tsx's .cc-num. Round 7: slowed from .6s/220ms-stagger to
+   1.3s/300ms-stagger, tuned to land with the Counter's own new 2.4s duration (see the delay
+   math on the <Counter> calls above — this transition-delay is deliberately kept in sync with
+   it) so the color settles right as the number itself finishes, not ahead of or behind it. */
+.hd-num{display:block;font-variant-numeric:tabular-nums;font-size:clamp(23px,2.6vw,29px);font-weight:700;
+  letter-spacing:-.02em;color:#dc2626;}
+.hd-bar.on .hd-seg .hd-num{color:#059669;transition:color 1.3s ease;transition-delay:calc(var(--i) * .3s + 5s);}
+.hd-lbl{display:block;margin-top:5px;font-size:12px;color:#69707d;white-space:nowrap;}
 
 @media(max-width:640px){
   .hd-bar{max-width:100%;}
-  .hd-seg{flex:0 0 122px;}
+  .hd-seg{flex:0 0 126px;}
 }
 `;
