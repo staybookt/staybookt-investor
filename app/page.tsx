@@ -55,8 +55,13 @@ const PAGE_CSS = `
    (closer-dock.jpg, same asset as HeroCta's default close and half of About Us's polaroid
    roll) sat full-bleed behind the headline, darkened with a scrim so white type read clean
    at every width. That's the exact thing round 9 reverses. */
+/* SPACING FIX, round 10 (Jacob: "spacing looks off"). This padding-bottom used to give
+   the photo hero (round 3) room to breathe before its scrim ended; with the photo gone
+   (round 9) it was stacking with HeroDashboard's own top padding into a ~150px dead gap
+   between the subhead and "While you were out." Tightened to match — see the matching
+   note in HeroDashboard.tsx's CSS. */
 .v4 header.scene{align-items:flex-start;background:var(--v4-cream,#f6f6f3);color:var(--v4-ink,#06080d);min-height:auto;
-  padding-bottom:clamp(40px,6vw,80px);position:relative;overflow:hidden;}
+  padding-bottom:clamp(4px,1.2vw,16px);position:relative;overflow:hidden;}
 /* THE HOMEPAGE HERO HAD NO GUTTER ON A PHONE. This element is class="wrap inner".
    .v4 .wrap gives it padding:0 32px, and this rule is more specific, so padding:15vh 0 0
    silently wiped the horizontal half of it. On desktop you never see the bug: max-width:940
