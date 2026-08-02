@@ -1,11 +1,10 @@
-import type { CSSProperties } from 'react';
 import Nav from '@/components/v4/Nav';
 import Reveal from '@/components/v4/Reveal';
+import HeroAnswerField from '@/components/v4/HeroAnswerField';
 import HomeJourney from '@/components/v4/HomeJourney';
 import HomeFaq from '@/components/v4/HomeFaq';
 import HeroCta from '@/components/v4/HeroCta';
 import SiteFooter from '@/components/SiteFooter';
-import { START_LINK } from '@/lib/site';
 import { min } from '@/lib/css';
 
 const SHARE_DESCRIPTION =
@@ -90,52 +89,43 @@ const PAGE_CSS = `
   border-radius:999px;padding:9px 18px;
   box-shadow:0 6px 18px -10px rgba(6,12,20,.25);}
 
-/* THE CLEARING (Jacob, Jul 31 2026, round 4 — design-reviewed against Journeys and Founders
-   before building). The polaroid roll that used to live here is gone for good: polaroids are
-   the About-us memwall's device now, and a first-time visitor hasn't met anyone yet, so showing
-   them the founders' own vacation photos before they know who those people are was the wrong
-   kind of intimacy. An earlier "Builder's Line" replacement (a hand-drawn stroke sweeping under
-   the headline) was cut before shipping — it reused Journeys' exact pen-and-path grammar at
-   smaller scale, which would have diluted Journeys rather than given the homepage a third voice.
+/* THE ANSWER FIELD (Jacob, Aug 2 2026, take 4). The Clearing (take 3 — ruled hairlines that
+   wiped away on load, leaving 3 faint marks) shipped, and Jacob killed it looking at the real
+   page: "looks ridiculous... nothing that even comes close to the About Us and Journeys ones."
+   Diagnosis against real screenshots of all three pages: Journeys and About Us both leave a
+   PERMANENT, content-carrying object under the subhead — the winding 3-road map, the fanned
+   polaroid stack. The Clearing was a one-shot animation that resolved to near-empty space, the
+   only one of the three devices that left nothing behind at rest.
 
-   This is genuinely a third device: not a path (Journeys), not a photo object (Founders), but a
-   field that subtracts. ~11 thin ruled hairlines — a ledger page — sit behind the headline on
-   load. They clear in two waves, timed to when each headline line lands: the upper rows (behind
-   "You built your business to do") wipe away first, the lower rows (behind "What You Love.")
-   wipe a beat later. Three short accent marks survive, pushed out to the hero's outer margins —
-   top-left, mid-right (brand gradient — the one that "made it"), bottom-left. The ruled page is
-   the record of everything built; the cleared cream and the three surviving marks are the room
-   it leaves. Pure CSS transforms, no SVG, no photography, no icon set. Reduced-motion end state
-   is the finished composition already in place — cream, three marks — not a compromise. */
-.v4 header.scene .clearing{position:absolute;left:0;right:0;top:2%;height:78%;pointer-events:none;overflow:hidden;}
-.v4 header.scene .cl-row{position:absolute;left:0;height:1px;background:#dcdcd6;}
-.v4 header.scene .cl-row:nth-child(1){top:2%;width:88%;}
-.v4 header.scene .cl-row:nth-child(2){top:11%;width:64%;}
-.v4 header.scene .cl-row:nth-child(3){top:20%;width:97%;}
-.v4 header.scene .cl-row:nth-child(4){top:29%;width:55%;}
-.v4 header.scene .cl-row:nth-child(5){top:38%;width:80%;}
-.v4 header.scene .cl-row:nth-child(6){top:52%;width:100%;}
-.v4 header.scene .cl-row:nth-child(7){top:61%;width:62%;}
-.v4 header.scene .cl-row:nth-child(8){top:70%;width:86%;}
-.v4 header.scene .cl-row:nth-child(9){top:79%;width:70%;}
-.v4 header.scene .cl-row:nth-child(10){top:88%;width:92%;}
-.v4 header.scene .cl-row:nth-child(11){top:97%;width:58%;}
-.v4 header.scene .cl-mark{position:absolute;height:2px;width:34px;border-radius:2px;opacity:0;background:#c4c4be;}
-.v4 header.scene .cl-m1{left:1%;top:6%;}
-.v4 header.scene .cl-m2{right:1%;top:48%;background:var(--sb-grad);}
-.v4 header.scene .cl-m3{left:1%;top:92%;}
-@media(prefers-reduced-motion:no-preference){
-  .v4 header.scene .cl-row{transform:scaleX(1);}
-  .v4 header.scene .cl-row:nth-child(-n+5){transform-origin:right;animation:clWipe .8s cubic-bezier(.65,0,.35,1) 1.3s forwards;}
-  .v4 header.scene .cl-row:nth-child(n+6){transform-origin:left;animation:clWipe .8s cubic-bezier(.65,0,.35,1) 2.7s forwards;}
-  .v4 header.scene .cl-mark{animation:clMarkIn .5s cubic-bezier(.19,1,.22,1) forwards;}
-  .v4 header.scene .cl-m1{animation-delay:2.15s;}
-  .v4 header.scene .cl-m2{animation-delay:3.55s;}
-  .v4 header.scene .cl-m3{animation-delay:3.7s;}
+   This is a dense, permanent field of short reader phrases — what "What You Love" actually
+   means, phrase by phrase, in a slightly odd, specific register instead of generic aspiration
+   ("freedom", "balance") — living in components/v4/HeroAnswerField.tsx, same slot the sibling
+   devices occupy. One phrase is always lit in the brand gradient, auto-cycling until the reader
+   touches one, then it follows them. Hovering/tapping a phrase (desktop only, see that file's
+   comment) also rewrites the headline itself. Third grammar on purpose: Journeys is geography,
+   About Us is photography, this is language — and it's the one device of the three that's
+   actually about the reader, not about other owners or about us. Full reasoning, the mobile
+   safety approach for the nowrap headline, and the phrase list all live in that file. */
+.v4 header.scene .hero-h1 .hl2{font-size:calc(1em * var(--hl2Scale,1));transition:font-size .3s cubic-bezier(.4,0,.2,1);}
+.v4 header.scene .hero-h1 .hl2 .g,.v4 header.scene .hero-h1 .hl2 .pd{transition:opacity .15s ease;}
+.v4 header.scene .hero-h1 .hl2.fading .g,.v4 header.scene .hero-h1 .hl2.fading .pd{opacity:0;}
+.v4 header.scene .answer-field{margin-top:clamp(52px,6.4vw,78px);}
+.v4 header.scene .answer-field .af-cap{margin:0 0 20px;font-size:12.5px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--v4-muted);}
+.v4 header.scene .answer-field .af-grid{list-style:none;margin:0 auto;padding:0;max-width:760px;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:13px 30px;text-align:left;}
+.v4 header.scene .answer-field .af-item{all:unset;cursor:pointer;display:inline-block;font-weight:500;
+  font-size:16px;line-height:1.45;letter-spacing:-.008em;color:var(--v4-ink);opacity:.4;
+  transition:opacity .25s ease;}
+.v4 header.scene .answer-field .af-item:hover,.v4 header.scene .answer-field .af-item:focus-visible{opacity:.85;}
+.v4 header.scene .answer-field .af-item.anchor{font-weight:600;font-size:18.5px;opacity:.62;}
+.v4 header.scene .answer-field .af-item.active{opacity:1;background:var(--sb-grad);
+  -webkit-background-clip:text;background-clip:text;color:transparent;}
+@media(max-width:640px){
+  .v4 header.scene .answer-field .af-grid{grid-template-columns:repeat(2,1fr);gap:10px 20px;max-width:400px;}
+  .v4 header.scene .answer-field .af-item{font-size:14px;}
+  .v4 header.scene .answer-field .af-item.anchor{font-size:16px;}
 }
-@media(prefers-reduced-motion:reduce){.v4 header.scene .cl-row{display:none;}.v4 header.scene .cl-mark{opacity:1;}}
-@keyframes clWipe{to{transform:scaleX(0);}}
-@keyframes clMarkIn{0%{opacity:0;transform:scaleX(0);}100%{opacity:1;transform:scaleX(1);}}
 
 /* headline gradient + brand-violet period on the light hero. (Jul 31 2026: tried filling "What
    You Love" with closer-dock.jpg via background-clip:text instead — Jacob's call after seeing
@@ -371,52 +361,14 @@ export default function HomePage() {
             headline lines land, leaving three short marks at the margins. No full-bleed image,
             no photo roll, behind the type. */}
         <div className="wrap inner">
-          <div className="clearing" aria-hidden="true">
-            <span className="cl-row" /><span className="cl-row" /><span className="cl-row" />
-            <span className="cl-row" /><span className="cl-row" /><span className="cl-row" />
-            <span className="cl-row" /><span className="cl-row" /><span className="cl-row" />
-            <span className="cl-row" /><span className="cl-row" />
-            <span className="cl-mark cl-m1" /><span className="cl-mark cl-m2" /><span className="cl-mark cl-m3" />
-          </div>
           <Reveal className="eyebrow" as="div">For owner-operated service businesses</Reveal>
-          {/* Two-stage reveal (Jacob, Jul 23 2026): the clause fades up first, then the payoff
-              lands on its own in the gradient. Animation lives in PAGE_CSS under
-              prefers-reduced-motion:no-preference.
-              Jul 30 2026: "Enjoy Life" moved OUT of the hero and into the journey section
-              below (see HomeJourney.tsx round 10) — it was reading as an abstract payoff next
-              to the very concrete subhead. "What You Love" replaces it as the gradient
-              punchline, still ending the sentence started by hl1. First pass added "to do more
-              of" to hl1 (12 extra chars) and clipped mid-word on a 1549px viewport — hl1's
-              nowrap+clamp sizing was tuned tight for the original 27-char line, no headroom
-              for +44% length. Trimmed to "to do" (+3 chars only): "You built your business to
-              do What You Love." is the same grammatical sentence, minus "more of," and stays
-              inside the width the original already proved safe down to 320px. */}
-          <Reveal>
-            <h1 className="hero-h1">
-              <span className="hl1">You built your business to do</span>
-              <span className="hl2"><span className="g">What You Love</span><span className="pd">.</span></span>
-            </h1>
-          </Reveal>
-          {/* THE HERO SUBHEAD IS BACK, REWRITTEN (Jacob, July 23 2026). The old one held the
-              reader up because it restated the headline in three sentences. This one earns its
-              place: it adds the concrete "what we do" the aspirational headline leaves out, in
-              Apple's statement cadence — three parallel beats, each landing on a period, the
-              third flipping the same shape onto the payoff. Headline = the life; subhead = the
-              time that buys it. Do not lengthen it and do not break the "Every ___, ___." form. */}
-          <Reveal>
-            <p className="sub">Every call, answered. Every invoice, chased.</p>
-          </Reveal>
-          <Reveal>
-            <div className="cta">
-              <a href={START_LINK} className="pill pill-white" style={{ padding: '14px 28px', fontSize: 15 }} data-cta="hero">Get Started</a>
-            </div>
-          </Reveal>
-          {/* THE MYSTERY-SHOP LINE IS GONE FROM THE WHOLE SITE (Jacob, July 2026).
-              It read as a gimmick: "before we meet, we try to hire you." Richard flagged it
-              as awkward on this page, and it is. The call is described by what the call
-              actually is now, not by a trick we do before it.
-
-              Do not put a second line under this button. The hero has one job. */}
+          {/* HERO TAKE 4 (Jacob, Aug 2 2026): h1 / subhead / CTA / device all now live in
+              HeroAnswerField.tsx — see that file's header comment for why. Copy is
+              unchanged ("You built your business to do What You Love." / "Every call,
+              answered. Every invoice, chased." / "Get Started"); only the device below the
+              CTA is new. Takes 1-3 (icon cluster, photo-mask, "The Clearing") are in that
+              file's comment and in memory (staybookt-hero-the-clearing.md, superseded). */}
+          <HeroAnswerField />
         </div>
         {/* THE "Scroll" CUE IS GONE (Richard, review, July 2026). It sat at the foot of the
             hero, and the very next thing on the page is the film's first label, GET FOUND.
