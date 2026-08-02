@@ -87,7 +87,14 @@ export default function HeroAnswerField() {
   const [displayText, setDisplayText] = useState(DEFAULT_TEXT);
   const [fading, setFading] = useState(false);
   const interactedRef = useRef(false);
-  const isDesktopRef = useRef(false);
+  /* BUG FOUND LIVE (Jacob, Aug 2 2026, verified via Chrome JS eval): this used to default to
+     `useRef(false)` and only get set correctly inside a useEffect below. A click firing before
+     that effect runs — which happens on a fast interaction right after mount, confirmed by
+     clicking a phrase 200ms after navigation — silently dropped the headline swap even on a
+     real desktop viewport, because applyHeadline() bailed on the still-default `false`. Refs
+     don't affect SSR output, only behavior, so it's safe to read window synchronously here:
+     no hydration mismatch risk. */
+  const isDesktopRef = useRef(typeof window !== 'undefined' ? window.matchMedia('(min-width:768px)').matches : false);
   const swapTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
