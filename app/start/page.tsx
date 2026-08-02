@@ -5,18 +5,23 @@ import { EMAIL, PHONE_DISPLAY, PHONE_HREF } from '@/lib/site';
 import SiteFooter from '@/components/SiteFooter';
 import { min } from '@/lib/css';
 
+/* RICHARD'S GET STARTED REVISIONS (doc, relayed by Jacob, Aug 2 2026). Headline, sub,
+   and the facts row all replaced with his copy — see the comments at each. His doc also
+   included "why would you not take this call if you have spent this much time on the
+   website?" — Jacob's call: that is Richard's rationale for the page closing harder,
+   not a line for the page. Do not add it as copy. */
 const SHARE_DESCRIPTION =
-  'Thirty minutes with a founder. We will show you where the work is slipping, and what it would take to get your life back.';
+  'You have opportunities to make more money. We have solutions. Thirty minutes with a founder, free.';
 
 export const metadata = {
-  title: 'See where the work is slipping',
+  title: 'You have opportunities. We have solutions.',
   description: SHARE_DESCRIPTION,
   alternates: { canonical: '/start' },
   openGraph: {
     /* Defining openGraph WITHOUT images suppresses the inherited app/opengraph-image.tsx,
        so this page shared as a bare grey rectangle. Every page needs its own images line. */
     images: ['/opengraph-image'],
-    title: 'See where the work is slipping · StayBookt',
+    title: 'You have opportunities. We have solutions. · StayBookt',
     description: SHARE_DESCRIPTION,
     url: 'https://www.staybookt.com/start',
     siteName: 'StayBookt',
@@ -25,7 +30,7 @@ export const metadata = {
   },
   twitter: { images: ['/twitter-image'],
     card: 'summary_large_image',
-    title: 'See where the work is slipping · StayBookt',
+    title: 'You have opportunities. We have solutions. · StayBookt',
     description: SHARE_DESCRIPTION,
   },
 };
@@ -49,10 +54,14 @@ export const metadata = {
  *
  * If you are about to add a section to this page, do not. Add it to the homepage. */
 
+/* Facts row per Richard's revisions (Aug 2 2026): "You get a read" renamed to the thing
+   it actually is, a Free Online Presence Assessment; and a fourth fact added, Honest
+   Feedback — his copy, dash swapped for a colon per the no-dash rule. */
 const FACTS: { k: string; v: string }[] = [
   { k: '30 minutes', v: 'That is the whole ask.' },
   { k: 'With a founder', v: 'Richard or Jacob. One of the two of us.' },
-  { k: 'You get a read', v: 'Where the work is slipping, and what we would do.' },
+  { k: 'Free Online Presence Assessment', v: 'Where the work is slipping, and what we would do.' },
+  { k: 'Honest Feedback', v: 'We will share our revenue operations experience with you, straight up.' },
 ];
 
 const CSS = `
@@ -77,19 +86,36 @@ const CSS = `
    base, the wash and the hue from the system and overrides the padding only.
    Indigo: /start is the booking, the same commitment rung as /pricing. */
 .pg-hero.st-hero{padding:clamp(84px,10vh,104px) 0 clamp(34px,3.6vw,46px);--hero-hue:79,70,229;}
-.st-copy{text-align:center;max-width:720px;margin:0 auto;}
+/* Was max-width:720px — fine when the headline was 27 characters, but Richard's line 1
+   is 43 and nowrap, so it clipped at the container edge. The copy block is wide now and
+   each child (sub 54ch, facts 920px) carries its own cap instead. */
+.st-copy{text-align:center;max-width:1100px;margin:0 auto;}
 
 .st-k{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;
   letter-spacing:.2em;text-transform:uppercase;color:#9aa3b2;}
 .st-k .dot{width:6px;height:6px;border-radius:50%;background:var(--sb-grad);box-shadow:0 0 10px 1px rgba(16,185,129,.7);}
-.st-h{margin:12px auto 0;font-size:clamp(34px,4.4vw,56px);font-weight:600;letter-spacing:-.042em;
-  line-height:1.02;color:#fff;max-width:15ch;}
+/* Two-line headline per the locked global hero rule (punchline alone on line 2). Line 1
+   ("You have opportunities to make more money.") is 43 characters — nowrap blocks,
+   vw-scaled, same technique as the homepage's hl1/hl2.
+   SPECIFICITY, learned the hard way (Aug 2 2026): globals.css line 804 sets
+   ".pg-hero .wrap h1" at (0,2,1), which BEATS a bare .st-h class — this page's h1
+   font-size has been dead CSS the whole time (the old "See where the work is slipping."
+   actually rendered at globals' 6.6vw/86px, not the 56px written here). Verified via
+   getComputedStyle in the live page: 84.48px. These rules carry .pg-hero.st-hero .wrap
+   so they genuinely win; do not "simplify" them back down to .st-h. Same story for
+   p.st-sub vs globals' ".pg-hero .wrap p". */
+.pg-hero.st-hero .wrap h1.st-h{margin:12px auto 0;font-size:clamp(16px,4.2vw,48px);font-weight:600;
+  letter-spacing:-.042em;line-height:1.06;color:#fff;max-width:none;}
+.st-h .l1,.st-h .l2{display:block;white-space:nowrap;}
 .st-h .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
-.st-sub{margin:16px auto 0;font-size:clamp(15.5px,1.65vw,17.5px);line-height:1.55;color:#aeb6c4;max-width:50ch;}
+.pg-hero.st-hero .wrap p.st-sub{margin:16px auto 0;font-size:clamp(15.5px,1.65vw,17.5px);line-height:1.55;color:#aeb6c4;max-width:54ch;}
 
-.st-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2vw,24px);
-  margin:clamp(22px,2.6vw,28px) auto 0;max-width:680px;}
-@media(max-width:640px){.st-facts{grid-template-columns:1fr;gap:12px;}}
+/* Four facts now (Richard added Honest Feedback): 4-up on desktop, 2x2 on tablet,
+   stacked on phone. Widened to fit the longer labels. */
+.st-facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,2vw,24px);
+  margin:clamp(22px,2.6vw,28px) auto 0;max-width:920px;}
+@media(max-width:860px){.st-facts{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;max-width:560px;}}
+@media(max-width:480px){.st-facts{grid-template-columns:1fr;gap:12px;}}
 .st-f{text-align:left;padding-top:11px;border-top:1px solid rgba(255,255,255,.14);}
 .st-f:first-child{border-top-color:rgba(16,185,129,.6);}
 .st-f b{display:block;font-size:14.5px;font-weight:600;color:#fff;letter-spacing:-.01em;}
@@ -172,28 +198,23 @@ export default function StartPage() {
               <div className="st-k"><span className="dot" aria-hidden />Free &middot; 30 minutes</div>
             </Reveal>
             <Reveal>
-              {/* Was "Thirty minutes with a founder." That is the logistics of the call, not
-                  the reason to take it, and the logistics already live in the three facts
-                  below (Jacob, live review, July 2026).
-
-                  This is lifted from our own cal.com description, which had the promise in
-                  it the whole time: "we'll show you exactly where you're losing work and
-                  what it would take to get your life back." */}
-              {/* WAS "See exactly where you are losing work" + "what it is costing you".
-                  Both promised a measured number. We could make that promise when the call
-                  came after a mystery shop; it does not any more. Privacy now says our prep
-                  is public information only: the website, the Google listing, the reviews,
-                  search. That is enough to show someone where the work is slipping. It is
-                  not enough to cost it out to the dollar, and the leak calculator was killed
-                  for exactly that overreach. */}
+              {/* RICHARD'S HEADLINE (his Get Started doc, Aug 2 2026), replacing "See where
+                  the work is slipping." — the money opportunity said first, the answer as
+                  the punchline. History of the old line, kept for the record: it replaced
+                  "Thirty minutes with a founder" (logistics, not a reason) and before that
+                  "See exactly where you are losing work" (promised a measured number the
+                  public-information-only prep could not honestly deliver). */}
               <h1 className="st-h">
-                See where the work is <span className="g">slipping</span><span className="pd">.</span>
+                <span className="l1">You have opportunities to make more money.</span>
+                <span className="l2">We have <span className="g">solutions</span><span className="pd">.</span></span>
               </h1>
             </Reveal>
             <Reveal>
+              {/* Richard's sub, verbatim per Jacob's call (Aug 2 2026), his dash swapped for
+                  a comma per the no-dash rule. */}
               <p className="st-sub">
-                Thirty minutes with a founder. We will show you what is slipping, and what it would
-                take to get your life back.
+                30 minutes with a founder walking the same path as you, with a passion to help
+                entrepreneurs like you have more financial success and live a better life.
               </p>
             </Reveal>
             <Reveal>

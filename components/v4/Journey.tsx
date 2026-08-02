@@ -356,7 +356,7 @@ export default function Journey({ id }: { id: string }) {
                 <span className="jy-joyline">{d.joy.line}</span>
               </div>
               <a className="jy-cta" href={START_LINK} data-cta="journey_payoff">Start your journey &rarr;</a>
-              <div className="jy-note">Thirty minutes with a founder. It&rsquo;s free.</div>
+              <div className="jy-note">Thirty minutes to discuss how technology could improve your business. It&rsquo;s free.</div>
             </div>
           </div>
         </div>
@@ -374,7 +374,7 @@ export default function Journey({ id }: { id: string }) {
           <div className="jy-fin-kick">Your journey</div>
           <h2 dangerouslySetInnerHTML={{ __html: d.finale }} />
           <a className="jy-fin-cta" href={START_LINK} data-cta="journey_finale">Start your journey &rarr;</a>
-          <div className="jy-fin-note">Thirty minutes with a founder. It&rsquo;s free.</div>
+          <div className="jy-fin-note">Thirty minutes to discuss how technology could improve your business. It&rsquo;s free.</div>
         </div>
       </section>
 

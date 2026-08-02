@@ -435,7 +435,9 @@ export function Arrival() {
         </h2>
         <div className="arr-cta">
           <a href={START_LINK} data-cta="hiw_arrival">Get Started</a>
-          <span className="arr-note">Thirty minutes with a founder. It&rsquo;s free.</span>
+          {/* Richard's revision (Get Started doc, Aug 2 2026) — same line as HeroCta and
+              Journey; keep all four identical. */}
+          <span className="arr-note">Thirty minutes to discuss how technology could improve your business. It&rsquo;s free.</span>
         </div>
       </div>
     </section>

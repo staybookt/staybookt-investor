@@ -133,9 +133,12 @@ export default function ContactPage() {
               <h2>Book thirty minutes.</h2>
               {/* Was the mystery-shop pitch. It is the call, described as the call, which is
                   what our own cal.com booking page has said all along. */}
+              {/* Updated with Richard's Get Started revisions (Aug 2 2026): /start no longer
+                  makes the "slipping" promise, so this mirror of it goes too — same
+                  technology-improving-your-business framing as the CTA note sitewide. */}
               <p>
-                The best way. Thirty minutes with a founder. We will show you where the work is
-                slipping, and what it would take to get your life back.
+                The best way. Thirty minutes with a founder to discuss how technology could
+                improve your business, and what it would take to get your life back.
               </p>
               <div className="go">
                 <a className="btn" href={START_LINK} data-cta="contact">

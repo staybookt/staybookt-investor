@@ -66,7 +66,10 @@ export default function HeroCta({ fromBlack = false, img = HERO_IMG, heading, he
         <h2 className={[heading ? 'w' : '', headingClass ?? ''].filter(Boolean).join(' ') || undefined}>{heading ?? <>Do the work you love. We&rsquo;ll run the rest.</>}</h2>
         {sub === null ? null : <p>{sub ?? <>We get you found and run the day to day. You get your time back.</>}</p>}
         <a className="hcta-btn" href={START_LINK} data-cta="closer">Get Started</a>
-        <div className="hcta-note">Thirty minutes with a founder. It&rsquo;s free.</div>
+        {/* Richard's revision (Get Started doc, Aug 2 2026): the note sells the substance
+            of the call, not the logistics. Same line swapped in Journey.tsx (x2) and
+            HiwScenes.tsx — keep all four identical. */}
+        <div className="hcta-note">Thirty minutes to discuss how technology could improve your business. It&rsquo;s free.</div>
       </div>
     </section>
   );
