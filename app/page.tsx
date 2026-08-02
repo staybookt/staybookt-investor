@@ -371,16 +371,6 @@ export default function HomePage() {
               a "Get Started" pill on every page, and the sticky "Call now" bar shows up after
               the hero on every page too — a third CTA stacked directly under the subhead was
               one too many asks before the dashboard below has even made its case. */}
-          {/* THE DASHBOARD IN THE HEADER — round 6 (Jacob, Aug 2 2026): "have that as a
-              dashboard within the header like a CRM, red before then green after, horizontal
-              so it fits the same formatting as journeys and about us." Round 5's standalone
-              "From chaos to clarity" section (its own headline + vertical checklist card) is
-              retired — ChaosClarity.tsx stays in the repo unused, same convention as
-              HeroPayoff.tsx. This is the mechanism moved up into the hero itself: a single
-              horizontal glass bar, five KPIs, each number ticking from a red "chaos" value to
-              green "clarity" value once the hero's own headline choreography finishes. See
-              HeroDashboard.tsx for the full reasoning. */}
-          <HeroDashboard />
         </div>
         {/* THE "Scroll" CUE IS GONE (Richard, review, July 2026). It sat at the foot of the
             hero, and the very next thing on the page is the film's first label, GET FOUND.
@@ -394,6 +384,18 @@ export default function HomePage() {
             photograph. It is a 190px header now, like every other page except this one and
             /long-term, so there is no cue left anywhere on the site. */}
       </header>
+
+      {/* THE DASHBOARD MOVED OUT OF THE HERO — round 8 (Jacob, Aug 2 2026): "background
+          still on the muskoka chairs, should be white like Journeys, same container." Round
+          7 fixed the CARD (white, elevated) but not the SCENE — it was still floating over
+          the hero's photo, which is exactly the mismatch. A white card over a photo reads
+          fine for a single card (that's literally GetFoundScene over the Journeys section)
+          but wrong for a full-width strip. It is its own section now, cream background,
+          same `.wrap` container every other section already uses. See HeroDashboard.tsx for
+          the section markup, the switch to an on-view IntersectionObserver reveal (no longer
+          racing the hero's headline now that it's not inside the hero), and the new per-stat
+          icons (Jacob, same message: "lack of icons... looks bush league"). */}
+      <HeroDashboard />
 
       {/* THE "IN PLAIN ENGLISH" CARD IS GONE (Jacob, July 14 2026).
           Three columns of bullets sat between the hero and the journey: the only
