@@ -38,24 +38,25 @@ const PAGE_CSS = `
 .v4 h1,.v4 h2,.v4 h3{font-weight:600;}
 .v4 .scene>video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
 .v4 .scene .reveal{opacity:1;transform:none;}
-/* HERO — REAL PHOTO AGAIN, ROUND 3 (Jacob, Aug 2 2026). The light cream hero (Jul 23) and
-   seven rounds of a device tucked under the CTA (see the JSX comment below) are both retired.
-   Jacob's own "crazy idea" mid-build: stop trying to earn the payoff photo through a mechanism
-   at all — just make it the hero's background, the way Apple actually builds most of its
-   photographic heroes (one real image, confident type on top, no reveal gimmick). The
-   dock-chairs photo (closer-dock.jpg, same asset as HeroCta's default close and half of About
-   Us's polaroid roll) sits full-bleed behind the headline, darkened with a scrim so white type
-   reads clean at every width. Nav drops solidTop and goes back to its natural transparent-over-
-   photo state — that prop existed only because the cream hero couldn't carry a white wordmark. */
-.v4 header.scene{align-items:flex-start;background:#06080d;color:#fff;min-height:auto;
+/* HERO — PHOTO RETIRED, ROUND 9 (Jacob, Aug 2 2026): "homepage should look like the
+   journeys page for the formatting, get rid of the image behind the text." Round 3's
+   full-bleed photo hero (see the history below — kept for the record, but no longer the
+   live state) is gone. The homepage hero now matches the SAME locked, canonical hero every
+   other page on the site already uses (see .jl-hero in app/journeys/page.tsx and .abt
+   .pg-hero .wrap in app/founders/page.tsx: cream background, a light gradient-border pill,
+   ink headline, muted-gray sub) — not a new pattern, the one every other page already
+   proved. Nav goes back to its natural transparent-over-cream state.
+   HERO — REAL PHOTO, ROUND 3 (Jacob, Aug 2 2026, HISTORICAL — superseded by round 9 above).
+   The light cream hero (Jul 23) and seven rounds of a device tucked under the CTA (see the
+   JSX comment below) were both retired at the time. Jacob's own "crazy idea" mid-build:
+   stop trying to earn the payoff photo through a mechanism at all — just make it the
+   hero's background, the way Apple actually builds most of its photographic heroes (one
+   real image, confident type on top, no reveal gimmick). The dock-chairs photo
+   (closer-dock.jpg, same asset as HeroCta's default close and half of About Us's polaroid
+   roll) sat full-bleed behind the headline, darkened with a scrim so white type read clean
+   at every width. That's the exact thing round 9 reverses. */
+.v4 header.scene{align-items:flex-start;background:var(--v4-cream,#f6f6f3);color:var(--v4-ink,#06080d);min-height:auto;
   padding-bottom:clamp(40px,6vw,80px);position:relative;overflow:hidden;}
-.v4 header.scene .hero-bg{position:absolute;inset:0;z-index:0;}
-.v4 header.scene .hero-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  object-position:center 12%;}
-.v4 header.scene .hero-bg::after{content:'';position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(6,8,13,.72) 0%,rgba(6,8,13,.5) 42%,rgba(6,8,13,.72) 100%);}
-.v4 header.scene .cta .pill{background:#fff;color:var(--v4-ink);border:0;}
-.v4 header.scene .cta .pill:hover{transform:translateY(-1px);box-shadow:0 16px 34px -18px rgba(0,0,0,.5);}
 /* THE HOMEPAGE HERO HAD NO GUTTER ON A PHONE. This element is class="wrap inner".
    .v4 .wrap gives it padding:0 32px, and this rule is more specific, so padding:15vh 0 0
    silently wiped the horizontal half of it. On desktop you never see the bug: max-width:940
@@ -64,11 +65,11 @@ const PAGE_CSS = `
    Nobody caught it because nobody had opened this site at phone width. Keep the horizontal
    padding here, or restate it if you ever change the vertical. */
 .v4 header.scene .inner{position:relative;z-index:1;padding:clamp(84px,10vh,116px) clamp(20px,4vw,32px) 0;text-align:center;max-width:1200px;margin:0 auto;}
-.v4 header.scene h1{max-width:none;margin:20px auto 0;font-size:clamp(20px,6.4vw,88px);letter-spacing:-.03em;line-height:1.02;text-align:center;color:#fff;}
+.v4 header.scene h1{max-width:none;margin:20px auto 0;font-size:clamp(20px,6.4vw,88px);letter-spacing:-.03em;line-height:1.02;text-align:center;color:var(--v4-ink,#06080d);}
 /* SUBHEAD = ONE LINE, ALWAYS (global rule, Jacob Jul 23 2026). The max-width:46ch was forcing
    a two-line wrap. No cap, nowrap, and vw-scaled font so the (short) subhead holds one line from
    desktop down to phone. The rule's real teeth: keep subhead copy short. */
-.v4 header.scene p.sub{margin:22px auto 0;color:rgba(255,255,255,.82);max-width:none;white-space:nowrap;font-size:clamp(13px,3.1vw,21px);text-shadow:0 2px 16px rgba(0,0,0,.3);}
+.v4 header.scene p.sub{margin:22px auto 0;color:#52565e;max-width:none;white-space:nowrap;font-size:clamp(13px,3.1vw,21px);}
 .v4 header.scene .cta{justify-content:center;}
 .ctanote{margin:20px auto 0;max-width:52ch;text-align:center;font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.62);}
 @media(max-width:640px){.ctanote{font-size:13.5px;max-width:36ch;}}
@@ -90,15 +91,17 @@ const PAGE_CSS = `
    border box — so a 1.5px transparent border shows the gradient ring. The old solid brand dot is
    dropped: the gradient ring is the brand signal now, and a dot plus a ring on one small pill is
    two of the same idea. */
-/* PHOTO HERO IS BACK (round 3, Aug 2 2026), so the badge goes back to the dark-glass
-   treatment described above: near-white text, blur, brand-gradient ring, legible over any
-   frame of the photo rather than tuned to one bright spot in it. */
+/* PHOTO HERO RETIRED (round 9, Aug 2 2026) — the badge is the same light gradient-border
+   pill every other locked hero on the site uses (see .jl-pill in app/journeys/page.tsx and
+   .abt .pg-hero .wrap .eyebrow in app/founders/page.tsx): white fill, ink text, the brand
+   gradient as the ring. The dark-glass version above only ever existed to stay legible over
+   the photo; with the photo gone, it goes back to the shared token. */
 .v4 header.scene .eyebrow{display:inline-flex;align-items:center;
-  font-size:12.5px;font-weight:700;letter-spacing:.15em;color:rgba(255,255,255,.92);
-  border:1.5px solid transparent;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  background:linear-gradient(rgba(6,8,13,.55),rgba(6,8,13,.55)) padding-box,var(--sb-grad) border-box;
+  font-size:12.5px;font-weight:700;letter-spacing:.15em;color:#42474f;
+  border:1.5px solid transparent;
+  background:linear-gradient(#fff,#fff) padding-box,var(--sb-grad) border-box;
   border-radius:999px;padding:9px 18px;
-  box-shadow:0 6px 18px -10px rgba(0,0,0,.4);}
+  box-shadow:0 6px 18px -10px rgba(6,12,20,.25);}
 
 /* THE HERO PAYOFF DEVICE (takes 1-7) MOVED OUT OF THE HERO (Jacob, Aug 2 2026). All the
    .hero-converge/.hc-* rules that used to live here are gone with it — the device is now its
@@ -328,24 +331,26 @@ export default function HomePage() {
   return (
     <div id="top" className="v4">
       <style>{min(PAGE_CSS)}</style>
-      <Nav />
+      {/* solidTop, round 9 (Jacob, Aug 2 2026): Nav's transparent-over-dark-photo mode only
+          made sense while the hero had round 3's photo behind it. Every other page with this
+          cream hero (/journeys, /founders) already renders <Nav solidTop /> — this brings the
+          homepage in line rather than leaving it as the one page still assuming a dark scene
+          under the nav. */}
+      <Nav solidTop />
       <main id="main" tabIndex={-1}>
 
       {/* 1 — HERO */}
       <header className="scene">
-        {/* ROUND 3 (Jacob, Aug 2 2026): the real photo, straight in the hero, no mechanism.
-            Full history — the light cream hero (Jul 23), then seven rejected rounds of a
-            device tucked under the CTA, then one round of promoting that device into its own
-            scroll-driven section (still rejected: "definitely not Apple quality" — the
-            hand-drawn chair silhouette regressed from take 7's line art, and the notification-
-            card visual language read as generic SaaS dashboard chrome, not Apple) — lives in
-            the PAGE_CSS comment above and in memory (staybookt-hero-the-clearing.md,
-            staybookt-hero-answer-field.md). Jacob's own call: stop earning this photo through
-            a mechanism, just use it — one real image, confident type on top, the way Apple
-            actually builds most of its photographic heroes. See PAGE_CSS for the scrim/type
-            treatment. HeroPayoff.tsx (the retired scroll section) stays in the repo unused,
-            in case its card concept is useful somewhere else later. */}
-        <div className="hero-bg"><img src="/closer-dock.jpg" alt="" /></div>
+        {/* ROUND 9 (Jacob, Aug 2 2026): "homepage should look like the journeys page for the
+            formatting, get rid of the image behind the text." The full-bleed photo (round 3)
+            is gone — see the PAGE_CSS comment above for that round's reasoning and this
+            round's reversal. Full prior history — the light cream hero (Jul 23), seven
+            rejected rounds of a device tucked under the CTA, one round of promoting that
+            device into its own scroll-driven section (rejected: "definitely not Apple
+            quality"), then the round-3 photo — lives in memory (staybookt-hero-the-clearing.md,
+            staybookt-hero-answer-field.md). HeroPayoff.tsx (the retired scroll section) and
+            the photo treatment both stay documented in case either is useful again; this hero
+            is the same locked format /journeys and /founders already use. */}
         <div className="wrap inner">
           <Reveal className="eyebrow" as="div">For owner-operated service businesses</Reveal>
           <Reveal>
