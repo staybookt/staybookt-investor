@@ -27,7 +27,10 @@ export type JourneyData = {
   biz: string;
   img: string;
   imgPos: string;         // avatar object-position
-  banner: string;         // city skyline strip (their world, faint behind the dark opening)
+  banner: string;         // their SERVICE's world, faint behind the dark title card (Richard,
+                          // Journies doc Aug 2 2026: "background images should associate with
+                          // the service" — was city skylines, now the same story-* shots the
+                          // landing cards use: the van, the desk, the showing)
   hue: string;            // this journey's brand hue (road HUD, reward chip)
   joy: Joy;               // the reward from the map, delivered in the payoff chapter
   finale: string;         // the full-screen gradient close: THE question this journey earns (html)
@@ -69,7 +72,7 @@ export const JOURNEYS: Record<string, JourneyData> = {
     biz: 'Seamless Electric',
     img: '/face-marcus.jpg',
     imgPos: 'center',
-    banner: '/banner-toronto.jpg',
+    banner: '/story-marcus.jpg',
     hue: '#06b6d4',
     joy: { svg: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>', line: 'Ten days east with the family.' },
     finale: 'What would you do with<br/>your evenings back?',
@@ -136,7 +139,7 @@ export const JOURNEYS: Record<string, JourneyData> = {
     biz: 'Anderson Consulting',
     img: '/face-sean.jpg',
     imgPos: 'center',
-    banner: '/banner-chicago.jpg',
+    banner: '/story-sean.jpg',
     hue: '#4f46e5',
     joy: { svg: '<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/>', line: 'Friday tee times, guilt-free.' },
     /* Richard's replacement finale (Journies doc, Aug 2 2026; his "live" typo corrected
@@ -200,7 +203,7 @@ export const JOURNEYS: Record<string, JourneyData> = {
     biz: 'Dempster Group',
     img: '/face-kim.jpg',
     imgPos: 'center',
-    banner: '/banner-vancouver.jpg',
+    banner: '/story-kim.jpg',
     hue: '#7c3aed',
     joy: { svg: '<path d="M8 22h8"/><path d="M12 15v7"/><path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z"/>', line: 'Dinner at home, phone face-down.' },
     /* Kim's hero line 2, finale, win renames, and receipt edits: Richard's Journies
