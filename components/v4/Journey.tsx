@@ -74,8 +74,15 @@ export default function Journey({ id }: { id: string }) {
     const lerp = (a: number, b: number, t: number) => Math.round(a + (b - a) * t);
 
     const onScroll = () => {
+      /* GUARD (Aug 2 2026): in a hidden/prerendered tab the viewport can measure 0, so
+         offsetHeight - innerHeight hits 0 and p becomes 0/0 = NaN — which crashed the
+         whole page at mount when NaN reached getPointAtLength ("This page couldn't
+         load"). Chrome speculatively prerenders links in hidden viewports, so this was
+         a real-visitor crash, not just an automation artifact. */
       const h = film.offsetHeight - window.innerHeight;
-      const p = Math.min(1, Math.max(0, (window.scrollY - film.offsetTop) / h));
+      let p = h > 0 ? (window.scrollY - film.offsetTop) / h : 0;
+      if (!Number.isFinite(p)) p = 0;
+      p = Math.min(1, Math.max(0, p));
       const idx = Math.min(N - 1, Math.floor(p * N));
       const s = Math.min(1, Math.max(0, (p - idx / N) * N));
 
@@ -89,11 +96,19 @@ export default function Journey({ id }: { id: string }) {
         }
         /* cinematic cut: enter rises, HOLD carries a slow camera push, exit lifts away.
            Beat 0 (the title card) has NO enter — it's on screen from page load; its
-           reveal is the load-time animation, and scroll only carries it away. */
+           reveal is the load-time animation, and scroll only carries it away.
+           Beat N-1 (the payoff) has NO exit (Richard, Journies doc Aug 2 2026: "after
+           'He picks his clients' there is a gap in the scrolling" — the last beat used
+           to lift away like the others, leaving a dead stage until the sticky released.
+           It now holds to the film's last pixel and hands straight to the finale). */
         let o: number, ty: number, sc: number;
         if (i === 0) {
           if (s < 0.7) { o = 1; ty = 0; sc = 1 + 0.012 * smooth(s / 0.7); }
           else { const k = smooth((s - 0.7) / 0.3); o = 1 - k; ty = -k * 40; sc = 1.012 + 0.008 * k; }
+        }
+        else if (i === N - 1) {
+          if (s < 0.22) { const k = smooth(s / 0.22); o = k; ty = (1 - k) * 44; sc = 0.985 + 0.015 * k; }
+          else { o = 1; ty = 0; sc = 1 + 0.012 * smooth((s - 0.22) / 0.78); }
         }
         else if (s < 0.22) { const k = smooth(s / 0.22); o = k; ty = (1 - k) * 44; sc = 0.985 + 0.015 * k; }
         else if (s < 0.78) { o = 1; ty = 0; sc = 1 + 0.014 * smooth((s - 0.22) / 0.56); }
@@ -126,7 +141,9 @@ export default function Journey({ id }: { id: string }) {
           const t0 = performance.now();
           const step = (tm: number) => {
             let k = Math.min(1, (tm - t0) / 900); k = 1 - Math.pow(1 - k, 3);
-            cntMoney.textContent = '$' + Math.round(d.receipt.moneyTo * k).toLocaleString() + (k >= 1 ? '+' : '');
+            /* thin space before the + (Richard, Journies doc: "spacing with the + is off"
+               — the plus sat flush against the last digit of the gradient figure) */
+            cntMoney.textContent = '$' + Math.round(d.receipt.moneyTo * k).toLocaleString() + (k >= 1 ? ' +' : '');
             cntTime.textContent = Math.round(d.receipt.timeTo * k) + d.receipt.timeSuffix;
             if (k < 1) recRaf.current = requestAnimationFrame(step);
           };
@@ -150,8 +167,11 @@ export default function Journey({ id }: { id: string }) {
       if (rp && ra) {
         rp.style.strokeDashoffset = String(1 - p);
         const L = rp.getTotalLength();
-        const pt = rp.getPointAtLength(Math.min(0.999, Math.max(0, p)) * L);
-        ra.setAttribute('transform', `translate(${pt.x},${pt.y})`);
+        const at = Math.min(0.999, Math.max(0, p)) * L;
+        if (Number.isFinite(at)) {
+          const pt = rp.getPointAtLength(at);
+          ra.setAttribute('transform', `translate(${pt.x},${pt.y})`);
+        }
       }
       const skip = root.querySelector('.jy-skip');
       if (skip) skip.classList.toggle('off', idx >= N - 2);
@@ -220,13 +240,6 @@ export default function Journey({ id }: { id: string }) {
     jump(Math.min(N - 1, Math.max(0, Math.floor(frac * N))));
   };
 
-  const chip = (
-    <span className="jy-avchip">
-      <span className="jy-av"><img src={d.img} alt={d.person} style={{ objectPosition: d.imgPos }} /></span>
-      <span className="jy-who">{d.person}<small>{d.role}</small></span>
-    </span>
-  );
-
   return (
     <div className="jy" ref={rootRef}>
       <style>{min(CSS)}</style>
@@ -236,7 +249,12 @@ export default function Journey({ id }: { id: string }) {
           The reveal plays on load; the first scroll pushes past the title into the
           leak ledger with no seam. The page then travels dark -> cream as the wins
           land: the design IS the arc of their year. */}
-      <div className="jy-film" ref={filmRef} style={{ height: `${N * 127}vh` }}>
+      {/* 127vh/beat -> 108vh/beat (Richard, Journies doc Aug 2 2026: "each journey is
+          quite a journey to absorb... a bit less will be more effective", plus the
+          glitchy-scrollbar note — a shorter track makes the scrollbar thumb usable
+          again). With the quote and cross-link folds also removed below, the page
+          dropped from ~16 screens to ~12. */}
+      <div className="jy-film" ref={filmRef} style={{ height: `${N * 108}vh` }}>
         <div className="jy-stage dk">
           <div className="jy-fbg"><img src={d.banner} alt="" /><span className="jy-oscrim" /></div>
           <div className="jy-bloom" />
@@ -309,7 +327,11 @@ export default function Journey({ id }: { id: string }) {
           <div className="jy-beat dkb" data-b={3}>
             <div className="jy-bin">
               <div className="jy-kick">The turn</div>
-              <div className="jy-huge">Then StayBookt <span className="g">learned {d.her ? 'her' : 'his'} business</span>.</div>
+              {/* Richard (Journies doc, Aug 2 2026): "weird to see StayBookt without
+                  branded colors" + "period coloring is white" — the wordmark carries the
+                  gradient now (same rule as the nav logo and the homepage milestones
+                  header), and the period takes the dark-stage violet. */}
+              <div className="jy-huge">Then <span className="g">StayBookt</span> learned {d.her ? 'her' : 'his'} business<span className="pd">.</span></div>
               <div className="jy-cap">{d.turnCap}</div>
             </div>
           </div>
@@ -375,53 +397,29 @@ export default function Journey({ id }: { id: string }) {
           <h2 dangerouslySetInnerHTML={{ __html: d.finale }} />
           <a className="jy-fin-cta" href={START_LINK} data-cta="journey_finale">Start your journey &rarr;</a>
           <div className="jy-fin-note">Thirty minutes to discuss how technology could improve your business. It&rsquo;s free.</div>
-        </div>
-      </section>
-
-      {/* QUOTE */}
-      <figure className="jy-quote">
-        <blockquote className="jy-rv" dangerouslySetInnerHTML={{ __html: d.quote }} />
-        <div className="jy-rv" style={{ display: 'flex', justifyContent: 'center', marginTop: 26 }}>{chip}</div>
-      </figure>
-
-      {/* WALK ANOTHER JOURNEY — above the FAQ (Jacob, July 27) */}
-      <section className="jy-others">
-        <div className="jy-owrap">
-          {/* Was "Different trade, same flip." — a stray typo (flip) plus the same
-              trade/leak language Richard flagged on the landing page (Jul 28 video +
-              Images doc). This footer copy lives here, separate from the landing tee-up,
-              and got missed in that fix. Matched to the landing page's corrected line. */}
-          <h2 className="jy-rv">Walk another journey<span className="pd">.</span></h2>
-          <p className="jy-olede jy-rv">Different service, same missed opportunity.</p>
-          <div className="jy-ogrid">
-            {/* LinkedIn-profile anatomy, identical to the landing cards (Jacob, July 27):
-                city banner + hue wash, big overlapping headshot, name/role, tag,
-                punchline, teaser, plain-result CTA. One card system everywhere. */}
-            {/* Service type now leads, above the image, same fix as the landing page cards
-                (Richard, Jul 28: "highlight the type of service provided more prominently
-                above the image and they will self associate quickly... let the headers do
-                the work over text"). This grid is the same card system, so it gets the
-                same swap for consistency. */}
+          {/* WALK ANOTHER JOURNEY, COMPACT — Richard's streamline (Journies doc, Aug 2
+              2026): "what about adding these to the CTA fold — maybe as a simpler, more
+              compact version as they just went through a journey." The full card fold
+              below is gone; two glass chips on the finale carry the cross-links. */}
+          <div className="jy-fin-others">
+            <span className="lbl">Walk another journey</span>
             {others.map((o) => (
-              <a key={o.id} className="jy-ocard jy-rv" href={o.path} data-cta="journey_next" style={{ ['--hc' as string]: o.hue }}>
-                <span className="jy-osvc" style={{ color: o.hue }}>{o.tag.replace('Journeys · ', '')}</span>
-                <span className="jy-obanner">
-                  <img src={o.banner} alt="" />
-                  <span className="jy-owash" style={{ background: `linear-gradient(135deg,${o.hue}b3,#4f46e580 58%,#7c3aed99)` }} />
-                </span>
-                <span className="jy-obody">
-                  <span className="jy-opav"><img src={o.img} alt={o.person} /></span>
-                  <span className="jy-oname">{o.person}</span>
-                  <span className="jy-orole">{o.role}</span>
-                  <div className="on2" dangerouslySetInnerHTML={{ __html: heroLine(o.short, o.heroB) }} />
-                  <p className="od">{o.heroSub}</p>
-                  <span className="go">{CARD_CTAS[o.short] ?? 'Follow the journey'} <span className="arw">&rarr;</span></span>
-                </span>
+              <a key={o.id} href={o.path} data-cta="journey_next">
+                <span className="oa"><img src={o.img} alt="" /></span>
+                {o.short} &middot; {o.tag.replace('Journeys · ', '')} <span aria-hidden>&rarr;</span>
               </a>
             ))}
           </div>
         </div>
       </section>
+
+      {/* THE QUOTE FOLD AND THE FULL "WALK ANOTHER JOURNEY" CARD FOLD ARE GONE
+          (Richard's Journies feedback doc, Aug 2 2026: "per my above concern on length —
+          this would be one I would eliminate" on Sean's quote, "as said in earlier
+          journey — not sure we need this" on Kim's; deleted on all three tabs per
+          Jacob's call, Marcus's included, so the three tabs keep one structure). The
+          quotes stay banked in journeyData.ts; the cross-links live compactly on the
+          finale above. */}
 
       {/* FAQ — the site's .pfq pattern */}
       <section className="pfq">
@@ -463,28 +461,21 @@ export default function Journey({ id }: { id: string }) {
   );
 }
 
-/* short card line: "Sean stopped chasing." style — reuse each journey's own payoff word
-   is too clever; the tested card copy is the hero punchline reframed. */
-function heroLine(short: string, heroB: string) {
-  const CARD_LINES: Record<string, string> = {
-    Marcus: 'Marcus got his <span class="g">nights back</span>.',
-    Sean: 'Sean stopped <span class="g">chasing</span>.',
-    Kim: 'Kim&rsquo;s first to <span class="g">every door</span>.',
-  };
-  return CARD_LINES[short] ?? heroB;
-}
-
-/* CTA law: the button states the plain result (same labels as the landing cards) */
-const CARD_CTAS: Record<string, string> = {
-  Marcus: 'Every call answered',
-  Sean: 'A full pipeline',
-  Kim: 'Every lead in seconds',
-};
+/* heroLine()/CARD_CTAS went with the full cross-link card fold (Richard's length cut,
+   Aug 2 2026) — the compact finale links use journeyData directly. */
 
 const CSS = `
 .jy{--jy-ink:#06080d;--jy-cream:#f6f6f3;--jy-sub:#52565e;--jy-cap:#69707d;background:var(--jy-cream);color:var(--jy-ink);}
-.jy .g{background:var(--sb-grad-ink,linear-gradient(100deg,#06b6d4,#10b981 46%,#4f46e5 78%,#7c3aed));-webkit-background-clip:text;background-clip:text;color:transparent;}
+/* padding-right on every gradient span (Richard, Journies doc Aug 2 2026: the "s" in
+   his/business, the "y" descender in Steady, the "k" in hrs/wk all clipped) — negative
+   display tracking pulls the final glyph past the box background-clip:text paints, the
+   same bug as the homepage's shaved $199 nine. The pad restores paintable room. */
+.jy .g{background:var(--sb-grad-ink,linear-gradient(100deg,#06b6d4,#10b981 46%,#4f46e5 78%,#7c3aed));-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.04em;}
 .jy .pd{color:#7c3aed;-webkit-text-fill-color:#7c3aed;}
+/* violet is illegible on the near-black stage: dark beats use the title card's lighter
+   violet for periods (Richard: "period coloring is white" on the turn — it takes the
+   brand violet now, tuned for the dark ground). */
+.jy-beat.dkb .pd{color:#a78bfa;-webkit-text-fill-color:#a78bfa;}
 
 .jy-avchip{display:inline-flex;align-items:center;gap:11px;}
 .jy-av{width:46px;height:46px;border-radius:50%;padding:2.5px;background:var(--sb-grad,linear-gradient(100deg,#06b6d4,#10b981 46%,#4f46e5 78%,#7c3aed));display:inline-block;}
@@ -591,8 +582,13 @@ const CSS = `
 .jy-leak .x{flex:0 0 22px;height:22px;border-radius:50%;background:rgba(251,106,111,.14);color:#fb6a6f;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;}
 .jy-leak span:last-child{font-size:clamp(14px,1.6vw,16.5px);color:rgba(255,255,255,.85);font-weight:500;}
 
-/* the win word: Apple-keynote focus pull — blur resolving to sharp as you arrive */
-.jy-word{margin-top:14px;font-size:clamp(64px,13vw,190px);font-weight:700;letter-spacing:-.055em;line-height:.9;background:var(--sb-grad-ink,linear-gradient(100deg,#06b6d4,#10b981 46%,#4f46e5 78%,#7c3aed));-webkit-background-clip:text;background-clip:text;color:transparent;opacity:.12;filter:blur(22px);transform:scale(1.18);transition:opacity .5s ease,filter .8s cubic-bezier(.19,1,.22,1),transform .9s cubic-bezier(.19,1,.22,1);}
+/* the win word: Apple-keynote focus pull — blur resolving to sharp as you arrive.
+   RETUNED (Richard, Journies doc Aug 2 2026): -.055em tracking crowded Warm's r into
+   the m and referred's letters into each other, line-height .9 cut Steady's y
+   descender, and the clip-box ate trailing glyph edges — tracking relaxed, real
+   line-height, paint padding on both ends. Size cap also drops 190->150 so the new
+   two-word wins (AI Assistant / Less Paperwork / Story Told) hold one line. */
+.jy-word{margin-top:14px;font-size:clamp(48px,10.5vw,150px);font-weight:700;letter-spacing:-.035em;line-height:1.02;padding:0 .05em .04em .02em;white-space:nowrap;background:var(--sb-grad-ink,linear-gradient(100deg,#06b6d4,#10b981 46%,#4f46e5 78%,#7c3aed));-webkit-background-clip:text;background-clip:text;color:transparent;opacity:.12;filter:blur(22px);transform:scale(1.18);transition:opacity .5s ease,filter .8s cubic-bezier(.19,1,.22,1),transform .9s cubic-bezier(.19,1,.22,1);}
 .jy-word.on{opacity:1;filter:blur(0);transform:scale(1);}
 .jy-wsub{margin-top:20px;font-size:clamp(16px,2vw,22px);color:#2b2f36;font-weight:500;opacity:0;transform:translateY(10px);transition:opacity .5s ease .05s,transform .55s cubic-bezier(.16,1,.3,1) .05s;}
 .jy-wsub.on{opacity:1;transform:none;}
@@ -610,7 +606,9 @@ const CSS = `
    always one row; flips centered tight beneath, landing in a stagger. */
 .jy-rec .jy-rtots{margin-top:22px;display:flex;justify-content:center;align-items:flex-start;gap:clamp(22px,5vw,72px);flex-wrap:nowrap;}
 .jy-rtot{text-align:center;min-width:0;}
-.jy-rn{font-size:clamp(34px,7vw,104px);font-weight:600;letter-spacing:-.05em;background:var(--sb-grad-ink,linear-gradient(100deg,#06b6d4,#10b981 46%,#4f46e5 78%,#7c3aed));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap;}
+/* padding-right stops the k in hrs/wk (and the counting digits) clipping at the paint
+   box — same fix family as .jy-word above. */
+.jy-rn{font-size:clamp(34px,7vw,104px);font-weight:600;letter-spacing:-.05em;background:var(--sb-grad-ink,linear-gradient(100deg,#06b6d4,#10b981 46%,#4f46e5 78%,#7c3aed));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap;padding-right:.05em;}
 .jy-rl{margin:10px auto 0;font-size:clamp(13px,1.5vw,15.5px);color:var(--jy-sub);max-width:22ch;line-height:1.4;}
 .jy-flips{margin:clamp(24px,4vh,40px) auto 0;max-width:540px;text-align:left;}
 .jy-fl{display:flex;align-items:baseline;justify-content:center;gap:12px;padding:12px 4px;border-top:1px solid rgba(6,12,20,.08);flex-wrap:wrap;opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .6s cubic-bezier(.16,1,.3,1);}
@@ -630,8 +628,7 @@ const CSS = `
 .jy-rv{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .9s cubic-bezier(.16,1,.3,1);}
 .jy-rv.on{opacity:1;transform:none;}
 
-.jy-quote{padding:clamp(80px,13vh,140px) clamp(22px,5vw,44px);text-align:center;background:var(--jy-cream);margin:0;}
-.jy-quote blockquote{font-size:clamp(26px,4vw,46px);font-weight:600;letter-spacing:-.035em;line-height:1.18;max-width:24ch;margin:0 auto;}
+/* .jy-quote CSS removed with the quote fold (Richard's length cut, Aug 2 2026). */
 
 /* FAQ — mirrors PricingFaq's .pfq exactly; see that file for the a11y notes */
 .jy .pfq{padding:0 0 clamp(80px,11vh,120px);background:var(--jy-cream);color:var(--jy-ink);}
@@ -665,33 +662,8 @@ const CSS = `
 .jy .pfq-q.open .fbody{max-height:520px;visibility:visible;transition:max-height .55s cubic-bezier(.16,1,.3,1),visibility 0s;}
 .jy .fbody p{margin:0;padding:0 clamp(16px,2vw,22px) clamp(22px,2.6vw,28px);font-size:16px;line-height:1.65;color:#52565e;max-width:62ch;}
 
-.jy-others{background:var(--jy-cream);padding:0 clamp(22px,5vw,44px) clamp(80px,12vh,120px);}
-/* two cards sized IDENTICALLY to the landing's three-up cards (~345px each), not
-   stretched to fill (Jacob, July 27: "they look stretched out here") */
-.jy-owrap{max-width:764px;margin:0 auto;}
-.jy-others h2{text-align:center;font-size:clamp(26px,4vw,46px);font-weight:600;letter-spacing:-.038em;}
-.jy-olede{margin:12px auto 0;text-align:center;font-size:15px;color:var(--jy-sub);}
-.jy-ogrid{margin-top:clamp(26px,4vh,40px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2.4vw,24px);}
-@media(max-width:720px){.jy-ogrid{grid-template-columns:1fr;}}
-.jy-ocard{display:block;background:#fff;border:1px solid rgba(6,12,20,.08);border-radius:22px;padding:0;overflow:hidden;text-decoration:none;color:var(--jy-ink);box-shadow:0 1px 2px rgba(6,12,20,.04),0 26px 54px -34px rgba(6,12,20,.35);transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s cubic-bezier(.16,1,.3,1);}
-.jy-ocard:hover{transform:translateY(-5px);box-shadow:0 1px 2px rgba(6,12,20,.05),0 40px 74px -36px rgba(6,12,20,.45);}
-.jy-osvc{display:block;text-align:center;padding:14px 12px 12px;font-size:17px;font-weight:700;letter-spacing:-.015em;}
-.jy-obanner{display:block;height:112px;position:relative;overflow:hidden;}
-.jy-obanner img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.08);transition:transform .8s cubic-bezier(.16,1,.3,1);}
-.jy-ocard:hover .jy-obanner img{transform:scale(1.05);}
-.jy-owash{position:absolute;inset:0;mix-blend-mode:multiply;}
-.jy-obanner::after{content:'';position:absolute;inset:0;background:radial-gradient(120% 95% at 76% 0%,rgba(255,255,255,.22),transparent 55%);}
-.jy-obody{display:block;padding:0 clamp(20px,2.4vw,28px) clamp(22px,2.6vw,30px);}
-.jy-opav{display:block;width:104px;height:104px;border-radius:50%;margin-top:-52px;border:4px solid #fff;overflow:hidden;background:#fff;box-shadow:0 12px 28px rgba(6,12,20,.22);position:relative;z-index:1;}
-.jy-opav img{display:block;width:100%;height:100%;object-fit:cover;}
-.jy-oname{display:block;margin-top:12px;font-size:20px;font-weight:700;letter-spacing:-.022em;}
-.jy-orole{display:block;margin-top:2px;font-size:13px;font-weight:500;color:var(--jy-cap);}
-.jy-ocard .on2{margin-top:8px;font-size:clamp(17px,1.62vw,22.5px);font-weight:600;letter-spacing:-.03em;line-height:1.12;white-space:nowrap;}
-.jy-ocard .od{margin-top:10px;font-size:14.5px;line-height:1.55;color:var(--jy-sub);}
-.jy-ocard .go{margin-top:18px;display:inline-flex;align-items:center;gap:9px;font-size:14.5px;font-weight:600;color:var(--jy-ink);border:1.5px solid rgba(6,12,20,.16);border-radius:999px;padding:11px 20px;transition:border-color .3s ease,gap .3s ease;}
-.jy-ocard .go .arw{transition:transform .35s cubic-bezier(.16,1,.3,1);}
-.jy-ocard:hover .go{border-color:var(--hc,#4f46e5);gap:13px;}
-.jy-ocard:hover .go .arw{color:var(--hc,#4f46e5);}
+/* .jy-others card-fold CSS removed with the fold (Richard's length cut, Aug 2 2026) —
+   the cross-links are the compact .jy-fin-others chips on the finale now. */
 
 /* THE FINALE — the gradient takeover */
 .jy-finale{min-height:100vh;min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;padding:clamp(80px,12vh,140px) 24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#06b6d4,#10b981 38%,#4f46e5 72%,#7c3aed);color:#fff;}
@@ -702,6 +674,16 @@ const CSS = `
 .jy-fin-cta{margin-top:clamp(30px,4.5vh,44px);display:inline-flex;align-items:center;gap:10px;background:#fff;color:var(--jy-ink);font-size:16.5px;font-weight:600;border-radius:999px;padding:18px 40px;text-decoration:none;box-shadow:0 22px 54px -18px rgba(0,0,0,.5);transition:transform .3s ease,box-shadow .3s ease;}
 .jy-fin-cta:hover{transform:translateY(-2px);box-shadow:0 30px 66px -18px rgba(0,0,0,.6);}
 .jy-fin-note{margin-top:16px;font-size:13px;color:rgba(255,255,255,.78);}
+/* the compact cross-links: glass chips on the gradient, each carrying the owner's tiny
+   avatar — the whole "walk another journey" fold in one quiet row. */
+.jy-fin-others{margin-top:clamp(34px,5vh,52px);display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;}
+.jy-fin-others .lbl{flex-basis:100%;font-size:11.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.75);}
+.jy-fin-others a{display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;color:#fff;text-decoration:none;
+  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(8px);
+  border-radius:999px;padding:9px 18px 9px 10px;transition:background .3s ease,transform .3s ease;}
+.jy-fin-others a:hover{background:rgba(255,255,255,.24);transform:translateY(-2px);}
+.jy-fin-others .oa{width:28px;height:28px;border-radius:50%;overflow:hidden;border:2px solid rgba(255,255,255,.85);flex:0 0 28px;}
+.jy-fin-others .oa img{width:100%;height:100%;object-fit:cover;display:block;}
 
 @media(prefers-reduced-motion:reduce){
   .jy-rv,.jy-leak,.jy-fl,.jy-stars span,.jy .fbody,.jy .pfq-q,.jy .pfq-q .pl,.jy-word,.jy-wsub,.jy-stamp,.jy-payjoy{transition:none;}

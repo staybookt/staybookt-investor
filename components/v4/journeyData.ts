@@ -74,39 +74,43 @@ export const JOURNEYS: Record<string, JourneyData> = {
     joy: { svg: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>', line: 'Ten days east with the family.' },
     finale: 'What would you do with<br/>your evenings back?',
     her: false,
-    heroA: 'The best electrician for miles.',
-    heroB: 'And nobody could reach him',
-    heroSub: 'Marcus Bell runs Seamless Electric. Five electricians, three vans, one problem.',
-    leaksTitle: 'His week was <span style="color:#fb6a6f">leaking</span>.',
+    /* MARCUS REPOSITIONED — the less-paperwork journey (Richard's Journies feedback doc,
+       Aug 2 2026: "phones ringing doesn't necessarily tie to getting nights back...
+       based on the feedback we are hearing I think we need a less paperwork journey",
+       hero line his, adapted to the locked two-line format; approach approved by Jacob
+       same day). Calls still exist in the story — they're just no longer the headline;
+       admin is. The old missed-calls journey lives in git if a calls-led persona is
+       ever needed again. */
+    heroA: 'Marcus loves being an electrician.',
+    heroB: 'The admin consumed him',
+    heroSub: 'Marcus Bell runs Seamless Electric. Five electricians, three vans, and the paperwork for all of it.',
+    leaksTitle: 'His week was <span style="color:#fb6a6f">buried in admin.</span>',
     leaks: [
-      'Four of ten calls hit voicemail.',
-      'Quotes went out at 10 PM. Then died.',
+      'Quotes written at the kitchen table at 10 PM.',
       'Invoices drifted to 90 days.',
-      'Seven reviews in six years.',
-      'Admin nights at the kitchen table.',
+      'Scheduling lived on a whiteboard and his memory.',
+      'Four of ten calls hit voicemail while he worked.',
+      'Sundays went to the books.',
     ],
-    breakKick: '4:47 PM',
-    breakBig: 'A <span style="color:#fb6a6f">$14,000</span> job<br>went to voicemail.',
-    breakCap: 'Both hands on a breaker, up a ladder. The homeowner hired the shop that picked up.',
-    turnCap: 'Two weeks. His prices, his service area, how he talks to a customer. Then it took the front of the business off his hands.',
-    /* TIGHTENED 5 -> 3 (Jacob, July 27: every chapter earns its scroll). Paid merged
-       into Chased (both are the follow-up machine); Home's payoff folded into the
-       closing chapter, where the reward chip + life line land. */
+    breakKick: '10:48 PM',
+    breakBig: 'A <span style="color:#fb6a6f">$14,000</span> quote<br>died on his desk.',
+    breakCap: 'Priced in his head for a week, never written up. By the time it went out, the homeowner had hired the shop that quoted first.',
+    turnCap: 'Two weeks. His prices, his service area, how he talks to a customer. Then it took the paperwork off his hands.',
     wins: [
-      { kick: 'Win one', word: 'Answered.', wsub: 'Every call. In his voice. Even mid-job.', stamp: 'Missed calls → zero' },
-      { kick: 'Win two', word: 'Chased.', wsub: 'Quotes followed to a yes or a no. Invoices chased politely.', stamp: 'Paid in 30, not 90' },
-      { kick: 'Win three', word: 'Found.', wsub: 'A review asked after every finished job.', stamp: '7 reviews → 60+', stars: true },
+      { kick: 'Win one', word: 'Quoted.', wsub: 'Every quote written and sent the same day, then followed to a yes or a no.', stamp: 'Same-day quotes' },
+      { kick: 'Win two', word: 'Paid.', wsub: 'Invoices out the day the job finishes, chased politely until they clear.', stamp: 'Paid in 30, not 90' },
+      { kick: 'Win three', word: 'Answered.', wsub: 'Every call answered in his voice while he stays on the tools.', stamp: 'Missed calls → zero', stars: true },
     ],
     receipt: {
       moneyTo: 40000,
-      moneyLabel: 'a year in jobs that used to leak, kept',
+      moneyLabel: 'a year in jobs and quotes that used to slip, kept',
       timeTo: 10,
       timeSuffix: ' hrs/wk',
-      timeLabel: 'of evenings and weekends, returned',
+      timeLabel: 'of admin nights and weekends, returned',
       flips: [
-        { label: 'Calls answered', before: '4 of 10 missed', after: 'about zero' },
-        { label: 'Getting paid', before: '90 days', after: 'under 30' },
         { label: 'His admin', before: '10 hours a week', after: '30 seconds a day' },
+        { label: 'Getting paid', before: '90 days', after: 'under 30' },
+        { label: 'Calls answered', before: '4 of 10 missed', after: 'about zero' },
       ],
     },
     payoffKick: 'A year in',
@@ -135,27 +139,31 @@ export const JOURNEYS: Record<string, JourneyData> = {
     banner: '/banner-chicago.jpg',
     hue: '#4f46e5',
     joy: { svg: '<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/>', line: 'Friday tee times, guilt-free.' },
-    finale: 'What would you do with<br/>total pricing power?',
+    /* Richard's replacement finale (Journies doc, Aug 2 2026; his "live" typo corrected
+       to "life"). */
+    finale: 'How much better would life be<br/>without wondering where the<br/>next job will come from?',
     her: false,
     heroA: 'Brilliant at the work.',
     heroB: 'Losing the clients who wanted it',
     heroSub: 'Sean Anderson runs a solo ops consultancy. His product is his brain. His problem was everything around it.',
-    leaksTitle: 'His pipeline was <span style="color:#fb6a6f">feast or famine</span>.',
+    /* Sean's before-list, break subtext, win renames, and receipt edits: Richard's
+       Journies feedback doc, Aug 2 2026, verbatim. */
+    leaksTitle: 'His pipeline was <span style="color:#fb6a6f">feast or famine.</span>',
     leaks: [
-      'Inquiries sat for five days mid-sprint.',
-      'His website described the job from two years ago.',
-      'Warm leads went cold on their own.',
-      'His proof sat trapped in email threads.',
-      'Empty months followed every busy one.',
+      'Inquiries sat for 5 days when he was busy.',
+      'His website was last updated 7 years ago.',
+      'No effort to get work from past customers.',
+      'His successes were not visible online.',
+      'Some months were great, others weren’t.',
     ],
     breakKick: 'Day five',
     breakBig: 'Two <span style="color:#fb6a6f">dream referrals</span><br>hired someone else.',
-    breakCap: 'Exactly his kind of client, sent by people who trusted him. He surfaced from delivery five days later. They were gone.',
+    breakCap: 'He was buried working towards a client deadline. Nothing else was getting attention. When the deadline was met, the work was gone.',
     turnCap: 'Two weeks. His niche, his positioning, how he talks about the work. Then it took the front of the business off his hands.',
     wins: [
-      { kick: 'Win one', word: 'Answered.', wsub: 'Every inquiry the same day, booked straight to his calendar. Even mid-sprint.', stamp: '5 days → same day' },
-      { kick: 'Win two', word: 'Warm.', wsub: 'A quiet nurture through every delivery week.', stamp: 'Leads stopped going cold' },
-      { kick: 'Win three', word: 'Steady.', wsub: 'His proof packaged into case studies. Always two or three engagements deep.', stamp: 'The famine months, gone' },
+      { kick: 'Win one', word: 'Answered.', wsub: 'Every inquiry the same day, booked straight to his calendar. 24/7.', stamp: '5 days → same day' },
+      { kick: 'Win two', word: 'AI Assistant.', wsub: 'Meeting reminders are sent. Quotes are followed up on. Nothing goes cold.', stamp: 'Leads stopped going cold' },
+      { kick: 'Win three', word: 'Story Told.', wsub: 'Testimonials and case studies on the website. Lots of great Google reviews. An online presence prospects can connect with.', stamp: 'The famine months, gone' },
     ],
     receipt: {
       moneyTo: 30000,
@@ -165,8 +173,8 @@ export const JOURNEYS: Record<string, JourneyData> = {
       timeLabel: 'of chasing and admin, returned to billable work',
       flips: [
         { label: 'Response time', before: '5 days', after: 'same day' },
-        { label: 'Pipeline', before: 'feast or famine', after: 'always 2–3 deep' },
-        { label: 'His proof', before: 'buried in email', after: 'a dozen case studies, live' },
+        { label: 'Pipeline', before: 'feast or famine', after: 'deep, always busy' },
+        { label: 'His story', before: 'buried in email', after: 'reviews and case studies, online' },
       ],
     },
     payoffKick: 'A year in',
@@ -195,12 +203,14 @@ export const JOURNEYS: Record<string, JourneyData> = {
     banner: '/banner-vancouver.jpg',
     hue: '#7c3aed',
     joy: { svg: '<path d="M8 22h8"/><path d="M12 15v7"/><path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z"/>', line: 'Dinner at home, phone face-down.' },
-    finale: 'What would you do if you<br/>were always first?',
+    /* Kim's hero line 2, finale, win renames, and receipt edits: Richard's Journies
+       feedback doc, Aug 2 2026, verbatim. */
+    finale: 'Wouldn’t it be great if you worked less<br/>and the business ran more smoothly?',
     her: true,
     heroA: 'One of the top agents in town.',
-    heroB: 'Always the second to call back',
+    heroB: 'Too busy to be the first to call back',
     heroSub: 'Kim Dempster closes when she’s in the room. The problem was getting there first.',
-    leaksTitle: 'Her market moves in <span style="color:#fb6a6f">minutes</span>.',
+    leaksTitle: 'Her market moves in <span style="color:#fb6a6f">minutes.</span>',
     leaks: [
       'Leads answered in hours, not seconds.',
       'Mid-showing meant missed everything.',
@@ -214,8 +224,8 @@ export const JOURNEYS: Record<string, JourneyData> = {
     turnCap: 'Two weeks. Her market, her price bands, how she talks to a nervous first-time buyer. Then it took the front of the business off her hands.',
     wins: [
       { kick: 'Win one', word: 'Answered.', wsub: 'Every lead in seconds, booked to a showing. Even mid-showing.', stamp: 'Hours → seconds' },
-      { kick: 'Win two', word: 'Warm.', wsub: 'Her database nurtured all year, not just at the sale.', stamp: 'Cold list → warm list' },
-      { kick: 'Win three', word: 'Referred.', wsub: 'Past clients kept close, so they keep sending people.', stamp: 'Repeat + referral, compounding', stars: true },
+      { kick: 'Win two', word: 'Less Paperwork.', wsub: 'Comparative Market Assessments and Show Tour Planning done by an AI Assistant. Time back to grow the business.', stamp: 'Less paperwork → Grow the business' },
+      { kick: 'Win three', word: 'Referred.', wsub: 'Build deep relationships with clients, so they keep sending people.', stamp: 'Repeat + referral, compounding', stars: true },
     ],
     receipt: {
       moneyTo: 25000,
@@ -224,9 +234,9 @@ export const JOURNEYS: Record<string, JourneyData> = {
       timeSuffix: ' hrs/wk',
       timeLabel: 'of midnight follow-up, returned',
       flips: [
-        { label: 'Speed to lead', before: 'hours', after: 'seconds' },
-        { label: 'Her database', before: 'cold for months', after: 'nurtured all year' },
-        { label: 'Her evenings', before: 'on the phone', after: 'hers again' },
+        { label: 'Speed to lead', before: 'days', after: 'seconds' },
+        { label: 'Her evenings', before: 'doing paperwork', after: 'hers again' },
+        { label: 'Referrals', before: 'sporadic', after: 'most of her new leads' },
       ],
     },
     payoffKick: 'A year in',

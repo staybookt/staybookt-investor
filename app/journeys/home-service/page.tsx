@@ -2,8 +2,10 @@ import Nav from '@/components/v4/Nav';
 import SiteFooter from '@/components/SiteFooter';
 import Journey from '@/components/v4/Journey';
 
+/* Updated with the Marcus repositioning (Richard's Journies doc, Aug 2 2026): the
+   less-paperwork journey. */
 const SHARE =
-  'Marcus runs a five-person electrical shop. Four of ten calls hit voicemail until StayBookt took the front of the business off his hands. Follow his journey: every call answered, every quote chased, evenings returned.';
+  'Marcus loves being an electrician. As the business grew, the admin consumed him, until StayBookt took the paperwork off his hands. Follow his journey: same-day quotes, invoices paid, evenings returned.';
 
 export const metadata = {
   title: 'Home service journey',

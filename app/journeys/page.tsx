@@ -39,45 +39,50 @@ export const metadata = {
   twitter: { images: ['/twitter-image'], card: 'summary_large_image', title: 'Journeys · StayBookt', description: SHARE },
 };
 
+/* CARD COPY + BANNERS per Richard's Journies feedback doc (Aug 2 2026), verbatim (dash
+   swaps only). Banners: "background images should associate with the service" — the
+   city skylines are gone; each card carries its own trade's world (work van / the
+   consultant's desk / the showing), the story-* images that were already in the repo.
+   Same grayscale + hue wash treatment on top. */
 const CARDS = [
   {
     href: '/journeys/home-service',
     img: '/face-marcus.jpg',
-    banner: '/banner-toronto.jpg',
-    bpos: 'center',
+    banner: '/story-marcus.jpg',
+    bpos: 'center 55%',
     person: 'Marcus Bell',
     role: 'Owner · Seamless Electric',
     c: '#06b6d4',
     tag: 'Home service',
     line: 'Marcus got his <span class="g">nights back</span>.',
-    teaser: 'You’re the best in your trade for miles. So why does the phone keep going to voicemail while you’re on the tools?',
-    cta: 'Every call answered',
+    teaser: 'There is not enough time in the day. You thought owning your own business meant freedom, not working every night and weekend.',
+    cta: 'Less admin work',
   },
   {
     href: '/journeys/consultant',
     img: '/face-sean.jpg',
-    banner: '/banner-chicago.jpg',
-    bpos: 'center',
+    banner: '/story-sean.jpg',
+    bpos: 'center 30%',
     person: 'Sean Anderson',
     role: 'Founder · Anderson Consulting',
     c: '#4f46e5',
     tag: 'Consultant',
-    line: 'Sean stopped <span class="g">chasing</span>.',
-    teaser: 'You’re brilliant at the work. But your best leads go cold while you’re heads-down delivering for someone else.',
+    line: 'Sean finally got a <span class="g">full pipeline</span>.',
+    teaser: 'You’re brilliant at the work. But your best leads go cold while you’re busy focusing on the current client.',
     cta: 'A full pipeline',
   },
   {
     href: '/journeys/real-estate-agent',
     img: '/face-kim.jpg',
-    banner: '/banner-vancouver.jpg',
-    bpos: 'center',
+    banner: '/story-kim.jpg',
+    bpos: 'center 35%',
     person: 'Kim Dempster',
     role: 'Realtor · Dempster Group',
     c: '#7c3aed',
     tag: 'Real estate agent',
-    line: 'Kim&rsquo;s first to <span class="g">every door</span>.',
-    teaser: 'You’re one of the top agents in town. But the lead always tours with whoever calls back first.',
-    cta: 'Every lead in seconds',
+    line: 'Kim&rsquo;s business started <span class="g">growing</span>.',
+    teaser: 'You’re one of the top agents in town. But too many leads go to a competitor because they responded quicker.',
+    cta: '24/7 response, in seconds',
   },
 ];
 
