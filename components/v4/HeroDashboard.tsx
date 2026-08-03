@@ -3,45 +3,39 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import { min } from '@/lib/css';
 
-/* THE HERO DEVICE, TAKE 3 — "THE STAGE" (Jacob, Aug 2 2026: "not super sharp high end
- * elevated apple-y... we can make this better and wayyy more cinematic, but how?").
+/* THE HERO DEVICE, TAKE 4 — "THE KEYNOTE" (Jacob, Aug 2 2026, on take 3's white glass
+ * stage: "just isn't making me excited, it's confusing, and looks incongruent with the
+ * design of the rest of the site... more like an Apple keynote").
  *
- * The diagnosis of take 2 (the seven-segment bar): it was a data table. Seven equal
- * columns, hairline dividers, small colored words — honest, but tables are not cinema,
- * and no amount of springs or glows fixes a layout whose grammar is "spreadsheet."
- * Apple's grammar is the opposite: ONE subject at a time, at scale, with light and
- * material, in sequence. So the bar became a stage:
+ * Both notes were right, and they were the same note. A keynote happens in a dark room:
+ * this site's OWN cinematic grammar is the dark slab — the price reveal (#050506 + a
+ * radial brand glow + the gradient $199), the journey scenes, the finale takeovers. A
+ * white glass card was a new, foreign object. So the stage is now a SCREEN: the price
+ * slab's exact material (same near-black, same internal glow device, same gradient for
+ * the payoff type), floating over the cream fold with the brand bloom behind it. The
+ * homepage now opens and closes on sibling dark artifacts — a system, not a widget.
  *
- *   - One outcome plays at a time, at hero scale: the phase eyebrow (TODAY, red dot)
- *     over a giant value ("6h"), one mechanism line under it — then the light changes,
- *     the eyebrow crossfades to TOMORROW, and the value morphs to the answer ("0h") in
- *     the brand gradient. Tomorrow is not flat data-green anymore; it is the same
- *     gradient the headline's "What You Love" wears, which is the point: tomorrow IS
- *     the thing the headline promised.
- *   - The seven outcomes auto-play as a loop (Richard's full today/tomorrow picture,
- *     told as a film instead of a chart). A rail of the seven icon chips sits under the
- *     stage: it is the overview at a glance, the progress indicator, and the remote —
- *     click any chip to jump to that beat.
- *   - Material: glass (blur + translucent white) over the ambient brand glow, deep soft
- *     shadow. Pauses on hover, the way considered things do.
- *   - prefers-reduced-motion: no timers, no morphs — the stage sits on its beat in the
- *     tomorrow state and the rail still jumps between beats instantly.
+ * And the confusion fix: take 3 showed one state at a time, so a lone giant "High" read
+ * as a riddle. Keynote comparison grammar instead — the trajectory IS the shot:
+ *   TODAY: the rust value alone, big.
+ *   TOMORROW: the rust value shrinks into a small struck-through "was" chip as the
+ *   gradient answer blooms beneath it. Both states in frame; the change is the star.
+ * A hairline progress line runs along the stage floor so it reads as a playing film,
+ * not a stuck widget. Pauses on hover. The 7-chip rail lives on the screen's bottom
+ * edge: overview, progress, and remote.
  *
- * Richard's seven outcomes (his homepage feedback doc) are unchanged in substance and
- * order; each gained a one-line mechanism so every beat says HOW, not just what.
- * Take 2's history (and take 1's, and the five-counter CRM bar before that) lives in
- * git and the staybookt memory files. */
+ * Take 3's rAF number tween is deleted — the was/answer comparison carries the numeric
+ * beat too, which also removes the occluded-window rAF fragility entirely.
+ * Richard's seven outcomes (his homepage feedback doc): unchanged in substance/order. */
 
 type Beat = {
   id: string; icon: string; label: string;
   today: string; tomorrow: string;
-  /* numeric beats tween the same span; word beats crossfade two spans */
-  num?: { from: number; to: number; suffix?: string };
   line: string;
 };
 
 const BEATS: Beat[] = [
-  { id: 'paper', icon: 'doc', label: 'Paperwork each week', today: '6h', tomorrow: '0h', num: { from: 6, to: 0, suffix: 'h' }, line: 'Quotes followed up, invoices chased, the numbers sent to your phone.' },
+  { id: 'paper', icon: 'doc', label: 'Paperwork each week', today: '6 hours', tomorrow: 'Zero', line: 'Quotes followed up, invoices chased, the numbers sent to your phone.' },
   { id: 'nights', icon: 'cal', label: 'Nights & weekends', today: 'Working', tomorrow: 'Yours', line: 'The phone is answered at 2 a.m. You are asleep.' },
   { id: 'work', icon: 'heart', label: 'Your work', today: 'Busywork', tomorrow: 'What you love', line: 'The admin comes off your plate. The craft goes back on it.' },
   { id: 'cust', icon: 'people', label: 'Customers', today: 'Transactions', tomorrow: 'Relationships', line: 'Reviews asked after every job, replies in your voice, past customers brought back.' },
@@ -66,40 +60,8 @@ function BeatIcon({ id }: { id: string }) {
   return <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">{paths[id]}</svg>;
 }
 
-/* Numeric value for the paperwork beat: tweens between today/tomorrow on phase change,
-   with a timer backstop so the landing value is guaranteed even if rAF is throttled. */
-function NumVal({ from, to, suffix = '', phase }: { from: number; to: number; suffix?: string; phase: 'today' | 'tomorrow' }) {
-  const target = phase === 'tomorrow' ? to : from;
-  const [val, setVal] = useState(from);
-  const valRef = useRef(from);
-  valRef.current = val;
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setVal(target);
-      return;
-    }
-    const startVal = valRef.current;
-    if (startVal === target) return;
-    let raf = 0;
-    let t0 = 0;
-    const D = 750;
-    const step = (now: number) => {
-      if (!t0) t0 = now;
-      const t = Math.min(1, (now - t0) / D);
-      const eased = 1 - (1 - t) ** 3;
-      setVal(startVal + (target - startVal) * eased);
-      if (t < 1) raf = requestAnimationFrame(step);
-    };
-    raf = requestAnimationFrame(step);
-    const backstop = setTimeout(() => setVal(target), D + 200);
-    return () => { cancelAnimationFrame(raf); clearTimeout(backstop); };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [target]);
-  return <>{Math.round(val)}{suffix}</>;
-}
-
-const HOLD_TODAY = 1500;
-const HOLD_TOMORROW = 2400;
+const HOLD_TODAY = 1600;
+const HOLD_TOMORROW = 2700;
 
 export default function HeroDashboard() {
   const [on, setOn] = useState(false);
@@ -113,7 +75,7 @@ export default function HeroDashboard() {
     setOn(true);
     reduceRef.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduceRef.current) { setPhase('tomorrow'); setReady(false); return; }
-    // Hold the first TODAY until the fold's 2.15s entrance has finished, so the film's
+    // Hold the first TODAY until the fold's 2.15s entrance finishes, so the film's
     // first morph is seen, not missed.
     const t = setTimeout(() => setReady(true), 3200);
     return () => clearTimeout(t);
@@ -145,52 +107,51 @@ export default function HeroDashboard() {
       <style>{min(CSS)}</style>
       <div className="hd-glow" aria-hidden="true" />
       <div
-        className={`hd-stage ${phase === 'tomorrow' ? 'tm' : 'td'}`}
+        className={`hd-stage ${phase === 'tomorrow' ? 'tm' : 'td'}${paused ? ' hold' : ''}`}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
         aria-live="polite"
       >
+        <div className="st-light" aria-hidden="true" />
         <div className="st-phase" aria-hidden="true">
           <span className="ph-td"><i />Today</span>
           <span className="ph-tm"><i />Tomorrow</span>
         </div>
         <div className="st-lbl">{b.label}</div>
-        <div className="st-val" key={b.id}>
-          {b.num ? (
-            <span className="v one"><NumVal from={b.num.from} to={b.num.to} suffix={b.num.suffix} phase={phase} /></span>
-          ) : (
-            <>
-              <span className="v v-td">{b.today}</span>
-              <span className="v v-tm">{b.tomorrow}</span>
-            </>
-          )}
+        <div className="st-scene" key={b.id}>
+          <div className="st-was">{b.today}</div>
+          <div className="st-big">
+            <span className="v v-td">{b.today}</span>
+            <span className="v v-tm">{b.tomorrow}</span>
+          </div>
         </div>
         <p className="st-line" key={`l-${b.id}`}>{b.line}</p>
-      </div>
-      <div className="hd-rail" role="tablist" aria-label="The seven things that change">
-        {BEATS.map((s, i) => (
-          <button
-            type="button"
-            key={s.id}
-            role="tab"
-            aria-selected={i === beat}
-            aria-label={s.label}
-            className={`rl${i === beat ? ' on' : ''}`}
-            style={{ '--i': i } as CSSProperties}
-            onClick={() => jump(i)}
-          >
-            <BeatIcon id={s.icon} />
-          </button>
-        ))}
+        {!reduceRef.current && <div className="st-prog" key={`p-${b.id}-${ready ? 'r' : 'w'}`} aria-hidden="true" />}
+        <div className="hd-rail" role="tablist" aria-label="The seven things that change">
+          {BEATS.map((s, i) => (
+            <button
+              type="button"
+              key={s.id}
+              role="tab"
+              aria-selected={i === beat}
+              aria-label={s.label}
+              className={`rl${i === beat ? ' on' : ''}`}
+              style={{ '--i': i } as CSSProperties}
+              onClick={() => jump(i)}
+            >
+              <BeatIcon id={s.icon} />
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
 }
 
 const CSS = `
-/* ONE FOLD: the stage is the hero fold's supporting graphic, same 2.15s entrance beat as
-   the Journeys map. */
-.hd-fold{position:relative;margin:clamp(24px,4vh,44px) auto 0;width:100%;max-width:880px;
+/* ONE FOLD: the screen is the hero fold's supporting graphic, same 2.15s entrance beat
+   as the Journeys map. */
+.hd-fold{position:relative;margin:clamp(22px,3.6vh,40px) auto 0;width:100%;max-width:880px;
   padding:0 clamp(14px,3vw,32px);
   opacity:0;transform:translateY(26px);}
 @media(prefers-reduced-motion:no-preference){
@@ -199,92 +160,116 @@ const CSS = `
 @media(prefers-reduced-motion:reduce){.hd-fold{opacity:1;transform:none;}}
 @keyframes hdIn{to{opacity:1;transform:none;}}
 
-/* AMBIENT GLOW: the same brand-gradient bloom the headline's "What You Love" wears.
-   Brightens a step when the stage is in its tomorrow phase — the light changes with
-   the story. */
-.hd-glow{position:absolute;inset:-26% -4% -30%;z-index:0;pointer-events:none;
-  background:radial-gradient(52% 58% at 50% 55%,rgba(16,185,129,.15),rgba(79,70,229,.1) 52%,transparent 74%);
-  filter:blur(48px);opacity:0;transform:scale(.8);transition:opacity 1.2s ease;}
+/* The brand bloom BEHIND the screen — a dark object floating over cream with light
+   leaking out from behind it, the classic product-shot read. */
+.hd-glow{position:absolute;inset:-14% -3% -18%;z-index:0;pointer-events:none;
+  background:radial-gradient(55% 62% at 50% 52%,rgba(16,185,129,.22),rgba(79,70,229,.15) 55%,transparent 76%);
+  filter:blur(52px);opacity:0;transform:scale(.85);}
 @media(prefers-reduced-motion:no-preference){
   .hd-fold.on .hd-glow{animation:hdGlow 1.6s ease 2.4s forwards;}
 }
 @keyframes hdGlow{to{opacity:1;transform:scale(1);}}
 
-/* THE STAGE. Glass, not paper: translucent white over the glow, real blur, hairline
-   light edge, one deep soft shadow. */
-.hd-stage{position:relative;z-index:1;text-align:center;
-  min-height:clamp(230px,30vh,300px);display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:clamp(24px,3vw,38px) clamp(18px,4vw,48px);
-  background:rgba(255,255,255,.66);
-  backdrop-filter:blur(22px) saturate(1.4);-webkit-backdrop-filter:blur(22px) saturate(1.4);
-  border:1px solid rgba(255,255,255,.85);border-radius:30px;
-  box-shadow:0 1px 2px rgba(6,12,20,.05),0 60px 120px -50px rgba(6,12,20,.5);}
+/* THE SCREEN. The price slab's exact material: near-black, rounded, its own internal
+   radial glow. This is where the site already says "the payoff happens here." */
+.hd-stage{position:relative;z-index:1;text-align:center;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;
+  padding:clamp(22px,2.8vw,34px) clamp(18px,4vw,48px) 0;
+  background:#050506;border-radius:30px;color:#fff;
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 2px 4px rgba(6,12,20,.2),0 70px 130px -55px rgba(6,12,20,.75);}
 
-/* Phase eyebrow: TODAY (rust dot) crossfading to TOMORROW (emerald dot). */
-.st-phase{position:relative;height:18px;width:100%;font-size:11.5px;font-weight:700;
+/* the stage lighting: a soft interior glow that lives red-ish in TODAY and blooms to
+   the brand emerald/indigo in TOMORROW — the light changes with the story. */
+.st-light{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(62% 60% at 50% 38%,rgba(220,38,38,.13),transparent 68%);
+  opacity:1;transition:opacity .9s ease;}
+.hd-stage::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(62% 62% at 50% 42%,rgba(16,185,129,.17),rgba(79,70,229,.12) 55%,transparent 75%);
+  opacity:0;transition:opacity .9s ease;}
+.hd-stage.tm .st-light{opacity:0;}
+.hd-stage.tm::after{opacity:1;}
+
+/* Phase eyebrow: TODAY (red dot) crossfading to TOMORROW (emerald dot). */
+.st-phase{position:relative;z-index:1;height:18px;width:100%;font-size:11.5px;font-weight:700;
   letter-spacing:.22em;text-transform:uppercase;}
 .st-phase span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:8px;
   transition:opacity .5s ease;}
 .st-phase i{width:6px;height:6px;border-radius:50%;}
-.st-phase .ph-td{color:#b45333;}
-.st-phase .ph-td i{background:#dc2626;box-shadow:0 0 10px 1px rgba(220,38,38,.55);}
-.st-phase .ph-tm{color:#047857;}
-.st-phase .ph-tm i{background:#10b981;box-shadow:0 0 10px 1px rgba(16,185,129,.6);}
+.st-phase .ph-td{color:#f87171;}
+.st-phase .ph-td i{background:#ef4444;box-shadow:0 0 12px 2px rgba(239,68,68,.6);}
+.st-phase .ph-tm{color:#34d399;}
+.st-phase .ph-tm i{background:#10b981;box-shadow:0 0 12px 2px rgba(16,185,129,.7);}
 .hd-stage.td .ph-tm{opacity:0;}
 .hd-stage.tm .ph-td{opacity:0;}
 
-.st-lbl{margin-top:14px;font-size:clamp(14px,1.6vw,17px);font-weight:600;color:#52565e;letter-spacing:-.01em;}
+.st-lbl{position:relative;z-index:1;margin-top:12px;font-size:clamp(14px,1.6vw,17px);font-weight:600;
+  color:#c7ccd6;letter-spacing:-.01em;}
 
-/* THE VALUE. Hero scale — this is the shot. Today is a muted rust, deliberately dimmer
-   than the room; tomorrow takes the SAME brand gradient as the headline's payoff line,
-   because tomorrow is the thing the headline promised. */
-.st-val{position:relative;margin-top:6px;height:clamp(64px,10vw,120px);width:100%;
+/* THE SCENE — keynote comparison grammar. TODAY: the rust value alone, big. TOMORROW:
+   it shrinks into a small struck-through "was" as the gradient answer blooms beneath.
+   Both states in frame; the change is the star. */
+.st-scene{position:relative;z-index:1;margin-top:4px;width:100%;
+  height:clamp(96px,15vw,150px);}
+.st-was{position:absolute;left:0;right:0;top:0;height:26px;display:flex;align-items:center;justify-content:center;
+  font-size:clamp(14px,1.8vw,18px);font-weight:600;color:#7d8494;text-decoration:line-through;
+  text-decoration-color:rgba(239,68,68,.55);text-decoration-thickness:2px;
+  opacity:0;transform:translateY(14px);transition:opacity .5s .15s ease,transform .5s .15s ease;}
+.hd-stage.tm .st-was{opacity:1;transform:none;}
+.st-big{position:absolute;left:0;right:0;top:26px;bottom:0;
   font-weight:700;letter-spacing:-.035em;line-height:1;
-  font-size:clamp(46px,7.2vw,96px);font-variant-numeric:tabular-nums;}
-.st-val .v{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;white-space:nowrap;}
-.st-val .v-td{color:#c2410c;opacity:1;filter:blur(0);transform:none;
-  transition:opacity .55s ease,filter .55s ease,transform .55s ease;}
-.st-val .v-tm{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;
-  opacity:0;filter:blur(10px);transform:translateY(14px) scale(.96);
-  transition:opacity .65s ease,filter .65s ease,transform .65s cubic-bezier(.16,1,.3,1);}
-.hd-stage.tm .v-td{opacity:0;filter:blur(10px);transform:translateY(-14px) scale(1.04);}
+  font-size:clamp(44px,7vw,92px);font-variant-numeric:tabular-nums;}
+.st-big .v{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;white-space:nowrap;}
+.st-big .v-td{color:#f87171;opacity:1;filter:blur(0);transform:none;
+  transition:opacity .5s ease,filter .5s ease,transform .55s cubic-bezier(.4,0,.6,1);}
+.st-big .v-tm{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;
+  opacity:0;filter:blur(14px);transform:translateY(20px) scale(.92);
+  transition:opacity .7s .1s ease,filter .7s .1s ease,transform .7s .1s cubic-bezier(.16,1,.3,1);}
+.hd-stage.tm .v-td{opacity:0;filter:blur(6px);transform:translateY(-34px) scale(.4);}
 .hd-stage.tm .v-tm{opacity:1;filter:blur(0);transform:none;}
-/* the numeric beat is one span that tweens; it just changes wardrobe with the phase */
-.st-val .one{color:#c2410c;transition:color .5s ease;}
-.hd-stage.tm .one{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
 
 /* the mechanism line: how it happens, one sentence, quiet. */
-.st-line{margin:14px auto 0;max-width:52ch;font-size:clamp(13.5px,1.5vw,15.5px);line-height:1.55;color:#69707d;
+.st-line{position:relative;z-index:1;margin:10px auto 0;max-width:54ch;
+  font-size:clamp(13.5px,1.5vw,15.5px);line-height:1.55;color:#8b93a5;
   animation:stLine .6s ease;}
 @keyframes stLine{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
 
-/* THE RAIL. The seven outcomes at a glance, the progress indicator, and the remote.
-   Same icon hue rotation as the price reveal's job icons. */
-.hd-rail{position:relative;z-index:1;display:flex;justify-content:center;gap:clamp(8px,1.2vw,14px);
-  margin-top:18px;}
+/* the film's progress: a hairline of light running the floor of each beat. Communicates
+   "this is playing" without a single extra word. Pauses with the film on hover. */
+.st-prog{position:relative;z-index:1;margin-top:clamp(14px,1.8vw,20px);height:2px;width:min(320px,60%);
+  border-radius:2px;background:rgba(255,255,255,.1);overflow:hidden;}
+.st-prog::before{content:'';position:absolute;inset:0;transform-origin:left;transform:scaleX(0);
+  background:linear-gradient(90deg,#ef4444 0%,#f59e0b 32%,#10b981 55%,#4f46e5 100%);
+  animation:stProg 4.3s linear forwards;}
+.hd-stage.hold .st-prog::before{animation-play-state:paused;}
+@keyframes stProg{to{transform:scaleX(1);}}
+
+/* THE RAIL on the screen's bottom edge: overview at a glance, progress, and the remote. */
+.hd-rail{position:relative;z-index:1;display:flex;justify-content:center;gap:clamp(6px,1vw,12px);
+  padding:clamp(14px,1.8vw,20px) 0 clamp(18px,2.2vw,24px);}
 .hd-rail .rl{appearance:none;cursor:pointer;font-family:inherit;
-  width:clamp(40px,4.4vw,48px);height:clamp(40px,4.4vw,48px);border-radius:14px;
+  width:clamp(38px,4.2vw,46px);height:clamp(38px,4.2vw,46px);border-radius:13px;
   display:flex;align-items:center;justify-content:center;
-  background:rgba(255,255,255,.6);border:1px solid rgba(6,12,20,.08);color:#8a8f98;
-  transition:transform .3s cubic-bezier(.16,1,.3,1),background .3s ease,color .3s ease,border-color .3s ease,box-shadow .3s ease;}
-.hd-rail .rl:hover{transform:translateY(-2px);color:#52565e;}
-.hd-rail .rl.on{background:#fff;transform:translateY(-2px);
-  box-shadow:0 12px 26px -14px rgba(6,12,20,.35);}
-.hd-rail .rl:nth-child(1).on{color:#0284c7;border-color:rgba(14,165,233,.45);}
-.hd-rail .rl:nth-child(2).on{color:#059669;border-color:rgba(16,185,129,.5);}
-.hd-rail .rl:nth-child(3).on{color:#4f46e5;border-color:rgba(79,70,229,.45);}
-.hd-rail .rl:nth-child(4).on{color:#7c3aed;border-color:rgba(124,58,237,.45);}
-.hd-rail .rl:nth-child(5).on{color:#0284c7;border-color:rgba(14,165,233,.45);}
-.hd-rail .rl:nth-child(6).on{color:#059669;border-color:rgba(16,185,129,.5);}
-.hd-rail .rl:nth-child(7).on{color:#4f46e5;border-color:rgba(79,70,229,.45);}
-.hd-rail .rl:focus-visible{outline:2px solid #4f46e5;outline-offset:2px;}
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);color:#6a7180;
+  transition:transform .3s cubic-bezier(.16,1,.3,1),background .3s ease,color .3s ease,border-color .3s ease;}
+.hd-rail .rl:hover{transform:translateY(-2px);color:#aeb6c4;}
+.hd-rail .rl.on{background:rgba(255,255,255,.12);transform:translateY(-2px);}
+.hd-rail .rl:nth-child(1).on{color:#38bdf8;border-color:rgba(56,189,248,.55);}
+.hd-rail .rl:nth-child(2).on{color:#34d399;border-color:rgba(52,211,153,.55);}
+.hd-rail .rl:nth-child(3).on{color:#818cf8;border-color:rgba(129,140,248,.55);}
+.hd-rail .rl:nth-child(4).on{color:#a78bfa;border-color:rgba(167,139,250,.55);}
+.hd-rail .rl:nth-child(5).on{color:#38bdf8;border-color:rgba(56,189,248,.55);}
+.hd-rail .rl:nth-child(6).on{color:#34d399;border-color:rgba(52,211,153,.55);}
+.hd-rail .rl:nth-child(7).on{color:#818cf8;border-color:rgba(129,140,248,.55);}
+.hd-rail .rl:focus-visible{outline:2px solid #818cf8;outline-offset:2px;}
 
 @media(prefers-reduced-motion:reduce){
-  .st-phase span,.st-val .v,.st-val .one,.hd-rail .rl{transition:none;}
+  .st-phase span,.st-big .v,.st-was,.hd-rail .rl,.st-light,.hd-stage::after{transition:none;}
   .st-line{animation:none;}
 }
 @media(max-width:640px){
-  .hd-stage{min-height:210px;border-radius:24px;}
-  .st-val{height:64px;font-size:clamp(38px,11vw,54px);}
+  .hd-stage{border-radius:24px;}
+  .st-scene{height:96px;}
+  .st-big{font-size:clamp(34px,10vw,48px);}
 }
 `;
