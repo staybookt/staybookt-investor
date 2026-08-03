@@ -11,7 +11,7 @@ import { min } from '@/lib/css';
    website?" — Jacob's call: that is Richard's rationale for the page closing harder,
    not a line for the page. Do not add it as copy. */
 const SHARE_DESCRIPTION =
-  'You have opportunities to make more money. We have solutions. Thirty minutes with a founder, free.';
+  'You have opportunities to make more money. We have solutions. Thirty minutes to discuss how technology could improve your business. Free.';
 
 export const metadata = {
   title: 'You have opportunities. We have solutions.',

@@ -45,7 +45,7 @@ const QS: Q[] = [
     k: 'Your journey',
     c: '#7c3aed',
     q: 'How do I start mine?',
-    a: 'Thirty minutes with a founder, free. If it fits, we spend two weeks learning your business, your prices, your area, how you talk to a customer, and then the front office switches on. Every journey on this page starts at that same door.',
+    a: 'Thirty minutes to discuss how technology could improve your business, free. If it fits, we spend two weeks learning your business, your prices, your area, how you talk to a customer, and then the front office switches on. Every journey on this page starts at that same door.',
   },
 ];
 
