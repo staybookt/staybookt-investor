@@ -33,7 +33,12 @@ type Seg = {
 const SEGS: Seg[] = [
   { id: 'paper', icon: 'doc', label: 'Paperwork each week', today: '6h', tomorrow: '0h', num: { from: 6, to: 0, suffix: 'h' } },
   { id: 'nights', icon: 'cal', label: 'Nights & weekends', today: 'Working', tomorrow: 'Yours' },
-  { id: 'work', icon: 'heart', label: 'Your work', today: 'Busywork', tomorrow: 'Meaningful' },
+  /* "Meaningful" -> "What you love" (live-site review, Aug 2 2026): "Meaningful" floated
+     without a noun; this ties the tomorrow state straight back to the headline sitting two
+     inches above it — you built the business to do What You Love, and this is the segment
+     where you get it back. Richard's outcome ("doing meaningful work") still carried, in
+     the site's own words. */
+  { id: 'work', icon: 'heart', label: 'Your work', today: 'Busywork', tomorrow: 'What you love' },
   { id: 'cust', icon: 'people', label: 'Customers', today: 'Transactions', tomorrow: 'Relationships' },
   { id: 'grow', icon: 'chart', label: 'Your business', today: 'Stalled', tomorrow: 'Growing' },
   { id: 'stress', icon: 'wave', label: 'Stress', today: 'High', tomorrow: 'Low' },

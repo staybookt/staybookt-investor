@@ -246,11 +246,14 @@ export default function AboutPage() {
             {/* m6/m7 WERE repeats of m1/m2 (the wall had 7 slots and only 5 CTA photos, Jul 30
                 2026). Richard (CTA and Images comments, Aug 2 2026): "the images at the top are
                 doubled up... need to fix." Two more real closes from the site fill them — the
-                girlfriends' day out (/whats-included close) and the slow morning with the paper
-                (the old /how-it-works close) — so all seven polaroids are now unique images used
-                through the website. */}
+                girlfriends' day out (/whats-included close) and the lakeside campfire at dusk
+                (the old /long-term close, a shot Richard picked himself) — so all seven
+                polaroids are unique images used through the website. close-hiw (the slow-morning
+                reading shot) was tried in m7 first and swapped same day: it was the only dark
+                indoor frame in an otherwise outdoor golden-hour strip and read as the odd one
+                out on the live-site review. */}
             <div className="mpol m6"><img src="/close-inc.jpg" alt="" width={280} height={280} /></div>
-            <div className="mpol m7"><img src="/close-hiw.jpg" alt="" width={280} height={280} /></div>
+            <div className="mpol m7"><img src="/close-lt.jpg" alt="" width={280} height={280} /></div>
           </div>
         </div>
       </header>
