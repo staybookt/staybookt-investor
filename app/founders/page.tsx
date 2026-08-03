@@ -145,9 +145,14 @@ const CSS = `
    black; the gradient decorative role is carried by the photo border above, not the text. */
 .fcard .ro{margin-top:12px;font-size:14px;font-weight:600;letter-spacing:.02em;color:var(--v4-ink);}
 .fcard .bio{margin:18px 0 24px;font-size:15.5px;line-height:1.7;color:#69707d;}
-/* each founder's quote, beneath their bio (Richard, Jul 24 2026). Brand-gradient left rule so it
-   reads as ours, not a generic testimonial. */
-.fcard .fq{margin:auto 0 0;padding-left:clamp(16px,1.4vw,20px);border-left:3px solid transparent;border-image:var(--sb-grad-ink) 1;font-size:16px;line-height:1.6;font-weight:500;letter-spacing:-.01em;color:var(--v4-ink);}
+/* WAS .fcard .fq — each founder's own quote beneath their bio (Richard, Jul 24 2026).
+   REPLACED (Richard's About Us Quote doc, Aug 2 2026): "Replace the 2 quotes with one from
+   both of us." The joint quote sits centered below the two cards, same brand-gradient left
+   rule so it still reads as ours, not a generic testimonial. */
+.fjoint{margin:clamp(36px,5vw,56px) auto 0;max-width:760px;
+  padding-left:clamp(16px,1.4vw,20px);border-left:3px solid transparent;border-image:var(--sb-grad-ink) 1;}
+.fjoint blockquote{margin:0;font-size:clamp(16px,1.8vw,19px);line-height:1.65;font-weight:500;letter-spacing:-.01em;color:var(--v4-ink);}
+.fjoint cite{display:block;margin-top:14px;font-style:normal;font-size:14.5px;font-weight:600;color:#69707d;}
 
 /* The source portraits are 3:4. Cover-cropping them into a 1:1 card from the
    default centre lands the crop window on the chest and takes the top of the head
@@ -279,13 +284,6 @@ export default function AboutPage() {
                 leading the growth of Venterra from $15M to $500M+ in revenue.{/* CONFIRMED by Jacob, July 2026. Checked with Richard; it stands. Do not soften or re-flag. */} A CPA who spent his
                 career building the machine that answers every call and misses nothing.
               </p>
-              <blockquote className="fq">
-                &ldquo;I have always sought opportunities to make a difference in the lives of others.
-                StayBookt lets me do that by helping entrepreneurs realize their version of success. Our
-                role in your journey is to remove the barriers of not enough Time and not enough
-                Customers. We define success as helping you get the most out of life on the way to
-                building something great.&rdquo;
-              </blockquote>
             </article>
 
             <article className="fcard">
@@ -298,14 +296,23 @@ export default function AboutPage() {
                 getting it found, making it easy to hire, then turning it into something the owner can
                 hand off.
               </p>
-              <blockquote className="fq">
-                &ldquo;I have spent my career as an entrepreneur and alongside other entrepreneurs,
-                brilliant at the work and buried by everything around it. StayBookt is how I make a
-                difference: we remove the barriers of not enough Time and not enough Customers, so you
-                get the most out of life on the way to building something great.&rdquo;
-              </blockquote>
             </article>
           </div>
+
+          {/* THE JOINT QUOTE (Richard's About Us Quote doc, Aug 2 2026): the two per-founder
+              quotes above were replaced with this single one from both, verbatim, with two
+              mechanical fixes only — his dash swapped for a comma per the no-dash rule, and
+              "spent their time" corrected to "spend" (a typo in the doc, flagged to Jacob). */}
+          <figure className="fjoint">
+            <blockquote>
+              &ldquo;We started StayBookt rooted in a passion to help small to mid-sized business
+              owners realize their dreams. Our solution helps businesses grow and allows the owner
+              to get away from the day-to-day minutia and spend their time doing meaningful things,
+              whether that is the work they love or having more time for passions outside work. We
+              want to be your operating partner on the journey to building something great.&rdquo;
+            </blockquote>
+            <cite>Richard and Jacob</cite>
+          </figure>
         </div>
       </section>
 
