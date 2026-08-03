@@ -243,8 +243,14 @@ export default function AboutPage() {
             <div className="mpol m3"><img src="/close-lt-cottage.jpg" alt="" width={280} height={280} /></div>
             <div className="mpol m4"><img src="/close-pricing.jpg" alt="" width={280} height={280} /></div>
             <div className="mpol m5"><img src="/close-work.jpg" alt="" width={280} height={280} /></div>
-            <div className="mpol m6"><img src="/close-founders.jpg" alt="" width={280} height={280} /></div>
-            <div className="mpol m7"><img src="/closer-dock.jpg" alt="" width={280} height={280} /></div>
+            {/* m6/m7 WERE repeats of m1/m2 (the wall had 7 slots and only 5 CTA photos, Jul 30
+                2026). Richard (CTA and Images comments, Aug 2 2026): "the images at the top are
+                doubled up... need to fix." Two more real closes from the site fill them — the
+                girlfriends' day out (/whats-included close) and the slow morning with the paper
+                (the old /how-it-works close) — so all seven polaroids are now unique images used
+                through the website. */}
+            <div className="mpol m6"><img src="/close-inc.jpg" alt="" width={280} height={280} /></div>
+            <div className="mpol m7"><img src="/close-hiw.jpg" alt="" width={280} height={280} /></div>
           </div>
         </div>
       </header>
@@ -366,10 +372,14 @@ export default function AboutPage() {
           (see its own comment on /long-term's old HeroCta call, ported verbatim below) — without
           fromBlack this would fade in from cream over black, a visible seam. Image unchanged for
           now; Richard wants a celebrating-success shot, which needs a real asset. */}
+      {/* Richard (CTA and Images comments, Aug 2 2026): his edit, split onto two lines —
+          "We are your operating partner. / Helping you build something great." The .ln spans
+          hold each line whole (nowrap blocks, see HeroCta.tsx), tight sizes them to fit. */}
       <HeroCta
         fromBlack
         img="/close-founders.jpg"
-        heading={<>We are your operating partner. To help you build something great.</>}
+        heading={<><span className="ln">We are your operating partner.</span><span className="ln">Helping you build something great.</span></>}
+        headingClass="tight"
         sub={null}
       />
 

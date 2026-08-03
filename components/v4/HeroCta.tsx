@@ -103,8 +103,13 @@ const CSS = `
 /* pricing's line 1 ("A solution that offers undeniable value.") is longer than every other
    page's custom heading and was wrapping into 2 sub-lines on its own, making the whole thing
    render as 3 lines instead of 2 (Jacob, Jul 31 2026). Scoped to .tight, not the shared .w
-   rule above, so /founders, /long-term, /journeys and the homepage close keep their own size. */
-.hcta-in h2.tight{font-size:clamp(26px,4.3vw,56px);}
+   rule above, so /long-term, /journeys and the homepage close keep their own size.
+   ROUND 2 (Richard, CTA and Images comments, Aug 2 2026: "need the above to be two lines" —
+   it was STILL soft-wrapping at some widths): headings that must hold exact lines now pass
+   .ln spans, nowrap blocks sized by a vw curve calibrated so the longest line (40 chars) fits
+   the 1040px content box at every width. Same technique as the site's locked heroes. */
+.hcta-in h2.tight{font-size:clamp(16px,4vw,54px);}
+.hcta-in h2 .ln{display:block;white-space:nowrap;}
 .hcta-in p{margin:20px auto 0;font-size:clamp(16px,1.9vw,20px);line-height:1.5;color:#eef1f5;max-width:44ch;
   text-shadow:0 1px 22px rgba(0,0,0,.6);}
 /* Richard's two-line default sub (Aug 2 2026): problem line, then the answer line with

@@ -175,9 +175,13 @@ export default function PricingPage() {
           have to be after the FAQ — I would rather have the CTA sooner. I don't love
           dragging everyone through the FAQs..."). Golf photo stays: "I like the golf
           image." His saying, no subtext. FAQ moves to last word, like /how-it-works. */}
+      {/* Richard (CTA and Images comments, Aug 2 2026): "Need the above to be two lines" —
+          line 1 was still soft-wrapping at some widths despite the tight size. The .ln spans
+          are nowrap blocks now (see HeroCta.tsx), so it is exactly two lines everywhere.
+          Also his wording: "the simple pleasures" (the "the" was missing). */}
       <HeroCta
         img="/close-pricing.jpg"
-        heading={<>A solution that offers undeniable value.<br />And more time for simple pleasures.</>}
+        heading={<><span className="ln">A solution that offers undeniable value.</span><span className="ln">And more time for the simple pleasures.</span></>}
         headingClass="tight"
         sub={null}
       />
