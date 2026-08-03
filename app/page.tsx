@@ -78,9 +78,13 @@ const PAGE_CSS = `
    feedback (Aug 2 2026) replaces it with TWO lines — his copy, his call, overrides the
    one-line rule per the Richard-overrides standing rule. Each line is its own block;
    wrapping allowed at phone widths since his lines are long. */
-.v4 header.scene p.sub{margin:22px auto 0;color:#52565e;max-width:60ch;font-size:clamp(15px,1.9vw,20px);line-height:1.5;}
+.v4 header.scene p.sub{margin:22px auto 0;color:#52565e;max-width:none;font-size:clamp(15px,1.8vw,19.5px);line-height:1.5;}
 .v4 header.scene p.sub span{display:block;}
 .v4 header.scene p.sub span+span{margin-top:6px;color:var(--v4-ink,#06080d);font-weight:600;}
+/* Richard's line 2 is 80 characters — the old 60ch cap soft-wrapped it, so his "two lines"
+   read as three on desktop (caught on the live-site review, Aug 2 2026). Desktop holds each
+   of his lines whole; phones wrap naturally, where nowrap would overflow. */
+@media(min-width:821px){.v4 header.scene p.sub span{white-space:nowrap;}}
 .v4 header.scene .cta{justify-content:center;}
 .ctanote{margin:20px auto 0;max-width:52ch;text-align:center;font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.62);}
 @media(max-width:640px){.ctanote{font-size:13.5px;max-width:36ch;}}
