@@ -138,13 +138,16 @@ const STOPS: Stop[] = [
 
 /* The five people you cannot hire, ported verbatim from JourneyMap.tsx. Same argument as
  * the FiveSalaries ledger on /pricing. Do not add a sixth: the pricing argument on
- * /pricing rests on the number five. */
+ * /pricing rests on the number five.
+ * REORDERED (Richard's homepage feedback doc, Aug 2 2026): "I would order the jobs —
+ * marketer, receptionist, scheduler, assistant, collections." His order follows the
+ * customer's own lifecycle: found -> answered -> booked -> quoted -> paid. */
 const PJOBS: { r: string; d: string; ic: string }[] = [
+  { r: 'Marketer', d: 'Gets you found, asks for the reviews', ic: 'mega' },
   { r: 'Receptionist', d: 'Answers, every single time', ic: 'phone' },
   { r: 'Scheduler', d: 'Books it, confirms it, reminds them', ic: 'cal' },
   { r: 'Assistant', d: 'Chases the quote, and answers when you ask', ic: 'quote' },
   { r: 'Collections', d: 'Chases the invoice until it is paid', ic: 'cash' },
-  { r: 'Marketer', d: 'Gets you found, asks for the reviews', ic: 'mega' },
 ];
 
 function RoleIcon({ id }: { id: string }) {
@@ -207,49 +210,10 @@ function GetFoundScene() {
   );
 }
 
-/* Enjoy Life scene: an honest outcome card, then three plain choices.
- * Ported verbatim from HowItWorks.tsx (EnjoyLifeScene) — no fabricated valuation number. */
-function EnjoyLifeScene() {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [choice, setChoice] = useState(0);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      (es) => es.forEach((e) => { if (e.isIntersecting) el.classList.add('on'); }),
-      { threshold: 0.45 },
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-  const CH = [
-    { l: 'Keep it, and love it', d: 'Go back to the part of the work you actually enjoy. Most owners pick this one.', icon: 'M12 21s-7-4.5-7-10a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 5.5-7 10-7 10z' },
-    { l: 'Hand it off', d: 'Pass over an operation that already works, instead of a job only you know how to do.', icon: 'M17 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2M9 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6' },
-    { l: 'Sell it', d: 'A business that keeps booking when you are not there is one a buyer actually wants.', icon: 'M12 3v18M5 10l7-7 7 7' },
-  ];
-  return (
-    <div className="el" ref={ref}>
-      <div className="valcard">
-        <div className="k">After a year of this</div>
-        <div className="hd">The business keeps booking and earning when you are not standing in the middle of it.</div>
-        <div className="ns">
-          What you do with that is entirely your call, and it costs you nothing. We take no
-          commission on your jobs, no share of your revenue, and no share of what the business is
-          worth if you ever sell it.
-        </div>
-      </div>
-      <div className="choices">
-        {CH.map((c, i) => (
-          <button key={c.l} type="button" className={`choice${choice === i ? ' on' : ''}`} onMouseEnter={() => setChoice(i)} onClick={() => setChoice(i)}>
-            <span className="ci"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d={c.icon} /></svg></span>
-            <div className="cl">{c.l}</div>
-            <div className="cd">{c.d}</div>
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-}
+/* WAS EnjoyLifeScene (the "After a year of this" card + Keep it / Hand it off / Sell it
+ * choices), ported from HowItWorks.tsx and moved into the journey bookend round 14.
+ * DELETED (Richard's homepage feedback doc, Aug 2 2026): too much for the homepage, the
+ * homepage is a higher-level pitch. The content lives on at /founders#long-term-value. */
 
 /* Reputation scene, new for the milestone 3 retheme (round 14, Jul 30 2026): a review
  * landing in the owner's voice, then the two outcomes that actually pay for the ask —
@@ -373,10 +337,17 @@ function StopBlock({ s, obsRef, pointRef }: { s: Stop; obsRef: (el: HTMLDivEleme
   );
 }
 
-/* THE PRICING REVEAL. Timer-staggered, on-view (same technique as AccountBrain/NightShift
- * in HiwScenes.tsx), NOT scroll-scrubbed. The five jobs land one at a time, hold, then the
- * price settles in below and the jobs dim rather than vanish — the "five salaries, one
- * number" argument survives without the old absolute-positioned collapse animation. */
+/* THE PRICING REVEAL — REORDERED (Richard's homepage feedback doc, Aug 2 2026). His
+ * notes, in order: the old flow ("What it costs" -> "Five jobs. One number." -> roles ->
+ * price) was confusing; lead with the $199/mth and "Nothing upfront. Cancel on thirty
+ * days notice." directly, get to the point; THEN a header — "You get a team to help run
+ * your business" replaces "Five jobs. One number." — then the roles, ordered marketer,
+ * receptionist, scheduler, assistant, collections (see PJOBS above).
+ * Mechanically still timer-staggered on-view, NOT scroll-scrubbed — but the acts are
+ * flipped: the price sweeps in first, the team lands after it, nothing dims. He also
+ * flagged two rendering bugs on the figure itself: the last "9" was shaved (the negative
+ * letter-spacing pulled the final glyph past the background-clip paint box) and "/mth"
+ * was crowded — both fixed in the CSS, see .hjc-price/.hjc-per. */
 function PriceReveal() {
   const ref = useRef<HTMLDivElement | null>(null);
   const [step, setStep] = useState(-1);
@@ -390,8 +361,10 @@ function PriceReveal() {
         if (!e.isIntersecting) return;
         obs.disconnect();
         if (reduce) { setStep(PJOBS.length + 1); return; }
-        for (let i = 0; i <= PJOBS.length + 1; i++) {
-          timers.push(setTimeout(() => setStep(i), 400 + i * 420));
+        // step 0 = the price lands; steps 1..n = the roles, after the sweep has played.
+        timers.push(setTimeout(() => setStep(0), 350));
+        for (let i = 1; i <= PJOBS.length; i++) {
+          timers.push(setTimeout(() => setStep(i), 1500 + (i - 1) * 380));
         }
       }),
       { threshold: 0.35 },
@@ -399,13 +372,17 @@ function PriceReveal() {
     obs.observe(el);
     return () => { obs.disconnect(); timers.forEach(clearTimeout); };
   }, []);
-  const landed = Math.min(Math.max(step, 0), PJOBS.length);
-  const priced = step > PJOBS.length;
+  const priced = step >= 0;
+  const landed = Math.max(step, 0);
   return (
     <section className={`hjc${priced ? ' priced' : ''}`} ref={ref}>
       <div className="wrap">
         <div className="eyebrow">What it costs</div>
-        <h2>Five jobs. One number.</h2>
+        <div className="hjc-num">
+          <div className="hjc-fig"><span className="hjc-dol">$</span><span className="hjc-price">199</span><span className="hjc-per">/mth</span></div>
+          <p className="hjc-sub">Nothing upfront. Cancel on thirty days notice.</p>
+        </div>
+        <h2 className="hjc-teamh">You get a team to help run your business</h2>
         <div className="hjc-jobs">
           {PJOBS.map((j, i) => (
             <div className={`hjc-job${i < landed ? ' on' : ''}`} key={j.r}>
@@ -416,10 +393,6 @@ function PriceReveal() {
               </span>
             </div>
           ))}
-        </div>
-        <div className="hjc-num">
-          <div className="hjc-fig"><span className="hjc-dol">$</span><span className="hjc-price">199</span><span className="hjc-per">/mth</span></div>
-          <p className="hjc-sub">Nothing upfront. Cancel on thirty days notice.</p>
         </div>
         <a className="hjc-cta" href="/pricing" data-cta="home_journey_price">See the full plan <span aria-hidden>&rarr;</span></a>
       </div>
@@ -489,20 +462,9 @@ const CSS = `
 .hj-jend .ej-eyebrow{margin-top:20px;font-size:12.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#6d28d9;}
 .hj-jend .ej-h{margin-top:16px;font-size:clamp(32px,4.8vw,58px);font-weight:600;letter-spacing:-.03em;line-height:1.08;color:var(--v4-ink,#06080d);}
 .hj-jend .ej-h .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
-.hj-jend .ej-sub{margin:18px auto 0;font-size:clamp(15px,1.7vw,18px);line-height:1.55;color:#69707d;max-width:46ch;}
-/* EnjoyLifeScene + the long-term link, moved in from the old milestone 3 (round 14).
-   .el already centers itself via the parent's flex column; just give it breathing
-   room above. The .jgo pill reuses .jstop .jgo's look but that rule is scoped to
-   .jstop and keys off --acc/--acd custom props set there, which this bookend does not
-   have — so it gets its own rule here with the violet accent hardcoded to match .edot. */
-.hj-jend .el{margin:32px auto 0;max-width:100%;}
-.hj-jend .jgo{display:flex;width:fit-content;align-items:center;gap:8px;margin:24px auto 0;padding:9px 16px;
-  border:1px solid rgba(6,12,20,.14);border-radius:999px;background:#fff;
-  font-size:14px;font-weight:600;color:var(--v4-ink,#06080d);text-decoration:none;
-  transition:border-color .25s ease,transform .25s ease,box-shadow .25s ease;}
-.hj-jend .jgo span{color:#6d28d9;transition:transform .25s ease;}
-.hj-jend .jgo:hover{border-color:#6d28d9;transform:translateY(-1px);box-shadow:0 12px 26px -18px rgba(6,12,20,.5);}
-.hj-jend .jgo:hover span{transform:translateX(3px);}
+/* WAS .ej-sub + .hj-jend .el + .hj-jend .jgo — the payoff card, choices, lead-in line and
+   long-term link were deleted per Richard's homepage feedback (Aug 2 2026); the bookend is
+   the destination headline only now. */
 
 /* THE ROAD IS BACK TO EDGE-TO-EDGE (Jacob, round 3: "it's too linear, I loved the
    swerving thing that wrapped around the section"). Each block runs close to full
@@ -582,19 +544,8 @@ const CSS = `
 .gf.on .chip{opacity:1;transform:none;}
 .gf.on .chip:nth-child(1){transition-delay:1.1s;}.gf.on .chip:nth-child(2){transition-delay:1.25s;}
 
-/* ===== SCENE: Enjoy Life (honest outcome + choices) ===== */
-.el{width:min(520px,100%);}
-.el .valcard{background:#0b0f14;color:#fff;border-radius:20px;padding:26px 26px 24px;box-shadow:0 50px 100px -44px rgba(0,0,0,.6);text-align:left;}
-.el .valcard .k{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#9aa0ab;}
-.el .valcard .hd{margin-top:10px;font-size:clamp(20px,2.4vw,27px);font-weight:600;letter-spacing:-.025em;line-height:1.25;color:#fff;}
-.el .valcard .ns{margin-top:12px;font-size:13.5px;line-height:1.6;color:#9aa0ab;}
-.el .choices{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px;}
-.el .choice{display:flex;flex-direction:column;background:#fff;border:1px solid #ececf0;border-radius:16px;padding:18px 16px 16px;text-align:left;cursor:pointer;font-family:inherit;transition:border-color .25s ease,transform .25s ease,box-shadow .25s ease;}
-.el .choice:hover,.el .choice.on{border-color:#7c3aed;transform:translateY(-3px);box-shadow:0 18px 34px -18px rgba(124,58,237,.4);}
-.el .choice .ci{width:36px;height:36px;border-radius:10px;background:rgba(124,58,237,.12);display:flex;align-items:center;justify-content:center;color:#6d28d9;}
-.el .choice .cl{margin-top:13px;font-size:16px;font-weight:600;color:var(--v4-ink,#06080d);}
-.el .choice .cd{margin-top:8px;font-size:12.5px;line-height:1.45;color:#69707d;}
-@media(max-width:520px){.el .choices{grid-template-columns:1fr;}}
+/* WAS ===== SCENE: Enjoy Life ===== (.el valcard + choices) — deleted with EnjoyLifeScene
+   per Richard's homepage feedback, Aug 2 2026. */
 
 /* ===== SCENE: Reputation (review card + repeat/referral outcome) ===== */
 .rp{width:min(400px,100%);}
@@ -643,9 +594,12 @@ const CSS = `
 .hjc::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(60% 60% at 50% 0%,rgba(16,185,129,.14),transparent 62%);}
 .hjc .wrap{position:relative;z-index:1;max-width:620px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
 .hjc .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#86868b;}
+/* Richard's reorder (Aug 2 2026): price first, then the team header, then the roles at
+   full strength — the old .priced dimming is gone because the roles are now the second
+   act, not the setup being paid off. */
 .hjc h2{margin-top:14px;font-size:clamp(28px,3.6vw,44px);font-weight:600;letter-spacing:-.03em;color:#f5f5f7;}
-.hjc-jobs{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:clamp(36px,5vw,54px);transition:opacity .8s ease;}
-.hjc.priced .hjc-jobs{opacity:.5;}
+.hjc h2.hjc-teamh{margin-top:clamp(44px,6vw,64px);font-size:clamp(24px,3vw,38px);}
+.hjc-jobs{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:clamp(26px,3.6vw,40px);}
 .hjc-job{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);
   display:flex;align-items:center;gap:14px;width:min(340px,86%);margin:0 auto;text-align:left;}
 .hjc-job.on{opacity:1;transform:none;}
@@ -660,7 +614,7 @@ const CSS = `
 .hjc-txt{display:flex;flex-direction:column;min-width:0;}
 .hjc-r{font-size:19px;font-weight:600;letter-spacing:-.02em;color:#f5f5f7;}
 .hjc-d{margin-top:2px;font-size:13px;color:#8b93a5;}
-.hjc-num{position:relative;margin-top:34px;opacity:0;transform:translateY(16px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+.hjc-num{position:relative;margin-top:clamp(26px,3.4vw,38px);opacity:0;transform:translateY(16px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
 .hjc.priced .hjc-num{opacity:1;transform:none;}
 /* THE GLOW. A soft brand-gradient blob behind the number, blurred and dim until the
    figure settles in, then blooms — the "big moment" gets a beat of visual weight behind
@@ -672,9 +626,16 @@ const CSS = `
 /* THE SWEEP. background-size is wider than the text, parked off to one side; when
    .priced lands, it slides into place — the same technique as .fa-cta's hover sweep,
    just triggered by the reveal instead of a pointer. */
-.hjc-price{background:var(--sb-grad);background-size:230% 100%;background-position:100% 50%;-webkit-background-clip:text;background-clip:text;color:transparent;transition:background-position 1.3s cubic-bezier(.16,1,.3,1);}
+/* Richard (Aug 2 2026): "The last 9 is shaved." The -.055em letter-spacing on .hjc-fig
+   pulls the final glyph's right edge past the inline box that background-clip:text paints,
+   so the tail of the last 9 was transparent. padding-right restores paintable room without
+   changing the visual tracking. */
+.hjc-price{background:var(--sb-grad);background-size:230% 100%;background-position:100% 50%;-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.06em;transition:background-position 1.3s cubic-bezier(.16,1,.3,1);}
 .hjc.priced .hjc-price{background-position:0% 50%;}
-.hjc-per{align-self:flex-end;margin-bottom:.2em;margin-left:8px;font-size:.16em;font-weight:600;color:#8b93a5;}
+/* Richard (same doc): "The mth is crowded." Two causes: the 8px gap (now 16px) AND the
+   -.055em display tracking inherited from .hjc-fig crushing four small glyphs together —
+   letter-spacing reset to normal at this size. */
+.hjc-per{align-self:flex-end;margin-bottom:.2em;margin-left:16px;font-size:.18em;font-weight:600;color:#8b93a5;letter-spacing:normal;}
 .hjc-sub{margin:14px auto 0;font-size:clamp(15px,1.7vw,18px);font-weight:600;color:#d7dce4;}
 .hjc-cta{display:inline-flex;align-items:center;gap:9px;margin-top:30px;background:#fff;color:#050506;font-size:15px;font-weight:600;border-radius:999px;padding:15px 30px;text-decoration:none;transition:transform .3s ease,box-shadow .3s ease;}
 .hjc-cta:hover{transform:translateY(-1px);box-shadow:0 18px 36px -18px rgba(16,185,129,.5);}
@@ -965,10 +926,13 @@ export default function HomeJourney() {
           <div className="jhead">
             <div className="eyebrow">The four milestones</div>
             <h2><span className="g">StayBookt.</span> Enjoy Life.</h2>
+            {/* RICHARD'S REPLACEMENT (homepage feedback doc, Aug 2 2026), verbatim, for
+                "Building a business where you do not do everything is what makes running
+                one fun again..." */}
             <p>
-              Building a business where you do not do everything is what makes running one
-              fun again. Here is exactly what changes at each of the four milestones, and
-              what it means for you.
+              StayBookt offers a path to a business that doesn&rsquo;t live and die on your
+              ability to do everything. And a solution that partners with you to grow your
+              business and realize more financial success.
             </p>
             <p className="jhead-who">
               Home service, consulting, or real estate: see exactly how it plays out for
@@ -1024,21 +988,18 @@ export default function HomeJourney() {
                   <br />
                   <span className="g">The work you actually love.</span>
                 </h3>
-                <p className="ej-sub">
-                  Not what is left over after the business is fed. The time that was always
-                  supposed to be yours.
-                </p>
-                {/* MOVED HERE from milestone 3 (round 14, Jul 30 2026): the EnjoyLifeScene
-                   card and the "what it's worth later" link used to live on the Enjoy Life
-                   milestone. Now that milestone 3 is Reputation, this bookend is the only
-                   place the freedom/exit payoff lands — so it gets the real content instead
-                   of just a headline, which also answers the brief's ask to elevate this
-                   moment rather than just resize it. */}
-                <EnjoyLifeScene />
-                {/* /long-term merged into /founders (Jul 30 2026, later same session) —
-                   repointed to the merged section's own anchor instead of the now-retired
-                   standalone page. See next.config.ts for the 307. */}
-                <a className="jgo" href="/founders#long-term-value">What it is worth later <span aria-hidden>&rarr;</span></a>
+                {/* THE PAYOFF CONTENT IS GONE (Richard's homepage feedback doc, Aug 2 2026):
+                   "I feel this is just too much for the home page. I would delete it all.
+                   The home page is a higher-level pitch. I think this confuses what the
+                   product is." His screenshot covered the lead-in line, the "After a year
+                   of this" card, the Keep it / Hand it off / Sell it choices, and the
+                   "What it is worth later" link — all removed (EnjoyLifeScene function and
+                   its .el CSS went with them; that content still lives in full on
+                   /founders#long-term-value and /how-it-works' territory pages). The
+                   destination headline above STAYS by Jacob's call: the four-milestone
+                   road physically terminates at this block's pin (build() maps
+                   pts.current.end to the edot), so the journey still lands somewhere
+                   instead of dead-ending after milestone 4. */}
               </div>
             </div>
           </div>

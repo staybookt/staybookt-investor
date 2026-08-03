@@ -74,10 +74,13 @@ const PAGE_CSS = `
    you ever change the vertical. Vertical padding moved to the fold (header.scene) above. */
 .v4 header.scene .inner{position:relative;z-index:1;padding:0 clamp(20px,4vw,32px);text-align:center;max-width:1200px;margin:0 auto;width:100%;}
 .v4 header.scene h1{max-width:none;margin:20px auto 0;font-size:clamp(20px,6.4vw,88px);letter-spacing:-.03em;line-height:1.02;text-align:center;color:var(--v4-ink,#06080d);}
-/* SUBHEAD = ONE LINE, ALWAYS (global rule, Jacob Jul 23 2026). The max-width:46ch was forcing
-   a two-line wrap. No cap, nowrap, and vw-scaled font so the (short) subhead holds one line from
-   desktop down to phone. The rule's real teeth: keep subhead copy short. */
-.v4 header.scene p.sub{margin:22px auto 0;color:#52565e;max-width:none;white-space:nowrap;font-size:clamp(13px,3.1vw,21px);}
+/* SUBHEAD: was one-line/nowrap by global rule (Jacob Jul 23 2026). Richard's homepage
+   feedback (Aug 2 2026) replaces it with TWO lines — his copy, his call, overrides the
+   one-line rule per the Richard-overrides standing rule. Each line is its own block;
+   wrapping allowed at phone widths since his lines are long. */
+.v4 header.scene p.sub{margin:22px auto 0;color:#52565e;max-width:60ch;font-size:clamp(15px,1.9vw,20px);line-height:1.5;}
+.v4 header.scene p.sub span{display:block;}
+.v4 header.scene p.sub span+span{margin-top:6px;color:var(--v4-ink,#06080d);font-weight:600;}
 .v4 header.scene .cta{justify-content:center;}
 .ctanote{margin:20px auto 0;max-width:52ch;text-align:center;font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.62);}
 @media(max-width:640px){.ctanote{font-size:13.5px;max-width:36ch;}}
@@ -103,13 +106,16 @@ const PAGE_CSS = `
    pill every other locked hero on the site uses (see .jl-pill in app/journeys/page.tsx and
    .abt .pg-hero .wrap .eyebrow in app/founders/page.tsx): white fill, ink text, the brand
    gradient as the ring. The dark-glass version above only ever existed to stay legible over
-   the photo; with the photo gone, it goes back to the shared token. */
+   the photo; with the photo gone, it goes back to the shared token.
+   MUCH BIGGER (Richard, homepage feedback doc, Aug 2 2026, his second ask for this): "That
+   is the quick connection of relevance for the right people." Font, tracking, and padding
+   all scaled up so it reads as the qualifying answer, not a caption. */
 .v4 header.scene .eyebrow{display:inline-flex;align-items:center;
-  font-size:12.5px;font-weight:700;letter-spacing:.15em;color:#42474f;
-  border:1.5px solid transparent;
+  font-size:clamp(13px,1.5vw,17.5px);font-weight:700;letter-spacing:.14em;color:#2b3038;
+  border:2px solid transparent;
   background:linear-gradient(#fff,#fff) padding-box,var(--sb-grad) border-box;
-  border-radius:999px;padding:9px 18px;
-  box-shadow:0 6px 18px -10px rgba(6,12,20,.25);}
+  border-radius:999px;padding:12px 26px;
+  box-shadow:0 8px 22px -10px rgba(6,12,20,.3);}
 
 /* THE HERO PAYOFF DEVICE (takes 1-7) MOVED OUT OF THE HERO (Jacob, Aug 2 2026). All the
    .hero-converge/.hc-* rules that used to live here are gone with it — the device is now its
@@ -287,19 +293,8 @@ const PAGE_CSS = `
 /* LADDER */
 .v4 .price h2{font-weight:600;letter-spacing:-.025em;}
 .v4 .price .seefull a{color:#0891b2;}
-/* WHY US — RELIT (Jacob, round 4: "remove dark mode from the rest of the page,"
-   keeping only the price section on HomeJourney dark). This band and the explore grid
-   right after it used to be the same near-black as the price payoff, back to back, so
-   the payoff had no contrast to pay off AGAINST — and the explore grid's low-contrast
-   dark-on-dark text was genuinely hard to read (Jacob: "the weird nav section under
-   Richard's quote"). Cream now, matching the rest of the page. */
-.v4 .whyus{background:var(--v4-cream,#f6f6f3);padding:clamp(84px,11vw,140px) 0;text-align:center;position:relative;overflow:hidden;}
-.v4 .whyus::before{content:'';position:absolute;inset:0;background:radial-gradient(50% 60% at 20% 0%,rgba(14,165,233,.10),transparent 60%),radial-gradient(50% 60% at 85% 110%,rgba(16,185,129,.10),transparent 60%);pointer-events:none;}
-.v4 .whyus .wrap{position:relative;z-index:1;}
-.v4 .whyus .eyebrow{color:#69707d;}
-.v4 .whyus blockquote{margin:22px auto 0;font-size:clamp(26px,3.4vw,44px);font-weight:600;letter-spacing:-.03em;line-height:1.14;color:var(--v4-ink,#06080d);max-width:18ch;}
-.v4 .whyus .qsub{margin:22px auto 0;font-size:clamp(16px,1.9vw,19px);font-weight:400;line-height:1.55;color:#52565e;max-width:48ch;}
-.v4 .whyus cite{display:block;margin-top:26px;font-style:normal;font-size:15px;font-weight:600;color:#69707d;}
+/* WAS the .whyus block (Richard quote band) — section deleted per Richard's own homepage
+   feedback (Aug 2 2026), CSS removed with it. See the JSX comment where it lived. */
 /* ===== CINEMATIC CONSISTENCY PASS ===== */
 /* Base background flipped from #050506 to cream (Jacob, round 4): with dark mode
    confined to the price section now, a black base here was only ever visible as a
@@ -368,17 +363,14 @@ export default function HomePage() {
             </h1>
           </Reveal>
           <Reveal>
-            {/* Subhead rewritten round 3 (Jacob, verbatim thesis, Aug 2 2026): StayBookt takes
-                the admin and the time-eating parts out of the equation so the owner spends
-                time on what actually GROWS the business, not just what keeps it running —
-                revenue-generating work, not revenue-supporting busywork. The old subhead
-                ("Every call, answered. Every invoice, chased.") named two service mechanics
-                but never said that distinction out loud. First draft of this line ran ~76
-                characters and would have overflowed the hero's hard-locked one-line/nowrap
-                mobile rule (~200px past the available width at 375px) — the comment on
-                p.sub says "keep subhead copy short" for exactly this reason. Cut to 48
-                characters, matching the length budget the old line already proved safe. */}
-            <p className="sub">Less busywork. More time growing the business.</p>
+            {/* RICHARD'S SUB (homepage feedback doc, Aug 2 2026), replacing "Less busywork.
+                More time growing the business." — his two lines verbatim (closing period
+                added to line 2; quote marks rendered as real curly quotes). Line 2 is the
+                answer beat so it carries ink + weight. Prior sub history lives in git. */}
+            <p className="sub">
+              <span>But a lot of &ldquo;unfun&rdquo; stuff gets in the way of that dream.</span>
+              <span>StayBookt is the answer to making your business what it was always meant to be.</span>
+            </p>
           </Reveal>
           {/* HERO "GET STARTED" PILL DROPPED (Jacob, round 7, Aug 2 2026). Nav already carries
               a "Get Started" pill on every page, and the sticky "Call now" bar shows up after
@@ -434,47 +426,12 @@ export default function HomePage() {
              Apple never asks you to scroll past the ending. It is now the last thing before
              the footer, where it was always supposed to be. */}
 
-      {/* 5 — WHY WE BUILT THIS */}
-      <section className="whyus">
-        <div className="wrap">
-          <Reveal as="div">
-            <img
-              src="/photos/richard.jpg"
-              alt="Richard, Co-founder of StayBookt"
-              width={64}
-              height={64}
-              style={{
-                width: 64,
-                height: 64,
-                borderRadius: '50%',
-                objectFit: 'cover',
-                objectPosition: 'center 20%',
-                display: 'block',
-                margin: '0 auto 24px',
-                boxShadow: '0 0 0 1px rgba(255,255,255,.14)',
-              }}
-            />
-          </Reveal>
-          <Reveal className="eyebrow" as="div">Why we built this</Reveal>
-          <Reveal>
-            <blockquote>
-              Every owner we talked to said the same thing. There was never enough time.
-            </blockquote>
-          </Reveal>
-          <Reveal>
-            <p className="qsub">
-              StayBookt is our answer. We take the busywork off your plate, so you get back to the
-              work you love, and the life you built it for.
-            </p>
-          </Reveal>
-          <Reveal>
-            <cite>Richard, Co-founder</cite>
-          </Reveal>
-          {/* "Meet the founders" link DROPPED (Jacob, round 4). The About us card in the
-              explore grid immediately below points at the same page — one destination,
-              one door, not a link and then a card for it four inches later. */}
-        </div>
-      </section>
+      {/* WAS "5 — WHY WE BUILT THIS": Richard's photo + "Every owner we talked to said the
+          same thing" quote band. DELETED (Richard's own homepage feedback doc, Aug 2 2026):
+          "I would delete this. I don't think this adds value to the above narrative. And
+          unless the content is doing something, I would be in favor of simplifying." The
+          founder story still lives in full on /founders; the .whyus CSS block in PAGE_CSS
+          was removed with it. */}
 
       {/* THE ILLUSTRATION FOOTNOTE IS GONE (Jacob, July 2026, after Richard asked twice and
              called it clutter). Read this before putting it back or taking it further:
@@ -503,9 +460,13 @@ export default function HomePage() {
           cream now, so a black band here would be a seam, not a continuation; the
           standard (light-predecessor) grade is correct again. */}
       {/* Close saying per Richard (Images doc, Jul 28): "I like the image" + his two
-          lines. "Enjoy Life" capitalized: it is the brand, not a phrase. */}
+          lines. "Enjoy Life" capitalized: it is the brand, not a phrase.
+          GRADIENT on "Enjoy Life" (Richard's homepage feedback doc, Aug 2 2026:
+          "Highlight the Enjoy Life in the StayBookt gradient colors") — the .g class is
+          defined in HeroCta.tsx's own CSS. His replacement sub is HeroCta's new default,
+          so no sub prop needed here. */}
       <HeroCta
-        heading={<>Helping your business run better.<br />So that you Enjoy Life more.</>}
+        heading={<>Helping your business run better.<br />So that you <span className="g">Enjoy Life</span> more.</>}
       />
 
       </main>

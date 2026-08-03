@@ -64,7 +64,11 @@ export default function HeroCta({ fromBlack = false, img = HERO_IMG, heading, he
         {/* Custom headings arrive with their own <br/> line breaks (Richard writes his
             sayings as two lines), so the 15ch cap that shapes the default line comes off. */}
         <h2 className={[heading ? 'w' : '', headingClass ?? ''].filter(Boolean).join(' ') || undefined}>{heading ?? <>Do the work you love. We&rsquo;ll run the rest.</>}</h2>
-        {sub === null ? null : <p>{sub ?? <>We get you found and run the day to day. You get your time back.</>}</p>}
+        {/* DEFAULT SUB REPLACED (Richard's homepage feedback doc, Aug 2 2026; Jacob's call:
+            the default changes everywhere it is used, pages passing their own sub are
+            untouched). Was "We get you found and run the day to day. You get your time
+            back." His two lines: problem, then answer. */}
+        {sub === null ? null : <p>{sub ?? <><span className="hcta-s1">Your business is missing opportunities, and you are already doing too much.</span><span className="hcta-s2">StayBookt is the solution.</span></>}</p>}
         <a className="hcta-btn" href={START_LINK} data-cta="closer">Get Started</a>
         {/* Richard's revision (Get Started doc, Aug 2 2026): the note sells the substance
             of the call, not the logistics. Same line swapped in Journey.tsx (x2) and
@@ -101,8 +105,17 @@ const CSS = `
    render as 3 lines instead of 2 (Jacob, Jul 31 2026). Scoped to .tight, not the shared .w
    rule above, so /founders, /long-term, /journeys and the homepage close keep their own size. */
 .hcta-in h2.tight{font-size:clamp(26px,4.3vw,56px);}
-.hcta-in p{margin:20px auto 0;font-size:clamp(16px,1.9vw,20px);line-height:1.5;color:#eef1f5;max-width:38ch;
+.hcta-in p{margin:20px auto 0;font-size:clamp(16px,1.9vw,20px);line-height:1.5;color:#eef1f5;max-width:44ch;
   text-shadow:0 1px 22px rgba(0,0,0,.6);}
+/* Richard's two-line default sub (Aug 2 2026): problem line, then the answer line with
+   more weight. Pages passing a custom sub render it as before. */
+.hcta-in p .hcta-s1,.hcta-in p .hcta-s2{display:block;}
+.hcta-in p .hcta-s2{margin-top:6px;font-weight:700;color:#fff;}
+/* "Highlight the Enjoy Life in the StayBookt gradient colors" (Richard, same doc): the
+   same --sb-grad text treatment every other gradient payoff on the site uses. Fallback
+   gradient inline because this component is deliberately self-contained (see header). */
+.hcta-in h2 .g{background:var(--sb-grad,linear-gradient(100deg,#06b6d4,#10b981 46%,#4f46e5 78%,#7c3aed));
+  -webkit-background-clip:text;background-clip:text;color:transparent;}
 
 .hcta-btn{display:inline-flex;align-items:center;justify-content:center;margin-top:clamp(28px,3.6vw,38px);
   background:#fff;color:#050506;font-size:15.5px;font-weight:600;border-radius:999px;padding:16px 34px;
