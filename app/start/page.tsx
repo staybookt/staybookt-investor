@@ -111,6 +111,13 @@ const CSS = `
 .pg-hero.st-hero .wrap h1.st-h{margin:12px auto 0;font-size:clamp(16px,4.2vw,52px);font-weight:600;
   letter-spacing:-.042em;line-height:1.06;color:#fff;max-width:none;}
 .st-h .l1,.st-h .l2{display:block;white-space:nowrap;}
+/* MOBILE (headless-iPhone audit, Aug 4 2026): the desktop nowrap lock crushed this hero to
+   16px at 390px wide — SMALLER than its own subtext, inverted hierarchy. On a phone the
+   lines wrap naturally and the type sizes back up to hero weight. */
+@media(max-width:700px){
+  .pg-hero.st-hero .wrap h1.st-h{font-size:clamp(27px,7.6vw,34px);line-height:1.12;}
+  .st-h .l1,.st-h .l2{white-space:normal;}
+}
 .st-h .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .pg-hero.st-hero .wrap p.st-sub{margin:16px auto 0;font-size:clamp(15.5px,1.65vw,17.5px);line-height:1.55;color:#aeb6c4;max-width:54ch;}
 
