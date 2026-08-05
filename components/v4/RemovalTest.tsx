@@ -176,7 +176,15 @@ const B = [0, 0.34, 0.68, 1];
    Everything below that reads B[] keeps reading it unchanged — p is rescaled to p2 first
    (see apply()), so the three-beat math is byte-for-byte what it was before this beat
    existed and inherits none of the new beat's risk. */
-const B0 = 0.22;
+/* OPENING BEAT RETIRED (Jacob, Aug 4 2026 live review: "get rid of the weird header section
+   and just go into the original graphic"). Once Richard's restored Long-term value section
+   (.abt-ltv, directly above this film) carried the SAME headline and the SAME wealth kick,
+   beat -1 became a duplicate saying it all again one screen later, with a blurry mid-scrub
+   overlap state as its entrance. B0 = 0 means the intro slice has zero width: the driver,
+   SNAP markers and jumpTo all keep their math and the film now opens on the diagram (beat 0),
+   exactly its pre-merge behavior. INTRO and the [data-beat="-1"] CSS stay for the
+   reduced-motion/static text path, which still wants the claim in prose. */
+const B0 = 0;
 /* Snap markers for the WHOLE track: intro start, the three old B[] boundaries rescaled into
    the post-intro remainder, and the end. Replaces a bare B.map() for the same reason B0
    exists — B[] alone no longer spans the full track. */
@@ -190,7 +198,9 @@ const CHAPTERS = ['Right now', 'Take a week off', 'The difference'];
 const CSS = `
 /* --trk grew by 1/(1-B0) (roughly *1.28) so the three original beats keep the exact press
    budget they had before B0's opening beat was added on top — see B0 above. */
-.rt-track{position:relative;--trk:clamp(1925px,295vh,2700px);height:var(--trk);background:#050506;}
+/* Track shrunk back to the pre-opening-beat travel (the *1.28 growth existed only to fund
+   B0's slice — see B0 above). */
+.rt-track{position:relative;--trk:clamp(1500px,230vh,2110px);height:var(--trk);background:#050506;}
 /* iOS. 100vh is the LARGE viewport (URL bar hidden), so the pinned stage stood ~86px
    taller than the screen and the beat labels along the bottom sat under Safari's bar.
    100svh is the small viewport, which is the one that is always actually visible. The
@@ -441,12 +451,12 @@ export default function RemovalTest({ anchorId }: { anchorId?: string } = {}) {
   const [mobile, setMobile] = useState(false);
   /* beat starts at -1: the opening claim, before any of the three original beats begin.
      See B0/INTRO above. */
-  const [beat, setBeat] = useState(-1);
+  const [beat, setBeat] = useState(0);
   const [p0, setP0] = useState(0);
   const [lift, setLift] = useState(0);
   const [wire, setWire] = useState(0);
   const [lit, setLit] = useState(6);
-  const [intro, setIntro] = useState(0);
+  const [intro] = useState(1);
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -497,17 +507,11 @@ export default function RemovalTest({ anchorId }: { anchorId?: string } = {}) {
         /* --intro rides the WHOLE track's progress, not just the opening beat's slice, so it
            is already 1 (not clamped-then-stuck) the instant p passes B0 — no separate branch
            needed to hold it there. */
-        setIntro(clamp(p / B0));
-        if (p < B0) {
-          /* THE OPENING BEAT. Nothing has happened yet: hub lit, wires idle, no pulse — the
-             exact "before beat 0" state the old code already defaulted to. Only --intro moves. */
-          setBeat(-1);
-          setP0(0); setLift(0); setWire(0); setLit(6);
-          return;
-        }
-        /* Beyond this point p2 replays the ORIGINAL 0..1 progress across the three beats
-           below, byte-for-byte the same math this file has always run — B0 above is the
-           only thing that changed, everything past it is untouched. */
+        /* No intro branch: B0 is 0 (opening beat retired, see B0 above), so p2 IS p and the
+           film opens on beat 0. setIntro is gone with it — intro is pinned at 1 so the
+           --introA/--introB styling never dims anything. Division by B0 would be 0/0 = NaN
+           at p = 0 (the prerender-crash family), which is why the branch was removed rather
+           than left to "never fire". */
         const p2 = (p - B0) / (1 - B0);
         const b = p2 < B[1] ? 0 : p2 < B[2] ? 1 : 2;
         const lp = clamp((p2 - B[b]) / (B[b + 1] - B[b]));
