@@ -280,7 +280,13 @@ const CSS = `
    which keeps its own headline and diagram exactly as they were; this doesn't touch either. */
 .abt-ltv{padding:clamp(70px,9vw,110px) 0;background:var(--v4-cream,#f6f6f3);border-top:1px solid #e6e6e1;}
 .abt-ltv .eyebrow{color:#69707d;}
-.abt-ltv .ltv-body{margin:clamp(22px,3vw,34px) auto 0;max-width:64ch;}
+/* Part II additions: section lede (matches .val-lede), the "A simple truth" block label,
+   and the block's own strong lead line. */
+.abt-ltv .ltv-lede{margin:20px auto 0;font-size:clamp(16px,1.8vw,19px);line-height:1.6;color:#42474f;max-width:56ch;}
+.abt-ltv .ltv-truth-k{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#69707d;margin-bottom:14px;}
+.abt-ltv .ltv-truth-h{font-size:clamp(19px,2.2vw,25px);font-weight:600;letter-spacing:-.02em;
+  line-height:1.3;color:var(--v4-ink);margin-bottom:4px;}
+.abt-ltv .ltv-body{margin:clamp(30px,4vw,46px) auto 0;max-width:64ch;}
 .abt-ltv .ltv-body p{font-size:clamp(16px,1.7vw,19px);line-height:1.6;color:#42474f;font-weight:400;}
 /* Each paragraph sits inside its own Reveal wrapper div, so "p+p" never matched (no p has a
    p sibling) and "p:last-child" matched EVERY p (each is the last child of its wrapper) —
@@ -461,28 +467,41 @@ export default function AboutPage() {
           The previous structure is the retired /long-term page's one-fact section: eyebrow ->
           big headline -> prose -> "Build long-term wealth, not a job." pull-quote. His four
           paragraphs stay verbatim as the prose. */}
+      {/* PART II REWRITE (Richard, "About Us - Part II" doc, Aug 4 2026). His new section
+          intro leads ("We think long-term..." + the legacy paragraph); his edited prose
+          follows under the renamed block label — his doc: "Change 'The One Fact' to 'A
+          Simple Truth'". Copy verbatim; two mechanical typo fixes flagged to Jacob
+          ("shear"->"sheer", "on-line"->"online"). His new version contracts ("don't") —
+          newer Richard beats older, ships as written. The old h2 ("If it cannot run without
+          you, there is nothing to hand anyone.") is superseded by his new lead line and
+          survives only in the film's screen-reader claim text. */}
       <section className="abt-ltv" id="long-term-value">
         <div className="wrap">
           <Reveal className="eyebrow" as="div">Long-term value</Reveal>
-          <Reveal><h2 className="ltv-h">If it cannot run without you, there is <span className="g">nothing to hand anyone</span><span className="pd">.</span></h2></Reveal>
+          <Reveal><h2 className="ltv-h">We think long-term. <span className="g">For ourselves and you</span><span className="pd">.</span></h2></Reveal>
+          <Reveal>
+            <p className="ltv-lede">
+              We are all in this to create something that builds legacy and provides for our
+              loved ones when it&rsquo;s time to move on. So we get it and want the same for you.
+            </p>
+          </Reveal>
           <div className="ltv-body">
+            <Reveal className="ltv-truth-k" as="div">A simple truth</Reveal>
             <Reveal>
-              <p>If your business would go backwards without you, a buyer is not going to pay
-                you a lot of money. So you need to plan today, to have a business to sell in
-                the future.</p>
+              <p className="ltv-truth-h">If your business would go backwards without you, a
+                future buyer is not going to pay you a lot of money.</p>
             </Reveal>
             <Reveal>
-              <p>To maximize your business value, you do not want to be in a position where
+              <p>To maximize your business value, you don&rsquo;t want to be in a position where
                 you are selling assets and a customer list. That happens when the business is
                 run on your cell phone and the customers go away when you leave. Buyers want
-                businesses that can work when the owner is not standing there. Otherwise, what
-                are they buying?</p>
+                businesses that can work when the owner is not standing there.</p>
             </Reveal>
             <Reveal>
               <p>You need to demonstrate repeatable channel revenue, strong repeat business,
                 healthy referral levels, day-to-day operations run by systems, not sheer will,
                 and an impressive online presence associated with the business, not the owner.
-                Most buyers do not want to buy a job. They want a business that has a path to
+                Most buyers don&rsquo;t want to buy a job; they want a business that has a path to
                 grow.</p>
             </Reveal>
             <Reveal>
