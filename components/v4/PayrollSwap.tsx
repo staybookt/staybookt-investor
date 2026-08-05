@@ -14,15 +14,21 @@ import { min } from '@/lib/css';
  * scroll-scrubbing, no rAF — same "on-view, timer-staggered" pattern the header comment in
  * HomeJourney.tsx names explicitly, just re-themed for a light page instead of the dark hero.
  *
- * Numbers are real median Canadian pay per role (Job Bank, 2025), not invented — the site-wide
- * rule against made-up figures. Sum is exact: 44 + 50 + 52 + 56 + 54 = 256.
+ * CURRENCY SWITCHED TO US$ (Jacob's call, Aug 4 2026, on Richard's "we need to declare"
+ * comment: charge in US$, the far bigger market). Figures are real median US pay per role —
+ * BLS Occupational Employment and Wage Statistics, May 2025 medians annualized (hourly
+ * median x 2080, rounded to the nearest $1,000): marketing specialists $37.87/hr -> $79K,
+ * receptionists $18.27 -> $38K, production/planning/expediting clerks (scheduler) $28.68
+ * -> $60K, secretaries and admin assistants $22.86 -> $48K, billing and posting clerks
+ * $23.32 -> $49K. Sum is exact: 79 + 38 + 60 + 48 + 49 = 274.
+ * Marketer moved to the top to match the homepage PJOBS ordering (Richard, Aug 3 doc).
  */
 const ROLES: { role: string; pay: string }[] = [
-  { role: 'A receptionist', pay: '$44,000' },
-  { role: 'A scheduler', pay: '$50,000' },
-  { role: 'An assistant', pay: '$52,000' },
-  { role: 'A collections clerk', pay: '$56,000' },
-  { role: 'A marketer', pay: '$54,000' },
+  { role: 'A marketer', pay: '$79,000' },
+  { role: 'A receptionist', pay: '$38,000' },
+  { role: 'A scheduler', pay: '$60,000' },
+  { role: 'An assistant', pay: '$48,000' },
+  { role: 'A collections clerk', pay: '$49,000' },
 ];
 
 const CSS = `
@@ -120,12 +126,16 @@ export default function PayrollSwap() {
       <style>{min(CSS)}</style>
       <div className="wrap">
         <div className="inner">
-          <div className="eyebrow">Why so cheap</div>
-          <h2>It was never software. It was five salaries.</h2>
+          {/* RICHARD'S REPLACEMENT (website review doc, Aug 3 2026): "Not sold on the Why so
+              Cheap? tagline" — his Undeniable Value block ships verbatim below, dashes swapped
+              for commas per the no-dash rule. */}
+          <div className="eyebrow">Undeniable value</div>
+          <h2>What if you had a team that helped you do everything you do today?</h2>
           <p className="lede">
-            A big company answers every call, books every job, chases every quote and chases the
-            money. It is not smarter than you. It just has five people on payroll doing it, which
-            is the one thing you could never buy.
+            Big companies have the luxury of many people and departments doing the work. Small
+            and medium sized companies can&rsquo;t justify those roles, so the owner does it all, at
+            all hours of the day. The power of StayBookt is that we are giving you technology
+            that provides the support of 5 different skills on your payroll, for only $199/mth.
           </p>
 
           <div className={`pswap${on ? ' on' : ''}`}>
@@ -142,7 +152,7 @@ export default function PayrollSwap() {
               <div className="srow total">
                 <span className="rname">Five people on payroll</span>
                 <span className="rpay">
-                  <s>$256,000</s>
+                  <s>$274,000</s>
                   <em>&nbsp;/year</em>
                 </span>
               </div>
@@ -153,14 +163,15 @@ export default function PayrollSwap() {
                   "$199 a month"; every compact label says "$199/mth". */}
               <span className="usp">
                 $199
-                <em>&nbsp;/mth</em>
+                <em>&nbsp;/mth USD</em>
               </span>
             </div>
           </div>
 
           <p className="src">
-            Each figure is median Canadian pay for that role (Job Bank, 2025). We are not five new
-            hires. We are the outcome those hires would give you, bought a different way.
+            Each figure is median US pay for that role (US Bureau of Labor Statistics, 2025). We
+            are not five new hires. We are the outcome those hires would give you, bought a
+            different way. All prices in US dollars.
           </p>
         </div>
       </div>

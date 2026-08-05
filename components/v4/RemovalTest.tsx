@@ -222,9 +222,17 @@ const CSS = `
 .rt-w.live{stroke:#22d3ee;stroke-dasharray:var(--len);stroke-dashoffset:calc(var(--len) * var(--wire));
   filter:drop-shadow(0 0 6px rgba(34,211,238,.5));transition:stroke .5s ease;}
 .rt-stage[data-beat="2"] .rt-w.live{stroke:#34d399;filter:drop-shadow(0 0 6px rgba(52,211,153,.55));}
+/* SELF-ANIMATING, NOT SCROLL-SCRUBBED (Richard, website review doc, Aug 3 2026: "the graphic
+   is still glitchy"). The pulse used to ride --p0, i.e. it only travelled while the page was
+   actually scrolling — for a keyboard scroller (Richard reviews by arrow key) that meant a
+   bright dot FROZEN mid-wire between presses, which reads as a rendering glitch. Now it loops
+   on its own clock whenever beat 0 is on screen; var(--len) resolves per wire inside the
+   keyframes so each wire's pulse travels its own full length. --p0 still drives nothing else. */
 .rt-w.pulse{stroke:#a5f3fc;stroke-width:2.6;stroke-linecap:round;opacity:calc(.9 * (1 - var(--wire)));
-  stroke-dasharray:26 999;stroke-dashoffset:calc(-1 * var(--len) * var(--p0));}
-.rt-stage[data-beat="1"] .rt-w.pulse,.rt-stage[data-beat="2"] .rt-w.pulse{opacity:0;}
+  stroke-dasharray:26 999;animation:rtPulse 2.8s linear infinite;}
+@keyframes rtPulse{from{stroke-dashoffset:26;}to{stroke-dashoffset:calc(-1 * var(--len));}}
+.rt-stage[data-beat="1"] .rt-w.pulse,.rt-stage[data-beat="2"] .rt-w.pulse{opacity:0;animation-play-state:paused;}
+@media(prefers-reduced-motion:reduce){.rt-w.pulse{animation:none;}}
 
 /* NODES. Lit is the default state: the point of beat 1 is losing it. */
 .rt-n{transition:fill .45s ease,opacity .45s ease;}

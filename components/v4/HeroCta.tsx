@@ -88,7 +88,12 @@ const HERO_IMG = '/closer-dock.jpg';
 
 const CSS = `
 .hcta{position:relative;min-height:min(100vh,900px);display:flex;align-items:flex-end;overflow:hidden;color:#fff;background:#050506;}
-.hcta>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+/* object-position 50% 20%, not center: closer-dock.jpg is a 2:3 portrait with the chairs in
+   the TOP third (chairs ~19-35% down the frame). A default center crop on a wide viewport
+   takes the middle band, which is all dock-shadow and slices the chairs at the frame edge —
+   Richard's "image is cut off on the chairs" (website review doc, Aug 3 2026). 20% centres
+   the crop band on the chairs while keeping them clear of the top scrim. */
+.hcta>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%;}
 .hcta .hcta-ov{position:absolute;inset:0;
   background:linear-gradient(180deg,rgba(5,5,6,.6) 0%,rgba(5,5,6,.18) 34%,rgba(5,5,6,.5) 72%,#050506 100%);}
 /* homepage only: emerge out of the film's black instead of cutting to the photo */

@@ -379,7 +379,9 @@ function PriceReveal() {
       <div className="wrap">
         <div className="eyebrow">What it costs</div>
         <div className="hjc-num">
-          <div className="hjc-fig"><span className="hjc-dol">$</span><span className="hjc-price">199</span><span className="hjc-per">/mth</span></div>
+          {/* USD declared (Jacob's call on Richard's currency comment, Aug 4 2026: US$
+              everywhere). */}
+          <div className="hjc-fig"><span className="hjc-dol">$</span><span className="hjc-price">199</span><span className="hjc-per">/mth USD</span></div>
           <p className="hjc-sub">Nothing upfront. Cancel on thirty days notice.</p>
         </div>
         <h2 className="hjc-teamh">You get a team to help run your business</h2>

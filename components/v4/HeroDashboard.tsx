@@ -35,10 +35,13 @@ type Beat = {
 };
 
 const BEATS: Beat[] = [
-  { id: 'paper', icon: 'doc', label: 'Paperwork each week', today: '6 hours', tomorrow: 'Zero', line: 'Quotes followed up, invoices chased, the numbers sent to your phone.' },
+  /* "Hard to say paperwork is zero... say 10 hours... position the after as < 5 hours to
+     show a more than 50% reduction" (Richard, website review doc, Aug 3 2026). */
+  { id: 'paper', icon: 'doc', label: 'Paperwork each week', today: '10 hours', tomorrow: 'Under 5', line: 'Quotes followed up, invoices chased, the numbers sent to your phone.' },
   { id: 'nights', icon: 'cal', label: 'Nights & weekends', today: 'Working', tomorrow: 'Yours', line: 'The phone is answered at 2 a.m. You are asleep.' },
   { id: 'work', icon: 'heart', label: 'Your work', today: 'Busywork', tomorrow: 'What you love', line: 'The admin comes off your plate. The craft goes back on it.' },
-  { id: 'cust', icon: 'people', label: 'Customers', today: 'Transactions', tomorrow: 'Relationships', line: 'Reviews asked after every job, replies in your voice, past customers brought back.' },
+  /* "Customers => Customer Relationships; Transactional => Deep" (Richard, same doc). */
+  { id: 'cust', icon: 'people', label: 'Customer relationships', today: 'Transactional', tomorrow: 'Deep', line: 'Reviews asked after every job, replies in your voice, past customers brought back.' },
   { id: 'grow', icon: 'chart', label: 'Your business', today: 'Stalled', tomorrow: 'Growing', line: 'Time to work on the business, not just in it.' },
   { id: 'stress', icon: 'wave', label: 'Stress', today: 'High', tomorrow: 'Low', line: 'Nothing slips. Nothing sits unread.' },
   { id: 'sleep', icon: 'moon', label: 'Sleep', today: 'Broken', tomorrow: 'Sound', line: 'The business runs while you rest.' },

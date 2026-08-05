@@ -149,7 +149,35 @@ const CSS = `
    REPLACED (Richard's About Us Quote doc, Aug 2 2026): "Replace the 2 quotes with one from
    both of us." The joint quote sits centered below the two cards, same brand-gradient left
    rule so it still reads as ours, not a generic testimonial. */
-.fjoint{margin:clamp(36px,5vw,56px) auto 0;max-width:760px;
+/* .us-q / .us-cite: the joint quote AS the section subtext (Richard, Aug 3 doc). Quote-sized
+   prose, not a boxed figure. */
+.abt-us .us-q{margin-top:18px;font-size:clamp(16px,1.8vw,19px);line-height:1.65;font-weight:500;
+  letter-spacing:-.01em;color:var(--v4-ink);max-width:760px;}
+.abt-us .us-cite{display:block;margin-top:12px;font-size:14.5px;font-weight:600;color:#69707d;}
+
+/* HOW WE RUN IT — values strip. Plain rows, hairline dividers, no card chrome. */
+.abt-values{padding:clamp(70px,9vw,110px) 0;background:#fff;border-top:1px solid #e6e6e1;}
+.abt-values .eyebrow{color:#69707d;}
+.abt-values .val-h{margin-top:14px;font-size:clamp(28px,4vw,52px);line-height:1.05;font-weight:600;
+  letter-spacing:-.035em;color:var(--v4-ink);max-width:18ch;}
+.abt-values .val-lede{margin-top:20px;font-size:clamp(16px,1.8vw,19px);line-height:1.6;color:#42474f;max-width:56ch;}
+.abt-values .val-rows{margin-top:clamp(30px,4vw,44px);max-width:820px;}
+.abt-values .val-row{display:grid;grid-template-columns:minmax(150px,220px) 1fr;gap:12px 28px;
+  padding:18px 0;border-bottom:1px solid #ededea;}
+.abt-values .val-row:first-child{border-top:1px solid #ededea;}
+.abt-values .val-row b{font-size:clamp(15px,1.7vw,18px);font-weight:700;color:var(--v4-ink);letter-spacing:-.01em;}
+.abt-values .val-row span{font-size:clamp(15px,1.7vw,17.5px);line-height:1.55;color:#5a6069;}
+@media(max-width:560px){.abt-values .val-row{grid-template-columns:1fr;gap:4px;}}
+
+/* Long-term value: restored headline + kick (the old /long-term one-fact structure). */
+.abt-ltv .ltv-h{margin-top:14px;font-size:clamp(28px,4vw,52px);line-height:1.05;font-weight:600;
+  letter-spacing:-.035em;color:var(--v4-ink);max-width:22ch;}
+.abt-ltv .ltv-kick{margin-top:clamp(30px,4vw,42px);padding-left:clamp(16px,2vw,22px);
+  border-left:3px solid;border-image:var(--sb-grad) 1;
+  font-size:clamp(19px,2.4vw,26px);font-weight:700;letter-spacing:-.02em;color:var(--v4-ink);}
+
+/* .fjoint retired (quote moved into .us-q above). */
+.fjoint-retired{margin:clamp(36px,5vw,56px) auto 0;max-width:760px;
   padding-left:clamp(16px,1.4vw,20px);border-left:3px solid transparent;border-image:var(--sb-grad-ink) 1;}
 .fjoint blockquote{margin:0;font-size:clamp(16px,1.8vw,19px);line-height:1.65;font-weight:500;letter-spacing:-.01em;color:var(--v4-ink);}
 .fjoint cite{display:block;margin-top:14px;font-style:normal;font-size:14.5px;font-weight:600;color:#69707d;}
@@ -268,11 +296,18 @@ export default function AboutPage() {
           <div className="us-lead">
             <div className="eyebrow">The team</div>
             <h2>Two founders. One mission.</h2>
-            <p>
-              Helping entrepreneurs be more successful. That is the whole company: not a fund, not a
-              franchise, not an agency with a hundred logos on the wall. Two people who will actually
-              run your front office.
+            {/* SUBTEXT IS THE JOINT QUOTE (Richard, website review doc, Aug 3 2026: "I don't
+                love the subtext. What about using our quote as the subtext"). The standalone
+                .fjoint figure below the cards was deleted in the same pass — one quote, one
+                place. */}
+            <p className="us-q">
+              &ldquo;We started StayBookt rooted in a passion to help small to mid-sized business
+              owners realize their dreams. Our solution helps businesses grow and allows the owner
+              to get away from the day-to-day minutia and spend their time doing meaningful things,
+              whether that is the work they love or having more time for passions outside work. We
+              want to be your operating partner on the journey to building something great.&rdquo;
             </p>
+            <span className="us-cite">Richard and Jacob</span>
           </div>
 
           {/* SIDE BY SIDE. Richard left, Jacob right (Jacob, live review, July 2026).
@@ -308,20 +343,49 @@ export default function AboutPage() {
             </article>
           </div>
 
-          {/* THE JOINT QUOTE (Richard's About Us Quote doc, Aug 2 2026): the two per-founder
-              quotes above were replaced with this single one from both, verbatim, with two
-              mechanical fixes only — his dash swapped for a comma per the no-dash rule, and
-              "spent their time" corrected to "spend" (a typo in the doc, flagged to Jacob). */}
-          <figure className="fjoint">
-            <blockquote>
-              &ldquo;We started StayBookt rooted in a passion to help small to mid-sized business
-              owners realize their dreams. Our solution helps businesses grow and allows the owner
-              to get away from the day-to-day minutia and spend their time doing meaningful things,
-              whether that is the work they love or having more time for passions outside work. We
-              want to be your operating partner on the journey to building something great.&rdquo;
-            </blockquote>
-            <cite>Richard and Jacob</cite>
-          </figure>
+          {/* The joint quote moved UP into the section subtext (Richard, Aug 3 doc) — it used
+              to render here as its own .fjoint figure after the cards. */}
+        </div>
+      </section>
+
+      {/* HOW WE RUN IT — Richard's Mission/Values content (Aug 4 2026), streamlined per Jacob
+          and merged into this page rather than a new tab (Jacob's call: hybrid About+Values).
+          Plain type + hairline dividers, no card chrome, per the standing rule. Value names
+          and substance are Richard's; bodies tightened from his draft — flagged for his
+          sign-off. */}
+      <section className="abt-values">
+        <div className="wrap">
+          <Reveal className="eyebrow" as="div">How we run it</Reveal>
+          <Reveal><h2 className="val-h">Five things we hold ourselves to<span className="pd">.</span></h2></Reveal>
+          <Reveal>
+            <p className="val-lede">
+              Every decision ties back to the mission: helping business owners realize their
+              dreams, from running the business to one day exiting it. How we do things matters
+              as much as what we do.
+            </p>
+          </Reveal>
+          <div className="val-rows">
+            <Reveal className="val-row" as="div">
+              <b>Humility</b>
+              <span>We are always learning. Arrogance, personal or corporate, never gets in the way of progress.</span>
+            </Reveal>
+            <Reveal className="val-row" as="div">
+              <b>Pursuit of excellence</b>
+              <span>We take pride in the work, and the pursuit of a better way never ends.</span>
+            </Reveal>
+            <Reveal className="val-row" as="div">
+              <b>Deep relationships</b>
+              <span>We build for the long term. Nothing transactional, nothing short-term.</span>
+            </Reveal>
+            <Reveal className="val-row" as="div">
+              <b>Candor</b>
+              <span>We tell each other the truth, the good and the bad. Politics never outranks the work.</span>
+            </Reveal>
+            <Reveal className="val-row" as="div">
+              <b>Partner mindset</b>
+              <span>We win together, with our customers, partners, vendors, and employees. Win-win, or we pass.</span>
+            </Reveal>
+          </div>
         </div>
       </section>
 
@@ -337,9 +401,15 @@ export default function AboutPage() {
           section (RemovalTest keeps rendering right after it, undecorated) so /long-term's
           redirect and HomeJourney.tsx's "what it is worth later" link still land in the right
           place. */}
+      {/* STRUCTURE RESTORED (Richard, website review doc, Aug 3 2026: "bring back the previous
+          structure you had. My comments were more about changing the text than the structure").
+          The previous structure is the retired /long-term page's one-fact section: eyebrow ->
+          big headline -> prose -> "Build long-term wealth, not a job." pull-quote. His four
+          paragraphs stay verbatim as the prose. */}
       <section className="abt-ltv" id="long-term-value">
         <div className="wrap">
           <Reveal className="eyebrow" as="div">Long-term value</Reveal>
+          <Reveal><h2 className="ltv-h">If it cannot run without you, there is nothing to hand anyone<span className="pd">.</span></h2></Reveal>
           <div className="ltv-body">
             <Reveal>
               <p>If your business would go backwards without you, a buyer is not going to pay
@@ -364,6 +434,7 @@ export default function AboutPage() {
               <p>That is not our opinion. Ask anyone who buys these businesses for a living.</p>
             </Reveal>
           </div>
+          <Reveal><div className="ltv-kick">Build long-term wealth, not a job.</div></Reveal>
         </div>
       </section>
       <RemovalTest />
