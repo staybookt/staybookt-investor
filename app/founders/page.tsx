@@ -120,7 +120,9 @@ const CSS = `
 
 /* ===== 3. WHO WE ARE ===== */
 .abt-us{padding:clamp(90px,12vw,150px) 0;background:var(--v4-cream);}
-.abt-us .us-lead{max-width:680px;margin:0 0 clamp(44px,6vw,70px);}
+/* max-width raised 680 -> 820 and the box CENTERED (was margin:0 0, pinning it left — which
+   made the "centered" pass only center text inside a left-pinned box). */
+.abt-us .us-lead{max-width:820px;margin:0 auto clamp(44px,6vw,70px);}
 .abt-us .us-lead h2{margin-top:14px;font-size:clamp(28px,4.2vw,54px);line-height:1.04;}
 .abt-us .us-lead p{margin-top:16px;font-size:clamp(17px,1.9vw,20px);line-height:1.6;color:#69707d;}
 
