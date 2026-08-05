@@ -151,22 +151,37 @@ const CSS = `
    rule so it still reads as ours, not a generic testimonial. */
 /* .us-q / .us-cite: the joint quote AS the section subtext (Richard, Aug 3 doc). Quote-sized
    prose, not a boxed figure. */
-.abt-us .us-q{margin-top:18px;font-size:clamp(16px,1.8vw,19px);line-height:1.65;font-weight:500;
-  letter-spacing:-.01em;color:var(--v4-ink);max-width:760px;}
-.abt-us .us-cite{display:block;margin-top:12px;font-size:14.5px;font-weight:600;color:#69707d;}
+/* CENTERED STATEMENTS (Apple-lens pass, Aug 4 2026): mission, team, and long-term value all
+   set text hard-left, leaving the right half of the container dead cream for ~3000px of
+   scroll — the one page on the site whose statements were not centered. Headings center;
+   long prose blocks center as a COLUMN but keep left-aligned text (centered ragged text at
+   6+ lines is unreadable). */
+.abt-us .us-lead{text-align:center;}
+.abt-us .us-q{margin:18px auto 0;font-size:clamp(16px,1.8vw,19px);line-height:1.65;font-weight:500;
+  letter-spacing:-.01em;color:var(--v4-ink);max-width:760px;text-align:left;}
+.abt-us .us-cite{display:block;max-width:760px;margin:12px auto 0;font-size:14.5px;font-weight:600;
+  color:#69707d;text-align:left;}
 
-/* HOW WE RUN IT — values strip. Plain rows, hairline dividers, no card chrome. */
-.abt-values{padding:clamp(70px,9vw,110px) 0;background:#fff;border-top:1px solid #e6e6e1;}
+/* OUR MISSION — values strip. Plain rows, hairline dividers, no card chrome. Centered
+   statement (see the centered-statements note above). */
+.abt-values{padding:clamp(70px,9vw,110px) 0;background:#fff;border-top:1px solid #e6e6e1;text-align:center;}
 .abt-values .eyebrow{color:#69707d;}
-.abt-values .val-h{margin-top:14px;font-size:clamp(28px,4vw,52px);line-height:1.05;font-weight:600;
+.abt-values .val-h{margin:14px auto 0;font-size:clamp(28px,4vw,52px);line-height:1.05;font-weight:600;
   letter-spacing:-.035em;color:var(--v4-ink);max-width:22ch;}
 /* gradient payoff on "realize their dreams" — same paint-box padding fix as every other
    gradient phrase (negative tracking shaves the final glyph otherwise). */
 /* .g is only defined for hero h1s globally — this h2 needs its own gradient paint. */
 .abt-values .val-h .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;
   color:transparent;padding-right:.04em;}
-.abt-values .val-lede{margin-top:20px;font-size:clamp(16px,1.8vw,19px);line-height:1.6;color:#42474f;max-width:56ch;}
-.abt-values .val-rows{margin-top:clamp(30px,4vw,44px);max-width:820px;}
+.abt-values .val-lede{margin:20px auto 0;font-size:clamp(16px,1.8vw,19px);line-height:1.6;color:#42474f;max-width:56ch;}
+.abt-values .val-rows{margin:clamp(30px,4vw,44px) auto 0;max-width:820px;text-align:left;}
+/* CASCADE (Apple-lens): the five rows enter the viewport together, so without delays they
+   revealed as one simultaneous pop. Staggered off the same .reveal transition. */
+.abt-values .val-rows .val-row:nth-child(1){transition-delay:.05s;}
+.abt-values .val-rows .val-row:nth-child(2){transition-delay:.16s;}
+.abt-values .val-rows .val-row:nth-child(3){transition-delay:.27s;}
+.abt-values .val-rows .val-row:nth-child(4){transition-delay:.38s;}
+.abt-values .val-rows .val-row:nth-child(5){transition-delay:.49s;}
 .abt-values .val-row{display:grid;grid-template-columns:minmax(150px,220px) 1fr;gap:12px 28px;
   padding:18px 0;border-bottom:1px solid #ededea;}
 .abt-values .val-row:first-child{border-top:1px solid #ededea;}
@@ -174,12 +189,20 @@ const CSS = `
 .abt-values .val-row span{font-size:clamp(15px,1.7vw,17.5px);line-height:1.55;color:#5a6069;}
 @media(max-width:560px){.abt-values .val-row{grid-template-columns:1fr;gap:4px;}}
 
-/* Long-term value: restored headline + kick (the old /long-term one-fact structure). */
-.abt-ltv .ltv-h{margin-top:14px;font-size:clamp(28px,4vw,52px);line-height:1.05;font-weight:600;
+/* Long-term value: restored headline + kick (the old /long-term one-fact structure).
+   Centered statement, prose column centered with left-aligned text (see the
+   centered-statements note above). */
+.abt-ltv{text-align:center;}
+.abt-ltv .ltv-h{margin:14px auto 0;font-size:clamp(28px,4vw,52px);line-height:1.05;font-weight:600;
   letter-spacing:-.035em;color:var(--v4-ink);max-width:22ch;}
-.abt-ltv .ltv-kick{margin-top:clamp(30px,4vw,42px);padding-left:clamp(16px,2vw,22px);
-  border-left:3px solid;border-image:var(--sb-grad) 1;
-  font-size:clamp(19px,2.4vw,26px);font-weight:700;letter-spacing:-.02em;color:var(--v4-ink);}
+.abt-ltv .ltv-body{text-align:left;}
+/* display:table centers the bar+quote as one unit; the bar itself is a VERTICAL slice of the
+   brand gradient (a horizontal gradient sliced into a 3px left border reads as flat cyan —
+   Apple-lens pass, Aug 4 2026). */
+.abt-ltv .ltv-kick{display:table;margin:clamp(30px,4vw,42px) auto 0;padding-left:clamp(16px,2vw,22px);
+  border-left:3px solid;border-image:linear-gradient(180deg,#06b6d4,#10b981 52%,#4f46e5) 1;
+  font-size:clamp(19px,2.4vw,26px);font-weight:700;letter-spacing:-.02em;color:var(--v4-ink);
+  text-align:left;}
 
 /* .fjoint retired (quote moved into .us-q above). */
 .fjoint-retired{margin:clamp(36px,5vw,56px) auto 0;max-width:760px;
@@ -242,7 +265,7 @@ const CSS = `
    which keeps its own headline and diagram exactly as they were; this doesn't touch either. */
 .abt-ltv{padding:clamp(70px,9vw,110px) 0;background:var(--v4-cream,#f6f6f3);border-top:1px solid #e6e6e1;}
 .abt-ltv .eyebrow{color:#69707d;}
-.abt-ltv .ltv-body{margin-top:clamp(22px,3vw,34px);max-width:64ch;}
+.abt-ltv .ltv-body{margin:clamp(22px,3vw,34px) auto 0;max-width:64ch;}
 .abt-ltv .ltv-body p{font-size:clamp(16px,1.7vw,19px);line-height:1.6;color:#42474f;font-weight:400;}
 /* Each paragraph sits inside its own Reveal wrapper div, so "p+p" never matched (no p has a
    p sibling) and "p:last-child" matched EVERY p (each is the last child of its wrapper) —
