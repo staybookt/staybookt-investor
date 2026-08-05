@@ -174,7 +174,14 @@ const CSS = `
 .abt-values .val-h .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;
   color:transparent;padding-right:.04em;}
 .abt-values .val-lede{margin:20px auto 0;font-size:clamp(16px,1.8vw,19px);line-height:1.6;color:#42474f;max-width:56ch;}
-.abt-values .val-rows{margin:clamp(30px,4vw,44px) auto 0;max-width:820px;text-align:left;}
+.abt-values .val-rows{margin:clamp(34px,4.5vw,54px) auto 0;max-width:880px;text-align:left;}
+/* STATEMENT ROWS, not a spec table (Jacob, Aug 4 2026: "elevate this"). The old rows set the
+   value NAME at 18px against 17.5px body text — no hierarchy, nothing led. Now: a small
+   gradient index numeral, the name at display size, the body as the supporting voice. Same
+   hairlines, same no-card rule, real hierarchy. */
+.abt-values .val-row .vn{display:block;margin-bottom:6px;font-size:13px;font-weight:700;
+  font-style:normal;letter-spacing:.08em;background:var(--sb-grad);-webkit-background-clip:text;
+  background-clip:text;color:transparent;font-variant-numeric:tabular-nums;}
 /* CASCADE (Apple-lens): the five rows enter the viewport together, so without delays they
    revealed as one simultaneous pop. Staggered off the same .reveal transition. */
 .abt-values .val-rows .val-row:nth-child(1){transition-delay:.05s;}
@@ -182,12 +189,15 @@ const CSS = `
 .abt-values .val-rows .val-row:nth-child(3){transition-delay:.27s;}
 .abt-values .val-rows .val-row:nth-child(4){transition-delay:.38s;}
 .abt-values .val-rows .val-row:nth-child(5){transition-delay:.49s;}
-.abt-values .val-row{display:grid;grid-template-columns:minmax(150px,220px) 1fr;gap:12px 28px;
-  padding:18px 0;border-bottom:1px solid #ededea;}
+.abt-values .val-row{display:grid;grid-template-columns:minmax(210px,300px) 1fr;gap:14px 44px;
+  align-items:start;padding:clamp(24px,3vw,32px) 0;border-bottom:1px solid #ededea;}
 .abt-values .val-row:first-child{border-top:1px solid #ededea;}
-.abt-values .val-row b{font-size:clamp(15px,1.7vw,18px);font-weight:700;color:var(--v4-ink);letter-spacing:-.01em;}
-.abt-values .val-row span{font-size:clamp(15px,1.7vw,17.5px);line-height:1.55;color:#5a6069;}
-@media(max-width:560px){.abt-values .val-row{grid-template-columns:1fr;gap:4px;}}
+.abt-values .val-row b{font-size:clamp(21px,2.4vw,29px);font-weight:600;color:var(--v4-ink);
+  letter-spacing:-.025em;line-height:1.12;}
+.abt-values .val-row span{font-size:clamp(15.5px,1.7vw,17.5px);line-height:1.6;color:#5a6069;
+  padding-top:.35em;}
+@media(max-width:560px){.abt-values .val-row{grid-template-columns:1fr;gap:6px;}
+  .abt-values .val-row span{padding-top:0;}}
 
 /* Long-term value: restored headline + kick (the old /long-term one-fact structure).
    Centered statement, prose column centered with left-aligned text (see the
@@ -338,23 +348,23 @@ export default function AboutPage() {
           </Reveal>
           <div className="val-rows">
             <Reveal className="val-row" as="div">
-              <b>Humility</b>
+              <b><i className="vn">01</i>Humility</b>
               <span>We are always learning. Arrogance, personal or corporate, never gets in the way of progress.</span>
             </Reveal>
             <Reveal className="val-row" as="div">
-              <b>Pursuit of excellence</b>
+              <b><i className="vn">02</i>Pursuit of excellence</b>
               <span>We take pride in the work, and the pursuit of a better way never ends.</span>
             </Reveal>
             <Reveal className="val-row" as="div">
-              <b>Deep relationships</b>
+              <b><i className="vn">03</i>Deep relationships</b>
               <span>We build for the long term. Nothing transactional, nothing short-term.</span>
             </Reveal>
             <Reveal className="val-row" as="div">
-              <b>Candor</b>
+              <b><i className="vn">04</i>Candor</b>
               <span>We tell each other the truth, the good and the bad. Politics never outranks the work.</span>
             </Reveal>
             <Reveal className="val-row" as="div">
-              <b>Partner mindset</b>
+              <b><i className="vn">05</i>Partner mindset</b>
               <span>We win together, with our customers, partners, vendors, and employees. Win-win, or we pass.</span>
             </Reveal>
           </div>
