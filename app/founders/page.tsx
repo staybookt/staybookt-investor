@@ -162,7 +162,9 @@ const CSS = `
   letter-spacing:-.035em;color:var(--v4-ink);max-width:22ch;}
 /* gradient payoff on "realize their dreams" — same paint-box padding fix as every other
    gradient phrase (negative tracking shaves the final glyph otherwise). */
-.abt-values .val-h .g{padding-right:.04em;}
+/* .g is only defined for hero h1s globally — this h2 needs its own gradient paint. */
+.abt-values .val-h .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;
+  color:transparent;padding-right:.04em;}
 .abt-values .val-lede{margin-top:20px;font-size:clamp(16px,1.8vw,19px);line-height:1.6;color:#42474f;max-width:56ch;}
 .abt-values .val-rows{margin-top:clamp(30px,4vw,44px);max-width:820px;}
 .abt-values .val-row{display:grid;grid-template-columns:minmax(150px,220px) 1fr;gap:12px 28px;
