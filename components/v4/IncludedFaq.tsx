@@ -116,7 +116,7 @@ const QS: Q[] = [
     /* Richard, FAQ doc, Jul 28 10:14am: deleted the closing line "We would rather tell you
        about twenty dollars and a card fee now than have you find them on an invoice
        later." Answer ends on the back-end list now. */
-    a: 'Almost. It is $199 a month plus tax, and two things sit outside that. Your domain registration, about twenty dollars a year, passed through at cost and yours anyway. And if you take card payments, Stripe or Square charge their own fee, around 2.9% plus thirty cents, taken out of what you collect like any card processing. That fee is theirs, not ours: we do not mark it up, and we take no cut of it. No build fee, no setup fee, no add-ons, no per-minute billing, no overage. And no back end either: no commission on your jobs, no share of your revenue, and no share of what the business is worth if you sell it.',
+    a: 'Almost. It is $199 USD a month plus tax, and two things sit outside that. Your domain registration, about twenty dollars a year, passed through at cost and yours anyway. And if you take card payments, Stripe or Square charge their own fee, around 2.9% plus thirty cents, taken out of what you collect like any card processing. That fee is theirs, not ours: we do not mark it up, and we take no cut of it. No build fee, no setup fee, no add-ons, no per-minute billing, no overage. And no back end either: no commission on your jobs, no share of your revenue, and no share of what the business is worth if you sell it.',
   },
   {
     k: 'The catch',
