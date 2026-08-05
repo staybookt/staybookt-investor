@@ -348,7 +348,8 @@ export default function AboutPage() {
       <section className="abt-values">
         <div className="wrap">
           <Reveal className="eyebrow" as="div">Our mission</Reveal>
-          <Reveal><h2 className="val-h">Helping business owners <span className="g">realize their dreams</span><span className="pd">.</span></h2></Reveal>
+          {/* <br/> before the payoff, same punchline-alone-on-line-2 rule as every hero. */}
+          <Reveal><h2 className="val-h">Helping business owners<br /><span className="g">realize their dreams</span><span className="pd">.</span></h2></Reveal>
           <Reveal>
             <p className="val-lede">
               Every decision we make ties back to that one objective, from helping you run your
@@ -478,7 +479,9 @@ export default function AboutPage() {
       <section className="abt-ltv" id="long-term-value">
         <div className="wrap">
           <Reveal className="eyebrow" as="div">Long-term value</Reveal>
-          <Reveal><h2 className="ltv-h">We think long-term. <span className="g">For ourselves and you</span><span className="pd">.</span></h2></Reveal>
+          {/* <br/> before the payoff: the locked hero format puts the punchline ALONE on
+              line 2 — without it this broke mid-phrase ("...long-term. For / ourselves..."). */}
+          <Reveal><h2 className="ltv-h">We think long-term.<br /><span className="g">For ourselves and you</span><span className="pd">.</span></h2></Reveal>
           <Reveal>
             <p className="ltv-lede">
               We are all in this to create something that builds legacy and provides for our
