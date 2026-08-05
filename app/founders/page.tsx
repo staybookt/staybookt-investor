@@ -159,7 +159,10 @@ const CSS = `
 .abt-values{padding:clamp(70px,9vw,110px) 0;background:#fff;border-top:1px solid #e6e6e1;}
 .abt-values .eyebrow{color:#69707d;}
 .abt-values .val-h{margin-top:14px;font-size:clamp(28px,4vw,52px);line-height:1.05;font-weight:600;
-  letter-spacing:-.035em;color:var(--v4-ink);max-width:18ch;}
+  letter-spacing:-.035em;color:var(--v4-ink);max-width:22ch;}
+/* gradient payoff on "realize their dreams" — same paint-box padding fix as every other
+   gradient phrase (negative tracking shaves the final glyph otherwise). */
+.abt-values .val-h .g{padding-right:.04em;}
 .abt-values .val-lede{margin-top:20px;font-size:clamp(16px,1.8vw,19px);line-height:1.6;color:#42474f;max-width:56ch;}
 .abt-values .val-rows{margin-top:clamp(30px,4vw,44px);max-width:820px;}
 .abt-values .val-row{display:grid;grid-template-columns:minmax(150px,220px) 1fr;gap:12px 28px;
@@ -290,7 +293,50 @@ export default function AboutPage() {
         </div>
       </header>
 
-      {/* 2 — TWO FOUNDERS, ONE MISSION (Richard, Jul 24 2026). One fold: photo, brief bio, and
+      {/* 2 — OUR MISSION (Jacob, Aug 4 2026 live review: "the mission should go above the
+          founder pics, then the founder pics, then the long-term value"). The page was saying
+          "mission" three times in a row — hero, "One mission" header, values lede — with the
+          actual mission buried mid-page. Now it is one movement, directly under the hero that
+          announces it: Richard's mission paragraph (his Mission/Values doc, near-verbatim,
+          dashes swapped) + the five values. */}
+      <section className="abt-values">
+        <div className="wrap">
+          <Reveal className="eyebrow" as="div">Our mission</Reveal>
+          <Reveal><h2 className="val-h">Helping business owners <span className="g">realize their dreams</span><span className="pd">.</span></h2></Reveal>
+          <Reveal>
+            <p className="val-lede">
+              Every decision we make ties back to that one objective, from helping you run your
+              business to successfully exiting it one day. And we believe how you do things
+              matters greatly, so we are intentional in how we conduct ourselves. Five things we
+              hold ourselves to:
+            </p>
+          </Reveal>
+          <div className="val-rows">
+            <Reveal className="val-row" as="div">
+              <b>Humility</b>
+              <span>We are always learning. Arrogance, personal or corporate, never gets in the way of progress.</span>
+            </Reveal>
+            <Reveal className="val-row" as="div">
+              <b>Pursuit of excellence</b>
+              <span>We take pride in the work, and the pursuit of a better way never ends.</span>
+            </Reveal>
+            <Reveal className="val-row" as="div">
+              <b>Deep relationships</b>
+              <span>We build for the long term. Nothing transactional, nothing short-term.</span>
+            </Reveal>
+            <Reveal className="val-row" as="div">
+              <b>Candor</b>
+              <span>We tell each other the truth, the good and the bad. Politics never outranks the work.</span>
+            </Reveal>
+            <Reveal className="val-row" as="div">
+              <b>Partner mindset</b>
+              <span>We win together, with our customers, partners, vendors, and employees. Win-win, or we pass.</span>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* 3 — TWO FOUNDERS, ONE MISSION (Richard, Jul 24 2026). One fold: photo, brief bio, and
           each founder's own quote beneath it. The inside/outside lens labels and the separate
           "why we built this" quote section are gone; the quotes live with the people who said
           them. Richard's and Jacob's quotes share the same vocabulary, so two people read as one
@@ -352,46 +398,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* HOW WE RUN IT — Richard's Mission/Values content (Aug 4 2026), streamlined per Jacob
-          and merged into this page rather than a new tab (Jacob's call: hybrid About+Values).
-          Plain type + hairline dividers, no card chrome, per the standing rule. Value names
-          and substance are Richard's; bodies tightened from his draft — flagged for his
-          sign-off. */}
-      <section className="abt-values">
-        <div className="wrap">
-          <Reveal className="eyebrow" as="div">How we run it</Reveal>
-          <Reveal><h2 className="val-h">Five things we hold ourselves to<span className="pd">.</span></h2></Reveal>
-          <Reveal>
-            <p className="val-lede">
-              Every decision ties back to the mission: helping business owners realize their
-              dreams, from running the business to one day exiting it. How we do things matters
-              as much as what we do.
-            </p>
-          </Reveal>
-          <div className="val-rows">
-            <Reveal className="val-row" as="div">
-              <b>Humility</b>
-              <span>We are always learning. Arrogance, personal or corporate, never gets in the way of progress.</span>
-            </Reveal>
-            <Reveal className="val-row" as="div">
-              <b>Pursuit of excellence</b>
-              <span>We take pride in the work, and the pursuit of a better way never ends.</span>
-            </Reveal>
-            <Reveal className="val-row" as="div">
-              <b>Deep relationships</b>
-              <span>We build for the long term. Nothing transactional, nothing short-term.</span>
-            </Reveal>
-            <Reveal className="val-row" as="div">
-              <b>Candor</b>
-              <span>We tell each other the truth, the good and the bad. Politics never outranks the work.</span>
-            </Reveal>
-            <Reveal className="val-row" as="div">
-              <b>Partner mindset</b>
-              <span>We win together, with our customers, partners, vendors, and employees. Win-win, or we pass.</span>
-            </Reveal>
-          </div>
-        </div>
-      </section>
+      {/* THE VALUES SECTION MOVED UP — it now renders as OUR MISSION between the hero and the
+          founder cards (Jacob, Aug 4 2026). */}
 
       {/* THE PROMISES BOARD WAS REMOVED (Richard, Jul 24 2026: "delete this section"). It was the
           section between the founders and the close. The Promises component still exists, just not
