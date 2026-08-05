@@ -35,7 +35,9 @@ const CSS = `
 .prc-swap{background:#fff;padding:clamp(80px,11vw,140px) 0;border-top:1px solid #e6e6e1;}
 .prc-swap .inner{max-width:720px;margin:0 auto;}
 .prc-swap .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#69707d;}
-.prc-swap h2{margin-top:14px;font-size:clamp(30px,4.4vw,56px);line-height:1.03;max-width:16ch;font-weight:600;letter-spacing:-.035em;color:var(--v4-ink);}
+/* max-width 22ch, was 16ch: Richard's replacement question (66 chars) wrapped into FOUR
+   56px lines at 16ch. 22ch holds it to three. */
+.prc-swap h2{margin-top:14px;font-size:clamp(30px,4.4vw,56px);line-height:1.03;max-width:22ch;font-weight:600;letter-spacing:-.035em;color:var(--v4-ink);}
 .prc-swap .lede{margin-top:24px;font-size:clamp(17px,2vw,21px);line-height:1.6;color:#42474f;max-width:56ch;}
 
 /* the rows themselves: plain type, hairline dividers, no card. Each row and the final line
