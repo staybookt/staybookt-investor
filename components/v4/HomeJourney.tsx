@@ -849,12 +849,11 @@ export default function HomeJourney() {
     <>
       <style>{min(CSS)}</style>
 
-      <div className={`hj-hud${hudOn ? ' show' : ''}`} aria-hidden="true">
-        <div className="track"><i /><span className="dot" /></div>
-        <div className="labs">
-          {STOPS.map((s, i) => <span key={s.id} className={active >= i ? 'on' : ''}>{s.label}</span>)}
-        </div>
-      </div>
+      {/* THE FIXED PROGRESS HUD IS GONE (Richard, v2 8-5-26: "get rid of the remnant widget
+          in the bottom right of the page"). It was the film's bottom-right progress tracker;
+          to a reviewer it read as a stray widget, not orientation. The film's inline
+          milestone labels carry the wayfinding on their own. hudOn state left in place but
+          unused-by-render to keep the driver untouched. */}
 
       <section className="hj-jrny">
         <div className="wrap">

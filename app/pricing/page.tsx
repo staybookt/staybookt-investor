@@ -7,7 +7,7 @@ import HeroCta from '@/components/v4/HeroCta';
 import { min } from '@/lib/css';
 
 const SHARE =
-  'What you get for $199 a month: the whole list, what stays yours, and the things we do not do. Nothing upfront, no lock-in, ninety days to change your mind for any reason.';
+  'What you get for $199 USD a month: the whole list, what stays yours, and the things we do not do. Nothing upfront, no lock-in, ninety days to change your mind for any reason.';
 
 export const metadata = {
   title: 'Pricing',

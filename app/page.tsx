@@ -137,6 +137,14 @@ const PAGE_CSS = `
    same no-card language as the About values strip. */
 .probs{padding:clamp(70px,9vw,110px) 0;background:#fff;border-top:1px solid #e6e6e1;text-align:center;}
 .probs .eyebrow{color:#69707d;}
+/* FOLD 1 (Richard v2): the ICP pill rides with the problems fold now — same pill the hero
+   carried, verbatim styles. */
+.probs .pr-pill{display:inline-flex;align-items:center;
+  font-size:clamp(13px,1.5vw,17.5px);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#2b3038;
+  border:2px solid transparent;
+  background:linear-gradient(#fff,#fff) padding-box,var(--sb-grad) border-box;
+  border-radius:999px;padding:12px 26px;
+  box-shadow:0 8px 22px -10px rgba(6,12,20,.3);}
 .probs .pr-h{margin:14px auto 0;font-size:clamp(28px,4vw,52px);line-height:1.05;font-weight:600;
   letter-spacing:-.035em;color:var(--v4-ink);max-width:24ch;}
 .probs .pr-h .g,.probs .pr-close .g{background:var(--sb-grad);-webkit-background-clip:text;
@@ -371,7 +379,35 @@ export default function HomePage() {
       <Nav solidTop />
       <main id="main" tabIndex={-1}>
 
-      {/* 1 — HERO */}
+      {/* 1 — THE PROBLEMS FOLD, NOW FOLD ONE (Richard, v2 8-5-26: "Should 'Why StayBookt
+          exists' come before 'You built your business…'? … That would be my choice as it's
+          the clearest statement and grabs people with the pain points they can relate to."
+          Moved from fold 2; the ICP pill rides up with it, so the hero below flows straight
+          into the Four Milestones as he wants. Copy unchanged from the v1 round. */}
+      <section className="probs">
+        <div className="wrap">
+          <Reveal className="pr-pill" as="div">For owner-operated service businesses</Reveal>
+          <Reveal><h2 className="pr-h">Built to help owners realize their business&rsquo;s <span className="g">full potential</span><span className="pd">.</span></h2></Reveal>
+          <Reveal>
+            <p className="pr-lede">We do it by solving the problems that get in the way:</p>
+          </Reveal>
+          <div className="pr-rows">
+            <Reveal className="pr-row" as="div"><span>A website that doesn&rsquo;t generate calls</span></Reveal>
+            <Reveal className="pr-row" as="div"><span>Feast or famine workloads</span></Reveal>
+            <Reveal className="pr-row" as="div"><span>Soul-sucking paperwork</span></Reveal>
+            <Reveal className="pr-row" as="div"><span>No time to chase customer reviews</span></Reveal>
+            <Reveal className="pr-row" as="div"><span>Every call and follow-up running through you</span></Reveal>
+            <Reveal className="pr-row" as="div"><span>No time to focus on growing the business</span></Reveal>
+            <Reveal className="pr-row" as="div"><span>A job with your name on it, not a business with transferable value</span></Reveal>
+          </div>
+          <Reveal>
+            <p className="pr-close">Every small to mid-sized operator struggles with at least one of these.
+              StayBookt is <span className="g">the solution</span><span className="pd">.</span></p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* 2 — HERO (now flows directly into the Four Milestones, per Richard v2). */}
       <header className="scene">
         {/* ROUND 9 (Jacob, Aug 2 2026): "homepage should look like the journeys page for the
             formatting, get rid of the image behind the text." The full-bleed photo (round 3)
@@ -384,7 +420,7 @@ export default function HomePage() {
             the photo treatment both stay documented in case either is useful again; this hero
             is the same locked format /journeys and /founders already use. */}
         <div className="wrap inner">
-          <Reveal className="eyebrow" as="div">For owner-operated service businesses</Reveal>
+          {/* ICP pill moved up into the problems fold (fold 1) — Richard v2. */}
           <Reveal>
             <h1 className="hero-h1">
               <span className="hl1">You built your business to do</span>
@@ -426,35 +462,7 @@ export default function HomePage() {
             /long-term, so there is no cue left anywhere on the site. */}
       </header>
 
-      {/* THE PROBLEMS FOLD (Richard, website review 8-5-26, off Michelle's cold-visitor
-          feedback: "I didn't know what the software did until I poked around"). His call:
-          connect them with the pain points immediately. Composition is the HYBRID Jacob
-          chose: hero fold stays intact, this is the new fold 2 before the film. Copy is
-          Richard's, tightened per Jacob's license ("add something like the below") — his
-          two solution-shaped bullets recast as problems, "Feast of famine" typo fixed;
-          disclosed in the note back. */}
-      <section className="probs">
-        <div className="wrap">
-          <Reveal className="eyebrow" as="div">Why StayBookt exists</Reveal>
-          <Reveal><h2 className="pr-h">Built to help owners realize their business&rsquo;s <span className="g">full potential</span><span className="pd">.</span></h2></Reveal>
-          <Reveal>
-            <p className="pr-lede">We do it by solving the problems that get in the way:</p>
-          </Reveal>
-          <div className="pr-rows">
-            <Reveal className="pr-row" as="div"><span>A website that doesn&rsquo;t generate calls</span></Reveal>
-            <Reveal className="pr-row" as="div"><span>Feast or famine workloads</span></Reveal>
-            <Reveal className="pr-row" as="div"><span>Soul-sucking paperwork</span></Reveal>
-            <Reveal className="pr-row" as="div"><span>No time to chase customer reviews</span></Reveal>
-            <Reveal className="pr-row" as="div"><span>Every call and follow-up running through you</span></Reveal>
-            <Reveal className="pr-row" as="div"><span>No time to focus on growing the business</span></Reveal>
-            <Reveal className="pr-row" as="div"><span>A job with your name on it, not a business with transferable value</span></Reveal>
-          </div>
-          <Reveal>
-            <p className="pr-close">Every small to mid-sized operator struggles with at least one of these.
-              StayBookt is <span className="g">the solution</span><span className="pd">.</span></p>
-          </Reveal>
-        </div>
-      </section>
+      {/* THE PROBLEMS FOLD MOVED UP to fold 1 (Richard v2, 8-5-26) — see section 1 above. */}
 
       {/* THE "IN PLAIN ENGLISH" CARD IS GONE (Jacob, July 14 2026).
           Three columns of bullets sat between the hero and the journey: the only

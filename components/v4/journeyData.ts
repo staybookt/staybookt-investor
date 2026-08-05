@@ -147,7 +147,8 @@ export const JOURNEYS: Record<string, JourneyData> = {
     joy: { svg: '<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/>', line: 'Friday tee times, guilt-free.' },
     /* Richard's replacement finale (Journies doc, Aug 2 2026; his "live" typo corrected
        to "life"). */
-    finale: 'How much better would life be<br/>without wondering where the<br/>next job will come from?',
+    /* v2 replacement (Richard, 8-5-26), verbatim. */
+    finale: 'Imagine not worrying about where<br/>the next job will come from?',
     her: false,
     heroA: 'Brilliant at the work.',
     heroB: 'Losing the clients who wanted it',
@@ -211,7 +212,8 @@ export const JOURNEYS: Record<string, JourneyData> = {
     joy: { svg: '<path d="M8 22h8"/><path d="M12 15v7"/><path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z"/>', line: 'Dinner at home, phone face-down.' },
     /* Kim's hero line 2, finale, win renames, and receipt edits: Richard's Journies
        feedback doc, Aug 2 2026, verbatim. */
-    finale: 'Wouldn’t it be great if you worked less<br/>and the business ran more smoothly?',
+    /* v2 replacement (Richard, 8-5-26), verbatim. */
+    finale: 'Imagine working less and your business<br/>running more smoothly?',
     her: true,
     heroA: 'One of the top agents in town.',
     heroB: 'Too busy to be the first to call back',

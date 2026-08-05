@@ -55,7 +55,7 @@ const QS: Q[] = [
   {
     k: 'The money', c: '#818cf8',
     q: 'What does it cost, and is there a contract?',
-    a: '$199 a month plus tax, and no contract. Nothing upfront and no build fee. Cancel any time on thirty days notice, and for the first ninety days you can change your mind for any reason, and we refund every month you paid: no commission and no share of your revenue.',
+    a: '$199/mth USD plus tax, and no contract. Nothing upfront and no build fee. Cancel any time on thirty days notice, and for the first ninety days you can change your mind for any reason, and we refund every month you paid: no commission and no share of your revenue.',
     more: { href: '/pricing', label: 'See the pricing' },
   },
   {

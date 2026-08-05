@@ -11,17 +11,17 @@ import { min } from '@/lib/css';
    website?" — Jacob's call: that is Richard's rationale for the page closing harder,
    not a line for the page. Do not add it as copy. */
 const SHARE_DESCRIPTION =
-  'You have opportunities to make more money. We have solutions. Thirty minutes to discuss how technology could improve your business. Free.';
+  'You can make more money. We have solutions. Thirty minutes to discuss how technology could improve your business. Free.';
 
 export const metadata = {
-  title: 'You have opportunities. We have solutions.',
+  title: 'You can make more money. We have solutions.',
   description: SHARE_DESCRIPTION,
   alternates: { canonical: '/start' },
   openGraph: {
     /* Defining openGraph WITHOUT images suppresses the inherited app/opengraph-image.tsx,
        so this page shared as a bare grey rectangle. Every page needs its own images line. */
     images: ['/opengraph-image'],
-    title: 'You have opportunities. We have solutions. · StayBookt',
+    title: 'You can make more money. We have solutions. · StayBookt',
     description: SHARE_DESCRIPTION,
     url: 'https://www.staybookt.com/start',
     siteName: 'StayBookt',
@@ -30,7 +30,7 @@ export const metadata = {
   },
   twitter: { images: ['/twitter-image'],
     card: 'summary_large_image',
-    title: 'You have opportunities. We have solutions. · StayBookt',
+    title: 'You can make more money. We have solutions. · StayBookt',
     description: SHARE_DESCRIPTION,
   },
 };
@@ -105,10 +105,9 @@ const CSS = `
    getComputedStyle in the live page: 84.48px. These rules carry .pg-hero.st-hero .wrap
    so they genuinely win; do not "simplify" them back down to .st-h. Same story for
    p.st-sub vs globals' ".pg-hero .wrap p". */
-/* Cap 48 -> 52 (sitewide consistency pass, Aug 4 2026): heroes elsewhere run ~84-88px but
-   Richard's verbatim 43-char line 1 physically caps this one — 43ch nowrap in the 1100px
-   copy box tops out around 52px. This closes what gap physics allows. */
-.pg-hero.st-hero .wrap h1.st-h{margin:12px auto 0;font-size:clamp(16px,4.2vw,52px);font-weight:600;
+/* FULL FAMILY SIZE (Richard v2, 8-5-26): his new 24-char line 1 removes the length cap that
+   held this hero at 48-52px for two rounds. Now the same ~84px class as every other hero. */
+.pg-hero.st-hero .wrap h1.st-h{margin:12px auto 0;font-size:clamp(24px,6vw,84px);font-weight:600;
   letter-spacing:-.042em;line-height:1.06;color:#fff;max-width:none;}
 .st-h .l1,.st-h .l2{display:block;white-space:nowrap;}
 /* MOBILE (headless-iPhone audit, Aug 4 2026): the desktop nowrap lock crushed this hero to
@@ -119,7 +118,9 @@ const CSS = `
   .st-h .l1,.st-h .l2{white-space:normal;}
 }
 .st-h .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
-.pg-hero.st-hero .wrap p.st-sub{margin:16px auto 0;font-size:clamp(15.5px,1.65vw,17.5px);line-height:1.55;color:#aeb6c4;max-width:54ch;}
+/* Sub bumped a step (Richard v2: "generally the font sizing looks a bit small and harder
+   to read" on this page). */
+.pg-hero.st-hero .wrap p.st-sub{margin:18px auto 0;font-size:clamp(16.5px,1.85vw,19.5px);line-height:1.55;color:#aeb6c4;max-width:54ch;}
 
 /* Four facts now (Richard added Honest Feedback): 4-up on desktop, 2x2 on tablet,
    stacked on phone. Widened to fit the longer labels. */
@@ -215,8 +216,12 @@ export default function StartPage() {
                   "Thirty minutes with a founder" (logistics, not a reason) and before that
                   "See exactly where you are losing work" (promised a measured number the
                   public-information-only prep could not honestly deliver). */}
+              {/* v2 TAG (Richard, 8-5-26: "Should we change the tag to 'You can make more
+                  money, We have solutions.'?" + his note that this page's type ran small).
+                  His new 24-char line 1 is what UNLOCKS the size: the old 43-char line
+                  physically capped the hero at 52px. Now it runs the full family size. */}
               <h1 className="st-h">
-                <span className="l1">You have opportunities to make more money.</span>
+                <span className="l1">You can make more money,</span>
                 <span className="l2">We have <span className="g">solutions</span><span className="pd">.</span></span>
               </h1>
             </Reveal>

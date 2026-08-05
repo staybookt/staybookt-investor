@@ -284,8 +284,11 @@ const CSS = `
    and the block's own strong lead line. */
 .abt-ltv .ltv-lede{margin:20px auto 0;font-size:clamp(16px,1.8vw,19px);line-height:1.6;color:#42474f;max-width:56ch;}
 .abt-ltv .ltv-truth-k{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#69707d;margin-bottom:14px;}
-.abt-ltv .ltv-truth-h{font-size:clamp(19px,2.2vw,25px);font-weight:600;letter-spacing:-.02em;
-  line-height:1.3;color:var(--v4-ink);margin-bottom:4px;}
+/* v2 (Richard, 8-5-26: "is there a font issue between paragraph 1 and 2/3?") — the lead
+   line's larger size read as a mistake, not hierarchy. Same size as the body now; it leads
+   by weight and ink only. */
+.abt-ltv .ltv-truth-h{font-size:clamp(16px,1.7vw,19px);font-weight:600;letter-spacing:-.01em;
+  line-height:1.6;color:var(--v4-ink);margin-bottom:4px;}
 .abt-ltv .ltv-body{margin:clamp(30px,4vw,46px) auto 0;max-width:64ch;}
 .abt-ltv .ltv-body p{font-size:clamp(16px,1.7vw,19px);line-height:1.6;color:#42474f;font-weight:400;}
 /* Each paragraph sits inside its own Reveal wrapper div, so "p+p" never matched (no p has a
@@ -483,9 +486,13 @@ export default function AboutPage() {
               line 2 — without it this broke mid-phrase ("...long-term. For / ourselves..."). */}
           <Reveal><h2 className="ltv-h">We think long-term.<br /><span className="g">For ourselves and you</span><span className="pd">.</span></h2></Reveal>
           <Reveal>
+            {/* v2 (Richard, 8-5-26): comma added after "so we get it"; nbsp joins "for you."
+                so "you." can never orphan onto its own line (his "put 'you' on the line
+                above"). */}
             <p className="ltv-lede">
               We are all in this to create something that builds legacy and provides for our
-              loved ones when it&rsquo;s time to move on. So we get it and want the same for you.
+              loved ones when it&rsquo;s time to move on. So we get it, and want the same
+              for&nbsp;you.
             </p>
           </Reveal>
           <div className="ltv-body">
@@ -526,12 +533,14 @@ export default function AboutPage() {
       {/* Richard (CTA and Images comments, Aug 2 2026): his edit, split onto two lines —
           "We are your operating partner. / Helping you build something great." The .ln spans
           hold each line whole (nowrap blocks, see HeroCta.tsx), tight sizes them to fit. */}
-      {/* IMAGE SWAPPED (Richard, 8-5-26: "the image at the bottom is not working. I would go
-          back to the cottage photo on the water. It messages financial success.") Jacob's
-          call: cottage now, a real business-partnership shot later if Richard sources one. */}
+      {/* IMAGE ROUND 3 (Richard v2, 8-5-26: the autumn cottage was "a little too puzzley" —
+          he asked for a simple, more upscale cottage). New shot: dusk lakeside boathouse
+          with a lit dock (Unsplash, same free-license sourcing as the dock photo). His
+          business-partnership reference stays on file as the eventual replacement if he
+          sources one. */}
       <HeroCta
         fromBlack
-        img="/close-lt-cottage.jpg"
+        img="/close-lt-lakehouse.jpg"
         heading={<><span className="ln">We are your operating partner.</span><span className="ln">Helping you build <span className="g">something great</span><span className="pd">.</span></span></>}
         headingClass="tight"
         sub={null}
