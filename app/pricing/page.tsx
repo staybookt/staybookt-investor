@@ -150,7 +150,9 @@ export default function PricingPage() {
           <div className="eyebrow">Pricing</div>
           <h1 className="hero-h1">
             <span className="hl1">What you get for</span>
-            <span className="hl2"><span className="g">$199 a month</span><span className="pd">.</span></span>
+            {/* USD in the prominent spot (Richard, 8-5-26: "Feels like this prominent spot
+                should have the USD clarification"). */}
+            <span className="hl2"><span className="g">$199 USD a month</span><span className="pd">.</span></span>
           </h1>
           <p className="sub">Every job on the list below, handled, no matter how busy it gets.</p>
           <div className="facts">

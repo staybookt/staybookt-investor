@@ -76,13 +76,17 @@ type Driver = { k: string; you: string; sb: string; x: number; y: number };
 
 /* Short labels live in the SVG. The long copy lives in the HTML panel below it and swaps
    with the beat, which is the same split the beat-1 wheel uses on the homepage. */
+/* NODE LABELS = PAIN POINTS (Richard, website review 8-5-26: "the 6 branch items need to
+   tie back to pain points... I would follow the same pattern here." His six, verbatim).
+   The you/sb truth lines were adapted to fit the new labels — ours, disclosed. The
+   handover/buyer thread the film argues survives inside Growing the business. */
 const D: Driver[] = [
-  { k: 'Keeps running', you: 'Every call lands on your mobile. Up a ladder, it rings out.', sb: 'Answered, booked and followed up whether you are there or not.', x: 96, y: 132 },
-  { k: 'They come back', you: 'You mean to call them. You are on a job. You do not.', sb: 'Past customers brought back for the work they are due.', x: 237, y: 84 },
-  { k: 'The list is yours', you: 'Your head, your phone, a notebook.', sb: 'Every customer and job in one record. Exported whenever you ask.', x: 378, y: 62 },
-  { k: 'Work arrives', you: 'Word of mouth, and whoever happens to call.', sb: 'Found on search, on the map, and when somebody asks an AI.', x: 522, y: 62 },
-  { k: 'Reputation', you: 'Four reviews. The newest one is from 2023.', sb: 'A review asked for after every finished job, and every one answered.', x: 663, y: 84 },
-  { k: 'Handover', you: 'Only you know the prices, the rules, the history.', sb: 'Written down. That is what the playbook is, and it is yours.', x: 804, y: 132 },
+  { k: 'All the calls', you: 'Every call lands on your mobile. Up a ladder, it rings out.', sb: 'Answered, booked and followed up whether you are there or not.', x: 96, y: 132 },
+  { k: 'Follow-up', you: 'You mean to call them back. You are on a job. You do not.', sb: 'Quotes chased and past customers brought back, every time.', x: 237, y: 84 },
+  { k: 'Paperwork', you: 'Your head, your phone, a notebook.', sb: 'Every customer and job in one record. Exported whenever you ask.', x: 378, y: 62 },
+  { k: 'Tech management', you: 'A website that does not generate calls, a listing nobody runs.', sb: 'Found on search, on the map, and when somebody asks an AI.', x: 522, y: 62 },
+  { k: 'Getting referrals', you: 'Four reviews. The newest one is from 2023.', sb: 'A review asked for after every job, and happy customers who send people.', x: 663, y: 84 },
+  { k: 'Growing the business', you: 'Every hour goes to running it. None to growing it.', sb: 'The day-to-day runs on systems, so your time builds something sellable.', x: 804, y: 132 },
 ];
 
 const HUB = { x: 450, y: 372 };

@@ -26,7 +26,12 @@ import { min } from '@/lib/css';
  * pass `img` falls back to it. */
 /* heading / sub let a page override the close copy (About uses Richard's "operating partner"
    line and passes sub={null} to drop the subtext). Default is the standard close. */
-export default function HeroCta({ fromBlack = false, img = HERO_IMG, heading, headingClass, sub }: { fromBlack?: boolean; img?: string; heading?: ReactNode; headingClass?: string; sub?: ReactNode | null }) {
+/* imgPos ADDED (Richard, 8-5-26: "the bottom image is not rendering properly — guessing
+   when you fixed the homepage it affected the others." He guessed right.) The chairs-crop
+   fix hardcoded object-position 10% into this SHARED component, so every other close photo
+   — different framings — got the dock's crop and lost its subject. Now per-image: default
+   center, and only the dock passes its special position. */
+export default function HeroCta({ fromBlack = false, img = HERO_IMG, imgPos, heading, headingClass, sub }: { fromBlack?: boolean; img?: string; imgPos?: string; heading?: ReactNode; headingClass?: string; sub?: ReactNode | null }) {
   return (
     <section className="hcta" data-fade={fromBlack ? 'black' : undefined}>
       <style>{min(CSS)}</style>
@@ -35,7 +40,7 @@ export default function HeroCta({ fromBlack = false, img = HERO_IMG, heading, he
           CSS above pins this to inset:0 / 100% / object-fit:cover, so the attributes never
           set the rendered size; they only give the browser an aspect ratio up front so it
           reserves the box before the bytes land instead of reflowing around it. */}
-      <img src={img} alt="" width={2000} height={2835} loading="lazy" decoding="async" />
+      <img src={img} alt="" width={2000} height={2835} loading="lazy" decoding="async" style={imgPos ? { objectPosition: imgPos } : undefined} />
       <div className="hcta-ov" />
       <div className="hcta-in">
         {/* WAS "Go enjoy the life you built it for." (Richard: "feels awkward. I have to
@@ -93,11 +98,10 @@ const CSS = `
    takes the middle band, which is all dock-shadow and slices the chairs at the frame edge —
    Richard's "image is cut off on the chairs" (website review doc, Aug 3 2026). 20% centres
    the crop band on the chairs while keeping them clear of the top scrim. */
-/* ROUND 2 (headless-Chrome QA, same day): 20% still clipped the chair backs at the page's
-   FINAL resting scroll, where the footer pushes the section's top ~310px off screen. 10%
-   drops the chairs to the lower-middle of the crop so they stay whole even at page bottom,
-   and puts the headline over water instead of over the chairs. */
-.hcta>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 10%;}
+/* ROUND 3 (Richard, 8-5-26): the 10% crop belonged to the DOCK PHOTO ONLY but was hardcoded
+   here, breaking every other page's close image. Default is back to center; the dock's 10%
+   travels via the imgPos prop from app/page.tsx. */
+.hcta>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
 .hcta .hcta-ov{position:absolute;inset:0;
   background:linear-gradient(180deg,rgba(5,5,6,.6) 0%,rgba(5,5,6,.18) 34%,rgba(5,5,6,.5) 72%,#050506 100%);}
 /* homepage only: emerge out of the film's black instead of cutting to the photo */

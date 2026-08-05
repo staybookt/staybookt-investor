@@ -247,9 +247,14 @@ const ROWS: Row[] = [
    sense that these are two points in TIME rather than two suppliers. The header now names
    the moment, the cell names who is holding the work. "at nine at night" stays: it is the
    best line on the page. */
+/* ORDER (Richard, 8-5-26: "the website, google listing, and CRM should be at the top. The
+   rest looks thoughtful.") ROWS stays in its original authoring order; this maps the render
+   order: website (8), Google listing (9), CRM (10) first, then everything else as it was. */
+const ORDERED = [8, 9, 10, 0, 1, 2, 3, 4, 5, 6, 7, 11, 12].map((i) => ROWS[i]);
+
 const COLS: { k: keyof Pick<Row, 'you' | 'sb'>; label: string; sub: string; short: string }[] = [
   { k: 'you', label: 'On your plate today', sub: 'at nine at night', short: 'Today' },
-  { k: 'sb', label: 'With StayBookt', sub: '$199/mth', short: 'With StayBookt' },
+  { k: 'sb', label: 'With StayBookt', sub: '$199/mth USD', short: 'With StayBookt' },
 ];
 
 /* THE WHOLE CHART ANNOUNCED AS NOTHING.
@@ -406,7 +411,7 @@ export default function Matrix() {
               </div>
             </div>
 
-            {ROWS.map((r, i) => (
+            {ORDERED.map((r, i) => (
               <div key={r.job} className={'mx-row' + (open === i ? ' open' : '')}>
                 <button
                   type="button"

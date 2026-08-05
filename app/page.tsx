@@ -133,6 +133,31 @@ const PAGE_CSS = `
 .v4 header.scene h1 .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .v4 header.scene h1 .pd{color:var(--v4-violet);}
 
+/* THE PROBLEMS FOLD (Richard 8-5-26 / Michelle). Centered statement + hairline problem rows,
+   same no-card language as the About values strip. */
+.probs{padding:clamp(70px,9vw,110px) 0;background:#fff;border-top:1px solid #e6e6e1;text-align:center;}
+.probs .eyebrow{color:#69707d;}
+.probs .pr-h{margin:14px auto 0;font-size:clamp(28px,4vw,52px);line-height:1.05;font-weight:600;
+  letter-spacing:-.035em;color:var(--v4-ink);max-width:24ch;}
+.probs .pr-h .g,.probs .pr-close .g{background:var(--sb-grad);-webkit-background-clip:text;
+  background-clip:text;color:transparent;padding-right:.04em;}
+.probs .pr-lede{margin:18px auto 0;font-size:clamp(16px,1.8vw,19px);line-height:1.6;color:#42474f;max-width:56ch;}
+.probs .pr-rows{margin:clamp(28px,4vw,42px) auto 0;max-width:640px;text-align:left;}
+.probs .pr-row{display:flex;align-items:baseline;gap:14px;padding:15px 2px;border-bottom:1px solid #ededea;}
+.probs .pr-row:first-child{border-top:1px solid #ededea;}
+.probs .pr-row::before{content:'';flex:none;width:8px;height:8px;border-radius:50%;
+  background:var(--sb-grad);transform:translateY(-1px);}
+.probs .pr-row span{font-size:clamp(16px,1.8vw,19px);line-height:1.5;color:var(--v4-ink);font-weight:500;}
+.probs .pr-rows .pr-row:nth-child(1){transition-delay:.05s;}
+.probs .pr-rows .pr-row:nth-child(2){transition-delay:.13s;}
+.probs .pr-rows .pr-row:nth-child(3){transition-delay:.21s;}
+.probs .pr-rows .pr-row:nth-child(4){transition-delay:.29s;}
+.probs .pr-rows .pr-row:nth-child(5){transition-delay:.37s;}
+.probs .pr-rows .pr-row:nth-child(6){transition-delay:.45s;}
+.probs .pr-rows .pr-row:nth-child(7){transition-delay:.53s;}
+.probs .pr-close{margin:clamp(28px,4vw,40px) auto 0;font-size:clamp(18px,2.2vw,24px);line-height:1.45;
+  font-weight:600;color:var(--v4-ink);max-width:44ch;}
+
 /* APPLE-GRADE ENTRANCE (Jacob, Jul 23 2026). Two-stage headline: the clause fades up from a soft
    blur, then "Enjoy Life" lands on its own a beat later; the subhead and pill follow; the
    polaroids rise in, staggered, last. Only under no-preference — reduced motion gets the final
@@ -401,6 +426,36 @@ export default function HomePage() {
             /long-term, so there is no cue left anywhere on the site. */}
       </header>
 
+      {/* THE PROBLEMS FOLD (Richard, website review 8-5-26, off Michelle's cold-visitor
+          feedback: "I didn't know what the software did until I poked around"). His call:
+          connect them with the pain points immediately. Composition is the HYBRID Jacob
+          chose: hero fold stays intact, this is the new fold 2 before the film. Copy is
+          Richard's, tightened per Jacob's license ("add something like the below") — his
+          two solution-shaped bullets recast as problems, "Feast of famine" typo fixed;
+          disclosed in the note back. */}
+      <section className="probs">
+        <div className="wrap">
+          <Reveal className="eyebrow" as="div">Why StayBookt exists</Reveal>
+          <Reveal><h2 className="pr-h">Built to help owners realize their business&rsquo;s <span className="g">full potential</span><span className="pd">.</span></h2></Reveal>
+          <Reveal>
+            <p className="pr-lede">We do it by solving the problems that get in the way:</p>
+          </Reveal>
+          <div className="pr-rows">
+            <Reveal className="pr-row" as="div"><span>A website that doesn&rsquo;t generate calls</span></Reveal>
+            <Reveal className="pr-row" as="div"><span>Feast or famine workloads</span></Reveal>
+            <Reveal className="pr-row" as="div"><span>Soul-sucking paperwork</span></Reveal>
+            <Reveal className="pr-row" as="div"><span>No time to chase customer reviews</span></Reveal>
+            <Reveal className="pr-row" as="div"><span>Every call and follow-up running through you</span></Reveal>
+            <Reveal className="pr-row" as="div"><span>No time to focus on growing the business</span></Reveal>
+            <Reveal className="pr-row" as="div"><span>A job with your name on it, not a business with transferable value</span></Reveal>
+          </div>
+          <Reveal>
+            <p className="pr-close">Every small to mid-sized operator struggles with at least one of these.
+              StayBookt is <span className="g">the solution</span><span className="pd">.</span></p>
+          </Reveal>
+        </div>
+      </section>
+
       {/* THE "IN PLAIN ENGLISH" CARD IS GONE (Jacob, July 14 2026).
           Three columns of bullets sat between the hero and the journey: the only
           piece of UI on an otherwise cinematic page. It also said the plot out loud
@@ -470,6 +525,7 @@ export default function HomePage() {
           defined in HeroCta.tsx's own CSS. His replacement sub is HeroCta's new default,
           so no sub prop needed here. */}
       <HeroCta
+        imgPos="50% 10%"
         heading={<>Helping your business run better.<br />So that you <span className="g">Enjoy Life</span> more<span className="pd">.</span></>}
       />
 

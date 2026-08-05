@@ -68,6 +68,7 @@ export default function Journey({ id }: { id: string }) {
     const stars = root.querySelector('.jy-stars') as HTMLElement | null;
     const cntMoney = root.querySelector('.jy-cnt-money') as HTMLElement;
     const cntTime = root.querySelector('.jy-cnt-time') as HTMLElement;
+    const plusEl = root.querySelector('.jy-plus') as HTMLElement | null;
     const recFlips = [...root.querySelectorAll('.jy-fl')] as HTMLElement[];
 
     const smooth = (x: number) => (x <= 0 ? 0 : x >= 1 ? 1 : x * x * (3 - 2 * x));
@@ -143,7 +144,11 @@ export default function Journey({ id }: { id: string }) {
             let k = Math.min(1, (tm - t0) / 900); k = 1 - Math.pow(1 - k, 3);
             /* thin space before the + (Richard, Journies doc: "spacing with the + is off"
                — the plus sat flush against the last digit of the gradient figure) */
-            cntMoney.textContent = '$' + Math.round(d.receipt.moneyTo * k).toLocaleString() + (k >= 1 ? ' +' : '');
+            /* + IS ITS OWN ELEMENT NOW (Richard, 8-5-26: "the + is not centered" - his screenshots
+               showed it clipped mid-glyph at some widths. The thin-space-in-textContent fix
+               left it digit-sized on the baseline inside the gradient paint box). */
+            cntMoney.textContent = '$' + Math.round(d.receipt.moneyTo * k).toLocaleString();
+            if (plusEl) plusEl.classList.toggle('on', k >= 1);
             cntTime.textContent = Math.round(d.receipt.timeTo * k) + d.receipt.timeSuffix;
             if (k < 1) recRaf.current = requestAnimationFrame(step);
           };
@@ -154,6 +159,7 @@ export default function Journey({ id }: { id: string }) {
         recRan.current = false;
         if (recRaf.current) cancelAnimationFrame(recRaf.current);
         cntMoney.textContent = '$0';
+        if (plusEl) plusEl.classList.remove('on');
         cntTime.textContent = '0' + d.receipt.timeSuffix;
         recFlips.forEach((f) => f.classList.remove('on'));
       }
@@ -354,7 +360,7 @@ export default function Journey({ id }: { id: string }) {
             <div className="jy-bin">
               <div className="jy-kick">The receipt</div>
               <div className="jy-rtots">
-                <div className="jy-rtot"><div className="jy-rn jy-cnt-money">$0</div><div className="jy-rl">{d.receipt.moneyLabel}</div></div>
+                <div className="jy-rtot"><div className="jy-rn"><span className="jy-cnt-money">$0</span><span className="jy-plus" aria-hidden>+</span></div><div className="jy-rl">{d.receipt.moneyLabel}</div></div>
                 <div className="jy-rtot"><div className="jy-rn jy-cnt-time">0{d.receipt.timeSuffix}</div><div className="jy-rl">{d.receipt.timeLabel}</div></div>
               </div>
               <div className="jy-flips">
@@ -589,7 +595,9 @@ const CSS = `
    descender, and the clip-box ate trailing glyph edges — tracking relaxed, real
    line-height, paint padding on both ends. Size cap also drops 190->150 so the new
    two-word wins (AI Assistant / Less Paperwork / Story Told) hold one line. */
-.jy-word{margin-top:14px;font-size:clamp(48px,10.5vw,150px);font-weight:700;letter-spacing:-.035em;line-height:1.02;padding:0 .05em .04em .02em;white-space:nowrap;background:var(--sb-grad-ink,linear-gradient(100deg,#06b6d4,#10b981 46%,#4f46e5 78%,#7c3aed));-webkit-background-clip:text;background-clip:text;color:transparent;opacity:.12;filter:blur(22px);transform:scale(1.18);transition:opacity .5s ease,filter .8s cubic-bezier(.19,1,.22,1),transform .9s cubic-bezier(.19,1,.22,1);}
+/* 9.2vw/132px, was 10.5vw/150 (Richard, 8-5-26: "Less Paperwork" clipped to "Less Paperwo"
+   at his window width — the two-word wins need the safer curve at every width). */
+.jy-word{margin-top:14px;font-size:clamp(44px,9.2vw,132px);font-weight:700;letter-spacing:-.035em;line-height:1.02;padding:0 .05em .04em .02em;white-space:nowrap;background:var(--sb-grad-ink,linear-gradient(100deg,#06b6d4,#10b981 46%,#4f46e5 78%,#7c3aed));-webkit-background-clip:text;background-clip:text;color:transparent;opacity:.12;filter:blur(22px);transform:scale(1.18);transition:opacity .5s ease,filter .8s cubic-bezier(.19,1,.22,1),transform .9s cubic-bezier(.19,1,.22,1);}
 .jy-word.on{opacity:1;filter:blur(0);transform:scale(1);}
 .jy-wsub{margin-top:20px;font-size:clamp(16px,2vw,22px);color:#2b2f36;font-weight:500;opacity:0;transform:translateY(10px);transition:opacity .5s ease .05s,transform .55s cubic-bezier(.16,1,.3,1) .05s;}
 .jy-wsub.on{opacity:1;transform:none;}
@@ -609,7 +617,13 @@ const CSS = `
 .jy-rtot{text-align:center;min-width:0;}
 /* padding-right stops the k in hrs/wk (and the counting digits) clipping at the paint
    box — same fix family as .jy-word above. */
-.jy-rn{font-size:clamp(34px,7vw,104px);font-weight:600;letter-spacing:-.05em;background:var(--sb-grad-ink,linear-gradient(100deg,#06b6d4,#10b981 46%,#4f46e5 78%,#7c3aed));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap;padding-right:.05em;}
+/* 84px cap, was 104 (Richard, 8-5-26): at 104 the time counter ("10 hrs/wk") overflowed its
+   half-width column and clipped the k — his "letters cut off" screenshots. 5vw keeps both
+   counters inside their columns at every width. */
+.jy-rn{font-size:clamp(30px,5vw,84px);font-weight:600;letter-spacing:-.05em;background:var(--sb-grad-ink,linear-gradient(100deg,#06b6d4,#10b981 46%,#4f46e5 78%,#7c3aed));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap;padding-right:.05em;}
+.jy-plus{display:inline-block;font-size:.5em;font-weight:700;-webkit-text-fill-color:#7c3aed;color:#7c3aed;
+  background:none;margin-left:.12em;transform:translateY(-.32em);opacity:0;transition:opacity .35s ease;}
+.jy-plus.on{opacity:1;}
 .jy-rl{margin:10px auto 0;font-size:clamp(13px,1.5vw,15.5px);color:var(--jy-sub);max-width:22ch;line-height:1.4;}
 .jy-flips{margin:clamp(24px,4vh,40px) auto 0;max-width:540px;text-align:left;}
 .jy-fl{display:flex;align-items:baseline;justify-content:center;gap:12px;padding:12px 4px;border-top:1px solid rgba(6,12,20,.08);flex-wrap:wrap;opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .6s cubic-bezier(.16,1,.3,1);}
@@ -632,7 +646,11 @@ const CSS = `
 /* .jy-quote CSS removed with the quote fold (Richard's length cut, Aug 2 2026). */
 
 /* FAQ — mirrors PricingFaq's .pfq exactly; see that file for the a11y notes */
-.jy .pfq{padding:0 0 clamp(80px,11vh,120px);background:var(--jy-cream);color:var(--jy-ink);}
+/* Top padding added (Richard, 8-5-26: "the top words on this fold seem jammed on the top"
+   + "the Questions, answered area moves with the scroll - needs to be sticky". The aside
+   was ALREADY sticky — zero top padding pushed the rail flush under the nav, so the brief
+   travel before the sticky offset engaged read as drift. Air fixes both. */
+.jy .pfq{padding:clamp(70px,9vh,110px) 0 clamp(80px,11vh,120px);background:var(--jy-cream);color:var(--jy-ink);}
 .jy-pwrap{width:100%;max-width:1080px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
 .jy-eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#69707d;}
 .jy-fgrid{display:grid;grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr);gap:clamp(32px,6vw,84px);align-items:start;}

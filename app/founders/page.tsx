@@ -526,9 +526,12 @@ export default function AboutPage() {
       {/* Richard (CTA and Images comments, Aug 2 2026): his edit, split onto two lines —
           "We are your operating partner. / Helping you build something great." The .ln spans
           hold each line whole (nowrap blocks, see HeroCta.tsx), tight sizes them to fit. */}
+      {/* IMAGE SWAPPED (Richard, 8-5-26: "the image at the bottom is not working. I would go
+          back to the cottage photo on the water. It messages financial success.") Jacob's
+          call: cottage now, a real business-partnership shot later if Richard sources one. */}
       <HeroCta
         fromBlack
-        img="/close-founders.jpg"
+        img="/close-lt-cottage.jpg"
         heading={<><span className="ln">We are your operating partner.</span><span className="ln">Helping you build <span className="g">something great</span><span className="pd">.</span></span></>}
         headingClass="tight"
         sub={null}

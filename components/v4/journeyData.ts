@@ -107,11 +107,14 @@ export const JOURNEYS: Record<string, JourneyData> = {
     receipt: {
       moneyTo: 40000,
       moneyLabel: 'a year in jobs and quotes that used to slip, kept',
-      timeTo: 10,
+      /* "We will never take 10 hours of admin to under 30 seconds - I think we should go
+         with < 5 hours. Feels substantive and believable." (Richard, 8-5-26.) The counter
+         follows: if 10 becomes under 5, the hours RETURNED are 5, not 10. */
+      timeTo: 5,
       timeSuffix: ' hrs/wk',
       timeLabel: 'of admin nights and weekends, returned',
       flips: [
-        { label: 'His admin', before: '10 hours a week', after: '30 seconds a day' },
+        { label: 'His admin', before: '10 hours a week', after: 'under 5 hours' },
         { label: 'Getting paid', before: '90 days', after: 'under 30' },
         { label: 'Calls answered', before: '4 of 10 missed', after: 'about zero' },
       ],

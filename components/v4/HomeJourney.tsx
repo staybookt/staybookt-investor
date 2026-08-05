@@ -445,7 +445,11 @@ const CSS = `
 .hj-jstart{gap:12px;padding-bottom:clamp(26px,4vw,44px);}
 .hj-jstart .sdot{width:16px;height:16px;border-radius:50%;background:var(--v4-ink,#06080d);position:relative;z-index:2;}
 .hj-jstart .st{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#69707d;}
-.hj-jstart .sh{margin-top:3px;font-size:clamp(17px,2vw,20px);font-weight:600;color:var(--v4-ink,#06080d);}
+/* SAME SIZE AS THE MILESTONE PROMISES (Richard, 8-5-26: "'Everything runs through you'
+   would be same font size as 'Impossible to Miss'"). Was clamp(17px,2vw,20px) — subhead
+   weight for the line that frames the whole film. */
+.hj-jstart .sh{margin-top:8px;font-size:clamp(28px,4vw,50px);font-weight:600;line-height:1.02;
+  letter-spacing:-.03em;color:var(--v4-ink,#06080d);}
 
 /* Round 13 (Jacob, same day): "the payoff is so lame — what does it actually MEAN?"
    Fair. "Twelve months later." was a timestamp, not a payoff, and at 18-24px it was
