@@ -157,6 +157,9 @@ const CSS = `
    long prose blocks center as a COLUMN but keep left-aligned text (centered ragged text at
    6+ lines is unreadable). */
 .abt-us .us-lead{text-align:center;}
+/* Gradient payoff paint for the section h2s (the global .g only covers hero h1s). */
+.abt-us .us-lead h2 .g,.abt-ltv .ltv-h .g{background:var(--sb-grad);-webkit-background-clip:text;
+  background-clip:text;color:transparent;padding-right:.04em;}
 .abt-us .us-q{margin:18px auto 0;font-size:clamp(16px,1.8vw,19px);line-height:1.65;font-weight:500;
   letter-spacing:-.01em;color:var(--v4-ink);max-width:760px;text-align:left;}
 .abt-us .us-cite{display:block;max-width:760px;margin:12px auto 0;font-size:14.5px;font-weight:600;
@@ -380,7 +383,10 @@ export default function AboutPage() {
         <div className="wrap">
           <div className="us-lead">
             <div className="eyebrow">The team</div>
-            <h2>Two founders. One mission.</h2>
+            {/* Same headline grammar as the mission h2 above and every hero on the site:
+                plain setup, gradient payoff, violet period (Jacob, Aug 4: the sections read
+                dissonant when only the mission carried the gradient). */}
+            <h2>Two founders. One <span className="g">mission</span><span className="pd">.</span></h2>
             {/* SUBTEXT IS THE JOINT QUOTE (Richard, website review doc, Aug 3 2026: "I don't
                 love the subtext. What about using our quote as the subtext"). The standalone
                 .fjoint figure below the cards was deleted in the same pass — one quote, one
@@ -456,7 +462,7 @@ export default function AboutPage() {
       <section className="abt-ltv" id="long-term-value">
         <div className="wrap">
           <Reveal className="eyebrow" as="div">Long-term value</Reveal>
-          <Reveal><h2 className="ltv-h">If it cannot run without you, there is nothing to hand anyone<span className="pd">.</span></h2></Reveal>
+          <Reveal><h2 className="ltv-h">If it cannot run without you, there is <span className="g">nothing to hand anyone</span><span className="pd">.</span></h2></Reveal>
           <div className="ltv-body">
             <Reveal>
               <p>If your business would go backwards without you, a buyer is not going to pay
