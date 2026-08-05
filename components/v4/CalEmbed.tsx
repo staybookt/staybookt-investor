@@ -74,6 +74,10 @@ export default function CalEmbed() {
     const config: Record<string, string> = {
       ...toCalUtm(attr),
       ...(attr ? { sb_landing: attr.landing, sb_referrer: attr.referrer } : {}),
+      /* Theme ALSO pinned here, not just in the ui() call below: the rebuilt free-plan embed
+         (Aug 2026) ignored the ui() theme and rendered dark inside our white card. Newer
+         embed versions read theme from the inline config. */
+      theme: 'light',
     };
 
     w.Cal.ns.talk('inline', {
