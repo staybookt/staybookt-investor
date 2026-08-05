@@ -78,7 +78,12 @@ export default function CalEmbed() {
 
     w.Cal.ns.talk('inline', {
       elementOrSelector: '#cal-inline',
-      calLink: 'team/staybookt/talk-to-a-founder',
+      /* WAS 'team/staybookt/talk-to-a-founder'. The cal.com Teams trial ended Aug 2026 and
+         team links die with it — the embed rendered a blank white box for EVERYONE. Rebuilt
+         as a personal event on the free plan (same account, bookings land on the
+         info@staybookt.com Google calendar). If a Teams plan ever comes back, revisit for
+         round-robin between the founders. */
+      calLink: 'staybookt/talk-to-a-founder',
       layout: 'month_view',
       config,
     });
