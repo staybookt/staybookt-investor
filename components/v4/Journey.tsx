@@ -567,7 +567,8 @@ const CSS = `
 
 .jy-beat{position:absolute;inset:0;z-index:4;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 clamp(22px,5vw,60px);opacity:0;pointer-events:none;will-change:opacity,transform;}
 .jy-bin{max-width:900px;}
-.jy-kick{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;}
+/* 13px, was 12: sitewide eyebrow canon (consistency pass, Aug 4 2026). */
+.jy-kick{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;}
 .jy-beat.dkb .jy-kick{color:rgba(255,255,255,.5);}
 .jy-beat.ltb .jy-kick{color:var(--jy-cap);}
 .jy-huge{margin-top:18px;font-size:clamp(34px,5.6vw,72px);font-weight:600;letter-spacing:-.042em;line-height:1.03;}
@@ -669,7 +670,7 @@ const CSS = `
 .jy-finale{min-height:100vh;min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;padding:clamp(80px,12vh,140px) 24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#06b6d4,#10b981 38%,#4f46e5 72%,#7c3aed);color:#fff;}
 .jy-finale::before{content:'';position:absolute;inset:0;background:radial-gradient(80% 60% at 50% 8%,rgba(255,255,255,.22),transparent 60%),radial-gradient(90% 50% at 50% 100%,rgba(6,8,13,.28),transparent 70%);}
 .jy-fin-in{position:relative;z-index:1;}
-.jy-fin-kick{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.8);}
+.jy-fin-kick{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.8);}
 .jy-finale h2{margin-top:18px;font-size:clamp(29px,7.2vw,100px);font-weight:600;letter-spacing:-.045em;line-height:1.05;text-shadow:0 2px 44px rgba(0,0,0,.3);}
 .jy-fin-cta{margin-top:clamp(30px,4.5vh,44px);display:inline-flex;align-items:center;gap:10px;background:#fff;color:var(--jy-ink);font-size:16.5px;font-weight:600;border-radius:999px;padding:18px 40px;text-decoration:none;box-shadow:0 22px 54px -18px rgba(0,0,0,.5);transition:transform .3s ease,box-shadow .3s ease;}
 .jy-fin-cta:hover{transform:translateY(-2px);box-shadow:0 30px 66px -18px rgba(0,0,0,.6);}

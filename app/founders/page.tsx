@@ -507,7 +507,7 @@ export default function AboutPage() {
       <HeroCta
         fromBlack
         img="/close-founders.jpg"
-        heading={<><span className="ln">We are your operating partner.</span><span className="ln">Helping you build something great.</span></>}
+        heading={<><span className="ln">We are your operating partner.</span><span className="ln">Helping you build <span className="g">something great</span><span className="pd">.</span></span></>}
         headingClass="tight"
         sub={null}
       />

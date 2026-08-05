@@ -267,7 +267,7 @@ export default function JourneysPage() {
             Journeys is its overhaul, so his close lands here — the journey page. */}
         <HeroCta
           img="/close-work.jpg"
-          heading={<>Building a business is a long journey.<br />Get the tools that help you win.</>}
+          heading={<>Building a business is a long journey.<br />Get the tools that help you <span className="g">win</span><span className="pd">.</span></>}
           sub={null}
         />
       </main>

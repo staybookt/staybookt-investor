@@ -181,7 +181,7 @@ export default function PricingPage() {
           Also his wording: "the simple pleasures" (the "the" was missing). */}
       <HeroCta
         img="/close-pricing.jpg"
-        heading={<><span className="ln">A solution that offers undeniable value.</span><span className="ln">And more time for the simple pleasures.</span></>}
+        heading={<><span className="ln">A solution that offers undeniable value.</span><span className="ln">And more time for <span className="g">the simple pleasures</span><span className="pd">.</span></span></>}
         headingClass="tight"
         sub={null}
       />

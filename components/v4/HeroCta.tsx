@@ -119,6 +119,9 @@ const CSS = `
    the 1040px content box at every width. Same technique as the site's locked heroes. */
 .hcta-in h2.tight{font-size:clamp(16px,4vw,54px);}
 .hcta-in h2 .ln{display:block;white-space:nowrap;}
+/* Violet period, LIGHT variant: the global .pd is #7c3aed, tuned for cream pages — too dark
+   to read over the photo closes. Same #a78bfa the journeys' dark slides use. */
+.hcta-in h2 .pd{color:#a78bfa;}
 .hcta-in p{margin:20px auto 0;font-size:clamp(16px,1.9vw,20px);line-height:1.5;color:#eef1f5;max-width:44ch;
   text-shadow:0 1px 22px rgba(0,0,0,.6);}
 /* Richard's two-line default sub (Aug 2 2026): problem line, then the answer line with

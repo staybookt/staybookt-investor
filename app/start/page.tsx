@@ -91,7 +91,8 @@ const CSS = `
    each child (sub 54ch, facts 920px) carries its own cap instead. */
 .st-copy{text-align:center;max-width:1100px;margin:0 auto;}
 
-.st-k{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;
+/* 13px, was 11.5: sitewide eyebrow canon (consistency pass, Aug 4 2026). */
+.st-k{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;
   letter-spacing:.2em;text-transform:uppercase;color:#9aa3b2;}
 .st-k .dot{width:6px;height:6px;border-radius:50%;background:var(--sb-grad);box-shadow:0 0 10px 1px rgba(16,185,129,.7);}
 /* Two-line headline per the locked global hero rule (punchline alone on line 2). Line 1
@@ -104,7 +105,10 @@ const CSS = `
    getComputedStyle in the live page: 84.48px. These rules carry .pg-hero.st-hero .wrap
    so they genuinely win; do not "simplify" them back down to .st-h. Same story for
    p.st-sub vs globals' ".pg-hero .wrap p". */
-.pg-hero.st-hero .wrap h1.st-h{margin:12px auto 0;font-size:clamp(16px,4.2vw,48px);font-weight:600;
+/* Cap 48 -> 52 (sitewide consistency pass, Aug 4 2026): heroes elsewhere run ~84-88px but
+   Richard's verbatim 43-char line 1 physically caps this one — 43ch nowrap in the 1100px
+   copy box tops out around 52px. This closes what gap physics allows. */
+.pg-hero.st-hero .wrap h1.st-h{margin:12px auto 0;font-size:clamp(16px,4.2vw,52px);font-weight:600;
   letter-spacing:-.042em;line-height:1.06;color:#fff;max-width:none;}
 .st-h .l1,.st-h .l2{display:block;white-space:nowrap;}
 .st-h .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}

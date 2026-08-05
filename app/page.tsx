@@ -470,7 +470,7 @@ export default function HomePage() {
           defined in HeroCta.tsx's own CSS. His replacement sub is HeroCta's new default,
           so no sub prop needed here. */}
       <HeroCta
-        heading={<>Helping your business run better.<br />So that you <span className="g">Enjoy Life</span> more.</>}
+        heading={<>Helping your business run better.<br />So that you <span className="g">Enjoy Life</span> more<span className="pd">.</span></>}
       />
 
       </main>
