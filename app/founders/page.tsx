@@ -238,9 +238,13 @@ const CSS = `
 .abt-ltv{padding:clamp(70px,9vw,110px) 0;background:var(--v4-cream,#f6f6f3);border-top:1px solid #e6e6e1;}
 .abt-ltv .eyebrow{color:#69707d;}
 .abt-ltv .ltv-body{margin-top:clamp(22px,3vw,34px);max-width:64ch;}
-.abt-ltv .ltv-body p{font-size:clamp(16px,1.7vw,19px);line-height:1.6;color:#42474f;}
-.abt-ltv .ltv-body p+p{margin-top:16px;}
-.abt-ltv .ltv-body p:last-child{font-weight:600;color:var(--v4-ink);}
+.abt-ltv .ltv-body p{font-size:clamp(16px,1.7vw,19px);line-height:1.6;color:#42474f;font-weight:400;}
+/* Each paragraph sits inside its own Reveal wrapper div, so "p+p" never matched (no p has a
+   p sibling) and "p:last-child" matched EVERY p (each is the last child of its wrapper) —
+   headless-Chrome QA caught all four paragraphs rendering bold with no gaps. Select the
+   WRAPPERS instead. */
+.abt-ltv .ltv-body>*+*{margin-top:16px;}
+.abt-ltv .ltv-body>*:last-child p{font-weight:600;color:var(--v4-ink);}
 `;
 
 export default function AboutPage() {

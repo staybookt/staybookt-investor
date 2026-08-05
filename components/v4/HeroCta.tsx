@@ -93,7 +93,11 @@ const CSS = `
    takes the middle band, which is all dock-shadow and slices the chairs at the frame edge —
    Richard's "image is cut off on the chairs" (website review doc, Aug 3 2026). 20% centres
    the crop band on the chairs while keeping them clear of the top scrim. */
-.hcta>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%;}
+/* ROUND 2 (headless-Chrome QA, same day): 20% still clipped the chair backs at the page's
+   FINAL resting scroll, where the footer pushes the section's top ~310px off screen. 10%
+   drops the chairs to the lower-middle of the crop so they stay whole even at page bottom,
+   and puts the headline over water instead of over the chairs. */
+.hcta>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 10%;}
 .hcta .hcta-ov{position:absolute;inset:0;
   background:linear-gradient(180deg,rgba(5,5,6,.6) 0%,rgba(5,5,6,.18) 34%,rgba(5,5,6,.5) 72%,#050506 100%);}
 /* homepage only: emerge out of the film's black instead of cutting to the photo */
