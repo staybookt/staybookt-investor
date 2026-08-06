@@ -139,7 +139,9 @@ const PAGE_CSS = `
    as big as its 48-char first line allows (48px cap = the physics; the char count sets the
    ceiling, same story as /start before his tag shortened), lede attached to the rows, and
    the rows as a before -> after transformation around a centered arrow spine. */
-.probs{padding:clamp(44px,6vh,68px) 0 clamp(36px,5vh,56px);background:#fff;border-top:1px solid #e6e6e1;text-align:center;}
+/* Top padding clears the fixed nav (64px) — without it the headline ascenders slid under
+   the bar (caught on the live shot). Fold still fits one 830px viewport: ~740px total. */
+.probs{padding:clamp(92px,12vh,116px) 0 clamp(36px,5vh,56px);background:#fff;border-top:1px solid #e6e6e1;text-align:center;}
 .probs .pr-h{margin:0 auto;font-size:clamp(26px,3.35vw,48px);line-height:1.08;font-weight:600;
   letter-spacing:-.035em;color:var(--v4-ink);max-width:none;}
 .probs .pr-h .g,.probs .pr-close .g{background:var(--sb-grad);-webkit-background-clip:text;
