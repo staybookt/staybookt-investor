@@ -157,13 +157,6 @@ const PAGE_CSS = `
 .probs .pr-now{text-align:left;font-size:clamp(14px,1.55vw,17px);line-height:1.4;font-weight:650;
   background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;
   padding-right:.04em;}
-.probs .pr-rows .pr-row:nth-child(1){transition-delay:.05s;}
-.probs .pr-rows .pr-row:nth-child(2){transition-delay:.12s;}
-.probs .pr-rows .pr-row:nth-child(3){transition-delay:.19s;}
-.probs .pr-rows .pr-row:nth-child(4){transition-delay:.26s;}
-.probs .pr-rows .pr-row:nth-child(5){transition-delay:.33s;}
-.probs .pr-rows .pr-row:nth-child(6){transition-delay:.4s;}
-.probs .pr-rows .pr-row:nth-child(7){transition-delay:.47s;}
 .probs .pr-close{margin:clamp(20px,3.2vh,32px) auto 0;font-size:clamp(16px,1.9vw,21px);line-height:1.45;
   font-weight:600;color:var(--v4-ink);max-width:46ch;}
 @media(max-width:600px){
@@ -399,27 +392,27 @@ export default function HomePage() {
           (problems left, future state right — his pairs, one right-side line adjusted where
           his draft duplicated "your time back", disclosed). Everything fits one viewport at
           100% on a standard laptop. */}
+      {/* STATIC ON PURPOSE (Richard, 8-6-26 follow-up: "I don't want an animation because we
+          have one on the next slide... I want something that can be absorbed fully in under
+          3 seconds"). No Reveal wrappers, no cascade — every element is painted on first
+          frame. The punch is hierarchy: muted problem, arrow spine, gradient future state. */}
       <section className="probs">
         <div className="wrap">
-          <Reveal><h2 className="pr-h">Built to help small to mid-sized business owners<br />realize their business&rsquo; <span className="g">full potential</span><span className="pd">.</span></h2></Reveal>
+          <h2 className="pr-h">Built to help small to mid-sized business owners<br />realize their business&rsquo; <span className="g">full potential</span><span className="pd">.</span></h2>
           <div className="pr-block">
-            <Reveal>
-              <p className="pr-lede">We do it by solving the problems that get in the way:</p>
-            </Reveal>
+            <p className="pr-lede">We do it by solving the problems that get in the way:</p>
             <div className="pr-rows">
-              <Reveal className="pr-row" as="div"><span className="pr-was">A website that doesn&rsquo;t generate calls</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">Phones ringing, answered 24/7</span></Reveal>
-              <Reveal className="pr-row" as="div"><span className="pr-was">Feast or famine workloads</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">A full pipeline</span></Reveal>
-              <Reveal className="pr-row" as="div"><span className="pr-was">Soul-sucking paperwork</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">Your time back</span></Reveal>
-              <Reveal className="pr-row" as="div"><span className="pr-was">No time to chase customer reviews</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">Google legend</span></Reveal>
-              <Reveal className="pr-row" as="div"><span className="pr-was">Every call and follow-up running through you</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">An AI Assistant team</span></Reveal>
-              <Reveal className="pr-row" as="div"><span className="pr-was">No time to focus on growing the business</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">Time to grow it</span></Reveal>
-              <Reveal className="pr-row" as="div"><span className="pr-was">A job with your name on it</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">A business you can sell someday</span></Reveal>
+              <div className="pr-row"><span className="pr-was">A website that doesn&rsquo;t generate calls</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">Phones ringing, answered 24/7</span></div>
+              <div className="pr-row"><span className="pr-was">Feast or famine workloads</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">A full pipeline</span></div>
+              <div className="pr-row"><span className="pr-was">Soul-sucking paperwork</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">Your time back</span></div>
+              <div className="pr-row"><span className="pr-was">No time to chase customer reviews</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">Google legend</span></div>
+              <div className="pr-row"><span className="pr-was">Every call and follow-up running through you</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">An AI Assistant team</span></div>
+              <div className="pr-row"><span className="pr-was">No time to focus on growing the business</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">Time to grow it</span></div>
+              <div className="pr-row"><span className="pr-was">A job with your name on it</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">A business you can sell someday</span></div>
             </div>
           </div>
-          <Reveal>
-            <p className="pr-close">Every small to mid-sized operator struggles with at least one of these.
-              StayBookt is <span className="g">the solution</span><span className="pd">.</span></p>
-          </Reveal>
+          <p className="pr-close">Every small to mid-sized operator struggles with at least one of these.
+            StayBookt is <span className="g">the solution</span><span className="pd">.</span></p>
         </div>
       </section>
 
