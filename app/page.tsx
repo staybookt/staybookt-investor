@@ -172,7 +172,7 @@ const PAGE_CSS = `
   .probs .pr-was{text-align:left;}
   .probs .pr-arr{display:none;}
   .probs .pr-now{text-align:left;}
-  .probs .pr-now::before{content:'\2192  ';-webkit-text-fill-color:#b6bcc4;}
+  .probs .pr-now::before{content:'\\2192  ';-webkit-text-fill-color:#b6bcc4;}
 }
 
 /* APPLE-GRADE ENTRANCE (Jacob, Jul 23 2026). Two-stage headline: the clause fades up from a soft
