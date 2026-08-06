@@ -139,26 +139,54 @@ const PAGE_CSS = `
    as big as its 48-char first line allows (48px cap = the physics; the char count sets the
    ceiling, same story as /start before his tag shortened), lede attached to the rows, and
    the rows as a before -> after transformation around a centered arrow spine. */
-/* Top padding clears the fixed nav (64px) — without it the headline ascenders slid under
-   the bar (caught on the live shot). Fold still fits one 830px viewport: ~740px total. */
-.probs{padding:clamp(92px,12vh,116px) 0 clamp(36px,5vh,56px);background:#fff;border-top:1px solid #e6e6e1;text-align:center;}
+/* STAGED AS A HERO, NOT A SPEC SHEET (Jacob, live reaction Aug 6: the white table as the
+   landing view read cheap). Same content, same one-viewport fit, still fully static — but
+   on the CREAM hero background with the transformation rows inside a dark keynote-style
+   device panel, the same visual language as the hero device one fold below. */
+.probs{padding:clamp(92px,12vh,116px) 0 clamp(36px,5vh,56px);background:var(--v4-cream,#f6f6f3);text-align:center;}
 .probs .pr-h{margin:0 auto;font-size:clamp(26px,3.35vw,48px);line-height:1.08;font-weight:600;
   letter-spacing:-.035em;color:var(--v4-ink);max-width:none;}
 .probs .pr-h .g,.probs .pr-close .g{background:var(--sb-grad);-webkit-background-clip:text;
   background-clip:text;color:transparent;padding-right:.04em;}
 /* lede + rows are ONE block (Richard: the lede "needs to feel attached to the bullet points
-   more than the Tag Line"): big gap above the block, small gap inside it. */
-.probs .pr-block{margin-top:clamp(26px,4vh,40px);}
-.probs .pr-lede{margin:0 auto;font-size:clamp(15px,1.7vw,18px);line-height:1.5;color:#42474f;max-width:56ch;}
-.probs .pr-rows{margin:12px auto 0;max-width:900px;}
+   more than the Tag Line"): the lede is the panel's own header line. */
+/* THE FRAME carries the brand-gradient ring (same two-background technique as the hero
+   pill) and a colored ambient bloom so the panel sits IN light, not on white. Pop without
+   motion (Jacob, Aug 6: "make it pop a little more... kind of flat"). */
+.probs .pr-frame{margin:clamp(24px,3.6vh,36px) auto 0;max-width:960px;border-radius:30px;
+  padding:2px;background:linear-gradient(120deg,rgba(6,182,212,.8),rgba(16,185,129,.7) 45%,rgba(79,70,229,.8));
+  box-shadow:0 44px 110px -40px rgba(79,70,229,.4),0 30px 70px -34px rgba(16,185,129,.3);}
+.probs .pr-block{background:#050506;border-radius:28px;
+  padding:clamp(18px,2.6vh,26px) clamp(22px,3vw,44px) clamp(20px,2.8vh,28px);
+  position:relative;overflow:hidden;}
+.probs .pr-block::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(70% 55% at 50% 0%,rgba(79,70,229,.2),transparent 62%),
+             radial-gradient(56% 46% at 82% 100%,rgba(16,185,129,.12),transparent 70%);}
+.probs .pr-lede{position:relative;margin:0 auto;font-size:clamp(13.5px,1.5vw,16.5px);line-height:1.5;
+  color:#aeb6c4;max-width:56ch;}
+/* Column captions: the device below says TODAY / TOMORROW, the pricing chart says today /
+   With StayBookt — this panel speaks the same axis. */
+.probs .pr-cols{position:relative;display:grid;grid-template-columns:1fr 34px 1fr;gap:12px;
+  margin:14px auto 0;max-width:860px;font-size:11px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;}
+.probs .pr-cols .pc-l{text-align:right;color:#6b7280;}
+.probs .pr-cols .pc-r{text-align:left;background:var(--sb-grad);-webkit-background-clip:text;
+  background-clip:text;color:transparent;padding-right:.04em;}
+.probs .pr-rows{position:relative;margin:6px auto 0;max-width:860px;}
 .probs .pr-row{display:grid;grid-template-columns:1fr 34px 1fr;gap:12px;align-items:center;
-  padding:10px 0;border-bottom:1px solid #ededea;}
-.probs .pr-row:first-child{border-top:1px solid #ededea;}
-.probs .pr-was{text-align:right;font-size:clamp(13.5px,1.5vw,16.5px);line-height:1.4;color:#6b7280;}
-.probs .pr-arr{text-align:center;color:#b6bcc4;font-size:clamp(14px,1.5vw,18px);}
-.probs .pr-now{text-align:left;font-size:clamp(14px,1.55vw,17px);line-height:1.4;font-weight:650;
+  padding:clamp(9px,1.3vh,12px) 0;border-bottom:1px solid rgba(255,255,255,.08);}
+.probs .pr-row:first-child{border-top:1px solid rgba(255,255,255,.1);}
+.probs .pr-row:last-child{border-bottom:0;}
+/* The problems are STRUCK — the same erased-before language the journey receipts use. */
+.probs .pr-was{text-align:right;font-size:clamp(13.5px,1.5vw,16.5px);line-height:1.4;color:#8a93a5;
+  text-decoration:line-through;text-decoration-color:rgba(251,106,111,.55);text-decoration-thickness:1.5px;}
+.probs .pr-arr{text-align:center;font-size:clamp(14px,1.5vw,18px);
+  background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.probs .pr-now{text-align:left;font-size:clamp(14.5px,1.6vw,17.5px);line-height:1.4;font-weight:700;
   background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;
   padding-right:.04em;}
+@media(hover:hover){.probs .pr-row{transition:background .25s ease;}
+  .probs .pr-row:hover{background:rgba(255,255,255,.025);}}
 .probs .pr-close{margin:clamp(20px,3.2vh,32px) auto 0;font-size:clamp(16px,1.9vw,21px);line-height:1.45;
   font-weight:600;color:var(--v4-ink);max-width:46ch;}
 @media(max-width:600px){
@@ -394,29 +422,6 @@ export default function HomePage() {
           (problems left, future state right — his pairs, one right-side line adjusted where
           his draft duplicated "your time back", disclosed). Everything fits one viewport at
           100% on a standard laptop. */}
-      {/* STATIC ON PURPOSE (Richard, 8-6-26 follow-up: "I don't want an animation because we
-          have one on the next slide... I want something that can be absorbed fully in under
-          3 seconds"). No Reveal wrappers, no cascade — every element is painted on first
-          frame. The punch is hierarchy: muted problem, arrow spine, gradient future state. */}
-      <section className="probs">
-        <div className="wrap">
-          <h2 className="pr-h">Built to help small to mid-sized business owners<br />realize their business&rsquo; <span className="g">full potential</span><span className="pd">.</span></h2>
-          <div className="pr-block">
-            <p className="pr-lede">We do it by solving the problems that get in the way:</p>
-            <div className="pr-rows">
-              <div className="pr-row"><span className="pr-was">A website that doesn&rsquo;t generate calls</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">Phones ringing, answered 24/7</span></div>
-              <div className="pr-row"><span className="pr-was">Feast or famine workloads</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">A full pipeline</span></div>
-              <div className="pr-row"><span className="pr-was">Soul-sucking paperwork</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">Your time back</span></div>
-              <div className="pr-row"><span className="pr-was">No time to chase customer reviews</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">Google legend</span></div>
-              <div className="pr-row"><span className="pr-was">Every call and follow-up running through you</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">An AI Assistant team</span></div>
-              <div className="pr-row"><span className="pr-was">No time to focus on growing the business</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">Time to grow it</span></div>
-              <div className="pr-row"><span className="pr-was">A job with your name on it</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">A business you can sell someday</span></div>
-            </div>
-          </div>
-          <p className="pr-close">Every small to mid-sized operator struggles with at least one of these.
-            StayBookt is <span className="g">the solution</span><span className="pd">.</span></p>
-        </div>
-      </section>
 
       {/* 2 — HERO (now flows directly into the Four Milestones, per Richard v2). */}
       <header className="scene">
@@ -473,7 +478,37 @@ export default function HomePage() {
             /long-term, so there is no cue left anywhere on the site. */}
       </header>
 
-      {/* THE PROBLEMS FOLD MOVED UP to fold 1 (Richard v2, 8-5-26) — see section 1 above. */}
+      {/* THE PROBLEMS FOLD — UNDER THE HERO (Jacob, Aug 6: "Richard was referring to under
+          the header." The one day it spent as the landing fold read cheap on the live site.
+          Hero lands first, this transformation panel is the very next thing.) */
+      }
+      {/* STATIC ON PURPOSE (Richard, 8-6-26 follow-up: "I don't want an animation because we
+          have one on the next slide... I want something that can be absorbed fully in under
+          3 seconds"). No Reveal wrappers, no cascade — every element is painted on first
+          frame. The punch is hierarchy: muted problem, arrow spine, gradient future state. */}
+      <section className="probs">
+        <div className="wrap">
+          <h2 className="pr-h">Built to help small to mid-sized business owners<br />realize their business&rsquo; <span className="g">full potential</span><span className="pd">.</span></h2>
+          <div className="pr-frame">
+          <div className="pr-block">
+            <p className="pr-lede">We do it by solving the problems that get in the way:</p>
+            <div className="pr-cols" aria-hidden><span className="pc-l">Today</span><span /><span className="pc-r">With StayBookt</span></div>
+            <div className="pr-rows">
+              <div className="pr-row"><span className="pr-was">A website that doesn&rsquo;t generate calls</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">Phones ringing, answered 24/7</span></div>
+              <div className="pr-row"><span className="pr-was">Feast or famine workloads</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">A full pipeline</span></div>
+              <div className="pr-row"><span className="pr-was">Soul-sucking paperwork</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">Your time back</span></div>
+              <div className="pr-row"><span className="pr-was">No time to chase customer reviews</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">Google legend</span></div>
+              <div className="pr-row"><span className="pr-was">Every call and follow-up running through you</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">An AI Assistant team</span></div>
+              <div className="pr-row"><span className="pr-was">No time to focus on growing the business</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">Time to grow it</span></div>
+              <div className="pr-row"><span className="pr-was">A job with your name on it</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">A business you can sell someday</span></div>
+            </div>
+          </div>
+          </div>
+          <p className="pr-close">Every small to mid-sized operator struggles with at least one of these.
+            StayBookt is <span className="g">the solution</span><span className="pd">.</span></p>
+        </div>
+      </section>
+
 
       {/* THE "IN PLAIN ENGLISH" CARD IS GONE (Jacob, July 14 2026).
           Three columns of bullets sat between the hero and the journey: the only
