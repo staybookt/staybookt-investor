@@ -491,8 +491,8 @@ export default function AboutPage() {
                 above"). */}
             <p className="ltv-lede">
               We are all in this to create something that builds legacy and provides for our
-              loved ones when it&rsquo;s time to move on. So we get it, and want the same
-              for&nbsp;you.
+              loved ones when it&rsquo;s time to move on. So we get it, and want
+              the&nbsp;same&nbsp;for&nbsp;you.
             </p>
           </Reveal>
           <div className="ltv-body">
@@ -533,14 +533,15 @@ export default function AboutPage() {
       {/* Richard (CTA and Images comments, Aug 2 2026): his edit, split onto two lines —
           "We are your operating partner. / Helping you build something great." The .ln spans
           hold each line whole (nowrap blocks, see HeroCta.tsx), tight sizes them to fit. */}
-      {/* IMAGE ROUND 3 (Richard v2, 8-5-26: the autumn cottage was "a little too puzzley" —
-          he asked for a simple, more upscale cottage). New shot: dusk lakeside boathouse
-          with a lit dock (Unsplash, same free-license sourcing as the dock photo). His
-          business-partnership reference stays on file as the eventual replacement if he
-          sources one. */}
+      {/* IMAGE ROUND 4 (Richard 8-6-26: linked a Freepik PREMIUM cottage-sunset photo —
+          watermarked/unlicensed at the free URL, so per Jacob's call this is the closest
+          LICENSED equivalent: Adirondack chairs on a dock at sunset (Unsplash). It carries
+          the exact mood of his reference (chairs + water + sunset). If he wants his precise
+          shot, buy the Freepik license and swap; his file is staged at
+          _qa-shots/rich-cottage.jpg for comparison. */}
       <HeroCta
         fromBlack
-        img="/close-lt-lakehouse.jpg"
+        img="/close-lt-sunset.jpg"
         heading={<><span className="ln">We are your operating partner.</span><span className="ln">Helping you build <span className="g">something great</span><span className="pd">.</span></span></>}
         headingClass="tight"
         sub={null}

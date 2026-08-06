@@ -135,36 +135,45 @@ const PAGE_CSS = `
 
 /* THE PROBLEMS FOLD (Richard 8-5-26 / Michelle). Centered statement + hairline problem rows,
    same no-card language as the About values strip. */
-.probs{padding:clamp(70px,9vw,110px) 0;background:#fff;border-top:1px solid #e6e6e1;text-align:center;}
-.probs .eyebrow{color:#69707d;}
-/* FOLD 1 (Richard v2): the ICP pill rides with the problems fold now — same pill the hero
-   carried, verbatim styles. */
-.probs .pr-pill{display:inline-flex;align-items:center;
-  font-size:clamp(13px,1.5vw,17.5px);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#2b3038;
-  border:2px solid transparent;
-  background:linear-gradient(#fff,#fff) padding-box,var(--sb-grad) border-box;
-  border-radius:999px;padding:12px 26px;
-  box-shadow:0 8px 22px -10px rgba(6,12,20,.3);}
-.probs .pr-h{margin:14px auto 0;font-size:clamp(28px,4vw,52px);line-height:1.05;font-weight:600;
-  letter-spacing:-.035em;color:var(--v4-ink);max-width:24ch;}
+/* FOLD 1, ROUND 3 (Richard 8-6-26): one-viewport fit at 100% zoom, pill gone, his headline
+   as big as its 48-char first line allows (48px cap = the physics; the char count sets the
+   ceiling, same story as /start before his tag shortened), lede attached to the rows, and
+   the rows as a before -> after transformation around a centered arrow spine. */
+.probs{padding:clamp(44px,6vh,68px) 0 clamp(36px,5vh,56px);background:#fff;border-top:1px solid #e6e6e1;text-align:center;}
+.probs .pr-h{margin:0 auto;font-size:clamp(26px,3.35vw,48px);line-height:1.08;font-weight:600;
+  letter-spacing:-.035em;color:var(--v4-ink);max-width:none;}
 .probs .pr-h .g,.probs .pr-close .g{background:var(--sb-grad);-webkit-background-clip:text;
   background-clip:text;color:transparent;padding-right:.04em;}
-.probs .pr-lede{margin:18px auto 0;font-size:clamp(16px,1.8vw,19px);line-height:1.6;color:#42474f;max-width:56ch;}
-.probs .pr-rows{margin:clamp(28px,4vw,42px) auto 0;max-width:640px;text-align:left;}
-.probs .pr-row{display:flex;align-items:baseline;gap:14px;padding:15px 2px;border-bottom:1px solid #ededea;}
+/* lede + rows are ONE block (Richard: the lede "needs to feel attached to the bullet points
+   more than the Tag Line"): big gap above the block, small gap inside it. */
+.probs .pr-block{margin-top:clamp(26px,4vh,40px);}
+.probs .pr-lede{margin:0 auto;font-size:clamp(15px,1.7vw,18px);line-height:1.5;color:#42474f;max-width:56ch;}
+.probs .pr-rows{margin:12px auto 0;max-width:900px;}
+.probs .pr-row{display:grid;grid-template-columns:1fr 34px 1fr;gap:12px;align-items:center;
+  padding:10px 0;border-bottom:1px solid #ededea;}
 .probs .pr-row:first-child{border-top:1px solid #ededea;}
-.probs .pr-row::before{content:'';flex:none;width:8px;height:8px;border-radius:50%;
-  background:var(--sb-grad);transform:translateY(-1px);}
-.probs .pr-row span{font-size:clamp(16px,1.8vw,19px);line-height:1.5;color:var(--v4-ink);font-weight:500;}
+.probs .pr-was{text-align:right;font-size:clamp(13.5px,1.5vw,16.5px);line-height:1.4;color:#6b7280;}
+.probs .pr-arr{text-align:center;color:#b6bcc4;font-size:clamp(14px,1.5vw,18px);}
+.probs .pr-now{text-align:left;font-size:clamp(14px,1.55vw,17px);line-height:1.4;font-weight:650;
+  background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;
+  padding-right:.04em;}
 .probs .pr-rows .pr-row:nth-child(1){transition-delay:.05s;}
-.probs .pr-rows .pr-row:nth-child(2){transition-delay:.13s;}
-.probs .pr-rows .pr-row:nth-child(3){transition-delay:.21s;}
-.probs .pr-rows .pr-row:nth-child(4){transition-delay:.29s;}
-.probs .pr-rows .pr-row:nth-child(5){transition-delay:.37s;}
-.probs .pr-rows .pr-row:nth-child(6){transition-delay:.45s;}
-.probs .pr-rows .pr-row:nth-child(7){transition-delay:.53s;}
-.probs .pr-close{margin:clamp(28px,4vw,40px) auto 0;font-size:clamp(18px,2.2vw,24px);line-height:1.45;
-  font-weight:600;color:var(--v4-ink);max-width:44ch;}
+.probs .pr-rows .pr-row:nth-child(2){transition-delay:.12s;}
+.probs .pr-rows .pr-row:nth-child(3){transition-delay:.19s;}
+.probs .pr-rows .pr-row:nth-child(4){transition-delay:.26s;}
+.probs .pr-rows .pr-row:nth-child(5){transition-delay:.33s;}
+.probs .pr-rows .pr-row:nth-child(6){transition-delay:.4s;}
+.probs .pr-rows .pr-row:nth-child(7){transition-delay:.47s;}
+.probs .pr-close{margin:clamp(20px,3.2vh,32px) auto 0;font-size:clamp(16px,1.9vw,21px);line-height:1.45;
+  font-weight:600;color:var(--v4-ink);max-width:46ch;}
+@media(max-width:600px){
+  .probs .pr-h br{display:none;}
+  .probs .pr-row{grid-template-columns:1fr;gap:2px;padding:12px 0;}
+  .probs .pr-was{text-align:left;}
+  .probs .pr-arr{display:none;}
+  .probs .pr-now{text-align:left;}
+  .probs .pr-now::before{content:'\2192  ';-webkit-text-fill-color:#b6bcc4;}
+}
 
 /* APPLE-GRADE ENTRANCE (Jacob, Jul 23 2026). Two-stage headline: the clause fades up from a soft
    blur, then "Enjoy Life" lands on its own a beat later; the subhead and pill follow; the
@@ -384,21 +393,28 @@ export default function HomePage() {
           the clearest statement and grabs people with the pain points they can relate to."
           Moved from fold 2; the ICP pill rides up with it, so the hero below flows straight
           into the Four Milestones as he wants. Copy unchanged from the v1 round. */}
+      {/* FOLD 1, ROUND 3 (Richard, 8-6-26): pill REMOVED per his call; headline is his new
+          line at the biggest size its 48 characters allow; the lede sits attached to the
+          rows; and the flat list became the before -> after TRANSFORMATION he sketched
+          (problems left, future state right — his pairs, one right-side line adjusted where
+          his draft duplicated "your time back", disclosed). Everything fits one viewport at
+          100% on a standard laptop. */}
       <section className="probs">
         <div className="wrap">
-          <Reveal className="pr-pill" as="div">For owner-operated service businesses</Reveal>
-          <Reveal><h2 className="pr-h">Built to help owners realize their business&rsquo;s <span className="g">full potential</span><span className="pd">.</span></h2></Reveal>
-          <Reveal>
-            <p className="pr-lede">We do it by solving the problems that get in the way:</p>
-          </Reveal>
-          <div className="pr-rows">
-            <Reveal className="pr-row" as="div"><span>A website that doesn&rsquo;t generate calls</span></Reveal>
-            <Reveal className="pr-row" as="div"><span>Feast or famine workloads</span></Reveal>
-            <Reveal className="pr-row" as="div"><span>Soul-sucking paperwork</span></Reveal>
-            <Reveal className="pr-row" as="div"><span>No time to chase customer reviews</span></Reveal>
-            <Reveal className="pr-row" as="div"><span>Every call and follow-up running through you</span></Reveal>
-            <Reveal className="pr-row" as="div"><span>No time to focus on growing the business</span></Reveal>
-            <Reveal className="pr-row" as="div"><span>A job with your name on it, not a business with transferable value</span></Reveal>
+          <Reveal><h2 className="pr-h">Built to help small to mid-sized business owners<br />realize their business&rsquo; <span className="g">full potential</span><span className="pd">.</span></h2></Reveal>
+          <div className="pr-block">
+            <Reveal>
+              <p className="pr-lede">We do it by solving the problems that get in the way:</p>
+            </Reveal>
+            <div className="pr-rows">
+              <Reveal className="pr-row" as="div"><span className="pr-was">A website that doesn&rsquo;t generate calls</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">Phones ringing, answered 24/7</span></Reveal>
+              <Reveal className="pr-row" as="div"><span className="pr-was">Feast or famine workloads</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">A full pipeline</span></Reveal>
+              <Reveal className="pr-row" as="div"><span className="pr-was">Soul-sucking paperwork</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">Your time back</span></Reveal>
+              <Reveal className="pr-row" as="div"><span className="pr-was">No time to chase customer reviews</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">Google legend</span></Reveal>
+              <Reveal className="pr-row" as="div"><span className="pr-was">Every call and follow-up running through you</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">An AI Assistant team</span></Reveal>
+              <Reveal className="pr-row" as="div"><span className="pr-was">No time to focus on growing the business</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">Time to grow it</span></Reveal>
+              <Reveal className="pr-row" as="div"><span className="pr-was">A job with your name on it</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">A business you can sell someday</span></Reveal>
+            </div>
           </div>
           <Reveal>
             <p className="pr-close">Every small to mid-sized operator struggles with at least one of these.

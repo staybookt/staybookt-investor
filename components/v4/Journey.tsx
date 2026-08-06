@@ -620,7 +620,10 @@ const CSS = `
 /* 84px cap, was 104 (Richard, 8-5-26): at 104 the time counter ("10 hrs/wk") overflowed its
    half-width column and clipped the k — his "letters cut off" screenshots. 5vw keeps both
    counters inside their columns at every width. */
-.jy-rn{font-size:clamp(30px,5vw,84px);font-weight:600;letter-spacing:-.05em;background:var(--sb-grad-ink,linear-gradient(100deg,#06b6d4,#10b981 46%,#4f46e5 78%,#7c3aed));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap;padding-right:.05em;}
+/* padding-right .12em, was .05 (Richard 8-6-26: "the k is still cut off" — the negative
+   tracking pulls the final glyph right up against the gradient paint box edge; .05em was
+   not enough slack at every width/zoom). */
+.jy-rn{font-size:clamp(30px,5vw,84px);font-weight:600;letter-spacing:-.05em;background:var(--sb-grad-ink,linear-gradient(100deg,#06b6d4,#10b981 46%,#4f46e5 78%,#7c3aed));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap;padding-right:.12em;}
 .jy-plus{display:inline-block;font-size:.5em;font-weight:700;-webkit-text-fill-color:#7c3aed;color:#7c3aed;
   background:none;margin-left:.12em;transform:translateY(-.32em);opacity:0;transition:opacity .35s ease;}
 .jy-plus.on{opacity:1;}
