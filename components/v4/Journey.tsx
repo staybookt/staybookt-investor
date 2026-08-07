@@ -597,7 +597,7 @@ const CSS = `
    two-word wins (AI Assistant / Less Paperwork / Story Told) hold one line. */
 /* 9.2vw/132px, was 10.5vw/150 (Richard, 8-5-26: "Less Paperwork" clipped to "Less Paperwo"
    at his window width — the two-word wins need the safer curve at every width). */
-.jy-word{margin-top:14px;font-size:clamp(44px,9.2vw,132px);font-weight:700;letter-spacing:-.035em;line-height:1.02;padding:0 .05em .04em .02em;white-space:nowrap;background:var(--sb-grad-ink,linear-gradient(100deg,#06b6d4,#10b981 46%,#4f46e5 78%,#7c3aed));-webkit-background-clip:text;background-clip:text;color:transparent;opacity:.12;filter:blur(22px);transform:scale(1.18);transition:opacity .5s ease,filter .8s cubic-bezier(.19,1,.22,1),transform .9s cubic-bezier(.19,1,.22,1);}
+.jy-word{margin-top:14px;font-size:clamp(44px,9.2vw,132px);font-weight:700;letter-spacing:-.035em;line-height:1.02;padding:0 .05em .04em .02em;white-space:nowrap;width:max-content;max-width:none;margin-left:auto;margin-right:auto;background:var(--sb-grad-ink,linear-gradient(100deg,#06b6d4,#10b981 46%,#4f46e5 78%,#7c3aed));-webkit-background-clip:text;background-clip:text;color:transparent;opacity:.12;filter:blur(22px);transform:scale(1.18);transition:opacity .5s ease,filter .8s cubic-bezier(.19,1,.22,1),transform .9s cubic-bezier(.19,1,.22,1);}
 .jy-word.on{opacity:1;filter:blur(0);transform:scale(1);}
 .jy-wsub{margin-top:20px;font-size:clamp(16px,2vw,22px);color:#2b2f36;font-weight:500;opacity:0;transform:translateY(10px);transition:opacity .5s ease .05s,transform .55s cubic-bezier(.16,1,.3,1) .05s;}
 .jy-wsub.on{opacity:1;transform:none;}
