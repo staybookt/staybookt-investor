@@ -140,7 +140,9 @@ export default function PricingPage() {
   return (
     <div className="prc v4">
       <style>{min(CSS)}</style>
-      <Nav />
+      {/* solidTop: the hero is cream (.prc .pg-hero opts out of the dark header), so a
+          transparent nav washes out over it - same rule as home/founders/journeys (Jacob, 8-6). */}
+      <Nav solidTop />
       <main id="main" tabIndex={-1}>
 
       {/* 1 — THE HEADLINE + THE TERMS. Same reveal as /founders: hl1 -> hl2 focus-pull ->
