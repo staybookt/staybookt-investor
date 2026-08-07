@@ -161,11 +161,10 @@ export default function PayrollSwap() {
             </div>
             <div className="swap-us">
               <span className="usl">All five jobs, done for you</span>
-              {/* /mth: one price format sitewide for compact labels. Prose sentences say
-                  "$199 a month"; every compact label says "$199/mth". */}
+              {/* ONE price format sitewide (Jacob, Aug 6 2026): "$199/mth USD", labels and prose alike. */}
               <span className="usp">
                 $199
-                <em>&nbsp;/mth USD</em>
+                <em>/mth&nbsp;USD</em>
               </span>
             </div>
           </div>

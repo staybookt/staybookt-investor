@@ -803,7 +803,7 @@ a, button, summary, label, input, select, textarea, [role="button"] {
 .pg-hero .wrap .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#c9cdd6;}
 .pg-hero .wrap h1{margin:18px auto 0;font-size:clamp(42px,6.6vw,86px);font-weight:600;
   letter-spacing:-.035em;line-height:1.0;max-width:14ch;color:#fff;}
-.pg-hero .wrap h1 .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.pg-hero .wrap h1 .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.06em;margin-right:-.06em;}
 .pg-hero .wrap p{margin:26px auto 0;font-size:clamp(18px,2.1vw,23px);line-height:1.45;color:#c6cbd3;max-width:46ch;}
 
 /* THE FILM HEADER. The overlay stops are the homepage hero's own, byte for byte,

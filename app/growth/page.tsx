@@ -266,8 +266,8 @@ export default function GrowthPage() {
           <div className="gro-close-in">
             <h2>You just did the math.</h2>
             <p>
-              We answer the calls, chase the quotes, and bring past customers back. $199 a
-              month, and you have seen what one job covers.
+              We answer the calls, chase the quotes, and bring past customers back. $199/mth USD,
+              and you have seen what one job covers.
             </p>
             <a className="gro-close-btn" href={START_LINK} data-cta="leak_check">Get Started</a>
           </div>

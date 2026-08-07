@@ -737,7 +737,7 @@ export default function JourneyMap() {
 
                 <div className="pj-num">
                   <div className="pj-fig">
-                    <span className="pj-dol">$</span>199<span className="pj-per">/mth</span>
+                    <span className="pj-dol">$</span>199<span className="pj-per">/mth USD</span>
                   </div>
                   {/* SAID "Cancel any time." full stop. Every other surface on this site says "Cancel
                       any time ON THIRTY DAYS NOTICE" (pricing, the promises, both FAQs, the
