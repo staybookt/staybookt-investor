@@ -655,7 +655,12 @@ a, button, summary, label, input, select, textarea, [role="button"] {
    The phone background is .94 rather than .8 because with no blur behind it, .8 lets the
    headline underneath read through the nav. */
 .v4-nav.solid{background:rgba(6,8,13,.94);border-bottom-color:rgba(255,255,255,.08);}
-.v4-nav .nav-in{display:flex;align-items:center;justify-content:space-between;height:64px;}
+/* NAV GEOMETRY IS PINNED (Jacob, Aug 6 2026: "StayBookt and Get Started... need to be one
+   location" across tabs). The nav-in is also a .wrap, and several pages re-scope .wrap
+   (1080/40 on founders, pricing, long-term, contact vs the 1180/32 default), so the logo and
+   CTA jumped when switching pages. These declarations out-specify any page .wrap override. */
+.v4-nav .nav-in{display:flex;align-items:center;justify-content:space-between;height:64px;
+  max-width:1180px !important;padding:0 32px !important;margin:0 auto !important;}
 .v4 .mark,.v4-nav .mark{font-size:21px;font-weight:700;letter-spacing:-.03em;color:#fff;}
 /* WAS a hand-rolled linear-gradient with a 45% midpoint — 7 points off the token's 52%.
    One token. The wordmark is the last place that should improvise. */
