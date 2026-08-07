@@ -137,7 +137,7 @@ export default function PayrollSwap() {
             Big companies have the luxury of many people and departments doing the work. Small
             and medium sized companies can&rsquo;t justify those roles, so the owner does it all, at
             all hours of the day. The power of StayBookt is that we are giving you technology
-            that provides the support of 5 different skills on your payroll, for only $199/mth.
+            that provides the support of 5 different skills on your payroll, for only $199/mth USD.
           </p>
 
           <div className={`pswap${on ? ' on' : ''}`}>

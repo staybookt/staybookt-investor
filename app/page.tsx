@@ -8,7 +8,7 @@ import SiteFooter from '@/components/SiteFooter';
 import { min } from '@/lib/css';
 
 const SHARE_DESCRIPTION =
-  'StayBookt answers your phone, books your jobs and chases your quotes. You do the work. We run everything around it. $199 a month, nothing upfront, no lock-in.';
+  'StayBookt answers your phone, books your jobs and chases your quotes. You do the work. We run everything around it. $199/mth USD, nothing upfront, no lock-in.';
 
 
 /* "What's included" was missing from here (Richard, review, July 2026). It is in the

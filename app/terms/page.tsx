@@ -106,7 +106,7 @@ const SECTIONS: Section[] = [
     body: (
       <>
         <p>
-          The plan is <b>$199 USD a month</b>, plus applicable taxes. There is nothing to pay
+          The plan is <b>$199/mth USD</b>, plus applicable taxes. There is nothing to pay
           upfront: no build fee, no setup fee. Billing starts when your service goes live and runs
           monthly in advance.
         </p>

@@ -41,7 +41,7 @@ const SLOGAN = 'StayBookt. Enjoy Life.';
  * Keep this in lockstep with the homepage description. If the offer changes, this
  * changes in the same commit. */
 const DESCRIPTION =
-  'StayBookt answers your phone, books your jobs and chases your quotes. You do the work. We run everything around it. $199 a month, nothing upfront, no lock-in.';
+  'StayBookt answers your phone, books your jobs and chases your quotes. You do the work. We run everything around it. $199/mth USD, nothing upfront, no lock-in.';
 const SITE_URL = 'https://www.staybookt.com';
 
 export const metadata: Metadata = {

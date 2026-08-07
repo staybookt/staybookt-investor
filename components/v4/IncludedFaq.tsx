@@ -116,7 +116,7 @@ const QS: Q[] = [
     /* Richard, FAQ doc, Jul 28 10:14am: deleted the closing line "We would rather tell you
        about twenty dollars and a card fee now than have you find them on an invoice
        later." Answer ends on the back-end list now. */
-    a: 'Almost. It is $199 USD a month plus tax, and two things sit outside that. Your domain registration, about twenty dollars a year, passed through at cost and yours anyway. And if you take card payments, Stripe or Square charge their own fee, around 2.9% plus thirty cents, taken out of what you collect like any card processing. That fee is theirs, not ours: we do not mark it up, and we take no cut of it. No build fee, no setup fee, no add-ons, no per-minute billing, no overage. And no back end either: no commission on your jobs, no share of your revenue, and no share of what the business is worth if you sell it.',
+    a: 'Almost. It is $199/mth USD plus tax, and two things sit outside that. Your domain registration, about twenty dollars a year, passed through at cost and yours anyway. And if you take card payments, Stripe or Square charge their own fee, around 2.9% plus thirty cents, taken out of what you collect like any card processing. That fee is theirs, not ours: we do not mark it up, and we take no cut of it. No build fee, no setup fee, no add-ons, no per-minute billing, no overage. And no back end either: no commission on your jobs, no share of your revenue, and no share of what the business is worth if you sell it.',
   },
   {
     k: 'The catch',
@@ -133,7 +133,7 @@ const QS: Q[] = [
        A spoken question is prose. Also dropped a stray "CAD" from the answer above this one
        (line ~119) — no other price mention on the site includes a currency code, so it read
        as a fourth, unmatched format. */
-    q: "Only $199 a month? So what's the catch?",
+    q: "Only $199/mth USD? So what's the catch?",
     a: 'None. We have leveraged technology to create a very efficient solution that allows relatively few people (very low overhead) and have built many aspects of the platform ourselves. This allows us to be able to offer exceptional value at very attractive pricing.',
   },
 ];

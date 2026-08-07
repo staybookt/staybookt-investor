@@ -27,18 +27,18 @@ const FAQ: [string, string][] = [
     'Both, together, in one plan. We build your website and then run the whole front office around it: answering calls, booking jobs, chasing quotes, and keeping your reputation growing. A site nobody maintains goes stale within a year. Running it is the point.',
   ],
   [
-    'Is $199 a month really all of it?',
+    'Is $199/mth USD really all of it?',
     /* THIS SAID "Yes." /pricing and /terms were both changed to name TWO costs the day we
        started taking payments, and this file was missed. It answered the same question with
        the opposite word, in the one place that is eligible for a Google rich result: the
        flat "Yes" could surface in search while the honest answer sat on the page. This file
        is what Google actually reads, so it has to say what the pages say. */
     /* Byte-matched to Richard's FAQ doc + the /pricing answer (doc-sync, Jul 28 late). */
-    'Almost. It is $199 USD a month plus tax, and two things sit outside that. Your domain registration, about twenty dollars a year, passed through at cost and yours anyway. And if you take card payments, Stripe or Square charge their own fee, around 2.9% plus thirty cents, taken out of what you collect like any card processing. That fee is theirs, not ours: we do not mark it up, and we take no cut of it. No build fee, no setup fee, no add-ons, no per-minute billing, no overage. And no back end either: no commission on your jobs, no share of your revenue, and no share of what the business is worth if you sell it.',
+    'Almost. It is $199/mth USD plus tax, and two things sit outside that. Your domain registration, about twenty dollars a year, passed through at cost and yours anyway. And if you take card payments, Stripe or Square charge their own fee, around 2.9% plus thirty cents, taken out of what you collect like any card processing. That fee is theirs, not ours: we do not mark it up, and we take no cut of it. No build fee, no setup fee, no add-ons, no per-minute billing, no overage. And no back end either: no commission on your jobs, no share of your revenue, and no share of what the business is worth if you sell it.',
   ],
   [
     'What is included in the plan?',
-    'Getting found and running it, together: your website and Google presence, an AI receptionist with a real person behind it, booking, quote follow-up, reviews, and a short daily brief. One plan, $199 USD a month plus applicable taxes, nothing upfront, no lock-in, with ninety days to change your mind for any reason.',
+    'Getting found and running it, together: your website and Google presence, an AI receptionist with a real person behind it, booking, quote follow-up, reviews, and a short daily brief. One plan, $199/mth USD plus applicable taxes, nothing upfront, no lock-in, with ninety days to change your mind for any reason.',
   ],
   [
     'Is there a limit on calls and texts?',
@@ -64,7 +64,7 @@ export default function StructuredData() {
       email: EMAIL,
       telephone: PHONE_E164,
       description:
-        'StayBookt answers the phone, books the jobs and chases the quotes for owner-operated service businesses. We build and run your website and Google presence, answer every call and text 24/7, and hand you one short brief each morning. One plan, $199 USD a month, nothing upfront.',
+        'StayBookt answers the phone, books the jobs and chases the quotes for owner-operated service businesses. We build and run your website and Google presence, answer every call and text 24/7, and hand you one short brief each morning. One plan, $199/mth USD, nothing upfront.',
       /* WAS Canada + United States. We have one client, in Ontario. Prices are CAD, the
          terms are governed by Ontario law and the consent language is CASL only. Claiming a
          US practice in the schema is claiming a business we do not have. Add the US back the

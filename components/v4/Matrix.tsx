@@ -382,7 +382,7 @@ export default function Matrix() {
           <h2>
             Thirteen jobs, and the business does not run without any of them. You are doing all
             thirteen tonight.{' '}
-            <span className="g">For $199 USD a month we do them instead.</span>
+            <span className="g">For $199/mth USD we do them instead.</span>
           </h2>
         </div>
 
@@ -493,7 +493,7 @@ export default function Matrix() {
                     is the row count above, $199 is the price. */}
                 <div className="mx-c us cl-us">
                   <span className="cl-all">All thirteen.</span>
-                  <span className="cl-price">Still $199 USD a month.</span>
+                  <span className="cl-price">Still $199/mth USD.</span>
                 </div>
               </div>
             </div>

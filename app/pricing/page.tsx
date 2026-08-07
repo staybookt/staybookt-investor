@@ -7,7 +7,7 @@ import HeroCta from '@/components/v4/HeroCta';
 import { min } from '@/lib/css';
 
 const SHARE =
-  'What you get for $199 USD a month: the whole list, what stays yours, and the things we do not do. Nothing upfront, no lock-in, ninety days to change your mind for any reason.';
+  'What you get for $199/mth USD: the whole list, what stays yours, and the things we do not do. Nothing upfront, no lock-in, ninety days to change your mind for any reason.';
 
 export const metadata = {
   title: 'Pricing',
@@ -57,7 +57,7 @@ export const metadata = {
    site uses one, and this is prose (a full sentence), so it takes the site-wide prose
    format "$199 a month" per the .usp comment below, not a bare figure. */
 const FACTS: { k: string; v: string }[] = [
-  { k: 'Nothing upfront', v: 'No build fee, no setup fee, no menu. $199 USD a month, plus applicable taxes.' },
+  { k: 'Nothing upfront', v: 'No build fee, no setup fee, no menu. $199/mth USD, plus applicable taxes.' },
   { k: 'Month-to-month', v: 'No term. Cancel any time on thirty days notice. No penalty, no exit fee.' },
   { k: 'First 90 days, money back', v: 'Change your mind for any reason and we refund every month you paid.' },
   { k: 'Unlimited calls and texts', v: 'No per-minute billing and no overage, however busy it gets.' },
@@ -152,7 +152,7 @@ export default function PricingPage() {
             <span className="hl1">What you get for</span>
             {/* USD in the prominent spot (Richard, 8-5-26: "Feels like this prominent spot
                 should have the USD clarification"). */}
-            <span className="hl2"><span className="g">$199 USD a month</span><span className="pd">.</span></span>
+            <span className="hl2"><span className="g">$199/mth USD</span><span className="pd">.</span></span>
           </h1>
           <p className="sub">Every job on the list below, handled, no matter how busy it gets.</p>
           <div className="facts">
