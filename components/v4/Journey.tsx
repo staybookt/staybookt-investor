@@ -680,6 +680,12 @@ const CSS = `
 .jy .pfq-q .pl{width:34px;height:34px;border-radius:50%;border:1px solid #dcdcd8;color:#8a8f98;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:300;line-height:1;transition:transform .4s cubic-bezier(.16,1,.3,1),background .35s ease,color .35s ease,border-color .35s ease;}
 .jy .pfq-q:hover .pl{border-color:var(--fc);color:var(--fc);}
 .jy .pfq-q.open .pl{transform:rotate(45deg);background:var(--fc);border-color:transparent;color:#fff;box-shadow:0 8px 20px -8px var(--fc);}
+/* Emma V2: the + glyph sat optically off-center in its circle; a drawn plus is dead-center always. */
+.jy .pfq-q .pl{font-size:0;position:relative;}
+.jy .pfq-q .pl::before,.jy .pfq-q .pl::after{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:currentColor;border-radius:1px;}
+.jy .pfq-q .pl::before{width:13px;height:1.5px;}
+.jy .pfq-q .pl::after{width:1.5px;height:13px;}
+
 .jy .fbody{max-height:0;overflow:hidden;visibility:hidden;transition:max-height .55s cubic-bezier(.16,1,.3,1),visibility 0s linear .55s;}
 .jy .pfq-q.open .fbody{max-height:520px;visibility:visible;transition:max-height .55s cubic-bezier(.16,1,.3,1),visibility 0s;}
 .jy .fbody p{margin:0;padding:0 clamp(16px,2vw,22px) clamp(22px,2.6vw,28px);font-size:16px;line-height:1.65;color:#52565e;max-width:62ch;}

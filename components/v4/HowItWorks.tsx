@@ -389,6 +389,12 @@ const CSS = `
 .hiw-q .pl{width:34px;height:34px;border-radius:50%;border:1px solid #dcdcd8;color:#8a8f98;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:300;line-height:1;transition:transform .4s cubic-bezier(.16,1,.3,1),background .35s ease,color .35s ease,border-color .35s ease;}
 .hiw-q:hover .pl{border-color:var(--fc);color:var(--fc);}
 .hiw-q.open .pl{transform:rotate(45deg);background:var(--fc);border-color:transparent;color:#fff;box-shadow:0 8px 20px -8px var(--fc);}
+/* Emma V2: the + glyph sat optically off-center in its circle; a drawn plus is dead-center always. */
+.hiw-q .pl{font-size:0;position:relative;}
+.hiw-q .pl::before,.hiw-q .pl::after{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:currentColor;border-radius:1px;}
+.hiw-q .pl::before{width:13px;height:1.5px;}
+.hiw-q .pl::after{width:1.5px;height:13px;}
+
 .hiw-q .ans{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.16,1,.3,1);}
 .hiw-q.open .ans{max-height:420px;}
 .hiw-q .ans p{margin:0 clamp(16px,2vw,22px) clamp(22px,2.4vw,26px);padding-left:16px;border-left:2px solid var(--fc);font-size:16.5px;line-height:1.62;color:#52565e;max-width:60ch;}

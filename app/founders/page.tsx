@@ -146,7 +146,7 @@ const CSS = `
 /* Roles BLACK, not green (Emma, p15 ②). She flagged the green as a contrast risk and asked for
    black; the gradient decorative role is carried by the photo border above, not the text. */
 .fcard .ro{margin-top:12px;font-size:14px;font-weight:600;letter-spacing:.02em;color:var(--v4-ink);}
-.fcard .bio{margin:18px 0 24px;font-size:15.5px;line-height:1.7;color:#69707d;}
+.fcard .bio{margin:18px 0 24px;font-size:clamp(16px,1.8vw,19px);line-height:1.65;color:#5a6069;}
 /* WAS .fcard .fq — each founder's own quote beneath their bio (Richard, Jul 24 2026).
    REPLACED (Richard's About Us Quote doc, Aug 2 2026): "Replace the 2 quotes with one from
    both of us." The joint quote sits centered below the two cards, same brand-gradient left
@@ -184,7 +184,7 @@ const CSS = `
    value NAME at 18px against 17.5px body text — no hierarchy, nothing led. Now: a small
    gradient index numeral, the name at display size, the body as the supporting voice. Same
    hairlines, same no-card rule, real hierarchy. */
-.abt-values .val-row .vn{display:block;margin-bottom:6px;font-size:13px;font-weight:700;
+.abt-values .val-row .vn{display:block;margin-bottom:6px;font-size:clamp(15.5px,1.7vw,17.5px);font-weight:700;
   font-style:normal;letter-spacing:.08em;background:var(--sb-grad);-webkit-background-clip:text;
   background-clip:text;color:transparent;font-variant-numeric:tabular-nums;}
 /* CASCADE (Apple-lens): the five rows enter the viewport together, so without delays they

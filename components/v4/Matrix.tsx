@@ -541,8 +541,8 @@ const CSS = `
 .mx-hd .mx-c i{font-style:normal;font-size:11px;color:#69707d;}
 .mx-hd .mx-c.today b{color:#6d28d9;}
 .mx-hd .mx-c.today i{color:#6d28d9;}
-.mx-hd .mx-c.us b{font-size:14px;color:#046c4e;}
-.mx-hd .mx-c.us i{color:#046c4e;font-weight:700;font-size:12px;}
+.mx-hd .mx-c.us b{font-size:13px;color:#046c4e;}
+.mx-hd .mx-c.us i{color:#046c4e;font-weight:700;font-size:11.5px;}
 
 /* THE AXIS. Stated once, at full weight, across the whole list. */
 .hd-lane{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;padding:0 8px;}
@@ -598,8 +598,8 @@ const CSS = `
    capped tinted column. */
 .mx-row .mx-c.us{background:transparent;}
 .mx-grid .mx-row:last-child .mx-c.us{border:0;border-radius:0;}
-.mx-hd .mx-c.us{background:rgba(16,185,129,.12);
-  border:1px solid rgba(4,108,78,.35);border-radius:999px;padding:9px 14px;}
+.mx-hd .mx-c.us{background:rgba(16,185,129,.12);margin-left:12px;
+  border:1px solid rgba(4,108,78,.35);border-radius:999px;padding:7px 12px;}
 
 .mk{display:block;}
 .mk.yes{display:grid;place-items:center;width:19px;height:19px;color:#10b981;}

@@ -60,8 +60,8 @@ const CSS = `
 .pswap.on .srow .rpay s{text-decoration-color:#c3c8d0;}
 .pswap .rpay em{font-style:normal;font-weight:500;color:#b6bcc4;font-size:.8em;}
 .pswap .total{border-bottom:0;padding-top:20px;transition-delay:.9s;}
-.pswap .total .rname{font-weight:700;color:var(--v4-ink);}
-.pswap .total .rpay{color:var(--v4-ink);font-size:clamp(17px,2.2vw,22px);}
+.pswap .total .rname{font-weight:700;color:#6b7280;}
+.pswap .total .rpay{color:#9aa0a8;font-size:clamp(17px,2.2vw,22px);}
 .pswap.on .total .rpay s{transition-delay:.9s;}
 .pswap .total .rpay s{text-decoration-thickness:2.5px;}
 

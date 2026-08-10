@@ -607,7 +607,7 @@ const CSS = `
 .hjc h2.hjc-teamh{margin-top:clamp(44px,6vw,64px);font-size:clamp(24px,3vw,38px);}
 .hjc-jobs{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:clamp(26px,3.6vw,40px);}
 .hjc-job{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);
-  display:flex;align-items:center;gap:14px;width:min(340px,86%);margin:0 auto;text-align:left;}
+  display:flex;align-items:center;gap:14px;width:min(380px,90%);margin:0 auto;text-align:left;}
 .hjc-job.on{opacity:1;transform:none;}
 .hjc-ic{flex:0 0 auto;width:44px;height:44px;border-radius:14px;display:grid;place-items:center;border:1px solid transparent;}
 /* Five jobs, four brand hues (cyan/emerald/indigo/violet) — cycles rather than repeats,
@@ -618,8 +618,8 @@ const CSS = `
 .hjc-job:nth-child(4) .hjc-ic{color:#a78bfa;background:rgba(124,58,237,.1);border-color:rgba(124,58,237,.22);}
 .hjc-job:nth-child(5) .hjc-ic{color:#38bdf8;background:rgba(14,165,233,.1);border-color:rgba(14,165,233,.22);}
 .hjc-txt{display:flex;flex-direction:column;min-width:0;}
-.hjc-r{font-size:19px;font-weight:600;letter-spacing:-.02em;color:#f5f5f7;}
-.hjc-d{margin-top:2px;font-size:13px;color:#8b93a5;}
+.hjc-r{font-size:21px;font-weight:600;letter-spacing:-.02em;color:#fff;}
+.hjc-d{margin-top:2px;font-size:15px;color:#b8bfca;}
 .hjc-num{position:relative;margin-top:clamp(26px,3.4vw,38px);opacity:0;transform:translateY(16px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
 .hjc.priced .hjc-num{opacity:1;transform:none;}
 /* THE GLOW. A soft brand-gradient blob behind the number, blurred and dim until the

@@ -164,6 +164,12 @@ const CSS = `
   transition:transform .4s cubic-bezier(.16,1,.3,1),background .35s ease,color .35s ease,border-color .35s ease;}
 .pfq-q:hover .pl{border-color:var(--fc);color:var(--fc);}
 .pfq-q.open .pl{transform:rotate(45deg);background:var(--fc);border-color:transparent;color:#fff;box-shadow:0 8px 20px -8px var(--fc);}
+/* Emma V2: the + glyph sat optically off-center in its circle; a drawn plus is dead-center always. */
+.pfq-q .pl{font-size:0;position:relative;}
+.pfq-q .pl::before,.pfq-q .pl::after{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:currentColor;border-radius:1px;}
+.pfq-q .pl::before{width:13px;height:1.5px;}
+.pfq-q .pl::after{width:1.5px;height:13px;}
+
 
 /* max-height:0 + overflow:hidden CLIPS PIXELS. It does not touch the accessibility tree.
    So every collapsed answer here was still being read aloud, in full, while aria-expanded

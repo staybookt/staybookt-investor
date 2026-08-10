@@ -61,7 +61,11 @@ const LINKS = [
    homepage passes it because its hero is light now (Jul 23 2026), so a transparent nav would
    leave the white wordmark and links invisible on the light surface. */
 export default function Nav({ solidTop = false }: { solidTop?: boolean }) {
-  const onStart = usePathname() === '/start';
+  const pathname = usePathname();
+  const onStart = pathname === '/start';
+  /* Emma V2: bold the page the user is on. Exact match for Home; prefix match elsewhere
+     so /journeys/home-service still lights up Journeys. */
+  const isCur = (href: string) => (href === '/' ? pathname === '/' : (pathname === href || pathname.startsWith(href + '/')));
   const [solid, setSolid] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -97,7 +101,7 @@ export default function Nav({ solidTop = false }: { solidTop?: boolean }) {
         </a>
         <div className="nav-links">
           {LINKS.map((l) => (
-            <a key={l.href} href={l.href}>
+            <a key={l.href} href={l.href} className={isCur(l.href) ? 'cur' : undefined} aria-current={isCur(l.href) ? 'page' : undefined}>
               {l.label}
             </a>
           ))}
@@ -128,7 +132,7 @@ export default function Nav({ solidTop = false }: { solidTop?: boolean }) {
           the hiding now, in CSS, next to the animation that depends on it. */}
       <div id="nav-sheet" className={`nav-sheet${open ? ' open' : ''}`}>
         {LINKS.map((l) => (
-          <a key={l.href} href={l.href} onClick={() => setOpen(false)}>
+          <a key={l.href} href={l.href} className={isCur(l.href) ? 'cur' : undefined} aria-current={isCur(l.href) ? 'page' : undefined} onClick={() => setOpen(false)}>
             {l.label}
           </a>
         ))}
