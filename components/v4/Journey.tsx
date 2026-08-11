@@ -547,7 +547,10 @@ const CSS = `
 .jy-bar-top{top:0;transform:translateY(-101%);}
 .jy-bar-bot{bottom:0;transform:translateY(101%);}
 
-.jy-hud{position:absolute;top:0;left:0;right:0;z-index:6;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px clamp(16px,3vw,30px);}
+/* top:64px, NOT 0: the fixed nav (64px, z-50) covered the whole HUD - avatar, progress,
+   count, skip - which is why nobody ever saw the old road HUD and Emma believed the films
+   had no position indicator at all. Found during the Stream 2 verify (Aug 10 2026). */
+.jy-hud{position:absolute;top:64px;left:0;right:0;z-index:6;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px clamp(16px,3vw,30px);}
 .jy-hud .jy-avchip.sm .jy-av{width:36px;height:36px;padding:2px;}
 .jy-hud .jy-who{font-size:12.5px;} .jy-hud .jy-who small{font-size:10.5px;}
 .jy-mid{display:flex;align-items:center;gap:12px;}
