@@ -144,7 +144,9 @@ const PAGE_CSS = `
    on the CREAM page background, transformation rows as plain type with hairline dividers
    (no card chrome, no dark panel - Jacob, Aug 6). */
 .probs{padding:clamp(92px,12vh,116px) 0 clamp(36px,5vh,56px);background:var(--v4-cream,#f6f6f3);text-align:center;}
-.probs .pr-h{margin:0 auto;font-size:clamp(26px,3.35vw,48px);line-height:1.08;font-weight:600;
+/* Richard's mission line (8-10) is ~69ch — at the old 48px cap it broke into a ragged
+   three-line stack. 37px holds his two clauses to one clean line each. */
+.probs .pr-h{margin:0 auto;font-size:clamp(24px,2.55vw,37px);line-height:1.16;font-weight:600;
   letter-spacing:-.035em;color:var(--v4-ink);max-width:none;}
 .probs .pr-h .g,.probs .pr-close .g{background:var(--sb-grad);-webkit-background-clip:text;
   background-clip:text;color:transparent;padding-right:.04em;}
