@@ -392,18 +392,20 @@ const PAGE_CSS = `
 
 
 /* ===== PREVIEW O1 OVERRIDES (Emma landing Option 1: split hero, device right) ===== */
-.po1 header.scene{min-height:auto;padding:calc(64px + clamp(40px,6vh,64px)) 0 clamp(36px,5vh,56px);}
-.po1 header.scene .inner.po1-grid{display:grid;grid-template-columns:1.02fr 1fr;gap:clamp(28px,4vw,60px);align-items:center;text-align:left;}
-.po1 .po1-left h1{text-align:left;margin-top:0;font-size:clamp(28px,3.4vw,48px);}
-.po1 .po1-left p.sub{text-align:left;font-size:clamp(15px,1.5vw,17.5px);}
-.po1 header.scene p.sub span{white-space:normal;}
-.po1 .po1-btn{display:inline-block;margin-top:28px;background:#06080d;color:#fff;font-size:15px;font-weight:600;border-radius:999px;padding:14px 26px;text-decoration:none;transition:transform .25s ease,box-shadow .25s ease;}
-.po1 .po1-btn:hover{transform:translateY(-1px);box-shadow:0 14px 30px -14px rgba(6,8,13,.5);}
-.po1 .po1-right .hd-fold{margin:0;}
+/* Selectors carry .v4.po1 because the base hero rules (.v4 header.scene h1 etc.) out-specify
+   naive .po1 overrides — first deploy shipped an 88px nowrap headline into a half column. */
+.v4.po1 header.scene{min-height:auto;padding:calc(64px + clamp(40px,6vh,64px)) 0 clamp(36px,5vh,56px);}
+.v4.po1 header.scene .inner.po1-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);gap:clamp(28px,4vw,60px);align-items:center;text-align:left;}
+.v4.po1 header.scene .po1-left h1{text-align:left;margin-top:0;font-size:clamp(28px,3.35vw,47px);}
+.v4.po1 header.scene .po1-left p.sub{text-align:left;font-size:clamp(15px,1.5vw,17.5px);}
+.v4.po1 header.scene p.sub span{white-space:normal;}
+.v4.po1 .po1-btn{display:inline-block;margin-top:28px;background:#06080d;color:#fff;font-size:15px;font-weight:600;border-radius:999px;padding:14px 26px;text-decoration:none;transition:transform .25s ease,box-shadow .25s ease;}
+.v4.po1 .po1-btn:hover{transform:translateY(-1px);box-shadow:0 14px 30px -14px rgba(6,8,13,.5);}
+.v4.po1 .po1-right .hd-fold{margin:0;max-width:none;}
 @media(max-width:860px){
-  .po1 header.scene .inner.po1-grid{grid-template-columns:1fr;text-align:center;gap:26px;}
-  .po1 .po1-left h1,.po1 .po1-left p.sub{text-align:center;}
-  .po1 .po1-btn{margin-top:20px;}
+  .v4.po1 header.scene .inner.po1-grid{grid-template-columns:1fr;text-align:center;gap:26px;}
+  .v4.po1 header.scene .po1-left h1,.v4.po1 header.scene .po1-left p.sub{text-align:center;}
+  .v4.po1 .po1-btn{margin-top:20px;}
 }
 `;
 
