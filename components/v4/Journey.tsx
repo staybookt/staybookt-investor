@@ -105,15 +105,21 @@ export default function Journey({ id }: { id: string }) {
         let o: number, ty: number, sc: number;
         if (i === 0) {
           if (s < 0.7) { o = 1; ty = 0; sc = 1 + 0.012 * smooth(s / 0.7); }
-          else { const k = smooth((s - 0.7) / 0.3); o = 1 - k; ty = -k * 40; sc = 1.012 + 0.008 * k; }
+          else { const k = smooth((s - 0.7) / 0.3); o = 1 - 0.7 * k; ty = -k * 40; sc = 1.012 + 0.008 * k; }
         }
         else if (i === N - 1) {
-          if (s < 0.22) { const k = smooth(s / 0.22); o = k; ty = (1 - k) * 44; sc = 0.985 + 0.015 * k; }
+          if (s < 0.22) { const k = smooth(s / 0.22); o = 0.3 + 0.7 * k; ty = (1 - k) * 44; sc = 0.985 + 0.015 * k; }
           else { o = 1; ty = 0; sc = 1 + 0.012 * smooth((s - 0.22) / 0.78); }
         }
-        else if (s < 0.22) { const k = smooth(s / 0.22); o = k; ty = (1 - k) * 44; sc = 0.985 + 0.015 * k; }
-        else if (s < 0.78) { o = 1; ty = 0; sc = 1 + 0.014 * smooth((s - 0.22) / 0.56); }
-        else { const k = smooth((s - 0.78) / 0.22); o = 1 - k; ty = -k * 36; sc = 1.014 + 0.008 * k; }
+        /* CROSSFADE FLOOR (Richard, Aug 10 2026: "full grey screen after The Turn").
+           The old bands let the outgoing beat reach o=0 before the incoming one rose, a
+           ~140px parkable dead zone. Invisible on the dark acts, but past The Turn the
+           stage has graded to cream, so parking there was a full blank light screen on a
+           stepping mouse wheel. Beats now keep a 0.3 presence at the boundary — the cut
+           reads as a cross-dissolve and the stage never paints empty. */
+        else if (s < 0.14) { const k = smooth(s / 0.14); o = 0.3 + 0.7 * k; ty = (1 - k) * 44; sc = 0.985 + 0.015 * k; }
+        else if (s < 0.82) { o = 1; ty = 0; sc = 1 + 0.014 * smooth((s - 0.14) / 0.68); }
+        else { const k = smooth((s - 0.82) / 0.18); o = 1 - 0.7 * k; ty = -k * 36; sc = 1.014 + 0.008 * k; }
         b.style.opacity = String(o);
         b.style.transform = `translateY(${ty}px) scale(${sc})`;
         b.style.setProperty('--bty', `${ty}px`);
