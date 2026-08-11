@@ -154,7 +154,10 @@ export default function HeroDashboard() {
 const CSS = `
 /* ONE FOLD: the screen is the hero fold's supporting graphic, same 2.15s entrance beat
    as the Journeys map. */
-.hd-fold{position:relative;margin:clamp(22px,3.6vh,40px) auto 0;width:100%;max-width:880px;
+/* container-type: the stage now lives in a half-width hero column (Option 1, Aug 10),
+   so type must size against the CONTAINER, not the viewport — 7vw of a 1440 screen was
+   92px inside a 556px box, and nowrap + overflow:hidden cut statements off (Richard). */
+.hd-fold{container-type:inline-size;position:relative;margin:clamp(22px,3.6vh,40px) auto 0;width:100%;max-width:880px;
   padding:0 clamp(14px,3vw,32px);
   opacity:0;transform:translateY(26px);}
 @media(prefers-reduced-motion:no-preference){
@@ -221,7 +224,7 @@ const CSS = `
 .hd-stage.tm .st-was{opacity:1;transform:none;}
 .st-big{position:absolute;left:0;right:0;top:26px;bottom:0;
   font-weight:700;letter-spacing:-.035em;line-height:1;
-  font-size:clamp(44px,7vw,92px);font-variant-numeric:tabular-nums;}
+  font-size:clamp(38px,12cqw,84px);font-variant-numeric:tabular-nums;}
 .st-big .v{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;white-space:nowrap;}
 .st-big .v-td{color:#f87171;opacity:1;filter:blur(0);transform:none;
   transition:opacity .5s ease,filter .5s ease,transform .55s cubic-bezier(.4,0,.6,1);}
@@ -234,6 +237,9 @@ const CSS = `
 /* the mechanism line: how it happens, one sentence, quiet. */
 .st-line{position:relative;z-index:1;margin:10px auto 0;max-width:54ch;
   font-size:clamp(13.5px,1.5vw,15.5px);line-height:1.55;color:#8b93a5;
+  /* two lines are RESERVED whether the beat's line needs them or not — the frame used to
+     grow when the subtext wrapped, a visible size "glitch" between beats (Richard, 8-10). */
+  min-height:calc(2 * 1.55em);
   animation:stLine .6s ease;}
 @keyframes stLine{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
 

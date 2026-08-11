@@ -404,7 +404,7 @@ export default function AboutPage() {
                 .fjoint figure below the cards was deleted in the same pass — one quote, one
                 place. */}
             <p className="us-q">
-              &ldquo;We started StayBookt rooted in a passion to help small to mid-sized business
+              &ldquo;We started StayBookt rooted in a passion to help small business
               owners realize their dreams. Our solution helps businesses grow and allows the owner
               to get away from the day-to-day minutia and spend their time doing meaningful things,
               whether that is the work they love or having more time for passions outside work. We

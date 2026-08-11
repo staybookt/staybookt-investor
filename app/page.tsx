@@ -455,9 +455,12 @@ export default function HomePage() {
               </h1>
             </Reveal>
             <Reveal>
+              {/* RICHARD'S PUNCH-UP (8-10-26), verbatim; his " - " rendered as a comma per the
+                  no-dash rule; his CAPS emphasis (UNFUN / MORE TIME and FREEDOM) rendered as
+                  weight, not literal caps, per site register - disclosed to Jacob. */}
               <p className="sub">
-                <span>But a lot of &ldquo;unfun&rdquo; stuff gets in the way of that dream.</span>
-                <span>StayBookt is the answer to making your business what it was always meant to be.</span>
+                <span>But a lot of <b>&ldquo;unfun&rdquo;</b> stuff gets in the way of that dream.</span>
+                <span>StayBookt is the answer to making your business what it was always meant to be, and giving you <b>more time</b> and <b>freedom</b>.</span>
               </p>
             </Reveal>
             <Reveal>
@@ -491,10 +494,10 @@ export default function HomePage() {
           frame. The punch is hierarchy: muted problem, arrow spine, gradient future state. */}
       <section className="probs">
         <div className="wrap">
-          <h2 className="pr-h">Built to help small to mid-sized business owners<br />realize their business&rsquo; <span className="g">full potential</span><span className="pd">.</span></h2>
+          <h2 className="pr-h">Our mission is to help small businesses <span className="g">realize their full potential</span>,<br />and improve the lives of owners, and the families behind them<span className="pd">.</span></h2>
           <div className="pr-frame">
           <div className="pr-block">
-            <p className="pr-lede">We do it by solving the problems that get in the way:</p>
+            <p className="pr-lede">We are <b>insanely great</b> at solving the problems that get in the way of this mission:</p>
             <div className="pr-cols" aria-hidden><span className="pc-l">Today</span><span /><span className="pc-r">With StayBookt</span></div>
             <div className="pr-rows">
               <div className="pr-row"><span className="pr-was">A website that doesn&rsquo;t generate calls</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">Phones ringing, answered 24/7</span></div>
@@ -507,7 +510,7 @@ export default function HomePage() {
             </div>
           </div>
           </div>
-          <p className="pr-close">Every small to mid-sized operator struggles with at least one of these.
+          <p className="pr-close">Every small business owner struggles with at least one of these.
             StayBookt is <span className="g">the solution</span><span className="pd">.</span></p>
         </div>
       </section>
