@@ -137,7 +137,7 @@ const SECTIONS: Section[] = [
           {/* This said "the only third-party cost there is" until Jacob confirmed the client
               absorbs card processing fees. That made it false the moment we started taking
               payments. Two costs, named, or the sentence is a lie. */}
-          Two things sit outside the $199, and this is the whole list. Your domain registration,
+          Two things sit outside the $199/mth USD, and this is the whole list. Your domain registration,
           roughly twenty dollars a year, passed through at cost and yours anyway. And the fee Stripe
           or Square charge on card payments, which is theirs, not ours, and which we do not mark up.
           If a third ever comes up, we agree it with you in writing first, or we do not spend it.
