@@ -29,7 +29,6 @@ import { track } from '@/lib/analytics';
 import { JOURNEYS, JOURNEY_ORDER } from './journeyData';
 
 /* the mini road in the HUD: same winding language as the landing map, in miniature */
-const ROAD_D = 'M5,17 C28,4 46,27 78,14 C106,3 128,25 155,11';
 
 /* film grain for the dark acts (SVG noise, fades out as the world brightens).
    Inline style on purpose — keeps the data URI away from the CSS minifier. */
@@ -40,8 +39,6 @@ export default function Journey({ id }: { id: string }) {
   const d = JOURNEYS[id];
   const filmRef = useRef<HTMLDivElement>(null);
   const rootRef = useRef<HTMLDivElement>(null);
-  const roadProgRef = useRef<SVGPathElement>(null);
-  const roadAvRef = useRef<SVGGElement>(null);
   const lastIdx = useRef(-1);
   const recRan = useRef(false);
   const recRaf = useRef<number | null>(null);
@@ -136,8 +133,6 @@ export default function Journey({ id }: { id: string }) {
       /* the title card's city fades as you push into the ledger; the scroll cue goes with it */
       const fbg = root.querySelector('.jy-fbg') as HTMLElement | null;
       if (fbg) fbg.style.opacity = idx === 0 ? (s < 0.5 ? '1' : String(1 - smooth((s - 0.5) / 0.5))) : '0';
-      const cue = root.querySelector('.jy-cue');
-      if (cue) cue.classList.toggle('off', !(idx === 0 && s < 0.55));
 
       /* THE RECEIPT: time-based count, triggered on arrival (scroll-scrubbed counting
          glitched when you flew past — Jacob. Now the numbers race to full in ~0.9s the
@@ -174,17 +169,16 @@ export default function Journey({ id }: { id: string }) {
       const joyRow = root.querySelector('.jy-payjoy');
       if (joyRow) joyRow.classList.toggle('on', idx === N - 1 && s > 0.35);
 
-      /* road HUD: progress line fills, the mini avatar drives it */
-      const rp = roadProgRef.current, ra = roadAvRef.current;
-      if (rp && ra) {
-        rp.style.strokeDashoffset = String(1 - p);
-        const L = rp.getTotalLength();
-        const at = Math.min(0.999, Math.max(0, p)) * L;
-        if (Number.isFinite(at)) {
-          const pt = rp.getPointAtLength(at);
-          ra.setAttribute('transform', `translate(${pt.x},${pt.y})`);
-        }
-      }
+      /* SEGMENTED PROGRESS (Emma V2, endorsed by Richard 8-10): one segment per chapter,
+         filled to position, each one a button that jumps to that chapter. Replaces the
+         winding-road HUD - charming, but it communicated neither length nor position. */
+      const segFills = root.querySelectorAll('.jy-seg b');
+      segFills.forEach((el, i) => {
+        (el as HTMLElement).style.transform = `scaleX(${i < idx ? 1 : i === idx ? Math.max(0.12, s) : 0})`;
+      });
+      /* the continue button hides only on the final chapter */
+      const nxt = root.querySelector('.jy-next');
+      if (nxt) nxt.classList.toggle('off', idx >= N - 1);
       const skip = root.querySelector('.jy-skip');
       if (skip) skip.classList.toggle('off', idx >= N - 2);
 
@@ -240,16 +234,13 @@ export default function Journey({ id }: { id: string }) {
     return () => io.disconnect();
   }, [id]);
 
+  /* Jumps land at s=0.5 - the middle of the beat's HOLD band - so every tap arrives on a
+     fully painted frame by construction (Emma V2 requirement). */
   const jump = (i: number) => {
     const film = filmRef.current; if (!film) return;
     const h = film.offsetHeight - window.innerHeight;
-    window.scrollTo({ top: film.offsetTop + h * ((i + 0.5) / N), behavior: 'smooth' });
-  };
-
-  const roadClick = (e: React.MouseEvent<SVGSVGElement>) => {
-    const r = e.currentTarget.getBoundingClientRect();
-    const frac = (e.clientX - r.left) / r.width;
-    jump(Math.min(N - 1, Math.max(0, Math.floor(frac * N))));
+    const reduce = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: film.offsetTop + h * ((i + 0.5) / N), behavior: reduce ? 'auto' : 'smooth' });
   };
 
   return (
@@ -286,7 +277,17 @@ export default function Journey({ id }: { id: string }) {
               </span>
             </div>
           </div>
-          <div className="jy-cue">Scroll · follow {d.her ? 'her' : 'his'} journey</div>
+          {/* TAP TO CONTINUE (Emma V2's prototype, verbatim interaction): advances exactly
+              one chapter per tap; scroll remains a full equal input. Replaces the passive
+              "Scroll" cue - the button IS the affordance now, from the title card on. */}
+          <button
+            type="button"
+            className="jy-next"
+            onClick={() => { track('journey_next', { journey: d.id }); jump(Math.min(N - 1, lastIdx.current + 1)); }}
+          >
+            <span className="jn-circ" aria-hidden>&darr;</span>
+            <span className="jn-lbl">Tap here to continue<br />{d.short}&rsquo;s journey</span>
+          </button>
           <div className="jy-hud">
             <span className="jy-avchip sm">
               <span className="jy-av"><img src={d.img} alt="" style={{ objectPosition: d.imgPos }} /></span>
@@ -296,15 +297,19 @@ export default function Journey({ id }: { id: string }) {
               <span className="jy-hudch">Before</span>
               {/* the road HUD: the map's winding road in miniature — the owner's mini
                   avatar drives it as you scroll. Click anywhere on it to jump. */}
-              <svg className="jy-road" viewBox="0 0 160 28" onClick={roadClick} role="slider" aria-label="Film progress">
-                <defs><clipPath id={`jyrcp-${d.id}`}><circle r="6.5" /></clipPath></defs>
-                <path className="jy-road-under" d={ROAD_D} />
-                <path ref={roadProgRef} className="jy-road-prog" d={ROAD_D} pathLength={1} style={{ stroke: d.hue }} />
-                <g ref={roadAvRef} className="jy-road-av" transform="translate(5,17)">
-                  <circle r="8" fill="#fff" stroke={d.hue} strokeWidth="1.5" />
-                  <image href={d.img} x="-6.5" y="-6.5" width="13" height="13" clipPath={`url(#jyrcp-${d.id})`} preserveAspectRatio="xMidYMid slice" />
-                </g>
-              </svg>
+              <div className="jy-prog" aria-label="Journey chapters">
+                {Array.from({ length: N }).map((_, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    className="jy-seg"
+                    aria-label={`Jump to chapter ${i + 1} of ${N}: ${CHAPTERS[i]}`}
+                    onClick={() => { track('journey_seg', { journey: d.id, to: i + 1 }); jump(i); }}
+                  >
+                    <i><b /></i>
+                  </button>
+                ))}
+              </div>
               <span className="jy-hudct">1 / {N}</span>
               <button
                 type="button"
@@ -528,8 +533,6 @@ const CSS = `
 .jy-herochip .jy-av{width:clamp(88px,9.5vw,116px);height:clamp(88px,9.5vw,116px);padding:3.5px;box-shadow:0 0 0 7px rgba(255,255,255,.06),0 0 44px -6px rgba(79,70,229,.45),0 20px 44px rgba(0,0,0,.5);}
 .jy-herochip .jy-who{text-align:center;font-size:clamp(16px,1.8vw,19px);line-height:1.3;}
 .jy-herochip .jy-who small{font-size:clamp(12.5px,1.4vw,14.5px);margin-top:2px;}
-.jy-cue{position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:6;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55);opacity:0;animation:jyUp .8s ease 2.7s forwards,jyBob 2.4s ease-in-out 3.5s infinite;transition:opacity .4s ease;}
-.jy-cue.off{animation:none;opacity:0;pointer-events:none;}
 @keyframes jyUp{to{opacity:1;filter:blur(0);transform:none;}}
 @keyframes jyEnjoy{0%{opacity:0;filter:blur(32px);transform:translateY(16px) scale(1.35);}55%{opacity:1;}100%{opacity:1;filter:blur(0);transform:translateY(0) scale(1);}}
 @keyframes jyGlow{0%{opacity:0;transform:scale(.7);}50%{opacity:.95;}100%{opacity:.62;transform:scale(1);}}
@@ -550,22 +553,34 @@ const CSS = `
 .jy-mid{display:flex;align-items:center;gap:12px;}
 .jy-hudch{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;min-width:82px;text-align:right;}
 /* the road HUD */
-.jy-road{width:clamp(110px,15vw,175px);height:28px;cursor:pointer;overflow:visible;flex:0 0 auto;}
-.jy-road-under{fill:none;stroke-width:3;stroke-linecap:round;}
-.jy-road-prog{fill:none;stroke-width:3;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;}
-.jy-road-av circle{filter:drop-shadow(0 2px 4px rgba(6,12,20,.35));}
+.jy-prog{display:flex;gap:5px;align-items:center;flex:0 0 auto;}
+.jy-seg{width:clamp(15px,2.2vw,28px);height:16px;padding:6px 0;background:none;border:0;cursor:pointer;}
+.jy-seg i{display:block;height:4px;border-radius:99px;overflow:hidden;background:rgba(255,255,255,.22);}
+.jy-seg b{display:block;height:100%;width:100%;border-radius:99px;background:#fff;transform:scaleX(0);transform-origin:left center;}
+.jy-next{position:absolute;left:50%;transform:translateX(-50%);bottom:clamp(14px,2.8vh,28px);z-index:7;
+  display:flex;flex-direction:column;align-items:center;gap:7px;background:none;border:0;cursor:pointer;
+  font-family:inherit;transition:opacity .35s ease;}
+.jy-next.off{opacity:0;pointer-events:none;}
+.jn-circ{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:19px;color:#fff;border:1px solid rgba(255,255,255,.32);background:rgba(6,8,13,.28);
+  backdrop-filter:blur(6px);transition:transform .3s ease,border-color .3s ease;}
+.jy-next:hover .jn-circ{transform:translateY(2px);border-color:rgba(255,255,255,.65);}
+.jn-lbl{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;line-height:1.55;color:rgba(255,255,255,.6);}
 .jy-hudct{font-size:11px;font-weight:700;letter-spacing:.1em;min-width:44px;}
 .jy-skip{background:none;border:0;font-family:inherit;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;padding:0;margin-left:4px;opacity:.85;transition:opacity .3s ease;}
 .jy-skip:hover{text-decoration:underline;}
 .jy-skip.off{opacity:0;pointer-events:none;}
 .jy-stage.dk{color:#fff;}
 .jy-stage.dk .jy-hudch,.jy-stage.dk .jy-hudct{color:rgba(255,255,255,.6);}
-.jy-stage.dk .jy-road-under{stroke:rgba(255,255,255,.18);}
+
 .jy-stage.dk .jy-skip{color:rgba(255,255,255,.65);}
 .jy-stage.dk .jy-hud .jy-who{color:#fff;} .jy-stage.dk .jy-hud .jy-who small{color:rgba(255,255,255,.55);}
 .jy-stage.lt{color:var(--jy-ink);}
 .jy-stage.lt .jy-hudch,.jy-stage.lt .jy-hudct{color:var(--jy-cap);}
-.jy-stage.lt .jy-road-under{stroke:rgba(6,12,20,.12);}
+.jy-stage.lt .jy-seg i{background:rgba(6,12,20,.14);}
+.jy-stage.lt .jy-seg b{background:#06080d;}
+.jy-stage.lt .jn-circ{color:#06080d;border-color:rgba(6,12,20,.3);background:rgba(255,255,255,.55);}
+.jy-stage.lt .jn-lbl{color:rgba(6,12,20,.55);}
 .jy-stage.lt .jy-skip{color:var(--jy-cap);}
 .jy-stage.lt .jy-hud .jy-who{color:var(--jy-ink);} .jy-stage.lt .jy-hud .jy-who small{color:var(--jy-cap);}
 @media(max-width:640px){.jy-hud .jy-who{display:none;}.jy-hudch,.jy-skip{display:none;}}
@@ -721,7 +736,6 @@ const CSS = `
 
 @media(prefers-reduced-motion:reduce){
   .jy-rv,.jy-leak,.jy-fl,.jy-stars span,.jy .fbody,.jy .pfq-q,.jy .pfq-q .pl,.jy-word,.jy-wsub,.jy-stamp,.jy-payjoy{transition:none;}
-  .jy-cue{animation:none;opacity:1;}
   .jy-pill,.jy-title h1 .l1,.jy-title h1 .l2,.jy-sub,.jy-title .jy-avchip{animation:none;opacity:1;transform:none;filter:none;}
   .jy-title h1 .l2::before{animation:none;opacity:.62;transform:none;}
   .jy-fbg img{animation:none;transform:none;}

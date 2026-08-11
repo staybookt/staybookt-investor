@@ -569,7 +569,12 @@ export default function RemovalTest({ anchorId }: { anchorId?: string } = {}) {
     const absTop = el.getBoundingClientRect().top + window.scrollY;
     /* B[i] is a fraction of the post-intro remainder, not of the whole track — rescale by
        B0 the same way apply() does, just inverted. */
-    const p = Math.min(B0 + (1 - B0) * (B[i] + 0.02), 0.999);
+    /* LAND INSIDE THE BEAT ON A PAINTED FRAME (Emma V2 + Richard 8-10): +0.02 put "The
+       difference" at the very top of beat 2, where the wires have not redrawn and the
+       lights are all out — a black diagram under the heading. Beat 2 now lands at 80%,
+       grid lit and wires drawn. Beats 0-1 open painted, so their thresholds stand. */
+    const LAND = [0.02, 0.02, 0.8];
+    const p = Math.min(B0 + (1 - B0) * (B[i] + (B[i + 1] - B[i]) * LAND[i]), 0.999);
     window.scrollTo({ top: Math.round(absTop + total * p), behavior: 'smooth' });
   };
 
