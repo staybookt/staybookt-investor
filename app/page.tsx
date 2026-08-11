@@ -159,7 +159,9 @@ const PAGE_CSS = `
    reserved for the arrows + the WITH STAYBOOKT caption. Pop through contrast, not a slab. */
 .probs .pr-frame{margin:clamp(22px,3.4vh,34px) auto 0;max-width:920px;}
 .probs .pr-block{position:relative;}
-.probs .pr-lede{margin:0 auto;font-size:clamp(14px,1.55vw,17px);line-height:1.5;color:#5b6472;max-width:56ch;}
+/* 56ch wrapped Richard's longer lede and orphaned "mission:" onto its own line (Jacob,
+   8-10). Uncapped: the sentence is ~640px at full size and holds one line on desktop. */
+.probs .pr-lede{margin:0 auto;font-size:clamp(14px,1.55vw,17px);line-height:1.5;color:#5b6472;max-width:none;padding:0 16px;}
 /* Column captions: the device one fold below says TODAY / TOMORROW, the pricing chart says
    today / With StayBookt - this panel speaks the same axis. */
 .probs .pr-cols{display:grid;grid-template-columns:1fr 40px 1fr;gap:14px;
