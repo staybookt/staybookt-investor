@@ -217,6 +217,13 @@ const CSS = `
    Both states in frame; the change is the star. */
 .st-scene{position:relative;z-index:1;margin-top:4px;width:100%;
   height:clamp(96px,15vw,150px);}
+/* Short viewports (125%-scaled laptops): condense the device so the fold below it still
+   fits — pairs with the .po1 short-viewport rules on the homepage. */
+@media(max-height:660px){
+  .hd-stage{padding-top:16px;}
+  .st-scene{height:clamp(84px,12vw,112px);}
+  .st-line{margin-top:6px;}
+}
 .st-was{position:absolute;left:0;right:0;top:0;height:26px;display:flex;align-items:center;justify-content:center;
   font-size:clamp(14px,1.8vw,18px);font-weight:600;color:#7d8494;text-decoration:line-through;
   text-decoration-color:rgba(239,68,68,.55);text-decoration-thickness:2px;

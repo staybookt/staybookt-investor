@@ -399,6 +399,12 @@ const PAGE_CSS = `
 /* Jacob 8-10: the mission line must sit clearly inside the first viewport at 100% on a
    standard (often 125%-scaled Windows) laptop. Hero + mission-fold paddings trimmed ~100px. */
 .v4.po1 header.scene{min-height:auto;padding:calc(64px + clamp(24px,3.6vh,40px)) 0 clamp(18px,2.6vh,30px);}
+/* Short-viewport compression (Windows 125% scaling leaves ~614px): squeeze the hero so
+   Richard's mission line lands whole in fold one even there. */
+@media(max-height:660px){
+  .v4.po1 header.scene{padding:calc(64px + 14px) 0 12px;}
+  .probs{padding-top:26px;}
+}
 .v4.po1 header.scene .inner.po1-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);gap:clamp(28px,4vw,60px);align-items:center;text-align:left;}
 .v4.po1 header.scene .po1-left h1{text-align:left;margin-top:0;font-size:clamp(28px,3.35vw,47px);}
 .v4.po1 header.scene .po1-left p.sub{text-align:left;font-size:clamp(15px,1.5vw,17.5px);}
