@@ -388,11 +388,28 @@ const PAGE_CSS = `
 .v4 .illus{background:#050506;padding:0 0 clamp(50px,6vw,74px);}
 .v4 .illus .wrap{text-align:center;font-size:12.5px;line-height:1.5;color:#5c6470;max-width:60ch;}
 
+
+/* ===== PREVIEW O1 OVERRIDES (Emma landing Option 1: split hero, device right) ===== */
+/* Selectors carry .v4.po1 because the base hero rules (.v4 header.scene h1 etc.) out-specify
+   naive .po1 overrides — first deploy shipped an 88px nowrap headline into a half column. */
+.v4.po1 header.scene{min-height:auto;padding:calc(64px + clamp(40px,6vh,64px)) 0 clamp(36px,5vh,56px);}
+.v4.po1 header.scene .inner.po1-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);gap:clamp(28px,4vw,60px);align-items:center;text-align:left;}
+.v4.po1 header.scene .po1-left h1{text-align:left;margin-top:0;font-size:clamp(28px,3.35vw,47px);}
+.v4.po1 header.scene .po1-left p.sub{text-align:left;font-size:clamp(15px,1.5vw,17.5px);}
+.v4.po1 header.scene p.sub span{white-space:normal;}
+.v4.po1 .po1-btn{display:inline-block;margin-top:28px;background:#06080d;color:#fff;font-size:15px;font-weight:600;border-radius:999px;padding:14px 26px;text-decoration:none;transition:transform .25s ease,box-shadow .25s ease;}
+.v4.po1 .po1-btn:hover{transform:translateY(-1px);box-shadow:0 14px 30px -14px rgba(6,8,13,.5);}
+.v4.po1 .po1-right .hd-fold{margin:0;max-width:none;}
+@media(max-width:860px){
+  .v4.po1 header.scene .inner.po1-grid{grid-template-columns:1fr;text-align:center;gap:26px;}
+  .v4.po1 header.scene .po1-left h1,.v4.po1 header.scene .po1-left p.sub{text-align:center;}
+  .v4.po1 .po1-btn{margin-top:20px;}
+}
 `;
 
 export default function HomePage() {
   return (
-    <div id="top" className="v4">
+    <div id="top" className="v4 po1">
       <style>{min(PAGE_CSS)}</style>
       {/* solidTop, round 9 (Jacob, Aug 2 2026): Nav's transparent-over-dark-photo mode only
           made sense while the hero had round 3's photo behind it. Every other page with this
@@ -426,36 +443,31 @@ export default function HomePage() {
             staybookt-hero-answer-field.md). HeroPayoff.tsx (the retired scroll section) and
             the photo treatment both stay documented in case either is useful again; this hero
             is the same locked format /journeys and /founders already use. */}
-        <div className="wrap inner">
-          {/* ICP pill moved up into the problems fold (fold 1) — Richard v2. */}
-          <Reveal>
-            <h1 className="hero-h1">
-              <span className="hl1">You built your business to do</span>
-              <span className="hl2"><span className="g">What You Love</span><span className="pd">.</span></span>
-            </h1>
-          </Reveal>
-          <Reveal>
-            {/* RICHARD'S SUB (homepage feedback doc, Aug 2 2026), replacing "Less busywork.
-                More time growing the business." — his two lines verbatim (closing period
-                added to line 2; quote marks rendered as real curly quotes). Line 2 is the
-                answer beat so it carries ink + weight. Prior sub history lives in git. */}
-            <p className="sub">
-              <span>But a lot of &ldquo;unfun&rdquo; stuff gets in the way of that dream.</span>
-              <span>StayBookt is the answer to making your business what it was always meant to be.</span>
-            </p>
-          </Reveal>
-          {/* HERO "GET STARTED" PILL DROPPED (Jacob, round 7, Aug 2 2026). Nav already carries
-              a "Get Started" pill on every page, and the sticky "Call now" bar shows up after
-              the hero on every page too — a third CTA stacked directly under the subhead was
-              one too many asks before the dashboard below has even made its case. */}
+        <div className="wrap inner po1-grid">
+          {/* OPTION 1 LANDING (Emma redesign round, Jacob's pick, Aug 10 2026): split hero —
+              copy left with the restored Get Started CTA, the live interactive dashboard
+              right. Same approved copy as the centered layout it replaces (git has it). */}
+          <div className="po1-left">
+            <Reveal>
+              <h1 className="hero-h1">
+                <span className="hl1">You built your business to do</span>
+                <span className="hl2"><span className="g">What You Love</span><span className="pd">.</span></span>
+              </h1>
+            </Reveal>
+            <Reveal>
+              <p className="sub">
+                <span>But a lot of &ldquo;unfun&rdquo; stuff gets in the way of that dream.</span>
+                <span>StayBookt is the answer to making your business what it was always meant to be.</span>
+              </p>
+            </Reveal>
+            <Reveal>
+              <a className="po1-btn" href="/start" data-cta="hero_o1">Get Started <span aria-hidden>&rarr;</span></a>
+            </Reveal>
+          </div>
+          <div className="po1-right">
+            <HeroDashboard />
+          </div>
         </div>
-        {/* THE DASHBOARD IS THE FOLD'S SUPPORTING GRAPHIC — round 11 (Jacob, Aug 2 2026).
-            Round 8 pulled it out of the hero because the photo was behind it; the photo is
-            gone (round 9), and the /journeys reference Jacob pointed at composes headline +
-            graphic as one 100svh scene. Back inside the header, entering at the same 2.15s
-            beat the Journeys map uses. Round 10's interactivity (hover/tap "how" lines,
-            keyboard, icon springs) survives — see HeroDashboard.tsx. */}
-        <HeroDashboard />
         {/* THE "Scroll" CUE IS GONE (Richard, review, July 2026). It sat at the foot of the
             hero, and the very next thing on the page is the film's first label, GET FOUND.
             So you read "Scroll / GET FOUND" as one phrase and stopped to work out whether
