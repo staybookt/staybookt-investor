@@ -59,7 +59,7 @@ const QS: Q[] = [
   {
     k: 'The money',
     c: '#4f46e5',
-    q: 'When does the $199 start?',
+    q: 'When does the $199/mth USD start?',
     /* Approved addition (Richard: "Ok to add" + "Agree with the start timing"). Richard
        flagged this with "confirm the billing trigger before publishing" (FAQ doc, Jul 28
        10:26am). Confirmed by Jacob: you do not pay until the platform is up and running.
@@ -112,7 +112,7 @@ const QS: Q[] = [
   {
     k: 'The money',
     c: '#4f46e5',
-    q: 'Is $199 really the whole number?',
+    q: 'Is $199/mth USD really the whole number?',
     /* Richard, FAQ doc, Jul 28 10:14am: deleted the closing line "We would rather tell you
        about twenty dollars and a card fee now than have you find them on an invoice
        later." Answer ends on the back-end list now. */
@@ -129,7 +129,7 @@ const QS: Q[] = [
        PRICE FORMAT FIX (Jacob, Jul 30 2026, flagged via screenshot: "still inconsistent on
        pricing formatting"): this had drifted to "$199/mth", the compact-label shorthand,
        inside a full prose question. Site rule (see app/pricing/page.tsx, the .usp comment):
-       prose sentences say "$199 a month"; only compact price chips/labels use "$199/mth".
+       ONE price format sitewide (Jacob, Aug 6+10 2026): "$199/mth USD", everywhere, including questions.
        A spoken question is prose. Also dropped a stray "CAD" from the answer above this one
        (line ~119) — no other price mention on the site includes a currency code, so it read
        as a fourth, unmatched format. */
