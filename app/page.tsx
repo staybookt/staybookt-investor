@@ -143,7 +143,9 @@ const PAGE_CSS = `
    landing view read cheap). Same content, same one-viewport fit, still fully static — but
    on the CREAM page background, transformation rows as plain type with hairline dividers
    (no card chrome, no dark panel - Jacob, Aug 6). */
-.probs{padding:clamp(92px,12vh,116px) 0 clamp(36px,5vh,56px);background:var(--v4-cream,#f6f6f3);text-align:center;}
+/* Top pad was fixed-nav clearance from the fold-1 era; the section sits under the hero
+   now, so the clearance only pushed the mission line below the fold (Jacob, 8-10). */
+.probs{padding:clamp(40px,5.5vh,60px) 0 clamp(36px,5vh,56px);background:var(--v4-cream,#f6f6f3);text-align:center;}
 /* Richard's mission line (8-10) is ~69ch — at the old 48px cap it broke into a ragged
    three-line stack. 37px holds his two clauses to one clean line each. */
 .probs .pr-h{margin:0 auto;font-size:clamp(24px,2.55vw,37px);line-height:1.16;font-weight:600;
@@ -394,7 +396,9 @@ const PAGE_CSS = `
 /* ===== PREVIEW O1 OVERRIDES (Emma landing Option 1: split hero, device right) ===== */
 /* Selectors carry .v4.po1 because the base hero rules (.v4 header.scene h1 etc.) out-specify
    naive .po1 overrides — first deploy shipped an 88px nowrap headline into a half column. */
-.v4.po1 header.scene{min-height:auto;padding:calc(64px + clamp(40px,6vh,64px)) 0 clamp(36px,5vh,56px);}
+/* Jacob 8-10: the mission line must sit clearly inside the first viewport at 100% on a
+   standard (often 125%-scaled Windows) laptop. Hero + mission-fold paddings trimmed ~100px. */
+.v4.po1 header.scene{min-height:auto;padding:calc(64px + clamp(24px,3.6vh,40px)) 0 clamp(18px,2.6vh,30px);}
 .v4.po1 header.scene .inner.po1-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);gap:clamp(28px,4vw,60px);align-items:center;text-align:left;}
 .v4.po1 header.scene .po1-left h1{text-align:left;margin-top:0;font-size:clamp(28px,3.35vw,47px);}
 .v4.po1 header.scene .po1-left p.sub{text-align:left;font-size:clamp(15px,1.5vw,17.5px);}
