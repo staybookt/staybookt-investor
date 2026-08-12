@@ -193,7 +193,9 @@ const PAGE_CSS = `
 @media(hover:hover){.probs .pr-row{transition:background .25s ease;}
   .probs .pr-row:hover{background:rgba(6,8,13,.03);}}
 .probs .pr-close{margin:clamp(20px,3.2vh,32px) auto 0;font-size:clamp(16px,1.9vw,21px);line-height:1.45;
-  font-weight:600;color:var(--v4-ink);max-width:46ch;}
+  font-weight:600;color:var(--v4-ink);max-width:none;padding:0 16px;}
+/* phones cannot hold the 74-char sentence on one line; let it wrap naturally there. */
+@media(max-width:720px){.probs .pr-close br{display:none;}}
 @media(max-width:600px){
   .probs .pr-h br{display:none;}
   .probs .pr-row{grid-template-columns:1fr;gap:2px;padding:12px 0;}
@@ -567,7 +569,9 @@ export default function HomePage() {
             </div>
           </div>
           </div>
-          <p className="pr-close">Every small business owner struggles with at least one of these problems.
+          {/* HARD BREAK (Richard 8-12): sentence one stays whole on line one so "StayBookt is
+              the solution" owns line two. 46ch cap removed - it was forcing the wrap. */}
+          <p className="pr-close">Every small business owner struggles with at least one of these problems.<br />
             StayBookt is <span className="g">the solution</span><span className="pd">.</span></p>
         </div>
       </section>
