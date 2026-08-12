@@ -411,11 +411,27 @@ const PAGE_CSS = `
 .v4.po1 header.scene{min-height:auto;padding:calc(64px + clamp(24px,3.6vh,40px)) 0 clamp(18px,2.6vh,30px);}
 /* Short-viewport compression (Windows 125% scaling leaves ~614px): squeeze the hero so
    Richard's mission line lands whole in fold one even there. */
-@media(max-height:660px){
-  .v4.po1 header.scene{padding:calc(64px + 12px) 0 10px;}
+/* Matching tiers to HeroDashboard's (Richard, Aug 12): fold one must hold the hero AND
+   the mission statement AND the insanely-great line on every common laptop window, not
+   just tall ones. Verified 560px of viewport upward. */
+@media(max-height:820px){
+  .v4.po1 header.scene{padding:calc(64px + 22px) 0 16px;}
+  .probs{padding-top:30px;}
+  .probs .pr-h{margin-top:10px;}
+  .probs .pr-lede{margin-top:12px;}
+}
+@media(max-height:700px){
+  .v4.po1 header.scene{padding:calc(64px + 14px) 0 10px;}
   .probs{padding-top:20px;}
-  .probs .pr-h{margin-top:9px;}
-  .probs .pr-lede{margin-top:10px;}
+  .probs .pr-h{margin-top:8px;font-size:clamp(22px,2.35vw,32px);}
+  .probs .pr-lede{margin-top:9px;font-size:clamp(15.5px,1.7vw,18.5px);}
+}
+@media(max-height:620px){
+  .v4.po1 header.scene{padding:calc(64px + 10px) 0 6px;}
+  .probs{padding-top:14px;}
+  .probs .pr-eyebrow{font-size:12px;}
+  .probs .pr-h{margin-top:6px;font-size:clamp(20px,2.1vw,28px);}
+  .probs .pr-lede{margin-top:7px;font-size:clamp(15px,1.6vw,17px);}
 }
 .v4.po1 header.scene .inner.po1-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);gap:clamp(28px,4vw,60px);align-items:center;text-align:left;}
 .v4.po1 header.scene .po1-left h1{text-align:left;margin-top:0;font-size:clamp(28px,3.35vw,47px);}

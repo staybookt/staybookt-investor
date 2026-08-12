@@ -217,12 +217,25 @@ const CSS = `
    Both states in frame; the change is the star. */
 .st-scene{position:relative;z-index:1;margin-top:4px;width:100%;
   height:clamp(96px,15vw,150px);}
-/* Short viewports (125%-scaled laptops): condense the device so the fold below it still
-   fits — pairs with the .po1 short-viewport rules on the homepage. */
-@media(max-height:660px){
-  .hd-stage{padding-top:16px;}
-  .st-scene{height:clamp(84px,12vw,112px);}
-  .st-line{margin-top:6px;}
+/* THE DEVICE SCALES WITH WINDOW HEIGHT, not just one breakpoint (Richard's Windows
+   laptop, Aug 12: the mission lede fell off his screen while it fit on a Mac). A single
+   max-height:660 rule left a dead zone at 661-780px where the full-size layout still did
+   not fit. Three tiers now, so fold one holds from ~560px of viewport upward. */
+@media(max-height:820px){
+  .hd-stage{padding-top:18px;}
+  .st-scene{height:clamp(88px,11vw,120px);}
+  .st-line{margin-top:7px;}
+}
+@media(max-height:700px){
+  .hd-stage{padding-top:14px;padding-bottom:0;}
+  .st-scene{height:clamp(76px,9.5vw,96px);}
+  .st-lbl{margin-top:8px;}
+  .st-line{margin-top:5px;}
+}
+@media(max-height:620px){
+  .hd-stage{padding-top:11px;}
+  .st-scene{height:clamp(64px,8vw,80px);}
+  .st-line{margin-top:3px;}
 }
 .st-was{position:absolute;left:0;right:0;top:0;height:26px;display:flex;align-items:center;justify-content:center;
   font-size:clamp(14px,1.8vw,18px);font-weight:600;color:#7d8494;text-decoration:line-through;
