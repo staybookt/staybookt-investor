@@ -40,7 +40,11 @@ export default function HeroCta({ fromBlack = false, img = HERO_IMG, imgPos, hea
           CSS above pins this to inset:0 / 100% / object-fit:cover, so the attributes never
           set the rendered size; they only give the browser an aspect ratio up front so it
           reserves the box before the bytes land instead of reflowing around it. */}
-      <img src={img} alt="" width={2000} height={2835} loading="lazy" decoding="async" style={imgPos ? { objectPosition: imgPos } : undefined} />
+      {/* eager + low priority (Emre via Richard, 8-11: "speed up the image load"): lazy
+          made the only image on the page start downloading when you reached it, so it
+          painted late. Now it fetches early at low priority and is cached by scroll-time;
+          the files themselves were recompressed from ~350KB to ~100-210KB. */}
+      <img src={img} alt="" width={2000} height={2835} loading="eager" fetchPriority="low" decoding="async" style={imgPos ? { objectPosition: imgPos } : undefined} />
       <div className="hcta-ov" />
       <div className="hcta-in">
         {/* WAS "Go enjoy the life you built it for." (Richard: "feels awkward. I have to

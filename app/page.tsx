@@ -148,7 +148,8 @@ const PAGE_CSS = `
 .probs{padding:clamp(40px,5.5vh,60px) 0 clamp(36px,5vh,56px);background:var(--v4-cream,#f6f6f3);text-align:center;}
 /* Richard's mission line (8-10) is ~69ch — at the old 48px cap it broke into a ragged
    three-line stack. 37px holds his two clauses to one clean line each. */
-.probs .pr-h{margin:0 auto;font-size:clamp(24px,2.55vw,37px);line-height:1.16;font-weight:600;
+.probs .pr-eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#69707d;}
+.probs .pr-h{margin:12px auto 0;font-size:clamp(24px,2.55vw,37px);line-height:1.16;font-weight:600;
   letter-spacing:-.035em;color:var(--v4-ink);max-width:none;}
 .probs .pr-h .g,.probs .pr-close .g{background:var(--sb-grad);-webkit-background-clip:text;
   background-clip:text;color:transparent;padding-right:.04em;}
@@ -157,11 +158,14 @@ const PAGE_CSS = `
 /* Jacob, Aug 6 round 2: NOT a dark panel. The section lives natively on the cream page -
    plain type, hairline ink dividers, struck-out problems vs bold ink answers, gradient
    reserved for the arrows + the WITH STAYBOOKT caption. Pop through contrast, not a slab. */
-.probs .pr-frame{margin:clamp(22px,3.4vh,34px) auto 0;max-width:920px;}
+.probs .pr-frame{margin:clamp(70px,15vh,150px) auto 0;max-width:920px;}
 .probs .pr-block{position:relative;}
 /* 56ch wrapped Richard's longer lede and orphaned "mission:" onto its own line (Jacob,
    8-10). Uncapped: the sentence is ~640px at full size and holds one line on desktop. */
-.probs .pr-lede{margin:0 auto;font-size:clamp(14px,1.55vw,17px);line-height:1.5;color:#5b6472;max-width:none;padding:0 16px;}
+/* PRONOUNCED (Richard 8-11): the insanely-great line is the fold's closing beat now -
+   ink, larger, period not colon - and the chart below must NOT peek into fold one at the
+   common laptop windows (the .pr-frame gap below handles that). */
+.probs .pr-lede{margin:clamp(14px,2vh,20px) auto 0;font-size:clamp(16.5px,1.95vw,21px);line-height:1.5;color:var(--v4-ink);font-weight:500;max-width:none;padding:0 16px;}
 /* Column captions: the device one fold below says TODAY / TOMORROW, the pricing chart says
    today / With StayBookt - this panel speaks the same axis. */
 .probs .pr-cols{display:grid;grid-template-columns:1fr 40px 1fr;gap:14px;
@@ -396,6 +400,10 @@ const PAGE_CSS = `
 
 
 /* ===== PREVIEW O1 OVERRIDES (Emma landing Option 1: split hero, device right) ===== */
+/* CTA LAST (Emre via Richard, 8-11): fades in after the dashboard entrance completes. */
+.v4.po1 .po1-cta{opacity:0;animation:po1CtaIn .8s cubic-bezier(.16,1,.3,1) 3.25s forwards;}
+@keyframes po1CtaIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+@media(prefers-reduced-motion:reduce){.v4.po1 .po1-cta{animation:none;opacity:1;}}
 /* Selectors carry .v4.po1 because the base hero rules (.v4 header.scene h1 etc.) out-specify
    naive .po1 overrides — first deploy shipped an 88px nowrap headline into a half column. */
 /* Jacob 8-10: the mission line must sit clearly inside the first viewport at 100% on a
@@ -404,8 +412,10 @@ const PAGE_CSS = `
 /* Short-viewport compression (Windows 125% scaling leaves ~614px): squeeze the hero so
    Richard's mission line lands whole in fold one even there. */
 @media(max-height:660px){
-  .v4.po1 header.scene{padding:calc(64px + 14px) 0 12px;}
-  .probs{padding-top:26px;}
+  .v4.po1 header.scene{padding:calc(64px + 12px) 0 10px;}
+  .probs{padding-top:20px;}
+  .probs .pr-h{margin-top:9px;}
+  .probs .pr-lede{margin-top:10px;}
 }
 .v4.po1 header.scene .inner.po1-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);gap:clamp(28px,4vw,60px);align-items:center;text-align:left;}
 .v4.po1 header.scene .po1-left h1{text-align:left;margin-top:0;font-size:clamp(28px,3.35vw,47px);}
@@ -477,9 +487,11 @@ export default function HomePage() {
                 <span>StayBookt is the answer to making your business what it was always meant to be, and giving you <b>more time</b> and <b>freedom</b>.</span>
               </p>
             </Reveal>
-            <Reveal>
+            {/* Emre via Richard (8-11): the CTA arrives LAST - after the headline, the
+                sub, and the dashboard's 2.15s + 1s entrance. */}
+            <div className="po1-cta">
               <a className="po1-btn" href="/start" data-cta="hero_o1">Get Started <span aria-hidden>&rarr;</span></a>
-            </Reveal>
+            </div>
           </div>
           <div className="po1-right">
             <HeroDashboard />
@@ -508,10 +520,14 @@ export default function HomePage() {
           frame. The punch is hierarchy: muted problem, arrow spine, gradient future state. */}
       <section className="probs">
         <div className="wrap">
-          <h2 className="pr-h">Our mission is to help small businesses <span className="g">realize their full potential</span>,<br />and improve the lives of owners, and the families behind them<span className="pd">.</span></h2>
+          {/* RICHARD 8-11: "Our Mission" split out as its own header above the statement, his
+              new sentence verbatim, gradient moved to "improving the lives of owners" per his
+              suggestion (one gradient per headline - "full potential" goes plain). */}
+          <div className="eyebrow pr-eyebrow">Our Mission</div>
+          <h2 className="pr-h">Helping small businesses realize their full potential,<br />and <span className="g">improving the lives of owners</span> and the families behind them<span className="pd">.</span></h2>
           <div className="pr-frame">
           <div className="pr-block">
-            <p className="pr-lede">We are <b>insanely great</b> at solving the problems that get in the way of this mission:</p>
+            <p className="pr-lede">We are <b>insanely great</b> at solving the problems that get in the way of this mission.</p>
             <div className="pr-cols" aria-hidden><span className="pc-l">Today</span><span /><span className="pc-r">With StayBookt</span></div>
             <div className="pr-rows">
               <div className="pr-row"><span className="pr-was">A website that doesn&rsquo;t generate calls</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">Phones ringing, answered 24/7</span></div>
