@@ -525,9 +525,11 @@ export default function HomePage() {
               suggestion (one gradient per headline - "full potential" goes plain). */}
           <div className="eyebrow pr-eyebrow">Our Mission</div>
           <h2 className="pr-h">Helping small businesses realize their full potential,<br />and <span className="g">improving the lives of owners</span> and the families behind them<span className="pd">.</span></h2>
+          {/* the lede belongs to the MISSION, not the chart (Richard 8-11: it closes fold
+              one; the chart waits below) - moved out of the frame. */}
+          <p className="pr-lede">We are <b>insanely great</b> at solving the problems that get in the way of this mission.</p>
           <div className="pr-frame">
           <div className="pr-block">
-            <p className="pr-lede">We are <b>insanely great</b> at solving the problems that get in the way of this mission.</p>
             <div className="pr-cols" aria-hidden><span className="pc-l">Today</span><span /><span className="pc-r">With StayBookt</span></div>
             <div className="pr-rows">
               <div className="pr-row"><span className="pr-was">A website that doesn&rsquo;t generate calls</span><span className="pr-arr" aria-hidden>&rarr;</span><span className="pr-now">Phones ringing, answered 24/7</span></div>
