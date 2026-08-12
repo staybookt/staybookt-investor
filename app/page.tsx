@@ -158,7 +158,11 @@ const PAGE_CSS = `
 /* Jacob, Aug 6 round 2: NOT a dark panel. The section lives natively on the cream page -
    plain type, hairline ink dividers, struck-out problems vs bold ink answers, gradient
    reserved for the arrows + the WITH STAYBOOKT caption. Pop through contrast, not a slab. */
-.probs .pr-frame{margin:clamp(70px,15vh,150px) auto 0;max-width:920px;}
+/* The turn line lives in the gap that keeps the chart out of fold one, so the space now
+   carries a beat instead of reading as dead air (Richard, 8-12). */
+.probs .pr-turn{margin:clamp(58px,12vh,120px) auto 0;font-size:clamp(23px,2.5vw,36px);line-height:1.14;
+  font-weight:600;letter-spacing:-.03em;color:var(--v4-ink);}
+.probs .pr-frame{margin:clamp(24px,3.4vh,38px) auto 0;max-width:920px;}
 .probs .pr-block{position:relative;}
 /* 56ch wrapped Richard's longer lede and orphaned "mission:" onto its own line (Jacob,
    8-10). Uncapped: the sentence is ~640px at full size and holds one line on desktop. */
@@ -422,6 +426,7 @@ const PAGE_CSS = `
 }
 @media(max-height:700px){
   .v4.po1 header.scene{padding:calc(64px + 14px) 0 10px;}
+  .probs .pr-turn{font-size:clamp(21px,2.25vw,31px);}
   .probs{padding-top:20px;}
   .probs .pr-h{margin-top:8px;font-size:clamp(22px,2.35vw,32px);}
   .probs .pr-lede{margin-top:9px;font-size:clamp(15.5px,1.7vw,18.5px);}
@@ -544,6 +549,10 @@ export default function HomePage() {
           {/* the lede belongs to the MISSION, not the chart (Richard 8-11: it closes fold
               one; the chart waits below) - moved out of the frame. */}
           <p className="pr-lede">We are <b>insanely great</b> at solving the problems that get in the way of this mission.</p>
+          {/* RICHARD 8-12: the chart arrived with no header once "missed opportunities" was
+              dropped, and the gap that keeps it out of fold one read as dead space. His
+              line fills both jobs, gradient on "better future" per his call. */}
+          <h3 className="pr-turn">A <span className="g">better future</span> awaits you<span className="pd">.</span></h3>
           <div className="pr-frame">
           <div className="pr-block">
             <div className="pr-cols" aria-hidden><span className="pc-l">Today</span><span /><span className="pc-r">With StayBookt</span></div>
