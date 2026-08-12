@@ -567,7 +567,7 @@ export default function HomePage() {
             </div>
           </div>
           </div>
-          <p className="pr-close">Every small business owner struggles with at least one of these.
+          <p className="pr-close">Every small business owner struggles with at least one of these problems.
             StayBookt is <span className="g">the solution</span><span className="pd">.</span></p>
         </div>
       </section>
