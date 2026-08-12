@@ -151,7 +151,7 @@ const PAGE_CSS = `
 .probs .pr-eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#69707d;}
 .probs .pr-h{margin:12px auto 0;font-size:clamp(24px,2.55vw,37px);line-height:1.16;font-weight:600;
   letter-spacing:-.035em;color:var(--v4-ink);max-width:none;}
-.probs .pr-h .g,.probs .pr-close .g{background:var(--sb-grad);-webkit-background-clip:text;
+.probs .pr-h .g,.probs .pr-turn .g,.probs .pr-close .g{background:var(--sb-grad);-webkit-background-clip:text;
   background-clip:text;color:transparent;padding-right:.04em;}
 /* lede + rows are ONE block (Richard: the lede "needs to feel attached to the bullet points
    more than the Tag Line"): tight vertical rhythm, no chrome. */
