@@ -179,6 +179,7 @@ const CSS = `
 .abt-values .val-h .g{background:var(--sb-grad);-webkit-background-clip:text;background-clip:text;
   color:transparent;padding-right:.04em;}
 .abt-values .val-lede{margin:20px auto 0;font-size:clamp(16px,1.8vw,19px);line-height:1.6;color:#42474f;max-width:56ch;}
+.abt-values .val-lede2{margin-top:14px;}
 .abt-values .val-rows{margin:clamp(34px,4.5vw,54px) auto 0;max-width:880px;text-align:left;}
 /* STATEMENT ROWS, not a spec table (Jacob, Aug 4 2026: "elevate this"). The old rows set the
    value NAME at 18px against 17.5px body text — no hierarchy, nothing led. Now: a small
@@ -354,11 +355,16 @@ export default function AboutPage() {
           {/* <br/> before the payoff, same punchline-alone-on-line-2 rule as every hero. */}
           <Reveal><h2 className="val-h">Helping business owners<br /><span className="g">realize their dreams</span><span className="pd">.</span></h2></Reveal>
           <Reveal>
+            {/* RICHARD 8-14-26 revision, verbatim; his em dash rendered as a comma per the
+                no-dash rule. Split into two paragraphs as he wrote it. */}
             <p className="val-lede">
               Every decision we make ties back to that one objective, from helping you run your
-              business to successfully exiting it one day. And we believe how you do things
-              matters greatly, so we are intentional in how we conduct ourselves. Five things we
-              hold ourselves to:
+              business to successfully exiting it one day, so you get the most out of your
+              business, and the most out of life.
+            </p>
+            <p className="val-lede val-lede2">
+              We believe how we win matters, so we are intentional in how we conduct ourselves.
+              Five things we hold ourselves to:
             </p>
           </Reveal>
           <div className="val-rows">
@@ -367,20 +373,20 @@ export default function AboutPage() {
               <span>We are always learning. Arrogance, personal or corporate, never gets in the way of progress.</span>
             </Reveal>
             <Reveal className="val-row" as="div">
-              <b><i className="vn">02</i>Pursuit of excellence</b>
-              <span>We take pride in the work, and the pursuit of a better way never ends.</span>
+              <b><i className="vn">02</i>Insanely great</b>
+              <span>We take pride in the work, and the pursuit of a better way never ends. Our obsession is building solutions that make a meaningful difference in the lives of our customers.</span>
             </Reveal>
             <Reveal className="val-row" as="div">
-              <b><i className="vn">03</i>Deep relationships</b>
-              <span>We build for the long term. Nothing transactional, nothing short-term.</span>
+              <b><i className="vn">03</i>Partner mindset</b>
+              <span>We build for the long term. Nothing transactional, nothing short-term. Win-win, or we pass.</span>
             </Reveal>
             <Reveal className="val-row" as="div">
               <b><i className="vn">04</i>Candor</b>
               <span>We tell each other the truth, the good and the bad. Politics never outranks the work.</span>
             </Reveal>
             <Reveal className="val-row" as="div">
-              <b><i className="vn">05</i>Partner mindset</b>
-              <span>We win together, with our customers, partners, vendors, and employees. Win-win, or we pass.</span>
+              <b><i className="vn">05</i>Accountability</b>
+              <span>We are accountable for our commitments to our customers, employees, vendors, partners, and investors. It is critical that we do what we say we will do and admit when we fall short.</span>
             </Reveal>
           </div>
         </div>
