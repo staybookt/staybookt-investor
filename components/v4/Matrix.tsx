@@ -102,7 +102,7 @@ const ROWS: Row[] = [
 
      When we can genuinely draft quotes, this row comes back. Not before. */
   {
-    job: 'Chase the quote until you get a yes or a no',
+    job: 'Chase the quote so it doesn\u2019t die a quiet death',
     you: 'you', sb: 'yes',
     detail: [
       'Every quote you send followed up until you have a yes or a no. Not a maybe',
@@ -110,22 +110,32 @@ const ROWS: Row[] = [
       'You see what is outstanding, what is won and what went cold, without digging',
     ],
   },
+  /* TWO PAYMENT ROWS MERGED INTO ONE (Richard, 8-14-26). "Take the payment" and "Chase
+     the invoice nobody chased" were two rows doing one job in the reader's head, and his
+     revised chart lists a single payment line. Details from both survive here; nothing
+     true was dropped. */
   {
-    job: 'Take the payment',
+    job: 'Chase the payment so your cash flow is solid',
     you: 'you', sb: 'yes',
     detail: [
       'The customer can pay when the job is done, not a fortnight after it',
       'Nobody standing in a driveway asking for a cheque',
+      'Unpaid invoices chased, politely and persistently, so the money actually lands',
+      'You see what is owed and what is overdue without going looking for it',
       'The money is yours. We never take a cut of a job',
     ],
   },
+  /* NEW ROW (Richard, 8-14-26): the site-visit write-up. Sits between booking the job and
+     chasing the quote, which is exactly where it happens in the owner's day. Claims kept to
+     what the assistant genuinely does: capture from the field, write it up, file it. */
   {
-    job: 'Chase the invoice nobody chased',
+    job: 'Write up the site visit before you\u2019re back home',
     you: 'you', sb: 'yes',
     detail: [
-      'Unpaid invoices chased, politely and persistently, so the money actually lands',
-      'You see what is owed and what is overdue without going looking for it',
-      'We are not your bookkeeper. We chase what is owed and show you what came in',
+      'Tell it what you saw on the way back to the van. It writes up the visit',
+      'The notes land on the customer record, not in your head or on a torn envelope',
+      'What was quoted, what was agreed, what needs doing next, all captured while it is fresh',
+      'The paperwork is done before you are back home, not at nine at night',
     ],
   },
   {
@@ -141,7 +151,7 @@ const ROWS: Row[] = [
        And "we never write one for you" now has to be exact, because we DO write the
        replies. Reply, never the review. Those two sit one line apart and a reader is
        entitled to know which is which. */
-    job: 'Ask for the review, and answer every one',
+    job: 'Ask for the Google review, and answer every one',
     you: 'you', sb: 'yes',
     detail: [
       'A review asked for after every finished job, at the right moment',
@@ -169,7 +179,7 @@ const ROWS: Row[] = [
     ],
   },
   {
-    job: 'Build and host the website',
+    job: 'Build a great website that helps close the deal',
     you: 'you', sb: 'yes',
     detail: [
       'A custom website, built from scratch for your business. Yours to keep',
@@ -181,7 +191,7 @@ const ROWS: Row[] = [
     ],
   },
   {
-    job: 'Run the Google listing and get you found',
+    job: 'Run the Google listing so you get calls',
     you: 'you', sb: 'yes',
     detail: [
       'Your Google Business Profile rebuilt, filled out properly and kept current',
@@ -199,7 +209,7 @@ const ROWS: Row[] = [
        Naming it is the whole fix. Note he ALSO had the standalone customer-record section
        cut ("don't think you gain enough from the extra complexity"), so this must stay a
        chart row — do not rebuild that section to solve this. */
-    job: 'A CRM that fills itself in',
+    job: 'Remember every customer detail and your promises to them',
     you: 'you', sb: 'yes',
     detail: [
       'A real CRM: every customer, every job, every conversation, in one place',
@@ -220,7 +230,7 @@ const ROWS: Row[] = [
        would headline it as an AI Assistant. Everybody wants an assistant!" He is right that
        the label is the only part most readers read, so the label has to carry the noun.
        The detail still does the work of saying it is not a chatbot. */
-    job: 'An AI Assistant that knows your business',
+    job: 'Do the admin that only you can do, because it\u2019s all in your head',
     you: 'you', sb: 'yes',
     detail: [
       'Ask in plain English: how did last week go, who has not paid, who has gone quiet',
@@ -230,7 +240,7 @@ const ROWS: Row[] = [
     ],
   },
   {
-    job: 'Hand you one short brief each morning',
+    job: 'Work out what today needs before the first call comes in',
     you: 'you', sb: 'yes',
     detail: [
       'What is booked today, and who is expecting you',
@@ -250,7 +260,10 @@ const ROWS: Row[] = [
 /* ORDER (Richard, 8-5-26: "the website, google listing, and CRM should be at the top. The
    rest looks thoughtful.") ROWS stays in its original authoring order; this maps the render
    order: website (8), Google listing (9), CRM (10) first, then everything else as it was. */
-const ORDERED = [8, 9, 10, 0, 1, 2, 3, 4, 5, 6, 7, 11, 12].map((i) => ROWS[i]);
+/* ORDER updated 8-14-26 to Richard's revised sequence: website, Google, CRM, then the day
+   in the order it actually happens — call, triage, book, WRITE UP THE VISIT, chase quote,
+   chase payment, review, win-back, admin, plan tomorrow. */
+const ORDERED = [8, 9, 10, 0, 1, 2, 5, 3, 4, 6, 7, 11, 12].map((i) => ROWS[i]);
 
 const COLS: { k: keyof Pick<Row, 'you' | 'sb'>; label: string; sub: string; short: string }[] = [
   { k: 'you', label: 'On your plate today', sub: 'at nine at night', short: 'Today' },
@@ -380,8 +393,8 @@ export default function Matrix() {
               is anaphora and the exact AI tell the voice pass spent a night removing. Do not
               let it back in. */}
           <h2>
-            Thirteen jobs, and the business does not run without any of them. You are doing all
-            thirteen tonight.{' '}
+            Thirteen jobs, and the business does not run without a single one of them. You are
+            doing all thirteen tonight.{' '}
             <span className="g">For $199/mth USD we do them instead.</span>
           </h2>
         </div>
