@@ -60,9 +60,21 @@ const CSS = `
 `;
 
 export default function CallBar() {
+  const pathname = usePathname();
+
+  /* NOT ON /agents. Both of this bar's buttons are wrong there. "Call now" dials the
+     StayBookt line, and a waitlist is not a phone call. "Get Started" goes to /start,
+     which sells the $199/mo service-business product, while /agents sells an unbuilt
+     back office to real estate agents. Dropping an agent who came for a waitlist into a
+     different product's sales page is a bait and switch.
+     Returning null before the style block also drops the body padding-bottom rule, which
+     is what we want: with no bar on screen there is no height to reserve. */
+  if (pathname === '/agents') return null;
+
   /* Same dead-click fix the nav and footer carry: on /start, Get Started pointed at
      /start from /start and did nothing. There it scrolls to the calendar. */
-  const onStart = usePathname() === '/start';
+  const onStart = pathname === '/start';
+
   return (
     <nav className="sbcall" aria-label="Call or get started">
       <style>{min(CSS)}</style>
