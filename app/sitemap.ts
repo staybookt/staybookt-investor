@@ -20,6 +20,11 @@ const PATHS = [
   '/founders',
   '/whats-included',
   '/start',
+  // The real estate wing's waitlist page (Aug 2026). Indexable on purpose: it is a public
+  // waitlist, and outbound to Ontario agents is the point. Note it overlaps in audience
+  // with /journeys/real-estate-agent, which sells the CURRENT product to agents. If those
+  // two ever start competing in search, /journeys/real-estate-agent is the one to narrow.
+  '/agents',
   '/contact',
   '/terms',
   '/privacy',
