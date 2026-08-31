@@ -54,15 +54,75 @@ const FAQ: [string, string][] = [
   ],
 ];
 
+/* ENTITY DISAMBIGUATION (Aug 30 2026). Google currently treats our name as a
+ * misspelling: searching "StayBookt" returns Staybook.in and serves "These are
+ * results for StayBook. Search instead for StayBookt." There is also a live
+ * competitor at staybooked.io selling websites to the same trades at the same
+ * $199 entry price. Until an engine accepts that StayBookt is a distinct named
+ * entity, every other bit of SEO work is spent fighting an autocorrect.
+ *
+ * What the additions below are for:
+ *   @id           a stable identifier the graph can hang everything else off
+ *   alternateName genuine spacing variant only. NEVER add "StayBooked" or
+ *                 "StayBook" here. Claiming a competitor's name as our own is
+ *                 both a trademark problem and exactly the confusion we are
+ *                 trying to undo.
+ *   sameAs        the single strongest disambiguation signal there is, and it
+ *                 only works with profiles that actually exist. See the TODO.
+ *   knowsAbout    binds the brand to its topics so the entity has a subject,
+ *                 not just a name.
+ *   hasOfferCatalog  the price, in markup, so an assistant answering "what does
+ *                 StayBookt cost" has something structured to read.
+ *
+ * TODO, and it is the blocking one: sameAs needs real URLs. A LinkedIn company
+ * page, a Crunchbase record, and the public Google Business Profile URL. None
+ * of those exist yet except GBP. Creating them IS the disambiguation work; this
+ * markup only points at it. Do not pad the array with guessed URLs, a sameAs
+ * that 404s is worse than an absent one. */
+
 export default function StructuredData() {
   const data = [
     {
       '@context': 'https://schema.org',
       '@type': 'Organization',
+      '@id': 'https://www.staybookt.com/#organization',
       name: 'StayBookt',
+      alternateName: 'Stay Bookt',
+      slogan: 'Enjoy Life.',
       url: 'https://www.staybookt.com',
       email: EMAIL,
       telephone: PHONE_E164,
+      knowsAbout: [
+        'answering service for small business',
+        'missed call recovery',
+        'Google Business Profile management',
+        'quote follow-up for contractors',
+        'websites for home service businesses',
+        'customer review generation',
+      ],
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: 'StayBookt plan',
+        itemListElement: [
+          {
+            '@type': 'Offer',
+            name: 'StayBookt',
+            description:
+              'Website and Google presence built and run, every call and text answered 24/7, jobs booked, quotes chased, reviews asked for, and one short brief each morning.',
+            price: '199',
+            priceCurrency: 'USD',
+            /* Matches the site exactly: $199/mth USD plus applicable taxes, nothing
+               upfront, no lock-in. If the price ever moves, this moves with it. */
+            priceSpecification: {
+              '@type': 'UnitPriceSpecification',
+              price: '199',
+              priceCurrency: 'USD',
+              unitCode: 'MON',
+              billingIncrement: 1,
+            },
+          },
+        ],
+      },
       description:
         'StayBookt answers the phone, books the jobs and chases the quotes for owner-operated service businesses. We build and run your website and Google presence, answer every call and text 24/7, and hand you one short brief each morning. One plan, $199/mth USD, nothing upfront.',
       /* WAS Canada + United States. We have one client, in Ontario. Prices are CAD, the
@@ -83,14 +143,31 @@ export default function StructuredData() {
           availableLanguage: ['English'],
         },
       ],
+      /* Person-entities disambiguate faster than product names, so the founders
+         carry their own @id and get bound back to the org. sameAs on each Person
+         is the next thing to fill in, and is deliberately absent rather than
+         guessed. */
       founder: [
-        { '@type': 'Person', name: 'Jacob Charendoff' },
-        { '@type': 'Person', name: 'Richard Roos' },
+        {
+          '@type': 'Person',
+          '@id': 'https://www.staybookt.com/#jacob-charendoff',
+          name: 'Jacob Charendoff',
+        },
+        {
+          '@type': 'Person',
+          '@id': 'https://www.staybookt.com/#richard-roos',
+          name: 'Richard Roos',
+        },
       ],
     },
     {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
+      /* Bound to the org so the FAQ is understood as StayBookt's answers rather
+         than free-floating Q&A. This block is the most AI-retrievable thing on
+         the site: it is already question-shaped, which is the format assistants
+         pull from. Every answer here has to match the pages verbatim. */
+      about: { '@id': 'https://www.staybookt.com/#organization' },
       mainEntity: FAQ.map(([q, a]) => ({
         '@type': 'Question',
         name: q,
